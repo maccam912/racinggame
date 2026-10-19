@@ -1,6 +1,37 @@
 {
   "schema_version": 1,
   "assets": [
-    {"id": "app_icon", "source": "assets/exported/icon.svg", "creator": "Pacific Rush contributors", "license": "MIT", "attribution": "LICENSE", "modifications": "Original editable vector source"}
+    {
+      "id": "app_icon",
+      "source": "assets/exported/icon.svg",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original editable vector source"
+    },
+    {
+      "id": "godot_runtime",
+      "source": "https://github.com/godotengine/godot/tree/4.6.3-stable",
+      "creator": "Godot Engine contributors",
+      "license": "MIT and bundled third-party notices",
+      "attribution": "assets/licenses/Godot-LICENSE.txt and assets/licenses/Godot-COPYRIGHT.txt",
+      "modifications": "Unmodified pinned runtime/export templates"
+    },
+    {
+      "id": "comet_graybox",
+      "source": "game/world/car_visual.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original editable procedural development geometry; final art remains M4"
+    },
+    {
+      "id": "palm_bay_graybox",
+      "source": "game/world/track_world.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original editable procedural development geometry; final art remains M4"
+    }
   ]
 }

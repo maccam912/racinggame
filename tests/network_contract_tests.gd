@@ -1,0 +1,80 @@
+extends SceneTree
+
+var failures: int = 0
+
+
+func check(condition: bool, message: String) -> void:
+	if not condition:
+		push_error("TEST FAIL: " + message)
+		failures += 1
+
+
+func _initialize() -> void:
+	Catalog.load_all()
+	var session := RaceSession.new()
+	var hash_prefix := "0123456789abcdef".hex_decode()
+	for i in range(8):
+		var state := VehicleState.new()
+		state.slot = i
+		state.position = Vector3(i * 12.3456, 34.5678, -800.8912)
+		state.velocity = Vector3(-12.3456, 3.4567, -58.8765)
+		state.yaw = deg_to_rad(35.123)
+		state.yaw_rate = .321
+		state.steer_filter = -.8
+		state.drift_phase = 2
+		state.drift_timer = .234
+		state.drift_entry = .1
+		state.last_ack = 456
+		state.last_gate = 12
+		session.states.append(state)
+	var packet := NetCodec.encode_snapshot(session, 1234, hash_prefix)
+	check(packet.size() > 0 and packet.size() < 1200, "full eight-car snapshot payload budget")
+	var decoded := NetCodec.decode_snapshot(packet, 1, hash_prefix)
+	check(not decoded.is_empty(), "snapshot round trip")
+	if not decoded.is_empty():
+		for i in range(8):
+			var restored: VehicleState = decoded.states[i]
+			check(restored.position.distance_to(session.states[i].position) <= .01, "position quantization <= 1 cm")
+			check(restored.velocity.distance_to(session.states[i].velocity) <= .01, "velocity quantization <= 1 cm/s")
+			check(absf(restored.yaw - session.states[i].yaw) <= deg_to_rad(.02), "angle quantization <= .02 degrees")
+			check(restored.last_ack == 456 and restored.drift_phase == 2, "replay state retained")
+	for length in range(packet.size()):
+		check(NetCodec.decode_snapshot(packet.slice(0, length), 1, hash_prefix).is_empty(), "truncated snapshot rejected")
+	var frames: Array[InputFrame] = []
+	for i in range(6):
+		var frame := InputFrame.make(-.75, .9, .2, true)
+		frame.sequence = i + 1
+		frame.tick = 100 + i
+		frames.append(frame)
+	var inputs := NetCodec.encode_inputs(1, frames)
+	check(inputs.size() == 82 and NetCodec.decode_inputs(inputs, 1).size() == 6, "redundant six-frame input batch")
+	check(NetCodec.decode_inputs(inputs, 2).is_empty(), "wrong race input rejected")
+	var malformed := inputs.duplicate()
+	malformed[21] = 128
+	check(NetCodec.decode_inputs(malformed, 1).is_empty(), "unknown button bits rejected")
+	var buffer := InputBuffer.new()
+	for frame: InputFrame in frames:
+		buffer.push(frame, 100)
+		buffer.push(frame, 100)
+	check(buffer.frames.size() == 6, "redundant packets deduplicated")
+	check(buffer.sample(102).throttle == 0, "fixed three-tick input buffer")
+	check(buffer.sample(103).sequence == 1, "oldest eligible input applied once")
+	for tick in range(104, 125):
+		buffer.sample(tick)
+	check(buffer.sample(125).throttle == 0 and buffer.last_sequence == 6, "six missing ticks neutralize controls")
+	check(InputBuffer.newer(1, 0xffffffff) and not InputBuffer.newer(0xfffffffe, 1), "uint32 wrap ordering")
+	check(PeerAddress.parse("example.com:27020").port == 27020 and PeerAddress.parse("[::1]:27020").host == "::1", "hostname/IPv6 parsing")
+	for address in ["http://server/path", "host:0", "host:65536", "host:27020/../file", "bad..host:27020", "server"]:
+		check(PeerAddress.parse(address).is_empty(), "invalid direct address rejected")
+	check(not NetEvents.server_event({"type":"welcome", "slot":99}) and not NetEvents.server_event({"type":"results", "results":[{"slot":0}]}), "malformed reliable state rejected")
+	var remote := RemoteBuffer.new()
+	var remote_states: Array[VehicleState] = [VehicleState.new()]
+	remote_states[0].velocity = Vector3(10, 0, 0)
+	remote.push(100, remote_states)
+	check(absf(remote.sample(0, 1000).position.x - 1.5) < .001, "remote extrapolation stops after 150 ms")
+	var invalid := session.states[0].copy()
+	invalid.ghost_ticks = 100000
+	session.states[0] = invalid
+	check(NetCodec.encode_snapshot(session, 1234, hash_prefix).is_empty(), "quantization overflow rejected instead of wrapped")
+	print("Network contract fixtures: eight-car snapshot %d bytes; input batch %d bytes; failures %d" % [packet.size(), inputs.size(), failures])
+	quit(1 if failures else 0)

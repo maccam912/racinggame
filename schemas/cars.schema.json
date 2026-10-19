@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pacific Rush cars",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "cars",
+    "paints"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "type": "integer"
+    },
+    "cars": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "display_name_key",
+          "name",
+          "mesh_id",
+          "top_speed",
+          "acceleration",
+          "grip",
+          "turn_factor",
+          "default_paint",
+          "audio_profile_id",
+          "role"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "[a-z][a-z0-9_]*"
+          },
+          "display_name_key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "mesh_id": {
+            "type": "string",
+            "pattern": "[a-z][a-z0-9_]*"
+          },
+          "top_speed": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "acceleration": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 30
+          },
+          "grip": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 40
+          },
+          "turn_factor": {
+            "type": "number",
+            "minimum": 0.5,
+            "maximum": 1.5
+          },
+          "default_paint": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 7
+          },
+          "audio_profile_id": {
+            "type": "string",
+            "pattern": "[a-z][a-z0-9_]*"
+          },
+          "role": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          }
+        }
+      },
+      "minItems": 4,
+      "maxItems": 4
+    },
+    "paints": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "[0-9A-F]{6}"
+      },
+      "minItems": 8,
+      "maxItems": 8
+    }
+  }
+}

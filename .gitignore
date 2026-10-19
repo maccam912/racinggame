@@ -1,9 +1,7 @@
 .godot/
 build/
-reports/*.log
-reports/*.png
-reports/*.json
-!reports/status.json
+reports/
+game/build.json
 __pycache__/
 *.pyc
 *.keystore

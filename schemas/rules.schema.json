@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pacific Rush rules",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "content_version",
+    "protocol_version",
+    "save_schema",
+    "physics_hz",
+    "grace_ticks",
+    "hard_limit_ticks",
+    "grid_ticks",
+    "countdown_ticks",
+    "collision_grace_ticks",
+    "maximum_racers",
+    "lap_choices"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "type": "integer"
+    },
+    "content_version": {
+      "const": 1,
+      "type": "integer"
+    },
+    "protocol_version": {
+      "const": 1,
+      "type": "integer"
+    },
+    "save_schema": {
+      "const": 1,
+      "type": "integer"
+    },
+    "physics_hz": {
+      "const": 60,
+      "type": "integer"
+    },
+    "grace_ticks": {
+      "const": 1800,
+      "type": "integer"
+    },
+    "hard_limit_ticks": {
+      "const": 36000,
+      "type": "integer"
+    },
+    "grid_ticks": {
+      "const": 120,
+      "type": "integer"
+    },
+    "countdown_ticks": {
+      "const": 180,
+      "type": "integer"
+    },
+    "collision_grace_ticks": {
+      "const": 90,
+      "type": "integer"
+    },
+    "maximum_racers": {
+      "const": 8,
+      "type": "integer"
+    },
+    "lap_choices": {
+      "const": [
+        1,
+        2,
+        3
+      ],
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    }
+  }
+}

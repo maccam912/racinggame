@@ -20,6 +20,7 @@ func run() -> void:
 	root.add_child(drive)
 	await physics_frame
 	drive.phase = "Racing"
+	drive.session.phase = RaceSession.Phase.RACING
 	var initial := drive.state.position
 	Input.action_press("accelerate")
 	for tick in range(120):

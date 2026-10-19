@@ -22,20 +22,51 @@ jobs:
         with:
           path: ~/.cache/pacific-rush/toolchain
           key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
-      - run: python tools/bake_tracks.py --check
+      - run: python tools/check.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-check-evidence
+          path: reports/checks.json
+          if-no-files-found: error
+
+  network:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [race-reconnect, contacts]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
       - run: python tools/godot.py --headless --editor --import --quit
-      - run: python tools/godot.py --headless --script tests/content_tests.gd
-      - run: python tools/godot.py --headless --script tests/driving_tests.gd
-      - run: python tools/godot.py --headless --script tests/world_tests.gd
-      - run: python tools/godot.py --headless --script tests/progress_touch_tests.gd
-      - run: python tools/godot.py --headless --fixed-fps 60 --script tests/slice_smoke.gd
+      - name: Faulted race and five-second reconnect
+        if: matrix.scenario == 'race-reconnect'
+        run: python tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect
+      - name: Repeated side/rear contacts under real UDP faults
+        if: matrix.scenario == 'contacts'
+        run: python tools/network_integration.py --seconds 340 --latency 75 --jitter 30 --loss .03 --contacts
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: network-evidence-${{ matrix.scenario }}
+          path: reports/network-*/
+          if-no-files-found: error
 
   export:
     needs: verify
     strategy:
       fail-fast: false
       matrix:
-        target: [linux, windows, macos, android, server]
+        target: [linux, windows, macos, android, android_aab, server]
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     steps:
@@ -48,17 +79,17 @@ jobs:
           path: ~/.cache/pacific-rush/toolchain
           key: godot-exports-linux-${{ hashFiles('tools/toolchain.lock') }}
       - uses: actions/setup-java@v4
-        if: matrix.target == 'android'
+        if: startsWith(matrix.target, 'android')
         with:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
-        if: matrix.target == 'android'
+        if: startsWith(matrix.target, 'android')
         with:
           packages: platform-tools
           log-accepted-android-sdk-licenses: false
       - name: Android packages and stable development identity
-        if: matrix.target == 'android'
+        if: startsWith(matrix.target, 'android')
         env:
           KEYSTORE: ${{ secrets.ANDROID_DEBUG_KEYSTORE_BASE64 }}
         run: |
@@ -77,6 +108,9 @@ jobs:
       - name: Verify Android package
         if: matrix.target == 'android'
         run: $ANDROID_HOME/build-tools/35.0.1/apksigner verify --verbose build/android/pacific-rush.apk
+      - name: Verify Android App Bundle signature
+        if: matrix.target == 'android_aab'
+        run: jarsigner -verify build/android_aab/pacific-rush.aab
       - uses: actions/upload-artifact@v4
         with:
           name: package-${{ matrix.target }}
@@ -85,7 +119,7 @@ jobs:
 
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: export
+    needs: [export, network, native]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -101,3 +135,40 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "v0.0.${{ github.run_number }}-dev" release/* --target "$GITHUB_SHA" --title "Development Build ${{ github.run_number }}" --notes-file docs/RELEASE.md --prerelease
+
+  native:
+    needs: export
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: linux
+            runner: ubuntu-24.04
+          - target: server
+            runner: ubuntu-24.04
+          - target: windows
+            runner: windows-2022
+          - target: macos
+            runner: macos-15
+          - target: macos
+            runner: macos-15-intel
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: package-${{ matrix.target }}
+          path: build/download
+      - name: Run exported native package
+        shell: bash
+        run: python tools/native_package_smoke.py ${{ matrix.target }} build/download/*-${{ matrix.target }}.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-evidence-${{ matrix.target }}-${{ matrix.runner }}
+          path: reports/native-*.json
+          if-no-files-found: error

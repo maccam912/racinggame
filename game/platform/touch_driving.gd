@@ -103,10 +103,28 @@ func _draw() -> void:
 		var rect: Rect2 = controls[action]
 		var color := Color(.09, .17, .25, .7 if held(action) else .3)
 		draw_style_box(style(color), rect)
+		if action in ["recover", "look_back", "camera"]:
+			draw_icon(action, rect.get_center())
+			continue
 		var text: String = {"steer": "STEER", "brake": "BRAKE", "handbrake": "SLIDE", "recover": "RESET", "camera": "CAM", "look_back": "LOOK", "pause": "Ⅱ"}[action]
 		draw_string(ThemeDB.fallback_font, rect.get_center() + Vector2(-rect.size.x * .40, 7 * unit), text, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x * .8, int(16 * unit), Color.html("F5EBD3"))
 		if action == "steer":
 			draw_circle(rect.get_center() + Vector2(steer * 70 * unit, 0), 12 * unit, Color.html("F3CD48"))
+
+
+func draw_icon(action: String, center: Vector2) -> void:
+	var cream := Color.html("F5EBD3")
+	if action == "recover":
+		draw_arc(center, 14 * unit, -.3, TAU - 1.0, 32, cream, 2 * unit, true)
+		var tip := center + Vector2(14, -4) * unit
+		draw_colored_polygon(PackedVector2Array([tip, tip + Vector2(-9, -5) * unit, tip + Vector2(-5, 5) * unit]), cream)
+	elif action == "look_back":
+		draw_polyline(PackedVector2Array([center + Vector2(13, 10) * unit, center + Vector2(13, -8) * unit, center + Vector2(-11, -8) * unit]), cream, 3 * unit, true)
+		draw_colored_polygon(PackedVector2Array([center + Vector2(-16, -8) * unit, center + Vector2(-5, -16) * unit, center + Vector2(-5, 0) * unit]), cream)
+	else:
+		draw_rect(Rect2(center - Vector2(15, 10) * unit, Vector2(30, 22) * unit), cream, false, 2 * unit)
+		draw_circle(center + Vector2(0, 1) * unit, 6 * unit, cream, false, 2 * unit, true)
+		draw_rect(Rect2(center + Vector2(-9, -15) * unit, Vector2(10, 5) * unit), cream)
 
 
 func style(fill: Color) -> StyleBoxFlat:

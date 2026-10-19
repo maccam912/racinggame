@@ -1,0 +1,122 @@
+extends SceneTree
+
+var link := NetworkClient.new()
+var scene := Node3D.new()
+var collision := RouteCollision.new()
+var setup_session: RaceSession
+var driver := BotDriver.new()
+var report: String = ""
+var seconds: float = 70
+var start_ms: int = 0
+var result: Array = []
+var maximum_speed: float = 0
+var reconnect_at: float = -1
+var reconnect_done: bool = false
+var reconnect_pause_seconds: float = 5
+var resume_at_ms: int = 0
+var initial_slot: int = -1
+var contact_exercises: bool = false
+
+
+func _initialize() -> void:
+	call_deferred("run")
+
+
+func run() -> void:
+	Catalog.load_all()
+	var port := 27021
+	var name_value := "TestDriver"
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--port="):
+			port = int(arg.trim_prefix("--port="))
+		elif arg.begins_with("--name="):
+			name_value = arg.trim_prefix("--name=")
+		elif arg.begins_with("--report="):
+			report = arg.trim_prefix("--report=")
+		elif arg.begins_with("--seconds="):
+			seconds = float(arg.trim_prefix("--seconds="))
+		elif arg.begins_with("--latency-ms="):
+			link.wire.latency_ms = int(arg.trim_prefix("--latency-ms="))
+		elif arg.begins_with("--jitter-ms="):
+			link.wire.jitter_ms = int(arg.trim_prefix("--jitter-ms="))
+		elif arg.begins_with("--loss="):
+			link.wire.loss = float(arg.trim_prefix("--loss="))
+		elif arg.begins_with("--reconnect-at="):
+			reconnect_at = float(arg.trim_prefix("--reconnect-at="))
+		elif arg.begins_with("--away-seconds="):
+			reconnect_pause_seconds = float(arg.trim_prefix("--away-seconds="))
+		elif arg == "--contact-exercises":
+			contact_exercises = true
+	root.add_child(scene)
+	scene.add_child(collision)
+	collision.build(Catalog.tracks[0])
+	scene.add_child(link)
+	link.race_started.connect(start_race)
+	link.results_received.connect(func(value: Array) -> void: result = value)
+	link.status_changed.connect(func(message: String) -> void: print("TEST_NETWORK_STATUS " + message))
+	await physics_frame
+	await physics_frame
+	link.connect_to("127.0.0.1", port, name_value)
+	start_ms = Time.get_ticks_msec()
+	while Time.get_ticks_msec() - start_ms < seconds * 1000:
+		await physics_frame
+		if link.prediction:
+			maximum_speed = maxf(maximum_speed, link.prediction.state.speed())
+		if reconnect_at > 0 and not reconnect_done and Time.get_ticks_msec() - start_ms > reconnect_at * 1000:
+			reconnect_done = true
+			link.wire.event(1, {"type":"away"})
+			link.wire.poll()
+			link.process_mode = Node.PROCESS_MODE_DISABLED
+			link.wire.peer.close()
+			resume_at_ms = Time.get_ticks_msec() + roundi(reconnect_pause_seconds * 1000)
+		if resume_at_ms > 0 and Time.get_ticks_msec() >= resume_at_ms:
+			resume_at_ms = 0
+			link.process_mode = Node.PROCESS_MODE_INHERIT
+			link.begin_reconnect()
+		if not result.is_empty():
+			break
+	var data: Dictionary = {"slot":link.slot, "results":result, "max_speed":maximum_speed, "rtt_ms":link.rtt_ms, "sent_bytes":link.wire.sent_bytes, "received_bytes":link.wire.received_bytes, "dropped_packets":link.wire.dropped_packets, "reconnect_done":reconnect_done, "connected":link.connected, "sequence":link.sequence}
+	data.initial_slot = initial_slot
+	if link.prediction:
+		data.snapshots = link.prediction.snapshot_count
+		data.clear_corrections = statistics(link.prediction.clear_corrections)
+		data.contact_corrections = statistics(link.prediction.contact_corrections)
+		data.recoveries = link.prediction.recovery_corrections
+		data.last_gate = link.prediction.state.last_gate
+		data.laps = link.prediction.state.laps
+		data.finish_time = link.prediction.state.finish_time
+		data.acknowledged_sequence = link.prediction.state.last_ack
+	if report != "":
+		var file := FileAccess.open(report, FileAccess.WRITE)
+		file.store_string(JSON.stringify(data, "\t"))
+	print("TEST_NETWORK_REPORT " + JSON.stringify(data))
+	var exit_code := 0 if link.prediction and maximum_speed > 15 else 1
+	link.input_provider = Callable()
+	link.prediction = null
+	setup_session = null
+	scene.queue_free()
+	await process_frame
+	quit(exit_code)
+
+
+func start_race(config: Dictionary) -> void:
+	initial_slot = link.slot
+	setup_session = RaceSession.new()
+	var cars: Array[int] = []
+	for _index in range(int(config.count)):
+		cars.append(0)
+	setup_session.setup(Catalog.tracks[0], cars, scene.get_world_3d(), int(config.laps))
+	link.attach_prediction(setup_session.states[link.slot], setup_session.cars[link.slot], setup_session.queries[link.slot], setup_session.track, int(config.laps))
+	link.input_provider = func() -> InputFrame:
+		if contact_exercises:
+			return InputFrame.make(0, .05)
+		var frame := driver.sample(link.prediction.state, link.prediction.car, link.prediction.track, link.prediction.query)
+		return frame
+
+
+func statistics(values: Array[float]) -> Dictionary:
+	if values.is_empty():
+		return {"count":0, "p95":0, "max":0}
+	var sorted := values.duplicate()
+	sorted.sort()
+	return {"count":sorted.size(), "p95":sorted[mini(sorted.size() - 1, ceili(sorted.size() * .95) - 1)], "max":sorted[-1]}

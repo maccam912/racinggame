@@ -9,10 +9,13 @@ import shutil
 import subprocess
 import sys
 import zipfile
+from contextlib import contextmanager
+from content_hash import compute
 from bootstrap import ROOT, LOCK, engine, templates
 
 TARGETS = {'linux':('Linux','pacific-rush.x86_64'), 'windows':('Windows','pacific-rush.exe'),
            'macos':('macOS','pacific-rush.zip'), 'android':('Android','pacific-rush.apk'),
+           'android_aab':('Android AAB','pacific-rush.aab'),
            'server':('Server','pacific-rush-server.x86_64')}
 
 
@@ -21,23 +24,44 @@ def checked(args):
 
 
 def metadata(target, number):
-    h = hashlib.sha256()
-    for path in sorted((ROOT/'game/content').rglob('*.json')):
-        h.update(path.relative_to(ROOT).as_posix().encode())
-        h.update(path.read_bytes())
     return {'version':f'0.0.{number}-dev', 'build_number':number,
+            'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=no'],cwd=ROOT,text=True).strip()),
             'commit':subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),
-            'engine_version':LOCK['version'], 'engine_checksum':LOCK['assets']['templates']['sha256'],
-            'protocol_version':1,'save_schema':1,'content_hash':h.hexdigest(),'target_platform':target,
+            'engine_version':LOCK['version'], 'engine_checksum':LOCK['assets'][sys.platform]['sha256'],
+            'export_templates_checksum':LOCK['assets']['templates']['sha256'],
+            'protocol_version':1,'save_schema':1,'content_hash':compute()['content_hash'],'target_platform':target,
             'distribution':'development', 'public_signing':'not configured'}
 
 
+@contextmanager
+def stamped(data, number):
+    import re
+    project = ROOT/'project.godot'
+    presets = ROOT/'export_presets.cfg'
+    original_project, original_presets = project.read_text(), presets.read_text()
+    (ROOT/'game/build.json').write_text(json.dumps(data, indent=2)+'\n')
+    project.write_text(re.sub(r'config/version="[^"]+"', f'config/version="0.0.{number}-dev"', original_project))
+    text = re.sub(r'version/code=\d+', f'version/code={number}', original_presets)
+    text = re.sub(r'version/name="[^"]+"', f'version/name="0.0.{number}-dev"', text)
+    text = re.sub(r'application/short_version="[^"]+"', f'application/short_version="0.0.{number}"', text)
+    text = re.sub(r'application/version="[^"]+"', f'application/version="{number}"', text)
+    presets.write_text(text)
+    try:
+        yield
+    finally:
+        project.write_text(original_project)
+        presets.write_text(original_presets)
+
+
 def build(target, number):
+    if number < 1:
+        raise ValueError('Build number must be positive')
     templates()
     folder = ROOT/'build'/target
     folder.mkdir(parents=True, exist_ok=True)
+    (ROOT/'build/.gdignore').touch()
     preset, name = TARGETS[target]
-    if target == 'android':
+    if target.startswith('android'):
         sdk = os.environ.get('ANDROID_HOME', str(Path.home()/'Library/Android/sdk'))
         jdk = os.environ.get('JAVA_HOME', '/opt/homebrew/opt/openjdk@17')
         settings = ROOT/'build/export-home/editor_settings-4.6.tres'
@@ -51,21 +75,36 @@ def build(target, number):
         settings.parent.mkdir(parents=True, exist_ok=True)
         text = settings.read_text() if settings.exists() else '[gd_resource type="EditorSettings" format=3]\n\n[resource]\n'
         import re
-        for key, value in {'export/android/android_sdk_path':sdk, 'export/android/java_sdk_path':jdk}.items():
+        local_key = Path.home()/'.local/share/pacific-rush/development.keystore'
+        fallback_key = Path.home()/'.android/debug.keystore'
+        keystore = Path(os.environ.get('PACIFIC_DEBUG_KEYSTORE', str(local_key if local_key.exists() else fallback_key))).expanduser()
+        if not keystore.exists():
+            keystore = local_key
+            keystore.parent.mkdir(parents=True,exist_ok=True)
+            subprocess.run([str(Path(jdk)/'bin/keytool'),'-genkeypair','-keystore',str(keystore),'-storepass','android','-keypass','android','-alias','androiddebugkey','-dname','CN=Pacific Rush Development','-keyalg','RSA','-keysize','2048','-validity','10000'],check=True,capture_output=True)
+            keystore.chmod(0o600)
+        values = {'export/android/android_sdk_path':sdk, 'export/android/java_sdk_path':jdk}
+        values.update({'export/android/debug_keystore':str(keystore), 'export/android/debug_keystore_user':'androiddebugkey', 'export/android/debug_keystore_pass':'android'})
+        os.environ['GODOT_ANDROID_KEYSTORE_RELEASE_PATH'] = str(keystore)
+        os.environ['GODOT_ANDROID_KEYSTORE_RELEASE_USER'] = 'androiddebugkey'
+        os.environ['GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD'] = 'android'
+        for key, value in values.items():
             text = re.sub(r'^'+re.escape(key)+r'=.*\n', '', text, flags=re.M)
             text += f'{key}="{value}"\n'
         settings.write_text(text)
-    checked(['--headless','--editor','--import','--quit'])
-    install = ['--install-android-build-template'] if target == 'android' else []
-    checked(['--headless', *install, '--export-debug',preset,str(folder/name)])
     data = metadata(target, number)
+    with stamped(data, number):
+        checked(['--headless','--editor','--import','--quit'])
+        install = ['--install-android-build-template'] if target.startswith('android') else []
+        checked(['--headless', *install, '--export-release',preset,str(folder/name)])
     (folder/'build.json').write_text(json.dumps(data, indent=2)+'\n')
     shutil.copy(ROOT/'LICENSE', folder/'LICENSE')
+    shutil.copytree(ROOT/'assets/licenses',folder/'licenses',dirs_exist_ok=True)
     output = ROOT/'build/download'
     output.mkdir(exist_ok=True)
     stem = f'pacific-rush-{number:05d}-{target}'
-    if target == 'android':
-        artifact = output/(stem+'.apk')
+    if target.startswith('android'):
+        artifact = output/(stem+Path(name).suffix)
         shutil.copy(folder/name, artifact)
     else:
         artifact = output/(stem+'.zip')
@@ -75,10 +114,14 @@ def build(target, number):
                     dest.writestr(item, source.read(item))
                 dest.writestr('build.json', json.dumps(data, indent=2))
                 dest.write(ROOT/'LICENSE','LICENSE')
+                for path in (ROOT/'assets/licenses').rglob('*'):
+                    if path.is_file():
+                        dest.write(path,'licenses/'+path.relative_to(ROOT/'assets/licenses').as_posix())
         else:
             with zipfile.ZipFile(artifact, 'w', zipfile.ZIP_DEFLATED) as archive:
-                for path in sorted(folder.iterdir()):
-                    archive.write(path, path.name)
+                for path in sorted(folder.rglob('*')):
+                    if path.is_file():
+                        archive.write(path, path.relative_to(folder).as_posix())
     (output/(stem+'-build.json')).write_text(json.dumps(data, indent=2)+'\n')
     (output/(stem+'.sha256')).write_text(hashlib.file_digest(artifact.open('rb'),'sha256').hexdigest()+'  '+artifact.name+'\n')
     print(artifact)

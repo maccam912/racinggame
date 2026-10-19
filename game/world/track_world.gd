@@ -42,42 +42,19 @@ func build(data: TrackDefinition) -> void:
 	sun.light_energy = 1.15
 	add_child(sun)
 	box(Vector3(500, -1, -200), Vector3(9000, 1, 9000), Color.html("31BFC1"))
-	var asphalt := SurfaceTool.new()
-	var shoulder := SurfaceTool.new()
-	var walls := SurfaceTool.new()
-	var markings := SurfaceTool.new()
-	for tool: SurfaceTool in [asphalt, shoulder, walls, markings]:
-		tool.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var n := track.points.size()
-	for i in range(n):
-		var j := (i + 1) % n
-		var wa: float = track.bake.samples[i][8] / 2.0
-		var wb: float = track.bake.samples[j][8] / 2.0
-		quad(asphalt, road_point(i, -wa), road_point(i, wa), road_point(j, wb), road_point(j, -wb))
-		for side: float in [-1.0, 1.0]:
-			quad(shoulder, road_point(i, side * wa), road_point(j, side * wb), road_point(j, side * (wb + 3)), road_point(i, side * (wa + 3)))
-			var a := road_point(i, side * (wa + 3))
-			var b := road_point(j, side * (wb + 3))
-			quad(walls, a, b, b + Vector3.UP * 0.9, a + Vector3.UP * 0.9)
-			# Sand/grass verge outside barriers, no colliding shortcut surface.
-			quad(shoulder, a, b, road_point(j, side * (wb + 65)) - Vector3.UP * 2.5, road_point(i, side * (wa + 65)) - Vector3.UP * 2.5)
-			quad(markings, road_point(i, side * (wa - 0.35)) + Vector3.UP * .015, road_point(j, side * (wb - .35)) + Vector3.UP * .015, road_point(j, side * (wb - .60)) + Vector3.UP * .015, road_point(i, side * (wa - .60)) + Vector3.UP * .015)
-		if fposmod(track.distances[i], 12) < 4:
-			quad(markings, road_point(i, -.09) + Vector3.UP * .018, road_point(i, .09) + Vector3.UP * .018, road_point(j, .09) + Vector3.UP * .018, road_point(j, -.09) + Vector3.UP * .018)
-	add_surface(asphalt, material(Color.html("646B75")), true)
-	add_surface(shoulder, material(Color.html("D8BD86") if track.definition.surface == "sand" else Color.html("79A269")), false)
-	add_surface(walls, material(Color.html("F3E4C4")), true, true)
-	add_surface(markings, material(Color.html("F5EBD3")), false)
-	# Shoulder collision stays inside the allowed corridor; verges have no collision.
-	var shoulder_collision := SurfaceTool.new()
-	shoulder_collision.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for i in range(n):
-		var j := (i + 1) % n
-		for side: float in [-1.0, 1.0]:
-			var wa: float = track.bake.samples[i][8] / 2
-			var wb: float = track.bake.samples[j][8] / 2
-			quad(shoulder_collision, road_point(i, side * wa), road_point(j, side * wb), road_point(j, side * (wb + 3)), road_point(i, side * (wa + 3)))
-	add_collision(shoulder_collision.commit())
+	var geometry := RouteGeometry.meshes(track, true)
+	var sand := material(Color.html("D8BD86") if track.definition.surface == "sand" else Color.html("79A269"))
+	for key: String in geometry:
+		var instance := MeshInstance3D.new()
+		instance.mesh = geometry[key]
+		var mat: StandardMaterial3D = material(Color.html("646B75")) if key == "asphalt" else material(Color.html("F5EBD3")) if key in ["walls", "markings"] else sand
+		mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+		instance.material_override = mat
+		add_child(instance)
+	var collision := RouteCollision.new()
+	for key in ["asphalt", "shoulder", "walls"]:
+		collision.add_mesh(geometry[key])
+	add_child(collision)
 	for s in range(0, int(track.length), 22):
 		var pose := track.pose(s, -24)
 		palm(pose.origin)
@@ -85,46 +62,6 @@ func build(data: TrackDefinition) -> void:
 		if s % 66 == 0:
 			palm(track.pose(s, 28).origin)
 	gantry()
-
-
-func road_point(i: int, lateral: float) -> Vector3:
-	var row: Array = track.bake.samples[i]
-	var point := track.points[i] + track.forwards[i].cross(Vector3.UP).normalized() * lateral
-	point.y += float(row[10]) - lateral * tan(float(row[9]))
-	return point
-
-
-func quad(tool: SurfaceTool, a: Vector3, b: Vector3, c: Vector3, d: Vector3) -> void:
-	var normal := (b - a).cross(c - a).normalized()
-	if normal.y < 0:
-		normal = -normal
-	for point: Vector3 in [a, b, c, a, c, d]:
-		tool.set_normal(normal)
-		tool.add_vertex(point)
-
-
-func add_surface(tool: SurfaceTool, mat: Material, collision: bool, double_sided: bool = false) -> void:
-	var mesh := tool.commit()
-	var instance := MeshInstance3D.new()
-	instance.mesh = mesh
-	instance.material_override = mat
-	if mat is StandardMaterial3D:
-		mat.cull_mode = BaseMaterial3D.CULL_DISABLED
-	add_child(instance)
-	if collision:
-		add_collision(mesh, double_sided)
-
-
-func add_collision(mesh: ArrayMesh, double_sided: bool = false) -> void:
-	var body := StaticBody3D.new()
-	body.collision_layer = 1
-	body.collision_mask = 0
-	var shape := CollisionShape3D.new()
-	var concave: ConcavePolygonShape3D = mesh.create_trimesh_shape()
-	concave.backface_collision = true
-	shape.shape = concave
-	body.add_child(shape)
-	add_child(body)
 
 
 func box(at: Vector3, size: Vector3, color: Color, parent: Node3D = null) -> MeshInstance3D:

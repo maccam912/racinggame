@@ -7,6 +7,7 @@ const DT: float = 1.0 / 60.0
 
 static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, query: Variant) -> void:
 	state.events.clear()
+	state.contact_ticks = maxi(0, state.contact_ticks - 1)
 	state.last_ack = frame.sequence
 	state.ghost_ticks = maxi(0, state.ghost_ticks - 1)
 	if state.recovery_ticks > 0:
@@ -26,7 +27,7 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 	var grip_factor := 1.0
 	var yaw_factor := 1.0
 	if frame.handbrake and vf > 15.0 and absf(state.steer_filter) > 0.25:
-		state.drift_entry += DT
+		state.drift_entry = minf(.1, state.drift_entry + DT)
 		if state.drift_entry >= 0.10 - 0.00001:
 			state.drift_phase = 1
 			state.drift_timer = 0.0
@@ -62,7 +63,7 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 		state.position.y = maxf(ground.height + 0.35, state.position.y - 0.4)
 		var braking := frame.brake > 0.0
 		if absf(vf) < 0.5 and braking:
-			state.reverse_hold += DT
+			state.reverse_hold = minf(.35, state.reverse_hold + DT)
 			if state.reverse_hold >= 0.35 - 0.00001:
 				state.reversing = true
 		else:

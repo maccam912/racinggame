@@ -60,6 +60,15 @@ static func recover(state: VehicleState, track: TrackDefinition) -> void:
 
 static func safety(state: VehicleState, frame: InputFrame, track: TrackDefinition, query: WorldQuery) -> void:
 	var nearest := query.nearest(state.position)
+	for marker: float in track.definition.ramp_markers:
+		var crest := fposmod(marker * track.length - track.start_sample * 2, track.length)
+		if state.route_s >= 0 and state.route_s < crest and nearest.s >= crest and nearest.s - state.route_s < 5 and state.grounded and state.speed() >= 30 and state.jump_lap != state.laps:
+			state.velocity.y = 3.8
+			state.launch_ticks = 11
+			state.grounded = false
+			state.jump_lap = state.laps
+			state.events.append("jump")
+	state.route_s = nearest.s
 	var half_width: float = track.bake.samples[nearest.i][8] / 2 + 3
 	state.outside_ticks = state.outside_ticks + 1 if absf(nearest.lateral) > half_width else 0
 	if state.outside_ticks > 15:
@@ -80,3 +89,4 @@ static func safety(state: VehicleState, frame: InputFrame, track: TrackDefinitio
 	if state.offroad_ticks >= 30 or state.recovery_hold_ticks >= 30 or state.position.y < -80:
 		recover(state, track)
 		query.hint = track.sample_index(track.bake.gates[maxi(0, state.last_gate)].s - 6)
+		state.route_s = fposmod(track.bake.gates[maxi(0, state.last_gate)].s - 6, track.length)

@@ -12,6 +12,10 @@ var rivals: Array[VehicleState] = []
 var map_points := PackedVector2Array()
 var map_min := Vector2.ZERO
 var map_scale: float = 1.0
+var mobile: bool = false
+var mobile_unit: float = 1.0
+var rank: int = 1
+var racers: int = 1
 
 
 func _ready() -> void:
@@ -41,27 +45,35 @@ func _draw() -> void:
 	if state == null:
 		return
 	var safe := size * .05
-	draw_style_box(panel(), Rect2(safe, Vector2(230, 80)))
-	text(safe + Vector2(16, 31), "PALM BAY", 22, Color.html("20BFC5"))
-	text(safe + Vector2(16, 64), "LAP  %d / %d" % [mini(lap_count, state.laps + 1), lap_count], 28)
-	text(Vector2(size.x / 2 - 85, safe.y + 36), time(ticks / 60.0), 36)
-	text(Vector2(size.x - safe.x - 240, safe.y + 30), "COMET  /  DRIVING SLICE", 18)
+	var unit := mobile_unit if mobile else 1.0
+	draw_style_box(panel(), Rect2(safe, Vector2(180 * unit, 45 * unit) if mobile else Vector2(230, 80)))
+	text(safe + Vector2(16, 31) * unit, "POS  %d / %d" % [rank, racers], int(22 * unit), Color.html("20BFC5"))
+	var lap_text := "LAP  %d / %d" % [mini(lap_count, state.laps + 1), lap_count]
+	text(Vector2(size.x * .72, safe.y + 30 * unit) if mobile else safe + Vector2(16, 64), lap_text, int(24 * unit) if mobile else 28)
+	text(Vector2(size.x / 2 - 85 * unit, safe.y + 36 * unit), time(ticks / 60.0), int(28 * unit) if mobile else 36)
+	if not mobile:
+		text(Vector2(size.x - safe.x - 240, safe.y + 30), "COMET  /  DRIVING SLICE", 18)
 	var map_origin := Vector2(safe.x + 10, size.y - safe.y - 155)
-	draw_style_box(panel(), Rect2(map_origin - Vector2(10, 10), Vector2(220, 160)))
+	var map_factor := minf(130 * unit / 190, 90 * unit / 135) if mobile else 1.0
+	if mobile:
+		map_origin = Vector2(safe.x + 10 * map_factor, safe.y + 55 * unit + 10 * map_factor)
+	draw_style_box(panel(), Rect2(map_origin - Vector2(10, 10) * map_factor, Vector2(220, 160) * map_factor))
 	var screen_points := PackedVector2Array()
 	for p: Vector2 in map_points:
-		screen_points.append(map_origin + p)
+		screen_points.append(map_origin + p * map_factor)
 	draw_polyline(screen_points, Color.html("F3E4C4"), 4, true)
 	for rival: VehicleState in rivals:
-		draw_circle(map_origin + (Vector2(rival.position.x, rival.position.z) - map_min) * map_scale, 3, Color.html("F16B50"))
-	var marker := map_origin + (Vector2(state.position.x, state.position.z) - map_min) * map_scale
+			draw_circle(map_origin + (Vector2(rival.position.x, rival.position.z) - map_min) * map_scale * map_factor, 3, Color.html("F16B50"))
+	var marker := map_origin + (Vector2(state.position.x, state.position.z) - map_min) * map_scale * map_factor
 	var direction := Vector2(sin(state.yaw), -cos(state.yaw))
 	draw_colored_polygon(PackedVector2Array([marker + direction * 8, marker - direction * 5 + direction.orthogonal() * 5, marker - direction * 5 - direction.orthogonal() * 5]), Color.WHITE)
 	var speed := int(round(state.speed() * (2.236936 if mph else 3.6)))
 	var speed_at := Vector2(size.x - safe.x - 180, size.y - safe.y - 30)
-	draw_style_box(panel(), Rect2(speed_at - Vector2(15, 60), Vector2(195, 90)))
-	text(speed_at, str(speed), 64)
-	text(speed_at + Vector2(125, 0), "MPH" if mph else "KM/H", 20, Color.html("20BFC5"))
+	if mobile:
+		speed_at = Vector2(size.x / 2 - 70 * unit, size.y * .81)
+	draw_style_box(panel(), Rect2(speed_at - Vector2(10, 35) * unit, Vector2(150, 50) * unit) if mobile else Rect2(speed_at - Vector2(15, 60), Vector2(195, 90)))
+	text(speed_at, str(speed), int(36 * unit) if mobile else 64)
+	text(speed_at + Vector2(90 * unit if mobile else 125, 0), "MPH" if mph else "KM/H", int(16 * unit) if mobile else 20, Color.html("20BFC5"))
 	var banner := ""
 	if state.recovery_ticks > 0:
 		banner = "RECOVERING"

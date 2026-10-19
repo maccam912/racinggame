@@ -1,0 +1,101 @@
+{
+  "seconds": 90.0,
+  "one_way_latency_ms": 75,
+  "jitter_ms": 30,
+  "loss": 0.03,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "wire_metrics": {
+    "upstream_bytes": 369677,
+    "downstream_bytes": 509326,
+    "upstream_packets": 4571,
+    "downstream_packets": 3477,
+    "dropped_packets": 225
+  },
+  "contact_events": 1,
+  "clients": [
+    {
+      "acknowledged_sequence": 3737,
+      "clear_corrections": {
+        "count": 1147,
+        "max": 328.886840820312,
+        "p95": 0.0100812111049891
+      },
+      "connected": true,
+      "contact_corrections": {
+        "count": 35,
+        "max": 0.490475982427597,
+        "p95": 0.115750223398209
+      },
+      "dropped_packets": 0,
+      "finish_time": 67.2870025634766,
+      "initial_slot": 0,
+      "laps": 1,
+      "last_gate": 0,
+      "max_speed": 49.2685279846191,
+      "received_bytes": 221554,
+      "reconnect_done": true,
+      "recoveries": 0,
+      "results": [
+        {
+          "dnf": "",
+          "name": "Driver0",
+          "slot": 0.0,
+          "time": 67.2869998020766
+        },
+        {
+          "dnf": "",
+          "name": "Driver1",
+          "slot": 1.0,
+          "time": 67.4902060924438
+        }
+      ],
+      "rtt_ms": 191.0,
+      "sent_bytes": 157979,
+      "sequence": 3737,
+      "slot": 0,
+      "snapshots": 1191
+    },
+    {
+      "acknowledged_sequence": 4174,
+      "clear_corrections": {
+        "count": 1288,
+        "max": 1.64479339122772,
+        "p95": 0.00980353448539972
+      },
+      "connected": true,
+      "contact_corrections": {
+        "count": 35,
+        "max": 0.51256000995636,
+        "p95": 0.474535077810287
+      },
+      "dropped_packets": 0,
+      "finish_time": 67.4902038574219,
+      "initial_slot": 1,
+      "laps": 1,
+      "last_gate": 0,
+      "max_speed": 49.2662162780762,
+      "received_bytes": 245371,
+      "reconnect_done": false,
+      "recoveries": 0,
+      "results": [
+        {
+          "dnf": "",
+          "name": "Driver0",
+          "slot": 0.0,
+          "time": 67.2869998020766
+        },
+        {
+          "dnf": "",
+          "name": "Driver1",
+          "slot": 1.0,
+          "time": 67.4902060924438
+        }
+      ],
+      "rtt_ms": 151.0,
+      "sent_bytes": 176033,
+      "sequence": 4174,
+      "slot": 1,
+      "snapshots": 1332
+    }
+  ]
+}

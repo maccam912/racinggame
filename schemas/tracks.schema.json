@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pacific Rush tracks",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "tracks"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1,
+      "type": "integer"
+    },
+    "tracks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "display_name_key",
+          "ordered_control_points",
+          "width",
+          "shoulder",
+          "surface",
+          "difficulty",
+          "width_intervals",
+          "bank_intervals",
+          "ramp_markers",
+          "environment_id",
+          "baked_route_id",
+          "collision_id",
+          "thumbnail_id",
+          "minimap_id",
+          "landmark_specs"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "[a-z][a-z0-9_]*"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "display_name_key": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120
+          },
+          "ordered_control_points": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "number",
+                "minimum": -20000,
+                "maximum": 20000
+              }
+            },
+            "minItems": 16,
+            "maxItems": 16
+          },
+          "width": {
+            "type": "number",
+            "minimum": 14,
+            "maximum": 20
+          },
+          "shoulder": {
+            "const": 3,
+            "type": "integer"
+          },
+          "surface": {
+            "enum": [
+              "sand",
+              "grass",
+              "asphalt"
+            ]
+          },
+          "difficulty": {
+            "enum": [
+              "Easy",
+              "Medium",
+              "Hard"
+            ]
+          },
+          "width_intervals": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "number",
+                "minimum": -20000,
+                "maximum": 20000
+              }
+            },
+            "minItems": 0,
+            "maxItems": 10
+          },
+          "bank_intervals": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "minItems": 3,
+              "maxItems": 3,
+              "items": {
+                "type": "number",
+                "minimum": -20000,
+                "maximum": 20000
+              }
+            },
+            "minItems": 0,
+            "maxItems": 10
+          },
+          "ramp_markers": {
+            "type": "array",
+            "items": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "minItems": 0,
+            "maxItems": 1
+          },
+          "environment_id": {
+            "type": "string",
+            "pattern": "[a-z][a-z0-9_]*"
+          },
+          "baked_route_id": {
+            "type": "string",
+            "pattern": "res://game/content/baked/[a-z_]+\\.json"
+          },
+          "collision_id": {
+            "type": "string",
+            "pattern": "[a-z][a-z0-9_]*"
+          },
+          "thumbnail_id": {
+            "type": "string",
+            "pattern": "[a-z][a-z0-9_]*"
+          },
+          "minimap_id": {
+            "type": "string",
+            "pattern": "[a-z][a-z0-9_]*"
+          },
+          "landmark_specs": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "minItems": 0,
+            "maxItems": 5
+          }
+        }
+      },
+      "minItems": 6,
+      "maxItems": 6
+    }
+  }
+}

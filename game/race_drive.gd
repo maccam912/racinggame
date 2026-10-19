@@ -24,6 +24,10 @@ var pause_panel: Control
 var resume_ticks: int = 0
 var show_touch: bool = false
 var reduce_motion: bool = false
+var session: RaceSession
+var network: NetworkClient
+var remote_visuals: Dictionary = {}
+var demo_driver := BotDriver.new()
 
 
 func _ready() -> void:
@@ -31,10 +35,16 @@ func _ready() -> void:
 	car = Catalog.cars[0]
 	world.build(track)
 	add_child(world)
-	var pose := track.pose(-8, -2.5)
-	state.position = pose.origin + Vector3.UP * .35
-	state.yaw = atan2(-pose.basis.z.x, pose.basis.z.z)
-	query = WorldQuery.new(get_world_3d(), track, -8)
+	session = RaceSession.new()
+	var cars: Array[int] = [0]
+	if network:
+		cars.clear()
+		for _racer in range(int(network.config.count)):
+			cars.append(0)
+		lap_count = int(network.config.laps)
+	session.setup(track, cars, get_world_3d(), lap_count)
+	state = session.states[network.slot if network else 0]
+	query = session.queries[network.slot if network else 0]
 	visual.build(Catalog.paints[0])
 	add_child(visual)
 	add_child(camera)
@@ -48,6 +58,9 @@ func _ready() -> void:
 	ui.add_child(touch)
 	touch.visible = show_touch or OS.has_feature("mobile")
 	touch.auto_accelerate = touch.visible
+	hud.mobile = touch.visible
+	hud.mobile_unit = touch.unit
+	hud.racers = session.states.size()
 	touch.action_pressed.connect(touch_action)
 	var help := Label.new()
 	help.text = "W / ↑  Accelerate     A D / ← →  Steer     S / ↓  Brake     SPACE  Slide     Hold R  Recover     C  Camera     ESC  Pause"
@@ -57,10 +70,32 @@ func _ready() -> void:
 	ui.add_child(help)
 	if touch.visible:
 		help.hide()
+	if network:
+		network.attach_prediction(state, car, query, track, lap_count)
+		network.input_provider = func() -> InputFrame: return driver.sample(not paused, touch if touch.visible else null)
+		if "--autodrive" in OS.get_cmdline_user_args():
+			network.input_provider = func() -> InputFrame: return demo_driver.sample(state, car, track, query)
+			state.trial_valid = false
+		for index in range(session.states.size()):
+			if index == state.slot:
+				continue
+			var rival := CarVisual.new()
+			rival.build(Catalog.paints[(index + 1) % 8])
+			remote_visuals[index] = rival
+			add_child(rival)
 	print("PACIFIC_RUSH_DRIVING_READY")
 
 
 func _physics_process(_dt: float) -> void:
+	if network:
+		race_ticks = network.prediction.elapsed_ticks
+		phase = ["Lobby", "Loading", "Grid", "Countdown", "Racing", "Finish Grace", "Results"][network.phase]
+		phase_ticks = maxi(0, roundi(network.server_tick) - network.start_tick - 120)
+		hud.ticks = race_ticks
+		hud.phase = phase
+		hud.phase_ticks = phase_ticks
+		hud.queue_redraw()
+		return
 	if paused:
 		return
 	if resume_ticks > 0:
@@ -68,26 +103,18 @@ func _physics_process(_dt: float) -> void:
 		hud.phase = "Countdown"
 		hud.phase_ticks = 180 - resume_ticks
 		return
-	if phase in ["Grid", "Countdown"]:
-		phase_ticks += 1
-		if phase == "Grid" and phase_ticks >= 120:
-			phase = "Countdown"
-			phase_ticks = 0
-		elif phase == "Countdown" and phase_ticks >= 180:
-			phase = "Racing"
-			phase_ticks = 0
-		frame = InputFrame.make()
-	elif phase == "Racing" and not state.finished:
-		race_ticks += 1
-		frame = driver.sample(true, touch if touch.visible else null)
-		var previous := state.position
-		VehicleSim.step(state, frame, car, query)
-		ProgressTracker.advance(state, previous, track, race_ticks, lap_count)
-		ProgressTracker.safety(state, frame, track, query)
-		if "recovery" in state.events:
-			touch.clear()
-		if state.finished:
-			show_pause(true)
+	frame = driver.sample(session.phase in [RaceSession.Phase.RACING, RaceSession.Phase.GRACE], touch if touch.visible else null)
+	if "--autodrive" in OS.get_cmdline_user_args():
+		frame = demo_driver.sample(state, car, track, query)
+		state.trial_valid = false
+	session.step({0:frame})
+	race_ticks = session.elapsed_ticks
+	phase = ["Lobby", "Loading", "Grid", "Countdown", "Racing", "Finish Grace", "Results"][session.phase]
+	phase_ticks = session.phase_ticks
+	if "recovery" in state.events:
+		touch.clear()
+	if state.finished:
+		show_pause(true)
 	hud.ticks = race_ticks
 	hud.phase = phase
 	hud.phase_ticks = phase_ticks
@@ -96,7 +123,18 @@ func _physics_process(_dt: float) -> void:
 
 func _process(dt: float) -> void:
 	visual.present(state, frame, dt)
-	camera.follow(state, dt, Input.is_action_pressed("look_back") or touch.held("look_back"))
+	var rendered := state
+	if network and network.prediction:
+		rendered = state.copy()
+		rendered.position += network.prediction.render_offset(dt)
+		visual.position = rendered.position
+		hud.rivals.clear()
+		for slot: int in remote_visuals:
+			var rival := network.remotes.sample(slot, network.server_tick)
+			if rival:
+				remote_visuals[slot].present(rival, InputFrame.make(), dt)
+				hud.rivals.append(rival)
+	camera.follow(rendered, dt, Input.is_action_pressed("look_back") or touch.held("look_back"))
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -131,12 +169,13 @@ func show_pause(finished: bool = false) -> void:
 	list.add_theme_constant_override("separation", 16)
 	pause_panel.add_child(list)
 	var title := Label.new()
-	title.text = "FINISH  " + hud.time(state.finish_time) if finished else "PAUSED"
+	title.text = "FINISH  " + hud.time(state.finish_time) if finished else "RACE CONTINUES ONLINE" if network else "PAUSED"
 	title.add_theme_font_size_override("font_size", 36)
 	list.add_child(title)
 	if not finished:
 		button(list, "Resume", resume)
-	button(list, "Restart", restart)
+	if not network:
+		button(list, "Restart", restart)
 	button(list, "Main Menu", func() -> void: leave_requested.emit())
 	ui.add_child(pause_panel)
 	list.get_child(1).grab_focus()
@@ -159,7 +198,7 @@ func resume() -> void:
 	touch.clear()
 	if pause_panel:
 		pause_panel.queue_free()
-	resume_ticks = 180
+	resume_ticks = 0 if network else 180
 
 
 func restart() -> void:

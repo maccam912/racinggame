@@ -1,0 +1,75 @@
+{
+  "seconds": 340.0,
+  "one_way_latency_ms": 75,
+  "jitter_ms": 30,
+  "loss": 0.03,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "wire_metrics": {
+    "upstream_bytes": 1859513,
+    "downstream_bytes": 2410834,
+    "upstream_packets": 22736,
+    "downstream_packets": 16386,
+    "dropped_packets": 1190
+  },
+  "contact_events": 84,
+  "clients": [
+    {
+      "acknowledged_sequence": 20043,
+      "clear_corrections": {
+        "count": 4900,
+        "max": 0.781840622425079,
+        "p95": 0.00888720620423555
+      },
+      "connected": true,
+      "contact_corrections": {
+        "count": 1075,
+        "max": 1.68004989624023,
+        "p95": 0.906223654747009
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "initial_slot": 0,
+      "laps": 0,
+      "last_gate": 0,
+      "max_speed": 30.0784225463867,
+      "received_bytes": 1110895,
+      "reconnect_done": false,
+      "recoveries": 402,
+      "results": [],
+      "rtt_ms": 153.0,
+      "sent_bytes": 844030,
+      "sequence": 20043,
+      "slot": 0,
+      "snapshots": 6377
+    },
+    {
+      "acknowledged_sequence": 20042,
+      "clear_corrections": {
+        "count": 4704,
+        "max": 0.834575653076172,
+        "p95": 0.00986360013484955
+      },
+      "connected": true,
+      "contact_corrections": {
+        "count": 1224,
+        "max": 1.92714309692383,
+        "p95": 0.825991094112396
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "initial_slot": 1,
+      "laps": 0,
+      "last_gate": 0,
+      "max_speed": 30.0851917266846,
+      "received_bytes": 1104008,
+      "reconnect_done": false,
+      "recoveries": 409,
+      "results": [],
+      "rtt_ms": 202.0,
+      "sent_bytes": 843994,
+      "sequence": 20042,
+      "slot": 1,
+      "snapshots": 6337
+    }
+  ]
+}
