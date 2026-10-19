@@ -22,4 +22,11 @@ func _ready() -> void:
 	var server := "--server" in OS.get_cmdline_user_args() or OS.has_feature("dedicated_server")
 	var entrypoint := "res://game/server/room_server.gd" if server else "res://game/client_app.gd"
 	var script: GDScript = load(entrypoint)
-	add_child(script.new())
+	var application: Node = script.new()
+	add_child(application)
+	if not server:
+		for argument: String in OS.get_cmdline_user_args():
+			if argument.begins_with("--smoke-frames="):
+				var frames := clampi(int(argument.trim_prefix("--smoke-frames=")),1,600)
+				await get_tree().create_timer(frames/60.0).timeout
+				application.finish_quit()

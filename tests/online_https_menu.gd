@@ -167,4 +167,5 @@ func run_fixture() -> void:
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(outside_folder))==OK)
 	assert(AppData.remove_tree(scene_folder)==OK)
 	print("ONLINE_HTTPS_MENU_COMPLETE_PASS")
+	await create_timer(.5).timeout # Retire stopped menu/voice playback on every driver.
 	quit()

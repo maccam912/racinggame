@@ -36,6 +36,7 @@ func section(label: String, seconds: float) -> void:
 	drain()
 
 func run() -> void:
+	assert(DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://reports"))==OK)
 	app = load("res://game/client_app.gd").new()
 	root.add_child(app)
 	await process_frame

@@ -33,9 +33,9 @@ def main(target, artifact):
         binary = folder/('pacific-rush-server.x86_64' if target == 'server' else 'pacific-rush.x86_64')
     if platform.system() != 'Windows':
         binary.chmod(binary.stat().st_mode|stat.S_IXUSR)
-    command = [str(binary),'--headless','--quit-after','30']
-    if target != 'server':
-        command += ['--','--drive']
+    command = [str(binary),'--headless']
+    if target == 'server': command += ['--quit-after','30']
+    else: command += ['--','--drive','--smoke-frames=30','--profile=native_package_smoke']
     probe = subprocess.run([str(binary),'--headless','--','--platform-probe'],cwd=folder,capture_output=True,text=True,timeout=30)
     probe_output = probe.stdout+probe.stderr
     result = subprocess.run(command,cwd=folder,capture_output=True,text=True,timeout=30)
