@@ -10,6 +10,7 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 	state.contact_ticks = maxi(0, state.contact_ticks - 1)
 	state.last_ack = frame.sequence
 	state.ghost_ticks = maxi(0, state.ghost_ticks - 1)
+	state.braking = frame.brake > .1 or frame.handbrake
 	if state.recovery_ticks > 0:
 		state.recovery_ticks -= 1
 		state.velocity = Vector3.ZERO

@@ -140,7 +140,7 @@ func present(state: VehicleState, input: InputFrame, dt: float) -> void:
 		var steering := -deg_to_rad(state.steer_filter*25) if rest.origin.z<0 else 0.0
 		wheel.global_transform = global_transform*rest*Transform3D(Basis(Vector3.UP,steering),Vector3.ZERO)
 		for child: Node3D in wheel.get_children(): child.rotation.x = tire_rotation
-	surface.set_shader_parameter("braking",1.0 if input.brake>.1 or input.handbrake else 0.0)
+	surface.set_shader_parameter("braking",1.0 if state.braking or input.brake>.1 or input.handbrake else 0.0)
 	fade_surface.set_shader_parameter("braking",surface.get_shader_parameter("braking"))
 	if ghost_surface: ghost_surface.set_shader_parameter("braking",0.0)
 	shadow.visible = state.grounded and not ghost

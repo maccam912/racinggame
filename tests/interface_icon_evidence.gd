@@ -83,6 +83,26 @@ func run() -> void:
 	app.bindings_page.show_page(app.show_menu)
 	await capture("bindings-150")
 	app.data.settings.ui_scale = 100
+	app.menu.settings = app.data.settings
+	app.show_online()
+	await capture("online")
+	var fixture := NetworkClient.new()
+	fixture.guest_id = "reference-local"
+	fixture.lobby = {"revision":1,"name":"COAST CREW","region":"Community / local illustration","host":fixture.guest_id,"private":false,"code":"","countdown_tick":-1,"rules":{"track":2,"laps":2,"contact":true,"bot_fill":false,"difficulty":1},"members":[]}
+	for slot in range(8):
+		fixture.lobby.members.append({"id":fixture.guest_id if slot==0 else "reference-"+str(slot),"slot":slot,"name":["Coast Driver","Sunset Runner","Palm Cruiser","Marina Racer","Citrus Comet","Redwood Drift","Canyon Switch","Summit Needle"][slot],"car":slot%4,"paint":slot,"ready":slot%3!=1,"connected":true,"ping":24+slot*7})
+	app.network = fixture
+	app.add_child(fixture)
+	app.lobby_page.show_lobby()
+	await capture("lobby")
+	app.data.settings.ui_scale = 150
+	app.menu.settings = app.data.settings
+	app.lobby_page.show_lobby()
+	await capture("lobby-150")
+	app.network = null
+	fixture.queue_free()
+	app.data.settings.ui_scale = 100
+	app.menu.settings = app.data.settings
 	app.data.profile.trophies = [{"cup_id":RaceSetup.uuid(),"rank":0,"car":0,"content_hash":Compatibility.content_hash()}]
 	app.show_cup()
 	await capture("cup-trophy")
@@ -100,7 +120,7 @@ func run() -> void:
 	app.render_results()
 	await capture("trial-results")
 	var file := FileAccess.open("res://reports/m4-ui-reference.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"renderer":"Godot 4.6.3 Compatibility","resolution":[1920,1080],"icons":UIIcons.entries().size(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"captures":captures,"boundary":"Native UI and synthetic isolated record/trophy presentation, not human medals, real Cup wins, physical input or complete race acceptance"},"  "))
+	file.store_string(JSON.stringify({"renderer":"Godot 4.6.3 Compatibility","resolution":[1920,1080],"icons":UIIcons.entries().size(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"captures":captures,"boundary":"Native UI and synthetic isolated lobby/record/trophy presentation, not live online members, human medals, real Cup wins, physical input or complete race acceptance"},"  "))
 	file.close()
 	app.queue_free()
 	await create_timer(.5).timeout

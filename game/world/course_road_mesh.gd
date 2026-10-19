@@ -28,6 +28,43 @@ static func front_faces(source: ArrayMesh) -> ArrayMesh:
 	return tool.commit()
 
 
+static func shoulders(track: TrackDefinition) -> Dictionary:
+	var tools: Dictionary = {}
+	for index in range(track.points.size()):
+		var next := (index+1)%track.points.size()
+		var start_s := track.distances[index]
+		var end_s := track.distances[next] if next>0 else track.length
+		var start_u := float(track.bake.samples[index][7])
+		var end_u := float(track.bake.samples[next][7])
+		if end_u<start_u: end_u += 1
+		var cuts: Array[float] = [0.0,1.0]
+		for interval: Dictionary in track.definition.get("surface_intervals",[]):
+			for u: float in [float(interval.start),float(interval.end)]:
+				if u<start_u: u += 1
+				if u>start_u and u<end_u: cuts.append((u-start_u)/(end_u-start_u))
+		cuts.sort()
+		for part in range(cuts.size()-1):
+			var lo := cuts[part]
+			var hi := cuts[part+1]
+			var surface := track.shoulder_surface(lerpf(start_s,end_s,(lo+hi)/2))
+			if not tools.has(surface):
+				var tool := SurfaceTool.new()
+				tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+				tools[surface] = tool
+			for side: float in [-1.0,1.0]:
+				var wa := float(track.bake.samples[index][8])/2
+				var wb := float(track.bake.samples[next][8])/2
+				var inner_a := RouteGeometry.point(track,index,side*wa)
+				var inner_b := RouteGeometry.point(track,next,side*wb)
+				var outer_a := RouteGeometry.point(track,index,side*(wa+3))
+				var outer_b := RouteGeometry.point(track,next,side*(wb+3))
+				if side>0: quad(tools[surface],inner_a.lerp(inner_b,lo),inner_a.lerp(inner_b,hi),outer_a.lerp(outer_b,hi),outer_a.lerp(outer_b,lo))
+				else: quad(tools[surface],outer_a.lerp(outer_b,lo),outer_a.lerp(outer_b,hi),inner_a.lerp(inner_b,hi),inner_a.lerp(inner_b,lo))
+	var result: Dictionary = {}
+	for surface: String in tools: result[surface] = tools[surface].commit()
+	return result
+
+
 static func barriers(track: TrackDefinition, spec: Dictionary) -> ArrayMesh:
 	var tool := SurfaceTool.new()
 	tool.begin(Mesh.PRIMITIVE_TRIANGLES)

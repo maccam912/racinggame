@@ -21,7 +21,7 @@ func sample(slot: int, clock_tick: float) -> VehicleState:
 			var a: VehicleState = samples[i].states[slot]
 			var b: VehicleState = samples[i + 1].states[slot]
 			var weight: float = (target - samples[i].tick) / float(samples[i + 1].tick - samples[i].tick)
-			var state := a.copy()
+			var state := b.copy() if weight>=1 else a.copy()
 			state.position = a.position.lerp(b.position, weight)
 			state.yaw = lerp_angle(a.yaw, b.yaw, weight)
 			return state

@@ -99,7 +99,8 @@
       "collision_id": "palm_bay_road",
       "thumbnail_id": "palm_bay_thumbnail",
       "minimap_id": "palm_bay_minimap",
-      "landmark_specs": []
+      "landmark_specs": [],
+      "surface_intervals": []
     },
     {
       "id": "citrus_pass",
@@ -210,7 +211,8 @@
       "collision_id": "citrus_pass_road",
       "thumbnail_id": "citrus_pass_thumbnail",
       "minimap_id": "citrus_pass_minimap",
-      "landmark_specs": []
+      "landmark_specs": [],
+      "surface_intervals": []
     },
     {
       "id": "marina_lights",
@@ -316,7 +318,8 @@
       "collision_id": "marina_lights_road",
       "thumbnail_id": "marina_lights_thumbnail",
       "minimap_id": "marina_lights_minimap",
-      "landmark_specs": []
+      "landmark_specs": [],
+      "surface_intervals": []
     },
     {
       "id": "redwood_run",
@@ -422,7 +425,8 @@
       "collision_id": "redwood_run_road",
       "thumbnail_id": "redwood_run_thumbnail",
       "minimap_id": "redwood_run_minimap",
-      "landmark_specs": []
+      "landmark_specs": [],
+      "surface_intervals": []
     },
     {
       "id": "sunstone_canyon",
@@ -528,7 +532,8 @@
       "collision_id": "sunstone_canyon_road",
       "thumbnail_id": "sunstone_canyon_thumbnail",
       "minimap_id": "sunstone_canyon_minimap",
-      "landmark_specs": []
+      "landmark_specs": [],
+      "surface_intervals": []
     },
     {
       "id": "pacific_summit",
@@ -642,7 +647,14 @@
       "collision_id": "pacific_summit_road",
       "thumbnail_id": "pacific_summit_thumbnail",
       "minimap_id": "pacific_summit_minimap",
-      "landmark_specs": []
+      "landmark_specs": [],
+      "surface_intervals": [
+        {
+          "start": 0.7,
+          "end": 0.9,
+          "surface": "sand"
+        }
+      ]
     }
   ]
 }

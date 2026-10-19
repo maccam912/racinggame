@@ -18,7 +18,7 @@ python3 tools/godot.py --headless --script tests/progress_touch_tests.gd
 python3 tools/godot.py --headless --max-fps 60 --script tests/slice_smoke.gd
 python3 tools/check.py
 python3 tools/local_race.py
-python3 tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect
+python3 tools/network_integration.py --seconds 160 --laps 2 --latency 75 --jitter 30 --loss .03 --reconnect
 python3 tools/build.py macos --number 1
 ```
 

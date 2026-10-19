@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "content_hash": "4899e636e87a2e0dbda39be146a526c4f1b3be608fec9411da2a92ca17f5fbc3",
+  "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
   "files": {
     "game/content/baked/citrus_pass.json": "ab2930b15d162d31464dd170c170a5ac356ef7424250da76aa3bed031d04e967",
     "game/content/baked/marina_lights.json": "6968350424212448aeb6495e8f0dce75e2dc5843673d3efaa2d656f83a3ac217",
@@ -8,9 +8,11 @@
     "game/content/baked/palm_bay.json": "a57f052555e72708e9f4b68fdd7e032c04af45124a2f955347d0811b457b0757",
     "game/content/baked/redwood_run.json": "697abbe8f1327b4d86c5bb0549bc8d0e756324add72794e0fed1af48c389c00d",
     "game/content/baked/sunstone_canyon.json": "6284f136375efaa2f8dd8a57af38608b0bd1b019a3bb5477bd227328c95b57d8",
+    "game/content/car_definition.gd": "f8588ce01d49f5264c64142d1f224f431c244cdaa6af276cc902a299df5e13e5",
     "game/content/cars.json": "fd3e012cc1f4ec0f2afa0f33788efeae5bca524b0f3dce1735d031121e1028be",
-    "game/content/rules.json": "10d14f225932998f158201c9754bd049476c79e378fdef1f0c11bcd6228b22da",
-    "game/content/tracks.json": "590625f8912bdd21ca7cb842bab1acc81930419df120f896e45ae3b548a8912c",
+    "game/content/rules.json": "448a703da6251cd9b81b56d715557fe1c9506992e5c92389b3dbee963e6efced",
+    "game/content/track_definition.gd": "882e825ee7e9d494336f745080188975b30d6b28669e59d90f8017c796631961",
+    "game/content/tracks.json": "705d1feba64394b25d7fd654e9ba57a989973d1db083653edcff1a7cacf1f9db",
     "game/core/bot_driver.gd": "0c05b4e3049b310a5008156846299cd90e705a32a34bbafb9a95d2f8a29e9a05",
     "game/core/car_contact.gd": "95c7b7c1bce8138a5f6b56770f8a72a9ff17ea19e40a908ee55dd84dd708e528",
     "game/core/cup_book.gd": "a0f00e3d116c027808787d244234853a6db6d552aafad7fd53d20dd2fe0ff1f5",
@@ -21,10 +23,12 @@
     "game/core/race_session.gd": "776cc1f8fea973b6df72ce94c04e0aec234af537636a7a39a33b77123b6a8416",
     "game/core/race_setup.gd": "d02aa6a6c4e73f3ce56fc30f5c86090394ea5415aed6038dda7654944d1b2d18",
     "game/core/school_lesson.gd": "16cb7cd3e79d76af036a2cc9fda6003a25f5db913216daa1235f7a710b7a783e",
-    "game/core/vehicle_sim.gd": "2f9b554f3425585be15f7a188268c4477fa9de6eaebeb3b7daa7e43b546d509c",
-    "game/core/vehicle_state.gd": "43ba2f4404e73e36026aca9acc020d8f5e48583a327ed9ec78768796292a4e84",
+    "game/core/vehicle_sim.gd": "da42ef22086773697e229bb9560a430d0604a96e67c3c3f58228bed44bbe2479",
+    "game/core/vehicle_state.gd": "8433ed9f6b3df8429685de11afa56420b581eb9d4e25caf08082397b6e5d8982",
     "game/net/input_buffer.gd": "ddf28aae98d2d7f3468b688ca609a467241ef01e548af63f290285917a65be8e",
-    "game/net/net_codec.gd": "3bdbb7dc2174d523592b9fb15b2db2e09be93a1355f925c0b54962fbb736dde6",
-    "game/world/route_geometry.gd": "9782a3527c72526eeba8efd543acc9eb729aced84b9d0f83eeda0d98597591d6"
+    "game/net/net_codec.gd": "55d5acbd47bed10e3a56448a71df3219811a22cafeff4f8a2b2539fa53fcc93c",
+    "game/world/route_collision.gd": "c3e3186e036e00c8846eb998a3fbed1ea28bb8c4af6af2e1d0f0c21ec65487ca",
+    "game/world/route_geometry.gd": "9782a3527c72526eeba8efd543acc9eb729aced84b9d0f83eeda0d98597591d6",
+    "game/world/world_query.gd": "3e1ebd10b5f13cc6ff038471f85e0c6aeda34640f2a31f8088292a69f9c59f43"
   }
 }

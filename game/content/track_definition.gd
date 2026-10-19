@@ -52,3 +52,21 @@ func pose(s: float, lateral: float = 0.0) -> Transform3D:
 	var right := forward.cross(Vector3.UP).normalized()
 	var position := points[i].lerp(points[next], weight) + right * lateral
 	return Transform3D(Basis(right, right.cross(forward).normalized(), -forward), position)
+
+
+func original_u(s: float) -> float:
+	var i := sample_index(s)
+	var next := (i + 1) % points.size()
+	var segment_end := distances[next] if next > 0 else length
+	var weight := (fposmod(s,length)-distances[i])/(segment_end-distances[i])
+	var start_u := float(bake.samples[i][7])
+	var end_u := float(bake.samples[next][7])
+	if end_u < start_u: end_u += 1
+	return fposmod(lerpf(start_u,end_u,weight),1)
+
+
+func shoulder_surface(s: float) -> String:
+	var u := original_u(s)
+	for interval: Dictionary in definition.get("surface_intervals",[]):
+		if u >= float(interval.start) and u < float(interval.end): return interval.surface
+	return definition.surface

@@ -55,5 +55,8 @@ func _initialize() -> void:
 		VehicleSim.step(a, input, car, query)
 		VehicleSim.step(b, input, car, query)
 	check(a.position.distance_to(b.position) < 0.02, "60-second repeated fixture agrees within 2 cm")
+	for input: InputFrame in [InputFrame.make(0,0,.1),InputFrame.make(0,0,.101),InputFrame.make(0,0,0,true),InputFrame.make()]:
+		VehicleSim.step(a,input,car,query)
+		check(a.braking==(input.brake>.1 or input.handbrake),"brake lamp threshold and released handbrake follow the actual controller input")
 	print("Driving fixtures: 0–100 %.3f s; stop %.3f m; failures %d" % [launch_ticks / 60.0, stop_distance, failures])
 	quit(1 if failures else 0)

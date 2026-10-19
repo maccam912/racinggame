@@ -33,7 +33,8 @@
           "collision_id",
           "thumbnail_id",
           "minimap_id",
-          "landmark_specs"
+          "landmark_specs",
+          "surface_intervals"
         ],
         "additionalProperties": false,
         "properties": {
@@ -156,6 +157,38 @@
             },
             "minItems": 0,
             "maxItems": 5
+          },
+          "surface_intervals": {
+            "type": "array",
+            "maxItems": 10,
+            "items": {
+              "type": "object",
+              "required": [
+                "start",
+                "end",
+                "surface"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "start": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "end": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "surface": {
+                  "enum": [
+                    "asphalt",
+                    "sand",
+                    "grass"
+                  ]
+                }
+              }
+            }
           }
         }
       },

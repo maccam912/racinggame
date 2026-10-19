@@ -2,7 +2,7 @@ class_name NetCodec
 extends RefCounted
 ## Explicit fixed-width little-endian packets. No Variant deserialization on UDP.
 
-const PROTOCOL: int = 4
+const PROTOCOL: int = 5
 const MAX_PACKET: int = 1200
 const FIELDS: Array = [
 	["yaw", "i16", 100.0 * 180 / PI], ["yaw_rate", "i16", 100.0 * 180 / PI],
@@ -114,7 +114,7 @@ static func encode_snapshot(session: RaceSession, server_tick: int, hash_prefix:
 			if scaled < bounds[0] or scaled > bounds[1]:
 				return PackedByteArray()
 			buffer.call("put_" + str(field[1]).replace("i", ""), scaled)
-		var flags := int(state.grounded) | (int(state.reversing) << 1) | (int(state.wall_contact) << 2) | (int(state.finished) << 3) | (int(state.trial_valid) << 4) | (int(state.dnf_reason != "") << 5) | (int(state.recovery_latched) << 6)
+		var flags := int(state.grounded) | (int(state.reversing) << 1) | (int(state.wall_contact) << 2) | (int(state.finished) << 3) | (int(state.trial_valid) << 4) | (int(state.dnf_reason != "") << 5) | (int(state.recovery_latched) << 6) | (int(state.braking) << 7)
 		buffer.put_u8(flags)
 		buffer.put_u8(int(state.lap_valid))
 		buffer.put_u8(["asphalt", "sand", "grass"].find(state.surface))
@@ -169,8 +169,6 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 			var value: float = buffer.call("get_" + str(field[1]).replace("i", ""))
 			state.set(field[0], value / float(field[2]))
 		var flags := buffer.get_u8()
-		if flags & ~127:
-			return {}
 		state.grounded = bool(flags & 1)
 		state.reversing = bool(flags & 2)
 		state.wall_contact = bool(flags & 4)
@@ -178,6 +176,7 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 		state.trial_valid = bool(flags & 16)
 		state.dnf_reason = "DNF" if flags & 32 else ""
 		state.recovery_latched = bool(flags & 64)
+		state.braking = bool(flags & 128)
 		var lap_valid := buffer.get_u8()
 		if lap_valid > 1:
 			return {}

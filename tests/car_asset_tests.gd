@@ -45,6 +45,12 @@ func run() -> void:
 		visual.choose_lod(0)
 		visual.present(state,InputFrame.make(1,0,1),1.0/60)
 		assert(visual.surface.get_shader_parameter("braking")==1.0 and visual.tire_rotation!=0)
+		state.braking = true
+		visual.present(state,InputFrame.make(),0)
+		assert(visual.surface.get_shader_parameter("braking")==1.0,"remote authority lights brakes without receiving human input frames")
+		state.braking = false
+		visual.present(state,InputFrame.make(),0)
+		assert(visual.surface.get_shader_parameter("braking")==0.0)
 		for wheel: Node3D in visual.wheels:
 			var rest: Transform3D = visual.wheel_rest[wheel]
 			assert(absf(wheel.global_position.y-(state.position.y+rest.origin.y))<.001,"body roll/pitch cannot push wheels below the road")

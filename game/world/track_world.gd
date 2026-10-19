@@ -109,12 +109,20 @@ func build_road() -> void:
 	var geometry := pending_geometry
 	var sand := material(Color.html(art.ground))
 	for key: String in geometry:
-		if key=="walls": continue
+		if key in ["walls","shoulder"]: continue
 		var instance := MeshInstance3D.new()
 		instance.mesh = CourseRoadMesh.front_faces(geometry[key])
-		var mat: StandardMaterial3D = material(Color.html("646B75")) if key == "asphalt" or key=="shoulder" and track.definition.surface=="asphalt" else material(Color.html("F3E4C4")) if key == "markings" else sand
+		var mat: StandardMaterial3D = material(Color.html("646B75")) if key == "asphalt" else material(Color.html("F3E4C4")) if key == "markings" else sand
 		mat.cull_mode = BaseMaterial3D.CULL_BACK
 		instance.material_override = mat
+		add_child(instance)
+	var shoulders := CourseRoadMesh.shoulders(track)
+	for surface: String in shoulders:
+		var instance := MeshInstance3D.new()
+		instance.name = "Shoulder_"+surface
+		instance.mesh = shoulders[surface]
+		var color := Color("646B75") if surface=="asphalt" else Color("D8BD83") if surface=="sand" and track.definition.surface!="sand" else Color(art.ground)
+		instance.material_override = material(color)
 		add_child(instance)
 	var barrier := MeshInstance3D.new()
 	barrier.name = "RoadsideBarriers"

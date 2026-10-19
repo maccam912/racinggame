@@ -32,8 +32,10 @@ func _initialize() -> void:
 		state.drift_entry = .1
 		state.last_ack = 456
 		state.last_gate = 12
+		state.braking = i%2==0
 		session.states.append(state)
 	var packet := NetCodec.encode_snapshot(session, 1234, hash_prefix)
+	check(packet.size()==727,"protocol 5 uses the last flag bit without growing the eight-car snapshot")
 	check(packet.size() > 0 and packet.size() < 1200, "full eight-car snapshot payload budget")
 	var decoded := NetCodec.decode_snapshot(packet, 1, hash_prefix)
 	check(not decoded.is_empty(), "snapshot round trip")
@@ -44,6 +46,10 @@ func _initialize() -> void:
 			check(restored.velocity.distance_to(session.states[i].velocity) <= .01, "velocity quantization <= 1 cm/s")
 			check(absf(restored.yaw - session.states[i].yaw) <= deg_to_rad(.02), "angle quantization <= .02 degrees")
 			check(restored.last_ack == 456 and restored.drift_phase == 2, "replay state retained")
+			check(restored.braking==(i%2==0),"authoritative brake lamps round trip independently per car")
+	var old_protocol := packet.duplicate()
+	old_protocol[4] = 4
+	check(NetCodec.decode_snapshot(old_protocol,1,hash_prefix).is_empty(),"protocol 4 clients cannot silently reinterpret the new lamp flag")
 	for length in range(packet.size()):
 		check(NetCodec.decode_snapshot(packet.slice(0, length), 1, hash_prefix).is_empty(), "truncated snapshot rejected")
 	var frames: Array[InputFrame] = []
@@ -78,6 +84,10 @@ func _initialize() -> void:
 	remote_states[0].velocity = Vector3(10, 0, 0)
 	remote.push(100, remote_states)
 	check(absf(remote.sample(0, 1000).position.x - 1.5) < .001, "remote extrapolation stops after 150 ms")
+	var lamps: Array[VehicleState] = [remote_states[0].copy()]
+	lamps[0].braking = true
+	remote.push(103,lamps)
+	check(not remote.sample(0,108).braking and remote.sample(0,109).braking,"interpolated brake flag switches at its authoritative target tick")
 	var invalid := session.states[0].copy()
 	invalid.ghost_ticks = 100000
 	session.states[0] = invalid

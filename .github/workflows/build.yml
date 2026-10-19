@@ -103,10 +103,10 @@ jobs:
       - run: python tools/godot.py --headless --editor --import --quit
       - name: Faulted race, client stall and five-second reconnect
         if: matrix.scenario == 'race-reconnect'
-        run: python tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect --client-hitch --reverse-start --trace
+        run: python tools/network_integration.py --seconds 160 --laps 2 --latency 75 --jitter 30 --loss .03 --reconnect --client-hitch --reverse-start --trace
       - name: Expired 25-second disconnect remains DNF without duplicate identity
         if: matrix.scenario == 'race-expiry'
-        run: python tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect --away-seconds 25
+        run: python tools/network_integration.py --seconds 160 --laps 2 --latency 75 --jitter 30 --loss .03 --reconnect --away-seconds 25
       - name: Repeated side/rear contacts under real UDP faults
         if: matrix.scenario == 'contacts'
         run: python tools/network_integration.py --seconds 340 --latency 75 --jitter 30 --loss .03 --contacts
@@ -165,6 +165,10 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/school_presentation_evidence.gd -- --profile=school_style_ci --capture=res://reports/unused-school-reference.png 2>&1 | tee -a reports/car-render.log
+      - name: Render mixed Summit shoulders and authoritative remote brake lamps
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/surface_lamp_evidence.gd 2>&1 | tee -a reports/car-render.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -176,6 +180,7 @@ jobs:
             reports/m4-hud-reference.json
             reports/m4-menu-reference.json
             reports/m4-school-reference.json
+            reports/m4-surface-lamp-reference.json
             reports/car-render.log
           if-no-files-found: error
 

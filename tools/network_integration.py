@@ -9,7 +9,7 @@ from bootstrap import ROOT, engine
 from udp_proxy import UDPProxy
 
 
-def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False, client_hitch=False):
+def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False, client_hitch=False, laps=2):
     folder = ROOT/'reports'/f'network-udp-{latency}-{jitter}-{loss}-{port}'
     folder.mkdir(parents=True, exist_ok=True)
     command = [str(engine()), '--headless', '--path', str(ROOT)]
@@ -21,7 +21,7 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
             proxy.start()
         log = (folder/'server.log').open('w')
         files.append(log)
-        server = subprocess.Popen([*command, '--', '--server', '--auto-start', '--no-bot-fill', '--laps=1', f'--port={worker_port}', *(['--laps=3', '--contact-fixture'] if contacts else [])], stdout=log, stderr=subprocess.STDOUT)
+        server = subprocess.Popen([*command, '--', '--server', '--auto-start', '--no-bot-fill', f'--laps={3 if contacts else laps}', f'--port={worker_port}', *(['--contact-fixture'] if contacts else [])], stdout=log, stderr=subprocess.STDOUT)
         processes.append(server)
         deadline = time.monotonic()+15
         while 'PACIFIC_RUSH_SERVER_READY' not in (folder/'server.log').read_text():
@@ -63,6 +63,8 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
             assert value['snapshots'] >= (150 if expired else 1000 if seconds >= 65 else 20), 'Insufficient snapshot samples'
             assert value['max_speed'] > 15, 'Inputs did not drive the car'
             if seconds >= 65 and not expired:
+                assert value['remote_brake_on'] > 0 and value['remote_brake_off'] > 0, 'Remote authoritative brake lights never switched in the race'
+            if seconds >= 65 and not expired:
                 assert value['contact_corrections' if contacts else 'clear_corrections']['count'] >= 1000, 'Insufficient moving correction samples for scenario'
                 assert value['clear_corrections']['p95'] <= (.5 if latency >= 75 else .25), 'Clear-road correction target failed'
                 assert value['contact_corrections']['p95'] <= 1.5, 'Contact correction target failed'
@@ -85,7 +87,7 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
         contact_events = (folder/'server.log').read_text().count('PACIFIC_RUSH_CONTACT_EVENT')
         if contacts:
             assert contact_events >= 20, f'Only {contact_events} distinct contact episodes; need 20'
-        report = {'passed':True, 'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'], 'content_hash':json.loads((ROOT/'game/content/compatibility.json').read_text())['content_hash'], 'away_seconds':away_seconds if reconnect else 0, 'client_hitch_seconds':1.5 if client_hitch else 0, 'seconds':seconds, 'one_way_latency_ms':latency, 'jitter_ms':jitter, 'loss':loss, 'transport':'UDP proxy including ENet handshake/ACK/reliable packets' if proxy else 'loopback ENet', 'wire_metrics':dict(proxy.stats) if proxy else {}, 'contact_events':contact_events, 'clients':values}
+        report = {'passed':True, 'laps':3 if contacts else laps, 'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'], 'content_hash':json.loads((ROOT/'game/content/compatibility.json').read_text())['content_hash'], 'away_seconds':away_seconds if reconnect else 0, 'client_hitch_seconds':1.5 if client_hitch else 0, 'seconds':seconds, 'one_way_latency_ms':latency, 'jitter_ms':jitter, 'loss':loss, 'transport':'UDP proxy including ENet handshake/ACK/reliable packets' if proxy else 'loopback ENet', 'wire_metrics':dict(proxy.stats) if proxy else {}, 'contact_events':contact_events, 'clients':values}
         (folder/'summary.json').write_text(json.dumps(report, indent=2)+'\n')
         console_report = {**report, 'clients':[{k:v for k,v in value.items() if k != 'reconciliation_trace'} for value in values]}
         print(json.dumps(console_report, indent=2), flush=True)
@@ -111,10 +113,11 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--seconds', type=float, default=70)
+    parser.add_argument('--seconds', type=float, default=160)
     parser.add_argument('--latency', type=int, default=0)
     parser.add_argument('--jitter', type=int, default=0)
     parser.add_argument('--loss', type=float, default=0)
+    parser.add_argument('--laps', type=int, choices=[1,2,3], default=2)
     parser.add_argument('--reconnect', action='store_true')
     parser.add_argument('--port', type=int, default=27021)
     parser.add_argument('--contacts', action='store_true')

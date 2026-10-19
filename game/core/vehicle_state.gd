@@ -14,6 +14,7 @@ var drift_timer: float = 0.0
 var drift_entry: float = 0.0
 var reverse_hold: float = 0.0
 var reversing: bool = false
+var braking: bool = false # Authoritative lamp state; no additional controller force.
 var wall_separation_ticks: int = 12
 var wall_contact: bool = false
 var contact_ticks: int = 0

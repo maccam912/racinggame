@@ -12,6 +12,8 @@ def compute():
     files = sorted([*ROOT.glob('game/content/baked/*.json'), *ROOT.glob('game/core/*.gd'),
                     ROOT/'game/content/cars.json', ROOT/'game/content/tracks.json',
                     ROOT/'game/content/rules.json', ROOT/'game/world/route_geometry.gd',
+                    ROOT/'game/world/route_collision.gd', ROOT/'game/world/world_query.gd',
+                    ROOT/'game/content/track_definition.gd', ROOT/'game/content/car_definition.gd',
                     ROOT/'game/net/net_codec.gd', ROOT/'game/net/input_buffer.gd'])
     context = hashlib.sha256()
     hashes = {}

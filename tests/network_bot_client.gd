@@ -20,6 +20,9 @@ var permanent_error: String = ""
 var hitch_at: float = -1
 var hitch_seconds: float = 0
 var hitch_done: bool = false
+var lamp_snapshot_tick: int = -1
+var remote_brake_on: int = 0
+var remote_brake_off: int = 0
 
 
 func _initialize() -> void:
@@ -77,6 +80,12 @@ func run() -> void:
 			OS.delay_msec(roundi(hitch_seconds*1000))
 		if link.prediction:
 			maximum_speed = maxf(maximum_speed, link.prediction.state.speed())
+		if link.latest_snapshot_tick!=lamp_snapshot_tick and not link.latest_snapshot.is_empty():
+			lamp_snapshot_tick = link.latest_snapshot_tick
+			for state: VehicleState in link.latest_snapshot.states:
+				if state.slot!=link.slot:
+					if state.braking: remote_brake_on += 1
+					else: remote_brake_off += 1
 		if reconnect_at > 0 and not reconnect_done and Time.get_ticks_msec() - start_ms > reconnect_at * 1000:
 			reconnect_done = true
 			link.wire.event(1, {"type":"away"})
@@ -92,6 +101,8 @@ func run() -> void:
 			break
 	var data: Dictionary = {"slot":link.slot, "results":result, "max_speed":maximum_speed, "rtt_ms":link.rtt_ms, "sent_bytes":link.wire.sent_bytes, "received_bytes":link.wire.received_bytes, "dropped_packets":link.wire.dropped_packets, "reconnect_done":reconnect_done, "connected":link.connected, "sequence":link.sequence}
 	data.large_racing_events = link.large_racing_events
+	data.remote_brake_on = remote_brake_on
+	data.remote_brake_off = remote_brake_off
 	data.resume_count = link.resume_count
 	data.hitch_done = hitch_done
 	data.clock_rebase_count = link.clock_rebase_count

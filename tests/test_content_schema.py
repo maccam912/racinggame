@@ -25,6 +25,14 @@ class SchemaTests(unittest.TestCase):
             with self.assertRaises(ValueError,msg=key):
                 validate(changed,self.schema)
 
+    def test_surface_intervals_reject_invalid_schema(self):
+        schema = json.loads((ROOT/'schemas/tracks.schema.json').read_text())
+        value = json.loads((ROOT/'game/content/tracks.json').read_text())
+        for bad in [{'start':-.1,'end':.9,'surface':'sand'}, {'start':.7,'end':1.1,'surface':'sand'}, {'start':.7,'end':.9,'surface':'ice'}, {'start':.7,'surface':'sand'}, {'start':.7,'end':.9,'surface':'sand','hidden_grip':2}]:
+            changed = copy.deepcopy(value)
+            changed['tracks'][5]['surface_intervals'] = [bad]
+            with self.assertRaises(ValueError): validate(changed,schema)
+
     def test_missing_and_unknown_fields(self):
         del self.value['cars'][0]['grip']
         with self.assertRaises(ValueError):

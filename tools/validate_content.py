@@ -65,6 +65,11 @@ def check():
                     assert 0 <= lo < hi <= 1 and 0 <= amount <= 8, f'{track["id"]}: invalid bank interval'
                 for lo,hi,width in track['width_intervals']:
                     assert 0 <= lo < hi <= 1 and 14 <= width <= 20, f'{track["id"]}: invalid width interval'
+                previous_end = 0
+                for interval in track['surface_intervals']:
+                    lo,hi = interval['start'],interval['end']
+                    assert previous_end <= lo < hi <= 1, f'{track["id"]}: invalid or overlapping surface interval'
+                    previous_end = hi
         print(f'Validated {name}: strict schema and references')
 
 
