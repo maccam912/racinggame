@@ -8,7 +8,7 @@ authorizes physics tuning for manic arcade speed, stronger hills/drops and drama
 set pieces, superseding the earlier exact-physics choice. Original illustrated
 billboard decorations are approved. DESIGN.md v1.3 records this direction.
 
-Latest release: **Build 86**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
+Latest release: **Build 87**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
 
 The design, including the latest owner decisions, remains the launch contract. Historical checkpoint notes retain their original measurements and open gates; the owner update above supersedes physical-device blockers.
 
@@ -682,3 +682,12 @@ All **84 source checks** pass, including **109 shipped scripts**, route/collisio
 Cosmetic digest becomes `b7dd3a0f0323e9798b08cea44ecb2f3aaf63719592b3f6181195db4a8ae5a4dc`. Gameplay digest `538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170`, content 4/protocol 5/save 1 remain unchanged. These source/native checks precede the new exported desktop/Android follow-up. Source capture metadata now explicitly distinguishes editor execution from exported templates, so an ignored stale build.json cannot masquerade as an export identity. Physical validation remains optional owner follow-up.
 
 The actual current source client renders the new desert shrubs/grass and lower camera in a normal eight-car Quick Race at exactly 1,200 racing ticks: [Canyon render](evidence/billboard-canyon-source.png), [source-only metadata](evidence/billboard-canyon-source.json). This intentionally has no export build identity; exported package follow-up is separate.
+
+
+## Exported illustrated-art follow-up and transition baseline
+
+Clean-commit local Build **88** (`f6a5769`) completes all six actual exported races/captures per platform family: [desktop](evidence/billboard-export88/desktop/summary.json), [Android 15 ARM64 emulator APK](evidence/billboard-export88/android/summary.json). Every capture reaches exactly **1,200 racing ticks**, records `exported_template`, matches the clean embedded build/cosmetic identities and retains the normal HUD (including actual mobile touch controls). The six original courses and all four cars appear. Images are unretouched 1920×1080 / 2400×1080 outputs. They validate this presentation checkpoint, not the upcoming faster handling/elevation revision or human driving feel.
+
+Build **87** passes remote gates and publishes all **18 files** as [v0.0.87-dev](https://github.com/maccam912/racinggame/releases/tag/v0.0.87-dev), including the schema-4 request operator and real backup/restore drill. Build 88's new native/software-GL foliage gate is still running at this checkpoint.
+
+Before changing gameplay content, the exact content-4 configurations plus a frozen profile/record/ghost/Cup/in-progress race fixture are saved under `tests/fixtures/content4`. Their explicit synthetic-record boundary and byte hashes are retained for transition checks. The new candidate profiles and car parameters remain prototypes at this checkpoint; no content-5 release is claimed yet.
