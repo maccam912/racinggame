@@ -119,8 +119,22 @@ func run() -> void:
 	app.page = "results"
 	app.render_results()
 	await capture("trial-results")
+	app.data.store.notices.clear()
+	app.start_drive({"mode":"quick","track":5,"car":3,"paint":6,"opponents":2,"laps":2,"seed":317,"contact":false})
+	app.drive.set_physics_process(false)
+	assert(app.local_checkpoint().save(app.drive)==OK)
+	app.show_saved_race()
+	await capture("saved-race-100")
+	app.data.settings.ui_scale = 150
+	app.menu.settings = app.data.settings
+	app.show_saved_race()
+	await capture("saved-race-150")
+	assert(app.data.store.save_component("suspended_race",{"format":2,"future_payload":true})==OK)
+	app.local_checkpoint().reload()
+	app.show_saved_race()
+	await capture("saved-race-incompatible-150")
 	var file := FileAccess.open("res://reports/m4-ui-reference.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"renderer":"Godot 4.6.3 Compatibility","resolution":[1920,1080],"icons":UIIcons.entries().size(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"captures":captures,"boundary":"Native UI and synthetic isolated lobby/record/trophy presentation, not live online members, human medals, real Cup wins, physical input or complete race acceptance"},"  "))
+	file.store_string(JSON.stringify({"renderer":"Godot 4.6.3 Compatibility","resolution":[1920,1080],"icons":UIIcons.entries().size(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"captures":captures,"boundary":"Native UI, a scripted fresh-grid checkpoint, and synthetic isolated lobby/record/trophy presentation; not real OS lifecycle, live online members, human medals, real Cup wins, physical input or complete race acceptance"},"  "))
 	file.close()
 	app.queue_free()
 	await create_timer(.5).timeout

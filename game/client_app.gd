@@ -43,6 +43,9 @@ var loading_bar: ProgressBar
 var loading_status: Label
 var loading_hint: Label
 var loading_hint_started: int = 0
+var checkpoint: RaceCheckpoint
+var checkpoint_error: String = ""
+var school_progress_saved: bool = false
 const LOADING_HINTS: Array[String] = ["loading.hint_brake","loading.hint_slide","loading.hint_recover","loading.hint_look"]
 
 
@@ -109,8 +112,11 @@ func open_start_screen() -> void:
 	if not missing.is_empty():
 		show_installation_error(missing)
 		return
+	local_checkpoint().reload()
 	if "--drive" in OS.get_cmdline_user_args():
 		start_drive()
+	elif not local_checkpoint().payload.is_empty():
+		show_saved_race()
 	elif not data.profile.first_run_complete:
 		show_name(true)
 	else:
@@ -120,6 +126,50 @@ func open_start_screen() -> void:
 			show_connection_form()
 			connect_address(arg.trim_prefix("--connect="))
 	print("PACIFIC_RUSH_CLIENT_READY")
+
+
+func local_checkpoint() -> RaceCheckpoint:
+	if checkpoint==null or checkpoint.data!=data: checkpoint = RaceCheckpoint.new(data)
+	return checkpoint
+
+
+func show_saved_race() -> void:
+	dispose_drive()
+	ensure_stage()
+	page = "saved_race"
+	back_action = request_quit
+	var saved := local_checkpoint()
+	var compatible := saved.can_resume()
+	if compatible: stage.set_selection(int(saved.payload.config.car),int(saved.payload.config.paint))
+	var trial: bool = compatible and saved.payload.session.mode=="trial"
+	var body := menu.reset(I18n.t("resume.title"))
+	var list := menu.scroll_column(body)
+	if compatible:
+		list.add_child(menu.ui.paragraph(I18n.t("resume.details",[I18n.t("menu."+str(saved.payload.session.mode)),I18n.t("track."+Catalog.tracks[int(saved.payload.config.track)].id)])))
+		if trial: list.add_child(menu.ui.paragraph(I18n.t("resume.trial_body")))
+	else: list.add_child(menu.ui.paragraph(I18n.t("resume.incompatible")))
+	var resume_button := menu.ui.button(I18n.t("resume.restart_trial" if trial else "resume.continue"),resume_saved_race)
+	resume_button.disabled = not compatible
+	if not compatible: menu.ui.help(resume_button,I18n.t("resume.incompatible"),true)
+	list.add_child(resume_button)
+	list.add_child(menu.ui.button(I18n.t("resume.discard"),func() -> void:
+		if local_checkpoint().discard(true)==OK:
+			checkpoint_error = ""
+			show_menu()
+		else:
+			checkpoint_error = data.store.last_error if not data.store.last_error.is_empty() else "data.save_failed"
+			show_saved_race()))
+	if not checkpoint_error.is_empty(): list.add_child(menu.ui.paragraph(I18n.t(checkpoint_error)))
+	show_notices()
+	menu.footer.get_parent().visible = menu.footer.get_child_count()>0
+	menu.first_focus()
+
+
+func resume_saved_race() -> void:
+	var saved := local_checkpoint()
+	if not saved.can_resume(): return
+	var value := saved.payload.duplicate(true)
+	request_drive(value.config,show_saved_race,{} if value.session.mode=="trial" else value)
 
 func show_installation_error(missing: String) -> void:
 	dispose_drive()
@@ -171,6 +221,7 @@ func dispose_drive(keep_network: bool = false) -> void:
 
 func show_menu() -> void:
 	if is_instance_valid(online_page): online_page.cancel_work()
+	if is_instance_valid(drive) and drive.network==null: local_checkpoint().discard()
 	dispose_drive()
 	ensure_stage()
 	page = "main"
@@ -398,26 +449,32 @@ func show_loading(configuration: Dictionary, cancel: Callable) -> TrackLoader:
 	return expected
 
 
-func request_drive(configuration: Dictionary, return_to: Callable) -> void:
+func request_drive(configuration: Dictionary, return_to: Callable, resume_payload: Dictionary = {}) -> void:
 	if not touch_layout_available(): return
 	if is_instance_valid(drive):
 		drive.paused = true
 		drive.touch.clear()
 		drive.touch.enabled = false
 	var snapshot := configuration.duplicate(true)
+	var resumed := resume_payload.duplicate(true)
 	var job := show_loading(snapshot,return_to)
 	job.completed.connect(func() -> void:
 		if track_loader!=job or page!="loading": return
 		var built := job.take_world()
 		cancel_loading()
-		start_drive(snapshot,false,built))
+		start_drive(snapshot,false,built,resumed))
 
 
-func start_drive(configuration: Dictionary = {}, reuse_world: bool = false, supplied_world: TrackWorld = null) -> void:
+func start_drive(configuration: Dictionary = {}, reuse_world: bool = false, supplied_world: TrackWorld = null, resume_payload: Dictionary = {}) -> void:
 	if not touch_layout_available():
 		if is_instance_valid(supplied_world): supplied_world.queue_free()
 		return
 	cancel_loading()
+	if resume_payload.is_empty(): local_checkpoint().discard()
+	checkpoint_error = ""
+	school_progress_saved = false
+	result_receipt = null
+	result_summary = {}
 	configuration = configuration.duplicate(true)
 	if configuration.get("mode","")=="trial" and not configuration.has("ghost"): configuration["ghost"] = bool(data.settings.trial_ghost)
 	if configuration.get("mode","quick")=="quick" and not configuration.has("seed"):
@@ -453,6 +510,13 @@ func start_drive(configuration: Dictionary = {}, reuse_world: bool = false, supp
 	drive.school_skipped.connect(skip_school)
 	drive.school_retry_requested.connect(func() -> void: request_drive(pending_config,show_school))
 	add_child(drive)
+	if not resume_payload.is_empty():
+		if not RaceArchive.restore(drive,resume_payload):
+			checkpoint_error = "resume.incompatible"
+			show_saved_race()
+		elif drive.session.phase==RaceSession.Phase.RESULTS: show_results()
+		elif foreground: drive.resume()
+		else: drive.show_pause()
 
 
 func retry_drive() -> void:
@@ -470,6 +534,7 @@ func show_pause() -> void:
 	var body := menu.reset(I18n.t("pause.online" if network else "pause.title"))
 	var list := menu.scroll_column(body)
 	list.add_child(menu.ui.button(I18n.t("pause.resume"), resume_drive))
+	if not checkpoint_error.is_empty(): list.add_child(menu.ui.paragraph(I18n.t(checkpoint_error)))
 	if not network and mode != "cup":
 		list.add_child(menu.ui.button(I18n.t("pause.restart_trial" if mode == "trial" else "pause.restart"), retry_drive))
 	if mode == "trial":
@@ -514,6 +579,7 @@ func retry_result_save() -> void:
 	var id: String = result_receipt.session.race_uuid
 	if result_summary.saved:
 		unsaved_results.erase(id)
+		if not network: local_checkpoint().discard()
 	else:
 		unsaved_results[id] = result_receipt
 	render_results()
@@ -728,9 +794,13 @@ func skip_school() -> void:
 
 func show_school_complete() -> void:
 	var index := int(drive.config.get("lesson", 0))
+	var saved := true
 	if drive.lesson.done:
 		data.profile.school_steps[index] = true
-		data.save_profile()
+		saved = data.save_profile()==OK
+	school_progress_saved = saved
+	if saved: local_checkpoint().discard()
+	else: checkpoint_error = "data.save_failed"
 	drive.paused = true
 	drive.touch.clear()
 	drive.touch.enabled = false
@@ -740,6 +810,9 @@ func show_school_complete() -> void:
 	page = "school_complete"
 	back_action = show_school
 	var body := menu.reset(I18n.t("school.finished" if index == 4 else "school.complete"))
+	if not saved:
+		body.add_child(menu.ui.paragraph(I18n.t("data.save_failed")))
+		body.add_child(menu.ui.button(I18n.t("data.retry_save"),show_school_complete))
 	body.add_child(menu.ui.button(I18n.t("school.retry"), func() -> void: request_drive(pending_config,show_school)))
 	if index < 4:
 		body.add_child(menu.ui.button(I18n.t("school.next"), func() -> void: request_drive({"mode":"school", "lesson":index + 1},show_school)))
@@ -972,11 +1045,29 @@ func _notification(what: int) -> void:
 	if capture_path != "":
 		return
 	if what in [NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED]:
-		foreground = false
-		menu_repeat.clear_context()
+		handle_background()
 	elif what in [NOTIFICATION_APPLICATION_FOCUS_IN, NOTIFICATION_APPLICATION_RESUMED]:
 		foreground = true
 		menu_repeat.clear_context()
+
+
+func handle_background() -> void:
+	var was_foreground := foreground
+	foreground = false
+	menu_repeat.clear_context()
+	if not was_foreground or not is_instance_valid(drive): return
+	drive.driver.set_focus(false)
+	drive.show_pause()
+	if data.mobile and not network:
+		if drive.session.mode=="trial" and not drive.result_sent:
+			drive.state.trial_valid = false
+			drive.state.lap_valid = false
+		if drive.result_sent and (drive.session.mode=="school" and school_progress_saved or drive.session.mode!="school" and result_summary.get("saved",false)):
+			local_checkpoint().discard()
+			return
+		var error := local_checkpoint().save(drive)
+		checkpoint_error = "" if error==OK else data.store.last_error if not data.store.last_error.is_empty() else "data.save_failed"
+		if page=="pause": show_pause()
 
 
 func _input(event: InputEvent) -> void:

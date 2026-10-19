@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "device": "Pixel 7 Android 15 ARM64 emulator",
+  "serial": "emulator-5580",
+  "profile": "m5_checkpoint62_29d0d2e3",
+  "build": {
+    "version": "0.0.62-dev",
+    "build_number": 62,
+    "working_tree_dirty": true,
+    "commit": "9d05a9124587851907c602d7839db581722d9e0f",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+    "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "e071ba0088b7345b32af11f31088bb8770b656fb9c12a16f59a346357ba9ac5b",
+      "sha256": "510963fddd472bc21011028e9da6ff37ef08f315476296a33e75a693a9d5d74a"
+    }
+  },
+  "apk_sha256": "953c81b2f2fc7ce385422403490e6e3a9e3d5c6d60ff3c81abec1bbd3b7ae634",
+  "steps": [
+    "Release APK installed in place; unrelated profiles preserved",
+    "12-second scripted single-car Quick Race",
+    "Actual Android Home key; native suspended_race envelope read back",
+    "Force-stop; cold start with profile only, no drive or autodrive flags",
+    "Actual touch Resume action; rendered 3 and timer 0:05.800",
+    "Home during countdown; identical UUID, 348 ticks and exact packed position",
+    "Second force-stop/cold touch Resume; countdown completes; same race advances",
+    "Force-stop; owned QA profile archived outside active app files"
+  ],
+  "countdown": {
+    "uuid_unchanged": true,
+    "elapsed_ticks": 348,
+    "position_identical": true
+  },
+  "resumed": {
+    "uuid_unchanged": true,
+    "elapsed_ticks": 492,
+    "no_godot_errors": true
+  },
+  "archived_profile": "/data/local/tmp/pacific-rush-m5-checkpoint62-m5_checkpoint62_29d0d2e3",
+  "boundary": "Actual Android emulator OS callbacks, process termination, exported native saves, cold loader and touch UI. Not physical hardware, phone calls, power loss, online background/reconnect, thermal or human driving acceptance. APK predates footer-only cleanup and Back exit wiring; final native reference and UI contract cover those changes."
+}

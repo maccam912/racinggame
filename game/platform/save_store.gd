@@ -89,7 +89,7 @@ func save_component(component: String, payload: Dictionary) -> Error:
 	var file := FileAccess.open(temporary, FileAccess.WRITE)
 	if file == null:
 		return failed()
-	file.store_string(JSON.stringify(envelope, "\t"))
+	file.store_string(JSON.stringify(envelope, "\t", true, component=="suspended_race"))
 	file.flush()
 	var error := file.get_error()
 	file.close()
