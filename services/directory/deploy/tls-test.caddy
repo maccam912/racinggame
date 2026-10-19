@@ -1,0 +1,3 @@
+# Isolated loopback fixture only. Its CA is trusted by that test's SSL context;
+# skip_install_trust prevents changes to the user's/system trust store.
+tls internal

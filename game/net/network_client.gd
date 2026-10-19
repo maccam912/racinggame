@@ -19,6 +19,8 @@ var loaded_race: int = -1
 var initial_car: int = 0
 var initial_paint: int = 0
 var room_code: String = ""
+var admission_ticket: String = ""
+var official: bool = false
 var result_event: Dictionary = {}
 var deliberate_leave: bool = false
 var race_id: int = 1
@@ -82,7 +84,10 @@ func _process(_dt: float) -> void:
 		return
 	if status == MultiplayerPeer.CONNECTION_CONNECTED and not hello_sent:
 		hello_sent = true
-		wire.event(1, {"type":"hello", "protocol":NetCodec.PROTOCOL, "content":Compatibility.content_hash(), "name":name_value, "token":reconnect_token, "car":initial_car, "paint":initial_paint, "code":room_code})
+		if admission_ticket != "" and reconnect_token == "":
+			wire.event(1, {"type":"hello", "ticket":admission_ticket, "car":initial_car, "paint":initial_paint})
+		else:
+			wire.event(1, {"type":"hello", "protocol":NetCodec.PROTOCOL, "content":Compatibility.content_hash(), "name":name_value, "token":reconnect_token, "car":initial_car, "paint":initial_paint, "code":room_code})
 	if connected and not deliberate_leave and Time.get_ticks_msec() - last_received_ms >= 3000:
 		begin_reconnect()
 	if status == MultiplayerPeer.CONNECTION_DISCONNECTED and hello_sent and disconnected_at == 0 and not deliberate_leave:
@@ -151,6 +156,8 @@ func receive_event(event: Dictionary) -> void:
 			guest_id = event.id
 			race_id = int(event.race)
 			reconnect_token = event.token
+			admission_ticket = ""
+			official = bool(event.get("official", false))
 			connected = true
 			disconnected_at = 0
 			retry_count = 0
@@ -162,7 +169,7 @@ func receive_event(event: Dictionary) -> void:
 				control_tick = roundi(server_tick) + 30
 				prediction.history.clear()
 				remotes.samples.clear()
-			status_changed.emit("Community server — waiting for racers")
+			status_changed.emit(("Official room" if official else "Community server") + " — waiting for racers")
 
 		"lobby":
 			if int(event.revision) < lobby_revision:
@@ -211,7 +218,7 @@ func receive_event(event: Dictionary) -> void:
 			control_tick = int(event.get("control_tick", start_tick + 300))
 			if prediction == null:
 				race_started.emit(event)
-			status_changed.emit("Community server — race connected")
+			status_changed.emit(("Official room" if official else "Community server") + " — race connected")
 		"pong":
 			rtt_ms = Time.get_ticks_msec() - float(event.sent)
 			var estimate := float(event.tick) + rtt_ms / 2000.0 * 60

@@ -23,6 +23,8 @@ var last_broadcast: int = -1
 var race_number: int = 0
 var final_results: Array[Dictionary] = []
 var auth_mode: String = "direct_guest"
+var directory_link: WorkerDirectory
+var retiring: bool = false
 
 
 func _ready() -> void:
@@ -46,9 +48,26 @@ func _ready() -> void:
 			else:
 				fail_start("Contact fixture requires source checkout")
 				return
-	if (lobby.private_room and (lobby.code.length() != 8 or not PeerAddress.parse_code(lobby.code).valid)) or port < 1024 or port > 65535 or not LobbyState.valid_rules(lobby.rules) or auth_mode != "direct_guest" or (auto_start and not ResourceLoader.exists("res://tests/network_bot_client.gd")):
-		fail_start("Invalid worker configuration; ticket-required mode needs its verifier")
+	if (lobby.private_room and (lobby.code.length() != 8 or not PeerAddress.parse_code(lobby.code).valid)) or port < 1024 or port > 65535 or not LobbyState.valid_rules(lobby.rules) or auth_mode not in ["direct_guest", "ticket_required"] or (auto_start and not ResourceLoader.exists("res://tests/network_bot_client.gd")):
+		fail_start("Invalid worker configuration")
 		return
+	if auth_mode == "ticket_required":
+		directory_link = WorkerDirectory.new()
+		if not directory_link.configure():
+			fail_start("Invalid managed worker configuration")
+			return
+		port = int(directory_link.settings.port)
+		lobby.rules = LobbyState.normalize_rules(directory_link.settings.rules)
+		lobby.name_value = directory_link.settings.name
+		lobby.region = directory_link.settings.region
+		lobby.private_room = directory_link.settings.private
+		lobby.code = directory_link.settings.code if lobby.private_room else ""
+		directory_link.state_provider = directory_state
+		directory_link.admitted.connect(official_admitted)
+		directory_link.denied.connect(func(sender: int) -> void: wire.event(sender, {"type":"error", "message":"Join expired or room unavailable — return to browser"}))
+		directory_link.leave_requested.connect(remove_guest)
+		directory_link.retire_requested.connect(func() -> void: retiring = true)
+		add_child(directory_link)
 	var error := wire.peer.create_server(port, 16, 4)
 	if error != OK:
 		fail_start("Cannot bind worker UDP port: " + error_string(error))
@@ -71,6 +90,9 @@ func player_for_peer(peer_id: int) -> Dictionary:
 
 func _physics_process(_dt: float) -> void:
 	tick += 1
+	if retiring and (session == null or result_sent):
+		get_tree().quit()
+		return
 	for packet: Dictionary in wire.poll():
 		receive(packet)
 	for peer_id: int in wire.active_peers.keys():
@@ -234,6 +256,12 @@ func receive(packet: Dictionary) -> void:
 
 
 func hello(sender: int, event: Dictionary) -> void:
+	if auth_mode == "ticket_required" and event.get("token", "") == "":
+		if player_for_peer(sender).is_empty() and lobby.phase == LobbyState.Phase.LOBBY:
+			directory_link.admit(sender, event)
+		else:
+			wire.event(sender, {"type":"error", "message":"Room unavailable"})
+		return
 	if event.get("protocol") != NetCodec.PROTOCOL or event.get("content") != Compatibility.content_hash():
 		wire.event(sender, {"type":"error", "message":"Update required — incompatible game content"})
 		return
@@ -269,6 +297,10 @@ func hello(sender: int, event: Dictionary) -> void:
 			wire.event(sender, {"type":"error", "message":"Room full or race already started"})
 			return
 		player.merge({"token":crypto.generate_random_bytes(32).hex_encode(), "buffer":InputBuffer.new(), "bot":BotDriver.new(), "last_driving":tick})
+	complete_hello(sender, player)
+
+
+func complete_hello(sender: int, player: Dictionary) -> void:
 	player.peer = sender
 	player.connected = true
 	player.last_seen = tick
@@ -278,7 +310,7 @@ func hello(sender: int, event: Dictionary) -> void:
 		player.buffer.frames.clear()
 		player.buffer.missing_ticks = 7
 		player.last_driving = tick
-	wire.event(sender, {"type":"welcome", "id":player.id, "slot":player.slot, "race":race_number, "token":player.token, "tick":tick, "ack":player.buffer.last_sequence})
+	wire.event(sender, {"type":"welcome", "id":player.id, "slot":player.slot, "race":race_number, "token":player.token, "tick":tick, "ack":player.buffer.last_sequence, "official":auth_mode == "ticket_required"})
 	if session:
 		send_start(player)
 		if result_sent:
@@ -372,3 +404,37 @@ func disconnect_peer(peer_id: int) -> void:
 
 func _exit_tree() -> void:
 	wire.close()
+
+
+func directory_state() -> Dictionary:
+	var guests: Array[String] = []
+	for player: Dictionary in players:
+		guests.append(player.id)
+	var phases := ["Lobby", "Loading", "InRace", "Results", "Closed"]
+	return {"state":phases[int(lobby.phase)], "ready":not retiring, "guests":guests, "rules":lobby.rules, "name":lobby.name_value, "private":lobby.private_room}
+
+
+func official_admitted(sender: int, claims: Dictionary, car: int, paint: int) -> void:
+	if not wire.active_peers.has(sender) or not player_for_peer(sender).is_empty() or not lobby.member(claims.g).is_empty() or retiring:
+		wire.event(sender, {"type":"error", "message":"Room unavailable"})
+		return
+	var player := lobby.join(claims.g, claims.n, tick, car, paint)
+	if player.is_empty():
+		wire.event(sender, {"type":"error", "message":"Room full or race already started"})
+		return
+	player.merge({"token":crypto.generate_random_bytes(32).hex_encode(), "buffer":InputBuffer.new(), "bot":BotDriver.new(), "last_driving":tick})
+	complete_hello(sender, player)
+
+
+func remove_guest(id: String) -> void:
+	var player := lobby.member(id)
+	if player.is_empty():
+		return
+	var peer_id := int(player.get("peer", 0))
+	wire.event(peer_id, {"type":"error", "message":"Left room"})
+	if lobby.phase == LobbyState.Phase.LOBBY:
+		lobby.leave(id)
+	else:
+		if session and not session.states[int(player.slot)].finished:
+			session.states[int(player.slot)].dnf_reason = "Left race"
+		disconnect_peer(peer_id)

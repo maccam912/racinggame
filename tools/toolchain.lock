@@ -36,5 +36,19 @@
     "status": "Developer ID and notarization credentials not configured"
   },
   "directory_sqlite": "modernc.org/sqlite v1.60.1",
-  "caddy_digest": "caddy:2.11.7-alpine@sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f"
+  "caddy_digest": "caddy:2.11.7-alpine@sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f",
+  "caddy": {
+    "version": "2.11.7",
+    "release": "https://github.com/caddyserver/caddy/releases/download/v2.11.7/",
+    "assets": {
+      "darwin-arm64": {
+        "file": "caddy_2.11.7_mac_arm64.tar.gz",
+        "sha512": "68f592df8f0ec058fbdb9b137b64e9a0aa792d28c06e1e3b9ec12d0e7fb371683a54e73ef6d8e6d0dd70dc6b941a5b5d5b73faedd3f89de119ad2eb78bdc668e"
+      },
+      "linux-amd64": {
+        "file": "caddy_2.11.7_linux_amd64.tar.gz",
+        "sha512": "a7a433a1b133efc3c8d10eb0b99d52a24b5ef5c322dc77f5282182b1c0402139ab83f3a99f0c52409df77d20123fb0b523edad8a66d8f5e49136197bf61ef0e7"
+      }
+    }
+  }
 }

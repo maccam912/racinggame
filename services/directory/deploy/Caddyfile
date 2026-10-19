@@ -1,0 +1,20 @@
+{
+	admin off
+	skip_install_trust
+	auto_https disable_redirects
+	log {
+		output discard
+	}
+}
+
+{$PR_PUBLIC_ADDRESS} {
+	bind {$PR_BIND_ADDRESS:0.0.0.0}
+	import {$PR_CADDY_TLS:tls-public.caddy}
+	@public path /v1/* /healthz /readyz
+	handle @public {
+		reverse_proxy {$PR_DIRECTORY_UPSTREAM:127.0.0.1:8080}
+	}
+	handle {
+		respond "Not found" 404
+	}
+}

@@ -2,6 +2,7 @@ package directory
 
 import (
 	"crypto/rsa"
+	"encoding/hex"
 	"errors"
 	"net/netip"
 	"time"
@@ -44,7 +45,8 @@ type Service struct {
 }
 
 func New(store *Store, config Config) (*Service, error) {
-	if len(config.EncryptionKey) != 32 || config.SigningKey == nil || config.SigningKey.N.BitLen() != 2048 || config.Protocol < 1 || len(config.Content) != 64 {
+	hash, hashErr := hex.DecodeString(config.Content)
+	if store == nil || len(config.EncryptionKey) != 32 || config.SigningKey == nil || config.SigningKey.N.BitLen() != 2048 || config.Protocol < 1 || config.Protocol > 65535 || hashErr != nil || len(hash) != 32 {
 		return nil, errors.New("invalid service configuration")
 	}
 	if config.FirstPort == 0 {
@@ -55,6 +57,9 @@ func New(store *Store, config Config) (*Service, error) {
 	}
 	if config.ReadyTimeout == 0 {
 		config.ReadyTimeout = 10 * time.Second
+	}
+	if config.ReadyTimeout < 0 || config.ReadyTimeout > 10*time.Second {
+		return nil, errors.New("worker readiness must be bounded by ten seconds")
 	}
 	if config.WorkerHost == "" {
 		config.WorkerHost = "127.0.0.1"

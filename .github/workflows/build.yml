@@ -200,6 +200,7 @@ jobs:
           if-no-files-found: error
 
   directory:
+    needs: verify
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -210,3 +211,30 @@ jobs:
           cache-dependency-path: services/directory/go.sum
       - run: go -C services/directory test -race ./...
       - run: go -C services/directory vet ./...
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Cross-language ticket signature and claim rejection
+        run: |
+          mkdir -p reports
+          go -C services/directory run ./cmd/ticket-fixture
+          python tools/godot.py --headless --script tests/ticket_tests.gd
+      - name: Caddy HTTPS, auth, forwarding and private-interface boundaries
+        run: python tools/caddy_integration.py
+      - name: Real allocated worker, eight signed admissions and two races
+        run: python tools/directory_integration.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: directory-evidence
+          path: |
+            reports/directory-eight-*/summary.json
+            reports/directory-eight-*/*.log
+            reports/caddy-*/summary.json
+            reports/caddy-*/*.log
+          if-no-files-found: warn

@@ -26,6 +26,7 @@ func run() -> void:
 		if arg.begins_with("--index="): index = int(arg.trim_prefix("--index="))
 		elif arg.begins_with("--port="): port = int(arg.trim_prefix("--port="))
 		elif arg.begins_with("--report="): output = arg.trim_prefix("--report=")
+	link.admission_ticket = OS.get_environment("PR_TEST_TICKET")
 	root.add_child(scene)
 	scene.add_child(link)
 	link.initial_car = index % 4

@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "caddy": "2.11.7",
+  "transport": "loopback TLS, isolated test CA, no system trust modification",
+  "checks": [
+    "HTTPS registration/auth and NFC HMAC",
+    "nonce replay",
+    "direct HTTP denied",
+    "private worker route absent publicly",
+    "private credential required",
+    "forwarded-IP spoof cannot evade quota",
+    "credentials absent from logs"
+  ]
+}

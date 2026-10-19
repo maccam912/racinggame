@@ -18,6 +18,8 @@ import (
 	"fmt"
 	"strings"
 	"time"
+
+	"github.com/maccam912/racinggame/services/directory/internal/names"
 )
 
 var raw64 = base64.RawURLEncoding.Strict()
@@ -134,7 +136,9 @@ func VerifyTicket(key *rsa.PublicKey, ticket string, now time.Time, room, worker
 	if rsa.VerifyPKCS1v15(key, crypto.SHA256, sum[:], signature) != nil || json.Unmarshal(payload, &claims) != nil {
 		return claims, errCredential
 	}
-	if claims.Version != 1 || !validUUID(claims.Guest) || claims.Room != room || claims.Worker != worker || claims.Protocol != protocol || claims.Content != content || claims.Issued > now.Unix() || claims.Expires <= now.Unix() || claims.Expires <= claims.Issued || claims.Expires-claims.Issued > 60 || len(claims.Nonce) != 32 {
+	name, nameErr := names.Validate(claims.Name, 16)
+	nonce, nonceErr := hex.DecodeString(claims.Nonce)
+	if claims.Version != 1 || !validUUID(claims.Guest) || !validUUID(claims.Room) || !validUUID(claims.Worker) || claims.Room != room || claims.Worker != worker || claims.Protocol != protocol || claims.Content != content || claims.Issued > now.Unix() || claims.Expires <= now.Unix() || claims.Expires <= claims.Issued || claims.Expires-claims.Issued > 60 || nonceErr != nil || len(nonce) != 16 || strings.ToLower(claims.Nonce) != claims.Nonce || nameErr != nil || name != claims.Name {
 		return TicketClaims{}, errCredential
 	}
 	return claims, nil
