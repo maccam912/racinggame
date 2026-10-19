@@ -1,6 +1,8 @@
 class_name RaceHUD
 extends Control
 
+const HUD_FONT = preload("res://assets/fonts/Barlow-SemiBold.ttf")
+
 var state: VehicleState
 var track: TrackDefinition
 var ticks: int = 0
@@ -37,7 +39,7 @@ func _ready() -> void:
 
 
 func text(at: Vector2, value: String, font_size: int, color: Color = Color("f8f4e8")) -> void:
-	draw_string(load("res://assets/fonts/Barlow-SemiBold.ttf"), at, value, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+	draw_string(HUD_FONT, at, value, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
 
 func time(seconds: float) -> String:

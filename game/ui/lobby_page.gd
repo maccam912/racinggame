@@ -21,6 +21,7 @@ func show_lobby() -> void:
 	var shell: MenuShell = app.menu
 	var body := shell.reset(I18n.t("online.lobby"), state.name + " • " + state.region)
 	var list := shell.scroll_column(body)
+	app.append_unsaved_results(list)
 	var rules: Dictionary = state.rules
 	list.add_child(shell.ui.label(I18n.t("track." + Catalog.tracks[int(rules.track)].id) + " • " + I18n.t("event.laps") + ": " + str(int(rules.laps)) + " • " + I18n.t("event.contact") + ": " + I18n.t("choice.on" if rules.contact else "choice.off")))
 	var preview := RoutePreview.new()

@@ -80,8 +80,12 @@ func select_car(car: int, paint: int) -> Error:
 
 
 func start_cup() -> Error:
+	var previous := cup.data.duplicate(true)
 	cup.start(int(profile.selected_car), int(profile.selected_paint), profile.display_name, Compatibility.content_hash())
-	return store.save_component("cup", cup.data)
+	var error := store.save_component("cup", cup.data)
+	if error != OK:
+		cup.data = previous
+	return error
 
 
 func abandon_cup() -> Error:
@@ -92,7 +96,7 @@ func abandon_cup() -> Error:
 
 
 func commit_cup(session: RaceSession) -> Error:
-	if not cup.compatible(Compatibility.content_hash()) or session.cup_event < 0:
+	if not cup.compatible(Compatibility.content_hash()) or session.cup_event < 0 or session.event_uuid != str(cup.data.id):
 		return ERR_INVALID_DATA
 	for event: Dictionary in cup.data.results:
 		if event.race_id == session.race_uuid:

@@ -84,6 +84,7 @@ func _ready() -> void:
 	session.mode = config.get("mode", "quick")
 	session.race_uuid = config.get("race_uuid", RaceSetup.uuid())
 	session.cup_event = int(config.get("cup_event", -1))
+	session.event_uuid = str(config.get("cup_id", ""))
 	session.seed = int(config.get("seed", 1))
 	session.roster = roster
 	session.human_slot = local_slot

@@ -1,0 +1,16 @@
+{
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "renderer": "Godot 4.6.3 Compatibility / Apple M5 Pro",
+  "fixture": "tests/results_ui_evidence.gd",
+  "ui_scale": 150,
+  "fault": "cup/before_replace",
+  "observed": [
+    "Save failure leaves result visible and Cup Next unavailable",
+    "Retry saves the same frozen result and enables Next",
+    "No personal-best banner before successful save"
+  ],
+  "native_assertions_passed": true,
+  "native_clean_exit": false,
+  "cleanup_errors": "Two 349524-byte GLES textures reported at shutdown; reproduced on baseline 8453062. Prior baseline also leaked two unparented result formatter CanvasItems, fixed by freeing the formatter. Texture cleanup remains open.",
+  "physical_android_tested": false
+}

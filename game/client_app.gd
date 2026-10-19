@@ -15,6 +15,8 @@ var page: String = "main"
 var back_action: Callable
 var pending_config: Dictionary = {}
 var result_summary: Dictionary = {}
+var result_receipt: ResultReceipt
+var unsaved_results: Dictionary = {}
 var settings_page: SettingsPage
 var bindings_page: BindingsPage
 var menu_repeat := MenuRepeat.new()
@@ -25,6 +27,7 @@ var online_result_label: Label
 
 
 func _ready() -> void:
+	get_tree().auto_accept_quit = false
 	Catalog.load_all()
 	DrivingInput.register_defaults()
 	var folder := "user://"
@@ -93,8 +96,11 @@ func show_menu() -> void:
 	menu.settings = data.settings
 	var body := menu.reset(I18n.t("app.title"), I18n.t("app.tagline"), false)
 	var list := menu.scroll_column(body)
+	append_unsaved_results(list)
 	list.get_parent().size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
 	var choices := ["online", "quick", "trial", "cup", "school", "garage", "settings", "credits", "quit"]
+	if data.mobile:
+		choices.erase("quit")
 	for choice: String in choices:
 		var button := menu.ui.button(I18n.t("menu." + choice), func() -> void: main_choice(choice), 270)
 		list.add_child(button)
@@ -119,7 +125,7 @@ func main_choice(choice: String) -> void:
 		"school": show_school()
 		"settings": settings_page.show_tab("display", show_menu)
 		"credits": show_credits()
-		"quit": get_tree().quit()
+		"quit": request_quit()
 
 
 func show_name(first: bool) -> void:
@@ -292,54 +298,114 @@ func resume_drive() -> void:
 func show_results() -> void:
 	page = "results"
 	back_action = Callable()
-	var session := drive.session
-	if session.mode == "cup" and data.commit_cup(session) != OK:
-		result_summary = {"saved":false, "new_best":false}
+	if result_receipt==null or result_receipt.session.race_uuid!=drive.session.race_uuid:
+		result_receipt = ResultReceipt.capture(drive.session,drive.ghost_samples,network.result_event.get("results",[]) if network else [])
+	retry_result_save()
+
+
+func retry_result_save() -> void:
+	result_summary = result_receipt.commit(data)
+	var id: String = result_receipt.session.race_uuid
+	if result_summary.saved:
+		unsaved_results.erase(id)
 	else:
-		result_summary = data.commit_result(session, drive.ghost_samples)
+		unsaved_results[id] = result_receipt
 	render_results()
 
 
+func continue_without_saving() -> void:
+	result_receipt.dismissed = true
+	unsaved_results.erase(result_receipt.session.race_uuid)
+	if result_receipt.session.mode=="cup":
+		# A Cup advances only when its event is committed. Leaving this result
+		# resumes its last committed event checkpoint on the next Continue.
+		return_to_menu()
+	else:
+		render_results()
+
+
+func append_unsaved_results(parent: Node) -> void:
+	if unsaved_results.is_empty():
+		return
+	parent.add_child(menu.ui.paragraph(I18n.t("data.pending_results",[unsaved_results.size()])))
+	parent.add_child(menu.ui.button(I18n.t("data.retry_save"),retry_pending_saves))
+	parent.add_child(menu.ui.button(I18n.t("data.dismiss_results"),func() -> void:
+		menu.confirm(I18n.t("data.dismiss_results_confirm"),func() -> void:
+			unsaved_results.clear()
+			refresh_after_pending_saves())))
+
+
+func retry_pending_saves() -> void:
+	for id: String in unsaved_results.keys():
+		var receipt: ResultReceipt = unsaved_results[id]
+		if receipt.commit(data).saved:
+			unsaved_results.erase(id)
+	refresh_after_pending_saves()
+
+
+func refresh_after_pending_saves() -> void:
+	if page=="lobby" and network:
+		lobby_page.show_lobby()
+	else:
+		show_menu()
+
+
+func request_quit() -> void:
+	if unsaved_results.is_empty():
+		get_tree().quit()
+	else:
+		if page=="race" and is_instance_valid(drive):
+			drive.show_pause()
+		menu.confirm(I18n.t("data.quit_unsaved"),func() -> void: get_tree().quit())
+
+
 func render_results() -> void:
-	var session := drive.session
+	var session := result_receipt.session
+	var local_state := session.states[session.human_slot]
 	var body := menu.reset(I18n.t("results.trial_title" if session.mode == "trial" else "results.title"))
 	var list := menu.scroll_column(body)
 	if not result_summary.saved:
 		list.add_child(menu.ui.paragraph(I18n.t("data.save_failed")))
-		list.add_child(menu.ui.button(I18n.t("data.retry_save"), show_results))
+		list.add_child(menu.ui.paragraph(I18n.t("data.cup_unsaved" if session.mode=="cup" else "data.continue_unsaved_help")))
+		list.add_child(menu.ui.button(I18n.t("data.retry_save"), retry_result_save))
 	elif result_summary.new_best:
 		list.add_child(menu.ui.label(I18n.t("results.new_best"), true))
 	var timer := RaceHUD.new()
 	if session.mode == "trial":
-		list.add_child(menu.ui.label(timer.time(drive.state.finish_time) if drive.state.finished else I18n.t("results.dnf"), true))
-		if not drive.state.trial_valid:
+		list.add_child(menu.ui.label(timer.time(local_state.finish_time) if local_state.finished else I18n.t("results.dnf"), true))
+		if not local_state.trial_valid:
 			list.add_child(menu.ui.paragraph(I18n.t("results.invalid")))
-		var medal := Medals.award(drive.track.length, drive.state.finish_time, drive.state.finished and drive.state.trial_valid)
+		var medal := Medals.award(session.track.length, local_state.finish_time, local_state.finished and local_state.trial_valid)
 		list.add_child(menu.ui.label(I18n.t(["results.no_medal", "results.gold", "results.silver", "results.bronze"][medal + 1])))
 		var previous := float(result_summary.get("previous", -1))
-		list.add_child(menu.ui.label(I18n.t("results.previous") + ": " + (timer.time(previous) + "  (%+.3f)" % (drive.state.finish_time - previous) if previous > 0 and drive.state.finished else I18n.t("results.no_previous"))))
-		var thresholds := Medals.thresholds(drive.track.length)
+		list.add_child(menu.ui.label(I18n.t("results.previous") + ": " + (timer.time(previous) + "  (%+.3f)" % (local_state.finish_time - previous) if previous > 0 and local_state.finished else I18n.t("results.no_previous"))))
+		var thresholds := Medals.thresholds(session.track.length)
 		for index in range(3):
 			list.add_child(menu.ui.label(I18n.t("results." + ["gold", "silver", "bronze"][index]) + "  " + timer.time(thresholds[index])))
 	else:
-		var order := session.standings()
-		if session.mode == "online" and network:
-			order.clear()
-			for row: Dictionary in network.result_event.results:
-				order.append(session.states[int(row.slot)])
+		var order: Array[VehicleState] = []
+		for slot: int in result_receipt.order:
+			order.append(session.states[slot])
 		for index in range(order.size()):
 			var state: VehicleState = order[index]
 			var record: Dictionary = session.roster[state.slot]
 			var gap := "—" if index == 0 or not state.finished or not order[0].finished else "+%.3f" % (state.finish_time - order[0].finish_time)
 			var row := menu.ui.paragraph("%d  %s  •  %s  •  %s  •  %s  •  %s" % [index + 1, record.name, I18n.t("car." + session.cars[state.slot].id), timer.time(state.finish_time) if state.finished else I18n.t("results.dnf") + " " + state.dnf_reason, timer.time(state.best_lap_time) if state.best_lap_time > 0 else "—", gap])
 			list.add_child(menu.ui.panel(row) if state.slot == session.human_slot else row)
-	if session.mode == "online":
+	timer.free()
+	if session.mode=="cup":
+		append_cup_standings(list)
+	if session.mode=="online":
 		online_result_label = menu.ui.label("")
 		list.add_child(online_result_label)
+	if not result_summary.saved and not result_receipt.dismissed:
+		menu.footer.add_child(menu.ui.button(I18n.t("data.continue_unsaved"),continue_without_saving))
+		menu.first_focus()
+		return
+	if session.mode == "online":
 		menu.footer.add_child(menu.ui.button(I18n.t("online.return_lobby"), func() -> void: network.command("return_lobby")))
 		menu.footer.add_child(menu.ui.button(I18n.t("online.leave"), return_to_menu))
 	elif session.mode == "cup":
-		append_cup_standings(list)
 		if int(data.cup.data.next_event) < 6:
 			menu.footer.add_child(menu.ui.button(I18n.t("cup.next"), start_cup_event))
 		menu.footer.add_child(menu.ui.button(I18n.t("cup.save_quit"), return_to_menu))
@@ -396,7 +462,7 @@ func start_cup_event() -> void:
 	var index := int(cup.data.next_event)
 	var roster := cup.grid()
 	var human: Dictionary = roster.filter(func(row: Dictionary) -> bool: return row.id == "local")[0]
-	start_drive({"mode":"cup", "track":index, "car":int(human.car), "paint":int(human.paint), "laps":2, "roster":roster, "seed":int(cup.data.seeds[index]), "cup_event":index, "contact":true, "difficulty":1})
+	start_drive({"mode":"cup", "track":index, "car":int(human.car), "paint":int(human.paint), "laps":2, "roster":roster, "seed":int(cup.data.seeds[index]), "cup_event":index, "cup_id":str(cup.data.id), "contact":true, "difficulty":1})
 
 
 func show_school() -> void:
@@ -639,6 +705,8 @@ func _notification(what: int) -> void:
 			drive.show_pause()
 		elif back_action.is_valid():
 			back_action.call()
+	elif what == NOTIFICATION_WM_CLOSE_REQUEST:
+		request_quit()
 	if capture_path != "":
 		return
 	if what in [NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED]:

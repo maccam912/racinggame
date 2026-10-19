@@ -229,6 +229,8 @@ func reset_data(all_data: bool) -> void:
 	if error != OK:
 		status.text = I18n.t("data.save_failed")
 		return
+	app.unsaved_results.clear()
+	app.result_receipt = null
 	if all_data:
 		if app.drive:
 			app.dispose_drive()

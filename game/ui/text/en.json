@@ -118,7 +118,7 @@
   "data.corrupt_defaults": "A damaged save was preserved. Defaults were restored for that component.",
   "data.ghost_unavailable": "The previous ghost could not be loaded. Your time record is preserved.",
   "data.retry_save": "Retry Save",
-  "data.continue_unsaved": "Continue without saving",
+  "data.continue_unsaved": "Continue Without Saving",
   "pause.title": "PAUSED",
   "pause.online": "RACE CONTINUES ONLINE",
   "pause.resume": "Resume",
@@ -410,5 +410,11 @@
   "touch.hint.camera": "camera",
   "touch.hint.look_back": "look back",
   "touch.hint.pause": "pause",
-  "touch.hint.auto": "automatic acceleration"
+  "touch.hint.auto": "automatic acceleration",
+  "data.continue_unsaved_help": "Retry Save keeps this result. Continue Without Saving dismisses the save error for this race.",
+  "data.cup_unsaved": "This Cup cannot advance from these results until saving completes. Continue Without Saving returns to the menu; Continue Cup resumes the last saved event checkpoint.",
+  "data.pending_results": "Couldn't save %d result(s). They are kept in memory for Retry Save until you quit or dismiss them.",
+  "data.dismiss_results": "Dismiss Unsaved Results",
+  "data.dismiss_results_confirm": "Stop retrying these unsaved results? Any changes that have not reached disk will be lost.",
+  "data.quit_unsaved": "Quit with unsaved results? Any changes that have not reached disk will be lost."
 }
