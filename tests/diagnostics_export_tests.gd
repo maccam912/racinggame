@@ -71,4 +71,5 @@ func run() -> void:
 	await process_frame
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
 	print("DIAGNOSTICS_ZIP_WHITELIST_PRIVACY_ATOMIC_COPY_BOUNDED_LOG_PASS")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

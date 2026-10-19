@@ -30,7 +30,7 @@ func run() -> void:
 	wave.loop_end = 48000
 	var bytes := PackedByteArray()
 	bytes.resize(96000)
-	for index in range(48000): bytes.encode_s16(index*2,roundi(sin(TAU*600*index/48000.0)*.8*32767))
+	for index in range(48000): bytes.encode_s16(index*2,roundi(sin(TAU*600*index/48000.0)*.4*32767))
 	wave.data = bytes
 	player.stream = wave
 	player.bus = &"Engine"
@@ -45,11 +45,15 @@ func run() -> void:
 	var half := await measure()
 	assert(half.rms/full.rms>.46 and half.rms/full.rms<.54,"the engine channel must affect actual samples")
 	values.engine = 100
+	mix.configure(values)
+	player.volume_db = 6
+	await create_timer(.3).timeout
+	var loud_reference := await measure()
 	values.dynamic_range = "night"
 	mix.configure(values)
 	await create_timer(.4).timeout
 	var night := await measure()
-	assert(night.rms<full.rms*.7 and night.rms>full.rms*.2,"Night must compress loud samples without silencing the mix")
+	assert(night.rms<loud_reference.rms*.7 and night.rms>loud_reference.rms*.2,"Night must compress loud samples without silencing the mix")
 	values.engine = 0
 	mix.configure(values)
 	await create_timer(.4).timeout
@@ -68,8 +72,8 @@ func run() -> void:
 		rivals.append(rival)
 	await create_timer(.3).timeout
 	var limited := await measure()
-	assert(limited.peak<=db_to_linear(-1.5)+.002 and limited.rms>.4,"summed loud sources must respect the actual output limiter")
-	var report := {"driver":AudioServer.get_driver_name(),"sample_rate":AudioServer.get_mix_rate(),"full":full,"half":half,"night":night,"muted":muted,"summed_limited":limited,"boundary":"Synthetic bus DSP fixture; final eight-engine/game-music true-peak validation remains M4"}
+	assert(limited.peak<=db_to_linear(-5.0)+.002 and limited.rms>.35,"summed loud sources must respect the actual output limiter")
+	var report := {"driver":AudioServer.get_driver_name(),"sample_rate":AudioServer.get_mix_rate(),"full":full,"half":half,"loud_reference":loud_reference,"night":night,"muted":muted,"summed_limited":limited,"boundary":"Synthetic gain/Night fixture; actual decoded eight-engine/music/impact/voice output is separately validated by tools/audio_acceptance.py"}
 	var file := FileAccess.open("res://reports/audio-dsp.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(report,"  "))
 	file.close()

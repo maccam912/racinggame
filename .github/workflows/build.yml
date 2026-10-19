@@ -154,6 +154,32 @@ jobs:
             reports/car-render.log
           if-no-files-found: error
 
+  audio:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Capture decoded game output with eight engines and simultaneous impacts
+        run: python tools/audio_acceptance.py --capture
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: actual-game-audio-evidence
+          path: |
+            reports/audio-game-*.json
+            reports/audio-game-mix.wav
+          if-no-files-found: error
+
   platform-adapter:
     needs: verify
     strategy:
@@ -270,8 +296,8 @@ jobs:
       always() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
       needs.export.result == 'success' && needs.network.result == 'success' &&
       needs.native.result == 'success' && needs.lobbies.result == 'success' &&
-      needs.directory.result == 'success' && needs.render.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped')
-    needs: [export, network, native, lobbies, directory, ai, render]
+      needs.directory.result == 'success' && needs.render.result == 'success' && needs.audio.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped')
+    needs: [export, network, native, lobbies, directory, ai, render, audio]
     runs-on: ubuntu-24.04
     permissions:
       contents: write

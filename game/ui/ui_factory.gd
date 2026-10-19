@@ -76,12 +76,14 @@ func label(text: String, heading: bool = false) -> Label:
 	return control
 
 
-func button(text: String, action: Callable, minimum_width: float = 0) -> Button:
+func button(text: String, action: Callable, minimum_width: float = 0, sound: String = "confirm") -> Button:
 	var control := Button.new()
 	control.text = text
 	control.custom_minimum_size = Vector2(minimum_width * unit, row_height())
+	control.pressed.connect(func() -> void: AudioLibrary.ui(owner_viewport,sound))
 	control.pressed.connect(action)
 	control.focus_entered.connect(func() -> void:
+		AudioLibrary.ui(owner_viewport,"move")
 		control.create_tween().tween_property(control, "modulate", Color(1.06, 1.06, 1.06), .1))
 	control.focus_exited.connect(func() -> void:
 		control.create_tween().tween_property(control, "modulate", Color.WHITE, .1))

@@ -21,7 +21,13 @@ def main():
                 [sys.executable,'tools/content_hash.py','--check'], [sys.executable,'tools/asset_hash.py','--check'],
                 [sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py'],
                 [sys.executable,'tools/godot.py','--headless','--editor','--import','--quit']]
-    commands += [[sys.executable,'tools/godot.py','--headless','--fixed-fps','60','--script',f'tests/{suite}.gd', '--', '--profile=ci_tests'] for suite in SUITES]
+    for suite in SUITES+['race_audio_tests']:
+        source=(ROOT/f'tests/{suite}.gd').read_text()
+        # UI/race scenes now own real audio transports. Let the mixer thread
+        # process stop/fade commands before shutdown; deterministic simulation
+        # fixtures still run with accelerated fixed frames.
+        realtime=any(marker in source for marker in ['client_app.gd','RaceDrive.new()'])
+        commands.append([sys.executable,'tools/godot.py','--headless','--max-fps' if realtime else '--fixed-fps','60','--script',f'tests/{suite}.gd','--','--profile=ci_tests'])
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/leave_delivery_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/lobby_reconnect_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/audio_dsp_evidence.gd'])

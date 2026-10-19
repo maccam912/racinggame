@@ -98,5 +98,6 @@ func run() -> void:
 	session.step({})
 	check(session.elapsed_ticks == 36000 and session.phase == RaceSession.Phase.RESULTS, "hard cap settles at exactly 600 seconds")
 	AppData.remove_tree(ProjectSettings.globalize_path(folder))
+	await create_timer(.5).timeout
 	print("Mode fixtures: standing-start trial/ghost commit, five school objectives, exact cap; failures %d" % failures)
 	quit(1 if failures else 0)

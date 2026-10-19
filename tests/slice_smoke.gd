@@ -52,5 +52,6 @@ func run() -> void:
 	check(drive.state.recovery_ticks == 60 and drive.state.velocity == Vector3.ZERO, "scene recovery transition")
 	drive.queue_free()
 	await process_frame
+	await create_timer(.5).timeout # Allow the audio mixer to retire stopped loops.
 	print("Driving scene smoke: failures %d" % failures)
 	quit(1 if failures else 0)

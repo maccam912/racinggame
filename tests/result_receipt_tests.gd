@@ -113,4 +113,5 @@ func run() -> void:
 	await process_frame
 	await process_frame
 	print("Result receipts: failed Cup gates, explicit dismissal, frozen rows, exact retry, online scene disposal and idempotent journals pass")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

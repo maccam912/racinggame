@@ -33,3 +33,29 @@ python3 tools/godot.py --max-fps 60 --script tests/scenery_library_evidence.gd
 ```
 
 The postcard command renders six 512×288 images from the original scenes; ordinary reference/CI runs do not replace shipped postcards. Historical M1 videos use frozen `GrayboxTrackWorld` and `GrayboxCarVisual` source fixtures, so regenerating them keeps the pre-art composition.
+
+`generate_audio.py` is the editable source for all 48 original Vorbis assets. It
+contains the seven compositions, arrangement, additive/FM/plucked instruments,
+seeded synthetic percussion, four engine harmonic profiles, effects and eight
+fixed formant/noise annunciations. No speaker recording, trained voice model,
+downloaded song or sample bank is used. The formant implementation is original;
+Klatt's 1980 paper (doi:10.1121/1.383940) informed the general synthesis concept.
+The checked-in audio and source use the project's MIT license.
+
+Authoring requires Python 3.14.7, NumPy 2.5.2, ffmpeg 9.0.1 and oggenc 1.4.3 /
+libvorbis 1.3.7. Ordinary game builds require none of these audio authoring tools.
+Run `python3 assets/source/generate_audio.py` (or `--only music`, `engines`,
+`effects`, `voice`), reimport in Godot and run `python3 tools/asset_hash.py`.
+Preserve the checked-in Ogg import flags: music, engines and surface loops loop
+from zero; music includes exact BPM/beat/bar counts. Gain is fixed per asset from
+R128 integrated loudness and oversampled true peak, with peak-only normalization
+for transients shorter than the R128 gate. Circular synthesis/delay tails preserve
+music loop boundaries. The catalog records duration, loudness, true peak and SHA256.
+
+`python3 tools/audio_acceptance.py --capture` captures actual Godot decoding and
+bus DSP with all seven music streams, eight four-layer engines, eight simultaneous
+impacts, voice, Night and channel mute. Add `--native-output` for a rendered
+Movie Maker capture after the Master fader and a final Master-mute check. It
+requires ffmpeg for true-peak measurement;
+the resulting WAV/report are validation artifacts, not shipped assets. This proves
+the numerical mix boundary, not human listening quality or physical speaker output.

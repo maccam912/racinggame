@@ -52,4 +52,5 @@ func run() -> void:
 	app.queue_free()
 	await settle()
 	print("LOADING_PROGRESS_CANCEL_EVERY_STAGE_REPLACEMENT_TRACK_SELECTION_PASS")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

@@ -66,6 +66,30 @@ def validate():
         assert 'meshes/generate_lods=false' in settings and 'gltf/embedded_image_handling=0' in settings
     print('Validated four original cars, twelve explicit LODs, shared 1024 atlas and editable source')
     validate_scenery()
+    validate_audio()
+
+
+def validate_audio():
+    value=json.loads((ROOT/'assets/exported/audio/catalog.json').read_text())
+    assert value['license']=='MIT' and (ROOT/value['source']).is_file()
+    rows=value['assets']
+    assert len(rows)==48 and len({row['id'] for row in rows})==48
+    assert [sum(row['category']==kind for row in rows) for kind in ['music','engine','effect','voice']]==[7,16,17,8]
+    assert {row['text'] for row in rows if row['category']=='voice'}=={'Three','Two','One','Go','Final lap','Wrong way','New best time','Finish'}
+    for row in rows:
+        path=ROOT/row['path']
+        assert digest(path)==row['sha256'] and path.read_bytes()[:4]==b'OggS',row['id']
+        assert row['sample_rate']==44100 and row['channels'] in [1,2]
+        assert row['true_peak_dbfs']<=-2.5,row['id']
+        settings=path.with_suffix('.ogg.import').read_text()
+        assert ('loop='+str(row['loop']).lower()) in settings,row['id']
+        if row['category']=='music':
+            assert row['loop'] and row['channels']==2 and 125<=row['bpm']<=145
+            assert abs(row['duration_seconds']-90)<.001 if row['id']=='music_menu' else 120<=row['duration_seconds']<=180
+            assert abs(row['duration_seconds']-row['beats']*60/row['bpm'])<.001
+            assert -19<=row['integrated_lufs']<=-17
+        if row['category']=='engine': assert row['loop'] and row['duration_seconds']==2
+    print('Validated 48 original Vorbis streams, six race compositions, four engine profiles and eight fixed prompts')
 
 
 def validate_scenery():

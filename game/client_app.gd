@@ -33,6 +33,7 @@ var online_page: OnlinePage
 var online_status: Label
 var presentation := WorldPresentation.new()
 var audio_mix := AudioMix.new()
+var game_audio := GameAudio.new()
 var diagnostics := Diagnostics.new()
 var track_loader: TrackLoader
 var loading_bar: ProgressBar
@@ -63,6 +64,8 @@ func _ready() -> void:
 	presentation.app = self
 	add_child(presentation)
 	add_child(audio_mix)
+	game_audio.app = self
+	add_child(game_audio)
 	BindingBook.apply(data.settings.bindings)
 	SettingsRuntime.apply(self, data.settings, capture_path.is_empty())
 	menu.settings = data.settings
@@ -90,6 +93,9 @@ func missing_car_asset() -> String:
 		if not CarVisual.available(car.mesh_id): return I18n.t("car."+car.id)
 	for path: String in ["res://assets/exported/textures/cars_atlas.png","res://assets/exported/shaders/car.gdshader","res://assets/exported/shaders/car_ghost.gdshader","res://assets/exported/shaders/blob_shadow.gdshader"]:
 		if not ResourceLoader.exists(path): return I18n.t("installation.materials")
+	if not FileAccess.file_exists("res://assets/exported/audio/catalog.json"): return I18n.t("installation.audio")
+	for row: Dictionary in AudioLibrary.entries().values():
+		if not ResourceLoader.exists("res://"+str(row.path)): return I18n.t("installation.audio")
 	return ""
 
 func open_start_screen() -> void:
@@ -225,6 +231,7 @@ func show_name(first: bool) -> void:
 		var checked := PlayerName.validate(edit.text)
 		if not checked.valid:
 			error.text = I18n.t(checked.error)
+			game_audio.effect("ui_error")
 			return
 		data.profile.display_name = checked.value
 		data.profile.first_run_complete = true
@@ -517,13 +524,20 @@ func refresh_after_pending_saves() -> void:
 
 func request_quit() -> void:
 	if unsaved_results.is_empty():
-		get_tree().quit()
+		finish_quit()
 	else:
 		if is_instance_valid(touch_editor):
 			close_touch_editor()
 		if page=="race" and is_instance_valid(drive):
 			drive.show_pause()
-		menu.confirm(I18n.t("data.quit_unsaved"),func() -> void: get_tree().quit())
+		menu.confirm(I18n.t("data.quit_unsaved"),finish_quit)
+
+func finish_quit() -> void:
+	process_mode = Node.PROCESS_MODE_DISABLED
+	get_tree().call_group("audio_transports","stop_audio")
+	# The driver retires stopped playback references over several buffers.
+	await get_tree().create_timer(.5).timeout
+	get_tree().quit()
 
 
 func render_results() -> void:

@@ -54,4 +54,5 @@ func run_tests() -> void:
 	await settle()
 	assert(AppData.remove_tree(data.store.root_path)==OK)
 	print("IDENTITY_RESET_UI_FAILURE_PRESERVES_DATA_RETRY_ERASES_PASS")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

@@ -45,4 +45,5 @@ func run() -> void:
 	app.queue_free()
 	await process_frame
 	print("Menu flow: all pages, six routes, eight-car race, settings tabs, pause and resume pass")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

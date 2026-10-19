@@ -37,7 +37,9 @@ static func ensure_buses() -> void:
 	if effect_index("PacificCeiling")<0:
 		var limiter := AudioEffectHardLimiter.new()
 		limiter.resource_name = "PacificCeiling"
-		limiter.ceiling_db = -1.5
+		# Decoded correlated impact bursts can reconstruct above sample peaks.
+		# -5 dB sample ceiling leaves measured true-peak headroom below -1 dBFS.
+		limiter.ceiling_db = -5.0
 		AudioServer.add_bus_effect(0,limiter)
 
 func configure(values: Dictionary) -> void:

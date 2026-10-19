@@ -69,4 +69,5 @@ func run() -> void:
 	app.queue_free()
 	for index in range(3): await process_frame
 	print("FOUR_ORIGINAL_CARS_GLTF_TRIANGLE_BUDGETS_ROLE_MASKS_LODS_WHEELS_PAINT_GHOST_PASS")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

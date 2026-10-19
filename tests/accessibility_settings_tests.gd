@@ -76,4 +76,5 @@ func run() -> void:
 	for index in range(6): await process_frame
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
 	print("ACCESSIBILITY_HUD_SCALE_CONTRAST_NUMBERED_PALETTES_GHOST_ENTRY_PAUSE_RETRY_PASS")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

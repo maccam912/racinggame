@@ -144,5 +144,6 @@ func run() -> void:
 	check(drive.driver.sample(true,drive.touch).throttle==0, "manual throttle release coasts")
 	drive.queue_free()
 	await process_frame
+	await create_timer(.5).timeout
 	print("Driving ownership/layout fixtures: %d failures" % failures)
 	quit(1 if failures else 0)

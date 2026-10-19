@@ -83,4 +83,5 @@ func run() -> void:
 	await process_frame
 	await process_frame
 	print("Binding UI: opening-input guard, device filter, capture, conflict, timeout, cancel, failed save and essential-path protection pass")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

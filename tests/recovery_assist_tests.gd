@@ -119,4 +119,5 @@ func run() -> void:
 	drive.queue_free()
 	await process_frame
 	print("RECOVERY_TWO_PRESS_CANCEL_DEVICE_TOUCH_SHARED_30_TICK_PASS")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

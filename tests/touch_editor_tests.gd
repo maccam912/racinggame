@@ -179,5 +179,6 @@ func run() -> void:
 	original.network = null
 	app.queue_free()
 	await settle()
+	await create_timer(.5).timeout
 	print("Touch editor: real pointer drag/cancel, keyboard move, transactional Save/Cancel/Restore, isolated 30-second practice, paused-race preservation and online lock pass")
 	quit()

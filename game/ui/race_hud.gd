@@ -27,6 +27,8 @@ var ui_scale: float = 1.0
 var high_contrast: bool = false
 var palette: String = "standard"
 var ghost_position: Variant = null
+var gear: int = 1
+var rpm: float = 0
 const PALETTES: Dictionary = {
 	"standard":["F16B50","20BFC5","F3CD48","8465CC","498DD3","F5EBD3","79C697","B6A4DC"],
 	"deuteranopia":["0072B2","E69F00","56B4E9","F0E442","CC79A7","D55E00","AABBDD","FFFFFF"],
@@ -116,6 +118,10 @@ func _draw() -> void:
 	draw_style_box(panel(), Rect2(speed_at - Vector2(10, 35) * unit, Vector2(150, 50) * unit) if mobile else Rect2(speed_at - Vector2(15, 60), Vector2(195, 90)))
 	text(speed_at, str(speed), int(36 * unit) if mobile else 64)
 	text(speed_at + Vector2(90 * unit if mobile else 125, 0), "MPH" if mph else "KM/H", int(16 * unit) if mobile else 20, Color.html("20BFC5"))
+	var tach_at := speed_at+Vector2(0,12)*unit
+	for index in range(12):
+		draw_rect(Rect2(tach_at+Vector2(index*8,0)*unit,Vector2(6,5)*unit),Color.html("F3CD48") if index<rpm*12 else Color("384b58"))
+	text(tach_at+Vector2(103,6)*unit,"%d"%gear,int(16*unit))
 	var banner := ""
 	if state.recovery_ticks > 0:
 		banner = I18n.t("hud.recovering")

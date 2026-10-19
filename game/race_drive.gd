@@ -52,6 +52,7 @@ var demo_driver := BotDriver.new()
 var host_viewport: Viewport
 var hint_elapsed: float = 0.0
 var hint_page: int = 0
+var audio := RaceAudio.new()
 
 
 func _ready() -> void:
@@ -194,10 +195,16 @@ func _ready() -> void:
 	update_control_hints()
 	if network:
 		network.attach_prediction(state, car, query, track, lap_count)
-		network.input_provider = func() -> InputFrame: return driver.sample(not paused and state.recovery_ticks == 0, touch if touch.visible else null)
+		network.input_provider = func() -> InputFrame:
+			frame = driver.sample(not paused and state.recovery_ticks == 0, touch if touch.visible else null)
+			return frame
 		if "--autodrive" in OS.get_cmdline_user_args():
-			network.input_provider = func() -> InputFrame: return demo_driver.sample(state, car, track, query)
+			network.input_provider = func() -> InputFrame:
+				frame = demo_driver.sample(state, car, track, query)
+				return frame
 			state.trial_valid = false
+	audio.drive = self
+	add_child(audio)
 	print("PACIFIC_RUSH_DRIVING_READY")
 
 

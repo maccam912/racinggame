@@ -1,0 +1,38 @@
+{
+  "platform": "Android 15 / API 35 ARM64 emulator, pacific_rush_test / Pixel 7 profile",
+  "build": {
+    "version": "0.0.52-dev",
+    "build_number": 52,
+    "working_tree_dirty": true,
+    "commit": "dd10cf4190fbda0f5e4ffe07c094ee38d752b81e",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "4899e636e87a2e0dbda39be146a526c4f1b3be608fec9411da2a92ca17f5fbc3",
+    "asset_hash": "96a5b19dbb1bb3bf21b4f4cd5efc89b3b7bd139a043d2137e4cf24aab008d7d9",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "839540d19ada13cd2463f7ff8e24ceaba91384de2fa3808dd65438231cedce82",
+      "sha256": "1e7411b8f6fd4d8529c8947db00af0e37174b741dfd4d221c08f3cc75097fa64"
+    }
+  },
+  "apk_sha256": "efd124ccf4eb05585bfb32b47229541e3129341a016b3b46fdbb9161f86a5191",
+  "observations": [
+    "Actual touch through first-run, Garage, event and eight-car Palm Bay race",
+    "Visible gear 3 and tachometer at 70 mph",
+    "AudioFlinger reports active game stereo PCM stream at 44100 Hz, frame counter advancing, zero underruns at observation",
+    "No Godot SCRIPT ERROR or ERROR lines during this session"
+  ],
+  "source_checks": 55,
+  "source_checks_passed": true,
+  "boundary": "Emulator output initialization/render/touch smoke. No physical phone/tablet/speaker, human listening/intelligibility, thermal, latency or complete manual race acceptance."
+}

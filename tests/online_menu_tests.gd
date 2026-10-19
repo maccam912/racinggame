@@ -98,4 +98,5 @@ func run_tests() -> void:
 	app.queue_free()
 	await settle()
 	print("ONLINE_MENU_UNAVAILABLE_CREATE_CODE_BROWSER_FILTER_CANCEL_TIMEOUT_PASS")
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

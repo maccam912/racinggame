@@ -89,4 +89,5 @@ func run() -> void:
 	await process_frame
 	check(held_data.settings.window_mode=="windowed","app teardown rolls back pending display changes without rebuilding UI")
 	print("Display transaction fixtures: %d failures" % failures)
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit(1 if failures else 0)

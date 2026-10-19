@@ -63,4 +63,5 @@ func run() -> void:
 	app.queue_free()
 	await process_frame
 	print("QUICK_FRESH_SEED_RETRY_GRID_TRIAL_WORLD_COUNTDOWN_PASS ready_ms=%.3f"%ready_ms)
+	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

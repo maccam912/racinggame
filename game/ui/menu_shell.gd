@@ -174,7 +174,7 @@ func scroll_column(parent: Node) -> VBoxContainer:
 
 
 func add_back(action: Callable) -> Button:
-	var button := ui.button(I18n.t("button.back"), action, 120)
+	var button := ui.button(I18n.t("button.back"), action, 120,"back")
 	footer.add_child(button)
 	return button
 
