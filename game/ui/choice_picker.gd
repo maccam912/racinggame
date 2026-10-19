@@ -91,8 +91,9 @@ func layout_sheet() -> void:
 		return
 	var geometry := TouchDriving.safe_geometry(get_viewport().get_visible_rect().size)
 	var safe := Rect2(geometry.safe.position*float(geometry.unit),geometry.safe.size*float(geometry.unit))
-	panel.position = safe.position+safe.size*.05
-	panel.size = safe.size*.90
+	var width := minf(safe.size.x*.90,safe.size.y*16/9*.90)
+	panel.position = safe.position+Vector2((safe.size.x-width)/2,safe.size.y*.05)
+	panel.size = Vector2(width,safe.size.y*.90)
 
 func choose(index: int) -> void:
 	if index<0 or index>=labels.size():
