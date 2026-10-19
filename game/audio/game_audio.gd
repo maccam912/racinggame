@@ -17,6 +17,7 @@ var last_ui_move: int = -1000
 var last_result: String = ""
 var best_announced: Dictionary = {}
 var caption_style: String = ""
+var suspended: bool = false
 
 func _ready() -> void:
 	add_to_group("game_audio")
@@ -46,6 +47,8 @@ func _ready() -> void:
 
 func _process(_dt: float) -> void:
 	if app==null or app.data==null: return
+	set_suspended(app.data.mobile and not app.foreground)
+	if suspended: return
 	if app.page=="installation_error": return
 	var active := is_instance_valid(app.drive)
 	var id: String = "music_"+app.drive.track.id if active and app.page!="results" else "music_menu"
@@ -91,6 +94,7 @@ func set_music(id: String) -> void:
 	blend.chain().tween_callback(old.stop)
 
 func effect(id: String) -> void:
+	if app!=null and app.data.mobile and not app.foreground: return
 	if id=="ui_confirm" and app!=null and app.foreground: DrivingHaptics.touch("ui",app.data.settings,app.data.mobile)
 	if id=="ui_move":
 		if Time.get_ticks_msec()-last_ui_move<80: return
@@ -106,6 +110,7 @@ func effect(id: String) -> void:
 		get_tree().call_group("audio_mixes","duck_for_cue",.4 if id!="finish" else .8)
 
 func say(id: String) -> void:
+	if app!=null and app.data.mobile and not app.foreground: return
 	voice.stop()
 	voice.stream = AudioLibrary.stream("voice_"+id)
 	voice.volume_db = -2
@@ -113,6 +118,15 @@ func say(id: String) -> void:
 	caption.text = str(AudioLibrary.entries()["voice_"+id].text)
 	caption_until = Time.get_ticks_msec()+maxi(1200,roundi(voice.stream.get_length()*1000)+300)
 	played["voice_"+id] = int(played.get("voice_"+id,0))+1
+
+func set_suspended(value: bool) -> void:
+	if suspended==value: return
+	suspended = value
+	for player: AudioStreamPlayer in music: player.stream_paused = value
+	if value:
+		for player: AudioStreamPlayer in effects+[voice]: player.stop()
+		caption_until = 0
+		caption.hide()
 
 func stop_audio() -> void:
 	for player: AudioStreamPlayer in music+effects+[voice]:

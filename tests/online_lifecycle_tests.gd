@@ -68,6 +68,13 @@ func run() -> void:
 	assert(int(player.control_tick)>disconnected_tick)
 	app.resume_drive()
 	assert(app.page=="race" and app.drive.resume_ticks==0 and not app.drive.paused,"online Resume never grants a frozen countdown")
+	var resumed := client.resume_count
+	client.route_changed()
+	var route_deadline := client.disconnected_at
+	client.route_changed()
+	assert(client.disconnected_at==route_deadline,"route changes never extend an existing reservation deadline")
+	await until(func() -> bool: return client.connected and client.resume_count>resumed and client.latest_snapshot_tick>disconnected_tick)
+	assert(client.guest_id==identity and client.reconnect_token==token and server.players.size()==1 and server.session.race_uuid==race_uuid,"default-route replacement reconnects the same identity and race")
 	app.handle_background()
 	await until(func() -> bool: return not player.connected,750)
 	await create_timer(20.1).timeout

@@ -15,6 +15,7 @@ from native_build import ensure_export
 from content_hash import compute
 from asset_hash import compute as cosmetic_manifest
 from bootstrap import ROOT, LOCK, engine, templates
+from android_services import build as build_android_services, verify_package as verify_android_services
 
 TARGETS = {'linux':('Linux','pacific-rush.x86_64'), 'windows':('Windows','pacific-rush.exe'),
            'macos':('macOS','pacific-rush.zip'), 'android':('Android','pacific-rush.apk'),
@@ -99,11 +100,15 @@ def build(target, number):
     preset, name = TARGETS[target]
     data = metadata(target, number)
     data["native_adapter"] = adapter
+    if target.startswith('android'):
+        data['android_services'] = build_android_services()
     configuration = temporary_configuration(*android_configuration()) if target.startswith('android') else nullcontext()
     with configuration, stamped(data, number):
         checked(['--headless','--editor','--import','--quit'])
         install = ['--install-android-build-template'] if target.startswith('android') else []
         checked(['--headless', *install, '--export-release',preset,str(folder/name)])
+        if target.startswith('android'):
+            verify_android_services(folder/name)
     (folder/'build.json').write_text(json.dumps(data, indent=2)+'\n')
     shutil.copy(ROOT/'LICENSE', folder/'LICENSE')
     shutil.copytree(ROOT/'assets/licenses',folder/'licenses',dirs_exist_ok=True)

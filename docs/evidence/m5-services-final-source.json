@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "commit": "27bd93e77fe93e898d221549ab9dcc0d9aff3a3b",
+  "boundary": "Final source after modal sizing, IME release and Android Back refinements; installed APK behavior has separate artifact metadata.",
+  "results": [
+    {
+      "suite": "mobile_services_tests",
+      "passed": true,
+      "seconds": 1.402,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nMOBILE_AUDIO_FOCUS_TOUCH_CHECKPOINT_MUSIC_PAUSE_NO_AUTO_DRIVE_EXPLICIT_RETRY_WINDOW_GUARD_CELLULAR_CANCEL_CONTINUE_COLD_CONSENT_PASS\n"
+    },
+    {
+      "suite": "keyboard_layout_tests",
+      "passed": true,
+      "seconds": 0.818,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nMOBILE_IME_FIELD_FOOTER_MINIMUM_PRESS_RESTORE_PASS\n"
+    },
+    {
+      "suite": "menu_style_tests",
+      "passed": true,
+      "seconds": 0.916,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nMENU_FOCUS_HALF_SECOND_DISABLED_KEYBOARD_NO_ACTIVATION_SELECTED_ACCENT_POINT_ONE_FOCUS_POINT_EIGHTEEN_SLIDE_REDUCE_MOTION_PASS\n"
+    },
+    {
+      "suite": "identity_reset_ui_tests",
+      "passed": true,
+      "seconds": 1.092,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_CLIENT_READY\nIDENTITY_RESET_UI_FAILURE_PRESERVES_DATA_RETRY_ERASES_PASS\n"
+    },
+    {
+      "suite": "diagnostics_export_tests",
+      "passed": true,
+      "seconds": 1.206,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nDIAGNOSTICS_ZIP_WHITELIST_PRIVACY_ATOMIC_COPY_BOUNDED_LOG_PASS\n"
+    },
+    {
+      "suite": "checkpoint_ui_tests",
+      "passed": true,
+      "seconds": 3.428,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_CLIENT_READY\nBACKGROUND_ATOMIC_PAUSE_TOUCH_CANCEL_DEDUP_COLD_REAL_MENU_RESUME_180_TICKS_EXACT_ID_TRIAL_RESTART_EXPLICIT_DISCARD_NO_STATS_PASS\n"
+    },
+    {
+      "suite": "source_script_tests",
+      "passed": true,
+      "seconds": 0.615,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nALL_SHIPPED_OPTIONAL_AND_MAIN_GDSCRIPTS_COMPILE_PASS count=104\n"
+    }
+  ]
+}

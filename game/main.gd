@@ -3,6 +3,9 @@ extends Node3D
 
 
 func _ready() -> void:
+	if "--mobile-services-probe" in OS.get_cmdline_user_args():
+		add_child(load("res://game/platform/mobile_services_probe.gd").new())
+		return
 	if "--save-files-probe" in OS.get_cmdline_user_args():
 		add_child(load("res://game/platform/save_files_probe.gd").new())
 		return

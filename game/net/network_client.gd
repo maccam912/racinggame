@@ -121,6 +121,18 @@ func begin_reconnect() -> void:
 	status_changed.emit("Reconnecting")
 
 
+func route_changed() -> void:
+	if suspended or deliberate_leave or reconnect_token.is_empty(): return
+	wire.peer.close()
+	wire.pending.clear()
+	wire.active_peers.clear()
+	wire.fragments.pending.clear()
+	hello_sent = false
+	begin_reconnect()
+	retry_at = Time.get_ticks_msec()
+	retry_count = 0
+
+
 func set_suspended(value: bool) -> void:
 	if suspended==value or deliberate_leave: return
 	suspended = value

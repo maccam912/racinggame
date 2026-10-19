@@ -1,0 +1,7 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="dev.pacificrush.platform">
+    <uses-sdk android:minSdkVersion="29" />
+    <application>
+        <meta-data android:name="org.godotengine.plugin.v2.PacificMobile"
+            android:value="dev.pacificrush.platform.PacificMobile" />
+    </application>
+</manifest>

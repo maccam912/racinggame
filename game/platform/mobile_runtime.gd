@@ -5,6 +5,74 @@ var app: Node
 var awake: bool = false
 var applied_awake: Variant = null
 var memory_warnings: int = 0
+var bridge: Object
+var window_active: bool = true
+var audio_blocked: bool = false
+var focus_state: int = 1
+var service_wait: float = 0
+var route_wait: float = 0
+var route_handle: int = -1
+var route_kind: String = "unknown"
+var cellular_session_accepted: bool = false
+
+func _ready() -> void:
+	if OS.has_feature("android") and Engine.has_singleton("PacificMobile"):
+		bridge = Engine.get_singleton("PacificMobile")
+		bridge.setActive(true)
+		app.audio_mix.focus_allowed = false
+		service_wait = .15
+
+func window_changed(value: bool) -> bool:
+	window_active = value
+	if bridge==null: return false
+	bridge.setActive(value)
+	app.audio_mix.focus_allowed = false
+	app.audio_mix.apply_levels()
+	service_wait = .1
+	return true
+
+func apply_focus(value: int) -> void:
+	var changed := audio_blocked!=(window_active and value!=1) or focus_state!=value
+	focus_state = value
+	audio_blocked = window_active and value!=1
+	app.audio_mix.focus_allowed = window_active and value==1
+	app.audio_mix.apply_levels()
+	if not window_active: return
+	if audio_blocked: app.handle_background()
+	else: app.handle_foreground()
+	if changed and app.page=="pause": app.show_pause()
+
+func retry_audio_focus() -> void:
+	if bridge!=null and window_active: bridge.retryAudioFocus()
+
+func refresh_services(dt: float) -> void:
+	if bridge==null: return
+	service_wait -= dt
+	if service_wait>0: return
+	apply_focus(int(bridge.getFocusState()))
+	route_wait -= dt
+	if route_wait>0 or not window_active: return
+	route_wait = .25
+	var handle := int(bridge.getRouteHandle())
+	route_kind = str(bridge.getRouteKind())
+	if not route_kind in ["wifi","cellular","ethernet","other","none","unknown"]: route_kind = "unknown"
+	if route_handle!=-1 and route_handle!=handle and app.foreground and is_instance_valid(app.network): app.network.route_changed()
+	route_handle = handle
+
+func needs_cellular_notice() -> bool:
+	if not app.data.mobile or cellular_session_accepted or bool(app.data.profile.get("cellular_notice_accepted",false)): return false
+	if bridge!=null: route_kind = str(bridge.getRouteKind())
+	return route_kind=="cellular"
+
+func allow_online(proceed: Callable) -> bool:
+	if not needs_cellular_notice(): return true
+	app.menu.confirm(I18n.t("online.cellular_notice"),func() -> void:
+		cellular_session_accepted = true
+		app.data.profile["cellular_notice_accepted"] = true
+		if app.data.save_profile()!=OK: app.data.store.notice("data.save_failed")
+		proceed.call())
+	app.menu.modal.ok_button_text = I18n.t("online.cellular_continue")
+	return false
 
 static func should_keep_awake(owner_app: Node) -> bool:
 	if not owner_app.foreground: return false
@@ -19,7 +87,9 @@ func refresh() -> void:
 	applied_awake = awake
 	if app.data.mobile and DisplayServer.get_name()!="headless": DisplayServer.screen_set_keep_on(awake)
 
-func _process(_dt: float) -> void: refresh()
+func _process(dt: float) -> void:
+	refresh_services(dt)
+	refresh()
 
 func release_inactive_assets() -> void:
 	if not is_instance_valid(app): return

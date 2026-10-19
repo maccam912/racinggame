@@ -203,14 +203,22 @@ func add_back(action: Callable) -> Button:
 
 
 func confirm(text: String, action: Callable, second: bool = false) -> void:
+	var focused := get_viewport().gui_get_focus_owner()
+	if focused is LineEdit or focused is TextEdit: focused.release_focus()
+	if DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD): DisplayServer.virtual_keyboard_hide()
 	if is_instance_valid(modal):
+		modal.hide()
 		modal.queue_free()
 	modal = ConfirmationDialog.new()
+	modal.borderless = ui.mobile
 	modal.dialog_autowrap = true
 	modal.dialog_text = text
 	modal.ok_button_text = I18n.t("button.confirm")
 	modal.cancel_button_text = I18n.t("button.cancel")
 	modal.theme = ui.theme
+	modal.add_theme_stylebox_override("panel",ui.style(UIFactory.NAVY,UIFactory.CREAM))
+	modal.add_theme_constant_override("buttons_min_height",ceili(ui.row_height()))
+	modal.add_theme_constant_override("buttons_min_width",ceili(96*ui.unit))
 	modal.min_size = Vector2i(minf(440 * ui.unit,get_viewport().get_visible_rect().size.x * .9), minf(160 * ui.unit,get_viewport().get_visible_rect().size.y * .85))
 	root.add_child(modal)
 	modal.confirmed.connect(func() -> void:

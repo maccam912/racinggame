@@ -83,7 +83,7 @@ func _ready() -> void:
 	settings_page = SettingsPage.new(self)
 	diagnostics.export_finished.connect(settings_page.diagnostics_finished)
 	bindings_page = BindingsPage.new(self)
-	menu_repeat.allowed = func() -> bool: return foreground and page != "race" and (menu.visible or is_instance_valid(touch_editor) and not touch_editor.previewing) and (not is_instance_valid(bindings_page.capture) or not bindings_page.capture.visible)
+	menu_repeat.allowed = func() -> bool: return (foreground or mobile_runtime.audio_blocked and mobile_runtime.window_active) and page != "race" and (menu.visible or is_instance_valid(touch_editor) and not touch_editor.previewing) and (not is_instance_valid(bindings_page.capture) or not bindings_page.capture.visible)
 	add_child(menu_repeat)
 	menu.context_changed.connect(menu_repeat.clear_context)
 	lobby_page = LobbyPage.new(self)
@@ -98,6 +98,7 @@ func _ready() -> void:
 	open_start_screen()
 
 func missing_car_asset() -> String:
+	if OS.has_feature("android") and not Engine.has_singleton("PacificMobile"): return I18n.t("installation.mobile_services")
 	for car: CarDefinition in Catalog.cars:
 		if not CarVisual.available(car.mesh_id): return I18n.t("car."+car.id)
 	for path: String in ["res://assets/exported/textures/cars_atlas.png","res://assets/exported/shaders/car.gdshader","res://assets/exported/shaders/car_ghost.gdshader","res://assets/exported/shaders/blob_shadow.gdshader"]:
@@ -513,6 +514,7 @@ func start_drive(configuration: Dictionary = {}, reuse_world: bool = false, supp
 	drive.school_skipped.connect(skip_school)
 	drive.school_retry_requested.connect(func() -> void: request_drive(pending_config,show_school))
 	add_child(drive)
+	if not foreground: drive.driver.set_focus(false)
 	if not resume_payload.is_empty():
 		if not RaceArchive.restore(drive,resume_payload):
 			checkpoint_error = "resume.incompatible"
@@ -520,6 +522,7 @@ func start_drive(configuration: Dictionary = {}, reuse_world: bool = false, supp
 		elif drive.session.phase==RaceSession.Phase.RESULTS: show_results()
 		elif foreground: drive.resume()
 		else: drive.show_pause()
+	elif not foreground: drive.show_pause()
 
 
 func retry_drive() -> void:
@@ -536,7 +539,12 @@ func show_pause() -> void:
 	var mode: String = drive.session.mode
 	var body := menu.reset(I18n.t("pause.online" if network else "pause.title"))
 	var list := menu.scroll_column(body)
-	list.add_child(menu.ui.button(I18n.t("pause.resume"), resume_drive))
+	var resume_button := menu.ui.button(I18n.t("pause.resume"), resume_drive)
+	resume_button.disabled = not foreground
+	list.add_child(resume_button)
+	if mobile_runtime.audio_blocked:
+		list.add_child(menu.ui.paragraph(I18n.t("pause.audio_interrupted")))
+		if mobile_runtime.focus_state in [0,-1]: list.add_child(menu.ui.button(I18n.t("pause.retry_audio"),mobile_runtime.retry_audio_focus))
 	if not checkpoint_error.is_empty(): list.add_child(menu.ui.paragraph(I18n.t(checkpoint_error)))
 	if not network and mode != "cup":
 		list.add_child(menu.ui.button(I18n.t("pause.restart_trial" if mode == "trial" else "pause.restart"), retry_drive))
@@ -563,6 +571,7 @@ func set_trial_ghost(value: bool) -> void:
 
 
 func resume_drive() -> void:
+	if not foreground: return
 	menu.hide()
 	page = "race"
 	drive.apply_settings()
@@ -829,6 +838,7 @@ func show_school_complete() -> void:
 
 
 func show_online() -> void:
+	if not mobile_runtime.allow_online(show_online): return
 	online_page.show_hub()
 
 
@@ -858,10 +868,12 @@ func show_connection_form() -> void:
 			network.queue_free()
 			network = null
 		show_online())
-	address.call_deferred("grab_focus")
+	if data.mobile: menu.first_focus()
+	else: address.call_deferred("grab_focus")
 
 
 func connect_address(value: String, code_value: String = "", admission_ticket: String = "") -> void:
+	if not mobile_runtime.allow_online(connect_address.bind(value,code_value,admission_ticket)): return
 	var address := PeerAddress.parse(value)
 	if address.is_empty():
 		connection_label.text = I18n.t("online.address_error")
@@ -935,6 +947,10 @@ func start_online(_configuration: Dictionary) -> void:
 	drive.leave_requested.connect(return_to_menu)
 	drive.pause_requested.connect(show_pause)
 	add_child(drive)
+	if not foreground:
+		drive.driver.set_focus(false)
+		drive.show_pause()
+		network.set_suspended(true)
 
 
 func online_results(rows: Array) -> void:
@@ -1039,6 +1055,9 @@ func _notification(what: int) -> void:
 	if what==MainLoop.NOTIFICATION_OS_MEMORY_WARNING:
 		mobile_runtime.release_inactive_assets()
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST and is_inside_tree():
+		if is_instance_valid(menu.modal) and menu.modal.visible:
+			menu.modal.get_cancel_button().pressed.emit()
+			return
 		if ChoicePicker.close_active(get_viewport()):
 			return
 		if page == "race" and is_instance_valid(drive):
@@ -1050,12 +1069,21 @@ func _notification(what: int) -> void:
 	if capture_path != "":
 		return
 	if what in [NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED]:
+		mobile_runtime.window_changed(false)
 		handle_background()
 	elif what in [NOTIFICATION_APPLICATION_FOCUS_IN, NOTIFICATION_APPLICATION_RESUMED]:
-		foreground = true
-		menu_repeat.clear_context()
-		if data.mobile and is_instance_valid(network): network.set_suspended(false)
-		mobile_runtime.refresh()
+		if not mobile_runtime.window_changed(true): handle_foreground()
+
+
+func handle_foreground() -> void:
+	if foreground: return
+	foreground = true
+	menu_repeat.clear_context()
+	audio_mix.foreground = true
+	audio_mix.apply_levels()
+	if is_instance_valid(drive): drive.driver.set_focus(true)
+	if data.mobile and is_instance_valid(network): network.set_suspended(false)
+	mobile_runtime.refresh()
 
 
 func handle_background() -> void:

@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "profile": "m5_handover66_96ec4e24",
+  "build": {
+    "version": "0.0.66-dev",
+    "build_number": 66,
+    "working_tree_dirty": true,
+    "commit": "27bd93e77fe93e898d221549ab9dcc0d9aff3a3b",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+    "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "e071ba0088b7345b32af11f31088bb8770b656fb9c12a16f59a346357ba9ac5b",
+      "sha256": "510963fddd472bc21011028e9da6ff37ef08f315476296a33e75a693a9d5d74a"
+    },
+    "android_services": {
+      "source_hash": "d3b152de525fa6fc6804c9afc2dc1141871399d0bbfcf2b2668180c575523a77",
+      "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+      "android_api": 36,
+      "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+      "java_release": 17,
+      "compiler": "javac 17.0.20.1",
+      "sha256": "98e0e48ee687e68962f3e2a7bf89958df293f3c0b3e0f6b65106ad8a70e72de4"
+    }
+  },
+  "apk_sha256": "55ee7c45137150467bf471e911b8ccbdbff4ce40a2b7b3586307eab515786fb1",
+  "boundary": "Actual Android emulator default Wi-Fi/cellular route changes and real ENet authority; not physical radios or carrier handover. Bounded mid-race identity/slot continuity, not complete standings or full race acceptance.",
+  "same_identity": true,
+  "same_slot": 1,
+  "same_race_uuid": true,
+  "human_count": 2,
+  "distinct_transports": 3,
+  "same_android_process": true,
+  "no_godot_errors": true,
+  "archived_profile": "/data/local/tmp/pacific-rush-m5_handover66_96ec4e24",
+  "emulator_wifi_restored": true
+}

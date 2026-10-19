@@ -28,7 +28,7 @@ func _init(folder: String = "user://", mobile_profile: Variant = null) -> void:
 
 func default_profile() -> Dictionary:
 	var bytes := Crypto.new().generate_random_bytes(4)
-	return {"display_name":"Driver%04d" % (bytes.decode_u32(0) % 10000), "selected_car":0, "selected_paint":0, "first_run_complete":false, "school_steps":[false, false, false, false, false], "races_completed":0, "distance_m":0.0, "trophies":[], "ledger":{}, "guest_reference":"", "last_mode":"quick", "last_menu":"quick"}
+	return {"display_name":"Driver%04d" % (bytes.decode_u32(0) % 10000), "selected_car":0, "selected_paint":0, "first_run_complete":false, "school_steps":[false, false, false, false, false], "races_completed":0, "distance_m":0.0, "trophies":[], "ledger":{}, "guest_reference":"", "last_mode":"quick", "last_menu":"quick", "cellular_notice_accepted":false}
 
 
 func save_settings() -> Error:
@@ -292,6 +292,7 @@ func write_binary(filename: String, bytes: PackedByteArray) -> Error:
 
 
 static func validate_profile(value: Dictionary) -> bool:
+	if not value.get("cellular_notice_accepted",false) is bool: return false
 	if not value.get("display_name") is String or not NetEvents.integer(value.get("selected_car"), 0, 3) or not NetEvents.integer(value.get("selected_paint"), 0, 7) or not value.get("first_run_complete") is bool or not value.get("school_steps") is Array or value.school_steps.size() != 5 or not value.get("ledger") is Dictionary or not value.get("trophies") is Array or not NetEvents.integer(value.get("races_completed"), 0, 1000000000) or not (value.get("distance_m") is float or value.get("distance_m") is int) or float(value.distance_m) < 0:
 		return false
 	if not PlayerName.validate(value.display_name).valid:

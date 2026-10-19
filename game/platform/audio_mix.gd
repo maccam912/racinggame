@@ -5,6 +5,7 @@ const CHANNELS: Dictionary = {"music":"Music","engine":"Engine","effects_volume"
 var settings: Dictionary = {}
 var foreground: bool = true
 var mobile: bool = OS.has_feature("mobile")
+var focus_allowed: bool = true
 var offline_paused: bool = false
 var online_overlay: bool = false
 var movement_suspended: bool = false
@@ -70,7 +71,7 @@ func apply_levels() -> void:
 	if settings.is_empty(): return
 	var master := float(settings.master)/100
 	AudioServer.set_bus_volume_db(0,linear_to_db(maxf(master,.0001)))
-	AudioServer.set_bus_mute(0,master<=0 or not foreground and (mobile or not bool(settings.background_audio)))
+	AudioServer.set_bus_mute(0,master<=0 or not focus_allowed or not foreground and (mobile or not bool(settings.background_audio)))
 	for key: String in CHANNELS:
 		var index := AudioServer.get_bus_index(CHANNELS[key])
 		var level := float(settings[key])/100

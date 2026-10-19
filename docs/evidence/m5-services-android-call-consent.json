@@ -1,0 +1,64 @@
+{
+  "profile": "m5_services66_8c13228d",
+  "root": "/data/user/0/dev.pacificrush.game/files/diagnostic_profiles/m5_services66_8c13228d",
+  "wifi_before": "1",
+  "mobile_data_before": "1",
+  "cellular_cancel_continue": {
+    "cancel_started_no_connection": true,
+    "continue_started_connection": true,
+    "preference_read_back": true,
+    "cold_relaunch_no_repeated_notice": true
+  },
+  "final_call": {
+    "same_process": true,
+    "actual_loss_transient": true,
+    "audio_focus_stack": [
+      "source:android.os.BinderProxy@28040cd -- pack: dev.pacificrush.game -- client: android.media.AudioManager@e38ceb9dev.pacificrush.platform.PacificMobile$$ExternalSyntheticLambda2@94292fe -- gain: GAIN -- flags: DELAY_OK|PAUSES_ON_DUCKABLE_LOSS -- loss: LOSS_TRANSIENT -- notified: true -- limbofalse -- uid: 10207 -- attr: AudioAttributes: usage=USAGE_GAME content=CONTENT_TYPE_MUSIC flags=0x800 tags= bundle=null -- sdk:36",
+      "source:android.os.Binder@afdda77 -- pack: com.android.server.telecom -- client: AudioFocus_For_Phone_Ring_And_Calls -- gain: GAIN_TRANSIENT -- flags: LOCK -- loss: none -- notified: true -- limbofalse -- uid: 1000 -- attr: AudioAttributes: usage=USAGE_NOTIFICATION_RINGTONE content=CONTENT_TYPE_SONIFICATION flags=0x800 tags= bundle=null -- sdk:0"
+    ],
+    "race_uuid_unchanged": true,
+    "elapsed_ticks": 80,
+    "position_identical_through_resume_countdown": true,
+    "no_godot_errors": true
+  },
+  "build": {
+    "version": "0.0.66-dev",
+    "build_number": 66,
+    "working_tree_dirty": true,
+    "commit": "27bd93e77fe93e898d221549ab9dcc0d9aff3a3b",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+    "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "e071ba0088b7345b32af11f31088bb8770b656fb9c12a16f59a346357ba9ac5b",
+      "sha256": "510963fddd472bc21011028e9da6ff37ef08f315476296a33e75a693a9d5d74a"
+    },
+    "android_services": {
+      "source_hash": "229a43e6753e17e2df9662f84131b917f7fd43526299748c02a4a3f241ae15de",
+      "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+      "android_api": 36,
+      "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+      "java_release": 17,
+      "compiler": "javac 17.0.20.1",
+      "sha256": "98e0e48ee687e68962f3e2a7bf89958df293f3c0b3e0f6b65106ad8a70e72de4"
+    }
+  },
+  "apk_sha256": "ed8d12ebe58df153ec9ee6b0b7646ab79ce618219f24000e5e0e4012afcaa3b1",
+  "passed": true,
+  "emulator_network_restored": true,
+  "archived_profile": "/data/local/tmp/pacific-rush-m5_services66_8c13228d",
+  "boundary": "Actual release APK on the owned Android 15 ARM64 emulator: OS telephony audio-focus callbacks, Home/native checkpoint, real touch consent Cancel/Continue, cellular default route, cold consent persistence. Not a real telephone call, physical cellular carrier handover, physical audio listening or thermal/device acceptance. This artifact predates the final modal styling/target sizing/Back refinement, which has separate exact final-APK evidence.",
+  "tested_apk_archive": "build/qa-checkpoints/services66-before-modal-sizing/pacific-rush-00066-android.apk"
+}
