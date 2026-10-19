@@ -9,7 +9,8 @@ import shutil
 import subprocess
 import sys
 import zipfile
-from contextlib import contextmanager
+from contextlib import contextmanager, nullcontext
+from export_environment import temporary_configuration
 from content_hash import compute
 from bootstrap import ROOT, LOCK, engine, templates
 
@@ -59,6 +60,32 @@ def stamped(data, number):
             build_info.write_bytes(original_info)
 
 
+def android_configuration():
+    sdk = os.environ.get('ANDROID_HOME', str(Path.home()/'Library/Android/sdk'))
+    jdk = os.environ.get('JAVA_HOME', '/opt/homebrew/opt/openjdk@17')
+    settings = ROOT/'build/export-home/editor_settings-4.6.tres'
+    # Godot accepts editor settings through its standard per-user config path.
+    if sys.platform == 'darwin':
+        settings = Path.home()/'Library/Application Support/Godot/editor_settings-4.6.tres'
+    elif sys.platform == 'win32':
+        settings = Path(os.environ['APPDATA'])/'Godot/editor_settings-4.6.tres'
+    else:
+        settings = Path.home()/'.config/godot/editor_settings-4.6.tres'
+    settings.parent.mkdir(parents=True, exist_ok=True)
+    local_key = Path.home()/'.local/share/pacific-rush/development.keystore'
+    fallback_key = Path.home()/'.android/debug.keystore'
+    keystore = Path(os.environ.get('PACIFIC_DEBUG_KEYSTORE', str(local_key if local_key.exists() else fallback_key))).expanduser()
+    if not keystore.exists():
+        keystore = local_key
+        keystore.parent.mkdir(parents=True,exist_ok=True)
+        subprocess.run([str(Path(jdk)/'bin/keytool'),'-genkeypair','-keystore',str(keystore),'-storepass','android','-keypass','android','-alias','androiddebugkey','-dname','CN=Pacific Rush Development','-keyalg','RSA','-keysize','2048','-validity','10000'],check=True,capture_output=True)
+        keystore.chmod(0o600)
+    values = {'export/android/android_sdk_path':sdk, 'export/android/java_sdk_path':jdk}
+    values.update({'export/android/debug_keystore':str(keystore), 'export/android/debug_keystore_user':'androiddebugkey', 'export/android/debug_keystore_pass':'android'})
+    environment = {'GODOT_ANDROID_KEYSTORE_RELEASE_PATH':str(keystore), 'GODOT_ANDROID_KEYSTORE_RELEASE_USER':'androiddebugkey', 'GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD':'android'}
+    return settings, values, environment
+
+
 def build(target, number):
     if number < 1:
         raise ValueError('Build number must be positive')
@@ -67,39 +94,9 @@ def build(target, number):
     folder.mkdir(parents=True, exist_ok=True)
     (ROOT/'build/.gdignore').touch()
     preset, name = TARGETS[target]
-    if target.startswith('android'):
-        sdk = os.environ.get('ANDROID_HOME', str(Path.home()/'Library/Android/sdk'))
-        jdk = os.environ.get('JAVA_HOME', '/opt/homebrew/opt/openjdk@17')
-        settings = ROOT/'build/export-home/editor_settings-4.6.tres'
-        # Godot accepts editor settings through its standard per-user config path.
-        if sys.platform == 'darwin':
-            settings = Path.home()/'Library/Application Support/Godot/editor_settings-4.6.tres'
-        elif sys.platform == 'win32':
-            settings = Path(os.environ['APPDATA'])/'Godot/editor_settings-4.6.tres'
-        else:
-            settings = Path.home()/'.config/godot/editor_settings-4.6.tres'
-        settings.parent.mkdir(parents=True, exist_ok=True)
-        text = settings.read_text() if settings.exists() else '[gd_resource type="EditorSettings" format=3]\n\n[resource]\n'
-        import re
-        local_key = Path.home()/'.local/share/pacific-rush/development.keystore'
-        fallback_key = Path.home()/'.android/debug.keystore'
-        keystore = Path(os.environ.get('PACIFIC_DEBUG_KEYSTORE', str(local_key if local_key.exists() else fallback_key))).expanduser()
-        if not keystore.exists():
-            keystore = local_key
-            keystore.parent.mkdir(parents=True,exist_ok=True)
-            subprocess.run([str(Path(jdk)/'bin/keytool'),'-genkeypair','-keystore',str(keystore),'-storepass','android','-keypass','android','-alias','androiddebugkey','-dname','CN=Pacific Rush Development','-keyalg','RSA','-keysize','2048','-validity','10000'],check=True,capture_output=True)
-            keystore.chmod(0o600)
-        values = {'export/android/android_sdk_path':sdk, 'export/android/java_sdk_path':jdk}
-        values.update({'export/android/debug_keystore':str(keystore), 'export/android/debug_keystore_user':'androiddebugkey', 'export/android/debug_keystore_pass':'android'})
-        os.environ['GODOT_ANDROID_KEYSTORE_RELEASE_PATH'] = str(keystore)
-        os.environ['GODOT_ANDROID_KEYSTORE_RELEASE_USER'] = 'androiddebugkey'
-        os.environ['GODOT_ANDROID_KEYSTORE_RELEASE_PASSWORD'] = 'android'
-        for key, value in values.items():
-            text = re.sub(r'^'+re.escape(key)+r'=.*\n', '', text, flags=re.M)
-            text += f'{key}="{value}"\n'
-        settings.write_text(text)
     data = metadata(target, number)
-    with stamped(data, number):
+    configuration = temporary_configuration(*android_configuration()) if target.startswith('android') else nullcontext()
+    with configuration, stamped(data, number):
         checked(['--headless','--editor','--import','--quit'])
         install = ['--install-android-build-template'] if target.startswith('android') else []
         checked(['--headless', *install, '--export-release',preset,str(folder/name)])
