@@ -1,0 +1,302 @@
+{
+  "schema_version": 1,
+  "coordinate_contract": "Landmark u is original curve u, before start rotation; lateral meters are positive right. Scenery is cosmetic and has no driving collision.",
+  "courses": [
+    {
+      "id": "palm_bay",
+      "ground": "D8BD86",
+      "sky_top": "65B9EB",
+      "horizon": "B9E6ED",
+      "sun": "FFF1D2",
+      "sun_energy": 0.6,
+      "ambient": 0.35,
+      "sun_rotation": [
+        -48,
+        -32,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.2,
+        0.65
+      ],
+      "vegetation": "palm",
+      "landmarks": [
+        {
+          "id": "surf_shop",
+          "u": 0.12,
+          "lateral": -25
+        },
+        {
+          "id": "lighthouse",
+          "u": 0.28,
+          "lateral": 45
+        },
+        {
+          "id": "pier",
+          "u": 0.42,
+          "lateral": 0,
+          "align": "route",
+          "extends_to_right_m": 120
+        },
+        {
+          "id": "beach_hotel",
+          "u": 0.65,
+          "lateral": -40
+        },
+        {
+          "id": "sun_sign",
+          "u": 0.82,
+          "lateral": 25
+        }
+      ]
+    },
+    {
+      "id": "citrus_pass",
+      "ground": "8EBB67",
+      "sky_top": "75B8DF",
+      "horizon": "F2D5A2",
+      "sun": "FFDBAA",
+      "sun_energy": 0.55,
+      "ambient": 0.38,
+      "sun_rotation": [
+        -32,
+        -48,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "orchard",
+      "landmarks": [
+        {
+          "id": "fruit_stand",
+          "u": 0.15,
+          "lateral": -25
+        },
+        {
+          "id": "water_tower",
+          "u": 0.32,
+          "lateral": 45
+        },
+        {
+          "id": "packing_shed",
+          "u": 0.49,
+          "lateral": -30
+        },
+        {
+          "id": "orange_arch",
+          "u": 0.68,
+          "lateral": 0,
+          "align": "route",
+          "clearance": 8
+        },
+        {
+          "id": "windmill",
+          "u": 0.86,
+          "lateral": 35
+        }
+      ]
+    },
+    {
+      "id": "marina_lights",
+      "ground": "B1B7B0",
+      "sky_top": "658BBF",
+      "horizon": "B4DAEA",
+      "sun": "D5E4F5",
+      "sun_energy": 0.35,
+      "ambient": 0.55,
+      "sun_rotation": [
+        -20,
+        -60,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.25,
+        0.75
+      ],
+      "vegetation": "palm",
+      "emission": 0.35,
+      "landmarks": [
+        {
+          "id": "arcade",
+          "u": 0.12,
+          "lateral": -22
+        },
+        {
+          "id": "marina_wheel",
+          "u": 0.31,
+          "lateral": 65,
+          "diameter": 45
+        },
+        {
+          "id": "underpass",
+          "u": 0.46,
+          "lateral": 0,
+          "align": "route",
+          "clearance": 7,
+          "interval": [
+            0.44,
+            0.49
+          ]
+        },
+        {
+          "id": "sailboats",
+          "u": 0.64,
+          "lateral": 48,
+          "height_offset": -3
+        },
+        {
+          "id": "seafood_diner",
+          "u": 0.81,
+          "lateral": -24
+        }
+      ]
+    },
+    {
+      "id": "redwood_run",
+      "ground": "82AA68",
+      "sky_top": "7DB3CF",
+      "horizon": "D2DCC4",
+      "sun": "FFE0AA",
+      "sun_energy": 0.55,
+      "ambient": 0.38,
+      "sun_rotation": [
+        -39,
+        -27,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "redwood",
+      "landmarks": [
+        {
+          "id": "ranger_kiosk",
+          "u": 0.13,
+          "lateral": -24
+        },
+        {
+          "id": "giant_tree",
+          "u": 0.3,
+          "lateral": 28,
+          "trunk_diameter": 7
+        },
+        {
+          "id": "timber_bridge",
+          "u": 0.47,
+          "lateral": 0,
+          "align": "route",
+          "shoulder_width": 3
+        },
+        {
+          "id": "visitor_center",
+          "u": 0.63,
+          "lateral": -40
+        },
+        {
+          "id": "tree_display",
+          "u": 0.82,
+          "lateral": 25
+        }
+      ]
+    },
+    {
+      "id": "sunstone_canyon",
+      "ground": "DAB077",
+      "sky_top": "65B9EB",
+      "horizon": "C5E3EA",
+      "sun": "FFE6BB",
+      "sun_energy": 0.6,
+      "ambient": 0.38,
+      "sun_rotation": [
+        -44,
+        -38,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "shrub",
+      "landmarks": [
+        {
+          "id": "dinosaur",
+          "u": 0.16,
+          "lateral": -30
+        },
+        {
+          "id": "twin_mesas",
+          "u": 0.33,
+          "lateral": 165
+        },
+        {
+          "id": "rail_trestle",
+          "u": 0.48,
+          "lateral": -60
+        },
+        {
+          "id": "tunnel_portal",
+          "u": 0.6,
+          "lateral": 0,
+          "align": "route",
+          "clearance": 8,
+          "interval": [
+            0.57,
+            0.64
+          ]
+        },
+        {
+          "id": "motel_sign",
+          "u": 0.79,
+          "lateral": 30
+        }
+      ]
+    },
+    {
+      "id": "pacific_summit",
+      "ground": "9FAF76",
+      "sky_top": "76AFD4",
+      "horizon": "F3D5A9",
+      "sun": "FFDFAC",
+      "sun_energy": 0.55,
+      "ambient": 0.39,
+      "sun_rotation": [
+        -29,
+        -45,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.55,
+        0.9
+      ],
+      "vegetation": "shrub",
+      "landmarks": [
+        {
+          "id": "observatory",
+          "u": 0.14,
+          "lateral": -65
+        },
+        {
+          "id": "overlook",
+          "u": 0.33,
+          "lateral": 35
+        },
+        {
+          "id": "mountain_lodge",
+          "u": 0.5,
+          "lateral": -45
+        },
+        {
+          "id": "viaduct",
+          "u": 0.69,
+          "lateral": 0,
+          "align": "route"
+        },
+        {
+          "id": "balloons",
+          "u": 0.84,
+          "lateral": 85
+        }
+      ]
+    }
+  ]
+}

@@ -33,11 +33,13 @@ func show_event() -> void:
 		var track: TrackDefinition = Catalog.tracks[index]
 		var card := VBoxContainer.new()
 		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-		var map := RoutePreview.new()
-		map.track = track
-		map.custom_minimum_size = Vector2(160, 70) * shell.ui.unit
-		map.mouse_filter = Control.MOUSE_FILTER_IGNORE
-		card.add_child(map)
+		var postcard := TextureRect.new()
+		postcard.texture = load("res://assets/exported/thumbnails/"+track.id+".png")
+		postcard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		postcard.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		postcard.custom_minimum_size = Vector2(160,90)*shell.ui.unit
+		postcard.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		card.add_child(postcard)
 		var name_value := I18n.t("track." + track.id)
 		var distance: float = track.length / (1609.344 if app.data.settings.units == "mph" else 1000)
 		var description := "%s • %.2f %s" % [I18n.t("difficulty." + ["easy", "easy", "medium", "medium", "hard", "hard"][index]), distance, "mi" if app.data.settings.units == "mph" else "km"]
@@ -48,8 +50,14 @@ func show_event() -> void:
 		card.add_child(button)
 		buttons.append(button)
 		grid.add_child(shell.ui.panel(card))
+	var details := HBoxContainer.new()
+	preview = RoutePreview.new()
+	preview.custom_minimum_size = Vector2(180,110)*shell.ui.unit
+	details.add_child(preview)
 	info = shell.ui.paragraph("")
-	list.add_child(info)
+	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	details.add_child(info)
+	list.add_child(shell.ui.panel(details))
 	if mode == "quick":
 		choice(list, "event.laps", ["1", "2", "3"], laps-1, func(index: int) -> void: laps = index+1)
 		choice(list, "event.opponents", ["0", "1", "2", "3", "4", "5", "6", "7"], opponents, func(index: int) -> void: opponents = index)
@@ -75,6 +83,8 @@ func show_event() -> void:
 func select_track(index: int) -> void:
 	track_index = index
 	var track: TrackDefinition = Catalog.tracks[index]
+	preview.track = track
+	preview.queue_redraw()
 	info.text = I18n.t("route.description." + track.id)
 	if mode == "trial":
 		var best: float = app.data.best("trial", track.id, Catalog.cars[int(app.data.profile.selected_car)].id)

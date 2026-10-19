@@ -322,9 +322,11 @@ func show_loading(configuration: Dictionary, cancel: Callable) -> TrackLoader:
 	var track: TrackDefinition = Catalog.tracks[int(configuration.get("track",0))]
 	var body := menu.reset(I18n.t("online.loading"),I18n.t("track."+track.id))
 	var list := menu.scroll_column(body)
-	var postcard := RoutePreview.new()
-	postcard.track = track
-	postcard.custom_minimum_size = Vector2(320,160)*menu.ui.unit
+	var postcard := TextureRect.new()
+	postcard.texture = load("res://assets/exported/thumbnails/"+track.id+".png")
+	postcard.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	postcard.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	postcard.custom_minimum_size = Vector2(320,180)*menu.ui.unit
 	list.add_child(menu.ui.panel(postcard))
 	list.add_child(menu.ui.paragraph(I18n.t("loading.event",[I18n.t("menu."+str(configuration.get("mode","online"))),int(configuration.get("laps",2))])))
 	var device := DrivingInput.last_device

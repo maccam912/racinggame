@@ -89,6 +89,8 @@ func run() -> void:
 
 func capture_game_ui() -> void:
 	root.size = Vector2i(1920,1080)
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
+	root.content_scale_size = Vector2i(1280,720)
 	var app: Node = load("res://game/client_app.gd").new()
 	app.capture_path = "user://unused-m4-cars.png"
 	app.capture_frame = 1000000

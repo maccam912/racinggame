@@ -268,6 +268,7 @@ func _physics_process(_dt: float) -> void:
 
 
 func _process(dt: float) -> void:
+	world.set_start_lamps(phase,phase_ticks,race_ticks)
 	if not paused:
 		hint_elapsed += dt
 		var next_hint := int(hint_elapsed/4)%4

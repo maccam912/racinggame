@@ -1,10 +1,10 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.0 — 18 October 2026
+Version 1.1 — 19 October 2026
 
-Working title: **Pacific Rush**. The title is provisional; title availability is not established. Product: a downloadable online arcade circuit racer for Windows, macOS, Linux, and Android. This document defines the complete first release, including offline play, online services, touch controls, cross-play, content, presentation, controls, and delivery criteria.
+Working title: **Pacific Rush**. The title is provisional; title availability is not established. Product: a downloadable 3D online arcade circuit racer for Windows, macOS, Linux, and Android. This document defines the complete first release, including offline play, online services, touch controls, cross-play, content, presentation, controls, and delivery criteria.
 
-The player request establishes four requirements: online multiplayer racing; satisfying speed and cornering with skill but limited realism; the colorful late-1990s California Speed arcade atmosphere; and mobile support with touch controls. All other choices below are explicit design defaults selected to make implementation reproducible. They are normative for this version, but are not claims that the product owner previously approved each individual choice. Implement this specification before extending it. Do not add features merely because a comparable game has them.
+The player request establishes five requirements: 3D presentation; online multiplayer racing; satisfying speed and cornering with skill but limited realism; the colorful late-1990s California Speed arcade atmosphere; and mobile support with touch controls. All other choices below are explicit design defaults selected to make implementation reproducible. They are normative for this version, but are not claims that the product owner previously approved each individual choice. Implement this specification before extending it. Do not add features merely because a comparable game has them.
 
 ## 1 Product contract
 

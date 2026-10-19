@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "source": "assets/source/generate_terrain.py",
+  "license": "MIT",
+  "courses": [
+    {
+      "id": "palm_bay",
+      "path": "assets/exported/scenery/palm_bay_terrain.glb",
+      "sha256": "cb03aab376881bc9de26ba775d6c0639d5b9cd1538ca71def626a2299feb6861",
+      "chunks": 132,
+      "triangles": 6600,
+      "chunk_width_m": 160,
+      "grid_step_m": 32,
+      "sea_level": 0.42592799999999986,
+      "route_hash": "ee980635c914858c3a48a9f689265c88184dd207dfcc33e74227a9810a4aa54a"
+    },
+    {
+      "id": "citrus_pass",
+      "path": "assets/exported/scenery/citrus_pass_terrain.glb",
+      "sha256": "3c0b7cab380cf4cee067c5e4ba6b6d93de4d1496b8df182004c282ea92879613",
+      "chunks": 121,
+      "triangles": 6050,
+      "chunk_width_m": 160,
+      "grid_step_m": 32,
+      "sea_level": 4.055568,
+      "route_hash": "9056098881d328032bd4508d29e5a7c69880b09f45a6f3b5085e66c2bc695955"
+    },
+    {
+      "id": "marina_lights",
+      "path": "assets/exported/scenery/marina_lights_terrain.glb",
+      "sha256": "eb2e9345bc08b3f9da772b79b3f7bec180eb4d011120bda34c1c10f0e9ec006b",
+      "chunks": 120,
+      "triangles": 6000,
+      "chunk_width_m": 160,
+      "grid_step_m": 32,
+      "sea_level": -0.5,
+      "route_hash": "5ed3ab3841b649df8e420b0a141073570b856c275d50322e61d373b0fe30b337"
+    },
+    {
+      "id": "redwood_run",
+      "path": "assets/exported/scenery/redwood_run_terrain.glb",
+      "sha256": "fac931afdd5c888aa48e903aa1a522d47ae5a233247141cb72f33322349b0eb6",
+      "chunks": 120,
+      "triangles": 6000,
+      "chunk_width_m": 160,
+      "grid_step_m": 32,
+      "sea_level": 5.907425999999999,
+      "route_hash": "df84b32048c85a8b861a5014a664db2b96665f9495d26006e93f284e27d10918"
+    },
+    {
+      "id": "sunstone_canyon",
+      "path": "assets/exported/scenery/sunstone_canyon_terrain.glb",
+      "sha256": "d8141fb4fc78979fe1d297576cdeee4c98ced1276add2326bbc172b185eabda9",
+      "chunks": 143,
+      "triangles": 7150,
+      "chunk_width_m": 160,
+      "grid_step_m": 32,
+      "sea_level": 7.907498,
+      "route_hash": "5bdb822618f00fe0fa3e2eeceb4d3f1ebebbf195981688314cf38397542ed8a9"
+    },
+    {
+      "id": "pacific_summit",
+      "path": "assets/exported/scenery/pacific_summit_terrain.glb",
+      "sha256": "74b78dae70593765f2dc01b9e3778395f4ead401d3037d81ed29c1f983ed51e0",
+      "chunks": 168,
+      "triangles": 8400,
+      "chunk_width_m": 160,
+      "grid_step_m": 32,
+      "sea_level": 15.759298999999999,
+      "route_hash": "e0916126df72e50ef77430503e980465356b29da5cb431501400948dabc0c45c"
+    }
+  ]
+}

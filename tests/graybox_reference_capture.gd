@@ -69,7 +69,7 @@ func capture_case(description: Dictionary) -> void:
 	var scene := Node3D.new()
 	root.add_child(scene)
 	var track: TrackDefinition = Catalog.tracks[5] if description.id=="jump" else oval()
-	var world := TrackWorld.new()
+	var world := GrayboxTrackWorld.new()
 	world.build(track)
 	scene.add_child(world)
 	var start: float = 370.0 if str(description.id).begins_with("bend") or description.id=="touch" else 80.0
@@ -83,7 +83,7 @@ func capture_case(description: Dictionary) -> void:
 	for index in range(track.bake.gates.size()):
 		if track.bake.gates[index].s<=start: state.last_gate = index
 	var query := WorldQuery.new(scene.get_world_3d(),track,start)
-	var visual := CarVisual.new()
+	var visual := GrayboxCarVisual.new()
 	visual.build(Catalog.paints[0])
 	scene.add_child(visual)
 	var camera := ChaseCamera.new()
@@ -114,7 +114,7 @@ func capture_case(description: Dictionary) -> void:
 	driver.difficulty = 2
 	var rival: VehicleState
 	var rival_query: WorldQuery
-	var rival_visual: CarVisual
+	var rival_visual: GrayboxCarVisual
 	if description.id=="bump":
 		rival = VehicleState.new()
 		rival.slot = 1
@@ -122,7 +122,7 @@ func capture_case(description: Dictionary) -> void:
 		rival.yaw = state.yaw
 		rival.velocity = rival.forward()*20
 		rival_query = WorldQuery.new(scene.get_world_3d(),track,start+8)
-		rival_visual = CarVisual.new()
+		rival_visual = GrayboxCarVisual.new()
 		rival_visual.build(Catalog.paints[4])
 		scene.add_child(rival_visual)
 	SettingsRuntime.apply(scene,SettingsCatalog.defaults(false))

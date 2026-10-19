@@ -15,7 +15,11 @@ func capture(name_value: String) -> void:
 
 
 func run() -> void:
+	root.mode = Window.MODE_WINDOWED
+	root.size = Vector2i(1920,1080)
 	app = load("res://game/client_app.gd").new()
+	app.capture_path = "user://unused-ui-evidence.png"
+	app.capture_frame = 1000000
 	root.add_child(app)
 	await process_frame
 	app.show_menu()

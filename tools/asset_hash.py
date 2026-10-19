@@ -65,6 +65,60 @@ def validate():
         settings = (path.with_suffix('.glb.import')).read_text()
         assert 'meshes/generate_lods=false' in settings and 'gltf/embedded_image_handling=0' in settings
     print('Validated four original cars, twelve explicit LODs, shared 1024 atlas and editable source')
+    validate_scenery()
+
+
+def validate_scenery():
+    library = json.loads((ROOT/'assets/exported/scenery/library.json').read_text())
+    assert library['license']=='MIT' and library['blender']=='5.1.2'
+    assert (ROOT/library['source']).is_file() and (ROOT/library['editable_source']).is_file()
+    assets=library['assets']
+    assert len(assets)==47 and len({row['id'] for row in assets})==47
+    assert [sum(row['category']==category for row in assets) for category in ['landmark','foliage','prop','building','landscape']]==[30,5,7,3,2]
+    for row in assets:
+        path=ROOT/row['path']; data=path.read_bytes()
+        assert digest(path)==row['sha256'],row['id']
+        size,kind=struct.unpack_from('<II',data,12)
+        assert kind==0x4E4F534A
+        gltf=json.loads(data[20:20+size])
+        counts={}
+        for node in gltf['nodes']:
+            if 'mesh' not in node: continue
+            level=next(level for level in range(3) if f'LOD{level}' in node['name'])
+            primitives=gltf['meshes'][node['mesh']]['primitives']
+            assert len(primitives)==1
+            primitive=primitives[0]
+            assert 'TEXCOORD_0' in primitive['attributes']
+            # Identity mesh transforms are required by the shared MultiMesh batches.
+            assert node.get('translation',[0,0,0])==[0,0,0],node['name']
+            counts[level]=gltf['accessors'][primitive['indices']]['count']//3
+        assert [counts[i] for i in range(3)]==row['triangles'],row['id']
+        cap={'landmark':20000,'foliage':1200,'prop':500,'building':3000,'landscape':500}[row['category']]
+        assert counts[0]<=cap
+        if row['category']=='landmark': assert counts[1]<=counts[0]/2
+        if row['category']=='foliage': assert counts[1]<=200 and counts[2]<=8
+        assert all(value>0 for value in counts.values())
+        settings=path.with_suffix('.glb.import').read_text()
+        assert 'gltf/embedded_image_handling=0' in settings and 'meshes/generate_lods=false' in settings
+    for name,size in [('scenery_atlas',1024),('props_atlas',512),('foliage_atlas',512)]:
+        path=ROOT/f'assets/exported/textures/{name}.png'
+        assert struct.unpack_from('>II',path.read_bytes(),16)==(size,size)
+        assert 'mipmaps/generate=true' in path.with_suffix('.png.import').read_text()
+    courses=json.loads((ROOT/'assets/exported/scenery/courses.json').read_text())
+    assert courses==json.loads((ROOT/'assets/source/course_specs.json').read_text())
+    terrain=json.loads((ROOT/'assets/exported/scenery/terrain.json').read_text())
+    assert len(courses['courses'])==len(terrain['courses'])==6
+    by_id={row['id']:row for row in assets}
+    for row in courses['courses']:
+        assert len(row['landmarks'])==5
+        assert all(by_id[landmark['id']]['category']=='landmark' and 0<=landmark['u']<1 for landmark in row['landmarks'])
+        postcard=ROOT/f'assets/exported/thumbnails/{row["id"]}.png'
+        assert struct.unpack_from('>II',postcard.read_bytes(),16)==(512,288),'Course postcard must be a shipped 512x288 scene render'
+    for row in terrain['courses']:
+        assert digest(ROOT/row['path'])==row['sha256']
+        bake=json.loads((ROOT/f'game/content/baked/{row["id"]}.json').read_text())
+        assert row['route_hash']==bake['content_hash'],'Cosmetic terrain must follow the current canonical bake'
+    print('Validated 30 landmarks, five vegetation models, seven props, six cosmetic terrains and shared atlases')
 
 
 if __name__=='__main__':

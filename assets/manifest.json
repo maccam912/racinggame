@@ -18,14 +18,6 @@
       "modifications": "Unmodified pinned runtime/export templates"
     },
     {
-      "id": "palm_bay_graybox",
-      "source": "game/world/track_world.gd",
-      "creator": "Pacific Rush contributors",
-      "license": "MIT",
-      "attribution": "LICENSE",
-      "modifications": "Original editable procedural development geometry; final art remains M4"
-    },
-    {
       "id": "barlow_font",
       "source": "https://github.com/google/fonts/tree/main/ofl/barlow",
       "creator": "Jeremy Tribby and Barlow contributors",
@@ -124,6 +116,197 @@
       "license": "MIT",
       "attribution": "LICENSE",
       "modifications": "Original procedural panel atlas, paint/trim/brake role shader, translucent ghost and soft blob shadow"
+    },
+    {
+      "id": "palm_bay_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/surf_shop.glb",
+        "assets/exported/scenery/lighthouse.glb",
+        "assets/exported/scenery/pier.glb",
+        "assets/exported/scenery/beach_hotel.glb",
+        "assets/exported/scenery/sun_sign.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "citrus_pass_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/fruit_stand.glb",
+        "assets/exported/scenery/water_tower.glb",
+        "assets/exported/scenery/packing_shed.glb",
+        "assets/exported/scenery/orange_arch.glb",
+        "assets/exported/scenery/windmill.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "marina_lights_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/arcade.glb",
+        "assets/exported/scenery/marina_wheel.glb",
+        "assets/exported/scenery/underpass.glb",
+        "assets/exported/scenery/sailboats.glb",
+        "assets/exported/scenery/seafood_diner.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "redwood_run_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/ranger_kiosk.glb",
+        "assets/exported/scenery/giant_tree.glb",
+        "assets/exported/scenery/timber_bridge.glb",
+        "assets/exported/scenery/visitor_center.glb",
+        "assets/exported/scenery/tree_display.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "sunstone_canyon_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/dinosaur.glb",
+        "assets/exported/scenery/twin_mesas.glb",
+        "assets/exported/scenery/rail_trestle.glb",
+        "assets/exported/scenery/tunnel_portal.glb",
+        "assets/exported/scenery/motel_sign.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "pacific_summit_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/observatory.glb",
+        "assets/exported/scenery/overlook.glb",
+        "assets/exported/scenery/mountain_lodge.glb",
+        "assets/exported/scenery/viaduct.glb",
+        "assets/exported/scenery/balloons.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "shared_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "exports": [
+        "assets/exported/scenery/palm.glb",
+        "assets/exported/scenery/orchard.glb",
+        "assets/exported/scenery/redwood.glb",
+        "assets/exported/scenery/shrub.glb",
+        "assets/exported/scenery/grass.glb",
+        "assets/exported/scenery/chevron.glb",
+        "assets/exported/scenery/warning.glb",
+        "assets/exported/scenery/streetlight.glb",
+        "assets/exported/scenery/bench.glb",
+        "assets/exported/scenery/umbrella.glb",
+        "assets/exported/scenery/cone.glb",
+        "assets/exported/scenery/crate.glb",
+        "assets/exported/scenery/coastal_home.glb",
+        "assets/exported/scenery/marina_shops.glb",
+        "assets/exported/scenery/marina_hotel.glb",
+        "assets/exported/scenery/sandstone_rock.glb",
+        "assets/exported/scenery/summit_peak.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original palm/orchard/redwood/shrub/grass geometry and silhouette atlas, roadside props, neighborhood buildings and landscape forms"
+    },
+    {
+      "id": "course_terrain_and_road_kit",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/generate_terrain.py",
+      "exports": [
+        "assets/exported/scenery/palm_bay_terrain.glb",
+        "assets/exported/scenery/citrus_pass_terrain.glb",
+        "assets/exported/scenery/marina_lights_terrain.glb",
+        "assets/exported/scenery/redwood_run_terrain.glb",
+        "assets/exported/scenery/sunstone_canyon_terrain.glb",
+        "assets/exported/scenery/pacific_summit_terrain.glb"
+      ],
+      "runtime_source": [
+        "game/world/course_road_mesh.gd",
+        "game/world/track_world.gd"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Cosmetic terrain follows unchanged canonical road bakes; original visual barrier extrusion, guidance, gantry lamps, tunnel panels and jump markings. Separate camera collision."
+    },
+    {
+      "id": "course_postcards",
+      "creator": "Pacific Rush contributors",
+      "source": "tests/course_reference_evidence.gd",
+      "exports": [
+        "assets/exported/thumbnails/citrus_pass.png",
+        "assets/exported/thumbnails/marina_lights.png",
+        "assets/exported/thumbnails/pacific_summit.png",
+        "assets/exported/thumbnails/palm_bay.png",
+        "assets/exported/thumbnails/redwood_run.png",
+        "assets/exported/thumbnails/sunstone_canyon.png"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "512x288 native renders of original course scenes, no external images"
+    },
+    {
+      "id": "scenery_materials",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/generate_scenery.py",
+      "exports": [
+        "assets/exported/textures/scenery_atlas.png",
+        "assets/exported/textures/foliage_atlas.png",
+        "assets/exported/textures/props_atlas.png",
+        "assets/exported/shaders/scenery.gdshader",
+        "assets/exported/shaders/water.gdshader"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original 1024 neighborhood atlas, 512 foliage/silhouettes and prop atlases, facade glow and two-layer scrolling water shading"
     }
   ]
 }

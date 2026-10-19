@@ -1,0 +1,42 @@
+{
+  "device": "Owned Pixel 7 Android 15 API 35 ARM64 emulator",
+  "resolution": [
+    2400,
+    1080
+  ],
+  "physical_device": false,
+  "track": "marina_lights",
+  "local_start_to_ready_seconds": 1.131,
+  "build": {
+    "version": "0.0.51-dev",
+    "build_number": 51,
+    "working_tree_dirty": true,
+    "commit": "340d261f840f121b7ad87f826b50e6760e62923d",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "4899e636e87a2e0dbda39be146a526c4f1b3be608fec9411da2a92ca17f5fbc3",
+    "asset_hash": "9130469d39b2bd44633d4d592b795b9898425491143740a833492b15cde97466",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "839540d19ada13cd2463f7ff8e24ceaba91384de2fa3808dd65438231cedce82",
+      "sha256": "1e7411b8f6fd4d8529c8947db00af0e37174b741dfd4d221c08f3cc75097fa64"
+    }
+  },
+  "checks": [
+    "Real touch card selection and scrolling",
+    "Course postcard visible",
+    "City course entered through staged loading",
+    "No Godot script/shader errors at entry"
+  ],
+  "boundary": "Single emulator load observation; no physical-device frame time, thermal or human feel acceptance"
+}
