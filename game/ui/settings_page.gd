@@ -8,6 +8,8 @@ var status: Label
 var pending_display: Dictionary = {}
 var revert_timer: Timer
 var display_modal: ConfirmationDialog
+var display_generation: int = 0
+var pending_focus: String = ""
 
 
 func _init(owner_app: Node) -> void:
@@ -15,6 +17,9 @@ func _init(owner_app: Node) -> void:
 
 
 func show_tab(selected: String, return_to: Callable) -> void:
+	if not is_instance_valid(app) or not app.is_inside_tree():
+		return
+	finish_display(false, display_generation, false)
 	back = return_to
 	tab = selected
 	app.page = "settings"
@@ -28,10 +33,13 @@ func show_tab(selected: String, return_to: Callable) -> void:
 	var names := ["display", "graphics", "audio", "controls", "accessibility", "gameplay", "data"]
 	if app.data.mobile:
 		names.insert(4, "touch")
+	var selected_button: Button
 	for key: String in names:
 		var button := shell.ui.button(I18n.t("tab." + key), func() -> void: show_tab(key, back))
 		button.modulate = UIFactory.TURQUOISE if key == tab else Color.WHITE
 		tabs.add_child(button)
+		if key == tab:
+			selected_button = button
 	var list := shell.scroll_column(body)
 	for definition: Dictionary in SettingsCatalog.rows:
 		if definition.tab != tab or (definition.get("platform", "") == "desktop" and app.data.mobile) or (definition.get("platform", "") == "mobile" and not app.data.mobile):
@@ -47,14 +55,12 @@ func show_tab(selected: String, return_to: Callable) -> void:
 	status = shell.ui.paragraph("")
 	list.add_child(status)
 	if tab != "data":
-		shell.footer.add_child(shell.ui.button(I18n.t("settings.restore_tab"), func() -> void:
-			if app.data.restore_tab(tab) == OK:
-				SettingsRuntime.apply(app, app.data.settings)
-				if app.drive:
-					app.drive.apply_settings()
-				show_tab(tab, back)))
+		shell.footer.add_child(shell.ui.button(I18n.t("settings.restore_tab"), restore_this_tab))
 	shell.add_back(back)
-	shell.first_focus()
+	if selected_button:
+		shell.focus_later(selected_button)
+	else:
+		shell.first_focus()
 
 
 func setting_row(parent: Node, definition: Dictionary) -> void:
@@ -80,7 +86,9 @@ func setting_row(parent: Node, definition: Dictionary) -> void:
 		for index in range(choices.size()):
 			var choice: Variant = choices[index]
 			var key := "choice." + str(choice)
-			var caption := I18n.t(key)
+			var caption := str(int(choice)) if (choice is int or choice is float) and float(choice) == floorf(float(choice)) else I18n.t(key)
+			if definition.id == "monitor":
+				caption = I18n.t("display.monitor", [int(choice) + 1])
 			if caption == key:
 				caption = str(choice)
 			if (choice is int or choice is float) and float(choice) == 0 and definition.id in ["msaa", "frame_cap"]:
@@ -89,6 +97,7 @@ func setting_row(parent: Node, definition: Dictionary) -> void:
 			if str(choice) == str(value) or ((choice is int or choice is float) and (value is int or value is float) and float(choice) == float(value)):
 				picker.selected = index
 		picker.item_selected.connect(func(index: int) -> void: changed(definition, choices[index]))
+		picker.name = "setting_" + str(definition.id)
 		row.add_child(picker)
 	else:
 		var number := SpinBox.new()
@@ -118,11 +127,20 @@ func changed(definition: Dictionary, value: Variant) -> void:
 
 
 func begin_display(key: String, value: Variant) -> void:
-	pending_display = app.data.settings.duplicate(true)
-	app.data.settings[key] = value
+	preview_display({key:value}, key)
+
+
+func preview_display(values: Dictionary, focus_key: String = "") -> void:
+	finish_display(false, display_generation, false)
+	display_generation += 1
+	var generation := display_generation
+	pending_focus = focus_key
+	for key: String in values:
+		pending_display[key] = app.data.settings[key]
+		app.data.settings[key] = values[key]
 	SettingsRuntime.apply(app, app.data.settings, true)
 	display_modal = ConfirmationDialog.new()
-	display_modal.dialog_text = I18n.t("display.confirm")
+	display_modal.dialog_text = I18n.t("display.confirm_seconds", [15])
 	display_modal.ok_button_text = I18n.t("button.keep")
 	display_modal.cancel_button_text = I18n.t("button.revert")
 	display_modal.theme = app.menu.ui.theme
@@ -131,26 +149,75 @@ func begin_display(key: String, value: Variant) -> void:
 	revert_timer.wait_time = 15
 	revert_timer.one_shot = true
 	display_modal.add_child(revert_timer)
-	display_modal.confirmed.connect(func() -> void:
-		pending_display.clear()
-		revert_timer.stop()
-		app.data.save_settings())
-	display_modal.canceled.connect(revert_display)
-	display_modal.close_requested.connect(revert_display)
-	revert_timer.timeout.connect(revert_display)
+	var ticker := Timer.new()
+	ticker.wait_time = 1
+	display_modal.add_child(ticker)
+	ticker.timeout.connect(func() -> void:
+		if generation == display_generation and is_instance_valid(display_modal) and is_instance_valid(revert_timer):
+			display_modal.dialog_text = I18n.t("display.confirm_seconds", [maxi(1, ceili(revert_timer.time_left))]))
+	ticker.start()
+	display_modal.confirmed.connect(func() -> void: finish_display(true, generation))
+	display_modal.canceled.connect(func() -> void: finish_display(false, generation))
+	display_modal.close_requested.connect(func() -> void: finish_display(false, generation))
+	display_modal.tree_exiting.connect(func() -> void: finish_display(false, generation, false))
+	revert_timer.timeout.connect(func() -> void: finish_display(false, generation))
 	display_modal.popup_centered(Vector2i(500, 180))
 	revert_timer.start()
 
 
 func revert_display() -> void:
-	if pending_display.is_empty():
+	finish_display(false, display_generation)
+
+
+func finish_display(keep: bool, generation: int, refresh: bool = true) -> void:
+	if generation != display_generation or pending_display.is_empty():
 		return
-	app.data.settings = pending_display.duplicate(true)
+	var previous := pending_display.duplicate(true)
 	pending_display.clear()
-	SettingsRuntime.apply(app, app.data.settings, true)
-	if is_instance_valid(display_modal):
+	display_generation += 1
+	if is_instance_valid(revert_timer):
+		revert_timer.stop()
+	var saved := false
+	if is_instance_valid(app):
+		if keep:
+			saved = app.data.save_settings() == OK
+		if not saved:
+			for key: String in previous:
+				app.data.settings[key] = previous[key]
+		if app.is_inside_tree():
+			SettingsRuntime.apply(app, app.data.settings, true)
+	if is_instance_valid(display_modal) and not display_modal.is_queued_for_deletion():
+		display_modal.hide()
 		display_modal.queue_free()
+	if refresh and is_instance_valid(app) and app.is_inside_tree() and app.page == "settings":
+		refresh_display.call_deferred(keep and not saved)
+
+
+func refresh_display(save_failed: bool) -> void:
+	if not is_instance_valid(app) or not app.is_inside_tree() or app.page != "settings":
+		return
 	show_tab(tab, back)
+	if save_failed:
+		status.text = I18n.t("data.save_failed")
+	var control: Node = app.menu.root.find_child("setting_" + pending_focus, true, false)
+	if control is Control:
+		app.menu.focus_later(control)
+
+
+func restore_this_tab() -> void:
+	if tab == "display" and not app.data.mobile:
+		var defaults := SettingsCatalog.defaults(false)
+		var changes: Dictionary = {}
+		for row: Dictionary in SettingsCatalog.rows:
+			if row.tab == "display":
+				changes[row.id] = defaults[row.id]
+		preview_display(changes)
+		return
+	if app.data.restore_tab(tab) == OK:
+		SettingsRuntime.apply(app, app.data.settings)
+		if app.drive:
+			app.drive.apply_settings()
+		show_tab(tab, back)
 
 
 func reset_data(all_data: bool) -> void:

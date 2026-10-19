@@ -16,8 +16,11 @@ static func apply(owner_node: Node, settings: Dictionary, display: bool = false)
 		environment.adjustment_brightness = float(settings.brightness)
 	for item: Node in owner_node.get_tree().root.find_children("*", "DirectionalLight3D", true, false):
 		item.shadow_enabled = settings.shadows != "off"
+	if DisplayServer.get_name() != "headless" and not OS.has_feature("mobile"):
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if settings.vsync else DisplayServer.VSYNC_DISABLED)
 	if display and DisplayServer.get_name() != "headless" and not OS.has_feature("mobile"):
 		DisplayServer.window_set_current_screen(clampi(int(settings.monitor), 0, DisplayServer.get_screen_count() - 1))
 		var modes := {"windowed":DisplayServer.WINDOW_MODE_WINDOWED, "borderless":DisplayServer.WINDOW_MODE_FULLSCREEN, "fullscreen":DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN}
 		DisplayServer.window_set_mode(modes.get(settings.window_mode, DisplayServer.WINDOW_MODE_WINDOWED))
-		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if settings.vsync else DisplayServer.VSYNC_DISABLED)
+		if settings.window_mode == "windowed":
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)

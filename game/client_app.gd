@@ -36,7 +36,7 @@ func _ready() -> void:
 		elif arg.begins_with("--capture-frame="):
 			capture_frame = maxi(1, int(arg.trim_prefix("--capture-frame=")))
 	data = AppData.new(folder)
-	SettingsRuntime.apply(self, data.settings)
+	SettingsRuntime.apply(self, data.settings, capture_path.is_empty())
 	menu.settings = data.settings
 	add_child(menu)
 	events = EventMenu.new(self)

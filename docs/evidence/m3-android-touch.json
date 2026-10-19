@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "build": {
+    "version": "0.0.16-dev",
+    "build_number": 16,
+    "working_tree_dirty": false,
+    "commit": "371213cfb21f7063550cc90d715f11a59d3b8cc1",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "78e8df7a34088aade409918658a3cd1d62b2a53c12b2779d52b2ac0ffcc6f078",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured"
+  },
+  "device": "owned Pixel 7 Android 15 ARM64 emulator, API 35",
+  "physical_device": false,
+  "path": "Pause -> Settings -> Touch -> Auto Accelerate Off -> Back -> Restart Race",
+  "idle_mph_after_GO": 0,
+  "held_GO_mph_at_capture": 33,
+  "injection": "Android touchscreen event via adb input swipe at fixed GO center; 2500 ms hold",
+  "screenshots": [
+    "m3-android-manual-idle.png",
+    "m3-android-manual-driving.png"
+  ],
+  "scope": "Exported APK, preference UI, cold race layout and single-pointer throttle; no physical multitouch or controller acceptance claimed"
+}
