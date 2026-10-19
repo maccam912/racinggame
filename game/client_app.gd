@@ -16,6 +16,9 @@ var back_action: Callable
 var pending_config: Dictionary = {}
 var result_summary: Dictionary = {}
 var settings_page: SettingsPage
+var lobby_page: LobbyPage
+var prepared_world: TrackWorld
+var online_result_label: Label
 
 
 func _ready() -> void:
@@ -38,6 +41,7 @@ func _ready() -> void:
 	add_child(menu)
 	events = EventMenu.new(self)
 	settings_page = SettingsPage.new(self)
+	lobby_page = LobbyPage.new(self)
 	if "--drive" in OS.get_cmdline_user_args():
 		start_drive()
 	elif not data.profile.first_run_complete:
@@ -59,14 +63,18 @@ func ensure_stage() -> void:
 	stage.set_paint(int(data.profile.selected_paint))
 
 
-func dispose_drive() -> void:
+func dispose_drive(keep_network: bool = false) -> void:
 	if is_instance_valid(drive):
 		remove_child(drive)
 		drive.queue_free()
 		drive = null
-	if is_instance_valid(network):
+	if not keep_network and is_instance_valid(network):
+		network.leave_room()
 		network.queue_free()
 		network = null
+	if is_instance_valid(prepared_world):
+		prepared_world.queue_free()
+		prepared_world = null
 
 
 func show_menu() -> void:
@@ -141,7 +149,10 @@ func show_name(first: bool) -> void:
 	if not first:
 		menu.add_back(show_menu)
 	edit.text_submitted.connect(func(_text: String) -> void: save.call())
-	edit.call_deferred("grab_focus")
+	if first and data.mobile:
+		menu.first_focus()
+	else:
+		edit.call_deferred("grab_focus")
 
 
 func show_school_offer() -> void:
@@ -155,23 +166,26 @@ func show_school_offer() -> void:
 
 func show_garage(mode: String = "garage") -> void:
 	page = "garage"
-	back_action = show_menu
+	back_action = lobby_page.show_lobby if mode == "online" else show_menu
 	ensure_stage()
 	var body := menu.reset(I18n.t("garage.title"), "", false)
 	var list := menu.scroll_column(body)
 	var cards := GridContainer.new()
-	cards.columns = 2 if data.mobile else 4
+	cards.columns = 2 if data.mobile or int(data.settings.ui_scale) >= 125 else 4
 	list.add_child(cards)
 	for index in range(4):
 		var car: CarDefinition = Catalog.cars[index]
-		var caption := I18n.t("car." + car.id) + "\n" + I18n.t("role." + car.id)
+		var caption := I18n.t("car." + car.id)
 		var button := menu.ui.button(caption, func() -> void:
 			data.select_car(index, int(data.profile.selected_paint))
 			show_garage(mode), 230)
 		button.modulate = UIFactory.TURQUOISE if index == int(data.profile.selected_car) else Color.WHITE
-		cards.add_child(button)
-	var selected: CarDefinition = Catalog.cars[int(data.profile.selected_car)]
-	list.add_child(menu.ui.label("%s  %.0f   •   %s  %.1f   •   %s  %.0f" % [I18n.t("garage.speed"), selected.top_speed * (2.236936 if data.settings.units == "mph" else 3.6), I18n.t("garage.acceleration"), selected.acceleration, I18n.t("garage.grip"), selected.grip]))
+		var card := VBoxContainer.new()
+		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		card.add_child(button)
+		card.add_child(menu.ui.paragraph(I18n.t("role." + car.id)))
+		card.add_child(menu.ui.paragraph("%s %.0f\n%s %.1f\n%s %.0f" % [I18n.t("garage.speed"), car.top_speed * (2.236936 if data.settings.units == "mph" else 3.6), I18n.t("garage.acceleration"), car.acceleration, I18n.t("garage.grip"), car.grip]))
+		cards.add_child(menu.ui.panel(card))
 	var space := Control.new()
 	space.custom_minimum_size.y = 140 * menu.ui.unit
 	list.add_child(space)
@@ -187,10 +201,13 @@ func show_garage(mode: String = "garage") -> void:
 			button.text = "✓ " + button.text
 		paints.add_child(button)
 	list.add_child(menu.ui.paragraph(I18n.t("garage.rotate")))
-	menu.add_back(show_menu)
+	menu.add_back(lobby_page.show_lobby if mode == "online" else show_menu)
 	menu.footer.add_child(menu.ui.button(I18n.t("button.confirm" if mode == "garage" else "button.continue"), func() -> void:
 		if mode == "garage":
 			show_menu()
+		elif mode == "online":
+			network.command("select_car", {"car":int(data.profile.selected_car), "paint":int(data.profile.selected_paint)})
+			lobby_page.show_lobby()
 		elif mode == "cup":
 			if data.start_cup() == OK:
 				start_cup_event()
@@ -295,13 +312,22 @@ func render_results() -> void:
 			list.add_child(menu.ui.label(I18n.t("results." + ["gold", "silver", "bronze"][index]) + "  " + timer.time(thresholds[index])))
 	else:
 		var order := session.standings()
+		if session.mode == "online" and network:
+			order.clear()
+			for row: Dictionary in network.result_event.results:
+				order.append(session.states[int(row.slot)])
 		for index in range(order.size()):
 			var state: VehicleState = order[index]
 			var record: Dictionary = session.roster[state.slot]
 			var gap := "—" if index == 0 or not state.finished or not order[0].finished else "+%.3f" % (state.finish_time - order[0].finish_time)
 			var row := menu.ui.paragraph("%d  %s  •  %s  •  %s  •  %s  •  %s" % [index + 1, record.name, I18n.t("car." + session.cars[state.slot].id), timer.time(state.finish_time) if state.finished else I18n.t("results.dnf") + " " + state.dnf_reason, timer.time(state.best_lap_time) if state.best_lap_time > 0 else "—", gap])
 			list.add_child(menu.ui.panel(row) if state.slot == session.human_slot else row)
-	if session.mode == "cup":
+	if session.mode == "online":
+		online_result_label = menu.ui.label("")
+		list.add_child(online_result_label)
+		menu.footer.add_child(menu.ui.button(I18n.t("online.return_lobby"), func() -> void: network.command("return_lobby")))
+		menu.footer.add_child(menu.ui.button(I18n.t("online.leave"), return_to_menu))
+	elif session.mode == "cup":
 		append_cup_standings(list)
 		if int(data.cup.data.next_event) < 6:
 			menu.footer.add_child(menu.ui.button(I18n.t("cup.next"), start_cup_event))
@@ -425,9 +451,13 @@ func show_connection_form() -> void:
 	address.text = "127.0.0.1:27020"
 	address.custom_minimum_size.y = menu.ui.row_height()
 	body.add_child(address)
+	var code := LineEdit.new()
+	code.placeholder_text = I18n.t("online.code_optional")
+	code.custom_minimum_size.y = menu.ui.row_height()
+	body.add_child(code)
 	connection_label = menu.ui.paragraph(I18n.t("online.waiting"))
 	body.add_child(connection_label)
-	body.add_child(menu.ui.button(I18n.t("online.connect"), func() -> void: connect_address(address.text)))
+	body.add_child(menu.ui.button(I18n.t("online.connect"), func() -> void: connect_address(address.text, code.text)))
 	menu.add_back(func() -> void:
 		if network:
 			network.queue_free()
@@ -436,32 +466,108 @@ func show_connection_form() -> void:
 	address.call_deferred("grab_focus")
 
 
-func connect_address(value: String) -> void:
+func connect_address(value: String, code_value: String = "") -> void:
 	var address := PeerAddress.parse(value)
 	if address.is_empty():
 		connection_label.text = I18n.t("online.address_error")
+		return
+	var checked_code := PeerAddress.parse_code(code_value)
+	if not checked_code.valid:
+		connection_label.text = I18n.t("online.code_error")
 		return
 	if is_instance_valid(network):
 		network.queue_free()
 	network = NetworkClient.new()
 	add_child(network)
-	network.race_started.connect(func(_config: Dictionary) -> void:
-		if is_instance_valid(stage):
-			remove_child(stage)
-			stage.queue_free()
-			stage = null
-		menu.hide()
-		drive = RaceDrive.new()
-		drive.network = network
-		drive.app_data = data
-		drive.show_touch = touch_demo
-		drive.leave_requested.connect(return_to_menu)
-		add_child(drive))
+	network.room_code = checked_code.value
+	network.initial_car = int(data.profile.selected_car)
+	network.initial_paint = int(data.profile.selected_paint)
+	network.loading_requested.connect(prepare_online)
+	network.race_started.connect(start_online)
+	network.results_received.connect(online_results)
+	network.returned_to_lobby.connect(func() -> void:
+		dispose_drive(true)
+		ensure_stage()
+		lobby_page.code_visible = false
+		lobby_page.show_lobby())
+	network.lobby_changed.connect(func(state: Dictionary) -> void:
+		if int(state.phase) == LobbyState.Phase.LOBBY and page in ["connect", "lobby"]:
+			if int(state.revision) != lobby_page.shown_revision or page != "lobby":
+				lobby_page.show_lobby())
+	network.disconnected_permanently.connect(show_connection_lost)
 	network.status_changed.connect(func(message: String) -> void:
 		if is_instance_valid(connection_label):
 			connection_label.text = message
 		print("NETWORK_STATUS " + message))
 	network.connect_to(address.host, address.port, data.profile.display_name)
+
+
+func prepare_online(configuration: Dictionary) -> void:
+	page = "loading"
+	back_action = func() -> void:
+		network.leave_room()
+		show_menu()
+	if is_instance_valid(stage):
+		remove_child(stage)
+		stage.queue_free()
+		stage = null
+	var body := menu.reset(I18n.t("online.loading"), I18n.t("track." + Catalog.tracks[int(configuration.track)].id))
+	body.add_child(menu.ui.paragraph(I18n.t("settings.controls_help")))
+	body.add_child(menu.ui.paragraph(I18n.t("online.waiting")))
+	menu.add_back(back_action)
+	await get_tree().process_frame
+	if not network or page != "loading":
+		return
+	prepared_world = TrackWorld.new()
+	prepared_world.build(Catalog.tracks[int(configuration.track)])
+	add_child(prepared_world)
+	await get_tree().physics_frame
+	if network and page == "loading":
+		network.mark_loaded(int(configuration.race))
+
+
+func start_online(_configuration: Dictionary) -> void:
+	menu.hide()
+	page = "race"
+	drive = RaceDrive.new()
+	drive.network = network
+	drive.app_data = data
+	drive.show_touch = touch_demo
+	drive.external_menus = true
+	drive.prepared_world = prepared_world
+	prepared_world = null
+	drive.leave_requested.connect(return_to_menu)
+	drive.pause_requested.connect(show_pause)
+	add_child(drive)
+
+
+func online_results(rows: Array) -> void:
+	if not drive:
+		return
+	for row: Dictionary in rows:
+		if int(row.slot) >= drive.session.states.size():
+			return
+		var state: VehicleState = drive.session.states[int(row.slot)]
+		state.finished = row.dnf == "" and float(row.time) >= 0
+		state.finish_time = float(row.time)
+		state.dnf_reason = row.dnf
+		state.best_lap_time = float(row.best_lap)
+		state.distance_m = float(row.distance_m)
+	drive.result_sent = true
+	drive.session.phase = RaceSession.Phase.RESULTS
+	drive.touch.clear()
+	drive.touch.enabled = false
+	show_results()
+
+
+func show_connection_lost(message: String) -> void:
+	dispose_drive()
+	page = "connection_lost"
+	back_action = show_online
+	var body := menu.reset(I18n.t("online.title"), message)
+	menu.add_back(show_online)
+	body.add_child(menu.ui.paragraph(I18n.t("online.abandoned")))
+	menu.first_focus()
 
 
 func show_credits() -> void:
@@ -478,7 +584,7 @@ func show_credits() -> void:
 
 func build_name() -> String:
 	var filename := "res://game/build.json"
-	if OS.has_feature("standalone") and FileAccess.file_exists(filename):
+	if OS.has_feature("template") and FileAccess.file_exists(filename):
 		var info: Variant = JSON.parse_string(FileAccess.get_file_as_string(filename))
 		if info is Dictionary:
 			return str(info.get("version", "Development"))
@@ -498,6 +604,10 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(_dt: float) -> void:
+	if network and page == "results" and is_instance_valid(online_result_label):
+		online_result_label.text = I18n.t("online.return_countdown", [maxi(0, ceili((float(network.result_event.get("return_tick", 0)) - network.server_tick) / 60))])
+	if lobby_page and page == "lobby":
+		lobby_page.update_countdown()
 	if capture_path.is_empty():
 		return
 	rendered_frames += 1

@@ -37,7 +37,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scenario: [race-reconnect, contacts]
+        scenario: [race-reconnect, race-expiry, contacts]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -51,6 +51,9 @@ jobs:
       - name: Faulted race and five-second reconnect
         if: matrix.scenario == 'race-reconnect'
         run: python tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect
+      - name: Expired 25-second disconnect remains DNF without duplicate identity
+        if: matrix.scenario == 'race-expiry'
+        run: python tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect --away-seconds 25
       - name: Repeated side/rear contacts under real UDP faults
         if: matrix.scenario == 'contacts'
         run: python tools/network_integration.py --seconds 340 --latency 75 --jitter 30 --loss .03 --contacts
@@ -119,7 +122,7 @@ jobs:
 
   publish:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [export, network, native]
+    needs: [export, network, native, lobbies]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -171,4 +174,27 @@ jobs:
         with:
           name: native-evidence-${{ matrix.target }}-${{ matrix.runner }}
           path: reports/native-*.json
+          if-no-files-found: error
+
+  lobbies:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Eight clients, all cars, two tracks and persistent rematch
+        run: python tools/lobby_integration.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lobby-eight-client-evidence
+          path: reports/lobby-eight-*/
           if-no-files-found: error

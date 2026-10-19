@@ -6,6 +6,9 @@
 *.ogg binary
 *.ttf binary
 *.bin binary
+
+# Preserve verbatim upstream license text, including its whitespace.
+assets/fonts/*-OFL.txt -whitespace
 *.png filter=lfs diff=lfs merge=lfs -text
 *.webp filter=lfs diff=lfs merge=lfs -text
 *.glb filter=lfs diff=lfs merge=lfs -text

@@ -1,63 +1,72 @@
 class_name RoomServer
 extends Node3D
-## Server entry point deliberately has no visual, UI, audio, or font dependencies.
+## Dedicated authority; no visuals, cameras, fonts, or client account secrets.
 
 var wire := WirePeer.new()
-var players: Array[Dictionary] = []
+var lobby := LobbyState.new()
+var players: Array[Dictionary]:
+	get: return lobby.members
 var session: RaceSession
-var collision := RouteCollision.new()
+var collision: RouteCollision
 var tick: int = 0
 var start_tick: int = -1
-var minimum_humans: int = 2
 var result_sent: bool = false
 var empty_ticks: int = 0
 var contact_events: int = 0
 var rejected_packets: int = 0
 var port: int = 27020
-var lap_count: int = 1
-var private_code: String = ""
 var crypto := Crypto.new()
 var test_rig: RefCounted
 var connections: Dictionary = {}
+var auto_start: bool = false
+var last_broadcast: int = -1
+var race_number: int = 0
+var final_results: Array[Dictionary] = []
+var auth_mode: String = "direct_guest"
 
 
 func _ready() -> void:
 	Catalog.load_all()
-	for arg in OS.get_cmdline_user_args():
-		if arg.begins_with("--port="):
-			port = int(arg.trim_prefix("--port="))
-		if arg.begins_with("--min-humans="):
-			minimum_humans = clampi(int(arg.trim_prefix("--min-humans=")), 1, 8)
-		if arg.begins_with("--latency-ms="):
-			wire.latency_ms = int(arg.trim_prefix("--latency-ms="))
-		if arg.begins_with("--jitter-ms="):
-			wire.jitter_ms = int(arg.trim_prefix("--jitter-ms="))
-		if arg.begins_with("--loss="):
-			wire.loss = float(arg.trim_prefix("--loss="))
-		if arg.begins_with("--laps="):
-			lap_count = clampi(int(arg.trim_prefix("--laps=")), 1, 3)
-		if arg == "--contact-fixture":
-			if not ResourceLoader.exists("res://tests/contact_rig.gd"):
-				push_error("Contact fixture requires the source checkout")
-				get_tree().quit(2)
+	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--port="): port = int(arg.trim_prefix("--port="))
+		elif arg.begins_with("--track="): lobby.rules.track = int(arg.trim_prefix("--track="))
+		elif arg.begins_with("--laps="): lobby.rules.laps = int(arg.trim_prefix("--laps="))
+		elif arg == "--no-bot-fill": lobby.rules.bot_fill = false
+		elif arg.begins_with("--room-code="):
+			lobby.code = arg.trim_prefix("--room-code=").replace("-", "").to_upper()
+			lobby.private_room = true
+		elif arg.begins_with("--auth-mode="): auth_mode = arg.trim_prefix("--auth-mode=")
+		elif arg.begins_with("--latency-ms="): wire.latency_ms = int(arg.trim_prefix("--latency-ms="))
+		elif arg.begins_with("--jitter-ms="): wire.jitter_ms = int(arg.trim_prefix("--jitter-ms="))
+		elif arg.begins_with("--loss="): wire.loss = float(arg.trim_prefix("--loss="))
+		elif arg == "--auto-start": auto_start = true
+		elif arg == "--contact-fixture":
+			if ResourceLoader.exists("res://tests/contact_rig.gd"):
+				test_rig = load("res://tests/contact_rig.gd").new()
+			else:
+				fail_start("Contact fixture requires source checkout")
 				return
-			var script: Script = load("res://tests/contact_rig.gd")
-			test_rig = script.new()
-	if port < 1024 or port > 65535:
-		push_error("Invalid worker port")
-		get_tree().quit(2)
+	if (lobby.private_room and (lobby.code.length() != 8 or not PeerAddress.parse_code(lobby.code).valid)) or port < 1024 or port > 65535 or not LobbyState.valid_rules(lobby.rules) or auth_mode != "direct_guest" or (auto_start and not ResourceLoader.exists("res://tests/network_bot_client.gd")):
+		fail_start("Invalid worker configuration; ticket-required mode needs its verifier")
 		return
-	# Extra transport connections permit reconnect while an old socket expires.
-	# The roster, reservations and simulation remain capped at eight humans.
 	var error := wire.peer.create_server(port, 16, 4)
 	if error != OK:
-		push_error("Cannot bind worker UDP port: %s" % error_string(error))
-		get_tree().quit(2)
+		fail_start("Cannot bind worker UDP port: " + error_string(error))
 		return
-	add_child(collision)
-	collision.build(Catalog.tracks[0])
 	wire.peer.peer_disconnected.connect(disconnect_peer)
-	print("PACIFIC_RUSH_SERVER_READY port=%d protocol=1 mode=direct_guest" % port)
+	print("PACIFIC_RUSH_SERVER_READY port=%d protocol=%d mode=%s" % [port, NetCodec.PROTOCOL, auth_mode])
+
+
+func fail_start(message: String) -> void:
+	push_error(message)
+	get_tree().quit(2)
+
+
+func player_for_peer(peer_id: int) -> Dictionary:
+	for player: Dictionary in players:
+		if int(player.get("peer", 0)) == peer_id:
+			return player
+	return {}
 
 
 func _physics_process(_dt: float) -> void:
@@ -66,28 +75,44 @@ func _physics_process(_dt: float) -> void:
 		receive(packet)
 	for peer_id: int in wire.active_peers.keys():
 		if not connections.has(peer_id):
-			connections[peer_id] = tick
-		elif tick - int(connections[peer_id]) > 600 and not players.any(func(p: Dictionary) -> bool: return p.peer == peer_id):
+			connections[peer_id] = new_meter()
+		if tick - int(connections[peer_id].joined) > 600 and player_for_peer(peer_id).is_empty():
 			wire.peer.disconnect_peer(peer_id, true)
-	if session == null:
-		if players.size() >= minimum_humans and players.all(func(p: Dictionary) -> bool: return p.loaded and p.connected):
-			start_race()
-		return
-	var frames: Dictionary = {}
-	var active := 0
-	for player: Dictionary in players:
-		var state := session.states[player.slot]
+	for player: Dictionary in players.duplicate():
 		if player.connected and tick - int(player.last_seen) >= 180:
-			player.connected = false
-			player.disconnected_tick = tick
-			wire.peer.disconnect_peer(player.peer, true)
+			disconnect_peer(int(player.peer))
+			wire.peer.disconnect_peer(int(player.peer), true)
+	if lobby.phase == LobbyState.Phase.LOBBY and auto_start and players.size() >= 2:
+		for player: Dictionary in players:
+			lobby.set_ready(player.id, true)
+		if lobby.request_start(lobby.host_id, tick):
+			send_loading()
+	var transition := lobby.step(tick)
+	match transition:
+		"load": send_loading()
+		"start": start_race()
+		"lobby": reset_race()
+		"close": get_tree().quit()
+	if lobby.revision != last_broadcast or tick % 300 == 0:
+		broadcast_lobby()
+	if session and tick > start_tick:
+		step_race()
+	var active := players.filter(func(player: Dictionary) -> bool: return player.connected).size()
+	empty_ticks = empty_ticks + 1 if active == 0 else 0
+	if empty_ticks >= 1800:
+		get_tree().quit()
+
+
+func step_race() -> void:
+	var frames: Dictionary = {}
+	for player: Dictionary in players:
+		var state := session.states[int(player.slot)]
 		if player.connected:
-			active += 1
 			frames[player.slot] = player.buffer.sample(tick) if tick >= int(player.control_tick) else player.bot.sample(state, session.cars[player.slot], session.track, session.queries[player.slot], session.states)
 			var input: InputFrame = frames[player.slot]
 			if absf(input.steer) > .01 or input.throttle > 0 or input.brake > 0 or input.handbrake or input.recover:
 				player.last_driving = tick
-			if not state.finished and tick - int(player.last_driving) >= 2700:
+			if not state.finished and session.phase in [RaceSession.Phase.RACING, RaceSession.Phase.GRACE] and tick - int(player.last_driving) >= 2700:
 				state.dnf_reason = "Input inactive"
 		else:
 			frames[player.slot] = player.bot.sample(state, session.cars[player.slot], session.track, session.queries[player.slot], session.states)
@@ -98,54 +123,58 @@ func _physics_process(_dt: float) -> void:
 	session.step(frames)
 	if test_rig:
 		test_rig.call("apply", session)
-	var contacts_before := contact_events
+	var before := contact_events
 	for state: VehicleState in session.states:
 		if "bump" in state.events:
 			contact_events += 1
-	if contact_events > contacts_before:
+	if contact_events > before:
 		print("PACIFIC_RUSH_CONTACT_EVENT tick=%d" % tick)
-	empty_ticks = empty_ticks + 1 if active == 0 else 0
-	if empty_ticks >= 1800:
-		get_tree().quit()
 	if tick % 3 == 0:
 		var packet := NetCodec.encode_snapshot(session, tick, Compatibility.content_hash().hex_decode())
 		for player: Dictionary in players:
 			if player.connected:
-				wire.send(player.peer, 2, packet)
+				wire.send(int(player.peer), 2, packet)
 	if session.phase == RaceSession.Phase.RESULTS and not result_sent:
 		result_sent = true
-		var results: Array = []
+		final_results.clear()
 		for state: VehicleState in session.standings():
-			results.append({"slot":state.slot, "name":players[state.slot].name, "time":state.finish_time, "dnf":state.dnf_reason})
+			var record: Dictionary = session.roster[state.slot]
+			final_results.append({"slot":state.slot, "id":record.id, "name":record.name, "car":int(record.car), "paint":int(record.paint), "bot":bool(record.bot), "time":state.finish_time, "dnf":state.dnf_reason, "best_lap":state.best_lap_time, "distance_m":state.distance_m})
+		lobby.finish(tick)
 		for player: Dictionary in players:
 			if player.connected:
-				wire.event(player.peer, {"type":"results", "race":session.race_id, "results":results})
-		print("PACIFIC_RUSH_AUTHORITATIVE_RESULTS " + JSON.stringify(results))
+				send_results(player)
+		print("PACIFIC_RUSH_AUTHORITATIVE_RESULTS " + JSON.stringify(final_results))
+
+
+func new_meter() -> Dictionary:
+	return {"joined":tick, "rate_tick":tick, "packets":0, "bytes":0, "over":false, "violation_tick":-1}
 
 
 func receive(packet: Dictionary) -> void:
-	var player: Dictionary = {}
-	for record: Dictionary in players:
-		if record.peer == packet.sender:
-			player = record
-			break
+	if not connections.has(packet.sender):
+		connections[packet.sender] = new_meter()
+	var meter: Dictionary = connections[packet.sender]
+	if tick - int(meter.rate_tick) >= 60:
+		if not meter.over:
+			meter.violation_tick = -1
+		meter.rate_tick = tick
+		meter.packets = 0
+		meter.bytes = 0
+		meter.over = false
+	meter.packets += 1
+	meter.bytes += packet.bytes.size()
+	if meter.packets > 120 or meter.bytes > 65536:
+		rejected_packets += 1
+		meter.over = true
+		if int(meter.violation_tick) < 0:
+			meter.violation_tick = tick
+		elif tick - int(meter.violation_tick) >= 300:
+			wire.peer.disconnect_peer(packet.sender, true)
+		return
+	var player := player_for_peer(packet.sender)
 	if not player.is_empty():
 		player.last_seen = tick
-		if tick - int(player.rate_tick) >= 60:
-			player.rate_tick = tick
-			player.packets = 0
-			player.bytes = 0
-		player.packets += 1
-		player.bytes += packet.bytes.size()
-		if player.packets > 120 or player.bytes > 65536:
-			rejected_packets += 1
-			if player.violation_tick < 0:
-				player.violation_tick = tick
-			elif tick - int(player.violation_tick) >= 300:
-				wire.peer.disconnect_peer(packet.sender)
-			return
-		elif tick - int(player.rate_tick) > 30 and player.packets < 60:
-			player.violation_tick = -1
 	if packet.channel == 1:
 		if player.is_empty() or session == null or not player.connected:
 			return
@@ -156,19 +185,53 @@ func receive(packet: Dictionary) -> void:
 			player.buffer.push(frame, tick)
 		return
 	var event := WirePeer.decode_event(packet.bytes)
-	match event.get("type", ""):
-		"hello":
+	if packet.channel == 3:
+		if not player.is_empty() and event.get("type") == "ping" and NetEvents.integer(event.get("sent"), 0, 9007199254740991):
+			wire.event(packet.sender, {"type":"pong", "sent":event.sent, "tick":tick}, 3)
+		return
+	if packet.channel != 0:
+		return
+	if event.get("type") == "hello":
+		if meter.packets <= 5:
 			hello(packet.sender, event)
+		return
+	if player.is_empty() or not player.connected:
+		return
+	match event.get("type", ""):
 		"loaded":
-			if not player.is_empty():
+			if lobby.phase == LobbyState.Phase.LOADING and event.get("race") == race_number + 1:
 				player.loaded = true
-		"ping":
-			if not player.is_empty() and NetEvents.integer(event.get("sent"), 0, 9007199254740991):
-				wire.event(packet.sender, {"type":"pong", "sent":event.sent, "tick":tick}, 3)
-		"away":
-			if not player.is_empty():
-				player.connected = false
-				player.disconnected_tick = tick
+				lobby.revision += 1
+		"ready":
+			if event.get("value") is bool:
+				lobby.set_ready(player.id, event.value)
+		"select_car":
+			if NetEvents.integer(event.get("car"), 0, 3) and NetEvents.integer(event.get("paint"), 0, 7):
+				lobby.select_car(player.id, int(event.car), int(event.paint))
+		"rules":
+			if event.get("rules") is Dictionary:
+				lobby.set_rules(player.id, event.rules)
+		"start":
+			if lobby.request_start(player.id, tick):
+				send_loading()
+		"kick":
+			if event.get("id") is String:
+				var target := lobby.member(event.id)
+				if not target.is_empty():
+					var peer_id := int(target.peer)
+					if lobby.kick(player.id, event.id, tick):
+						wire.event(peer_id, {"type":"error", "message":"Kicked from room"})
+		"return_lobby":
+			if lobby.phase == LobbyState.Phase.RESULTS:
+				player.return_ready = true
+		"leave":
+			if lobby.phase == LobbyState.Phase.LOBBY:
+				lobby.leave(player.id)
+			else:
+				if session and not session.states[int(player.slot)].finished:
+					session.states[int(player.slot)].dnf_reason = "Left race"
+				disconnect_peer(packet.sender)
+		"away": disconnect_peer(packet.sender)
 
 
 func hello(sender: int, event: Dictionary) -> void:
@@ -177,14 +240,11 @@ func hello(sender: int, event: Dictionary) -> void:
 		return
 	if not event.get("name") is String or not event.get("token", "") is String:
 		return
-	var display_name: String = event.name
-	if display_name.length() < 3 or display_name.length() > 16 or display_name.to_utf8_buffer().size() > 96:
+	var checked := PlayerName.validate(event.name)
+	if not checked.valid:
 		return
-	for character: String in display_name:
-		if character.unicode_at(0) < 32 or character.unicode_at(0) == 127 or character in ["[", "]", "<", ">"]:
-			return
 	var token: String = event.get("token", "")
-	if token.length() not in [0, 64]:
+	if token.length() not in [0, 64] or (token != "" and not token.is_valid_hex_number(false)):
 		return
 	var player: Dictionary = {}
 	if token != "":
@@ -196,14 +256,20 @@ func hello(sender: int, event: Dictionary) -> void:
 			wire.event(sender, {"type":"error", "message":"Reconnect expired — return to lobby"})
 			return
 	else:
-		if session != null or players.size() >= 8:
+		if not player_for_peer(sender).is_empty():
+			return
+		if lobby.private_room and event.get("code", "") != lobby.code:
+			wire.event(sender, {"type":"error", "message":"Room not available"})
+			return
+		if not NetEvents.integer(event.get("car", 0), 0, 3) or not NetEvents.integer(event.get("paint", 0), 0, 7):
+			return
+		var car := int(event.get("car", 0))
+		var paint := int(event.get("paint", 0))
+		player = lobby.join(RaceSetup.uuid(), checked.value, tick, car, paint)
+		if player.is_empty():
 			wire.event(sender, {"type":"error", "message":"Room full or race already started"})
 			return
-		for record: Dictionary in players:
-			if record.peer == sender:
-				return
-		player = {"slot":players.size(), "name":display_name, "token":crypto.generate_random_bytes(32).hex_encode(), "buffer":InputBuffer.new(), "bot":BotDriver.new(), "loaded":false, "last_driving":tick, "rate_tick":tick, "packets":0, "bytes":0, "violation_tick":-1}
-		players.append(player)
+		player.merge({"token":crypto.generate_random_bytes(32).hex_encode(), "buffer":InputBuffer.new(), "bot":BotDriver.new(), "last_driving":tick})
 	player.peer = sender
 	player.connected = true
 	player.last_seen = tick
@@ -213,42 +279,92 @@ func hello(sender: int, event: Dictionary) -> void:
 		player.buffer.frames.clear()
 		player.buffer.missing_ticks = 7
 		player.last_driving = tick
-	wire.event(sender, {"type":"welcome", "slot":player.slot, "race":1, "token":player.token, "tick":tick, "ack":player.buffer.last_sequence})
+	wire.event(sender, {"type":"welcome", "id":player.id, "slot":player.slot, "race":race_number, "token":player.token, "tick":tick, "ack":player.buffer.last_sequence})
 	if session:
 		send_start(player)
+		if result_sent:
+			send_results(player)
+	elif lobby.phase == LobbyState.Phase.LOADING:
+		send_loading(player)
+	broadcast_lobby()
+
+
+func broadcast_lobby() -> void:
+	last_broadcast = lobby.revision
+	var event := lobby.public_state(tick)
+	for player: Dictionary in players:
+		if player.connected:
+			wire.event(int(player.peer), event)
+
+
+func send_loading(recipient: Dictionary = {}) -> void:
+	var event := {"type":"loading", "race":race_number + 1, "track":int(lobby.rules.track), "laps":int(lobby.rules.laps), "roster":lobby.roster(), "contact":bool(lobby.rules.contact)}
+	for player: Dictionary in players:
+		if player.connected and (recipient.is_empty() or recipient.id == player.id):
+			wire.event(int(player.peer), event)
 
 
 func start_race() -> void:
+	race_number += 1
+	var track: TrackDefinition = Catalog.tracks[int(lobby.rules.track)]
+	collision = RouteCollision.new()
+	collision.build(track)
+	add_child(collision)
 	session = RaceSession.new()
-	var cars: Array[int] = []
-	for _player: Dictionary in players:
-		cars.append(0)
-	session.setup(Catalog.tracks[0], cars, get_world_3d(), lap_count)
+	session.race_id = race_number
+	session.race_uuid = RaceSetup.uuid()
+	var roster := lobby.roster()
+	session.setup(track, RaceSetup.car_indices(roster), get_world_3d(), int(lobby.rules.laps))
+	session.contact_enabled = bool(lobby.rules.contact)
+	session.configure_bots(roster, -1, int(lobby.rules.difficulty))
 	start_tick = tick
-	for player: Dictionary in players:
+	for index in range(players.size()):
+		var player: Dictionary = players[index]
+		player.slot = index
+		player.last_driving = tick
+		player.buffer = InputBuffer.new()
+		player.control_tick = tick + 300
+		player.bot.difficulty = int(lobby.rules.difficulty)
 		send_start(player)
-	print("PACIFIC_RUSH_RACE_STARTED racers=%d tick=%d" % [players.size(), start_tick])
+	print("PACIFIC_RUSH_RACE_STARTED racers=%d tick=%d race=%d" % [roster.size(), start_tick, race_number])
 
 
 func send_start(player: Dictionary) -> void:
-	wire.event(player.peer, {"type":"start", "race":1, "start_tick":start_tick, "control_tick":player.control_tick, "count":players.size(), "track":0, "laps":lap_count})
+	wire.event(int(player.peer), {"type":"start", "race":session.race_id, "race_uuid":session.race_uuid, "slot":int(player.slot), "start_tick":start_tick, "control_tick":int(player.control_tick), "count":session.states.size(), "track":int(lobby.rules.track), "laps":session.lap_count, "roster":session.roster, "contact":session.contact_enabled, "excluded":lobby.excluded})
+
+
+func send_results(player: Dictionary) -> void:
+	wire.event(int(player.peer), {"type":"results", "race":session.race_id, "race_uuid":session.race_uuid, "results":final_results, "return_tick":lobby.results_tick + 1200})
+
+
+func reset_race() -> void:
+	session = null
+	if is_instance_valid(collision):
+		remove_child(collision)
+		collision.queue_free()
+		collision = null
+	start_tick = -1
+	result_sent = false
+	final_results.clear()
+	for player: Dictionary in players:
+		player.buffer = InputBuffer.new()
+	broadcast_lobby()
 
 
 func disconnect_peer(peer_id: int) -> void:
 	connections.erase(peer_id)
-	if session == null:
-		players = players.filter(func(p: Dictionary) -> bool: return p.peer != peer_id)
-		for index in range(players.size()):
-			players[index].slot = index
-			var player: Dictionary = players[index]
-			wire.event(player.peer, {"type":"welcome", "slot":index, "race":1, "token":player.token, "tick":tick})
+	var player := player_for_peer(peer_id)
+	if player.is_empty() or not player.connected:
 		return
-	for player: Dictionary in players:
-		if player.peer == peer_id:
-			player.connected = false
-			player.disconnected_tick = tick
+	if lobby.phase == LobbyState.Phase.LOBBY:
+		lobby.leave(player.id)
+	else:
+		player.connected = false
+		player.disconnected_tick = tick
+		if player.id == lobby.host_id:
+			lobby.transfer_host()
+		lobby.revision += 1
 
 
 func _exit_tree() -> void:
 	wire.close()
-

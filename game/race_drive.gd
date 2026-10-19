@@ -18,13 +18,16 @@ var local_slot: int = 0
 var show_ghost: bool = true
 var lesson: SchoolLesson
 var school_overlay: SchoolOverlay
+var spectator_slot: int = -1
+var spectator_button: Button
 
 var state := VehicleState.new()
 var frame := InputFrame.make()
 var driver := DrivingInput.new()
 var track: TrackDefinition
 var car: CarDefinition
-var world := TrackWorld.new()
+var world: TrackWorld
+var prepared_world: TrackWorld
 var query: WorldQuery
 var visual := CarVisual.new()
 var camera := ChaseCamera.new()
@@ -47,20 +50,29 @@ var demo_driver := BotDriver.new()
 
 
 func _ready() -> void:
+	if network:
+		config = network.config.duplicate(true)
+		config.mode = "online"
+		config.car = int(config.roster[network.slot].car)
+		config.paint = int(config.roster[network.slot].paint)
 	track = Catalog.tracks[int(config.get("track", 0))]
 	var selected_car := int(config.get("car", 0))
 	car = Catalog.cars[selected_car]
 	lap_count = int(config.get("laps", 2))
-	world.build(track)
+	if prepared_world:
+		world = prepared_world
+		if world.get_parent():
+			world.get_parent().remove_child(world)
+	else:
+		world = TrackWorld.new()
+		world.build(track)
 	add_child(world)
 	session = RaceSession.new()
 	var roster: Array[Dictionary] = []
 	roster.assign(config.get("roster", RaceSetup.roster(int(config.get("opponents", 0)), selected_car, int(config.get("paint", 0)), "Driver")))
 	var cars := RaceSetup.car_indices(roster)
 	if network:
-		cars.clear()
-		for _racer in range(int(network.config.count)):
-			cars.append(0)
+		cars = RaceSetup.car_indices(roster)
 		lap_count = int(network.config.laps)
 		local_slot = network.slot
 	else:
@@ -72,6 +84,8 @@ func _ready() -> void:
 	session.race_uuid = config.get("race_uuid", RaceSetup.uuid())
 	session.cup_event = int(config.get("cup_event", -1))
 	session.seed = int(config.get("seed", 1))
+	session.roster = roster
+	session.human_slot = local_slot
 	session.contact_enabled = bool(config.get("contact", true)) and session.mode != "trial"
 	if not network:
 		session.configure_bots(roster, local_slot, int(config.get("difficulty", 1)))
@@ -122,6 +136,13 @@ func _ready() -> void:
 	hud.state = state
 	hud.lap_count = lap_count
 	ui.add_child(hud)
+	spectator_button = Button.new()
+	spectator_button.text = I18n.t("hud.next_racer")
+	spectator_button.position = Vector2(540, 110)
+	spectator_button.custom_minimum_size = Vector2(180, 48)
+	spectator_button.hide()
+	spectator_button.pressed.connect(next_racer)
+	ui.add_child(spectator_button)
 	ui.add_child(touch)
 	if lesson:
 		hud.hide()
@@ -163,6 +184,12 @@ func _ready() -> void:
 func _physics_process(_dt: float) -> void:
 	if network:
 		race_ticks = network.prediction.elapsed_ticks
+		if not result_sent and not network.latest_snapshot.is_empty():
+			session.states.assign(network.latest_snapshot.states)
+			var ranking := session.standings()
+			for index in range(ranking.size()):
+				if ranking[index].slot == state.slot:
+					hud.rank = index + 1
 		phase = ["Lobby", "Loading", "Grid", "Countdown", "Racing", "Finish Grace", "Results"][network.phase]
 		phase_ticks = maxi(0, roundi(network.server_tick) - network.start_tick - 120)
 		hud.ticks = race_ticks
@@ -221,8 +248,9 @@ func _physics_process(_dt: float) -> void:
 
 
 func _process(dt: float) -> void:
-	visual.present(state, frame, dt)
 	var rendered := state
+	if spectator_button:
+		spectator_button.visible = state.finished and session.states.size() > 1 and not paused and not result_sent
 	if not network:
 		hud.rivals.clear()
 		for slot: int in remote_visuals:
@@ -236,16 +264,28 @@ func _process(dt: float) -> void:
 		ghost_visual.present(ghost_state, InputFrame.make(), dt)
 		ghost_visual.visible = show_ghost and race_ticks / 60.0 <= float(best_ghost.time)
 	if network and network.prediction:
-		rendered = state.copy()
-		rendered.position += network.prediction.render_offset(dt)
-		visual.position = rendered.position
+		if state.finished or state.dnf_reason != "":
+			var buffered := network.remotes.sample(state.slot, network.server_tick)
+			if buffered:
+				rendered = buffered
+		else:
+			rendered = state.copy()
+			rendered.position += network.prediction.render_offset(dt)
 		hud.rivals.clear()
 		for slot: int in remote_visuals:
 			var rival := network.remotes.sample(slot, network.server_tick)
 			if rival:
 				remote_visuals[slot].present(rival, InputFrame.make(), dt)
 				hud.rivals.append(rival)
-	camera.follow(rendered, dt, Input.is_action_pressed("look_back") or touch.held("look_back"))
+	visual.present(rendered, frame, dt)
+	var target := rendered
+	if state.finished and spectator_slot >= 0 and spectator_slot != state.slot:
+		var spectated: VehicleState = network.remotes.sample(spectator_slot, network.server_tick) if network else session.states[spectator_slot]
+		if spectated and not spectated.finished and spectated.dnf_reason == "":
+			target = spectated
+		else:
+			spectator_slot = state.slot
+	camera.follow(target, dt, Input.is_action_pressed("look_back") or touch.held("look_back"))
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -338,3 +378,16 @@ func apply_settings() -> void:
 	driver.deadzone = float(settings.deadzone)
 	driver.sensitivity = float(settings.sensitivity)
 	touch.auto_accelerate = bool(settings.get("touch_auto_accelerate", true)) if touch.visible else false
+
+
+func next_racer() -> void:
+	if not state.finished:
+		return
+	var candidates: Array[int] = []
+	for rival: VehicleState in session.states:
+		if not rival.finished and rival.dnf_reason == "" and rival.slot != state.slot:
+			candidates.append(rival.slot)
+	candidates.sort()
+	candidates.append(state.slot)
+	spectator_slot = candidates[(candidates.find(spectator_slot) + 1) % candidates.size()]
+	camera.initialized = false

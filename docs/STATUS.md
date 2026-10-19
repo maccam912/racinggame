@@ -43,7 +43,7 @@ Android-versus-native-macOS cross-play also completes with identical authoritati
 
 The first Linux CI reconnect run exposed stale pre-disconnect input replay. Reconnect now clears that history, restores the server's current bot-controlled state, resets the sequence from its acknowledgement, and honors the future control tick. Full reconnect restores are measured separately from ordinary driving corrections; the large restore after five seconds away is retained in evidence rather than averaged away.
 
-Pending M2 gates: physical-device network tests, 25-second disconnect expiry, eight-client/security fault matrix and broader correction/performance soak. Official ticket-required directory workers are M3 work; current tested service mode is explicitly community/direct-guest.
+Pending M2 gates: physical-device network tests, adversarial security fault matrix and broader correction/performance soak. Official ticket-required directory workers are M3 work; current tested service mode is explicitly community/direct-guest.
 
 ## M3 — offline modes and persistence checkpoint
 
@@ -57,8 +57,20 @@ Pending M2 gates: physical-device network tests, 25-second disconnect expiry, ei
 - Bundled Barlow fonts/OFL licenses and external English text catalog. Display names normalize to NFC with vendored Unicode 16 tables and enforce grapheme/UTF-8/control/markup limits.
 - Automated menu navigation, real scene pause/resume, save/ghost/cup/name/mode fixtures pass. Native macOS screenshots were reviewed at 100%/150% UI scale and 4:3; a footer overflow was corrected. These checks do not establish Android menu usability or final art quality.
 
-Content/protocol versions are now **2** because recovery/progress state required by reconciliation changed. M2 clients and their records/cups are intentionally not silently mixed with this version. Snapshot decoding validates the added lap and distance fields; the eight-car payload remains below 1200 bytes.
+Content version is **2**, and protocol version is **3** for the full lobby/loading/rematch event contract. Recovery/progress state required by reconciliation is versioned. M2 clients and their records/cups are intentionally not silently mixed with this version. Snapshot decoding validates the added lap and distance fields; the eight-car payload remains below 1200 bytes.
+
+## M3 — community lobby checkpoint
+
+- Persistent authoritative direct-guest lobby, eight human seats, four car/eight paint choices, all six track rules, one/two/three laps, bot fill/difficulty and contact selection.
+- Ready/unready, 20-second and all-ready five-second timers, manual host Start including a single human, ready reset on selection/rule changes, host transfer, lobby kicks, and private server codes. Direct-guest identities are ephemeral to that worker; official identity/ticket checks are still pending.
+- Loading acknowledges actual local collision/world preparation. The worker excludes unloaded humans after 30 seconds, commits the grid, and schedules GO 300 ticks later. Clients cannot join an active race.
+- Results carry exact server times/clean laps/distance; clients commit those immutable rows. All-connected Ready for Lobby or the 20-second deadline returns the same room with readiness cleared. Only finished racers can cycle spectator cameras through unfinished cars.
+- Bounded reliable fragments handle large Unicode roster/result messages during room transitions; inputs/snapshots remain unfragmented and under 1200 bytes. Clients accept at most 32 partial messages, 16 KiB each, for five seconds; workers reject client fragments.
+- Eight independent real ENet clients completed **two races and a rematch**, with all four car definitions, Palm Bay then Citrus Pass, and identical authoritative results on every client. Names were 77 UTF-8 bytes each, exercising fragmentation. See [eight-client evidence](evidence/m3-lobby-eight.json).
+- Native graphical Switch/Sunset clients load Redwood Run with six bot opponents. Lobby controls were reviewed at 150% scale; footer controls wrap when necessary. Build 6 installs and runs first-run/name/school-skip/main-menu flows on the Android ARM64 emulator. Wide-screen fill and initial keyboard focus were adjusted from that review; the next exported build must verify those adjustments.
+- A 25-second-away real UDP client is denied re-entry; the remaining client receives its original peer as **Reconnect expired DNF**, with no duplicate identity. See [expiry evidence](evidence/m3-reconnect-expiry.json).
+- Finished cars preserve input acknowledgements and stop replaying old human inputs over server autopilot. Terminal visual corrections are reported separately from active-driving/contact populations; the client follows buffered authority after finishing.
 
 ## Next
 
-Finish M3: persistent online lobbies, directory/ticket APIs, authoritative multi-track/multi-car online flow, remaining input/settings behavior and broader end-to-end mode checks. M4–M6 remain unimplemented. Physical M0/M1/M2 gates stay open while source implementation continues; no physical-mobile acceptance is claimed.
+Finish M3: directory/ticket APIs, remaining input/settings behavior and broader end-to-end mode checks. M4–M6 remain unimplemented. Physical M0/M1/M2 gates stay open while source implementation continues; no physical-mobile acceptance is claimed.

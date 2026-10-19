@@ -34,6 +34,12 @@ func run() -> void:
 	assert(app.menu.visible and app.drive.paused)
 	app.resume_drive()
 	assert(not app.menu.visible and not app.drive.paused)
+	app.drive.state.finished = true
+	app.drive.next_racer()
+	assert(app.drive.spectator_slot != app.drive.state.slot)
+	for press in range(7):
+		app.drive.next_racer()
+	assert(app.drive.spectator_slot == app.drive.state.slot)
 	app.show_menu()
 	await process_frame
 	app.queue_free()

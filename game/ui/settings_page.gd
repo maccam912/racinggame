@@ -23,7 +23,7 @@ func show_tab(selected: String, return_to: Callable) -> void:
 	shell.settings = app.data.settings
 	var body := shell.reset(I18n.t("settings.title"))
 	var tabs := GridContainer.new()
-	tabs.columns = 4 if app.data.mobile else 8
+	tabs.columns = 4 if app.data.mobile or int(app.data.settings.ui_scale) >= 125 else 7
 	body.add_child(tabs)
 	var names := ["display", "graphics", "audio", "controls", "accessibility", "gameplay", "data"]
 	if app.data.mobile:

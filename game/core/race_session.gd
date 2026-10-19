@@ -67,7 +67,9 @@ func step(frames: Dictionary) -> void:
 		previous.append(states[index].position)
 		inputs[index] = frames.get(index, InputFrame.make())
 		if states[index].finished:
+			var ack := states[index].last_ack
 			inputs[index] = finish_drivers[index].sample(states[index], cars[index], track, queries[index], states)
+			inputs[index].sequence = ack
 		elif bots.has(index):
 			inputs[index] = bots[index].sample(states[index], cars[index], track, queries[index], states)
 		if states[index].dnf_reason == "":

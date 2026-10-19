@@ -14,6 +14,7 @@ var recovery_corrections: int = 0
 var snapshot_count: int = 0
 var reconnect_corrections: Array[float] = []
 var elapsed_ticks: int = 0
+var terminal_corrections: Array[float] = []
 
 
 func advance(frame: InputFrame) -> void:
@@ -36,8 +37,11 @@ func reconcile(authority: VehicleState, ticks: int) -> void:
 	var missing_history := not history.is_empty() and InputBuffer.newer(history[0].sequence, (authority.last_ack + 1) & 0xffffffff)
 	apply_authority(authority, ticks)
 	history = history.filter(func(frame: InputFrame) -> bool: return InputBuffer.newer(frame.sequence, authority.last_ack))
-	for frame: InputFrame in history:
-		simulate(frame)
+	if authority.finished or authority.dnf_reason != "":
+		history.clear()
+	else:
+		for frame: InputFrame in history:
+			simulate(frame)
 	var delta := previous - state.position
 	snapshot_count += 1
 	if "recovery" in authority.events or authority.recovery_ticks > 0 or missing_history:
@@ -77,7 +81,9 @@ func apply_authority(authority: VehicleState, ticks: int) -> void:
 
 
 func record_correction(authority: VehicleState, distance: float) -> void:
-	if authority.contact_ticks > 0 or authority.wall_contact:
+	if authority.finished or authority.dnf_reason != "":
+		terminal_corrections.append(distance)
+	elif authority.contact_ticks > 0 or authority.wall_contact:
 		contact_corrections.append(distance)
 	elif authority.speed() > 5:
 		clear_corrections.append(distance)

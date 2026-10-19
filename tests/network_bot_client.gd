@@ -16,6 +16,7 @@ var reconnect_pause_seconds: float = 5
 var resume_at_ms: int = 0
 var initial_slot: int = -1
 var contact_exercises: bool = false
+var permanent_error: String = ""
 
 
 func _initialize() -> void:
@@ -52,7 +53,9 @@ func run() -> void:
 	collision.build(Catalog.tracks[0])
 	scene.add_child(link)
 	link.race_started.connect(start_race)
+	link.loading_requested.connect(func(config: Dictionary) -> void: link.mark_loaded(int(config.race)))
 	link.results_received.connect(func(value: Array) -> void: result = value)
+	link.disconnected_permanently.connect(func(message: String) -> void: permanent_error = message)
 	link.status_changed.connect(func(message: String) -> void: print("TEST_NETWORK_STATUS " + message))
 	await physics_frame
 	await physics_frame
@@ -73,16 +76,18 @@ func run() -> void:
 			resume_at_ms = 0
 			link.process_mode = Node.PROCESS_MODE_INHERIT
 			link.begin_reconnect()
-		if not result.is_empty():
+		if not result.is_empty() or permanent_error != "":
 			break
 	var data: Dictionary = {"slot":link.slot, "results":result, "max_speed":maximum_speed, "rtt_ms":link.rtt_ms, "sent_bytes":link.wire.sent_bytes, "received_bytes":link.wire.received_bytes, "dropped_packets":link.wire.dropped_packets, "reconnect_done":reconnect_done, "connected":link.connected, "sequence":link.sequence}
 	data.initial_slot = initial_slot
+	data.permanent_error = permanent_error
 	if link.prediction:
 		data.snapshots = link.prediction.snapshot_count
 		data.clear_corrections = statistics(link.prediction.clear_corrections)
 		data.contact_corrections = statistics(link.prediction.contact_corrections)
 		data.recoveries = link.prediction.recovery_corrections
 		data.reconnect_restores = statistics(link.prediction.reconnect_corrections)
+		data.terminal_corrections = statistics(link.prediction.terminal_corrections)
 		data.last_gate = link.prediction.state.last_gate
 		data.laps = link.prediction.state.laps
 		data.finish_time = link.prediction.state.finish_time
@@ -104,8 +109,8 @@ func start_race(config: Dictionary) -> void:
 	initial_slot = link.slot
 	setup_session = RaceSession.new()
 	var cars: Array[int] = []
-	for _index in range(int(config.count)):
-		cars.append(0)
+	for row: Dictionary in config.roster:
+		cars.append(int(row.car))
 	setup_session.setup(Catalog.tracks[0], cars, scene.get_world_3d(), int(config.laps))
 	link.attach_prediction(setup_session.states[link.slot], setup_session.cars[link.slot], setup_session.queries[link.slot], setup_session.track, int(config.laps))
 	link.input_provider = func() -> InputFrame:

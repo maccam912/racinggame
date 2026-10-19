@@ -5,7 +5,7 @@ var root: Control
 var frame: MarginContainer
 var column: VBoxContainer
 var body: Control
-var footer: HBoxContainer
+var footer: HFlowContainer
 var ui: UIFactory
 var settings: Dictionary = {}
 var modal: ConfirmationDialog
@@ -46,7 +46,9 @@ func reset(title: String, subtitle: String = "", dark: bool = true) -> VBoxConta
 	content.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	column.add_child(content)
 	body = content
-	footer = HBoxContainer.new()
+	footer = HFlowContainer.new()
+	footer.add_theme_constant_override("h_separation", int(10 * ui.unit))
+	footer.add_theme_constant_override("v_separation", int(6 * ui.unit))
 	column.add_child(ui.panel(footer))
 	layout()
 	visible = true

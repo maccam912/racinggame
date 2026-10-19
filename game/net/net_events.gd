@@ -7,24 +7,45 @@ static func integer(value: Variant, minimum: int, maximum: int) -> bool:
 	return (value is int or value is float) and is_finite(float(value)) and float(value) == floorf(float(value)) and float(value) >= minimum and float(value) <= maximum
 
 
+static func number(value: Variant, minimum: float, maximum: float) -> bool:
+	return (value is float or value is int) and is_finite(float(value)) and float(value) >= minimum and float(value) <= maximum
+
+
+static func roster_valid(value: Variant, allow_empty: bool = false, members: bool = false) -> bool:
+	if not value is Array or value.size() > 8 or (value.is_empty() and not allow_empty):
+		return false
+	var seen: Dictionary = {}
+	for row: Variant in value:
+		if not row is Dictionary or not row.get("id") is String or row.id.length() > 64 or seen.has(row.id) or not row.get("name") is String or not PlayerName.validate(row.name).valid or not integer(row.get("car"), 0, 3) or not integer(row.get("paint"), 0, 7):
+			return false
+		seen[row.id] = true
+		if members and (not row.get("ready") is bool or not row.get("connected") is bool or not integer(row.get("slot"), 0, 7) or not integer(row.get("ping"), 0, 60000) or not row.get("loaded") is bool):
+			return false
+		if not members and not row.get("bot") is bool:
+			return false
+	return true
+
+
 static func server_event(event: Dictionary) -> bool:
 	match event.get("type", ""):
 		"welcome":
-			if event.has("ack") and not integer(event.ack, 0, 0xffffffff):
-				return false
-			return integer(event.get("slot"), 0, 7) and integer(event.get("race"), 0, 0xffffffff) and integer(event.get("tick"), 0, 0xffffffff) and event.get("token") is String and event.token.length() == 64 and event.token.is_valid_hex_number(false)
+			return integer(event.get("ack", 0), 0, 0xffffffff) and event.get("id") is String and event.id.length() == 36 and integer(event.get("slot"), 0, 7) and integer(event.get("race"), 0, 0xffffffff) and integer(event.get("tick"), 0, 0xffffffff) and event.get("token") is String and event.token.length() == 64 and event.token.is_valid_hex_number(false)
+		"lobby":
+			return integer(event.get("revision"), 0, 0xffffffff) and integer(event.get("tick"), 0, 0xffffffff) and integer(event.get("phase"), 0, 4) and integer(event.get("countdown_tick"), -1, 0xffffffff) and event.get("host") is String and event.host.length() <= 64 and roster_valid(event.get("members"), true, true) and event.get("rules") is Dictionary and LobbyState.valid_rules(event.rules) and event.get("name") is String and PlayerName.validate(event.name, 24).valid and event.get("region") is String and event.region.length() <= 40 and event.get("private") is bool and event.get("code") is String and event.code.length() <= 32
+		"loading":
+			return integer(event.get("race"), 1, 0xffffffff) and integer(event.get("track"), 0, 5) and integer(event.get("laps"), 1, 3) and roster_valid(event.get("roster")) and event.get("contact") is bool
 		"start":
-			return integer(event.get("race"), 0, 0xffffffff) and integer(event.get("start_tick"), 0, 0xffffffff) and integer(event.get("control_tick"), 0, 0xffffffff) and integer(event.get("count"), 1, 8) and integer(event.get("track"), 0, 5) and integer(event.get("laps"), 1, 3)
+			return integer(event.get("race"), 1, 0xffffffff) and event.get("race_uuid") is String and event.race_uuid.length() == 36 and integer(event.get("slot"), 0, 7) and integer(event.get("start_tick"), 0, 0xffffffff) and integer(event.get("control_tick"), 0, 0xffffffff) and integer(event.get("count"), 1, 8) and integer(event.get("track"), 0, 5) and integer(event.get("laps"), 1, 3) and roster_valid(event.get("roster")) and event.roster.size() == int(event.count) and int(event.slot) < int(event.count) and event.get("contact") is bool
 		"pong":
 			return integer(event.get("sent"), 0, 9007199254740991) and integer(event.get("tick"), 0, 0xffffffff)
 		"error":
 			return event.get("message") is String and event.message.length() <= 160
 		"results":
-			if not event.get("results") is Array or event.results.size() < 1 or event.results.size() > 8:
+			if not integer(event.get("race"), 1, 0xffffffff) or not event.get("race_uuid") is String or event.race_uuid.length() != 36 or not integer(event.get("return_tick"), 0, 0xffffffff) or not event.get("results") is Array or event.results.size() < 1 or event.results.size() > 8:
 				return false
 			var seen: Dictionary = {}
 			for row: Variant in event.results:
-				if not row is Dictionary or not integer(row.get("slot"), 0, 7) or seen.has(int(row.slot)) or not row.get("name") is String or row.name.length() > 16 or not row.get("dnf") is String or row.dnf.length() > 64 or not row.get("time") is float or not is_finite(row.time):
+				if not row is Dictionary or not integer(row.get("slot"), 0, 7) or seen.has(int(row.slot)) or not row.get("name") is String or not PlayerName.validate(row.name).valid or not row.get("dnf") is String or row.dnf.length() > 64 or not number(row.get("time"), -1, 600) or not number(row.get("best_lap"), -1, 600) or not number(row.get("distance_m"), 0, 100000) or not integer(row.get("car"), 0, 3) or not integer(row.get("paint"), 0, 7) or not row.get("bot") is bool:
 					return false
 				seen[int(row.slot)] = true
 			return true

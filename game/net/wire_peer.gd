@@ -3,6 +3,8 @@ extends RefCounted
 ## Raw ENet channels. Fault injection is opt-in and only affects test traffic.
 
 var peer := ENetMultiplayerPeer.new()
+var fragments := ReliableFragments.new()
+var accept_fragments: bool = false
 var pending: Array[Dictionary] = []
 var latency_ms: int = 0
 var jitter_ms: int = 0
@@ -31,7 +33,12 @@ func send(target: int, channel: int, bytes: PackedByteArray, reliable: bool = fa
 
 
 func event(target: int, data: Dictionary, channel: int = 0) -> void:
-	send(target, channel, "PRJS".to_ascii_buffer() + JSON.stringify(data).to_utf8_buffer(), channel == 0)
+	var bytes := "PRJS".to_ascii_buffer() + JSON.stringify(data).to_utf8_buffer()
+	if bytes.size() <= 1200:
+		send(target, channel, bytes, channel == 0)
+	elif channel == 0 and data.get("type", "") in ["lobby", "loading", "start", "results"]:
+		for part: PackedByteArray in fragments.split(bytes):
+			send(target, 0, part, true)
 
 
 func poll() -> Array[Dictionary]:
@@ -60,20 +67,29 @@ func poll() -> Array[Dictionary]:
 		var bytes := peer.get_packet()
 		received_bytes += bytes.size()
 		if bytes.size() <= 1200:
+			if bytes.slice(0, 4).get_string_from_ascii() == "PRFR":
+				if not accept_fragments or channel != 0:
+					continue
+				bytes = fragments.receive(sender, bytes, now)
+				if bytes.is_empty():
+					continue
 			packets.append({"sender":sender, "channel":channel, "bytes":bytes})
 	return packets
 
 
 static func decode_event(bytes: PackedByteArray) -> Dictionary:
-	if bytes.size() < 6 or bytes.size() > 1200 or bytes.slice(0, 4).get_string_from_ascii() != "PRJS":
+	if bytes.size() < 6 or bytes.size() > ReliableFragments.LIMIT or bytes.slice(0, 4).get_string_from_ascii() != "PRJS":
 		return {}
-	var value: Variant = JSON.parse_string(bytes.slice(4).get_string_from_utf8())
-	return value if value is Dictionary else {}
+	var parser := JSON.new()
+	if parser.parse(bytes.slice(4).get_string_from_utf8()) != OK:
+		return {}
+	return parser.data if parser.data is Dictionary else {}
 
 
 func close() -> void:
 	peer.close()
 	pending.clear()
+	fragments.pending.clear()
 	for signal_name in ["peer_connected", "peer_disconnected"]:
 		for connection: Dictionary in peer.get_signal_connection_list(signal_name):
 			peer.disconnect(signal_name, connection.callable)

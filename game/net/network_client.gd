@@ -4,9 +4,23 @@ extends Node
 signal status_changed(message: String)
 signal race_started(config: Dictionary)
 signal results_received(results: Array)
+signal lobby_changed(state: Dictionary)
+signal loading_requested(config: Dictionary)
+signal returned_to_lobby
+signal disconnected_permanently(message: String)
 
 var wire := WirePeer.new()
 var slot: int = -1
+var guest_id: String = ""
+var lobby: Dictionary = {}
+var lobby_revision: int = -1
+var loading_race: int = -1
+var loaded_race: int = -1
+var initial_car: int = 0
+var initial_paint: int = 0
+var room_code: String = ""
+var result_event: Dictionary = {}
+var deliberate_leave: bool = false
 var race_id: int = 1
 var server_tick: float = 0
 var start_tick: int = -1
@@ -36,6 +50,10 @@ var clock_ready: bool = false
 var restoring_reconnect: bool = false
 
 
+func _init() -> void:
+	wire.accept_fragments = true
+
+
 func connect_to(address: String, udp_port: int, display_name: String = "Driver") -> Error:
 	host = address
 	port = udp_port
@@ -63,14 +81,15 @@ func _process(_dt: float) -> void:
 		return
 	if status == MultiplayerPeer.CONNECTION_CONNECTED and not hello_sent:
 		hello_sent = true
-		wire.event(1, {"type":"hello", "protocol":NetCodec.PROTOCOL, "content":Compatibility.content_hash(), "name":name_value, "token":reconnect_token})
-	if connected and Time.get_ticks_msec() - last_received_ms >= 3000:
+		wire.event(1, {"type":"hello", "protocol":NetCodec.PROTOCOL, "content":Compatibility.content_hash(), "name":name_value, "token":reconnect_token, "car":initial_car, "paint":initial_paint, "code":room_code})
+	if connected and not deliberate_leave and Time.get_ticks_msec() - last_received_ms >= 3000:
 		begin_reconnect()
-	if status == MultiplayerPeer.CONNECTION_DISCONNECTED and hello_sent and disconnected_at == 0:
+	if status == MultiplayerPeer.CONNECTION_DISCONNECTED and hello_sent and disconnected_at == 0 and not deliberate_leave:
 		begin_reconnect()
-	if disconnected_at > 0 and Time.get_ticks_msec() >= retry_at:
+	if disconnected_at > 0 and not deliberate_leave and Time.get_ticks_msec() >= retry_at:
 		if Time.get_ticks_msec() - disconnected_at > 20000:
 			status_changed.emit("Reconnect expired — return to lobby")
+			disconnected_permanently.emit("Reconnect expired — return to lobby")
 			retry_at = 0x7fffffffffffffff
 			return
 		wire.peer.close()
@@ -92,13 +111,15 @@ func begin_reconnect() -> void:
 func _physics_process(_dt: float) -> void:
 	tick_counter += 1
 	server_tick += 1
-	if hello_sent and tick_counter % 30 == 0:
+	if hello_sent and not deliberate_leave and tick_counter % 30 == 0:
 		wire.event(1, {"type":"ping", "sent":Time.get_ticks_msec()}, 3)
 	if not connected or prediction == null or start_tick < 0:
 		return
 	if phase < RaceSession.Phase.GRACE:
 		phase = RaceSession.Phase.GRID if server_tick < start_tick + 120 else RaceSession.Phase.COUNTDOWN if server_tick < start_tick + 300 else RaceSession.Phase.RACING
 	if phase not in [RaceSession.Phase.RACING, RaceSession.Phase.GRACE] or server_tick < control_tick:
+		return
+	if prediction.state.finished or prediction.state.dnf_reason != "":
 		return
 	if restoring_reconnect:
 		restoring_reconnect = false
@@ -123,6 +144,7 @@ func receive_event(event: Dictionary) -> void:
 		"welcome":
 			restoring_reconnect = prediction != null
 			slot = int(event.slot)
+			guest_id = event.id
 			race_id = int(event.race)
 			reconnect_token = event.token
 			connected = true
@@ -136,8 +158,48 @@ func receive_event(event: Dictionary) -> void:
 				prediction.history.clear()
 				remotes.samples.clear()
 			status_changed.emit("Community server — waiting for racers")
-			wire.event(1, {"type":"loaded"})
+
+		"lobby":
+			if int(event.revision) < lobby_revision:
+				return
+			lobby_revision = int(event.revision)
+			event.rules = LobbyState.normalize_rules(event.rules)
+			lobby = event
+			if int(event.phase) == LobbyState.Phase.LOBBY:
+				var was_racing := start_tick >= 0
+				phase = RaceSession.Phase.LOBBY
+				start_tick = -1
+				if was_racing:
+					prediction = null
+					input_provider = Callable()
+					latest_snapshot.clear()
+					latest_snapshot_tick = -1
+					remotes.samples.clear()
+					returned_to_lobby.emit()
+			lobby_changed.emit(event)
+		"loading":
+			if int(event.race) == loading_race:
+				if loaded_race == loading_race:
+					mark_loaded(loaded_race)
+				return
+			loading_race = int(event.race)
+			phase = RaceSession.Phase.LOADING
+			config = event
+			prediction = null
+			latest_snapshot.clear()
+			latest_snapshot_tick = -1
+			remotes.samples.clear()
+			loading_requested.emit(event)
 		"start":
+			if int(event.race) < race_id:
+				return
+			var new_race := int(event.race) != race_id
+			race_id = int(event.race)
+			slot = int(event.slot)
+			if new_race:
+				latest_snapshot.clear()
+				sequence = 0
+				latest_snapshot_tick = -1
 			config = event
 			start_tick = int(event.start_tick)
 			control_tick = int(event.get("control_tick", start_tick + 300))
@@ -150,21 +212,32 @@ func receive_event(event: Dictionary) -> void:
 			server_tick = estimate if not clock_ready else lerpf(server_tick, estimate, .25)
 			clock_ready = true
 		"results":
+			if int(event.race) != race_id:
+				return
+			result_event = event
 			phase = RaceSession.Phase.RESULTS
 			if "--network-evidence" in OS.get_cmdline_user_args():
 				print("PACIFIC_RUSH_CLIENT_RESULTS " + JSON.stringify(event.results))
 			results_received.emit(event.results)
 		"error":
-			status_changed.emit(str(event.get("message", "Connection failed")))
+			var message := str(event.get("message", "Connection failed"))
+			status_changed.emit(message)
+			deliberate_leave = true
+			disconnected_at = 0
+			connected = false
+			wire.peer.close()
+			disconnected_permanently.emit(message)
 
 
 func receive_snapshot(bytes: PackedByteArray) -> void:
+	if start_tick < 0:
+		return
 	var snapshot := NetCodec.decode_snapshot(bytes, race_id, Compatibility.content_hash().hex_decode())
 	if snapshot.is_empty() or int(snapshot.tick) <= latest_snapshot_tick:
 		return
 	var route: TrackDefinition = Catalog.tracks[int(config.get("track", 0))]
 	for state: VehicleState in snapshot.states:
-		if state.last_gate >= route.bake.gates.size() or state.laps > 3:
+		if state.last_gate >= route.bake.gates.size() or state.laps > int(config.get("laps", 3)):
 			return
 	latest_snapshot_tick = snapshot.tick
 	latest_snapshot = snapshot
@@ -192,3 +265,22 @@ func attach_prediction(state: VehicleState, car: CarDefinition, query: WorldQuer
 
 func _exit_tree() -> void:
 	wire.close()
+
+
+func mark_loaded(race: int) -> void:
+	if race == loading_race and connected:
+		loaded_race = race
+		wire.event(1, {"type":"loaded", "race":race})
+
+
+func command(type: String, values: Dictionary = {}) -> void:
+	var event := values.duplicate(true)
+	event.type = type
+	wire.event(1, event)
+
+
+func leave_room() -> void:
+	deliberate_leave = true
+	command("leave")
+	wire.poll()
+	connected = false

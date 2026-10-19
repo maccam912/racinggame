@@ -1,0 +1,145 @@
+{
+  "seconds": 90.0,
+  "one_way_latency_ms": 75,
+  "jitter_ms": 30,
+  "loss": 0.03,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "wire_metrics": {
+    "upstream_bytes": 357342,
+    "downstream_bytes": 642396,
+    "upstream_packets": 4451,
+    "downstream_packets": 3506,
+    "dropped_packets": 222
+  },
+  "contact_events": 1,
+  "clients": [
+    {
+      "acknowledged_sequence": 3580,
+      "clear_corrections": {
+        "count": 1110,
+        "max": 2.45672011375427,
+        "p95": 0.0102403247728944
+      },
+      "connected": true,
+      "contact_corrections": {
+        "count": 33,
+        "max": 0.311164021492004,
+        "p95": 0.146046012639999
+      },
+      "dropped_packets": 0,
+      "finish_time": 67.3013916015625,
+      "initial_slot": 0,
+      "laps": 1,
+      "last_gate": 0,
+      "max_speed": 49.2684860229492,
+      "received_bytes": 286483,
+      "reconnect_done": true,
+      "reconnect_restores": {
+        "count": 10,
+        "max": 325.164154052734,
+        "p95": 325.164154052734
+      },
+      "recoveries": 0,
+      "results": [
+        {
+          "best_lap": 67.3013915022465,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3114.58426998928,
+          "dnf": "",
+          "id": "84f64806-442f-4ffd-8801-4f0f47b0300f",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 67.3013915022465
+        },
+        {
+          "best_lap": 67.5086810731949,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3114.19985793391,
+          "dnf": "",
+          "id": "30fa9c8b-312f-4e27-a47f-80fae630501c",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 67.5086810731949
+        }
+      ],
+      "rtt_ms": 138.0,
+      "sent_bytes": 151719,
+      "sequence": 3580,
+      "slot": 0,
+      "snapshots": 1207,
+      "terminal_corrections": {
+        "count": 44,
+        "max": 2.03022241592407,
+        "p95": 1.94023156166077
+      }
+    },
+    {
+      "acknowledged_sequence": 4039,
+      "clear_corrections": {
+        "count": 1241,
+        "max": 0.828738987445831,
+        "p95": 0.0101874750107527
+      },
+      "connected": true,
+      "contact_corrections": {
+        "count": 33,
+        "max": 0.338182896375656,
+        "p95": 0.146624431014061
+      },
+      "dropped_packets": 0,
+      "finish_time": 67.5086822509766,
+      "initial_slot": 1,
+      "laps": 1,
+      "last_gate": 0,
+      "max_speed": 49.2670936584473,
+      "received_bytes": 310721,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "results": [
+        {
+          "best_lap": 67.3013915022465,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3114.58426998928,
+          "dnf": "",
+          "id": "84f64806-442f-4ffd-8801-4f0f47b0300f",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 67.3013915022465
+        },
+        {
+          "best_lap": 67.5086810731949,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3114.19985793391,
+          "dnf": "",
+          "id": "30fa9c8b-312f-4e27-a47f-80fae630501c",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 67.5086810731949
+        }
+      ],
+      "rtt_ms": 189.0,
+      "sent_bytes": 170540,
+      "sequence": 4040,
+      "slot": 1,
+      "snapshots": 1323,
+      "terminal_corrections": {
+        "count": 39,
+        "max": 2.03022122383118,
+        "p95": 1.99022591114044
+      }
+    }
+  ]
+}

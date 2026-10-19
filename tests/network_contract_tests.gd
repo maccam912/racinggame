@@ -76,5 +76,17 @@ func _initialize() -> void:
 	invalid.ghost_ticks = 100000
 	session.states[0] = invalid
 	check(NetCodec.encode_snapshot(session, 1234, hash_prefix).is_empty(), "quantization overflow rejected instead of wrapped")
+	var terminal := PredictionBuffer.new()
+	terminal.state = VehicleState.new()
+	terminal.track = Catalog.tracks[0]
+	terminal.query = WorldQuery.new(root.world_3d, terminal.track)
+	terminal.car = Catalog.cars[0]
+	var finish := VehicleState.new()
+	finish.finished = true
+	finish.position = Vector3(1, 4, 3)
+	terminal.history = [InputFrame.make(1, 1)]
+	terminal.reconcile(finish, 4000)
+	check(terminal.history.is_empty() and terminal.state.position == finish.position, "finished authority does not replay stale human input over AI")
+	check(terminal.terminal_corrections.size() == 1 and terminal.clear_corrections.is_empty(), "autopilot corrections are reported separately from active driving")
 	print("Network contract fixtures: eight-car snapshot %d bytes; input batch %d bytes; failures %d" % [packet.size(), inputs.size(), failures])
 	quit(1 if failures else 0)
