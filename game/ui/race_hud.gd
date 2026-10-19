@@ -43,6 +43,10 @@ func text(at: Vector2, value: String, font_size: int, color: Color = Color("f8f4
 
 
 func time(seconds: float) -> String:
+	return format_time(seconds)
+
+
+static func format_time(seconds: float) -> String:
 	return "%d:%06.3f" % [int(seconds / 60), fmod(seconds, 60)]
 
 

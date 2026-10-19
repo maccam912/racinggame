@@ -1,0 +1,39 @@
+{
+  "device": "owned Pixel 7 AVD, Android 15/API 35 ARM64, emulator-5580",
+  "physical_device": false,
+  "apk": {
+    "version": "0.0.26-dev",
+    "build_number": 26,
+    "working_tree_dirty": false,
+    "commit": "7acf08584fb7a10cd2d9c04c148c904216b6d8f6",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "78e8df7a34088aade409918658a3cd1d62b2a53c12b2779d52b2ac0ffcc6f078",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured"
+  },
+  "ui_scale": 150,
+  "actions": [
+    "Opened touch editor from a paused race through the actual settings UI",
+    "Dragged steering upward on the touchscreen",
+    "Ran preview; captured 43 mph at 1.517 seconds after GO",
+    "Observed automatic return to the editor after the practice interval",
+    "Saved the layout and read its normalized steering center",
+    "Upgraded to Build 27 and verified the saved layout remained"
+  ],
+  "observed": {
+    "elapsed_preview_seconds": 35.187,
+    "profile": "landscape_phone_auto_slider_right",
+    "saved_steer_center": [
+      0.176236748695374,
+      0.680555582046509
+    ],
+    "ui_scale": 150.0
+  },
+  "timing_boundary": "The 35.187-second observation includes the three-second countdown, capture/wait slack and Save. The source engine test verifies the exact 1800 racing ticks; this is not a precise wall-clock deadline measurement.",
+  "open_issue_at_this_build": "Native option popup swipes could select a row. The replacement choice-sheet regression is covered by a later checkpoint."
+}

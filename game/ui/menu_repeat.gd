@@ -16,6 +16,7 @@ var last_joy: int = -1
 var was_allowed: bool = false
 
 func _ready() -> void:
+	add_to_group("menu_navigation_repeat")
 	was_allowed = is_allowed()
 
 func clear_context() -> void:

@@ -75,7 +75,7 @@ func select_track(index: int) -> void:
 	info.text = I18n.t("route.description." + track.id)
 	if mode == "trial":
 		var best: float = app.data.best("trial", track.id, Catalog.cars[int(app.data.profile.selected_car)].id)
-		info.text += "\n" + I18n.t("event.best") + ": " + (RaceHUD.new().time(best) if best > 0 else I18n.t("event.no_record"))
+		info.text += "\n" + I18n.t("event.best") + ": " + (RaceHUD.format_time(best) if best > 0 else I18n.t("event.no_record"))
 	for i in range(buttons.size()):
 		buttons[i].modulate = UIFactory.TURQUOISE if i == index else Color.WHITE
 
@@ -85,8 +85,7 @@ func choice(parent: Node, key: String, items: Array, selected: int, callback: Ca
 	var label: Label = app.menu.ui.label(I18n.t(key))
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(label)
-	var picker := OptionButton.new()
-	app.menu.ui.configure_picker(picker)
+	var picker: Variant = app.menu.ui.choice_picker(I18n.t(key))
 	picker.custom_minimum_size = Vector2(180, app.menu.ui.row_height())
 	for item: String in items:
 		picker.add_item(item)

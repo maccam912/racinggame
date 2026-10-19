@@ -43,7 +43,7 @@ func run() -> void:
 	app.drive.show_pause()
 	app.settings_page.show_tab("touch",app.show_pause)
 	await settle()
-	var sections: OptionButton = app.menu.root.find_child("settings_sections",true,false)
+	var sections: Variant = app.menu.root.find_child("settings_sections",true,false)
 	assert(sections!=null and sections.item_count==8 and sections.selected==4,"phone sections use a compact, keyboard-accessible selector")
 	var original: RaceDrive = app.drive
 	var position := original.state.position

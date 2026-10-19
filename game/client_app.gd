@@ -374,18 +374,17 @@ func render_results() -> void:
 		list.add_child(menu.ui.button(I18n.t("data.retry_save"), retry_result_save))
 	elif result_summary.new_best:
 		list.add_child(menu.ui.label(I18n.t("results.new_best"), true))
-	var timer := RaceHUD.new()
 	if session.mode == "trial":
-		list.add_child(menu.ui.label(timer.time(local_state.finish_time) if local_state.finished else I18n.t("results.dnf"), true))
+		list.add_child(menu.ui.label(RaceHUD.format_time(local_state.finish_time) if local_state.finished else I18n.t("results.dnf"), true))
 		if not local_state.trial_valid:
 			list.add_child(menu.ui.paragraph(I18n.t("results.invalid")))
 		var medal := Medals.award(session.track.length, local_state.finish_time, local_state.finished and local_state.trial_valid)
 		list.add_child(menu.ui.label(I18n.t(["results.no_medal", "results.gold", "results.silver", "results.bronze"][medal + 1])))
 		var previous := float(result_summary.get("previous", -1))
-		list.add_child(menu.ui.label(I18n.t("results.previous") + ": " + (timer.time(previous) + "  (%+.3f)" % (local_state.finish_time - previous) if previous > 0 and local_state.finished else I18n.t("results.no_previous"))))
+		list.add_child(menu.ui.label(I18n.t("results.previous") + ": " + (RaceHUD.format_time(previous) + "  (%+.3f)" % (local_state.finish_time - previous) if previous > 0 and local_state.finished else I18n.t("results.no_previous"))))
 		var thresholds := Medals.thresholds(session.track.length)
 		for index in range(3):
-			list.add_child(menu.ui.label(I18n.t("results." + ["gold", "silver", "bronze"][index]) + "  " + timer.time(thresholds[index])))
+			list.add_child(menu.ui.label(I18n.t("results." + ["gold", "silver", "bronze"][index]) + "  " + RaceHUD.format_time(thresholds[index])))
 	else:
 		var order: Array[VehicleState] = []
 		for slot: int in result_receipt.order:
@@ -394,9 +393,8 @@ func render_results() -> void:
 			var state: VehicleState = order[index]
 			var record: Dictionary = session.roster[state.slot]
 			var gap := "—" if index == 0 or not state.finished or not order[0].finished else "+%.3f" % (state.finish_time - order[0].finish_time)
-			var row := menu.ui.paragraph("%d  %s  •  %s  •  %s  •  %s  •  %s" % [index + 1, record.name, I18n.t("car." + session.cars[state.slot].id), timer.time(state.finish_time) if state.finished else I18n.t("results.dnf") + " " + state.dnf_reason, timer.time(state.best_lap_time) if state.best_lap_time > 0 else "—", gap])
+			var row := menu.ui.paragraph("%d  %s  •  %s  •  %s  •  %s  •  %s" % [index + 1, record.name, I18n.t("car." + session.cars[state.slot].id), RaceHUD.format_time(state.finish_time) if state.finished else I18n.t("results.dnf") + " " + state.dnf_reason, RaceHUD.format_time(state.best_lap_time) if state.best_lap_time > 0 else "—", gap])
 			list.add_child(menu.ui.panel(row) if state.slot == session.human_slot else row)
-	timer.free()
 	if session.mode=="cup":
 		append_cup_standings(list)
 	if session.mode=="online":
@@ -705,6 +703,8 @@ func _notification(what: int) -> void:
 	if not is_inside_tree():
 		return
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST and is_inside_tree():
+		if ChoicePicker.close_active(get_viewport()):
+			return
 		if page == "race" and is_instance_valid(drive):
 			drive.show_pause()
 		elif back_action.is_valid():

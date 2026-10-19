@@ -15,11 +15,13 @@ var theme: Theme
 var owner_viewport: Viewport
 
 
-func _init(viewport: Viewport, settings: Dictionary) -> void:
+func _init(viewport: Viewport, settings: Dictionary, mobile_override: Variant = null, logical_unit_override: float = 0.0) -> void:
 	owner_viewport = viewport
-	mobile = OS.has_feature("mobile")
+	mobile = OS.has_feature("mobile") if mobile_override==null else bool(mobile_override)
 	if mobile:
 		unit = viewport.get_visible_rect().size.y / maxf(DisplayServer.window_get_size().y, 1) * maxf(160, DisplayServer.screen_get_dpi()) / 160.0
+	if logical_unit_override>0:
+		unit = logical_unit_override
 	scale = float(settings.get("ui_scale", 100)) / 100
 	body_font = load("res://assets/fonts/Barlow-SemiBold.ttf")
 	title_font = load("res://assets/fonts/BarlowCondensed-Bold.ttf")
@@ -30,11 +32,6 @@ func _init(viewport: Viewport, settings: Dictionary) -> void:
 		theme.set_color("font_color", type, CREAM)
 		theme.set_color("font_focus_color", type, CREAM)
 		theme.set_font_size("font_size", type, font_size(20 if mobile and type != "Label" else 19 if type != "Label" else 16))
-	if mobile:
-		var popup_font_size := font_size(20)
-		theme.set_font_size("font_size","PopupMenu",popup_font_size)
-		theme.set_constant("v_separation","PopupMenu",popup_separation(body_font,popup_font_size,unit))
-		theme.set_stylebox("panel","PopupMenu",style(NAVY,TURQUOISE))
 	for type in ["Button", "OptionButton"]:
 		theme.set_stylebox("normal", type, style(NAVY, Color(0.25, .39, .47)))
 		theme.set_stylebox("hover", type, style(Color(.12, .25, .32), TURQUOISE))
@@ -103,33 +100,13 @@ func panel(child: Control) -> PanelContainer:
 	return control
 
 
-static func popup_separation(font: Font,pixels: int,logical_unit: float) -> int:
-	return ceili(maxf(4*logical_unit,48*logical_unit-font.get_height(pixels)))
-
-
-func configure_picker(control: OptionButton) -> void:
+func choice_picker(subject: String = "") -> Variant:
 	if not mobile:
-		return
-	var popup := control.get_popup()
-	var fit := func() -> void:
-		popup.min_size = Vector2i.ZERO
-		popup.max_size = popup_bounds(owner_viewport.get_visible_rect().size,Vector2(DisplayServer.window_get_size()),DisplayServer.get_display_safe_area())
-		clamp_popup.call_deferred(popup)
-	fit.call()
-	popup.about_to_popup.connect(fit)
-
-
-static func popup_bounds(canvas: Vector2,physical: Vector2,safe_pixels: Rect2i) -> Vector2i:
-	return Vector2i(Vector2(safe_pixels.size)*canvas/physical.max(Vector2.ONE)*.90)
-
-
-func clamp_popup(popup: Variant) -> void:
-	if not is_instance_valid(popup) or not popup.is_inside_tree() or not popup.visible:
-		return
-	var canvas := owner_viewport.get_visible_rect().size
-	var physical := Vector2(DisplayServer.window_get_size()).max(Vector2.ONE)
-	var safe_pixels := DisplayServer.get_display_safe_area()
-	var safe_canvas := Rect2(Vector2(safe_pixels.position)*canvas/physical,Vector2(safe_pixels.size)*canvas/physical)
-	var minimum := Vector2i(safe_canvas.position+safe_canvas.size*.05)
-	var maximum: Vector2i = Vector2i(safe_canvas.end-safe_canvas.size*.05)-Vector2i(popup.size)
-	popup.position = Vector2i(popup.position).clamp(minimum,maximum.max(minimum))
+		return OptionButton.new()
+	var control := ChoicePicker.new()
+	control.ui = self
+	control.subject = subject
+	control.context_changed.connect(func() -> void:
+		if is_instance_valid(owner_viewport) and owner_viewport.is_inside_tree():
+			owner_viewport.get_tree().call_group("menu_navigation_repeat","clear_context"))
+	return control
