@@ -7,6 +7,7 @@ var materials: Dictionary = {}
 var build_stage: int = 0
 var scenery_cursor: int = 0
 var pending_geometry: Dictionary = {}
+static var shared_sky: Sky
 
 
 func material(color: Color, roughness: float = 0.9) -> StandardMaterial3D:
@@ -60,14 +61,15 @@ func build_environment() -> void:
 	var environment := WorldEnvironment.new()
 	var settings := Environment.new()
 	settings.background_mode = Environment.BG_SKY
-	var sky := Sky.new()
-	var sky_material := ProceduralSkyMaterial.new()
-	sky_material.sky_top_color = Color.html("65B9EB")
-	sky_material.sky_horizon_color = Color.html("B9E6ED")
-	sky_material.ground_horizon_color = Color.html("B9E6ED")
-	sky_material.ground_bottom_color = Color.html("31BFC1")
-	sky.sky_material = sky_material
-	settings.sky = sky
+	if shared_sky==null:
+		shared_sky = Sky.new()
+		var sky_material := ProceduralSkyMaterial.new()
+		sky_material.sky_top_color = Color.html("65B9EB")
+		sky_material.sky_horizon_color = Color.html("B9E6ED")
+		sky_material.ground_horizon_color = Color.html("B9E6ED")
+		sky_material.ground_bottom_color = Color.html("31BFC1")
+		shared_sky.sky_material = sky_material
+	settings.sky = shared_sky
 	settings.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	settings.ambient_light_color = Color.html("B9E6ED")
 	settings.ambient_light_energy = 0.65

@@ -1,0 +1,28 @@
+{
+  "before": {
+    "fixture": "tests/accessibility_settings_tests.gd --visual-evidence",
+    "assertions_passed": true,
+    "shutdown_errors": 2,
+    "bytes_per_texture": 349524
+  },
+  "change": "Reuse the unchanged graybox Sky resource across TrackWorld lifetimes; each world still owns its Environment",
+  "after": [
+    {
+      "fixture": "tests/accessibility_settings_tests.gd --visual-evidence",
+      "assertions_passed": true,
+      "exit_code": 0,
+      "shutdown_errors": 0
+    },
+    {
+      "fixture": "tests/results_ui_evidence.gd",
+      "assertions_passed": true,
+      "exit_code": 0,
+      "shutdown_errors": 0
+    }
+  ],
+  "renderer": "macOS Godot 4.6.3 Compatibility on Apple M5 Pro",
+  "boundaries": [
+    "Reproduced rapid-world replacement case only",
+    "Physical-device and other rendering backends retain their own gates"
+  ]
+}

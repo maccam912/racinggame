@@ -158,6 +158,7 @@ func changed(definition: Dictionary, value: Variant) -> void:
 	SettingsRuntime.apply(app, app.data.settings)
 	if app.drive:
 		app.drive.apply_settings()
+		if definition.id=="trial_ghost": app.set_trial_ghost(bool(value))
 	if app.stage:
 		app.stage.reduce_motion = bool(app.data.settings.reduce_motion)
 	if definition.id in ["ui_scale", "high_contrast", "preset"]:
@@ -265,6 +266,7 @@ func restore_this_tab() -> void:
 			BindingBook.apply(app.data.settings.bindings)
 		if app.drive:
 			app.drive.apply_settings()
+			if tab=="gameplay": app.set_trial_ghost(bool(app.data.settings.trial_ghost))
 		show_tab(tab, back)
 
 

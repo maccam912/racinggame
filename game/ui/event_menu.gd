@@ -19,6 +19,7 @@ func _init(owner_app: Node) -> void:
 
 
 func show_event() -> void:
+	ghost = bool(app.data.settings.trial_ghost)
 	app.page = "event"
 	app.back_action = func() -> void: app.show_garage(mode)
 	var shell: MenuShell = app.menu

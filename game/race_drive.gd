@@ -49,9 +49,13 @@ var session: RaceSession
 var network: NetworkClient
 var remote_visuals: Dictionary = {}
 var demo_driver := BotDriver.new()
+var host_viewport: Viewport
+var hint_elapsed: float = 0.0
+var hint_page: int = 0
 
 
 func _ready() -> void:
+	host_viewport = get_viewport()
 	if network:
 		config = network.config.duplicate(true)
 		config.mode = "online"
@@ -126,12 +130,14 @@ func _ready() -> void:
 		rival.build(Catalog.paints[int(roster[index].paint) if not network else (index + 1) % 8])
 		remote_visuals[index] = rival
 		add_child(rival)
-	if session.mode == "trial" and app_data and bool(config.get("ghost", true)):
+	show_ghost = bool(config.get("ghost",app_data.settings.trial_ghost if app_data else true))
+	if session.mode == "trial" and app_data:
 		best_ghost = app_data.load_ghost(track.id, car.id)
 		if not best_ghost.is_empty():
 			ghost_visual = CarVisual.new()
 			ghost_visual.build(Catalog.paints[int(config.get("paint", 0))])
 			ghost_visual.set_ghost(.35)
+			ghost_visual.visible = show_ghost
 			add_child(ghost_visual)
 	add_child(camera)
 	camera.current = true
@@ -262,6 +268,12 @@ func _physics_process(_dt: float) -> void:
 
 
 func _process(dt: float) -> void:
+	if not paused:
+		hint_elapsed += dt
+		var next_hint := int(hint_elapsed/4)%4
+		if next_hint!=hint_page:
+			hint_page = next_hint
+			update_control_hints()
 	hud.network_level = int(network.quality.measure(Time.get_ticks_msec(),network.start_tick>=0 and network.phase!=RaceSession.Phase.RESULTS).level) if network else 0
 	hud.recovery_armed = driver.recovery_armed
 	touch.recovery_armed = driver.recovery_armed
@@ -280,6 +292,7 @@ func _process(dt: float) -> void:
 		ghost_state.yaw = pose.yaw
 		ghost_visual.present(ghost_state, InputFrame.make(), dt)
 		ghost_visual.visible = show_ghost and race_ticks / 60.0 <= float(best_ghost.time)
+		hud.ghost_position = pose.position if ghost_visual.visible else null
 	if network and network.prediction:
 		if state.finished or state.dnf_reason != "":
 			var buffered := network.remotes.sample(state.slot, network.server_tick)
@@ -423,6 +436,9 @@ func apply_settings() -> void:
 	camera.mode = ["near", "far", "hood"].find(settings.camera)
 	camera.far = 3000.0 # Scenery distance must not cull the road or signs.
 	hud.mph = settings.units == "mph"
+	hud.ui_scale = float(settings.ui_scale)/100
+	hud.high_contrast = bool(settings.high_contrast)
+	hud.palette = str(settings.palette)
 	driver.auto_accelerate = bool(settings.auto_accelerate)
 	driver.deadzone = float(settings.deadzone)
 	driver.sensitivity = float(settings.sensitivity)
@@ -451,6 +467,7 @@ func next_racer() -> void:
 
 
 func update_control_hints() -> void:
+	if not is_inside_tree(): return
 	var values: Dictionary = app_data.settings if app_data else SettingsCatalog.defaults(OS.has_feature("mobile"))
 	var hints := control_captions(values,driver.owner_device,touch.auto_accelerate)
 	if is_instance_valid(school_overlay):
@@ -459,17 +476,32 @@ func update_control_hints() -> void:
 		return
 	help_label.visible = not touch.visible and lesson == null and bool(values.driving_hints)
 	var parts: Array[String] = []
-	for action: String in ["accelerate","steer_left","steer_right","brake","handbrake","recover","camera","look_back","pause"]:
+	var pairs: Array = [["accelerate","brake"],["steer_left","steer_right"],["handbrake","recover"],["camera","look_back"]]
+	for action: String in pairs[hint_page]:
 		parts.append(I18n.t("action." + action) + ": " + str(hints[action]))
 	help_label.text = "   •   ".join(parts)
 	help_label.add_theme_font_override("font",load("res://assets/fonts/Barlow-SemiBold.ttf"))
 	help_label.add_theme_font_size_override("font_size",int(16 * float(values.ui_scale) / 100))
 	help_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	var canvas := get_viewport().get_visible_rect().size
-	help_label.offset_left = canvas.x * .25
-	help_label.offset_right = -canvas.x * .25
-	help_label.offset_top = -100 * float(values.ui_scale) / 100
-	help_label.offset_bottom = -15
+	help_label.offset_left = canvas.x * .34
+	help_label.offset_right = -canvas.x * .32
+	help_label.offset_top = -canvas.y*.05-58*float(values.ui_scale)/100
+	help_label.offset_bottom = -canvas.y*.05
+	var box := StyleBoxFlat.new()
+	box.bg_color = Color(.09,.17,.25,1.0 if values.high_contrast else .85)
+	box.content_margin_left = 8
+	box.content_margin_right = 8
+	box.content_margin_top = 6
+	box.content_margin_bottom = 6
+	if values.high_contrast:
+		box.border_color = UIFactory.CREAM
+		box.set_border_width_all(2)
+	help_label.add_theme_stylebox_override("normal",box)
+
+func _exit_tree() -> void:
+	if is_instance_valid(host_viewport) and host_viewport.size_changed.is_connected(update_control_hints): host_viewport.size_changed.disconnect(update_control_hints)
+	if Input.joy_connection_changed.is_connected(controller_connection): Input.joy_connection_changed.disconnect(controller_connection)
 
 
 static func control_captions(values: Dictionary, device_name: String, touch_auto: bool = true) -> Dictionary:

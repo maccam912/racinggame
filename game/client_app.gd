@@ -342,6 +342,7 @@ func start_drive(configuration: Dictionary = {}, reuse_world: bool = false, supp
 		return
 	cancel_loading()
 	configuration = configuration.duplicate(true)
+	if configuration.get("mode","")=="trial" and not configuration.has("ghost"): configuration["ghost"] = bool(data.settings.trial_ghost)
 	if configuration.get("mode","quick")=="quick" and not configuration.has("seed"):
 		# Fresh event entropy stays outside deterministic simulation. Retry uses
 		# pending_config, retaining this exact seed and roster order.
@@ -398,7 +399,7 @@ func show_pause() -> void:
 		ghost.text = I18n.t("event.ghost")
 		ghost.button_pressed = drive.show_ghost
 		ghost.toggled.connect(func(value: bool) -> void:
-			drive.show_ghost = value)
+			set_trial_ghost(value))
 		list.add_child(ghost)
 	list.add_child(menu.ui.button(I18n.t("menu.settings"), func() -> void: settings_page.show_tab("display", show_pause)))
 	list.add_child(menu.ui.button(I18n.t("pause.controls"), func() -> void: settings_page.show_tab("controls", show_pause)))
@@ -406,6 +407,12 @@ func show_pause() -> void:
 	var quit_key := "cup.save_quit" if mode == "cup" else "pause.leave" if network else "pause.quit"
 	list.add_child(menu.ui.button(I18n.t(quit_key), func() -> void: menu.confirm(I18n.t("pause.leave_confirm" if network else "pause.offline_confirm"), return_to_menu)))
 	menu.first_focus()
+
+func set_trial_ghost(value: bool) -> void:
+	if is_instance_valid(drive) and drive.session.mode=="trial":
+		drive.show_ghost = value
+		drive.config["ghost"] = value
+		pending_config["ghost"] = value
 
 
 func resume_drive() -> void:

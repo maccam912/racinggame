@@ -28,17 +28,18 @@ func _init(viewport: Viewport, settings: Dictionary, mobile_override: Variant = 
 	theme = Theme.new()
 	theme.default_font = body_font
 	theme.default_font_size = font_size(16)
+	var contrast: bool = bool(settings.get("high_contrast",false))
 	for type in ["Label", "Button", "CheckButton", "OptionButton", "LineEdit"]:
 		theme.set_color("font_color", type, CREAM)
 		theme.set_color("font_focus_color", type, CREAM)
 		theme.set_font_size("font_size", type, font_size(20 if mobile and type != "Label" else 19 if type != "Label" else 16))
 	for type in ["Button", "OptionButton"]:
-		theme.set_stylebox("normal", type, style(NAVY, Color(0.25, .39, .47)))
+		theme.set_stylebox("normal", type, style(NAVY, CREAM if contrast else Color(0.25, .39, .47),2 if contrast else 1))
 		theme.set_stylebox("hover", type, style(Color(.12, .25, .32), TURQUOISE))
 		theme.set_stylebox("pressed", type, style(Color(.08, .32, .36), TURQUOISE))
-		theme.set_stylebox("focus", type, style(Color(0, 0, 0, 0), YELLOW, 2))
+		theme.set_stylebox("focus", type, style(Color(0, 0, 0, 0), YELLOW, 3 if contrast else 2))
 		theme.set_stylebox("disabled", type, style(Color(.10, .16, .22), Color(.2, .27, .33)))
-	theme.set_stylebox("panel", "PanelContainer", style(Color(NAVY, 1.0 if settings.get("high_contrast", false) else .94), Color(.22, .37, .46)))
+	theme.set_stylebox("panel", "PanelContainer", style(Color(NAVY, 1.0 if contrast else .94), CREAM if contrast else Color(.22, .37, .46),2 if contrast else 1))
 	theme.set_stylebox("normal", "LineEdit", style(NAVY, TURQUOISE))
 	theme.set_stylebox("focus", "LineEdit", style(Color(0, 0, 0, 0), YELLOW, 2))
 	for type in ["VBoxContainer", "HBoxContainer", "GridContainer"]:
