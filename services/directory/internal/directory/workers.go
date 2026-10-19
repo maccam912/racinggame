@@ -71,13 +71,18 @@ func (s *Service) Heartbeat(ctx context.Context, id, token string, request Heart
 	if err = workerAuthorized(ctx, tx, id, token); err != nil {
 		return HeartbeatReply{}, err
 	}
-	guests, _ := json.Marshal(request.Guests)
-	rules, _ := json.Marshal(request.Rules)
-	now := s.config.Now().Unix()
-	if _, err = tx.ExecContext(ctx, `UPDATE workers SET heartbeat=?,ready=?,state=?,guests=? WHERE id=?`, now, request.Ready, request.State, string(guests), id); err != nil {
+	var drainDeadline int64
+	if err = tx.QueryRowContext(ctx, `SELECT drain_deadline FROM workers WHERE id=?`, id).Scan(&drainDeadline); err != nil {
 		return HeartbeatReply{}, err
 	}
-	if _, err = tx.ExecContext(ctx, `UPDATE rooms SET name=?,private=?,rules=?,closed=? WHERE worker=?`, name, request.Private, string(rules), request.State == "Closed", id); err != nil {
+	guests, _ := json.Marshal(request.Guests)
+	rules, _ := json.Marshal(request.Rules)
+	performance, _ := json.Marshal(request.Performance)
+	now := s.config.Now().Unix()
+	if _, err = tx.ExecContext(ctx, `UPDATE workers SET heartbeat=?,ready=?,state=?,guests=?,performance=? WHERE id=?`, now, request.Ready && drainDeadline == 0, request.State, string(guests), string(performance), id); err != nil {
+		return HeartbeatReply{}, err
+	}
+	if _, err = tx.ExecContext(ctx, `UPDATE rooms SET name=?,private=?,rules=?,closed=? WHERE worker=?`, name, request.Private, string(rules), request.State == "Closed" || drainDeadline != 0, id); err != nil {
 		return HeartbeatReply{}, err
 	}
 	for _, command := range request.Acknowledged {
@@ -89,7 +94,7 @@ func (s *Service) Heartbeat(ctx context.Context, id, token string, request Heart
 	if err != nil {
 		return HeartbeatReply{}, err
 	}
-	reply := HeartbeatReply{Commands: []WorkerCommand{}}
+	reply := HeartbeatReply{Commands: []WorkerCommand{}, Drain: drainDeadline != 0}
 	for rows.Next() {
 		var command WorkerCommand
 		if err = rows.Scan(&command.ID, &command.Kind, &command.Guest); err != nil {

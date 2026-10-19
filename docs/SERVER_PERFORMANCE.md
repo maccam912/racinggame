@@ -33,9 +33,10 @@ ordinary readiness/liveness rules. An empty pool can start its first worker.
 The embedded Go API defaults to legacy admission unless `RequirePerformance`
 is enabled; the shipped service command always enables it.
 
-Only authenticated, committed heartbeats update the bounded in-memory health
-cache. Worker release removes its observation; restart starts without trusted
-cached measurements. Structured daily operator logs include numeric reports and
+Only authenticated, committed heartbeats update the latest numeric SQLite
+observation. Admission reads these reports across overlapping supervisors under
+the same freshness/validation limits; worker release removes the row. A bounded
+in-memory cache retains alert edges. Structured daily operator logs include numeric reports and
 one `worker_tick_deadline_alert` on entry to a complete 30-second window with at
 least 5% misses. A recovery event clears that alert edge. Names, bodies, guest
 identities and credentials are absent. Existing seven-day/100 MiB-per-day log

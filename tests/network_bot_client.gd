@@ -134,7 +134,12 @@ func run() -> void:
 	var console_data := data.duplicate()
 	console_data.erase("reconciliation_trace")
 	print("TEST_NETWORK_REPORT " + JSON.stringify(console_data))
-	var exit_code := 0 if link.prediction and maximum_speed > 15 else 1
+	# Synthetic retirement ends the race after only a short driving interval.
+	# Its contract is movement plus receipt; full driving fixtures retain 15 m/s.
+	var retirement_fixture := "--retirement-commands" in OS.get_cmdline_user_args()
+	var success := link.prediction != null and maximum_speed > (5 if retirement_fixture else 15)
+	if retirement_fixture: success = success and not result.is_empty()
+	var exit_code := 0 if success else 1
 	link.input_provider = Callable()
 	link.prediction = null
 	setup_session = null

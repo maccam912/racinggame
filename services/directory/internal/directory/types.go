@@ -7,6 +7,7 @@ import (
 	"io"
 	"net/netip"
 	"sync"
+	"sync/atomic"
 	"time"
 )
 
@@ -42,6 +43,8 @@ type Config struct {
 	WorkerNets            []netip.Prefix
 	RequirePerformance    bool
 	PerformanceEvents     io.Writer
+	WorkerPrivateURL      string
+	HostMaxWorkers        int
 }
 type Service struct {
 	store            *Store
@@ -49,6 +52,9 @@ type Service struct {
 	performanceMu    sync.Mutex
 	performance      map[string]workerHealth
 	performanceLogMu sync.Mutex
+	draining         atomic.Bool
+	lifecycleMu      sync.Mutex
+	unownedAlerts    map[string]int64
 }
 
 func New(store *Store, config Config) (*Service, error) {
@@ -61,6 +67,9 @@ func New(store *Store, config Config) (*Service, error) {
 	}
 	if config.MaxWorkers == 0 {
 		config.MaxWorkers = 8
+	}
+	if config.HostMaxWorkers == 0 {
+		config.HostMaxWorkers = config.MaxWorkers
 	}
 	if config.ReadyTimeout == 0 {
 		config.ReadyTimeout = 10 * time.Second
@@ -75,7 +84,7 @@ func New(store *Store, config Config) (*Service, error) {
 		config.Region = "test"
 		config.RegionName = "Test Region"
 	}
-	if config.FirstPort < 1024 || config.MaxWorkers < 1 || config.MaxWorkers > 128 || config.FirstPort+config.MaxWorkers > 65536 {
+	if config.FirstPort < 1024 || config.MaxWorkers < 1 || config.MaxWorkers > 128 || config.FirstPort+config.MaxWorkers > 65536 || config.HostMaxWorkers < 1 || config.HostMaxWorkers > 128 {
 		return nil, errors.New("invalid worker port pool")
 	}
 	if config.Now == nil {
@@ -87,7 +96,7 @@ func New(store *Store, config Config) (*Service, error) {
 	if config.IPRegisterLimit <= 0 {
 		config.IPRegisterLimit = 20
 	}
-	return &Service{store: store, config: config, performance: map[string]workerHealth{}}, nil
+	return &Service{store: store, config: config, performance: map[string]workerHealth{}, unownedAlerts: map[string]int64{}}, nil
 }
 
 type Session struct {

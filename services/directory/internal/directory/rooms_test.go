@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"os"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -283,10 +284,11 @@ func TestMigrationAndFutureSchemaPreservation(t *testing.T) {
 		t.Fatal(err)
 	}
 	// Exact schema 1 reservation layout, then migration must preserve auth data.
-	old := strings.Replace(schema, "ticket_expires INTEGER NOT NULL DEFAULT 0, ", "", 1)
-	if old == schema {
-		old = strings.Replace(schema, "ticket_expires INTEGER NOT NULL DEFAULT 0,", "", 1)
+	oldBytes, err := os.ReadFile("testdata/schema1.sql")
+	if err != nil {
+		t.Fatal(err)
 	}
+	old := string(oldBytes)
 	if _, err = db.Exec(old + "PRAGMA user_version=1;"); err != nil {
 		t.Fatal(err)
 	}
@@ -299,7 +301,7 @@ func TestMigrationAndFutureSchemaPreservation(t *testing.T) {
 	var count, version int
 	store.db.QueryRow(`SELECT count(*) FROM guests WHERE id='kept'`).Scan(&count)
 	store.db.QueryRow(`PRAGMA user_version`).Scan(&version)
-	if count != 1 || version != 2 {
+	if count != 1 || version != 3 {
 		t.Fatal("migration lost data/version")
 	}
 	store.db.Exec(`PRAGMA user_version=999`)

@@ -48,6 +48,9 @@ func _process(_dt: float) -> void:
 	var now := Time.get_ticks_msec()
 	if last_success >= 0 and now - last_success >= 15000:
 		healthy = false
+		if not retired:
+			retired = true
+			retire_requested.emit()
 	if now >= next_heartbeat and heartbeat.get_http_client_status() == HTTPClient.STATUS_DISCONNECTED and state_provider.is_valid():
 		next_heartbeat = now + 5000
 		var body: Dictionary = state_provider.call()

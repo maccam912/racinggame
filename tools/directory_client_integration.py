@@ -97,7 +97,15 @@ def main():
             if process.poll() is None:
                 process.send_signal(signal.SIGINT)
                 try:process.wait(timeout=10)
-                except subprocess.TimeoutExpired:process.kill();process.wait()
+                except subprocess.TimeoutExpired:
+                    if process is service:
+                        # The first signal drains real races; this fixture has
+                        # already stopped its clients and now forces only its
+                        # own supervised pool through the explicit second signal.
+                        process.send_signal(signal.SIGINT)
+                        try:process.wait(timeout=10)
+                        except subprocess.TimeoutExpired:process.kill();process.wait()
+                    else:process.kill();process.wait()
         if args.menu:
             with (folder/'cleanup.log').open('w') as output:
                 cleanup=subprocess.run([str(engine()),'--headless','--path',str(ROOT),'--script','tests/cleanup_guest_fixture.gd','--','--profile=menu_https_'+folder.name[-12:].replace('-','_')],stdout=output,stderr=subprocess.STDOUT,timeout=20)

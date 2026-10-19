@@ -136,6 +136,9 @@ func (s *Service) compatible(protocol int, content string) bool {
 	return protocol == s.config.Protocol && content == s.config.Content
 }
 func (s *Service) CreateRoom(ctx context.Context, session Session, request CreateRequest) (JoinReply, error) {
+	if s.draining.Load() {
+		return JoinReply{}, apiError(503, "capacity")
+	}
 	if !s.compatible(request.Protocol, request.Content) {
 		return JoinReply{}, apiError(409, "incompatible")
 	}
@@ -156,6 +159,13 @@ func (s *Service) CreateRoom(ctx context.Context, session Session, request Creat
 		return JoinReply{}, err
 	}
 	defer tx.Rollback()
+	var workers int
+	if err = tx.QueryRowContext(ctx, `SELECT count(*) FROM workers`).Scan(&workers); err != nil {
+		return JoinReply{}, err
+	}
+	if workers >= s.config.HostMaxWorkers {
+		return JoinReply{}, apiError(503, "capacity")
+	}
 	if s.config.RequirePerformance {
 		allowed, capacityErr := s.capacityAvailable(ctx, tx)
 		if capacityErr != nil {
@@ -182,7 +192,7 @@ func (s *Service) CreateRoom(ctx context.Context, session Session, request Creat
 		return JoinReply{}, apiError(503, "capacity")
 	}
 	rules, _ := json.Marshal(request.Rules)
-	if _, err = tx.ExecContext(ctx, `INSERT INTO workers(id,room,token_hash,port,heartbeat,state) VALUES(?,?,?,?,0,'Loading')`, allocation.ID, allocation.Room, digest(allocation.Token), allocation.Port); err != nil {
+	if _, err = tx.ExecContext(ctx, `INSERT INTO workers(id,room,token_hash,port,heartbeat,state,owner_private) VALUES(?,?,?,?,0,'Loading',?)`, allocation.ID, allocation.Room, digest(allocation.Token), allocation.Port, s.config.WorkerPrivateURL); err != nil {
 		return JoinReply{}, err
 	}
 	if _, err = tx.ExecContext(ctx, `INSERT INTO rooms(id,worker,name,private,code,created,creator,rules,protocol,content) VALUES(?,?,?,?,?,?,?,?,?,?)`, allocation.Room, allocation.ID, name, request.Private, allocation.Code, now, session.Guest, string(rules), s.config.Protocol, s.config.Content); err != nil {
@@ -243,6 +253,9 @@ func (s *Service) ReleaseWorker(ctx context.Context, id string) error {
 	s.performanceMu.Lock()
 	delete(s.performance, id)
 	s.performanceMu.Unlock()
+	s.lifecycleMu.Lock()
+	delete(s.unownedAlerts, id)
+	s.lifecycleMu.Unlock()
 	return nil
 }
 func roomInTx(ctx context.Context, tx *sql.Tx, id string) (storedRoom, error) {

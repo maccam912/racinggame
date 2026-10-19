@@ -1,0 +1,21 @@
+{
+  "passed": false,
+  "scenario": "crash",
+  "base_commit": "a540bf5267e9cd8ce07239c333678550396ddbf0",
+  "boundary": "Owned local Go processes, SQLite and actual ticket-required Godot workers/ENet clients. Forced synthetic finish only; no profile, genuine timing, hosting or physical-device claim.",
+  "race_before": {
+    "advanced_after_retire": false,
+    "forced_synthetic_result": false,
+    "guest_ids": [
+      "d28e74cd-13f1-451c-ac64-1a9a2bdb3794",
+      "7620635d-3ddd-42f7-a2b8-3cf398dd08c6"
+    ],
+    "race_active": true,
+    "race_uuid": "499314b2-d0f2-43c2-8182-77e05df421db",
+    "results_sent": false,
+    "retiring": false,
+    "tick": 713
+  },
+  "failure": "RuntimeError: Surviving worker did not finish/deliver after private drain",
+  "remaining_worker_rows": 0
+}

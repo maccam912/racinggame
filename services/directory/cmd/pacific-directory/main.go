@@ -27,7 +27,7 @@ func main() {
 }
 func run() error {
 	if len(os.Args) < 2 {
-		return errors.New("use keygen, serve, ban or unban")
+		return errors.New("use keygen, serve, drain, ban or unban")
 	}
 	switch os.Args[1] {
 	case "keygen":
@@ -52,6 +52,34 @@ func run() error {
 		return store.Ban(*guest, os.Args[1] == "ban")
 	case "serve":
 		return serve(os.Args[2:])
+	case "drain":
+		flags := flag.NewFlagSet("drain", flag.ContinueOnError)
+		database := flags.String("db", "var/directory.sqlite", "SQLite file")
+		workerID := flags.String("worker", "", "one worker UUID")
+		all := flags.Bool("all", false, "drain all currently registered workers")
+		if err := flags.Parse(os.Args[2:]); err != nil {
+			return err
+		}
+		if (*workerID == "") == !*all {
+			return errors.New("select one worker or --all")
+		}
+		store, err := directory.OpenStore(*database)
+		if err != nil {
+			return err
+		}
+		defer store.Close()
+		ids := []string{*workerID}
+		if *all {
+			ids, err = store.WorkerIDs(context.Background(), "", true)
+			if err != nil {
+				return err
+			}
+		}
+		count, err := store.DrainWorkers(context.Background(), ids, time.Now().Unix())
+		if err != nil {
+			return err
+		}
+		return json.NewEncoder(os.Stdout).Encode(map[string]any{"draining": count})
 	default:
 		return errors.New("unknown command")
 	}
@@ -71,6 +99,7 @@ func serve(args []string) error {
 	project := flags.String("worker-project", "", "source project for development only")
 	ports := flags.Int("first-port", 27020, "first UDP pool port")
 	maximum := flags.Int("workers", 8, "maximum workers")
+	hostMaximum := flags.Int("host-workers", 0, "shared database worker cap across rollout pools; defaults to --workers")
 	protocol := flags.Int("protocol", 0, "exact protocol version")
 	content := flags.String("content-hash", "", "exact content SHA-256")
 	insecure := flags.Bool("allow-insecure-loopback", false, "explicit development HTTP exception")
@@ -105,9 +134,12 @@ func serve(args []string) error {
 		return err
 	}
 	defer log.Close()
-	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	config := directory.Config{EncryptionKey: encryption, SigningKey: signing, Protocol: *protocol, Content: *content, Region: *region, RegionName: *regionName, PublicURL: *publicURL, WorkerHost: *workerHost, AllowInsecureLoopback: *insecure, FirstPort: *ports, MaxWorkers: *maximum, IPRequestLimit: *apiLimit, IPRegisterLimit: *registerLimit, RequirePerformance: true, PerformanceEvents: log}
+	stopSignals := make(chan os.Signal, 2)
+	signal.Notify(stopSignals, os.Interrupt, syscall.SIGTERM)
+	defer signal.Stop(stopSignals)
+	config := directory.Config{EncryptionKey: encryption, SigningKey: signing, Protocol: *protocol, Content: *content, Region: *region, RegionName: *regionName, PublicURL: *publicURL, WorkerHost: *workerHost, AllowInsecureLoopback: *insecure, FirstPort: *ports, MaxWorkers: *maximum, HostMaxWorkers: *hostMaximum, IPRequestLimit: *apiLimit, IPRegisterLimit: *registerLimit, RequirePerformance: true, PerformanceEvents: log, WorkerPrivateURL: "http://" + *privateListen}
 	for _, value := range strings.Split(*proxies, ",") {
 		if value == "" {
 			continue
@@ -160,6 +192,12 @@ func serve(args []string) error {
 		return errors.New("cannot bind public listener")
 	}
 	defer publicSocket.Close()
+	if err = service.RecoverWorkers(ctx); err != nil {
+		return err
+	}
+	if err = service.ReconcileWorkers(ctx, allocator); err != nil {
+		return err
+	}
 	failures := make(chan error, 2)
 	go func() { failures <- privateServer.Serve(privateSocket) }()
 	go func() { failures <- publicServer.Serve(publicSocket) }()
@@ -167,13 +205,39 @@ func serve(args []string) error {
 	fmt.Println("PACIFIC_DIRECTORY_READY")
 	ticker := time.NewTicker(time.Minute)
 	defer ticker.Stop()
+	reconcile := time.NewTicker(5 * time.Second)
+	defer reconcile.Stop()
 	for {
 		select {
-		case <-ctx.Done():
+		case <-stopSignals:
+			ids := allocator.StopAccepting()
+			if err = service.BeginDrain(ctx, ids); err != nil {
+				return err
+			}
+			_ = json.NewEncoder(log).Encode(map[string]any{"at": time.Now().UTC().Format(time.RFC3339), "code": "directory_draining", "workers": len(ids)})
 			shutdown, stop := context.WithTimeout(context.Background(), 5*time.Second)
-			defer stop()
-			_ = publicServer.Shutdown(shutdown)
+			if publicServer.Shutdown(shutdown) != nil {
+				_ = publicServer.Close()
+			}
+			stop()
+			deadline := time.Now().Add(605 * time.Second)
+			drainTick := time.NewTicker(time.Second)
+			for allocator.Count() > 0 && time.Now().Before(deadline) {
+				select {
+				case <-stopSignals:
+					deadline = time.Now()
+				case <-drainTick.C:
+					if err = service.ReconcileWorkers(ctx, allocator); err != nil {
+						deadline = time.Now()
+					}
+				}
+			}
+			drainTick.Stop()
+			cancel()
+			allocator.Close()
+			shutdown, stop = context.WithTimeout(context.Background(), 5*time.Second)
 			_ = privateServer.Shutdown(shutdown)
+			stop()
 			return nil
 		case err := <-failures:
 			if !errors.Is(err, http.ErrServerClosed) {
@@ -182,6 +246,10 @@ func serve(args []string) error {
 			return nil
 		case <-ticker.C:
 			_ = store.Prune(ctx, time.Now().Unix())
+		case <-reconcile.C:
+			if err = service.ReconcileWorkers(ctx, allocator); err != nil {
+				_ = json.NewEncoder(log).Encode(map[string]any{"at": time.Now().UTC().Format(time.RFC3339), "code": "worker_reconcile_failed"})
+			}
 		}
 	}
 }

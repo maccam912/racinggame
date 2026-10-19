@@ -117,7 +117,7 @@ func (s *Service) Handler() http.Handler {
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /healthz", func(w http.ResponseWriter, r *http.Request) { writeJSON(w, 200, map[string]string{"status": "ok"}) })
 	mux.HandleFunc("GET /readyz", func(w http.ResponseWriter, r *http.Request) {
-		if err := s.store.db.PingContext(r.Context()); err != nil {
+		if err := s.store.db.PingContext(r.Context()); err != nil || s.draining.Load() {
 			writeError(w, apiError(503, "not_ready"))
 			return
 		}
@@ -128,7 +128,7 @@ func (s *Service) Handler() http.Handler {
 	mux.HandleFunc("POST /v1/auth/session", s.sessionHTTP)
 	s.roomRoutes(mux)
 	mux.HandleFunc("GET /v1/regions", func(w http.ResponseWriter, r *http.Request) {
-		writeJSON(w, 200, map[string]any{"regions": []map[string]any{{"id": s.config.Region, "name": s.config.RegionName, "url": s.config.PublicURL, "available": true, "protocol": s.config.Protocol, "content_hash": s.config.Content}}})
+		writeJSON(w, 200, map[string]any{"regions": []map[string]any{{"id": s.config.Region, "name": s.config.RegionName, "url": s.config.PublicURL, "available": !s.draining.Load(), "protocol": s.config.Protocol, "content_hash": s.config.Content}}})
 	})
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if !s.secureRequest(r) {

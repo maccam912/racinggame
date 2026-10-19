@@ -78,27 +78,27 @@ func (s *Service) observePerformance(id string, p *WorkerPerformance) {
 }
 
 func (s *Service) capacityAvailable(ctx context.Context, tx *sql.Tx) (bool, error) {
-	rows, err := tx.QueryContext(ctx, `SELECT id FROM workers WHERE state != 'Closed'`)
+	rows, err := tx.QueryContext(ctx, `SELECT heartbeat,performance FROM workers WHERE state != 'Closed'`)
 	if err != nil {
 		return false, err
 	}
 	defer rows.Close()
-	s.performanceMu.Lock()
-	defer s.performanceMu.Unlock()
 	now := s.config.Now()
 	for rows.Next() {
-		var id string
-		if err = rows.Scan(&id); err != nil {
+		var heartbeat int64
+		var encoded string
+		if err = rows.Scan(&heartbeat, &encoded); err != nil {
 			return false, err
 		}
-		health, ok := s.performance[id]
+		var metrics *WorkerPerformance
+		err := json.Unmarshal([]byte(encoded), &metrics)
 		// Keep 20% below the 10 ms refusal boundary. Existing rooms continue.
 		// Startup, stale/missing metrics or missing native RSS fail closed for
 		// additional room creation; the configured process cap still applies.
-		if !ok || now.Sub(health.received) >= 15*time.Second || now.Before(health.received) ||
-			health.performance.Samples < 60 || health.performance.P95US >= 8000 ||
-			health.alerted ||
-			health.performance.RSSBytes <= 0 || health.performance.RSSBytes >= 256_000_000 {
+		if err != nil || metrics == nil || !metrics.valid() || now.Unix()-heartbeat >= 15 || now.Unix() < heartbeat ||
+			metrics.Samples < 60 || metrics.P95US >= 8000 ||
+			(metrics.FullWindow && metrics.DeadlineMisses*20 >= metrics.Samples) ||
+			metrics.RSSBytes <= 0 || metrics.RSSBytes >= 256_000_000 {
 			return false, nil
 		}
 	}

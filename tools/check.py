@@ -42,6 +42,7 @@ def main():
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/font_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/font_input_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/retirement_tests.gd'])
+    commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/worker_directory_tests.gd'])
     commands.append([sys.executable,'tools/retirement_integration.py'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/audio_dsp_evidence.gd'])
     results = []

@@ -40,7 +40,7 @@ func OpenStore(filename string) (*Store, error) {
 	if err = db.QueryRow(`PRAGMA user_version`).Scan(&version); err != nil {
 		return fail(err)
 	}
-	if version > 2 {
+	if version > 3 {
 		return fail(errFutureDatabase)
 	}
 	tx, err := db.Begin()
@@ -57,7 +57,12 @@ func OpenStore(filename string) (*Store, error) {
 			return failMigration(err)
 		}
 	}
-	if _, err = tx.Exec(`PRAGMA user_version=2`); err != nil {
+	if version > 0 && version < 3 {
+		if _, err = tx.Exec(`ALTER TABLE workers ADD COLUMN owner_private TEXT NOT NULL DEFAULT ''; ALTER TABLE workers ADD COLUMN drain_deadline INTEGER NOT NULL DEFAULT 0; ALTER TABLE workers ADD COLUMN performance TEXT NOT NULL DEFAULT 'null';`); err != nil {
+			return failMigration(err)
+		}
+	}
+	if _, err = tx.Exec(`PRAGMA user_version=3`); err != nil {
 		return failMigration(err)
 	}
 	if err = tx.Commit(); err != nil {
@@ -77,7 +82,7 @@ CREATE TABLE IF NOT EXISTS nonces(hash BLOB PRIMARY KEY, guest TEXT NOT NULL REF
 CREATE TABLE IF NOT EXISTS sessions(hash BLOB PRIMARY KEY, guest TEXT NOT NULL REFERENCES guests(id), expires INTEGER NOT NULL);
 CREATE TABLE IF NOT EXISTS rate_events(subject TEXT NOT NULL, kind TEXT NOT NULL, at INTEGER NOT NULL);
 CREATE INDEX IF NOT EXISTS rate_lookup ON rate_events(subject,kind,at);
-CREATE TABLE IF NOT EXISTS workers(id TEXT PRIMARY KEY, room TEXT UNIQUE NOT NULL, token_hash BLOB NOT NULL, port INTEGER UNIQUE NOT NULL, heartbeat INTEGER NOT NULL, ready INTEGER NOT NULL DEFAULT 0, state TEXT NOT NULL, guests TEXT NOT NULL DEFAULT '[]');
+CREATE TABLE IF NOT EXISTS workers(id TEXT PRIMARY KEY, room TEXT UNIQUE NOT NULL, token_hash BLOB NOT NULL, port INTEGER UNIQUE NOT NULL, heartbeat INTEGER NOT NULL, ready INTEGER NOT NULL DEFAULT 0, state TEXT NOT NULL, guests TEXT NOT NULL DEFAULT '[]', owner_private TEXT NOT NULL DEFAULT '', drain_deadline INTEGER NOT NULL DEFAULT 0, performance TEXT NOT NULL DEFAULT 'null');
 CREATE TABLE IF NOT EXISTS rooms(id TEXT PRIMARY KEY, worker TEXT UNIQUE NOT NULL REFERENCES workers(id), name TEXT NOT NULL, private INTEGER NOT NULL, code TEXT UNIQUE NOT NULL, created INTEGER NOT NULL, creator TEXT NOT NULL REFERENCES guests(id), rules TEXT NOT NULL, protocol INTEGER NOT NULL, content TEXT NOT NULL, closed INTEGER NOT NULL DEFAULT 0);
 CREATE TABLE IF NOT EXISTS reservations(room TEXT NOT NULL REFERENCES rooms(id), guest TEXT NOT NULL REFERENCES guests(id), nonce TEXT NOT NULL UNIQUE, expires INTEGER NOT NULL, ticket_expires INTEGER NOT NULL DEFAULT 0, consumed INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(room,guest));
 CREATE TABLE IF NOT EXISTS worker_commands(id TEXT PRIMARY KEY, worker TEXT NOT NULL REFERENCES workers(id), kind TEXT NOT NULL, guest TEXT NOT NULL, created INTEGER NOT NULL, UNIQUE(worker,kind,guest));

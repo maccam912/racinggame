@@ -367,8 +367,8 @@ jobs:
       always() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
       needs.export.result == 'success' && needs.network.result == 'success' &&
       needs.native.result == 'success' && needs.lobbies.result == 'success' &&
-      needs.directory.result == 'success' && needs.render.result == 'success' && needs.audio.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped')
-    needs: [export, network, native, lobbies, directory, ai, render, audio]
+      needs.directory.result == 'success' && needs['directory-lifecycle'].result == 'success' && needs.render.result == 'success' && needs.audio.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped')
+    needs: [export, network, native, lobbies, directory, directory-lifecycle, ai, render, audio]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -547,4 +547,40 @@ jobs:
         with:
           name: ten-race-soak-evidence
           path: reports/soak-eight-*/
+          if-no-files-found: error
+
+  directory-lifecycle:
+    needs: [verify, platform-adapter]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.27.0'
+          cache-dependency-path: services/directory/go.sum
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: platform-adapter-linux
+          path: native/bin
+      - run: python -c "import sys; sys.path.insert(0,'tools'); from native_build import configure; configure()"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Managed idle drain, graceful race, supervisor kill and overlapping pools
+        run: python tools/directory_lifecycle_integration.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: directory-lifecycle-evidence
+          path: |
+            reports/directory-lifecycle-*/summary.json
+            reports/directory-lifecycle-*/*.log
+            reports/directory-lifecycle-*/workers/*.json
+            reports/directory-lifecycle-*/logs/*.jsonl
           if-no-files-found: error

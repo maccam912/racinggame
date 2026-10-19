@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "transport": "HTTPS with scoped isolated CA; no system trust changes",
+  "identity_backend": "game OS-protected adapter when available, otherwise explicit session-only identity",
+  "menu": true,
+  "visual": false,
+  "checks": [
+    "three verified region probes",
+    "create form rules and official lobby",
+    "ready/start through staged local world and collision-ready acknowledgement",
+    "public browser row admission",
+    "formatted private code join",
+    "code show/hide",
+    "Quick Join",
+    "same guest UUID across menu joins",
+    "Data reset erases protected identity"
+  ],
+  "actual_identity_backend": "Keychain",
+  "profile_cleanup": true
+}

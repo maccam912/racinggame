@@ -32,10 +32,12 @@ type workerProcess struct {
 	done    chan struct{}
 }
 type ProcessAllocator struct {
-	spec     ProcessSpec
-	mu       sync.Mutex
-	children map[string]*workerProcess
-	logMu    sync.Mutex
+	spec      ProcessSpec
+	mu        sync.Mutex
+	children  map[string]*workerProcess
+	logMu     sync.Mutex
+	stopping  bool
+	finishing int
 }
 
 func NewProcessAllocator(spec ProcessSpec) (*ProcessAllocator, error) {
@@ -61,7 +63,7 @@ func (a *ProcessAllocator) Start(ctx context.Context, allocation Allocation) err
 	}
 	a.mu.Lock()
 	defer a.mu.Unlock()
-	if len(a.children) >= a.spec.MaxWorkers {
+	if a.stopping || len(a.children) >= a.spec.MaxWorkers {
 		return errors.New("worker pool full")
 	}
 	if _, exists := a.children[allocation.ID]; exists {
@@ -80,12 +82,21 @@ func (a *ProcessAllocator) Start(ctx context.Context, allocation Allocation) err
 	command.Env = append(command.Env, "PR_WORKER_CONFIG="+string(config))
 	// Raw engine output may contain user names or traces. Operations receives only
 	// fixed structured events; explicit source integration tests capture raw logs.
-	command.Stdout = io.Discard
-	command.Stderr = io.Discard
+	// A writer such as io.Discard makes os/exec create a supervisor-owned pipe.
+	// Its reader disappears on a supervisor crash and can kill a surviving worker
+	// with SIGPIPE on its next log write. Give the child direct null handles.
+	sink, err := os.OpenFile(os.DevNull, os.O_WRONLY, 0)
+	if err != nil {
+		return err
+	}
+	command.Stdout = sink
+	command.Stderr = sink
 	if err := command.Start(); err != nil {
+		sink.Close()
 		a.event(allocation.ID, "worker_start_failed")
 		return err
 	}
+	sink.Close()
 	child := &workerProcess{command: command, done: make(chan struct{})}
 	a.children[allocation.ID] = child
 	a.event(allocation.ID, "worker_started")
@@ -93,6 +104,7 @@ func (a *ProcessAllocator) Start(ctx context.Context, allocation Allocation) err
 		err := command.Wait()
 		a.mu.Lock()
 		delete(a.children, allocation.ID)
+		a.finishing++
 		a.mu.Unlock()
 		if err != nil {
 			a.event(allocation.ID, "worker_exit_failure")
@@ -102,6 +114,9 @@ func (a *ProcessAllocator) Start(ctx context.Context, allocation Allocation) err
 		if a.spec.OnExit != nil {
 			a.spec.OnExit(allocation.ID)
 		}
+		a.mu.Lock()
+		a.finishing--
+		a.mu.Unlock()
 		close(child.done)
 	}()
 	return nil
@@ -131,4 +146,26 @@ func (a *ProcessAllocator) Close() {
 	for _, id := range ids {
 		_ = a.Stop(id)
 	}
+}
+
+// StopAccepting and the returned ownership snapshot are atomic with Start.
+func (a *ProcessAllocator) StopAccepting() []string {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	a.stopping = true
+	ids := make([]string, 0, len(a.children))
+	for id := range a.children {
+		ids = append(ids, id)
+	}
+	return ids
+}
+func (a *ProcessAllocator) Owns(id string) bool {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	return a.children[id] != nil
+}
+func (a *ProcessAllocator) Count() int {
+	a.mu.Lock()
+	defer a.mu.Unlock()
+	return len(a.children) + a.finishing
 }

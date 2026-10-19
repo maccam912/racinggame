@@ -110,7 +110,12 @@ def run(http_port=28180, worker_port=27060):
             if process.poll() is None:
                 process.send_signal(signal.SIGINT if process is processes[0] else signal.SIGTERM)
                 try:process.wait(timeout=10)
-                except subprocess.TimeoutExpired:process.kill();process.wait()
+                except subprocess.TimeoutExpired:
+                    if process is processes[0]:
+                        process.send_signal(signal.SIGINT)
+                        try:process.wait(timeout=10)
+                        except subprocess.TimeoutExpired:process.kill();process.wait()
+                    else:process.kill();process.wait()
         for handle in handles:handle.close()
         # Retain the SQLite fixture for audit, but remove all ephemeral keys.
         for key in (runtime/'keys').glob('*'):key.unlink()
