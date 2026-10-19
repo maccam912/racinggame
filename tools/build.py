@@ -11,6 +11,7 @@ import sys
 import zipfile
 from contextlib import contextmanager, nullcontext
 from export_environment import temporary_configuration
+from native_build import ensure_export
 from content_hash import compute
 from bootstrap import ROOT, LOCK, engine, templates
 
@@ -89,12 +90,14 @@ def android_configuration():
 def build(target, number):
     if number < 1:
         raise ValueError('Build number must be positive')
+    adapter = ensure_export(target)
     templates()
     folder = ROOT/'build'/target
     folder.mkdir(parents=True, exist_ok=True)
     (ROOT/'build/.gdignore').touch()
     preset, name = TARGETS[target]
     data = metadata(target, number)
+    data["native_adapter"] = adapter
     configuration = temporary_configuration(*android_configuration()) if target.startswith('android') else nullcontext()
     with configuration, stamped(data, number):
         checked(['--headless','--editor','--import','--quit'])

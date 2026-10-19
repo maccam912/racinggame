@@ -1,0 +1,21 @@
+import os
+from pathlib import Path
+
+sdk = os.environ['PACIFIC_GODOT_CPP']
+env = SConscript(str(Path(sdk)/'SConstruct'))
+env.Append(CPPPATH=['src'])
+sources = Glob('src/*.cpp')
+if env['platform'] == 'macos':
+    env.Append(LINKFLAGS=['-framework','Security','-framework','CoreFoundation','-framework','LocalAuthentication'])
+    objc = env.Clone()
+    objc.Append(CXXFLAGS=['-fobjc-arc'])
+    sources += objc.SharedObject('src/auth_context.mm')
+elif env['platform'] == 'windows':
+    env.Append(LIBS=['crypt32'])
+elif env['platform'] == 'linux':
+    import shlex, subprocess
+    env.Append(CCFLAGS=shlex.split(subprocess.check_output(['pkg-config','--cflags','libsecret-1'],text=True)))
+    env.Append(LIBS=['dl'])
+library = env.SharedLibrary('bin/libpacific_platform'+env['suffix']+env['SHLIBSUFFIX'],source=sources)
+env.NoCache(library)
+Default(library)

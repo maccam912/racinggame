@@ -1,0 +1,10 @@
+[configuration]
+entry_symbol = "pacific_platform_library_init"
+compatibility_minimum = "4.5"
+reloadable = false
+
+[libraries]
+macos = "res://native/bin/libpacific_platform.macos.template_release.universal.dylib"
+windows.x86_64 = "res://native/bin/libpacific_platform.windows.template_release.x86_64.dll"
+linux.x86_64 = "res://native/bin/libpacific_platform.linux.template_release.x86_64.so"
+android.arm64 = "res://native/bin/libpacific_platform.android.template_release.arm64.so"

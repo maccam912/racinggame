@@ -56,6 +56,14 @@
       "license": "Unicode License",
       "attribution": "assets/licenses/Unicode-LICENSE.txt",
       "modifications": "Generated canonical normalization subset"
+    },
+    {
+      "id": "godot_cpp_bindings",
+      "source": "https://github.com/godotengine/godot-cpp/tree/e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "creator": "Godot Engine contributors",
+      "license": "MIT",
+      "attribution": "assets/licenses/godot-cpp-LICENSE.txt",
+      "modifications": "Unmodified pinned bindings; trimmed RefCounted/OS build profile for the original native platform adapter. Engine runtime remains 4.6.3."
     }
   ]
 }

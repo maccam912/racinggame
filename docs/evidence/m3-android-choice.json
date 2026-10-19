@@ -1,0 +1,31 @@
+{
+  "device": "owned Pixel 7 AVD / Android 15 API 35 ARM64 / emulator-5580",
+  "physical_device": false,
+  "apk": {
+    "version": "0.0.29-dev",
+    "build_number": 29,
+    "working_tree_dirty": false,
+    "commit": "54883d1b5c39c3d876545e71dcb310b7a464ace3",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "78e8df7a34088aade409918658a3cd1d62b2a53c12b2779d52b2ac0ffcc6f078",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured"
+  },
+  "ui_scale": 150,
+  "verified": [
+    "Choice sheet stays within the safe and centered reference region",
+    "Four touchscreen swipes reveal Data without selecting an intermediate section",
+    "A stationary tap selects the final Data row",
+    "Android Back closes a reopened sheet and retains the Data page",
+    "Previously saved touch positions survive the update"
+  ],
+  "screenshots": [
+    "m3-android-choice-scrolled.png",
+    "m3-android-choice-selected.png"
+  ]
+}

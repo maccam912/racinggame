@@ -5,6 +5,7 @@ Original colorful arcade circuit racer for desktop and Android. [DESIGN.md](DESI
 Requires Python 3.14.7. The bootstrap downloads checksum-verified Godot 4.6.3 into a project-specific user cache, preserving your existing engine. No cloud account is required for offline development.
 
 ```sh
+python3 tools/native_build.py host
 python3 tools/godot.py --editor --import --quit
 python3 tools/godot.py
 python3 tools/godot.py -- --drive
@@ -21,7 +22,7 @@ python3 tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --los
 python3 tools/build.py macos --number 1
 ```
 
-Build targets: `linux`, `windows`, `macos`, `android` (APK), `android_aab`, `server`. Export templates download on first export. Android requires JDK 17, SDK 36/build-tools 35.0.1 and ARM64; set `JAVA_HOME` and `ANDROID_HOME`. Release-mode APK/AAB packages use a stable development keystore. Production publisher signing, store submission, Developer ID/notarization and physical-device validation remain required.
+Build targets: `linux`, `windows`, `macos`, `android` (APK), `android_aab`, `server`. Export templates and checksum-pinned native SDK/SCons dependencies download on first export. Native adapters build on their target OS (Android can cross-build); Linux builds require `libsecret-1-dev` and `pkg-config`. CI builds and merges all adapters before export. Android requires JDK 17, SDK 36/build-tools 35.0.1 and ARM64; set `JAVA_HOME` and `ANDROID_HOME`. Release-mode APK/AAB packages use a stable development keystore. Production publisher signing, store submission, Developer ID/notarization and physical-device validation remain required.
 
 Handling and cars: `game/content/cars.json` and `game/core/vehicle_sim.gd`; course controls: `game/content/tracks.json`. Rebuild canonical routes with `python3 tools/bake_tracks.py`; do not hand-edit bakes. After gameplay changes run `python3 tools/content_hash.py`. Strict JSON schemas live in `schemas/`. Tools are pinned in `tools/toolchain.lock`. Source assets and licenses are listed in `assets/manifest.json`. Touch layout is `game/platform/touch_driving.gd`. Offline menus now expose Quick Race, Trial, Cup, School and Garage; art remains developmental. Saves use independent components under Godot's Pacific Rush user-data folder. `--profile=left` selects an isolated diagnostic profile.
 
@@ -31,3 +32,5 @@ Every push to main validates source/geometry, executes real-client network fault
 
 
 Touch layout editing is under Settings → Touch → Edit Layout on Android. Drag the outlines, or focus one and press Confirm to move it with keyboard/controller directions; Back stops moving it. Save validates target sizes, safe margins and overlap. Preview runs a separate 30-second practice drive and returns to the draft. Cancel preserves saved positions, and Restore Layout resets only the current device/orientation/control profile. Layout geometry cannot be changed during an online race.
+
+The optional native platform extension supplies macOS Keychain, Windows DPAPI and Linux Secret Service primitives. Run `python3 tools/native_store_ci.py` to test a new random test entry and delete it afterward. Hosted CI isolates its macOS keychain and Linux D-Bus session. Android currently validates extension loading; its Java KeyStore encryption path and the guest identity client are still in progress. No plaintext identity fallback is provided.

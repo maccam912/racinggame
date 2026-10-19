@@ -64,8 +64,58 @@ jobs:
           path: reports/network-*/
           if-no-files-found: error
 
-  export:
+  platform-adapter:
     needs: verify
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux
+            runner: ubuntu-22.04
+          - platform: windows
+            runner: windows-2022
+          - platform: macos
+            runner: macos-15
+          - platform: android
+            runner: ubuntu-24.04
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/native
+          key: platform-sdk-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('tools/toolchain.lock') }}
+      - name: Linux Secret Service build and isolated test dependencies
+        if: matrix.platform == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y libsecret-1-dev gnome-keyring dbus-x11
+      - uses: android-actions/setup-android@v3
+        if: matrix.platform == 'android'
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - name: Android native toolchain
+        if: matrix.platform == 'android'
+        run: sdkmanager 'ndk;28.1.13356709'
+      - run: python tools/native_build.py ${{ matrix.platform }}
+      - name: Exercise the real OS store with temporary test data
+        if: matrix.platform != 'android'
+        run: python tools/native_store_ci.py --isolated
+      - uses: actions/upload-artifact@v4
+        with:
+          name: platform-adapter-${{ matrix.platform }}
+          path: |
+            native/bin/*.so
+            native/bin/*.dll
+            native/bin/*.dylib
+            native/bin/manifest-*.json
+          if-no-files-found: error
+
+  export:
+    needs: [verify, platform-adapter]
     strategy:
       fail-fast: false
       matrix:
@@ -107,6 +157,11 @@ jobs:
           else
             keytool -genkeypair -keystore ~/.android/debug.keystore -storepass android -keypass android -alias androiddebugkey -dname 'CN=Pacific Rush PR' -keyalg RSA -keysize 2048 -validity 30
           fi
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: platform-adapter-*
+          merge-multiple: true
+          path: native/bin
       - run: python tools/build.py ${{ matrix.target }} --number ${{ github.run_number }}
       - name: Verify Android package
         if: matrix.target == 'android'
