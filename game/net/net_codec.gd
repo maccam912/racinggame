@@ -2,7 +2,7 @@ class_name NetCodec
 extends RefCounted
 ## Explicit fixed-width little-endian packets. No Variant deserialization on UDP.
 
-const PROTOCOL: int = 3
+const PROTOCOL: int = 4
 const MAX_PACKET: int = 1200
 const FIELDS: Array = [
 	["yaw", "i16", 100.0 * 180 / PI], ["yaw_rate", "i16", 100.0 * 180 / PI],

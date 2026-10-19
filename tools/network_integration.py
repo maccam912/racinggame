@@ -56,6 +56,7 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
         values = [json.loads((folder/f'client{i}.json').read_text()) for i in range(2)]
         assert {v['slot'] for v in values} == {0, 1}, 'Stable unique slots'
         for index, value in enumerate(values):
+            assert value["large_racing_events"] == 0, "Large roster message arrived during racing"
             expired = reconnect and away_seconds > 20 and index == 0
             assert value['snapshots'] >= (150 if expired else 1000 if seconds >= 65 else 20), 'Insufficient snapshot samples'
             assert value['max_speed'] > 15, 'Inputs did not drive the car'
@@ -65,6 +66,7 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
                 assert value['contact_corrections']['p95'] <= 1.5, 'Contact correction target failed'
         if reconnect:
             if away_seconds <= 20:
+                assert values[0]['resume_count'] >= 1, 'Reconnect did not use compact resume'
                 assert values[0]['reconnect_done'] and values[0]['connected'] and values[0]['initial_slot'] == values[0]['slot'], 'Reconnect must retain the original slot'
             else:
                 assert values[0]['reconnect_done'] and not values[0]['connected'] and not values[0]['results'] and 'Reconnect expired' in values[0].get('permanent_error',''), 'Expired identity must not regain control or receive a fabricated result'

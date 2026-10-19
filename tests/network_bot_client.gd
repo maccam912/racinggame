@@ -79,6 +79,8 @@ func run() -> void:
 		if not result.is_empty() or permanent_error != "":
 			break
 	var data: Dictionary = {"slot":link.slot, "results":result, "max_speed":maximum_speed, "rtt_ms":link.rtt_ms, "sent_bytes":link.wire.sent_bytes, "received_bytes":link.wire.received_bytes, "dropped_packets":link.wire.dropped_packets, "reconnect_done":reconnect_done, "connected":link.connected, "sequence":link.sequence}
+	data.large_racing_events = link.large_racing_events
+	data.resume_count = link.resume_count
 	data.initial_slot = initial_slot
 	data.permanent_error = permanent_error
 	if link.prediction:

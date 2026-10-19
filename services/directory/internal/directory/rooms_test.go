@@ -320,3 +320,29 @@ func TestRulesRejectMissingUnknownOrWrongTypes(t *testing.T) {
 		}
 	}
 }
+
+func TestOperatorBanRevokesAdmissionAndQueuesLiveRemoval(t *testing.T) {
+	s, _ := testService(t)
+	a := newAllocator(s)
+	ctx := context.Background()
+	guest := guestFor(t, s)
+	joined := createFor(t, s, guest, false)
+	allocation := a.get(joined.Worker)
+	claims := claimsFor(t, s, joined)
+	if err := s.store.Ban(guest.Guest, true); err != nil {
+		t.Fatal(err)
+	}
+	_, err := s.Authorize(ctx, guest.Token)
+	expectCode(t, err, "unauthorized")
+	expectCode(t, s.Consume(ctx, allocation.ID, allocation.Token, guest.Guest, claims.Nonce), "admission_expired")
+	reply, err := s.Heartbeat(ctx, allocation.ID, allocation.Token, heartbeatFor(allocation, "Lobby", []string{guest.Guest}))
+	if err != nil || len(reply.Commands) != 1 || reply.Commands[0].Guest != guest.Guest {
+		t.Fatal("live ban removal missing", reply, err)
+	}
+	if err = s.store.Ban(guest.Guest, false); err != nil {
+		t.Fatal(err)
+	}
+	if _, err = s.Authorize(ctx, guest.Token); err != nil {
+		t.Fatal("unban did not restore authorization", err)
+	}
+}

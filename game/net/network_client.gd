@@ -51,6 +51,8 @@ var retry_count: int = 0
 var disconnected_at: int = 0
 var clock_ready: bool = false
 var restoring_reconnect: bool = false
+var large_racing_events: int = 0
+var resume_count: int = 0
 
 
 func _init() -> void:
@@ -149,6 +151,8 @@ func _physics_process(_dt: float) -> void:
 func receive_event(event: Dictionary) -> void:
 	if not NetEvents.server_event(event):
 		return
+	if phase in [RaceSession.Phase.RACING, RaceSession.Phase.GRACE] and event.get("type") in ["lobby", "start", "loading"] and JSON.stringify(event).to_utf8_buffer().size() + 4 > 1200:
+		large_racing_events += 1
 	match event.get("type", ""):
 		"welcome":
 			restoring_reconnect = prediction != null
@@ -203,22 +207,17 @@ func receive_event(event: Dictionary) -> void:
 			remotes.samples.clear()
 			loading_requested.emit(event)
 		"start":
-			if int(event.race) < race_id:
+			receive_start(event)
+		"resume":
+			var expanded := expand_resume(event)
+			if expanded.is_empty():
+				receive_event({"type":"error", "message":"Race details unavailable — return to lobby"})
 				return
-			var new_race := int(event.race) != race_id
-			race_id = int(event.race)
-			slot = int(event.slot)
-			if new_race:
-				latest_snapshot.clear()
-				next_input_tick = -1
-				sequence = 0
-				latest_snapshot_tick = -1
-			config = event
-			start_tick = int(event.start_tick)
-			control_tick = int(event.get("control_tick", start_tick + 300))
-			if prediction == null:
-				race_started.emit(event)
-			status_changed.emit(("Official room" if official else "Community server") + " — race connected")
+			resume_count += 1
+			if NetEvents.server_event(expanded):
+				receive_start(expanded)
+		"presence":
+			apply_presence(event)
 		"pong":
 			rtt_ms = Time.get_ticks_msec() - float(event.sent)
 			var estimate := float(event.tick) + rtt_ms / 2000.0 * 60
@@ -297,3 +296,68 @@ func leave_room() -> void:
 	command("leave")
 	wire.poll()
 	connected = false
+
+
+func expand_resume(event: Dictionary) -> Dictionary:
+	var names: Dictionary = {}
+	for source: Variant in [lobby.get("members", []), config.get("roster", [])]:
+		for row: Dictionary in source:
+			names[row.id] = row.name
+	var roster: Array[Dictionary] = []
+	for row: Array in event.cars:
+		var name_string := str(names.get(row[0], ""))
+		if name_string == "" and bool(row[3]):
+			for bot_name: String in RaceSetup.BOT_NAMES:
+				if row[0] == "bot_" + bot_name.to_lower():
+					name_string = bot_name
+		if not PlayerName.validate(name_string).valid:
+			return {}
+		roster.append({"id":row[0], "name":name_string, "car":int(row[1]), "paint":int(row[2]), "bot":bool(row[3])})
+	var result := event.duplicate(true)
+	result.erase("cars")
+	result.type = "start"
+	result.roster = roster
+	return result
+
+
+func apply_presence(event: Dictionary) -> void:
+	if int(event.race) != race_id or start_tick < 0 or int(event.revision) < lobby_revision or not config.has("roster"):
+		return
+	var members: Array[Dictionary] = []
+	for entry: Array in event.members:
+		var index := int(entry[0])
+		if index >= config.roster.size() or bool(config.roster[index].bot):
+			return
+		var row: Dictionary = config.roster[index].duplicate(true)
+		row.erase("bot")
+		row.merge({"slot":index, "connected":bool(entry[1]), "ping":int(entry[2]), "ready":true, "loaded":true}, true)
+		members.append(row)
+	var host_slot := int(event.host_slot)
+	if host_slot >= config.roster.size():
+		return
+	lobby.host = "" if host_slot < 0 else config.roster[host_slot].id
+	lobby.members = members
+	lobby.phase = LobbyState.Phase.ACTIVE
+	lobby.revision = int(event.revision)
+	lobby.tick = int(event.tick)
+	lobby_revision = int(event.revision)
+	lobby_changed.emit(lobby)
+
+
+func receive_start(event: Dictionary) -> void:
+	if int(event.race) < race_id:
+		return
+	var new_race := int(event.race) != race_id
+	race_id = int(event.race)
+	slot = int(event.slot)
+	if new_race:
+		latest_snapshot.clear()
+		next_input_tick = -1
+		sequence = 0
+		latest_snapshot_tick = -1
+	config = event
+	start_tick = int(event.start_tick)
+	control_tick = int(event.get("control_tick", start_tick + 300))
+	if prediction == null:
+		race_started.emit(event)
+	status_changed.emit(("Official room" if official else "Community server") + " — race connected")

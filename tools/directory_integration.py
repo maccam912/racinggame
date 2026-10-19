@@ -76,7 +76,7 @@ def run(http_port=28180, worker_port=27060):
         for index,admission in enumerate(admissions):
             log=(folder/f'client-{index}.log').open('w');handles.append(log)
             env={**os.environ,'PR_TEST_TICKET':admission['ticket']}
-            client=subprocess.Popen([str(engine()),'--headless','--path',str(ROOT),'--script','tests/lobby_network_client.gd','--',f'--port={worker_port}',f'--index={index}',f'--report={folder/f"client-{index}.json"}'],env=env,stdout=log,stderr=subprocess.STDOUT)
+            client=subprocess.Popen([str(engine()),'--headless','--path',str(ROOT),'--script','tests/lobby_network_client.gd','--',f'--port={worker_port}',f'--index={index}',f'--report={folder/f"client-{index}.json"}',*(['--reconnect'] if index==0 else [])],env=env,stdout=log,stderr=subprocess.STDOUT)
             clients.append(client);processes.append(client)
             if index==0:
                 until=time.monotonic()+5
@@ -92,13 +92,15 @@ def run(http_port=28180, worker_port=27060):
         reports=[json.loads((folder/f'client-{index}.json').read_text()) for index in range(8)]
         races=reports[0]['results']
         assert all(client.returncode==0 for client in clients)
+        assert reports[0]['reconnect_done'] and reports[0]['resume_count'] >= 1
+        assert all(report['large_racing_events']==0 for report in reports)
         assert len(races)==2 and all(report['results']==races and report['loaded_tracks']==[0,1] for report in reports)
         assert all(len(race['rows'])==8 and all(row['dnf']=='' for row in race['rows']) for race in races)
         assert {row['id'] for row in races[0]['rows']}=={guest['guest_id'] for guest in guests[:8]},'Official identities were replaced or duplicated'
         for index in range(8):
             text=(folder/f'client-{index}.log').read_text()
             assert 'Official room' in text and not any(marker in text for marker in ('SCRIPT ERROR:','ERROR:','Leaked instance'))
-        summary={'passed':True,'transport':'explicit loopback HTTP + signed ticket + private worker consume + ENet','protocol':protocol,'content_hash':compatibility,'humans':8,'races':races,'capacity_rejection':409,'admission_probes':['no-ticket','forged','duplicate'],'runtime_keys':'ephemeral local test keys, never release keys'}
+        summary={'passed':True,'transport':'explicit loopback HTTP + signed ticket + private worker consume + ENet','protocol':protocol,'content_hash':compatibility,'humans':8,'races':races,'capacity_rejection':409,'admission_probes':['no-ticket','forged','duplicate'],'compact_reconnect':True,'large_racing_events':0,'runtime_keys':'ephemeral local test keys, never release keys'}
         (folder/'summary.json').write_text(json.dumps(summary,indent=2,ensure_ascii=False)+'\n')
         print(json.dumps({'passed':True,'report':str(folder/'summary.json')}),flush=True)
         return 0

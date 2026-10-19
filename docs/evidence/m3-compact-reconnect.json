@@ -1,0 +1,155 @@
+{
+  "passed": true,
+  "protocol": 4,
+  "content_hash": "78e8df7a34088aade409918658a3cd1d62b2a53c12b2779d52b2ac0ffcc6f078",
+  "away_seconds": 5,
+  "seconds": 90.0,
+  "one_way_latency_ms": 75,
+  "jitter_ms": 30,
+  "loss": 0.03,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "wire_metrics": {
+    "upstream_bytes": 356965,
+    "downstream_bytes": 624543,
+    "upstream_packets": 4449,
+    "downstream_packets": 3503,
+    "dropped_packets": 222
+  },
+  "contact_events": 1,
+  "clients": [
+    {
+      "acknowledged_sequence": 3586,
+      "clear_corrections": {
+        "count": 1112,
+        "max": 2.4609649181366,
+        "p95": 0.0198500696569681
+      },
+      "connected": true,
+      "contact_corrections": {
+        "count": 30,
+        "max": 0.728395402431488,
+        "p95": 0.0936015397310257
+      },
+      "dropped_packets": 0,
+      "finish_time": 67.3767929077148,
+      "initial_slot": 1,
+      "laps": 1,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 49.2700080871582,
+      "permanent_error": "",
+      "received_bytes": 277146,
+      "reconnect_done": true,
+      "reconnect_restores": {
+        "count": 6,
+        "max": 332.985229492188,
+        "p95": 332.985229492188
+      },
+      "recoveries": 0,
+      "results": [
+        {
+          "best_lap": 67.3767940818658,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3114.88604113692,
+          "dnf": "",
+          "id": "bee0f349-86c5-4682-ac37-b801494355cc",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 67.3767940818658
+        },
+        {
+          "best_lap": 67.5941141569343,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3114.76974449679,
+          "dnf": "",
+          "id": "0105c08f-dccc-4060-aec8-78f2af57efdb",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 67.5941141569343
+        }
+      ],
+      "resume_count": 1,
+      "rtt_ms": 168.0,
+      "sent_bytes": 152293,
+      "sequence": 3595,
+      "slot": 1,
+      "snapshots": 1201,
+      "terminal_corrections": {
+        "count": 44,
+        "max": 2.03088617324829,
+        "p95": 1.94064378738403
+      }
+    },
+    {
+      "acknowledged_sequence": 4045,
+      "clear_corrections": {
+        "count": 1249,
+        "max": 0.127503216266632,
+        "p95": 0.0163824129849672
+      },
+      "connected": true,
+      "contact_corrections": {
+        "count": 28,
+        "max": 0.734612345695496,
+        "p95": 0.117352902889252
+      },
+      "dropped_packets": 0,
+      "finish_time": 67.5941162109375,
+      "initial_slot": 0,
+      "laps": 1,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 49.2687721252441,
+      "permanent_error": "",
+      "received_bytes": 302907,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "results": [
+        {
+          "best_lap": 67.3767940818658,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3114.88604113692,
+          "dnf": "",
+          "id": "bee0f349-86c5-4682-ac37-b801494355cc",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 67.3767940818658
+        },
+        {
+          "best_lap": 67.5941141569343,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3114.76974449679,
+          "dnf": "",
+          "id": "0105c08f-dccc-4060-aec8-78f2af57efdb",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 67.5941141569343
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 217.0,
+      "sent_bytes": 171214,
+      "sequence": 4054,
+      "slot": 0,
+      "snapshots": 1326,
+      "terminal_corrections": {
+        "count": 39,
+        "max": 2.01089477539062,
+        "p95": 1.96063768863678
+      }
+    }
+  ]
+}

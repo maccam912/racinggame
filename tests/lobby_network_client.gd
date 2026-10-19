@@ -14,6 +14,9 @@ var loaded_tracks: Array[int] = []
 var requested_rules: Dictionary = {}
 var started_ms: int = 0
 var maximum_packet: int = 0
+var reconnect_test: bool = false
+var reconnect_done: bool = false
+var resume_at_ms: int = -1
 
 
 func _initialize() -> void:
@@ -25,6 +28,7 @@ func run() -> void:
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--index="): index = int(arg.trim_prefix("--index="))
 		elif arg.begins_with("--port="): port = int(arg.trim_prefix("--port="))
+		elif arg == "--reconnect": reconnect_test = true
 		elif arg.begins_with("--report="): output = arg.trim_prefix("--report=")
 	link.admission_ticket = OS.get_environment("PR_TEST_TICKET")
 	root.add_child(scene)
@@ -42,11 +46,22 @@ func run() -> void:
 	started_ms = Time.get_ticks_msec()
 	while results.size() < 2 and Time.get_ticks_msec() - started_ms < 340000:
 		await physics_frame
-	var report := {"index":index, "results":results, "loaded_tracks":loaded_tracks, "wire_sent":link.wire.sent_bytes, "wire_received":link.wire.received_bytes}
+		if reconnect_test and not reconnect_done and link.prediction and Time.get_ticks_msec() - started_ms > 15000:
+			reconnect_done = true
+			link.command("away")
+			link.wire.poll()
+			link.process_mode = Node.PROCESS_MODE_DISABLED
+			link.wire.peer.close()
+			resume_at_ms = Time.get_ticks_msec() + 5000
+		if resume_at_ms > 0 and Time.get_ticks_msec() >= resume_at_ms:
+			resume_at_ms = -1
+			link.process_mode = Node.PROCESS_MODE_INHERIT
+			link.begin_reconnect()
+	var report := {"index":index, "results":results, "loaded_tracks":loaded_tracks, "wire_sent":link.wire.sent_bytes, "wire_received":link.wire.received_bytes, "resume_count":link.resume_count, "large_racing_events":link.large_racing_events, "reconnect_done":reconnect_done}
 	if output != "":
 		var file := FileAccess.open(output, FileAccess.WRITE)
 		file.store_string(JSON.stringify(report, "\t"))
-	var success := results.size() == 2 and loaded_tracks == [0, 1]
+	var success := results.size() == 2 and loaded_tracks == [0, 1] and link.large_racing_events == 0 and (not reconnect_test or (reconnect_done and link.resume_count >= 1))
 	print("LOBBY_CLIENT_DONE index=%d races=%d tracks=%s" % [index, results.size(), loaded_tracks])
 	link.leave_room()
 	link.input_provider = Callable()

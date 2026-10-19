@@ -90,6 +90,7 @@ func player_for_peer(peer_id: int) -> Dictionary:
 
 func _physics_process(_dt: float) -> void:
 	tick += 1
+	wire.racing = session != null and not result_sent and tick >= start_tick + 300
 	if retiring and (session == null or result_sent):
 		get_tree().quit()
 		return
@@ -157,6 +158,7 @@ func step_race() -> void:
 				wire.send(int(player.peer), 2, packet)
 	if session.phase == RaceSession.Phase.RESULTS and not result_sent:
 		result_sent = true
+		wire.racing = false
 		final_results.clear()
 		for state: VehicleState in session.standings():
 			var record: Dictionary = session.roster[state.slot]
@@ -165,7 +167,10 @@ func step_race() -> void:
 		for player: Dictionary in players:
 			if player.connected:
 				send_results(player)
-		print("PACIFIC_RUSH_AUTHORITATIVE_RESULTS " + JSON.stringify(final_results))
+		if "--network-evidence" in OS.get_cmdline_user_args():
+			print("PACIFIC_RUSH_AUTHORITATIVE_RESULTS " + JSON.stringify(final_results))
+		else:
+			print("PACIFIC_RUSH_AUTHORITATIVE_RESULTS race=%d racers=%d" % [race_number, final_results.size()])
 
 
 func new_meter() -> Dictionary:
@@ -312,7 +317,7 @@ func complete_hello(sender: int, player: Dictionary) -> void:
 		player.last_driving = tick
 	wire.event(sender, {"type":"welcome", "id":player.id, "slot":player.slot, "race":race_number, "token":player.token, "tick":tick, "ack":player.buffer.last_sequence, "official":auth_mode == "ticket_required"})
 	if session:
-		send_start(player)
+		send_resume(player)
 		if result_sent:
 			send_results(player)
 	elif lobby.phase == LobbyState.Phase.LOADING:
@@ -322,7 +327,7 @@ func complete_hello(sender: int, player: Dictionary) -> void:
 
 func broadcast_lobby() -> void:
 	last_broadcast = lobby.revision
-	var event := lobby.public_state(tick)
+	var event := racing_presence() if lobby.phase == LobbyState.Phase.ACTIVE else lobby.public_state(tick)
 	for player: Dictionary in players:
 		if player.connected:
 			wire.event(int(player.peer), event)
@@ -438,3 +443,20 @@ func remove_guest(id: String) -> void:
 		if session and not session.states[int(player.slot)].finished:
 			session.states[int(player.slot)].dnf_reason = "Left race"
 		disconnect_peer(peer_id)
+
+
+func racing_presence() -> Dictionary:
+	var rows: Array = []
+	var host_slot := -1
+	for player: Dictionary in players:
+		rows.append([int(player.slot), bool(player.connected), int(player.ping)])
+		if player.id == lobby.host_id:
+			host_slot = int(player.slot)
+	return {"type":"presence", "race":race_number, "revision":lobby.revision, "tick":tick, "host_slot":host_slot, "members":rows}
+
+
+func send_resume(player: Dictionary) -> void:
+	var rows: Array = []
+	for row: Dictionary in session.roster:
+		rows.append([row.id, int(row.car), int(row.paint), bool(row.bot)])
+	wire.event(int(player.peer), {"type":"resume", "race":session.race_id, "race_uuid":session.race_uuid, "slot":int(player.slot), "start_tick":start_tick, "control_tick":int(player.control_tick), "count":session.states.size(), "track":int(lobby.rules.track), "laps":session.lap_count, "cars":rows, "contact":session.contact_enabled})

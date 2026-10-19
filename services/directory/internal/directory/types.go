@@ -46,7 +46,7 @@ type Service struct {
 
 func New(store *Store, config Config) (*Service, error) {
 	hash, hashErr := hex.DecodeString(config.Content)
-	if store == nil || len(config.EncryptionKey) != 32 || config.SigningKey == nil || config.SigningKey.N.BitLen() != 2048 || config.Protocol < 1 || config.Protocol > 65535 || hashErr != nil || len(hash) != 32 {
+	if store == nil || len(config.EncryptionKey) != 32 || config.SigningKey == nil || config.SigningKey.N.BitLen() != 2048 || config.Protocol < 1 || config.Protocol > 255 || hashErr != nil || len(hash) != 32 {
 		return nil, errors.New("invalid service configuration")
 	}
 	if config.FirstPort == 0 {

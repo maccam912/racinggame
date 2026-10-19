@@ -20,6 +20,7 @@ def run():
     folder=ROOT/'reports'/f'caddy-{uuid.uuid4()}'
     folder.mkdir(mode=0o700,parents=True)
     keys=folder/'keys';binary=ROOT/'build/pacific-directory'
+    binary.parent.mkdir(parents=True,exist_ok=True)
     subprocess.run(['go','-C','services/directory','build','-o',str(binary),'./cmd/pacific-directory'],cwd=ROOT,check=True)
     subprocess.run([str(binary),'keygen','--keys',str(keys)],check=True)
     versions={'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'],'content_hash':json.loads((ROOT/'game/content/compatibility.json').read_text())['content_hash']}

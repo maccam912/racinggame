@@ -14,6 +14,8 @@ var sent_bytes: int = 0
 var received_bytes: int = 0
 var dropped_packets: int = 0
 var active_peers: Dictionary = {}
+var racing: bool = false
+var rejected_large_racing_events: int = 0
 
 
 func _init() -> void:
@@ -36,6 +38,8 @@ func event(target: int, data: Dictionary, channel: int = 0) -> void:
 	var bytes := "PRJS".to_ascii_buffer() + JSON.stringify(data).to_utf8_buffer()
 	if bytes.size() <= 1200:
 		send(target, channel, bytes, channel == 0)
+	elif racing:
+		rejected_large_racing_events += 1
 	elif channel == 0 and data.get("type", "") in ["lobby", "loading", "start", "results"]:
 		for part: PackedByteArray in fragments.split(bytes):
 			send(target, 0, part, true)
