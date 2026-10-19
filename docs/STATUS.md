@@ -592,3 +592,14 @@ The Linux server ZIP now includes the exact pinned, static Go **1.27.0** x86-64 
 Required native release CI now executes the **bundled** operator, compares its runtime/sidecar/game identities and binary checksum, and runs the isolated backup/restart/auth drill using that executable. It also starts the **exported** worker from the extracted bundle with no source project path and runs two actual impaired eight-client, two-lap races. Reports retain all per-race correction/wire checks; this short artifact check does not replace the fifteen-minute memory or full ten-race soak. Other desktop package startup checks remain required. Linux execution of these new gates awaits this checkpoint's CI.
 
 This prepares distribution while M5 physical phone/tablet, human controls and the specified server-host performance remain open. OCI images, operated public regions/daily backups/monthly drills and publisher signing/store acceptance remain separate work. Gameplay content 4/protocol 5/game save 1/cosmetic identity are unchanged.
+
+
+## M5 recovered-worker shutdown checkpoint
+
+A new actual-process regression exposes early shutdown after recovery: killing one supervisor leaves its worker racing, but the replacement's first shutdown signal previously saw zero owned children and immediately closed private supervision. [Preserved failure](evidence/m5-recovered-drain-before.json) records the reproduced exit and complete fixture cleanup.
+
+Shutdown now stops new allocations, drains the existing workers associated with that private endpoint (including recovered/legacy rows), and waits for both those scoped rows and allocator callbacks to clear. Other private pools remain outside the wait. The earliest ten-minute deadline is preserved, the second signal still forces only owned children, and unknown PIDs are never signaled. Query/reconciliation failures now produce an operator error after cleanup.
+
+All **five** real-process scenarios pass: idle drain, normal active drain, supervisor SIGKILL/recovery, overlapping pools and shutdown of the replacement while its recovered worker is still active. Each preserves its applicable race/guest/result contracts, ends with **zero worker rows**, deletes its temporary keys and has no cleanup issues. Go race-detector/vet also pass: [matrix](evidence/m5-recovered-drain-matrix.json). CI automatically includes the new fifth mode through the existing required lifecycle job. Forced synthetic finishes validate lifecycle/transport, not genuine lap times or saved results. Physical devices and operated hosting remain open; game compatibility identities are unchanged.
+
+Builds 78 and 80 pass remote CI, while their publishers defer to the newer workflow, so neither has a published release. Build 81's server-bundle gates and run 79's separate Linux full soak remain active at this checkpoint. Latest confirmed published release remains Build 73.

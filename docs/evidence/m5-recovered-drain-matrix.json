@@ -1,0 +1,794 @@
+{
+  "passed": true,
+  "go_race_passed": true,
+  "go_vet_passed": true,
+  "scenarios": [
+    {
+      "passed": true,
+      "scenario": "idle",
+      "base_commit": "b8adc49bbba4523150e62be1a2095d788f10e584",
+      "boundary": "Owned local Go processes, SQLite and actual ticket-required Godot workers/ENet clients. Forced synthetic finish only; no profile, genuine timing, hosting or physical-device claim.",
+      "idle_worker_reclaimed": true,
+      "remaining_worker_rows": 0,
+      "cleanup_issues": []
+    },
+    {
+      "passed": true,
+      "scenario": "graceful",
+      "base_commit": "b8adc49bbba4523150e62be1a2095d788f10e584",
+      "boundary": "Owned local Go processes, SQLite and actual ticket-required Godot workers/ENet clients. Forced synthetic finish only; no profile, genuine timing, hosting or physical-device claim.",
+      "race_before": {
+        "advanced_after_retire": false,
+        "forced_synthetic_result": false,
+        "guest_ids": [
+          "a996ba23-5c75-49fa-b38d-06559acae26f",
+          "f670c28c-5dfd-43f5-958a-f27c837971b0"
+        ],
+        "race_active": true,
+        "race_uuid": "180837f4-5f08-41c7-a3b2-fcd9958584b2",
+        "results_sent": false,
+        "retiring": false,
+        "tick": 714
+      },
+      "race_after": {
+        "advanced_after_retire": true,
+        "forced_synthetic_result": true,
+        "guest_ids": [
+          "a996ba23-5c75-49fa-b38d-06559acae26f",
+          "f670c28c-5dfd-43f5-958a-f27c837971b0"
+        ],
+        "race_active": true,
+        "race_uuid": "180837f4-5f08-41c7-a3b2-fcd9958584b2",
+        "results_sent": true,
+        "retiring": true,
+        "tick": 973
+      },
+      "identical_synthetic_results": true,
+      "same_race_and_guest_ids": true,
+      "clients": [
+        {
+          "acknowledged_sequence": 334,
+          "clear_corrections": {
+            "count": 66,
+            "max": 0.0103043541312218,
+            "p95": 0.00998032931238413
+          },
+          "clock_rebase_count": 0,
+          "clock_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "coalesced_snapshots": 0,
+          "connected": true,
+          "contact_corrections": {
+            "count": 37,
+            "max": 0.517178177833557,
+            "p95": 0.0792951583862305
+          },
+          "dropped_packets": 0,
+          "finish_time": -1.0,
+          "hitch_done": false,
+          "initial_slot": 0,
+          "laps": 0,
+          "large_racing_events": 0,
+          "last_gate": 1,
+          "max_speed": 47.4608573913574,
+          "permanent_error": "",
+          "received_bytes": 47996,
+          "reconnect_done": false,
+          "reconnect_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "recoveries": 0,
+          "remote_brake_off": 211,
+          "remote_brake_on": 0,
+          "results": [
+            {
+              "best_lap": 3.0,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 161.018469370902,
+              "dnf": "",
+              "id": "a996ba23-5c75-49fa-b38d-06559acae26f",
+              "name": "LifecycleDriver0",
+              "paint": 0.0,
+              "slot": 0.0,
+              "time": 3.0
+            },
+            {
+              "best_lap": 3.01,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 151.204224410001,
+              "dnf": "",
+              "id": "f670c28c-5dfd-43f5-958a-f27c837971b0",
+              "name": "LifecycleDriver1",
+              "paint": 0.0,
+              "slot": 1.0,
+              "time": 3.01
+            }
+          ],
+          "resume_count": 0,
+          "rtt_ms": 34.0,
+          "sent_bytes": 14420,
+          "sequence": 334,
+          "slot": 0,
+          "snapshots": 111,
+          "terminal_corrections": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          }
+        },
+        {
+          "acknowledged_sequence": 334,
+          "clear_corrections": {
+            "count": 66,
+            "max": 0.0113425068557262,
+            "p95": 0.00937775894999504
+          },
+          "clock_rebase_count": 0,
+          "clock_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "coalesced_snapshots": 0,
+          "connected": true,
+          "contact_corrections": {
+            "count": 37,
+            "max": 0.521136701107025,
+            "p95": 0.0743026211857796
+          },
+          "dropped_packets": 0,
+          "finish_time": -1.0,
+          "hitch_done": false,
+          "initial_slot": 1,
+          "laps": 0,
+          "large_racing_events": 0,
+          "last_gate": 1,
+          "max_speed": 46.6072540283203,
+          "permanent_error": "",
+          "received_bytes": 47364,
+          "reconnect_done": false,
+          "reconnect_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "recoveries": 0,
+          "remote_brake_off": 210,
+          "remote_brake_on": 0,
+          "results": [
+            {
+              "best_lap": 3.0,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 161.018469370902,
+              "dnf": "",
+              "id": "a996ba23-5c75-49fa-b38d-06559acae26f",
+              "name": "LifecycleDriver0",
+              "paint": 0.0,
+              "slot": 0.0,
+              "time": 3.0
+            },
+            {
+              "best_lap": 3.01,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 151.204224410001,
+              "dnf": "",
+              "id": "f670c28c-5dfd-43f5-958a-f27c837971b0",
+              "name": "LifecycleDriver1",
+              "paint": 0.0,
+              "slot": 1.0,
+              "time": 3.01
+            }
+          ],
+          "resume_count": 0,
+          "rtt_ms": 34.0,
+          "sent_bytes": 14420,
+          "sequence": 334,
+          "slot": 1,
+          "snapshots": 111,
+          "terminal_corrections": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          }
+        }
+      ],
+      "graceful_supervisor_exit": true,
+      "remaining_worker_rows": 0,
+      "cleanup_issues": []
+    },
+    {
+      "passed": true,
+      "scenario": "crash",
+      "base_commit": "b8adc49bbba4523150e62be1a2095d788f10e584",
+      "boundary": "Owned local Go processes, SQLite and actual ticket-required Godot workers/ENet clients. Forced synthetic finish only; no profile, genuine timing, hosting or physical-device claim.",
+      "race_before": {
+        "advanced_after_retire": false,
+        "forced_synthetic_result": false,
+        "guest_ids": [
+          "0e8a2610-b4ad-475c-a12a-c7f2b4d366a6",
+          "9e8c0718-e87d-4240-9d9b-9a7f6c676239"
+        ],
+        "race_active": true,
+        "race_uuid": "10b7fa26-46ad-4799-a4f0-9aaf1555b8f6",
+        "results_sent": false,
+        "retiring": false,
+        "tick": 715
+      },
+      "race_after": {
+        "advanced_after_retire": true,
+        "forced_synthetic_result": true,
+        "guest_ids": [
+          "0e8a2610-b4ad-475c-a12a-c7f2b4d366a6",
+          "9e8c0718-e87d-4240-9d9b-9a7f6c676239"
+        ],
+        "race_active": true,
+        "race_uuid": "10b7fa26-46ad-4799-a4f0-9aaf1555b8f6",
+        "results_sent": true,
+        "retiring": true,
+        "tick": 976
+      },
+      "identical_synthetic_results": true,
+      "same_race_and_guest_ids": true,
+      "clients": [
+        {
+          "acknowledged_sequence": 335,
+          "clear_corrections": {
+            "count": 65,
+            "max": 0.0097078625112772,
+            "p95": 0.00843042973428965
+          },
+          "clock_rebase_count": 0,
+          "clock_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "coalesced_snapshots": 0,
+          "connected": true,
+          "contact_corrections": {
+            "count": 38,
+            "max": 0.310771346092224,
+            "p95": 0.224610194563866
+          },
+          "dropped_packets": 0,
+          "finish_time": -1.0,
+          "hitch_done": false,
+          "initial_slot": 0,
+          "laps": 0,
+          "large_racing_events": 0,
+          "last_gate": 1,
+          "max_speed": 46.6430244445801,
+          "permanent_error": "",
+          "received_bytes": 47418,
+          "reconnect_done": false,
+          "reconnect_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "recoveries": 0,
+          "remote_brake_off": 211,
+          "remote_brake_on": 0,
+          "results": [
+            {
+              "best_lap": 3.0,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 152.030371673405,
+              "dnf": "",
+              "id": "0e8a2610-b4ad-475c-a12a-c7f2b4d366a6",
+              "name": "LifecycleDriver0",
+              "paint": 0.0,
+              "slot": 0.0,
+              "time": 3.0
+            },
+            {
+              "best_lap": 3.01,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 161.906904133502,
+              "dnf": "",
+              "id": "9e8c0718-e87d-4240-9d9b-9a7f6c676239",
+              "name": "LifecycleDriver1",
+              "paint": 0.0,
+              "slot": 1.0,
+              "time": 3.01
+            }
+          ],
+          "resume_count": 0,
+          "rtt_ms": 34.0,
+          "sent_bytes": 14490,
+          "sequence": 335,
+          "slot": 0,
+          "snapshots": 112,
+          "terminal_corrections": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          }
+        },
+        {
+          "acknowledged_sequence": 335,
+          "clear_corrections": {
+            "count": 65,
+            "max": 0.00966109801083803,
+            "p95": 0.00852317921817303
+          },
+          "clock_rebase_count": 0,
+          "clock_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "coalesced_snapshots": 0,
+          "connected": true,
+          "contact_corrections": {
+            "count": 38,
+            "max": 0.308269113302231,
+            "p95": 0.225635692477226
+          },
+          "dropped_packets": 0,
+          "finish_time": -1.0,
+          "hitch_done": false,
+          "initial_slot": 1,
+          "laps": 0,
+          "large_racing_events": 0,
+          "last_gate": 1,
+          "max_speed": 47.4981079101562,
+          "permanent_error": "",
+          "received_bytes": 46991,
+          "reconnect_done": false,
+          "reconnect_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "recoveries": 0,
+          "remote_brake_off": 211,
+          "remote_brake_on": 0,
+          "results": [
+            {
+              "best_lap": 3.0,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 152.030371673405,
+              "dnf": "",
+              "id": "0e8a2610-b4ad-475c-a12a-c7f2b4d366a6",
+              "name": "LifecycleDriver0",
+              "paint": 0.0,
+              "slot": 0.0,
+              "time": 3.0
+            },
+            {
+              "best_lap": 3.01,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 161.906904133502,
+              "dnf": "",
+              "id": "9e8c0718-e87d-4240-9d9b-9a7f6c676239",
+              "name": "LifecycleDriver1",
+              "paint": 0.0,
+              "slot": 1.0,
+              "time": 3.01
+            }
+          ],
+          "resume_count": 0,
+          "rtt_ms": 36.0,
+          "sent_bytes": 14490,
+          "sequence": 335,
+          "slot": 1,
+          "snapshots": 112,
+          "terminal_corrections": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          }
+        }
+      ],
+      "old_bearer_still_allocates": true,
+      "remaining_worker_rows": 0,
+      "cleanup_issues": []
+    },
+    {
+      "passed": true,
+      "scenario": "rollout",
+      "base_commit": "b8adc49bbba4523150e62be1a2095d788f10e584",
+      "boundary": "Owned local Go processes, SQLite and actual ticket-required Godot workers/ENet clients. Forced synthetic finish only; no profile, genuine timing, hosting or physical-device claim.",
+      "race_before": {
+        "advanced_after_retire": false,
+        "forced_synthetic_result": false,
+        "guest_ids": [
+          "de13cbf9-4f08-41bd-ad7e-0b435210d72b",
+          "11d32f46-46b8-44af-9ac7-a46ff0f232b7"
+        ],
+        "race_active": true,
+        "race_uuid": "b95770c1-6231-471a-b84e-edd12eadbd2c",
+        "results_sent": false,
+        "retiring": false,
+        "tick": 713
+      },
+      "overlapping_pools": true,
+      "shared_host_cap_rejected": true,
+      "old_bearer_accepted_by_new_supervisor": true,
+      "race_after": {
+        "advanced_after_retire": true,
+        "forced_synthetic_result": true,
+        "guest_ids": [
+          "de13cbf9-4f08-41bd-ad7e-0b435210d72b",
+          "11d32f46-46b8-44af-9ac7-a46ff0f232b7"
+        ],
+        "race_active": true,
+        "race_uuid": "b95770c1-6231-471a-b84e-edd12eadbd2c",
+        "results_sent": true,
+        "retiring": true,
+        "tick": 1045
+      },
+      "identical_synthetic_results": true,
+      "same_race_and_guest_ids": true,
+      "clients": [
+        {
+          "acknowledged_sequence": 404,
+          "clear_corrections": {
+            "count": 88,
+            "max": 0.00978333409875631,
+            "p95": 0.00898293405771255
+          },
+          "clock_rebase_count": 0,
+          "clock_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "coalesced_snapshots": 0,
+          "connected": true,
+          "contact_corrections": {
+            "count": 38,
+            "max": 0.308269113302231,
+            "p95": 0.225635692477226
+          },
+          "dropped_packets": 0,
+          "finish_time": -1.0,
+          "hitch_done": false,
+          "initial_slot": 1,
+          "laps": 0,
+          "large_racing_events": 0,
+          "last_gate": 2,
+          "max_speed": 48.5524482727051,
+          "permanent_error": "",
+          "received_bytes": 52421,
+          "reconnect_done": false,
+          "reconnect_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "recoveries": 0,
+          "remote_brake_off": 234,
+          "remote_brake_on": 0,
+          "results": [
+            {
+              "best_lap": 3.0,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 206.633526690304,
+              "dnf": "",
+              "id": "de13cbf9-4f08-41bd-ad7e-0b435210d72b",
+              "name": "LifecycleDriver1",
+              "paint": 0.0,
+              "slot": 0.0,
+              "time": 3.0
+            },
+            {
+              "best_lap": 3.01,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 217.151654394809,
+              "dnf": "",
+              "id": "11d32f46-46b8-44af-9ac7-a46ff0f232b7",
+              "name": "LifecycleDriver0",
+              "paint": 0.0,
+              "slot": 1.0,
+              "time": 3.01
+            }
+          ],
+          "resume_count": 0,
+          "rtt_ms": 32.0,
+          "sent_bytes": 17218,
+          "sequence": 404,
+          "slot": 1,
+          "snapshots": 135,
+          "terminal_corrections": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          }
+        },
+        {
+          "acknowledged_sequence": 404,
+          "clear_corrections": {
+            "count": 88,
+            "max": 0.0113971345126629,
+            "p95": 0.00843042973428965
+          },
+          "clock_rebase_count": 0,
+          "clock_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "coalesced_snapshots": 0,
+          "connected": true,
+          "contact_corrections": {
+            "count": 38,
+            "max": 0.310771346092224,
+            "p95": 0.224610194563866
+          },
+          "dropped_packets": 0,
+          "finish_time": -1.0,
+          "hitch_done": false,
+          "initial_slot": 0,
+          "laps": 0,
+          "large_racing_events": 0,
+          "last_gate": 2,
+          "max_speed": 48.2505226135254,
+          "permanent_error": "",
+          "received_bytes": 52848,
+          "reconnect_done": false,
+          "reconnect_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "recoveries": 0,
+          "remote_brake_off": 234,
+          "remote_brake_on": 0,
+          "results": [
+            {
+              "best_lap": 3.0,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 206.633526690304,
+              "dnf": "",
+              "id": "de13cbf9-4f08-41bd-ad7e-0b435210d72b",
+              "name": "LifecycleDriver1",
+              "paint": 0.0,
+              "slot": 0.0,
+              "time": 3.0
+            },
+            {
+              "best_lap": 3.01,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 217.151654394809,
+              "dnf": "",
+              "id": "11d32f46-46b8-44af-9ac7-a46ff0f232b7",
+              "name": "LifecycleDriver0",
+              "paint": 0.0,
+              "slot": 1.0,
+              "time": 3.01
+            }
+          ],
+          "resume_count": 0,
+          "rtt_ms": 31.0,
+          "sent_bytes": 17242,
+          "sequence": 404,
+          "slot": 0,
+          "snapshots": 135,
+          "terminal_corrections": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          }
+        }
+      ],
+      "old_supervisor_exited_after_drain": true,
+      "old_bearer_still_allocates": true,
+      "remaining_worker_rows": 0,
+      "cleanup_issues": []
+    },
+    {
+      "passed": true,
+      "scenario": "recovered-stop",
+      "base_commit": "b8adc49bbba4523150e62be1a2095d788f10e584",
+      "boundary": "Owned local Go processes, SQLite and actual ticket-required Godot workers/ENet clients. Forced synthetic finish only; no profile, genuine timing, hosting or physical-device claim.",
+      "race_before": {
+        "advanced_after_retire": false,
+        "forced_synthetic_result": false,
+        "guest_ids": [
+          "39d3d26a-b1c6-4ebe-98e0-68441f180281",
+          "f51c9b62-eca2-4f21-aac6-ca33fe5d4f66"
+        ],
+        "race_active": true,
+        "race_uuid": "95563079-d8b2-4620-9a49-965d1ba3edbc",
+        "results_sent": false,
+        "retiring": false,
+        "tick": 709
+      },
+      "replacement_kept_private_supervision": true,
+      "race_after": {
+        "advanced_after_retire": true,
+        "forced_synthetic_result": true,
+        "guest_ids": [
+          "39d3d26a-b1c6-4ebe-98e0-68441f180281",
+          "f51c9b62-eca2-4f21-aac6-ca33fe5d4f66"
+        ],
+        "race_active": true,
+        "race_uuid": "95563079-d8b2-4620-9a49-965d1ba3edbc",
+        "results_sent": true,
+        "retiring": true,
+        "tick": 1012
+      },
+      "identical_synthetic_results": true,
+      "same_race_and_guest_ids": true,
+      "clients": [
+        {
+          "acknowledged_sequence": 372,
+          "clear_corrections": {
+            "count": 77,
+            "max": 0.0113971345126629,
+            "p95": 0.00867126975208521
+          },
+          "clock_rebase_count": 0,
+          "clock_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "coalesced_snapshots": 0,
+          "connected": true,
+          "contact_corrections": {
+            "count": 38,
+            "max": 0.310771346092224,
+            "p95": 0.224610194563866
+          },
+          "dropped_packets": 0,
+          "finish_time": -1.0,
+          "hitch_done": false,
+          "initial_slot": 0,
+          "laps": 0,
+          "large_racing_events": 0,
+          "last_gate": 1,
+          "max_speed": 47.7119026184082,
+          "permanent_error": "",
+          "received_bytes": 50546,
+          "reconnect_done": false,
+          "reconnect_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "recoveries": 0,
+          "remote_brake_off": 223,
+          "remote_brake_on": 0,
+          "results": [
+            {
+              "best_lap": 3.0,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 181.074048645794,
+              "dnf": "",
+              "id": "39d3d26a-b1c6-4ebe-98e0-68441f180281",
+              "name": "LifecycleDriver0",
+              "paint": 0.0,
+              "slot": 0.0,
+              "time": 3.0
+            },
+            {
+              "best_lap": 3.01,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 191.37573173875,
+              "dnf": "",
+              "id": "f51c9b62-eca2-4f21-aac6-ca33fe5d4f66",
+              "name": "LifecycleDriver1",
+              "paint": 0.0,
+              "slot": 1.0,
+              "time": 3.01
+            }
+          ],
+          "resume_count": 0,
+          "rtt_ms": 38.0,
+          "sent_bytes": 15994,
+          "sequence": 372,
+          "slot": 0,
+          "snapshots": 124,
+          "terminal_corrections": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          }
+        },
+        {
+          "acknowledged_sequence": 372,
+          "clear_corrections": {
+            "count": 77,
+            "max": 0.00966109801083803,
+            "p95": 0.00886210240423679
+          },
+          "clock_rebase_count": 0,
+          "clock_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "coalesced_snapshots": 0,
+          "connected": true,
+          "contact_corrections": {
+            "count": 38,
+            "max": 0.308269113302231,
+            "p95": 0.225635692477226
+          },
+          "dropped_packets": 0,
+          "finish_time": -1.0,
+          "hitch_done": false,
+          "initial_slot": 1,
+          "laps": 0,
+          "large_racing_events": 0,
+          "last_gate": 1,
+          "max_speed": 48.1885757446289,
+          "permanent_error": "",
+          "received_bytes": 50119,
+          "reconnect_done": false,
+          "reconnect_restores": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          },
+          "recoveries": 0,
+          "remote_brake_off": 223,
+          "remote_brake_on": 0,
+          "results": [
+            {
+              "best_lap": 3.0,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 181.074048645794,
+              "dnf": "",
+              "id": "39d3d26a-b1c6-4ebe-98e0-68441f180281",
+              "name": "LifecycleDriver0",
+              "paint": 0.0,
+              "slot": 0.0,
+              "time": 3.0
+            },
+            {
+              "best_lap": 3.01,
+              "bot": false,
+              "car": 0.0,
+              "distance_m": 191.37573173875,
+              "dnf": "",
+              "id": "f51c9b62-eca2-4f21-aac6-ca33fe5d4f66",
+              "name": "LifecycleDriver1",
+              "paint": 0.0,
+              "slot": 1.0,
+              "time": 3.01
+            }
+          ],
+          "resume_count": 0,
+          "rtt_ms": 35.0,
+          "sent_bytes": 15994,
+          "sequence": 372,
+          "slot": 1,
+          "snapshots": 124,
+          "terminal_corrections": {
+            "count": 0,
+            "max": 0,
+            "p95": 0
+          }
+        }
+      ],
+      "replacement_exited_after_recovered_worker": true,
+      "remaining_worker_rows": 0,
+      "cleanup_issues": []
+    }
+  ],
+  "boundary": "Five actual local process scenarios; forced synthetic results, no genuine lap-time/profile or container-hosting claim."
+}

@@ -2,11 +2,15 @@
 
 The supervisor now keeps its worker context alive after the first SIGINT/SIGTERM.
 It atomically stops new process starts, withdraws public readiness/admission,
-closes its public listener and persists drain for its own worker IDs. Its private
+closes its public listener and persists drain for workers associated with its private
+endpoint, including recovered survivors and legacy rows. Its private
 listener remains alive while those workers finish. The existing worker retirement
 contract permits up to ten minutes of active play and five seconds of final-row
 delivery. A second signal forces termination of that supervisor's owned pool.
-Allocator completion includes its database cleanup callback before graceful exit.
+Graceful exit waits for both the allocator's completion callbacks and that scoped
+SQLite worker set to become empty. A recovered worker is not an owned child, but
+its private supervision remains alive through completion. Other pools keep their
+own listeners and are not included in this wait.
 
 Worker stdout/stderr use direct null-device handles. An `io.Discard` writer had
 created supervisor-owned pipes; the crash fixture observed the worker stop soon
@@ -69,8 +73,17 @@ python3 tools/directory_lifecycle_integration.py
 The process matrix uses isolated keys/data and actual ticket-required workers and
 clients. It checks idle operator drain, graceful active-race completion,
 SIGKILL/restart recovery, two simultaneous pools, shared-capacity rejection and
-existing bearer continuity. A fixture-only release gate forces a synthetic
+existing bearer continuity and graceful shutdown after recovering a survivor.
+A fixture-only release gate forces a synthetic
 finish after the real retirement signal; it validates lifecycle/transport, not
 genuine lap times or gameplay records. Every owned worker row is reclaimed and
 ephemeral keys are removed. Hosted regions, real deployment/backup drills,
 physical phones and arbitrary host/storage failures remain separate acceptance.
+
+
+The recovered-stop regression first observed the replacement exit while its old
+worker was still racing: [before](evidence/m5-recovered-drain-before.json).
+The repaired five-scenario native matrix passes, with zero remaining worker rows
+and no cleanup issues in every case: [matrix](evidence/m5-recovered-drain-matrix.json).
+Repeated shutdown preserves the earliest retirement deadline. Unknown PIDs remain
+unsignaled; query/reconciliation failure reports an operator error after cleanup.

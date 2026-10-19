@@ -108,7 +108,7 @@ def scenario(mode,binary,base_port):
             first=wait_for(lambda:report_flag(worker,'race_active'),18,'Race did not become active')
             # Preserve the observed race binding, then change only supervisor state.
             summary['race_before']=first
-            if mode=='crash':
+            if mode in ['crash','recovered-stop']:
                 old.kill();old.wait(timeout=5)
                 replacement=start_service('replacement',base_port+1,base_port+20)
             else:
@@ -129,6 +129,12 @@ def scenario(mode,binary,base_port):
                     subprocess.run([str(binary),'drain','--db',str(database),'--worker',new_room['worker_id']],check=True,capture_output=True)
                     summary.update(overlapping_pools=True,shared_host_cap_rejected=True,old_bearer_accepted_by_new_supervisor=True)
             wait_for(lambda:report_flag(worker,'retiring'),10,'Worker never received private retirement')
+            if mode=='recovered-stop':
+                replacement.send_signal(signal.SIGTERM)
+                wait_for(lambda:'directory_draining' in ''.join(path.read_text() for path in (folder/'logs').glob('*.jsonl')),5,'Replacement did not enter drain')
+                time.sleep(1.5)
+                assert replacement.poll() is None,'Replacement exited while a recovered active worker still needed private supervision'
+                summary['replacement_kept_private_supervision']=True
             finish_gate.write_text('synthetic fixture only\n')
             final=wait_for(lambda:report_flag(worker,'results_sent'),18,'Surviving worker did not finish/deliver after private drain')
             assert final['race_uuid']==first['race_uuid'] and final['guest_ids']==first['guest_ids'] and final['advanced_after_retire']
@@ -145,6 +151,9 @@ def scenario(mode,binary,base_port):
             if mode=='graceful':
                 old.wait(timeout=5);assert old.returncode==0
                 summary['graceful_supervisor_exit']=True
+            elif mode=='recovered-stop':
+                replacement.wait(timeout=5);assert replacement.returncode==0
+                summary['replacement_exited_after_recovered_worker']=True
             else:
                 # The old bearer still authenticates a fresh allocation after recovery.
                 probe=create(guests[0])
@@ -192,12 +201,12 @@ def scenario(mode,binary,base_port):
 
 def main():
     parser=argparse.ArgumentParser()
-    parser.add_argument('--mode',choices=['idle','graceful','crash','rollout','all'],default='all')
+    parser.add_argument('--mode',choices=['idle','graceful','crash','rollout','recovered-stop','all'],default='all')
     parser.add_argument('--port',type=int,default=28640)
     args=parser.parse_args()
     binary=ROOT/'build/pacific-directory'
     subprocess.run(['go','-C','services/directory','build','-o',str(binary),'./cmd/pacific-directory'],cwd=ROOT,check=True)
-    for index,mode in enumerate(['idle','graceful','crash','rollout'] if args.mode=='all' else [args.mode]):scenario(mode,binary,args.port+index*60)
+    for index,mode in enumerate(['idle','graceful','crash','rollout','recovered-stop'] if args.mode=='all' else [args.mode]):scenario(mode,binary,args.port+index*60)
 
 
 if __name__=='__main__':main()

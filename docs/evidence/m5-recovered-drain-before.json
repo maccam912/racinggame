@@ -1,0 +1,22 @@
+{
+  "passed": false,
+  "scenario": "recovered-stop",
+  "base_commit": "b8adc49bbba4523150e62be1a2095d788f10e584",
+  "boundary": "Owned local Go processes, SQLite and actual ticket-required Godot workers/ENet clients. Forced synthetic finish only; no profile, genuine timing, hosting or physical-device claim.",
+  "race_before": {
+    "advanced_after_retire": false,
+    "forced_synthetic_result": false,
+    "guest_ids": [
+      "12066985-bbdc-4138-8406-0659a5de85cd",
+      "3bddafc4-c35b-4f78-b52e-661215930e80"
+    ],
+    "race_active": true,
+    "race_uuid": "756b2584-9bf1-4a7d-9a61-39ee6e23c1be",
+    "results_sent": false,
+    "retiring": false,
+    "tick": 711
+  },
+  "failure": "AssertionError: Replacement exited while a recovered active worker still needed private supervision",
+  "remaining_worker_rows": 0,
+  "cleanup_issues": []
+}

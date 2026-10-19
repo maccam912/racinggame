@@ -257,7 +257,13 @@ func serve(args []string) error {
 	for {
 		select {
 		case <-stopSignals:
-			ids := allocator.StopAccepting()
+			allocator.StopAccepting()
+			// Keep recovered workers attached to this private endpoint supervised,
+			// even though they are no longer children owned by this allocator.
+			ids, drainErr := store.WorkerIDs(ctx, config.WorkerPrivateURL, false)
+			if drainErr != nil {
+				return drainErr
+			}
 			if err = service.BeginDrain(ctx, ids); err != nil {
 				return err
 			}
@@ -269,12 +275,21 @@ func serve(args []string) error {
 			stop()
 			deadline := time.Now().Add(605 * time.Second)
 			drainTick := time.NewTicker(time.Second)
-			for allocator.Count() > 0 && time.Now().Before(deadline) {
+			for time.Now().Before(deadline) {
+				remaining, queryErr := store.WorkerIDs(ctx, config.WorkerPrivateURL, false)
+				if queryErr != nil {
+					drainErr = queryErr
+					break
+				}
+				if len(remaining) == 0 && allocator.Count() == 0 {
+					break
+				}
 				select {
 				case <-stopSignals:
 					deadline = time.Now()
 				case <-drainTick.C:
 					if err = service.ReconcileWorkers(ctx, allocator); err != nil {
+						drainErr = err
 						deadline = time.Now()
 					}
 				}
@@ -285,6 +300,9 @@ func serve(args []string) error {
 			shutdown, stop = context.WithTimeout(context.Background(), 5*time.Second)
 			_ = privateServer.Shutdown(shutdown)
 			stop()
+			if drainErr != nil {
+				return errors.New("worker drain state unavailable")
+			}
 			return nil
 		case err := <-failures:
 			if !errors.Is(err, http.ErrServerClosed) {
