@@ -4,6 +4,7 @@ extends RefCounted
 ## A native lifetime lease excludes other writers; file/directory barriers precede success.
 
 const SCHEMA: int = 1
+const MAX_ENVELOPE_BYTES: int = 16777216
 const COMPONENTS: Array[String] = ["settings", "profile", "records", "cup", "suspended_race"]
 var root_path: String
 var read_only: Dictionary = {}
@@ -76,6 +77,11 @@ func save_component(component: String, payload: Dictionary) -> Error:
 	if not json_safe(payload):
 		last_error = "data.invalid_payload"
 		return ERR_INVALID_DATA
+	var envelope := {"schema_version":SCHEMA, "saved_at_utc":Time.get_datetime_string_from_system(true) + "Z", "payload":payload}
+	var serialized := JSON.stringify(envelope, "\t", true, component=="suspended_race").to_utf8_buffer()
+	if serialized.size()>MAX_ENVELOPE_BYTES:
+		last_error = "data.invalid_payload"
+		return ERR_INVALID_DATA
 	var primary := path(component)
 	if FileAccess.file_exists(primary+".deleted") and delete_component(component)!=OK: return failed()
 	# A writer must also honor a future envelope created after it last loaded.
@@ -85,11 +91,10 @@ func save_component(component: String, payload: Dictionary) -> Error:
 		last_error = "data.newer_schema"
 		return ERR_UNAVAILABLE
 	var temporary := primary + ".tmp"
-	var envelope := {"schema_version":SCHEMA, "saved_at_utc":Time.get_datetime_string_from_system(true) + "Z", "payload":payload}
 	var file := FileAccess.open(temporary, FileAccess.WRITE)
 	if file == null:
 		return failed()
-	file.store_string(JSON.stringify(envelope, "\t", true, component=="suspended_race"))
+	file.store_buffer(serialized)
 	file.flush()
 	var error := file.get_error()
 	file.close()
@@ -140,7 +145,7 @@ func read_envelope(filename: String, validator: Callable = Callable()) -> Dictio
 	if not FileAccess.file_exists(filename):
 		return {"exists":false}
 	var file := FileAccess.open(filename, FileAccess.READ)
-	if file == null or file.get_length() > 16777216:
+	if file == null or file.get_length() > MAX_ENVELOPE_BYTES:
 		return {"exists":true}
 	var parser := JSON.new()
 	if parser.parse(file.get_as_text()) != OK or not parser.data is Dictionary:

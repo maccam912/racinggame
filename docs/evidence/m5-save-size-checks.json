@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "commit": "f82719b5b20c4b4d738319864b42dc2433333379",
+  "results": [
+    {
+      "suite": "save_cup_tests",
+      "passed": true,
+      "seconds": 0.3151637080591172,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPersistence/cup fixtures: corruption, interrupted writes, future schema, points and grids; failures 0\n"
+    },
+    {
+      "suite": "ghost_transaction_tests",
+      "passed": true,
+      "seconds": 0.4124782499857247,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nGhost transactions: corrupt primary, verified backup, interrupted record commit and retry preserve matched pairs\n"
+    },
+    {
+      "suite": "app_data_tests",
+      "passed": true,
+      "seconds": 0.5097250828985125,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nReload stats=3.0 best=0.123456 notices=[]\nApp data fixtures: platform settings, tab restore, records/ghosts and idempotent stats; failures 0\n"
+    },
+    {
+      "suite": "race_archive_tests",
+      "passed": true,
+      "seconds": 3.1315191669855267,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_DRIVING_READY\nFULL_PRECISION_EIGHT_CAR_BOT_PLAN_120_TICK_CONTINUATION_MAX_M=0.000000000_INCOMPATIBLE_PRESERVED_TRIAL_RESTART_SCHOOL_NO_STATS_PASS\n"
+    },
+    {
+      "suite": "checkpoint_ui_tests",
+      "passed": true,
+      "seconds": 3.4596100838389248,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_CLIENT_READY\nBACKGROUND_ATOMIC_PAUSE_TOUCH_CANCEL_DEDUP_COLD_REAL_MENU_RESUME_180_TICKS_EXACT_ID_TRIAL_RESTART_EXPLICIT_DISCARD_NO_STATS_PASS\n"
+    }
+  ]
+}
