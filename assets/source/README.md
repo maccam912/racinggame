@@ -78,3 +78,10 @@ the mipmapped SVG import settings, reimport and run `python3 tools/asset_hash.py
 `tests/interface_icon_evidence.gd` renders the library plus selection, medal,
 trophy, settings and results views. Synthetic records/trophies in that isolated
 fixture demonstrate presentation only.
+
+Application branding uses `generate_app_icons.gd` for the original coupe/sunrise
+vectors, lossless desktop/store/adaptive PNGs, Windows ICO and macOS Retina
+iconset. Run `python3 tools/app_icons.py --generate` on macOS with the pinned
+engine and native iconutil, then update `tools/asset_hash.py`. The committed
+native containers and all safe-mask/package checks are described in
+[application icons](../../docs/APP_ICONS.md).

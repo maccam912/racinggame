@@ -1,0 +1,25 @@
+{
+  "target": "server",
+  "host": "Linux-x86_64",
+  "kind": "exported binary headless startup; graphical/device performance not measured",
+  "passed": true,
+  "platform_probe": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_PLATFORM_READY SecretService\n",
+  "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_SERVER_READY port=27020 protocol=5 mode=direct_guest\n",
+  "server_settings_probe": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_SERVER_SETTINGS {\"automatic_file_logging\":false,\"dedicated_server\":true,\"stdout_flush\":true}\n",
+  "directory_service": {
+    "build_number": 83,
+    "commit": "209d5ae5c03a14c94a952a33db47ba1280878222",
+    "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+    "distribution": "development",
+    "go_version": "go1.27.0",
+    "protocol_version": 5,
+    "service_schema": 3,
+    "source_sha256": "fb160491ab501907d1d225395dc43a67b80ae928882a86057f2b129220f0e359",
+    "target_platform": "linux-amd64",
+    "version": "0.0.83-dev",
+    "working_tree_dirty": false
+  },
+  "directory_drill_output": "{\"passed\": true, \"summary\": \"/home/runner/work/racinggame/racinggame/reports/directory-backup-be6ae77e2e/summary.json\"}\n",
+  "exported_worker_races_output": "{\"elapsed\": 0.2, \"completed_min_max\": [0, 0], \"folder\": \"/home/runner/work/racinggame/racinggame/reports/soak-eight-38d31ad1df\"}\n{\"elapsed\": 162.3, \"completed_min_max\": [0, 1], \"folder\": \"/home/runner/work/racinggame/racinggame/reports/soak-eight-38d31ad1df\"}\n{\"elapsed\": 162.5, \"completed_min_max\": [1, 1], \"folder\": \"/home/runner/work/racinggame/racinggame/reports/soak-eight-38d31ad1df\"}\n{\"elapsed\": 336.0, \"completed_min_max\": [1, 2], \"folder\": \"/home/runner/work/racinggame/racinggame/reports/soak-eight-38d31ad1df\"}\n{\"elapsed\": 336.3, \"completed_min_max\": [2, 2], \"folder\": \"/home/runner/work/racinggame/racinggame/reports/soak-eight-38d31ad1df\"}\n{\"passed\": true, \"report\": \"/home/runner/work/racinggame/racinggame/reports/soak-eight-38d31ad1df/summary.json\", \"failure\": null}\n",
+  "ci_run": 39326087429
+}

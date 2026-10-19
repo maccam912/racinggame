@@ -9,6 +9,8 @@ run/flush_stdout_on_print.dedicated_server=true
 run/main_scene="res://game/main.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://assets/exported/icon.svg"
+config/windows_native_icon="res://assets/exported/branding/app.ico"
+config/macos_native_icon="res://assets/exported/branding/app.icns"
 config/quit_on_go_back=false
 
 [display]

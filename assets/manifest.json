@@ -3,11 +3,21 @@
   "assets": [
     {
       "id": "app_icon",
-      "source": "assets/exported/icon.svg",
+      "source": "assets/source/generate_app_icons.gd",
       "creator": "Pacific Rush contributors",
       "license": "MIT",
       "attribution": "LICENSE",
-      "modifications": "Original editable vector source"
+      "modifications": "Original editable coupe/sunrise vectors using the canonical palette; pinned-engine raster outputs, seven Windows icon sizes, macOS Retina iconset and native iconutil container, 108 dp adaptive/themed layers inside the 66 dp safe disk. No third-party artwork.",
+      "exports": [
+        "assets/exported/icon.svg",
+        "assets/exported/branding/catalog.json",
+        "assets/exported/branding/app.ico",
+        "assets/exported/branding/app.icns",
+        "assets/exported/branding/adaptive-foreground.png",
+        "assets/exported/branding/adaptive-background.png",
+        "assets/exported/branding/adaptive-monochrome.png",
+        "assets/exported/branding/store-512.png"
+      ]
     },
     {
       "id": "godot_runtime",

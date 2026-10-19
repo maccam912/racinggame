@@ -370,6 +370,22 @@ jobs:
           go-version: '1.27.0'
           cache-dependency-path: services/directory/go.sum
       - run: python tools/build.py ${{ matrix.target }} --number ${{ github.run_number }}
+      - name: Verify authored native and adaptive icon resources
+        if: matrix.target == 'windows' || matrix.target == 'macos' || startsWith(matrix.target, 'android')
+        shell: bash
+        run: |
+          case "${{ matrix.target }}" in
+            windows|macos) icon_extension=zip ;;
+            android) icon_extension=apk ;;
+            android_aab) icon_extension=aab ;;
+          esac
+          python tools/icon_package.py ${{ matrix.target }} build/download/*-${{ matrix.target }}.$icon_extension
+      - uses: actions/upload-artifact@v4
+        if: always() && (matrix.target == 'windows' || matrix.target == 'macos' || startsWith(matrix.target, 'android'))
+        with:
+          name: launcher-icon-${{ matrix.target }}
+          path: reports/app-icons/package-*.json
+          if-no-files-found: warn
       - name: Verify Android package
         if: matrix.target == 'android'
         run: $ANDROID_HOME/build-tools/35.0.1/apksigner verify --verbose build/android/pacific-rush.apk

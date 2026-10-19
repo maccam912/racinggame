@@ -20,6 +20,7 @@ def main():
     commands = [[sys.executable,'tools/validate_content.py'], [sys.executable,'tools/bake_tracks.py','--check'],
                 [sys.executable,'tools/generate_graphemes.py','--check'],
                 [sys.executable,'tools/content_hash.py','--check'], [sys.executable,'tools/asset_hash.py','--check'],
+                [sys.executable,'tools/app_icons.py','--check'],
                 [sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py'],
                 [sys.executable,'tools/godot.py','--headless','--editor','--import','--quit']]
     for suite in SUITES+['race_audio_tests','feedback_event_tests','race_feedback_tests','recovery_presentation_tests','interface_icon_tests','race_hud_tests','menu_style_tests','school_presentation_tests']:
