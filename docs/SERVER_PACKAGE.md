@@ -75,3 +75,12 @@ from the extracted bundle without a source project path. These startup and
 operator checks are separate from cross-play load, physical devices, public
 hosting, scheduled backup drills and publisher release approval. OCI packaging
 and public regional deployment remain separate work at this checkpoint.
+
+
+Dedicated exports explicitly flush stdout and disable automatic Godot file logs.
+The supervisor retains its bounded structured logs; workers do not contend for
+an implicit shared engine log. `--network-evidence` remains an explicit operator
+fixture flag for periodic numeric stdout. Native CI checks the effective exported
+feature overrides before observing a live worker's startup/race output. Godot's
+[release logging defaults](https://docs.godotengine.org/en/4.6/classes/class_projectsettings.html#class-projectsettings-property-application-run-flush-stdout-on-print)
+differ from editor/debug defaults, so editor-only output is insufficient evidence.

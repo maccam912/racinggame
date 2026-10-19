@@ -5,6 +5,7 @@ config_version=5
 config/name="Pacific Rush"
 config/version="0.0.1-dev"
 run/max_fps=60
+run/flush_stdout_on_print.dedicated_server=true
 run/main_scene="res://game/main.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://assets/exported/icon.svg"
@@ -41,3 +42,6 @@ locale/include_text_server_data=true
 [editor_plugins]
 enabled=PackedStringArray("res://addons/pacific_mobile/plugin.cfg")
 
+
+[debug]
+file_logging/enable_file_logging.dedicated_server=false

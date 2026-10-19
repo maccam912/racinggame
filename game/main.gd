@@ -3,6 +3,11 @@ extends Node3D
 
 
 func _ready() -> void:
+	if "--server-settings-probe" in OS.get_cmdline_user_args():
+		var configuration := {"dedicated_server":OS.has_feature("dedicated_server"),"stdout_flush":bool(ProjectSettings.get_setting_with_override("application/run/flush_stdout_on_print")),"automatic_file_logging":bool(ProjectSettings.get_setting_with_override("debug/file_logging/enable_file_logging"))}
+		print("PACIFIC_SERVER_SETTINGS "+JSON.stringify(configuration))
+		get_tree().quit(0 if configuration.dedicated_server and configuration.stdout_flush and not configuration.automatic_file_logging else 1)
+		return
 	if "--text-probe" in OS.get_cmdline_user_args() and not OS.has_feature("dedicated_server") and not "--server" in OS.get_cmdline_user_args():
 		add_child(load("res://game/platform/text_probe.gd").new())
 		return

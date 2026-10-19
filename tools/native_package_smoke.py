@@ -50,6 +50,9 @@ def main(target, artifact):
     report = {'target':target,'host':platform.system()+'-'+platform.machine(),'kind':'exported binary headless startup; graphical/device performance not measured', 'passed':passed,'platform_probe':probe_output,'output':output}
     if target == 'server':
         try:
+            settings = subprocess.run([str(binary),'--headless','--','--server-settings-probe'],cwd=folder,capture_output=True,text=True,timeout=30)
+            report['server_settings_probe'] = settings.stdout+settings.stderr
+            assert settings.returncode == 0 and 'PACIFIC_SERVER_SETTINGS ' in settings.stdout, 'Exported server must flush stdout and disable automatic file logging'
             data = json.loads((folder/'build.json').read_text())
             report['directory_service'] = verify_directory(folder,data)
             drill = subprocess.run([sys.executable,str(ROOT/'tools/directory_backup_integration.py'),'--binary',str(folder/'pacific-directory')],cwd=ROOT,capture_output=True,text=True,timeout=90)

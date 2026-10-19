@@ -1,0 +1,23 @@
+{
+  "target": "server",
+  "host": "Linux-x86_64",
+  "kind": "exported binary headless startup; graphical/device performance not measured",
+  "passed": false,
+  "platform_probe": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_PLATFORM_READY SecretService\n",
+  "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_SERVER_READY port=27020 protocol=5 mode=direct_guest\n",
+  "directory_service": {
+    "build_number": 81,
+    "commit": "b8adc49bbba4523150e62be1a2095d788f10e584",
+    "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+    "distribution": "development",
+    "go_version": "go1.27.0",
+    "protocol_version": 5,
+    "service_schema": 3,
+    "source_sha256": "c686cf811b648fc879b3e004ebe37f0115282ee925faf9a6b487a1a5b573f78b",
+    "target_platform": "linux-amd64",
+    "version": "0.0.81-dev",
+    "working_tree_dirty": false
+  },
+  "directory_drill_output": "{\"passed\": true, \"summary\": \"/home/runner/work/racinggame/racinggame/reports/directory-backup-cda7d21327/summary.json\"}\n",
+  "exported_worker_races_output": "{\"passed\": false, \"report\": \"/home/runner/work/racinggame/racinggame/reports/soak-eight-48155e2b0d/summary.json\", \"failure\": \"AssertionError: Authority startup failed\"}\nTraceback (most recent call last):\n  File \"/home/runner/work/racinggame/racinggame/tools/soak_acceptance.py\", line 173, in <module>\n    if __name__ == '__main__': main()\n                               ~~~~^^\n  File \"/home/runner/work/racinggame/racinggame/tools/soak_acceptance.py\", line 67, in main\n    assert server.poll() is None and time.monotonic() < deadline, 'Authority startup failed'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: Authority startup failed\n"
+}
