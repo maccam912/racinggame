@@ -59,3 +59,13 @@ Movie Maker capture after the Master fader and a final Master-mute check. It
 requires ffmpeg for true-peak measurement;
 the resulting WAV/report are validation artifacts, not shipped assets. This proves
 the numerical mix boundary, not human listening quality or physical speaker output.
+
+Driving feedback uses code-native geometry/materials in `game/world/race_feedback.gd`
+(and original `feedback_particle`, `feedback_skid` and `car_fade` shaders). The four
+shared batches contain no bitmap assets or collision. Budgets, lifetime, strip
+recycling and Reduced/Off behavior follow DESIGN §12.3. Transparent warm geometry
+is submitted during the initial Grid frames, sharing the active world. Run
+`tests/feedback_render_evidence.gd` with an actual renderer for ten effect/recovery
+views; headless numerical tests do not establish shader compilation. Recovery
+covers the world while relocating the chase camera and preserves the existing
+simulation freeze/ghost timers.

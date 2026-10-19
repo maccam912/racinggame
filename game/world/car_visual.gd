@@ -10,6 +10,13 @@ var body_meshes: Array[MeshInstance3D] = []
 var number_labels: Array[Label3D] = []
 var surface := ShaderMaterial.new()
 var ghost_surface: ShaderMaterial
+var fade_surface := ShaderMaterial.new()
+var applied_material: Material
+var opacity: float = 1
+var prior_recovery: int = 0
+var recovery_anchor := Transform3D.IDENTITY
+var has_presented: bool = false
+var recovery_anchor_active: bool = false
 var shadow: MeshInstance3D
 var tire_rotation: float = 0.0
 var model_id: String = "comet"
@@ -42,6 +49,9 @@ func build(paint: Color, id: String = "comet", slot: int = 0) -> void:
 	surface.set_shader_parameter("paint",paint)
 	var stripe := Color("F5EBD3") if paint.get_luminance()<.55 else Color("343C49")
 	surface.set_shader_parameter("stripe",stripe)
+	fade_surface.shader = load("res://assets/exported/shaders/car_fade.gdshader")
+	for key: String in ["atlas","paint","stripe"]: fade_surface.set_shader_parameter(key,surface.get_shader_parameter(key))
+	applied_material = surface
 	for level in range(3):
 		var found: Node3D
 		for node: Node3D in model.find_children("LOD*","Node3D",true,false):
@@ -96,8 +106,27 @@ func _process(_dt: float) -> void:
 		choose_lod(0 if distance<35 else 1 if distance<90 else 2)
 
 func present(state: VehicleState, input: InputFrame, dt: float) -> void:
+	if state.recovery_ticks>prior_recovery and state.recovery_ticks>30 and has_presented:
+		recovery_anchor = transform
+		recovery_anchor_active = true
+	if state.recovery_ticks==0: recovery_anchor_active = false
 	position = state.position
 	rotation.y = -state.yaw
+	if state.recovery_ticks>30 and recovery_anchor_active: transform = recovery_anchor
+	prior_recovery = state.recovery_ticks
+	has_presented = true
+	opacity = .75 if state.ghost_ticks>0 else 1.0
+	if state.recovery_ticks>0:
+		opacity = (state.recovery_ticks-30)/30.0 if state.recovery_ticks>=30 else (30-state.recovery_ticks)/30.0*.75
+	opacity = clampf(opacity,0,1)
+	if not ghost:
+		var next: Material = fade_surface if opacity<.999 else surface
+		if next!=applied_material:
+			for mesh: MeshInstance3D in body_meshes:
+				for index in range(mesh.mesh.get_surface_count()): mesh.set_surface_override_material(index,next)
+			applied_material = next
+		fade_surface.set_shader_parameter("visual_alpha",opacity)
+		for label: Label3D in number_labels: label.modulate.a = opacity
 	if not last_grounded and state.grounded: landing_time = .2
 	last_grounded = state.grounded
 	landing_time = maxf(0,landing_time-dt)
@@ -111,14 +140,16 @@ func present(state: VehicleState, input: InputFrame, dt: float) -> void:
 		wheel.global_transform = global_transform*rest*Transform3D(Basis(Vector3.UP,steering),Vector3.ZERO)
 		for child: Node3D in wheel.get_children(): child.rotation.x = tire_rotation
 	surface.set_shader_parameter("braking",1.0 if input.brake>.1 or input.handbrake else 0.0)
+	fade_surface.set_shader_parameter("braking",surface.get_shader_parameter("braking"))
 	if ghost_surface: ghost_surface.set_shader_parameter("braking",0.0)
 	shadow.visible = state.grounded and not ghost
+	shadow.material_override.set_shader_parameter("opacity",opacity)
 	if shadow.visible:
 		var normal := state.ground_normal.normalized()
 		var forward := state.forward().slide(normal).normalized()
 		var right := forward.cross(normal).normalized()
 		shadow.global_transform = Transform3D(Basis(right,normal,-forward),state.position-normal*.32)
-	visible = state.recovery_ticks<30
+	visible = opacity>.001 or ghost
 
 func set_ghost(alpha: float) -> void:
 	ghost = true

@@ -1,0 +1,42 @@
+{
+  "platform": "Android 15 / API 35 ARM64 emulator, pacific_rush_test / Pixel 7 profile",
+  "resolution": [
+    2400,
+    1080
+  ],
+  "build": {
+    "version": "0.0.54-dev",
+    "build_number": 54,
+    "working_tree_dirty": true,
+    "commit": "807979e909f46391f6272309b675570bbbb06ac0",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "4899e636e87a2e0dbda39be146a526c4f1b3be608fec9411da2a92ca17f5fbc3",
+    "asset_hash": "aa64315035849bfe00cd490fbf4062642f0293b95f61d230cc2cc92583c59dc9",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "839540d19ada13cd2463f7ff8e24ceaba91384de2fa3808dd65438231cedce82",
+      "sha256": "1e7411b8f6fd4d8529c8947db00af0e37174b741dfd4d221c08f3cc75097fa64"
+    }
+  },
+  "apk_sha256": "3cce3a1d4b6f46f9c491716236193f19de8de1efbd808ead49ba4d383f0f5916",
+  "observations": [
+    "Actual touch first-run/Garage/event entry to eight-car Palm Bay race",
+    "Held look-back and released to chase camera",
+    "700 ms actual touch on Recover produced RECOVERING caption, translucent car and world fade",
+    "No Godot SCRIPT ERROR or ERROR lines during this session"
+  ],
+  "source_checks": 58,
+  "source_checks_passed": true,
+  "boundary": "Emulator render/input/recovery smoke. No physical phone/tablet, real gamepad motor, thermal, speaker or human driving-feel acceptance."
+}

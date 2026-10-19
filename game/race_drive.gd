@@ -53,6 +53,9 @@ var host_viewport: Viewport
 var hint_elapsed: float = 0.0
 var hint_page: int = 0
 var audio := RaceAudio.new()
+var feedback := RaceFeedback.new()
+var recovery_cover := ColorRect.new()
+var camera_recovery_ticks: int = 0
 
 
 func _ready() -> void:
@@ -144,6 +147,10 @@ func _ready() -> void:
 	camera.current = true
 	camera.reduce_motion = reduce_motion
 	add_child(ui)
+	recovery_cover.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	recovery_cover.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	recovery_cover.color = Color(UIFactory.NAVY,0)
+	ui.add_child(recovery_cover)
 	hud.track = track
 	hud.state = state
 	hud.lap_count = lap_count
@@ -205,6 +212,8 @@ func _ready() -> void:
 			state.trial_valid = false
 	audio.drive = self
 	add_child(audio)
+	feedback.drive = self
+	add_child(feedback)
 	print("PACIFIC_RUSH_DRIVING_READY")
 
 
@@ -275,6 +284,9 @@ func _physics_process(_dt: float) -> void:
 
 
 func _process(dt: float) -> void:
+	var visual_dt := 0.0 if paused and network==null or resume_ticks>0 else dt
+	var cover_alpha := 1.0-absf(float(state.recovery_ticks-30)/30) if state.recovery_ticks>0 else 0.0
+	recovery_cover.color.a = smoothstep(0,1,cover_alpha)
 	world.set_start_lamps(phase,phase_ticks,race_ticks)
 	if not paused:
 		hint_elapsed += dt
@@ -291,14 +303,14 @@ func _process(dt: float) -> void:
 	if not network:
 		hud.rivals.clear()
 		for slot: int in remote_visuals:
-			remote_visuals[slot].present(session.states[slot], session.inputs[slot], dt)
+			remote_visuals[slot].present(session.states[slot], session.inputs[slot], visual_dt)
 			hud.rivals.append(session.states[slot])
 	if ghost_visual:
 		var pose := GhostCodec.at_time(best_ghost, race_ticks / 60.0)
 		var ghost_state := VehicleState.new()
 		ghost_state.position = pose.position
 		ghost_state.yaw = pose.yaw
-		ghost_visual.present(ghost_state, InputFrame.make(), dt)
+		ghost_visual.present(ghost_state, InputFrame.make(), visual_dt)
 		ghost_visual.visible = show_ghost and race_ticks / 60.0 <= float(best_ghost.time)
 		hud.ghost_position = pose.position if ghost_visual.visible else null
 	if network and network.prediction:
@@ -315,15 +327,22 @@ func _process(dt: float) -> void:
 			if rival:
 				remote_visuals[slot].present(rival, InputFrame.make(), dt)
 				hud.rivals.append(rival)
-	visual.present(rendered, frame, dt)
+	visual.present(rendered, frame, visual_dt)
 	var target := rendered
+	if state.recovery_ticks>30:
+		target = rendered.copy()
+		target.position = visual.position
+		target.yaw = -visual.rotation.y
+	elif camera_recovery_ticks>30 and state.recovery_ticks>0:
+		camera.initialized = false # Snap while the transition fully covers the world.
+	camera_recovery_ticks = state.recovery_ticks
 	if state.finished and spectator_slot >= 0 and spectator_slot != state.slot:
 		var spectated: VehicleState = network.remotes.sample(spectator_slot, network.server_tick) if network else session.states[spectator_slot]
 		if spectated and not spectated.finished and spectated.dnf_reason == "":
 			target = spectated
 		else:
 			spectator_slot = state.slot
-	camera.follow(target, dt, driver.held("look_back", touch if touch.visible else null))
+	camera.follow(target, visual_dt, driver.held("look_back", touch if touch.visible else null))
 
 
 func _input(event: InputEvent) -> void:
@@ -441,6 +460,7 @@ func apply_settings() -> void:
 	camera.reduce_motion = reduce_motion
 	camera.base_fov = float(settings.base_fov)
 	camera.dynamic_fov = bool(settings.dynamic_fov)
+	camera.shake_scale = float(settings.collision_shake)/100
 	camera.mode = ["near", "far", "hood"].find(settings.camera)
 	camera.far = 3000.0 # Scenery distance must not cull the road or signs.
 	hud.mph = settings.units == "mph"

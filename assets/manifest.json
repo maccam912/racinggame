@@ -367,6 +367,20 @@
       "license": "MIT",
       "attribution": "LICENSE",
       "modifications": "Original compositions, additive/FM instruments, synthetic percussion, engine harmonic profiles, effects and eight fixed formant/noise prompts; no recordings, sample banks or voice models"
+    },
+    {
+      "id": "driving_feedback_materials",
+      "creator": "Pacific Rush contributors",
+      "source": "game/world/race_feedback.gd",
+      "exports": [
+        "assets/exported/shaders/feedback_particle.gdshader",
+        "assets/exported/shaders/feedback_skid.gdshader",
+        "assets/exported/shaders/car_fade.gdshader"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original code-native soft smoke/dust, sparks, skid-strip and matching car fade materials; no external bitmap or effect sample"
     }
   ]
 }

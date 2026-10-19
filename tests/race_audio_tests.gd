@@ -85,14 +85,18 @@ func run() -> void:
 	assert(app.game_audio.played.voice_go==go_before+1,"offline resume gets one GO after its frozen countdown")
 	var wire := NetworkClient.new()
 	drive.network = wire
-	wire.latest_snapshot_tick = 20
+	wire.connected = true
+	wire.start_tick = 0
+	wire.config = {"track":0,"laps":2}
+	wire.latest_snapshot_tick = 19
 	state.events.assign(["wall"])
+	wire.observe_feedback({"tick":20,"states":[state]})
 	audio.elapsed += 1
 	audio._physics_process(.016)
 	wall = app.game_audio.played.wall_light
 	audio._physics_process(.5)
 	assert(app.game_audio.played.wall_light==wall,"render/physics ticks cannot replay an old snapshot event")
-	wire.latest_snapshot_tick = 23
+	wire.observe_feedback({"tick":23,"states":[state]})
 	audio._physics_process(.016)
 	assert(app.game_audio.played.wall_light==wall+1)
 	drive.network = null

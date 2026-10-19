@@ -14,6 +14,7 @@ var wrong_until: float = -10
 var elapsed: float = 0
 var previous_speeds: Dictionary = {}
 var was_resuming: bool = false
+var feedback_cursor: int = 0
 
 func _ready() -> void:
 	add_to_group("audio_transports")
@@ -80,8 +81,9 @@ func _physics_process(dt: float) -> void:
 		cue("finish")
 		say("finish")
 	if drive.network:
-		if last_snapshot==drive.network.latest_snapshot_tick: return
-		last_snapshot = drive.network.latest_snapshot_tick
+		for event_state: VehicleState in drive.network.feedback_since(feedback_cursor): consume(event_state)
+		feedback_cursor = drive.network.feedback_sequence
+		return
 	for state: VehicleState in drive.session.states: consume(state)
 
 func consume(state: VehicleState) -> void:

@@ -85,6 +85,7 @@ func set_music(id: String) -> void:
 	blend.chain().tween_callback(old.stop)
 
 func effect(id: String) -> void:
+	if id=="ui_confirm" and app!=null and app.foreground: DrivingHaptics.touch("ui",app.data.settings,app.data.mobile)
 	if id=="ui_move":
 		if Time.get_ticks_msec()-last_ui_move<80: return
 		last_ui_move = Time.get_ticks_msec()

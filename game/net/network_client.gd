@@ -57,6 +57,9 @@ var resume_count: int = 0
 var clock_rebase_count: int = 0
 var clock_samples: Array[Dictionary] = []
 var coalesced_snapshots: int = 0
+var feedback_sequence: int = 0
+var feedback_events: Array[Dictionary] = []
+var feedback_seen: Dictionary = {}
 var quality := NetworkQuality.new()
 
 
@@ -192,6 +195,7 @@ func receive_event(event: Dictionary) -> void:
 					prediction = null
 					input_provider = Callable()
 					latest_snapshot.clear()
+					reset_feedback()
 					latest_snapshot_tick = -1
 					remotes.samples.clear()
 					returned_to_lobby.emit()
@@ -206,6 +210,7 @@ func receive_event(event: Dictionary) -> void:
 			config = event
 			prediction = null
 			latest_snapshot.clear()
+			reset_feedback()
 			latest_snapshot_tick = -1
 			remotes.samples.clear()
 			loading_requested.emit(event)
@@ -253,6 +258,7 @@ func receive_packets(packets: Array[Dictionary]) -> void:
 			var decoded := NetCodec.decode_snapshot(packet.bytes,race_id,Compatibility.content_hash().hex_decode())
 			if decoded.is_empty(): continue
 			quality.observe_snapshot(race_id,int(decoded.tick))
+			observe_feedback(decoded)
 			if newest_race!=race_id:
 				newest.clear()
 				newest_race = race_id
@@ -278,6 +284,7 @@ func apply_snapshot(snapshot: Dictionary) -> void:
 	for state: VehicleState in snapshot.states:
 		if state.last_gate >= route.bake.gates.size() or state.laps > int(config.get("laps", 3)):
 			return
+	observe_feedback(snapshot)
 	latest_snapshot_tick = snapshot.tick
 	latest_snapshot = snapshot
 	observe_clock(int(snapshot.tick),.10)
@@ -292,6 +299,36 @@ func apply_snapshot(snapshot: Dictionary) -> void:
 			prediction.snapshot_count += 1
 		else:
 			prediction.reconcile(snapshot.states[slot], snapshot.elapsed, snapshot.tick)
+
+func observe_feedback(snapshot: Dictionary) -> void:
+	if start_tick<0 or not connected or phase==RaceSession.Phase.RESULTS or snapshot.is_empty(): return
+	var tick_value := int(snapshot.tick)
+	if tick_value<=latest_snapshot_tick or feedback_seen.has(tick_value): return
+	var route: TrackDefinition = Catalog.tracks[int(config.get("track",0))]
+	for state: VehicleState in snapshot.states:
+		if state.last_gate>=route.bake.gates.size() or state.laps>int(config.get("laps",3)): return
+	feedback_seen[tick_value] = true
+	for old: int in feedback_seen.keys():
+		if old<tick_value-180: feedback_seen.erase(old)
+	while feedback_seen.size()>64: feedback_seen.erase(feedback_seen.keys()[0])
+	var now := Time.get_ticks_msec()
+	for state: VehicleState in snapshot.states:
+		if state.events.is_empty(): continue
+		feedback_sequence += 1
+		feedback_events.append({"sequence":feedback_sequence,"at_ms":now,"state":state.copy()})
+	while feedback_events.size()>128 or not feedback_events.is_empty() and now-int(feedback_events[0].at_ms)>500: feedback_events.pop_front()
+
+func feedback_since(cursor: int) -> Array[VehicleState]:
+	var result: Array[VehicleState] = []
+	var now := Time.get_ticks_msec()
+	for row: Dictionary in feedback_events:
+		if int(row.sequence)>cursor and now-int(row.at_ms)<=500: result.append(row.state)
+	return result
+
+func reset_feedback() -> void:
+	feedback_events.clear()
+	feedback_seen.clear()
+	# Keep the local cursor monotonic across races and reconnects.
 
 
 func rebase_input_clock() -> bool:
@@ -426,6 +463,7 @@ func receive_start(event: Dictionary) -> void:
 	if new_race:
 		quality.reset(race_id)
 		latest_snapshot.clear()
+		reset_feedback()
 		next_input_tick = -1
 		sequence = 0
 		latest_snapshot_tick = -1

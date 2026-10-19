@@ -3,6 +3,7 @@ extends Node3D
 ## Dedicated authority; no visuals, cameras, fonts, or client account secrets.
 
 var wire := WirePeer.new()
+var snapshot_events := SnapshotEvents.new()
 var lobby := LobbyState.new()
 var players: Array[Dictionary]:
 	get: return lobby.members
@@ -148,6 +149,7 @@ func step_race() -> void:
 	session.step(frames)
 	if test_rig:
 		test_rig.call("apply", session)
+	snapshot_events.collect(session)
 	var before := contact_events
 	for state: VehicleState in session.states:
 		if "bump" in state.events:
@@ -155,7 +157,7 @@ func step_race() -> void:
 	if contact_events > before:
 		print("PACIFIC_RUSH_CONTACT_EVENT tick=%d" % tick)
 	if tick % 3 == 0:
-		var packet := NetCodec.encode_snapshot(session, tick, Compatibility.content_hash().hex_decode())
+		var packet := snapshot_events.encode(session, tick, Compatibility.content_hash().hex_decode())
 		for player: Dictionary in players:
 			if player.connected:
 				wire.send(int(player.peer), 2, packet)
@@ -352,6 +354,7 @@ func send_loading(recipient: Dictionary = {}) -> void:
 
 
 func start_race() -> void:
+	snapshot_events.pending.clear()
 	race_number += 1
 	var track: TrackDefinition = Catalog.tracks[int(lobby.rules.track)]
 	collision = RouteCollision.new()
@@ -385,6 +388,7 @@ func send_results(player: Dictionary) -> void:
 
 
 func reset_race() -> void:
+	snapshot_events.pending.clear()
 	session = null
 	if is_instance_valid(collision):
 		remove_child(collision)
