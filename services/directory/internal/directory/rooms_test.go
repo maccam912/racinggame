@@ -237,6 +237,9 @@ func TestReadinessFailurePoolReuseAndCreateLimits(t *testing.T) {
 	if a.stopped != 1 {
 		t.Fatal("not stopped")
 	}
+	// The 40 ms budget belongs to the deliberate no-heartbeat case only.
+	// Successful SQLite/crypto work must not race that tiny fixture deadline.
+	s.config.ReadyTimeout = time.Second
 	a.noReady = false
 	created := createFor(t, s, guest, false)
 	other := guestFor(t, s)
