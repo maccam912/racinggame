@@ -125,6 +125,55 @@ func _initialize() -> void:
 	clocked.server_tick -= .8
 	clocked._physics_process(1.0 / 60)
 	check(clocked.prediction.history[1].tick == clocked.prediction.history[0].tick + 1, "clock smoothing never duplicates an input tick")
+	clocked.prediction.query = terminal.query
+	clocked.prediction.track = Catalog.tracks[0]
+	clocked.slot = 0
+	var clock_authority := VehicleState.new()
+	clock_authority.last_ack = 49
+	clock_authority.position.x = 200
+	clocked.latest_snapshot = {"tick":595,"elapsed":295,"states":[clock_authority]}
+	clocked.latest_snapshot_tick = 595
+	clocked.server_tick = 600
+	clocked.sequence = 50
+	clocked.next_input_tick = 410
+	clocked.tick_counter = 0
+	clocked._physics_process(1.0/60)
+	check(clocked.clock_rebase_count==1 and clocked.prediction.history.size()==1,"lost fixed ticks rebase once and discard stale prediction history")
+	var rebased: InputFrame = clocked.prediction.history[0]
+	check(rebased.tick==601 and rebased.sequence==51,"rebase changes intended tick while preserving sequence monotonicity")
+	var accepted := InputBuffer.new()
+	accepted.last_sequence = 49
+	accepted.push(rebased,607)
+	check(accepted.sample(607).sequence==51 and accepted.rejected==0,"fresh rebased input arrives inside the unchanged server window")
+	check(clocked.prediction.clock_corrections.size()==1 and clocked.prediction.reconnect_corrections.is_empty(),"hitch restores are reported independently of reconnect and ordinary corrections")
+	clocked.rtt_ms = 2200
+	clocked.clock_samples = [{"at":Time.get_ticks_msec()-1000,"rtt":180.0}]
+	check(is_equal_approx(clocked.clock_transit_ticks(),5.4),"local scheduling delay must not become a one-way transit estimate")
+	clocked.observe_clock(200,.25)
+	check(clocked.server_tick>=595,"an old queued pong cannot rewind the latest authority")
+	var queued := RaceSession.new()
+	queued.phase = RaceSession.Phase.RACING
+	queued.elapsed_ticks = 307
+	queued.states = [clock_authority]
+	clocked.server_tick = 400
+	clocked.next_input_tick = 400
+	var received_before := clocked.prediction.snapshot_count
+	var queued_packets: Array[Dictionary] = []
+	for tick in [601,607,604]:
+		queued_packets.append({"channel":2,"bytes":NetCodec.encode_snapshot(queued,tick,Compatibility.content_hash().hex_decode())})
+	clocked.receive_packets(queued_packets)
+	check(clocked.latest_snapshot_tick==607 and clocked.coalesced_snapshots==2,"a stalled receive pass applies its newest valid snapshot even when delivery is reordered")
+	check(clocked.prediction.snapshot_count==received_before+1 and clocked.clock_rebase_count==2,"the batch restores one authority state before resuming fresh input")
+	clock_authority.finished = true
+	queued.phase = RaceSession.Phase.GRACE
+	clocked.next_input_tick = 400
+	clocked.receive_snapshot(NetCodec.encode_snapshot(queued,610,Compatibility.content_hash().hex_decode()))
+	check(clocked.clock_rebase_count==2 and clocked.prediction.history.is_empty(),"a finisher's intentionally stopped input clock must not rebase during autopilot")
+	clocked.phase = RaceSession.Phase.RESULTS
+	clock_authority.finished = false
+	clock_authority.position.x = 999
+	clocked.receive_snapshot(NetCodec.encode_snapshot(queued,613,Compatibility.content_hash().hex_decode()))
+	check(clocked.latest_snapshot_tick==610 and clocked.prediction.state.finished,"queued racing snapshots cannot undo terminal results")
 	clocked.wire.close()
 	clocked.free()
 	var transport := WirePeer.new()

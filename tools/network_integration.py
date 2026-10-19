@@ -9,7 +9,7 @@ from bootstrap import ROOT, engine
 from udp_proxy import UDPProxy
 
 
-def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False):
+def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False, client_hitch=False):
     folder = ROOT/'reports'/f'network-udp-{latency}-{jitter}-{loss}-{port}'
     folder.mkdir(parents=True, exist_ok=True)
     command = [str(engine()), '--headless', '--path', str(ROOT)]
@@ -38,6 +38,8 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
                 args += ['--trace-network']
             if contacts:
                 args += ['--contact-exercises']
+            if client_hitch and index == 1:
+                args += ['--hitch-at=10','--hitch-seconds=1.5']
             processes.append(subprocess.Popen(args, stdout=log, stderr=subprocess.STDOUT))
             if reverse_start and index == 1:
                 until = time.monotonic()+5
@@ -71,6 +73,11 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
             else:
                 assert values[0]['reconnect_done'] and not values[0]['connected'] and not values[0]['results'] and 'Reconnect expired' in values[0].get('permanent_error',''), 'Expired identity must not regain control or receive a fabricated result'
                 assert len(values[1]['results']) == 2 and any(row['name'] == 'Driver0' and row['dnf'] == 'Reconnect expired' for row in values[1]['results']), 'Authority must preserve the expired human as DNF without duplicate seats'
+        if client_hitch:
+            assert values[1]['hitch_done'] and values[1]['clock_rebase_count'] >= 1, 'Deliberate client stall did not exercise clock rebase'
+            assert all(value['clock_rebase_count'] <= 4 for value in values), 'Excessive clock rebases would hide unstable ordinary prediction'
+            assert values[1]['acknowledged_sequence'] > 1000, 'Rebased input did not resume server acknowledgement'
+            assert values[1]['results'] and all(row['dnf'] == '' for row in values[1]['results']), 'A recoverable client stall must not cause Input inactive DNF'
         if seconds >= 90 and not contacts and not (reconnect and away_seconds > 20):
             assert all(v['results'] for v in values), 'Race did not finish on authority and both clients'
         if all(v['results'] for v in values):
@@ -78,7 +85,7 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
         contact_events = (folder/'server.log').read_text().count('PACIFIC_RUSH_CONTACT_EVENT')
         if contacts:
             assert contact_events >= 20, f'Only {contact_events} distinct contact episodes; need 20'
-        report = {'passed':True, 'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'], 'content_hash':json.loads((ROOT/'game/content/compatibility.json').read_text())['content_hash'], 'away_seconds':away_seconds if reconnect else 0, 'seconds':seconds, 'one_way_latency_ms':latency, 'jitter_ms':jitter, 'loss':loss, 'transport':'UDP proxy including ENet handshake/ACK/reliable packets' if proxy else 'loopback ENet', 'wire_metrics':dict(proxy.stats) if proxy else {}, 'contact_events':contact_events, 'clients':values}
+        report = {'passed':True, 'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'], 'content_hash':json.loads((ROOT/'game/content/compatibility.json').read_text())['content_hash'], 'away_seconds':away_seconds if reconnect else 0, 'client_hitch_seconds':1.5 if client_hitch else 0, 'seconds':seconds, 'one_way_latency_ms':latency, 'jitter_ms':jitter, 'loss':loss, 'transport':'UDP proxy including ENet handshake/ACK/reliable packets' if proxy else 'loopback ENet', 'wire_metrics':dict(proxy.stats) if proxy else {}, 'contact_events':contact_events, 'clients':values}
         (folder/'summary.json').write_text(json.dumps(report, indent=2)+'\n')
         console_report = {**report, 'clients':[{k:v for k,v in value.items() if k != 'reconciliation_trace'} for value in values]}
         print(json.dumps(console_report, indent=2), flush=True)
@@ -114,4 +121,5 @@ if __name__ == '__main__':
     parser.add_argument('--away-seconds', type=float, default=5)
     parser.add_argument('--trace', action='store_true')
     parser.add_argument('--reverse-start', action='store_true')
+    parser.add_argument('--client-hitch', action='store_true')
     run(**vars(parser.parse_args()))

@@ -53,6 +53,9 @@ var clock_ready: bool = false
 var restoring_reconnect: bool = false
 var large_racing_events: int = 0
 var resume_count: int = 0
+var clock_rebase_count: int = 0
+var clock_samples: Array[Dictionary] = []
+var coalesced_snapshots: int = 0
 
 
 func _init() -> void:
@@ -73,12 +76,7 @@ func connect_to(address: String, udp_port: int, display_name: String = "Driver")
 
 
 func _process(_dt: float) -> void:
-	for packet: Dictionary in wire.poll():
-		last_received_ms = Time.get_ticks_msec()
-		if packet.channel == 2:
-			receive_snapshot(packet.bytes)
-		else:
-			receive_event(WirePeer.decode_event(packet.bytes))
+	receive_packets(wire.poll())
 	var status := wire.peer.get_connection_status()
 	if not hello_sent and disconnected_at == 0 and status == MultiplayerPeer.CONNECTION_CONNECTING and Time.get_ticks_msec() - last_received_ms > 10000:
 		wire.peer.close()
@@ -132,11 +130,13 @@ func _physics_process(_dt: float) -> void:
 	if restoring_reconnect:
 		restoring_reconnect = false
 		prediction.history.clear()
+	if next_input_tick < 0:
+		next_input_tick = roundi(server_tick)
+	else:
+		rebase_input_clock()
 	var frame: InputFrame = input_provider.call() if input_provider.is_valid() else InputFrame.make()
 	sequence = (sequence + 1) & 0xffffffff
 	frame.sequence = sequence
-	if next_input_tick < 0:
-		next_input_tick = roundi(server_tick)
 	frame.tick = next_input_tick
 	next_input_tick += 1
 	frame = NetCodec.quantize(frame)
@@ -165,7 +165,7 @@ func receive_event(event: Dictionary) -> void:
 			connected = true
 			disconnected_at = 0
 			retry_count = 0
-			server_tick = float(event.tick) + rtt_ms / 2000 * 60
+			server_tick = float(event.tick) + clock_transit_ticks()
 			clock_ready = true
 			if restoring_reconnect:
 				next_input_tick = -1
@@ -220,9 +220,8 @@ func receive_event(event: Dictionary) -> void:
 			apply_presence(event)
 		"pong":
 			rtt_ms = Time.get_ticks_msec() - float(event.sent)
-			var estimate := float(event.tick) + rtt_ms / 2000.0 * 60
-			server_tick = estimate if not clock_ready else lerpf(server_tick, estimate, .25)
-			clock_ready = true
+			clock_samples.append({"at":Time.get_ticks_msec(),"rtt":rtt_ms})
+			observe_clock(int(event.tick),.25)
 		"results":
 			if int(event.race) != race_id:
 				return
@@ -241,10 +240,31 @@ func receive_event(event: Dictionary) -> void:
 			disconnected_permanently.emit(message)
 
 
+func receive_packets(packets: Array[Dictionary]) -> void:
+	var newest: Dictionary = {}
+	var newest_race: int = -1
+	for packet: Dictionary in packets:
+		last_received_ms = Time.get_ticks_msec()
+		if packet.channel==2:
+			var decoded := NetCodec.decode_snapshot(packet.bytes,race_id,Compatibility.content_hash().hex_decode())
+			if decoded.is_empty(): continue
+			if newest_race!=race_id:
+				newest.clear()
+				newest_race = race_id
+			if not newest.is_empty(): coalesced_snapshots += 1
+			if newest.is_empty() or int(decoded.tick)>int(newest.tick): newest = decoded
+		else:
+			receive_event(WirePeer.decode_event(packet.bytes))
+	if newest_race==race_id and not newest.is_empty(): apply_snapshot(newest)
+
+
 func receive_snapshot(bytes: PackedByteArray) -> void:
-	if start_tick < 0 or not connected:
+	apply_snapshot(NetCodec.decode_snapshot(bytes,race_id,Compatibility.content_hash().hex_decode()))
+
+
+func apply_snapshot(snapshot: Dictionary) -> void:
+	if start_tick < 0 or not connected or phase==RaceSession.Phase.RESULTS:
 		return
-	var snapshot := NetCodec.decode_snapshot(bytes, race_id, Compatibility.content_hash().hex_decode())
 	if snapshot.is_empty() or int(snapshot.tick) <= latest_snapshot_tick:
 		return
 	var route: TrackDefinition = Catalog.tracks[int(config.get("track", 0))]
@@ -253,6 +273,7 @@ func receive_snapshot(bytes: PackedByteArray) -> void:
 			return
 	latest_snapshot_tick = snapshot.tick
 	latest_snapshot = snapshot
+	observe_clock(int(snapshot.tick),.10)
 	elapsed_ticks = snapshot.elapsed
 	if snapshot.phase >= RaceSession.Phase.GRACE:
 		phase = snapshot.phase
@@ -260,8 +281,41 @@ func receive_snapshot(bytes: PackedByteArray) -> void:
 	if prediction and slot >= 0 and slot < snapshot.states.size() and int(snapshot.phase) >= RaceSession.Phase.RACING:
 		if restoring_reconnect or server_tick < control_tick:
 			prediction.restore_reconnect(snapshot.states[slot], snapshot.elapsed, roundi(server_tick) - int(snapshot.tick))
+		elif rebase_input_clock():
+			prediction.snapshot_count += 1
 		else:
 			prediction.reconcile(snapshot.states[slot], snapshot.elapsed, snapshot.tick)
+
+
+func rebase_input_clock() -> bool:
+	if prediction==null or next_input_tick<0 or absi(next_input_tick-roundi(server_tick))<=6: return false
+	if not latest_snapshot.is_empty() and slot>=0 and slot<latest_snapshot.states.size():
+		var authority: VehicleState = latest_snapshot.states[slot]
+		if authority.finished or authority.dnf_reason!="": return false
+	# Keep half of the unchanged +/-12-tick server window for transport.
+	# A dropped physics backlog must not strand all later input in the past.
+	next_input_tick = roundi(server_tick)
+	clock_rebase_count += 1
+	prediction.history.clear()
+	if not latest_snapshot.is_empty() and slot>=0 and slot<latest_snapshot.states.size():
+		prediction.restore_clock(latest_snapshot.states[slot],latest_snapshot.elapsed,roundi(server_tick)-int(latest_snapshot.tick))
+	return true
+
+
+func clock_transit_ticks() -> float:
+	var now := Time.get_ticks_msec()
+	clock_samples = clock_samples.filter(func(sample: Dictionary) -> bool: return now-int(sample.at)<=20000)
+	var best := rtt_ms
+	for sample: Dictionary in clock_samples: best = minf(best,float(sample.rtt))
+	return maxf(0,best)/2000.0*60
+
+
+func observe_clock(tick: int, smoothing: float) -> void:
+	# A queued pre-stall pong cannot rewind a newer authoritative snapshot.
+	# Minimum recent RTT avoids treating local scheduling delay as transit.
+	var estimate := maxi(tick,latest_snapshot_tick)+clock_transit_ticks()
+	server_tick = estimate if not clock_ready or absf(server_tick-estimate)>12 else lerpf(server_tick,estimate,smoothing)
+	clock_ready = true
 
 
 func attach_prediction(state: VehicleState, car: CarDefinition, query: WorldQuery, track: TrackDefinition, laps: int) -> void:

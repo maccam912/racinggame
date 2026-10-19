@@ -17,6 +17,9 @@ var resume_at_ms: int = 0
 var initial_slot: int = -1
 var contact_exercises: bool = false
 var permanent_error: String = ""
+var hitch_at: float = -1
+var hitch_seconds: float = 0
+var hitch_done: bool = false
 
 
 func _initialize() -> void:
@@ -48,6 +51,10 @@ func run() -> void:
 			reconnect_pause_seconds = float(arg.trim_prefix("--away-seconds="))
 		elif arg == "--contact-exercises":
 			contact_exercises = true
+		elif arg.begins_with("--hitch-at="):
+			hitch_at = float(arg.trim_prefix("--hitch-at="))
+		elif arg.begins_with("--hitch-seconds="):
+			hitch_seconds = float(arg.trim_prefix("--hitch-seconds="))
 	root.add_child(scene)
 	scene.add_child(collision)
 	collision.build(Catalog.tracks[0])
@@ -63,6 +70,11 @@ func run() -> void:
 	start_ms = Time.get_ticks_msec()
 	while Time.get_ticks_msec() - start_ms < seconds * 1000:
 		await physics_frame
+		if hitch_at>0 and not hitch_done and Time.get_ticks_msec()-start_ms>hitch_at*1000:
+			hitch_done = true
+			# Deliberate fixture-only main-thread stall: the real worker/proxy
+			# continue and Godot drops excess local physics backlog on return.
+			OS.delay_msec(roundi(hitch_seconds*1000))
 		if link.prediction:
 			maximum_speed = maxf(maximum_speed, link.prediction.state.speed())
 		if reconnect_at > 0 and not reconnect_done and Time.get_ticks_msec() - start_ms > reconnect_at * 1000:
@@ -81,6 +93,9 @@ func run() -> void:
 	var data: Dictionary = {"slot":link.slot, "results":result, "max_speed":maximum_speed, "rtt_ms":link.rtt_ms, "sent_bytes":link.wire.sent_bytes, "received_bytes":link.wire.received_bytes, "dropped_packets":link.wire.dropped_packets, "reconnect_done":reconnect_done, "connected":link.connected, "sequence":link.sequence}
 	data.large_racing_events = link.large_racing_events
 	data.resume_count = link.resume_count
+	data.hitch_done = hitch_done
+	data.clock_rebase_count = link.clock_rebase_count
+	data.coalesced_snapshots = link.coalesced_snapshots
 	data.initial_slot = initial_slot
 	data.permanent_error = permanent_error
 	if link.prediction:
@@ -89,6 +104,7 @@ func run() -> void:
 		data.contact_corrections = statistics(link.prediction.contact_corrections)
 		data.recoveries = link.prediction.recovery_corrections
 		data.reconnect_restores = statistics(link.prediction.reconnect_corrections)
+		data.clock_restores = statistics(link.prediction.clock_corrections)
 		data.terminal_corrections = statistics(link.prediction.terminal_corrections)
 		if link.prediction.trace_enabled:
 			data.reconciliation_trace = link.prediction.trace

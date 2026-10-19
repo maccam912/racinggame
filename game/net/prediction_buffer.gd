@@ -13,6 +13,7 @@ var contact_corrections: Array[float] = []
 var recovery_corrections: int = 0
 var snapshot_count: int = 0
 var reconnect_corrections: Array[float] = []
+var clock_corrections: Array[float] = []
 var elapsed_ticks: int = 0
 var terminal_corrections: Array[float] = []
 var trace_enabled: bool = false
@@ -67,6 +68,16 @@ func restore_reconnect(authority: VehicleState, ticks: int, catch_up_ticks: int 
 	# The bot has advanced while this client was away. These are full-state
 	# restores, reported separately, rather than ordinary driving corrections.
 	reconnect_corrections.append(state.position.distance_to(authority.position))
+	restore_at_tick(authority,ticks,catch_up_ticks)
+	snapshot_count += 1
+
+
+func restore_clock(authority: VehicleState, ticks: int, catch_up_ticks: int) -> void:
+	clock_corrections.append(state.position.distance_to(authority.position))
+	restore_at_tick(authority,ticks,catch_up_ticks)
+
+
+func restore_at_tick(authority: VehicleState, ticks: int, catch_up_ticks: int) -> void:
 	apply_authority(authority, ticks)
 	history.clear()
 	# Present the reserved bot's state at the synchronized client tick. A short
@@ -76,7 +87,6 @@ func restore_reconnect(authority: VehicleState, ticks: int, catch_up_ticks: int 
 		coast.sequence = authority.last_ack
 		simulate(coast)
 	correction = Vector3.ZERO
-	snapshot_count += 1
 
 
 func apply_authority(authority: VehicleState, ticks: int) -> void:

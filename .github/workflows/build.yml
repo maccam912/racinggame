@@ -48,9 +48,9 @@ jobs:
           path: ~/.cache/pacific-rush/toolchain
           key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
       - run: python tools/godot.py --headless --editor --import --quit
-      - name: Faulted race and five-second reconnect
+      - name: Faulted race, client stall and five-second reconnect
         if: matrix.scenario == 'race-reconnect'
-        run: python tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect
+        run: python tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect --client-hitch --reverse-start --trace
       - name: Expired 25-second disconnect remains DNF without duplicate identity
         if: matrix.scenario == 'race-expiry'
         run: python tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect --away-seconds 25
