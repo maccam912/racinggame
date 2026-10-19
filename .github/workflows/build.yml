@@ -167,6 +167,10 @@ jobs:
         run: |
           xvfb-run -a python tools/godot.py --max-fps 60 --script tests/scenery_library_evidence.gd 2>&1 | tee -a reports/car-render.log
           xvfb-run -a python tools/godot.py --max-fps 60 --script tests/course_reference_evidence.gd -- --ci 2>&1 | tee -a reports/car-render.log
+      - name: Render illustrated foliage from four approach directions
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/billboard_tests.gd 2>&1 | tee reports/billboards.log
       - name: Render original driving effects and recovery transitions
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
@@ -206,6 +210,8 @@ jobs:
           path: |
             reports/results-visibility/
             reports/results-visibility.log
+            reports/billboards/
+            reports/billboards.log
             reports/m4-*.png
             reports/m4-feedback-render.json
             reports/m4-ui-reference.json

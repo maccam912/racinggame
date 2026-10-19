@@ -82,6 +82,23 @@ func run() -> void:
 	await physics_frame
 	for index in range(6): camera.follow(state,.05)
 	assert(is_equal_approx(camera.boom_fraction,1),"clear boom restores over 0.3 seconds")
+	state.velocity = Vector3(0,0,-70)
+	camera.reduce_motion = false
+	camera.dynamic_fov = true
+	camera.base_fov = 65
+	for index in range(180): camera.follow(state,1.0/60.0)
+	assert(absf(camera.fov-83)<.01,"arcade speed expansion reaches +18 vertical degrees")
+	camera.base_fov = 85
+	for index in range(180): camera.follow(state,1.0/60.0)
+	assert(absf(camera.fov-95)<.01,"expanded FOV keeps its global cap")
+	camera.reduce_motion = true
+	camera.follow(state,1.0/60.0)
+	assert(is_equal_approx(camera.fov,85),"Reduce Motion removes speed expansion immediately")
+	camera.reduce_motion = false
+	camera.dynamic_fov = false
+	camera.base_fov = 65
+	camera.follow(state,1.0/60.0)
+	assert(is_equal_approx(camera.fov,65),"Dynamic FOV Off keeps the selected base")
 	scene.queue_free()
 	await process_frame
 	print("CAR_CONTACT_OPACITY_FROZEN_RECOVERY_FADE_CAMERA_LOOKBACK_BOOM_SHAKE_CAPS_PASS")

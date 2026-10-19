@@ -163,11 +163,12 @@ func ground_pose(s: float, lateral: float) -> Transform3D:
 func build_scenery_batch(first: int, last: int) -> void:
 	var batches: Dictionary = {}
 	var species: String = art.vegetation
-	var spacing := 10 if species=="orchard" else 20
+	var spacing := 10 if species=="orchard" else 16 if species=="palm" else 20
 	for s in range(first,last,spacing):
-		var offsets: Array = [-24,-40,-56,24,40] if species=="orchard" else [-25,-52,25,55] if species=="redwood" else [-24,-42,28] if species=="palm" else [-20,22,38]
+		var edge := float(track.bake.samples[track.sample_index(s)][8])*.5
+		var offsets: Array = [-edge-9,-edge-20,-edge-31,edge+9,edge+20] if species=="orchard" else [-edge-8,-edge-25,edge+9,edge+28] if species=="redwood" else [-edge-7,-edge-25,edge+7] if species=="palm" else [-edge-8,edge+10,edge+27]
 		for lateral: float in offsets:
-			if species=="palm" and lateral>0 and s%60!=0: continue
+			if species=="palm" and lateral>0 and s%48!=0: continue
 			var pose := ground_pose(s,lateral)
 			pose.basis = pose.basis.rotated(Vector3.UP,sin(s*.071+lateral)*PI)
 			pose.basis = pose.basis.scaled(Vector3.ONE*(1+.12*sin(s*.11+lateral)))

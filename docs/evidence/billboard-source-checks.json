@@ -1,0 +1,429 @@
+{
+  "platform": "Darwin-arm64",
+  "engine": "4.6.3-stable",
+  "commit": "b3c14286137d0526a83b74c5c0c5ed3959e4c58a",
+  "passed": true,
+  "results": [
+    {
+      "suite": "tools/validate_content.py",
+      "passed": true,
+      "seconds": 0.031
+    },
+    {
+      "suite": "tools/bake_tracks.py --check",
+      "passed": true,
+      "seconds": 0.269
+    },
+    {
+      "suite": "tools/generate_graphemes.py --check",
+      "passed": true,
+      "seconds": 0.057
+    },
+    {
+      "suite": "tools/content_hash.py --check",
+      "passed": true,
+      "seconds": 0.037
+    },
+    {
+      "suite": "tools/asset_hash.py --check",
+      "passed": true,
+      "seconds": 0.168
+    },
+    {
+      "suite": "tools/app_icons.py --check",
+      "passed": true,
+      "seconds": 0.363
+    },
+    {
+      "suite": "-m unittest discover -s tests -p test_*.py",
+      "passed": true,
+      "seconds": 2.591
+    },
+    {
+      "suite": "tools/godot.py --headless --editor --import --quit",
+      "passed": true,
+      "seconds": 2.992
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/source_script_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.633
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.209
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/driving_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.302
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/world_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.313
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/progress_touch_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.308
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/slice_smoke.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 6.42
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/network_contract_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.318
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/race_contact_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.311
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/jump_track_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.314
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/billboard_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.414
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/save_cup_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.305
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/ghost_medal_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.207
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/app_data_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.509
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/name_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.217
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/menu_flow_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.808
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/mode_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.78
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/lobby_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.206
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/compact_control_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.316
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/input_ownership_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 3.051
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/display_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.62
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/ghost_transaction_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.422
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/binding_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.318
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/binding_ui_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.225
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/menu_repeat_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.314
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/result_receipt_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.387
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/touch_layout_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.313
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/touch_editor_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 35.122
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/choice_picker_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.315
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/guest_identity_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.316
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/guest_service_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.407
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/directory_client_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.31
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/region_book_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.312
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/online_menu_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.738
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/identity_reset_ui_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.331
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/keyboard_layout_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.32
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/menu_scroll_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.309
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/retry_flow_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 3.129
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/world_presentation_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.331
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/loading_flow_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 3.833
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/audio_mix_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.216
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/recovery_assist_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.92
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/diagnostics_export_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.25
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/network_quality_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.315
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/accessibility_settings_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.402
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/bot_contract_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.316
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/car_asset_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.214
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/scenery_contract_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.218
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/surface_version_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.409
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/durable_save_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.607
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/race_archive_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 3.153
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/checkpoint_ui_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 3.479
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/results_visibility_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 4.883
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/race_audio_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.44
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/feedback_event_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.31
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/race_feedback_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.233
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/recovery_presentation_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.315
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/interface_icon_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.42
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/race_hud_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.137
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/menu_style_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.317
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/school_presentation_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 2.316
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/leave_delivery_tests.gd",
+      "passed": true,
+      "seconds": 1.138
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/lobby_reconnect_tests.gd",
+      "passed": true,
+      "seconds": 1.713
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/online_lifecycle_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 28.644
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/mobile_runtime_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 2.33
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/mobile_services_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 1.425
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/direct_connect_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 11.685
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/shader_warmup_tests.gd",
+      "passed": true,
+      "seconds": 1.321
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/packet_fault_tests.gd",
+      "passed": true,
+      "seconds": 13.515
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/grapheme_tests.gd",
+      "passed": true,
+      "seconds": 0.219
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/worker_performance_tests.gd",
+      "passed": true,
+      "seconds": 0.21
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/font_tests.gd",
+      "passed": true,
+      "seconds": 0.305
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/font_input_tests.gd",
+      "passed": true,
+      "seconds": 0.31
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/retirement_tests.gd",
+      "passed": true,
+      "seconds": 0.314
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/worker_directory_tests.gd",
+      "passed": true,
+      "seconds": 15.426
+    },
+    {
+      "suite": "tools/retirement_integration.py",
+      "passed": true,
+      "seconds": 14.688
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/audio_dsp_evidence.gd",
+      "passed": true,
+      "seconds": 2.935
+    }
+  ],
+  "working_tree_dirty": true
+}

@@ -30,8 +30,8 @@ func follow(state: VehicleState, dt: float, look_back: bool = false) -> void:
 	var forward := Vector3(sin(view_yaw), 0, -cos(view_yaw))
 	var right := forward.cross(Vector3.UP)
 	steering_offset = lerpf(steering_offset, state.steer_filter, 1.0 - exp(-4 * dt))
-	var distance := 5.8 if mode == 0 else 8.2
-	var height := 2.4 if mode == 0 else 3.4
+	var distance := 5.0 if mode == 0 else 8.2
+	var height := 1.65 if mode == 0 else 3.4
 	var target_position := state.position - forward * distance + Vector3.UP * (height - .35)
 	var aim := state.position + forward * (10 if mode == 0 else 12) + Vector3.UP * .8 + right * steering_offset
 	if mode == 2:
@@ -72,6 +72,7 @@ func follow(state: VehicleState, dt: float, look_back: bool = false) -> void:
 		rotate_object_local(Vector3.FORWARD,deg_to_rad(.4)*shake_scale*sin(t*143)*shake_remaining/.12)
 		shake_remaining = maxf(0,shake_remaining-dt)
 	keep_aspect = Camera3D.KEEP_HEIGHT
-	fov = base_fov + (8 * clampf((state.speed() - 15) / 40, 0, 1) if dynamic_fov and not reduce_motion else 0)
+	var target_fov := minf(95,base_fov+18*clampf((state.speed()-15)/55,0,1)) if dynamic_fov and not reduce_motion else base_fov
+	fov = lerpf(fov,target_fov,1.0-exp(-6*dt)) if initialized and dynamic_fov and not reduce_motion else target_fov
 	near = .15
 	initialized = true

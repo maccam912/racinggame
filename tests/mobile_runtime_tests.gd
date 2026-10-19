@@ -83,8 +83,13 @@ func run() -> void:
 	display.reflow()
 	assert(display.viewport.size==Vector2i(1152,648) and root.get_visible_rect().size==host_size and app.drive.hud.ui_scale==hud_scale)
 	assert(display.viewport.msaa_3d==Viewport.MSAA_2X and app.data.settings==selected,"adaptive changes neither AA/effects nor persisted settings")
+	var foliage := app.drive.world.find_child("IllustratedBillboard_palm",true,false) as MultiMeshInstance3D
+	assert(foliage!=null and not BillboardArt.materials.is_empty())
+	var retained_foliage: Material = foliage.material_override
 	app.notification(MainLoop.NOTIFICATION_OS_MEMORY_WARNING)
 	await physics_frame
+	assert(BillboardArt.materials.is_empty() and BillboardArt.cards.is_empty(),"memory pressure releases reusable billboard references")
+	assert(foliage.material_override==retained_foliage and (retained_foliage as StandardMaterial3D).albedo_texture!=null,"active foliage keeps its live material and texture")
 	assert(app.drive.world.get_world_3d().space==physics_space and app.drive.state.position==position and app.drive.session.race_uuid==uuid)
 	assert(app.drive.session.queries.size()==3 and not Catalog.tracks.is_empty() and not Catalog.cars.is_empty(),"active collision, queries, vehicle state and mandatory content survive")
 	app.drive.show_pause()

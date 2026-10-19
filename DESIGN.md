@@ -214,11 +214,11 @@ Eight colors: coral #F16B50, turquoise #20BFC5, sunshine #F3CD48, violet #8465CC
 
 ## 9 Camera and sensation of speed
 
-Default Near Chase: anchor 5.8 m behind chassis center and 2.4 m above road; aim at a point 10 m ahead and 0.8 m above road. Far Chase: 8.2 m behind, 3.4 m high, aim 12 m ahead. Hood: camera 1.1 m forward of center and 1.15 m above road, with 10% visible hood at screen bottom; no interior cockpit.
+Default Near Chase: anchor 5.0 m behind chassis center and 1.65 m above road; aim at a point 10 m ahead and 0.8 m above the chassis base. Far Chase: 8.2 m behind, 3.4 m high, aim 12 m ahead. Hood: camera 1.1 m forward of center and 1.15 m above road, with 10% visible hood at screen bottom; no interior cockpit. The lower Near anchor is the owner's approved arcade-speed presentation revision.
 
 Chase translation follows with exponential rate 10/s; yaw with 8/s. Frame-rate-independent coefficient is 1-exp(-rate*render_dt). Camera may lag yaw at most 12 degrees behind vehicle heading. Look-ahead shifts laterally by up to 1.0 m in steering direction, smoothing at 4/s. Chase collision sphere radius 0.25 m shortens boom against scenery and restores over 0.3 seconds. Camera never goes below the local road. Look Back uses a front-facing equivalent mount with a 0.12-second blend; release restores prior camera.
 
-Base vertical FOV = 65 degrees at 16:9, increasing linearly to 73 degrees from 15 to 55 m/s; clamp outside. Settings adjust base FOV 55–85 with the same maximum +8 expansion. Dynamic FOV can be disabled. Do not use horizontal FOV values for this contract. Speed shake is zero by default; collision shake ≤0.025 m translation and ≤0.4 degrees rotation, lasting 0.12 seconds. Rendered chassis roll toward the outside of the turn is capped at 4 degrees, braking pitch at 2 degrees, landing compression at 0.12 m for 0.2 seconds. Reduce Motion removes shake, dynamic FOV, and chassis-camera pitch coupling; it does not change physics.
+Base vertical FOV = 65 degrees at 16:9, increasing linearly by up to 18 degrees from 15 to 70 m/s; clamp outside and cap final FOV at 95 degrees. Settings adjust base FOV 55–85. Expansion approaches its target exponentially at 6/s to avoid sudden speed-induced camera changes. Dynamic FOV can be disabled. Do not use horizontal FOV values for this contract. Speed shake is zero by default; collision shake ≤0.025 m translation and ≤0.4 degrees rotation, lasting 0.12 seconds. Rendered chassis roll toward the outside of the turn is capped at 4 degrees, braking pitch at 2 degrees, landing compression at 0.12 m for 0.2 seconds. Reduce Motion removes shake, dynamic FOV, and chassis-camera pitch coupling; it does not change physics.
 
 No full-screen speed lines, radial blur, chromatic aberration, film grain, head bob, or mandatory motion blur. Speed comes from road markings at 12 m spacing, palms/barrier posts passing at road edges, tire/engine audio, and the camera's low sight line. Preserve view of the next 120 m of road on ordinary straights; signed blind crests are the only exception.
 
@@ -325,6 +325,16 @@ Roadside density measured along road: near props average one per 12–20 m on de
 Tire smoke maximum 40 particles per local car and 15 per remote car; fade in 0.6 seconds. Dust maximum 30/10, fade 0.8 seconds. Wall sparks maximum 12 per event and 8 events/s globally. Landing dust maximum 12. Skid marks are dark translucent strips, maximum 200 m per car, recycling oldest segments; lifetime 15 seconds. Skid marks and particles never affect collision, progress, or network state. Remote effects derive from snapshot slip/contact event flags. Reduce Motion does not remove useful tire smoke, but Reduced Effects can halve counts; Off removes particles while retaining brake lights and audio.
 
 ### 12.4 Asset inventory
+
+Approved hybrid presentation: painted alpha-cutout cylindrical billboard cards
+replace the repeated palm, orchard, redwood, shrub and grass rendering. Keep their original 3D
+source models and retain 3D cars, road, barriers, buildings, bridges, tunnels and
+major landmarks. Original generated PNGs, provenance, exact hashes and UV bounds
+ship with the project. Mipmapped alpha scissor and rotation-invariant instance
+bounds prevent translucent sorting and edge-on disappearance. Palm spacing is
+16 m on decorated sides; nearest tree centers sit 7 m (palm), 8–9 m (redwood), or
+9 m (orchard) beyond the pavement edge. Original route/driving collision stays
+separate from these cosmetic placements.
 
 Required deliverables: four car meshes with three LODs each; eight paint materials; six track meshes/collision sets/minimaps/thumbnails; one common road kit (straight surface material, barrier, guardrail, signs, gantry, tunnel light); six themed scenery kits with at least five named landmarks each; palm, orchard tree, redwood, shrub and grass assets; six sky/lighting presets; tire smoke/dust/spark/skid materials; UI icons for all input actions, cars, tracks, settings tabs, connectivity, recovery, medals and trophies. Reuse shared assets deliberately, but every course must retain its five named landmarks and distinct silhouette/palette.
 

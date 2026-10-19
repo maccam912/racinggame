@@ -422,6 +422,22 @@
       "license": "MIT",
       "attribution": "LICENSE",
       "modifications": "60 original editable SVG icons: actions, settings, modes, four car silhouettes, six canonical course outlines, connectivity, medals, trophies and eight labeled paint swatches; no external icon library"
+    },
+    {
+      "id": "illustrated_billboard_foliage_v1",
+      "source": "assets/source/billboards/generation.json",
+      "creator": "OpenAI image generation directed by the Pacific Rush project",
+      "license": "MIT",
+      "attribution": "LICENSE; assets/source/billboards/generation.json records generated-art provenance",
+      "modifications": "Five unmodified transparent generated PNGs. Runtime alpha-scissor UV bounds and cylindrical billboard materials preserve their bytes; original 3D structures and landmarks retained.",
+      "exports": [
+        "assets/exported/billboards/catalog.json",
+        "assets/exported/billboards/palm-v1.png",
+        "assets/exported/billboards/orchard-v1.png",
+        "assets/exported/billboards/redwood-v1.png",
+        "assets/exported/billboards/shrub-v1.png",
+        "assets/exported/billboards/grass-v1.png"
+      ]
     }
   ]
 }

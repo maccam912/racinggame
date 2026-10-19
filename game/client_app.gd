@@ -1145,7 +1145,8 @@ func _process(_dt: float) -> void:
 				"synthetic_pose":false,"hud":true,"touch":drive.touch.visible,
 				"world_width":presentation.viewport.size.x,"world_height":presentation.viewport.size.y,
 				"png_sha256":FileAccess.get_sha256(capture_path)}
-			if FileAccess.file_exists("res://game/build.json"): evidence.build = JSON.parse_string(FileAccess.get_file_as_string("res://game/build.json"))
+			evidence.execution = "exported_template" if OS.has_feature("template") else "editor_source"
+			if OS.has_feature("template") and FileAccess.file_exists("res://game/build.json"): evidence.build = JSON.parse_string(FileAccess.get_file_as_string("res://game/build.json"))
 			var output := FileAccess.open(capture_path+".json",FileAccess.WRITE)
 			if output==null:
 				push_error("Gameplay capture metadata could not be saved")

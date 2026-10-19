@@ -85,3 +85,9 @@ iconset. Run `python3 tools/app_icons.py --generate` on macOS with the pinned
 engine and native iconutil, then update `tools/asset_hash.py`. The committed
 native containers and all safe-mask/package checks are described in
 [application icons](../../docs/APP_ICONS.md).
+
+The owner's illustrated billboard revision preserves the original 3D foliage models
+but uses five frozen, original image-generation PNGs for repeated palm/orchard/
+redwood/shrub/grass cards. `billboards/generation.json` records provenance and prompts;
+`describe_billboards.gd` copies exact bytes and authors alpha-derived UV bounds.
+See `docs/BILLBOARD_ART.md` for material, mipmap, visibility and native-render gates.

@@ -102,6 +102,9 @@ static func mesh(id: String, level: int) -> Mesh:
 static func batch(id: String, transforms: Array[Transform3D], parent: Node3D, emission: float = 0) -> void:
 	if transforms.is_empty(): return
 	load_catalog()
+	if BillboardArt.supports(id):
+		BillboardArt.batch(id,transforms,parent,emission)
+		return
 	var row: Dictionary = library[id]
 	for level in range(3):
 		var node := MultiMeshInstance3D.new()

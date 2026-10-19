@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "palm",
+      "source": "assets/source/billboards/palm-v1.png",
+      "sha256": "906f8573e15b8459bc68794763613eff23b3c7d4c6bf266788240f4c4ba3ceed",
+      "generator": "OpenAI built-in image generation",
+      "date": "2026-10-19",
+      "transparent_background_requested": true,
+      "modifications": "Unmodified generated PNG; runtime alpha-scissor and UV bounds will use this source without painting or resampling.",
+      "prompt_subject": "Graceful tall California fan palm, curved segmented warm brown trunk, broad radiating fan fronds with green/gold highlights."
+    },
+    {
+      "id": "orchard",
+      "source": "assets/source/billboards/orchard-v1.png",
+      "sha256": "4267f7d9ebfe16c7353b1303dd8a2a7d142eba40438fdceb6d7399d3c7f75a0c",
+      "generator": "OpenAI built-in image generation",
+      "date": "2026-10-19",
+      "transparent_background_requested": true,
+      "modifications": "Unmodified generated PNG; runtime alpha-scissor and UV bounds will use this source without painting or resampling.",
+      "prompt_subject": "Rounded mature citrus orchard tree with bright oranges, layered green leaves and branching woody trunk."
+    },
+    {
+      "id": "redwood",
+      "source": "assets/source/billboards/redwood-v1.png",
+      "sha256": "c2f8afe9ee440a195f1bdcf5afe80c2a0c0be8f8d99e897fd1343e100138d830",
+      "generator": "OpenAI built-in image generation",
+      "date": "2026-10-19",
+      "transparent_background_requested": true,
+      "modifications": "Unmodified generated PNG; runtime alpha-scissor and UV bounds will use this source without painting or resampling.",
+      "prompt_subject": "Very tall narrow coast redwood, reddish textured trunk visible through irregular layered dark green foliage, pointed top, broad tiered branches."
+    },
+    {
+      "id": "shrub",
+      "source": "assets/source/billboards/shrub-v1.png",
+      "sha256": "c57d2937e25ac1395859da08cbf9b76714e8d46545f31dc32db54bedec6d5461",
+      "generator": "OpenAI built-in image generation",
+      "date": "2026-10-19",
+      "transparent_background_requested": true,
+      "prompt_subject": "Low broad California sage scrub bush with woody stems, olive/silvery leaves and a few dry twigs, landscape composition.",
+      "modifications": "Unmodified generated PNG; runtime alpha-scissor and UV bounds use the source without painting or resampling."
+    },
+    {
+      "id": "grass",
+      "source": "assets/source/billboards/grass-v1.png",
+      "sha256": "5232faa8f5255e182dc74889e6ee87de996c2baa1a6644a5084ee02d4f07de93",
+      "generator": "OpenAI built-in image generation",
+      "date": "2026-10-19",
+      "transparent_background_requested": true,
+      "prompt_subject": "Isolated coastal bunchgrass tuft, long arching green and straw-gold blades, sunlit seed heads and compact base, landscape composition.",
+      "modifications": "Unmodified generated PNG; runtime alpha-scissor and UV bounds use the source without painting or resampling."
+    }
+  ],
+  "direction": "Original richly illustrated, sunny Pacific coast vegetation for cylindrical billboard cards; no existing game artwork or brands; retained 3D track structures and landmarks.",
+  "license": "Project distribution under MIT; generated artwork provenance explicitly recorded.",
+  "prompt_common": "One isolated complete upright plant, actual transparent background, portrait composition, full silhouette/base with generous margin. No ground plane, cast/contact shadow, text/logos/grid or unrelated plants. Original richly illustrated cutout game art, readable broad masses, sunny top-left light, warm highlights and deep teal-green shadows, 2-3 tonal levels, bark/leaf detail; bright late-1990s arcade nostalgia, not a copy of existing proprietary art."
+}
