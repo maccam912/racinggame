@@ -13,6 +13,8 @@ var look_blend: float = 0
 var boom_fraction: float = 1
 var shake_remaining: float = 0
 var shake_scale: float = .5
+var follow_up := Vector3.UP
+var follow_anchor := Vector3.ZERO
 
 func impact() -> void:
 	if not reduce_motion and shake_scale>0: shake_remaining = .12
@@ -21,19 +23,22 @@ func impact() -> void:
 func follow(state: VehicleState, dt: float, look_back: bool = false) -> void:
 	if not initialized:
 		follow_yaw = state.yaw
+		follow_up = state.ground_normal
+		follow_anchor = state.position
+	if state.grounded: follow_up = follow_up.lerp(state.ground_normal,1-exp(-12*dt)).normalized()
 	var difference := angle_difference(follow_yaw, state.yaw)
 	follow_yaw += difference * (1.0 - exp(-8.0 * dt))
 	if absf(angle_difference(follow_yaw, state.yaw)) > deg_to_rad(12):
 		follow_yaw = state.yaw - signf(difference) * deg_to_rad(12)
 	look_blend = move_toward(look_blend,1.0 if look_back else 0.0,dt/.12)
 	var view_yaw := follow_yaw+PI*look_blend
-	var forward := Vector3(sin(view_yaw), 0, -cos(view_yaw))
-	var right := forward.cross(Vector3.UP)
+	var forward := Vector3(sin(view_yaw), 0, -cos(view_yaw)).slide(follow_up).normalized()
+	var right := forward.cross(follow_up).normalized()
 	steering_offset = lerpf(steering_offset, state.steer_filter, 1.0 - exp(-4 * dt))
 	var distance := 5.0 if mode == 0 else 8.2
 	var height := 1.65 if mode == 0 else 3.4
-	var target_position := state.position - forward * distance + Vector3.UP * (height - .35)
-	var aim := state.position + forward * (10 if mode == 0 else 12) + Vector3.UP * .8 + right * steering_offset
+	var target_position := state.position - forward * distance + follow_up * (height - .35)
+	var aim := state.position + forward * (10 if mode == 0 else 12) + follow_up * .8 + right * steering_offset
 	if mode == 2:
 		target_position = state.position + forward * 1.1 + Vector3.UP * .80
 		aim = target_position + forward * 20
@@ -49,6 +54,11 @@ func follow(state: VehicleState, dt: float, look_back: bool = false) -> void:
 		var fraction := float(cast[0])
 		boom_fraction = fraction if fraction<boom_fraction else move_toward(boom_fraction,fraction,dt/.3)
 		target_position = start + query.motion * boom_fraction
+	# Carry the camera with the car before smoothing its relative boom. At
+	# arcade speeds, smoothing absolute translation left it metres behind and
+	# inside the uphill road, collapsing the camera into the car on drops.
+	if initialized: position += state.position-follow_anchor
+	follow_anchor = state.position
 	position = position.lerp(target_position, 1.0 - exp(-10 * dt)) if initialized else target_position
 	if mode!=2:
 		# Translation smoothing must not leave the camera behind a newly met wall.

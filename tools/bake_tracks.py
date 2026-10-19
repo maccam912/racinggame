@@ -69,7 +69,7 @@ def bake(track):
         grades.append(abs(tangents[i][1])/math.hypot(tangents[i][0], tangents[i][2]))
     minimum_radius = 1/max(abs(x) for x in curvature)
     assert minimum_radius >= 28, f"{track['id']}: radius {minimum_radius:.2f} < 28 m"
-    assert max(grades) <= .12, f"{track['id']}: grade exceeds 12%"
+    assert max(grades) <= .24, f"{track['id']}: grade exceeds 24%"
 
     def distance_to_features(s):
         features = [u*total for u in track['ramp_markers']]
@@ -112,9 +112,9 @@ def bake(track):
         for marker in track['ramp_markers']:
             relative = s-marker*total
             if -12 <= relative < 0:
-                height += .6*(relative+12)/12
-            elif 0 <= relative < 22:
-                height += .6*(1-smooth(relative/22))
+                height += 1.2*(relative+12)/12
+            elif 0 <= relative < 50:
+                height += 1.2*(1-smooth(relative/50))
         raw.append([*p, *tangent, curve, u, width, bank, height])
     rotated = raw[start:]+raw[:start]
     cumulative = [0.0]

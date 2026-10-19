@@ -24,6 +24,7 @@ var active_lod: int = -1
 var ghost: bool = false
 var last_grounded: bool = true
 var landing_time: float = 0.0
+var visual_up := Vector3.UP
 
 static func available(id: String) -> bool:
 	var path := "res://assets/exported/cars/"+id+".glb"
@@ -112,7 +113,10 @@ func present(state: VehicleState, input: InputFrame, dt: float) -> void:
 		recovery_anchor_active = true
 	if state.recovery_ticks==0: recovery_anchor_active = false
 	position = state.position
-	rotation.y = -state.yaw
+	if not has_presented: visual_up = state.ground_normal
+	if state.grounded: visual_up = visual_up.lerp(state.ground_normal,1-exp(-12*dt)).normalized()
+	var road_forward := state.forward().slide(visual_up).normalized()
+	basis = Basis(road_forward.cross(visual_up).normalized(),visual_up,-road_forward)
 	if state.recovery_ticks>30 and recovery_anchor_active: transform = recovery_anchor
 	prior_recovery = state.recovery_ticks
 	has_presented = true

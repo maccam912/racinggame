@@ -21,8 +21,8 @@ func run() -> void:
 	var bars: Array[Node] = app.menu.root.find_children("*","ProgressBar",true,false)
 	assert(bars.size()==8)
 	for index in range(4):
-		assert(bars[index*2].value==Catalog.cars[index].acceleration and bars[index*2].max_value==15)
-		assert(bars[index*2+1].value==Catalog.cars[index].grip and bars[index*2+1].max_value==22)
+		assert(bars[index*2].value==Catalog.cars[index].acceleration and bars[index*2].max_value==20)
+		assert(bars[index*2+1].value==Catalog.cars[index].grip and bars[index*2+1].max_value==30)
 	var shoulder := InputEventJoypadButton.new()
 	shoulder.button_index = JOY_BUTTON_RIGHT_SHOULDER
 	shoulder.pressed = true

@@ -13,10 +13,15 @@ func run() -> void:
 	var output := "res://reports" if "--ci" in OS.get_cmdline_user_args() else "res://docs/evidence"
 	DirAccess.make_dir_recursive_absolute(output)
 	var records: Array[Dictionary] = []
+	var structures := "--crest-structures" in OS.get_cmdline_user_args()
+	var prefix := "content5-set-piece" if structures else "m4-course"
 	for track: TrackDefinition in Catalog.tracks:
 		var world := TrackWorld.new()
 		world.build(track)
 		root.add_child(world)
+		await physics_frame
+		await physics_frame
+		var query := WorldQuery.new(world.get_world_3d(),track)
 		var camera := ChaseCamera.new()
 		camera.reduce_motion = true
 		camera.dynamic_fov = false
@@ -30,18 +35,20 @@ func run() -> void:
 		for light: DirectionalLight3D in world.find_children("*","DirectionalLight3D",true,false):
 			light.shadow_enabled = true
 			light.directional_shadow_max_distance = 80
-		for u: float in [.10,.35,.60,.85]:
+		var anchors: Array = [float(CourseSetPieces.SPECS[track.id].u)-.02] if structures else [.10,.35,.60,.85]
+		for u: float in anchors:
 			var s := CourseArt.original_s(track,u)
 			var pose := track.pose(s)
 			var state := VehicleState.new()
 			state.position = RouteGeometry.point(track,track.sample_index(s),0)+Vector3.UP*.35
 			state.yaw = atan2(-pose.basis.z.x,pose.basis.z.z)
+			state.ground_normal = query.ground(state).normal
 			visual.present(state,InputFrame.make(),.016)
 			camera.initialized = false
 			camera.follow(state,.016)
 			for frame in range(8): await process_frame
 			await RenderingServer.frame_post_draw
-			var filename := "m4-course-%s-u%02d.png"%[track.id,roundi(u*100)]
+			var filename := "%s-%s-u%02d.png"%[prefix,track.id,roundi(u*100)]
 			assert(root.get_texture().get_image().save_png(output+"/"+filename)==OK)
 			records.append({"track":track.id,"u":u,"s":s,"image":filename,"sha256":FileAccess.get_sha256(output+"/"+filename),"route_hash":track.content_hash})
 		if "--write-thumbnails" in OS.get_cmdline_user_args():
@@ -60,10 +67,11 @@ func run() -> void:
 			DirAccess.make_dir_recursive_absolute("res://assets/exported/thumbnails")
 			root.get_texture().get_image().save_png("res://assets/exported/thumbnails/"+track.id+".png")
 			root.size = Vector2i(1920,1080)
+		query = null
 		world.queue_free()
 		for frame in range(8): await process_frame
-	var file := FileAccess.open(output+"/m4-course-references.json",FileAccess.WRITE)
+	var file := FileAccess.open(output+"/"+prefix+"-references.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"resolution":[1920,1080],"camera":"Near Chase","fov":65,"hud":false,"preset":"Medium: 100%, 4x MSAA, Low shadows 80 m, 700 m scenery, 4x anisotropic","exposure":"Authored fixed course lighting; brightness/exposure 1.0","content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"renderer":RenderingServer.get_current_rendering_method(),"physical_device":false,"records":records},"\t")+"\n")
 	file.close()
-	print("SIX_COURSE_24_NATIVE_REFERENCE_VIEWS_PASS")
+	print("SIX_COURSE_NATIVE_REFERENCE_VIEWS_PASS count=",records.size())
 	quit()

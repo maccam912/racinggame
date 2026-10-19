@@ -1,6 +1,6 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.3 — 19 October 2026
+Version 1.4 — 19 October 2026
 
 Owner decisions, 19 October 2026: implementation validation uses Android phone
 and tablet **emulators only**. Physical-device checks elsewhere in this document
@@ -167,7 +167,7 @@ Fixed step dt = 1/60. Per tick: validate/sample input; update steer and drift st
 
 All cars use the same gameplay footprint: rounded box 1.9 m wide, 4.2 m long, 1.1 m high, with bottom at ride height 0.35 m above road. Implement an equivalent convex shape with 0.25 m corner radii. Visual meshes may vary within ±0.15 m width/length; no statistical collision advantage from model shape. Cars never roll over mechanically. Heading follows the ground plane; only the rendered body pitches/rolls beyond the smoothed road orientation.
 
-Four downward ground probes at local x = ±0.75 m and z = ±1.35 m, originating 0.8 m above the chassis base and extending 2.5 m. A road hit within 0.65 m below desired ride height supports the car. Use average supported probe height and normalized average normals, rejecting normals more than 50 degrees from world up. At least two valid probes means grounded. Smooth the rendered ground normal with exponential rate 12/s; simulation uses the unsmoothed supported plane. On ground, set chassis base to road height + 0.35 m, retaining horizontal velocity projected onto the plane. A downward snap is limited to 0.4 m per tick and is disallowed when vertical velocity exceeds +1 m/s after a launch.
+Four downward ground probes at local x = ±0.75 m and z = ±1.35 m, originating 0.8 m above the chassis base and extending 2.5 m. A road hit within 0.65 m below desired ride height supports the car. Use average supported probe height and normalized average normals, rejecting normals more than 50 degrees from world up. At least two valid probes means grounded. Smooth the rendered ground normal with exponential rate 12/s; simulation uses the unsmoothed supported plane. On ground, set chassis base to road height + 0.35 m, retaining horizontal velocity projected onto the plane. A downward snap is limited to 0.4 m per tick and is disallowed when velocity along the supported plane normal exceeds +1 m/s after a launch.
 
 If fewer than two probes support, use ballistic gravity 22 m/s². In air, throttle changes forward speed at only 15% of ground acceleration; brakes have no effect; steer yaw response is 20% of grounded response. No pitch/roll trick inputs. On landing, project velocity onto the road plane, multiply forward speed by 0.97, clear downward velocity, and play a brief suspension animation. No damage. Car can land safely at any yaw; excessive sideways velocity is damped by the ordinary grip model after landing.
 
@@ -203,10 +203,10 @@ For car contact, the server handles each pair once per tick in ascending slot-pa
 
 | ID and name | Silhouette and color default | Top speed V | Acceleration A | Grip G | Turn factor | Intended role |
 | --- | --- | --- | --- | --- | --- | --- |
-| comet / Comet | Compact rounded coupe, coral | 58 m/s | 13.5 m/s² | 20 m/s² | 1.00 | Default balanced car |
-| needle / Needle | Low wedge sports car, turquoise | 61 m/s | 12.0 m/s² | 18 m/s² | 0.94 | Fast straights, careful entries |
-| switch / Switch | Short boxy hatch, yellow | 55 m/s | 15.0 m/s² | 22 m/s² | 1.08 | Strong exits, easy corners |
-| sunset / Sunset | Broad classic coupe, purple | 59 m/s | 13.0 m/s² | 19 m/s² | 0.98 | Stable visual presence, mild slide bias |
+| comet / Comet | Compact rounded coupe, coral | 82 m/s | 18.0 m/s² | 27 m/s² | 1.00 | Default balanced car |
+| needle / Needle | Low wedge sports car, turquoise | 88 m/s | 16.5 m/s² | 25 m/s² | 0.94 | Fast straights, careful entries |
+| switch / Switch | Short boxy hatch, yellow | 78 m/s | 20.0 m/s² | 30 m/s² | 1.08 | Strong exits, easy corners |
+| sunset / Sunset | Broad classic coupe, purple | 84 m/s | 17.5 m/s² | 26 m/s² | 0.98 | Stable visual presence, mild slide bias |
 
 All other simulation parameters are shared. Car stats in the garage show numerical top speed converted to selected units, plus labeled acceleration and grip bars derived linearly from the values above. Do not invent hidden perks. The chosen default is Comet with coral paint. Each car must be within 5% of the fastest car's median expert clean time over the full six-track set; individual tracks may favor a car. If not, tuning requires a documented data revision.
 
@@ -230,7 +230,7 @@ Road cross section is centered on the route. Default paved width 16 m, shoulder 
 
 Because the closed spline's point 0 is not guaranteed straight, the start line is chosen by a deterministic bake: among 2 m samples at least 100 m from any bank/jump interval, choose the first with maximum absolute curvature over the preceding 45 m and following 70 m below 0.0025/m and grade magnitude below 0.03. Search from original point 0; fail the track build if none qualifies. Rotate s so the chosen sample becomes s=0. Interval markers and landmarks in section 11 use **original curve u before start-line rotation**; checkpoints, grid, and race progress use rotated s. Store both in the bake. This avoids art shifting when start placement is verified.
 
-If the provided points fail a geometric acceptance gate, produce a reported geometry correction and update these points before content production. Do not silently choose a different circuit. Minimum centerline radius 28 m; maximum grade 12%; paved edges must not self-intersect; no two nonadjacent road sections may approach within combined half widths + 8 m unless vertical separation exceeds 10 m. Track builders must run these checks before declaring the layout accepted.
+If the provided points fail a geometric acceptance gate, produce a reported geometry correction and update these points before content production. Do not silently choose a different circuit. Minimum centerline radius 28 m; maximum grade 24%; paved edges must not self-intersect; no two nonadjacent road sections may approach within combined half widths + 8 m unless vertical separation exceeds 10 m. Track builders must run these checks before declaring the layout accepted.
 
 Road barriers are continuous 0.9 m high cream concrete on drop-offs, and 0.8 m guardrails elsewhere. An outer shoulder may be grass/sand but must not hide an unmarked solid object. Put scenery colliders at least 2 m outside the allowed shoulder. Small cones, signs, umbrellas, and plants are noncolliding. No destructible physics props. Add a direction chevron before any bend tighter than 80 m radius, visible 80 m before turn entry. Mark every recovery zone and kill volume in editor tools.
 
@@ -246,7 +246,7 @@ Each route has sixteen control points. Index 0 is an authoring origin, not neces
 
 Introductory coastal oval with broad changing-radius bends. Midday, clear sky, turquoise sea on the east side. Asphalt 18 m; sand shoulders. The most forgiving course, with no tunnels or forced jumps.
 
-Route points: `(0,4,0), (0,4,-200), (0,4,-400), (80,5,-620), (240,6,-760), (460,6,-800), (680,5,-740), (820,4,-560), (860,4,-340), (820,4,-100), (700,4,100), (520,4,200), (320,4,220), (140,4,180), (20,4,120), (0,4,60)`.
+Route points: `(0,4,0), (0,4,-200), (0,4,-400), (80,12,-620), (240,38,-760), (460,58,-800), (680,32,-740), (820,8,-560), (860,4,-340), (820,4,-100), (700,4,100), (520,18,200), (320,38,220), (140,12,180), (20,4,120), (0,4,60)`.
 
 Landmarks: u=.12 surf shop at -25 m; .28 lighthouse at +45 m; .42 pier extending +120 m toward sea; .65 beach hotel at -40 m; .82 giant sun-shaped roadside sign at +25 m. Use two rows of palms on the inland side. Horizon water begins outside right-side barriers from u=.20 to .65. No drivable beach shortcut.
 
@@ -254,7 +254,7 @@ Landmarks: u=.12 surf shop at -25 m; .28 lighthouse at +45 m; .42 pier extending
 
 Orchard roads and orange foothills, late afternoon. Asphalt 16 m; grass shoulders; no jumps. Broad ascent followed by a descending series of bends. Banks: u=.30–.40, 6 degrees toward inside; .66–.75, 5 degrees toward inside. Bank direction follows curvature sign and ramps to zero at inflections.
 
-Route points: `(0,8,0), (0,8,-200), (0,8,-400), (100,14,-620), (340,24,-760), (560,30,-700), (700,34,-520), (620,30,-340), (820,24,-160), (900,18,60), (760,12,240), (520,8,300), (320,8,240), (180,8,160), (40,8,120), (0,8,60)`.
+Route points: `(0,8,0), (0,8,-200), (0,8,-400), (100,20.32,-620), (340,50.86,-760), (560,80.56,-700), (700,65.6,-520), (620,31.58,-340), (820,12.94,-160), (900,14.84,60), (760,42.02,240), (520,63.3,300), (320,23.8,240), (180,8,160), (40,8,120), (0,8,60)`.
 
 Landmarks: u=.15 fruit stand at -25 m; .32 white water tower at +45 m; .49 packing shed at -30 m; .68 orange arch spanning road with 8 m clearance; .86 windmill at +35 m. Orchard trees in 10 m rows outside the corridor; orange rock terraces beyond them. No real-world brand labels.
 
@@ -262,7 +262,7 @@ Landmarks: u=.15 fruit stand at -25 m; .32 white water tower at +45 m; .49 packi
 
 Fictional waterfront entertainment district at bright blue hour. The road remains evenly lit; sky still blue, never black. Asphalt 16 m, narrowing to 14 m at u=.35–.55; paved shoulders use asphalt physics. No rain or reflective puddles. Neon is limited to colored signs and facade strips.
 
-Route points: `(0,3,0), (0,3,-200), (0,3,-400), (120,3,-600), (360,3,-640), (580,3,-560), (620,3,-340), (500,3,-200), (620,3,-40), (740,3,180), (580,3,360), (360,3,380), (160,3,300), (40,3,200), (0,3,120), (0,3,60)`.
+Route points: `(0,3,0), (0,3,-200), (0,3,-400), (120,8,-600), (360,32,-640), (580,52,-560), (620,28,-340), (500,5,-200), (620,3,-40), (740,3,180), (580,18,360), (360,40,380), (160,14,300), (40,3,200), (0,3,120), (0,3,60)`.
 
 Landmarks: u=.12 arcade facade at -22 m; .31 illuminated marina wheel at +65 m, 45 m diameter, static; .46 short underpass from u=.44–.49 with 7 m clearance; .64 moored sailboats beyond +35 m; .81 seafood diner at -24 m. All boats are static. Window glow is emissive, not hundreds of individual lights. Tight turns use large yellow chevrons.
 
@@ -270,7 +270,7 @@ Landmarks: u=.12 arcade facade at -22 m; .31 illuminated marina wheel at +65 m, 
 
 Tall simplified redwoods, shafts of warm afternoon light, pale road edges. Asphalt 16 m; grass shoulders. Trees may enclose the view but never obscure the turn entry. Bank u=.25–.36 at 7 degrees toward inside. A log visitor-center sculpture is visual only; no road-spanning tree collision gimmick.
 
-Route points: `(0,10,0), (0,10,-200), (0,10,-400), (120,18,-620), (360,28,-760), (600,32,-640), (660,26,-420), (520,20,-240), (700,24,-40), (760,28,180), (580,22,360), (340,16,400), (160,12,300), (40,10,200), (0,10,120), (0,10,60)`.
+Route points: `(0,10,0), (0,10,-200), (0,10,-400), (120,26.6,-620), (360,64.12,-760), (600,93.92,-640), (660,56.96,-420), (520,18.28,-240), (700,27.44,-40), (760,67.56,180), (580,87.36,360), (340,40.08,400), (160,12,300), (40,10,200), (0,10,120), (0,10,60)`.
 
 Landmarks: u=.13 ranger kiosk at -24 m; .30 giant tree at +28 m with trunk diameter 7 m; .47 timber bridge with fixed deck and 3 m shoulders; .63 visitor center at -40 m; .82 redwood cross-section display at +25 m. Large trunks must remain at least 5 m beyond shoulders. Background forest is clustered cards/low-detail meshes with no collision.
 
@@ -278,23 +278,23 @@ Landmarks: u=.13 ranger kiosk at -24 m; .30 giant tree at +28 m with trunk diame
 
 Orange mesas, clear sky, cream guardrails, one tunnel. Asphalt 16 m; sand shoulders. Long sight lines contrast with one tighter reversal. Bank u=.27–.39 at 8 degrees inward; tunnel u=.57–.64, clearance 8 m, ambient lighting no darker than 50% of exterior road luminance.
 
-Route points: `(0,12,0), (0,12,-200), (0,12,-400), (140,20,-640), (400,30,-800), (680,38,-680), (760,32,-440), (580,24,-240), (800,20,-40), (940,16,200), (760,12,420), (500,12,460), (260,12,340), (80,12,220), (0,12,120), (0,12,60)`.
+Route points: `(0,12,0), (0,12,-200), (0,12,-400), (140,28.6,-640), (400,67.84,-800), (680,99.92,-680), (760,62.96,-440), (580,20.56,-240), (800,18.28,-40), (940,46.96,200), (760,75.64,420), (500,25.76,460), (260,12,340), (80,12,220), (0,12,120), (0,12,60)`.
 
 Landmarks: u=.16 roadside dinosaur sculpture at -30 m; .33 twin mesa silhouettes beyond +120 m; .48 abandoned rail trestle at -60 m; .60 tunnel portal/canyon opening; .79 motel sign at +30 m. Sand never blows across the playable road. No falling rocks or dynamic hazards.
 
 ### 11.6 Pacific Summit
 
-Final course combining mountain overlook, ocean horizon, a sweeping descent, and one explicit low jump. Warm golden afternoon with blue shadows. Asphalt 16 m, widening to 20 m over jump zone. Grass shoulders except sand on u=.70–.90. Bank u=.30–.41 at 8 degrees inward.
+Final course combining mountain overlook, ocean horizon, a sweeping descent, and one explicit low jump. Warm golden afternoon with blue shadows. Asphalt 16 m, widening to 24 m over jump zone. Grass shoulders except sand on u=.70–.90. Bank u=.30–.41 at 8 degrees inward.
 
-Route points: `(0,20,0), (0,20,-200), (0,20,-400), (160,30,-660), (420,44,-820), (720,54,-700), (820,48,-440), (640,38,-220), (860,30,0), (1000,24,260), (800,20,500), (520,20,520), (280,20,380), (80,20,240), (0,20,120), (0,20,60)`.
+Route points: `(0,20,0), (0,20,-200), (0,20,-400), (160,42.96,-660), (420,82.88,-820), (720,123.12,-700), (820,88.32,-440), (640,38,-220), (860,28.56,0), (1000,57.12,260), (800,94.88,500), (520,43.04,520), (280,20,380), (80,20,240), (0,20,120), (0,20,60)`.
 
 Landmarks: u=.14 observatory at -65 m; .33 overlook platform at +35 m; .50 mountain lodge at -45 m; .69 coastal viaduct at +0 m supporting road; .84 balloon cluster beyond +60 m, static. The viaduct is continuously driveable, without gaps.
 
-Jump marker at original u=.72: place a 12 m ramp rising by 0.6 m relative to ordinary road, then a 22 m smooth descent back to original surface. The crest crossing sets vertical launch speed to 3.8 m/s when forward speed ≥30 m/s, once per lap per car; this explicit rule overrides ground snap for 0.18 seconds. Slower cars drive over the ramp normally. Ramp is the full paved width; no bottomless gap. Paint yellow bars before it and a white landing stripe after it. The exact §7 ground-snap/launch rules are authoritative: the straight-ramp fixture yields about **0.20 seconds** airborne at 30/45/60 m/s, accepted by the owner. The previous illustrative 0.35-second estimate and 10–22 m travel estimate are not tuning targets; actual duration/distance depend on those rules and the road slope. The bake retains base-curve progress length, while road collision includes the ramp deformation.
+Jump marker at original u=.68, with a 24 m paved corridor over u=.665–.725: place a 12 m ramp rising by 1.2 m relative to ordinary road, then a 50 m smooth descent back to the original surface. At a crest crossing with horizontal speed ≥30 m/s, once per lap per car, remove velocity along the original road normal and add a fixed 7.2 m/s impulse along that normal. The base normal follows the route grade without the ramp offset. Disable ground snap for 23 simulation ticks; afterward require velocity along the supported plane normal ≤1 m/s. Slower cars drive over the full-width ramp normally. No bottomless gap. Paint yellow bars before it and a white landing stripe at crest+50 m. Straight collision/probe fixtures covering −15%, flat and +15% grades and nominal 30/45/60/80/95 m/s approaches produce about 0.57–0.73 seconds airborne; actual course flight depends on slope and line. The .68 crest replaces the old .72 crest because high-speed flights at .72 overshot the curved downhill landing; .70 also failed an outside-line 95 m/s approach. Actual .68 course fixtures cover left/center/right approaches through 95 m/s, separately from the straight fixtures. The bake retains base-curve progress length, while road collision includes the ramp deformation. This is content version 5; preserve content 4 records/ghosts/Cups/active-race bytes as historical archives, and start fresh current-content timing/continuation.
 
 ### 11.7 Shared course furniture
 
-One start gantry per track, 6 m tall and 22 m wide, with checker band, track name, and three countdown lamps. Timing gates after the start are invisible; do not place giant glowing rings. At least one landmark visible from each third of a lap. Road center marking: cream broken stripes, 4 m painted / 8 m gap, 0.18 m wide. Edge marking 0.25 m cream. Use arrow boards at radius <80 m and advance warning at radius <45 m. Route direction is unambiguous at every decorative intersection, which must be blocked with visible barriers.
+One start gantry per track, 6 m tall and 22 m wide, with checker band, track name, and three countdown lamps. Timing gates after the start are invisible; do not place giant glowing rings. At least one landmark visible from each third of a lap. Add original batched 3D structure sequences at the main crests: Sunburst Crest, Packing Skyway, Harbor Cranes, Timber Crest, Canyon Ribs and Summit Flight. These frame climbs and drops without adding driving collision; keep the driving/flight corridor clear. Timber Bridge and Viaduct artwork must follow the actual banked, ramped road in every detail level. Road center marking: cream broken stripes, 4 m painted / 8 m gap, 0.18 m wide. Edge marking 0.25 m cream. Use arrow boards at radius <80 m and advance warning at radius <45 m. Route direction is unambiguous at every decorative intersection, which must be blocked with visible barriers.
 
 No alternate routes or shortcuts at launch. Visible inaccessible roads may exist beyond barriers, but must not look like missed race branches. Minimap depicts only the actual circuit. Track selection shows difficulty in words: Palm Bay Easy; Citrus Pass Easy; Marina Lights Medium; Redwood Run Medium; Sunstone Canyon Hard; Pacific Summit Hard.
 
@@ -737,13 +737,13 @@ Each row is required. Evidence records build, platform/device, settings, steps, 
 
 | ID | Procedure | Required result |
 | --- | --- | --- |
-| DRIVE-01 | Comet flat launch, throttle 1 for 20 s | 0–100 km/h within 2.0–3.0 s; speed never above permitted cap; no lateral drift with steer 0 |
+| DRIVE-01 | Comet flat launch, throttle 1 for 20 s | 0–100 km/h within 1.5–2.0 s; speed never above permitted cap; no lateral drift with steer 0 |
 | DRIVE-02 | Brake from 100 km/h on flat asphalt | Stop in 18–26 m; no automatic reverse until 0.35 s stopped brake hold |
 | DRIVE-03 | Constant steering at 25/40/50 m/s | Turn tightens at lower speed; repeatability tolerance met; no snapping or rollovers |
 | DRIVE-04 | 0.5 s handbrake turn then release | Visible slip; grip restoration completes in .40 s; no boost or hidden speed gain |
 | DRIVE-05 | Scrape wall at 40 m/s, 15° approach | Forward motion retained; no repeated 4% per-tick damping; no wall penetration >.05 m |
 | DRIVE-06 | Two-car bump at 10 m/s relative speed | Impulse bound honored; no angular flip; neither car pushed through world wall |
-| DRIVE-07 | Ramp at 30/45/60 m/s | Single launch trigger per lap; safe landing; no tunnel-through or repeated snap-launch |
+| DRIVE-07 | Ramp at 30/45/60/80/95 m/s; −15%, flat, +15% grades | Single launch trigger per lap; safe landing; no tunnel-through or repeated snap-launch |
 | RACE-01 | Skip/reverse/recross gates | No false lap or finish; progress never jumps to neighboring route segment |
 | RACE-02 | Same-tick finish pair | Sub-tick order used; exact tie resolves by slot; every client sees same order |
 | RACE-03 | Finish then wait | 30 s grace and 600 s hard cap respected; remaining racers DNF appropriately |

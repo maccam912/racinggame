@@ -19,7 +19,7 @@ func original_s(track: TrackDefinition, u: float) -> float:
 
 func run() -> void:
 	Catalog.load_all()
-	assert(Catalog.rules.content_version==4 and Catalog.rules.protocol_version==5 and NetCodec.PROTOCOL==5)
+	assert(Catalog.rules.content_version==5 and Catalog.rules.protocol_version==5 and NetCodec.PROTOCOL==5)
 	for track: TrackDefinition in Catalog.tracks:
 		for u: float in [.00001,.249,.5,.6999,.7001,.8999,.9001,.99999]:
 			var s := original_s(track,u)
@@ -55,7 +55,7 @@ func run() -> void:
 	assert(rendered.has("sand") and rendered.has("grass") and rendered.size()==2)
 	for mesh: ArrayMesh in rendered.values():
 		var arrays := mesh.surface_get_arrays(0)
-		for normal: Vector3 in arrays[Mesh.ARRAY_NORMAL]: assert(normal.y>.98,"both rendered shoulders face upward")
+		for normal: Vector3 in arrays[Mesh.ARRAY_NORMAL]: assert(normal.y>.95,"both rendered shoulders face upward through the steeper banked profile")
 	assert(before==var_to_bytes(RouteGeometry.meshes(track).shoulder.surface_get_arrays(0)),"surface-colored rendering cannot deform collision")
 	scene.queue_free()
 	await process_frame

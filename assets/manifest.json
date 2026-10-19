@@ -304,7 +304,7 @@
       "source_url": null,
       "license": "MIT",
       "attribution": "LICENSE",
-      "modifications": "Cosmetic terrain follows unchanged canonical road bakes; original visual barrier extrusion, guidance, gantry lamps, tunnel panels and jump markings. Separate camera collision."
+      "modifications": "Cosmetic terrain follows the current canonical road bakes, including the content-5 elevation revision; original visual barrier extrusion, guidance, gantry lamps, tunnel panels and jump markings. Separate camera collision. Repeated props meet the upper terrain/verge triangle."
     },
     {
       "id": "course_postcards",
@@ -438,6 +438,22 @@
         "assets/exported/billboards/shrub-v1.png",
         "assets/exported/billboards/grass-v1.png"
       ]
+    },
+    {
+      "id": "course_crest_structures",
+      "source": "game/world/course_set_pieces.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original procedural 3D Sunburst Crest, Packing Skyway, Harbor Cranes, Timber Crest, Canyon Ribs and Summit Flight frames; batched vertex-colored geometry with no driving collision."
+    },
+    {
+      "id": "route_conformed_bridges",
+      "source": "game/world/route_landmark.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original triangle subdivision/road deformation for all three LODs of the project-authored Timber Bridge and Viaduct, retaining original atlas UVs and source GLBs."
     }
   ]
 }

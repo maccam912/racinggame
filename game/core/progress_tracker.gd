@@ -78,8 +78,12 @@ static func safety(state: VehicleState, frame: InputFrame, track: TrackDefinitio
 	for marker: float in track.definition.ramp_markers:
 		var crest := fposmod(marker * track.length - track.start_sample * 2, track.length)
 		if state.route_s >= 0 and state.route_s < crest and nearest.s >= crest and nearest.s - state.route_s < 5 and state.grounded and state.speed() >= 30 and state.jump_lap != state.laps:
-			state.velocity.y = 3.8
-			state.launch_ticks = 11
+			# Remove the ramp's geometric upward velocity before the fixed kick,
+			# preserving the original road grade without a speed-scaled extra jump.
+			var base_forward: Vector3 = track.forwards[int(nearest.i)]
+			var base_normal := base_forward.cross(Vector3.UP).cross(base_forward).normalized()
+			state.velocity = state.velocity.slide(base_normal)+base_normal*7.2
+			state.launch_ticks = 23
 			state.grounded = false
 			state.jump_lap = state.laps
 			state.events.append("jump")

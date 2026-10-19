@@ -48,6 +48,20 @@ func run() -> void:
 		assert(steps==world.build_steps())
 		root.add_child(world)
 		assert(world.start_lamps.size()==3)
+		var set_piece: Dictionary = CourseSetPieces.SPECS[track.id]
+		var frames := world.find_children(str(set_piece.id)+"_*","MeshInstance3D",false,false)
+		assert(frames.size()==int(set_piece.count))
+		for frame: MeshInstance3D in frames:
+			assert(frame.mesh.get_surface_count()==1 and frame.mesh.get_faces().size()/3<300,"large structures stay batched and bounded")
+			assert(float(frame.get_meta("clearance_m"))>=12)
+			assert(frame.find_children("*","CollisionObject3D",true,false).is_empty())
+			var frame_vertices := frame.mesh.get_faces()
+			var half := float(track.bake.samples[track.sample_index(float(frame.get_meta("route_s")))][8])*.5+3
+			for lateral: float in [-half,0.0,half]:
+				var first := Vector3(lateral,0,0)
+				var last := Vector3(lateral,9,0)
+				for triangle in range(0,frame_vertices.size(),3):
+					assert(Geometry3D.segment_intersects_triangle(first,last,frame_vertices[triangle],frame_vertices[triangle+1],frame_vertices[triangle+2])==null,"frame cannot cross the road or airborne landing corridor")
 		world.set_start_lamps("Countdown",0,0)
 		assert(world.start_lamps[0].material_override.albedo_color==Color("F16B50") and world.start_lamps[1].material_override.albedo_color==Color("343C49"))
 		world.set_start_lamps("Countdown",120,0)

@@ -7,6 +7,7 @@ static var library: Dictionary = {}
 static var terrain_info: Dictionary = {}
 static var meshes: Dictionary = {}
 static var materials: Dictionary = {}
+static var terrain_heights: Dictionary = {}
 
 
 static func load_catalog() -> void:
@@ -125,6 +126,9 @@ static func terrain(track_id: String) -> Node3D:
 	var packed: PackedScene = load("res://"+terrain_info[track_id].path)
 	var result := packed.instantiate() as Node3D
 	result.name = "CosmeticTerrain"
+	var heights: Dictionary = {}
+	collect_terrain_heights(result,Transform3D.IDENTITY,heights)
+	terrain_heights[track_id] = heights
 	var ground := StandardMaterial3D.new()
 	ground.albedo_color = Color.html(courses[track_id].ground)
 	ground.vertex_color_use_as_albedo = true
@@ -135,3 +139,33 @@ static func terrain(track_id: String) -> Node3D:
 		node.add_to_group("scenery_distance")
 		node.visibility_range_end = 700
 	return result
+
+
+static func collect_terrain_heights(node: Node, parent_pose: Transform3D, heights: Dictionary) -> void:
+	var pose: Transform3D = parent_pose*node.transform if node is Node3D else parent_pose
+	if node is MeshInstance3D:
+		for surface in range(node.mesh.get_surface_count()):
+			var arrays: Array = node.mesh.surface_get_arrays(surface)
+			for vertex: Vector3 in arrays[Mesh.ARRAY_VERTEX]:
+				var point: Vector3 = pose*vertex
+				heights[Vector2i(roundi(point.x/32),roundi(point.z/32))] = point.y
+	for child: Node in node.get_children(): collect_terrain_heights(child,pose,heights)
+
+
+static func terrain_height(track_id: String, point: Vector3, fallback: float) -> float:
+	var heights: Dictionary = terrain_heights.get(track_id,{})
+	return height_from_grid(heights,point,fallback)
+
+
+static func height_from_grid(heights: Dictionary, point: Vector3, fallback: float) -> float:
+	var cell := Vector2i(floori(point.x/32),floori(point.z/32))
+	for corner: Vector2i in [Vector2i.ZERO,Vector2i(1,0),Vector2i(0,1),Vector2i.ONE]:
+		if not heights.has(cell+corner): return fallback
+	var x := point.x/32-cell.x
+	var z := point.z/32-cell.y
+	var a: float = heights[cell]
+	var b: float = heights[cell+Vector2i(1,0)]
+	var c: float = heights[cell+Vector2i(0,1)]
+	var d: float = heights[cell+Vector2i.ONE]
+	# Interpolate the exported grid's two triangles, including its diagonal.
+	return a+x*(b-a)+z*(d-b) if x>=z else a+z*(c-a)+x*(d-c)

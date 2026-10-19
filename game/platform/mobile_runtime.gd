@@ -102,6 +102,7 @@ func release_inactive_assets() -> void:
 	# only reusable cosmetic references; collision/catalog/race data stay live.
 	CourseArt.meshes.clear()
 	CourseArt.materials.clear()
+	CourseArt.terrain_heights.clear()
 	BillboardArt.release_cache()
 	TrackWorld.skies.clear()
 	AudioLibrary.streams.clear()

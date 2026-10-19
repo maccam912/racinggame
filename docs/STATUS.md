@@ -6,13 +6,19 @@ follow-up, not blockers. Human usability, real thermal behavior and other hardwa
 remain unmeasured; emulator evidence retains its actual label. The latest owner feedback
 authorizes physics tuning for manic arcade speed, stronger hills/drops and dramatic
 set pieces, superseding the earlier exact-physics choice. Original illustrated
-billboard decorations are approved. DESIGN.md v1.3 records this direction.
+billboard decorations are approved. DESIGN.md v1.4 records this direction.
 
-Latest release: **Build 87**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
+Latest release: **Build 88**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
 
 The design, including the latest owner decisions, remains the launch contract. Historical checkpoint notes retain their original measurements and open gates; the owner update above supersedes physical-device blockers.
 
-Current work is M5 mobile and robustness. M4 source/assets and the current reference inventory are complete, with human/physical acceptance still open. The M0–M3 source implementation includes offline modes, protected guest identities, the complete local HTTPS directory/menu path and settings/accessibility contracts; historical checkpoints and their remaining human/device acceptance boundaries follow below. Four original cars, six scenery kits, original audio and bounded driving feedback now replace their placeholders. M4 human/physical reviews and M5–M6 remain. Neither official region is hosted, and physical-device gates remain open.
+Current work is the owner-approved content-5 handling/elevation revision and its
+M5 regression checks. M0–M4 source features and release infrastructure exist;
+current validation is described by dated checkpoints below. M6 packages, store
+materials and operator tooling are being prepared. Official hosted regions,
+publisher identity/signing and human handling review remain separate owner inputs.
+Historical references to physical-device gates are superseded by the emulator-only
+owner decision above.
 
 ## M0 — toolchain and contracts
 
@@ -691,3 +697,33 @@ Clean-commit local Build **88** (`f6a5769`) completes all six actual exported ra
 Build **87** passes remote gates and publishes all **18 files** as [v0.0.87-dev](https://github.com/maccam912/racinggame/releases/tag/v0.0.87-dev), including the schema-4 request operator and real backup/restore drill. Build 88's new native/software-GL foliage gate is still running at this checkpoint.
 
 Before changing gameplay content, the exact content-4 configurations plus a frozen profile/record/ghost/Cup/in-progress race fixture are saved under `tests/fixtures/content4`. Their explicit synthetic-record boundary and byte hashes are retained for transition checks. The new candidate profiles and car parameters remain prototypes at this checkpoint; no content-5 release is claimed yet.
+
+## Content 5 — faster handling and steeper courses, validation in progress
+
+[The tuning revision](ARCADE_TUNING.md) documents the four revised cars, six new
+elevation profiles (49–103 m ranges, up to 23.9% grade), longer Summit flight,
+28 original 3D structure frames, slope-following cars/camera and conformed bridge
+artwork. All X/Z control points and 30 named landmarks remain. DESIGN.md v1.4
+publishes the new numeric contract. Content 4 archive bytes remain frozen.
+
+The intermediate .70 Summit candidate passes 360 field races / 2,880 finishes,
+zero DNFs/recoveries, and an automated six-course three-lap car comparison has
+aggregate median times within 0.9%. Outside-line 95 m/s testing then requires
+the final .68 ramp: all 60 actual-course landing cases pass, with no recovery
+and at most .85 s airtime. The 15 straight slope/speed fixtures also pass. Final
+full AI, source, native and network evidence will be recorded after completion.
+
+Build 89 exports all platforms but its packaged Linux worker gate fails: one
+clear-road sample count is 476 against the required 500 in a two-lap race. All
+16 finishes, standings, accuracy and wire checks pass; it is not published. The
+next gate uses three laps, retaining the 500-sample and .25 m p95 requirements,
+and prints the actual nested failure into CI logs. Longer CI soak likewise uses
+three laps. Build 88 remains the latest verified public release with 18 files.
+
+All **89 source commands pass** on the final content-5 configuration. All **111
+shipped scripts compile**. The actual native six-course GPU warm-up/readback,
+retry/cancel/background and ENet Loaded checks also pass. Native views of all
+six new structure sequences were inspected, including the repaired Summit
+viaduct. [Source/numeric/render evidence](evidence/content5/) retains the current
+gameplay and cosmetic identities. The final full AI run, ten-race impaired soak
+and matching exported Android/desktop follow-up are still running or pending.

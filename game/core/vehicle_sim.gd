@@ -17,7 +17,9 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 		return
 	var old_grounded := state.grounded
 	var ground: Dictionary = query.ground(state)
-	state.grounded = ground.supported and state.launch_ticks == 0 and (old_grounded or state.velocity.y <= 1.0)
+	# Landing is relative to the supported plane. A car following an uphill
+	# road can move upward in world space while descending toward the road.
+	state.grounded = ground.supported and state.launch_ticks == 0 and (old_grounded or state.velocity.dot(ground.normal) <= 1.0)
 	state.launch_ticks = maxi(0, state.launch_ticks - 1)
 	state.ground_normal = ground.normal if state.grounded else Vector3.UP
 	state.surface = ground.surface

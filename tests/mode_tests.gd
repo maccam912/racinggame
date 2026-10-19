@@ -48,14 +48,14 @@ func run() -> void:
 		Input.parse_input_event(released)
 	Input.flush_buffered_events()
 	check(drive.state.finished and drive.state.trial_valid, "standing trial completes valid with shared input/controller")
-	check(drive.ghost_samples.size() > 1000, "trial records at 20 Hz")
+	check(absf(drive.ghost_samples.size()-drive.state.finish_time*20)<3, "trial records at 20 Hz through the exact finish, independent of lap duration")
 	var result := data.commit_result(drive.session, drive.ghost_samples)
 	check(result.saved and result.new_best, "real trial saves a new best and matching ghost")
 	var loaded := data.load_ghost(drive.track.id, drive.car.id)
 	check(not loaded.is_empty() and absf(float(loaded.time) - drive.state.finish_time) < .00000001, "ghost preserves exact sub-tick finish")
 	var comparison := TrialDelta.new()
 	comparison.build(drive.track,loaded)
-	check(comparison.progress.size()>1000,"real saved standing-start ghost supplies the live delta lookup")
+	check(comparison.progress.size()==loaded.samples.size(),"real saved standing-start ghost supplies the live delta lookup")
 	var probe := VehicleState.new()
 	probe.last_gate = 0
 	var worst_delta := 0.0

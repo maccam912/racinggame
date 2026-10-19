@@ -21,7 +21,7 @@ func _initialize() -> void:
 		if launch_ticks == 0 and state.speed() >= 100.0 / 3.6:
 			launch_ticks = tick + 1
 		check(state.speed() <= car.top_speed + 0.001, "flat powered speed cap")
-	check(launch_ticks >= 120 and launch_ticks <= 180, "0–100 km/h: %f s" % (launch_ticks / 60.0))
+	check(launch_ticks >= 90 and launch_ticks <= 120, "0–100 km/h: %f s" % (launch_ticks / 60.0))
 	check(absf(state.position.x) < 0.0001, "zero-steer launch has no lateral drift")
 	state.velocity = Vector3(0, 0, -100.0 / 3.6)
 	state.position = Vector3(0, 0.35, 0)

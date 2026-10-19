@@ -73,7 +73,7 @@ func capture_case(description: Dictionary) -> void:
 	world.build(track)
 	scene.add_child(world)
 	var start: float = 370.0 if str(description.id).begins_with("bend") or description.id=="touch" else 80.0
-	if description.id=="jump": start = fposmod(.72*track.length-track.start_sample*2,track.length)-18
+	if description.id=="jump": start = fposmod(float(track.definition.ramp_markers[0])*track.length-track.start_sample*2,track.length)-18
 	var pose := track.pose(start,9 if description.id=="wall" else -4 if description.id=="slide" else 0)
 	var state := VehicleState.new()
 	state.position = pose.origin+Vector3.UP*.35

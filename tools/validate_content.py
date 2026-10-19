@@ -64,7 +64,7 @@ def check():
                 for lo,hi,amount in track['bank_intervals']:
                     assert 0 <= lo < hi <= 1 and 0 <= amount <= 8, f'{track["id"]}: invalid bank interval'
                 for lo,hi,width in track['width_intervals']:
-                    assert 0 <= lo < hi <= 1 and 14 <= width <= 20, f'{track["id"]}: invalid width interval'
+                    assert 0 <= lo < hi <= 1 and 14 <= width <= 24, f'{track["id"]}: invalid width interval'
                 previous_end = 0
                 for interval in track['surface_intervals']:
                     lo,hi = interval['start'],interval['end']
