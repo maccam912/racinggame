@@ -9,6 +9,8 @@ signal context_changed
 var ui: Variant
 var subject: String = ""
 var labels: Array[String] = []
+var disabled_items: Dictionary = {}
+var cancel_choice: Button
 var selected: int = 0:
 	set(value):
 		selected = clampi(value,0,maxi(0,labels.size()-1))
@@ -36,6 +38,16 @@ func _ready() -> void:
 func add_item(caption: String) -> void:
 	labels.append(caption)
 	selected = selected
+
+func set_item_disabled(index: int, value: bool) -> void:
+	if index<0 or index>=labels.size():
+		return
+	disabled_items[index] = value
+	if is_instance_valid(sheet) and index<choices.size():
+		choices[index].disabled = value
+
+func is_item_disabled(index: int) -> bool:
+	return bool(disabled_items.get(index,false))
 
 func _draw() -> void:
 	if ui==null:
@@ -72,10 +84,12 @@ func open_sheet() -> void:
 	choices.clear()
 	for index: int in range(labels.size()):
 		var button: Button = ui.button(labels[index],func() -> void: choose(index))
+		button.disabled = is_item_disabled(index)
 		button.modulate = UIFactory.TURQUOISE if index==selected else Color.WHITE
 		list.add_child(button)
 		choices.append(button)
-	column.add_child(ui.button(I18n.t("button.cancel"),close_sheet))
+	cancel_choice = ui.button(I18n.t("button.cancel"),close_sheet)
+	column.add_child(cancel_choice)
 	get_viewport().size_changed.connect(layout_sheet)
 	add_to_group("mobile_choice_sheets")
 	layout_sheet()
@@ -83,8 +97,16 @@ func open_sheet() -> void:
 	focus_choice.call_deferred()
 
 func focus_choice() -> void:
-	if is_inside_tree() and is_instance_valid(sheet) and selected<choices.size() and is_instance_valid(choices[selected]):
+	if not is_inside_tree() or not is_instance_valid(sheet):
+		return
+	if selected<choices.size() and is_instance_valid(choices[selected]) and not choices[selected].disabled:
 		choices[selected].grab_focus()
+		return
+	for button: Button in choices:
+		if not button.disabled:
+			button.grab_focus()
+			return
+	cancel_choice.grab_focus()
 
 func layout_sheet() -> void:
 	if not is_inside_tree() or not is_instance_valid(sheet):
@@ -96,7 +118,7 @@ func layout_sheet() -> void:
 	panel.size = Vector2(width,safe.size.y*.90)
 
 func choose(index: int) -> void:
-	if index<0 or index>=labels.size():
+	if index<0 or index>=labels.size() or is_item_disabled(index):
 		return
 	selected = index
 	close_sheet()

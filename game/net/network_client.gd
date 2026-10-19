@@ -295,6 +295,8 @@ func leave_room() -> void:
 	deliberate_leave = true
 	command("leave")
 	wire.poll()
+	if wire.peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
+		wire.peer.get_host().flush()
 	connected = false
 
 

@@ -83,6 +83,7 @@ func heartbeat_complete(result: int, status: int, _headers: PackedStringArray, b
 			continue
 		leave_requested.emit(command.guest_id)
 		acknowledged.append(command.id)
+	if not acknowledged.is_empty(): next_heartbeat = 0
 	if response.drain:
 		retired = true
 		healthy = false

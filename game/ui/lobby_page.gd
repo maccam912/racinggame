@@ -19,9 +19,15 @@ func show_lobby() -> void:
 	var state: Dictionary = app.network.lobby
 	shown_revision = int(state.revision)
 	var shell: MenuShell = app.menu
-	var body := shell.reset(I18n.t("online.lobby"), state.name + " • " + state.region)
+	var region_name: String = state.region
+	if app.network.official:
+		for region: Dictionary in app.regions.regions:
+			if region.id==state.region: region_name = I18n.t(region.name_key)
+	var body := shell.reset(I18n.t("online.lobby"), state.name + " • " + region_name)
 	var list := shell.scroll_column(body)
 	app.append_unsaved_results(list)
+	if app.network.official and is_instance_valid(app.guest_service.identity) and app.guest_service.identity.state=="session_only":
+		list.add_child(shell.ui.paragraph(I18n.t("online.session_only")))
 	var rules: Dictionary = state.rules
 	list.add_child(shell.ui.label(I18n.t("track." + Catalog.tracks[int(rules.track)].id) + " • " + I18n.t("event.laps") + ": " + str(int(rules.laps)) + " • " + I18n.t("event.contact") + ": " + I18n.t("choice.on" if rules.contact else "choice.off")))
 	var preview := RoutePreview.new()

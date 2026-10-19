@@ -253,6 +253,7 @@ func receive(packet: Dictionary) -> void:
 		"leave":
 			if lobby.phase == LobbyState.Phase.LOBBY:
 				lobby.leave(player.id)
+				if is_instance_valid(directory_link): directory_link.next_heartbeat = 0
 			else:
 				if session and not session.states[int(player.slot)].finished:
 					session.states[int(player.slot)].dnf_reason = "Left race"
@@ -399,6 +400,7 @@ func disconnect_peer(peer_id: int) -> void:
 		return
 	if lobby.phase == LobbyState.Phase.LOBBY:
 		lobby.leave(player.id)
+		if is_instance_valid(directory_link): directory_link.next_heartbeat = 0
 	else:
 		player.connected = false
 		player.disconnected_tick = tick
@@ -439,6 +441,7 @@ func remove_guest(id: String) -> void:
 	wire.event(peer_id, {"type":"error", "message":"Left room"})
 	if lobby.phase == LobbyState.Phase.LOBBY:
 		lobby.leave(id)
+		if is_instance_valid(directory_link): directory_link.next_heartbeat = 0
 	else:
 		if session and not session.states[int(player.slot)].finished:
 			session.states[int(player.slot)].dnf_reason = "Left race"

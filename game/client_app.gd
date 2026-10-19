@@ -26,6 +26,11 @@ var touch_editor_return: Callable
 var lobby_page: LobbyPage
 var prepared_world: TrackWorld
 var online_result_label: Label
+var guest_service := GuestIdentityService.new()
+var directory_client := DirectoryClient.new()
+var regions := RegionBook.new()
+var online_page: OnlinePage
+var online_status: Label
 
 
 func _ready() -> void:
@@ -55,6 +60,14 @@ func _ready() -> void:
 	add_child(menu_repeat)
 	menu.context_changed.connect(menu_repeat.clear_context)
 	lobby_page = LobbyPage.new(self)
+	guest_service.configure(data)
+	add_child(guest_service)
+	add_child(directory_client)
+	add_child(regions)
+	regions.configure(OS.get_cmdline_user_args())
+	online_page = OnlinePage.new(self)
+	add_child(online_page)
+	directory_client.status_changed.connect(update_online_status)
 	if "--drive" in OS.get_cmdline_user_args():
 		start_drive()
 	elif not data.profile.first_run_complete:
@@ -82,6 +95,7 @@ func dispose_drive(keep_network: bool = false) -> void:
 		drive.queue_free()
 		drive = null
 	if not keep_network and is_instance_valid(network):
+		if is_instance_valid(online_page): online_page.depart_active_room()
 		network.leave_room()
 		network.queue_free()
 		network = null
@@ -91,6 +105,7 @@ func dispose_drive(keep_network: bool = false) -> void:
 
 
 func show_menu() -> void:
+	if is_instance_valid(online_page): online_page.cancel_work()
 	dispose_drive()
 	ensure_stage()
 	page = "main"
@@ -113,7 +128,9 @@ func show_menu() -> void:
 	var spacer := Control.new()
 	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	menu.footer.add_child(spacer)
-	menu.footer.add_child(menu.ui.label(build_name() + " • " + I18n.t("menu.offline")))
+	online_status = menu.ui.label("")
+	menu.footer.add_child(online_status)
+	update_online_status("online" if directory_client.online() else "offline")
 	show_notices()
 
 
@@ -512,13 +529,12 @@ func show_school_complete() -> void:
 
 
 func show_online() -> void:
-	page = "online"
-	back_action = show_menu
-	var body := menu.reset(I18n.t("online.title"))
-	body.add_child(menu.ui.paragraph(I18n.t("online.unavailable")))
-	body.add_child(menu.ui.button(I18n.t("online.direct"), show_connection_form))
-	menu.add_back(show_menu)
-	menu.first_focus()
+	online_page.show_hub()
+
+
+func update_online_status(state: String) -> void:
+	if is_instance_valid(online_status) and page=="main":
+		online_status.text = build_name()+" • "+I18n.t("menu."+{"connecting":"connecting","online":"online_status"}.get(state,"offline"))
 
 
 func show_connection_form() -> void:
@@ -545,7 +561,7 @@ func show_connection_form() -> void:
 	address.call_deferred("grab_focus")
 
 
-func connect_address(value: String, code_value: String = "") -> void:
+func connect_address(value: String, code_value: String = "", admission_ticket: String = "") -> void:
 	var address := PeerAddress.parse(value)
 	if address.is_empty():
 		connection_label.text = I18n.t("online.address_error")
@@ -559,6 +575,7 @@ func connect_address(value: String, code_value: String = "") -> void:
 	network = NetworkClient.new()
 	add_child(network)
 	network.room_code = checked_code.value
+	network.admission_ticket = admission_ticket
 	network.initial_car = int(data.profile.selected_car)
 	network.initial_paint = int(data.profile.selected_paint)
 	network.loading_requested.connect(prepare_online)
@@ -642,6 +659,9 @@ func online_results(rows: Array) -> void:
 
 
 func show_connection_lost(message: String) -> void:
+	if is_instance_valid(online_page) and online_page.pending=="connecting" and page=="connect":
+		online_page.fail("room_unavailable")
+		return
 	dispose_drive()
 	page = "connection_lost"
 	back_action = show_online

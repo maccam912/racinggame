@@ -345,7 +345,7 @@ func reset_local(all_data: bool) -> Error:
 	else:
 		profile.trophies = []
 		if not cup.data.is_empty() and int(cup.data.next_event) == 6:
-			profile.trophy_reset_cups = profile.get("trophy_reset_cups", [])
+			profile["trophy_reset_cups"] = profile.get("trophy_reset_cups", [])
 			if not cup.data.id in profile.trophy_reset_cups:
 				profile.trophy_reset_cups.append(cup.data.id)
 		return save_profile()

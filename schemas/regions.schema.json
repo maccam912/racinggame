@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Official regional service endpoints; blank until deployment",
+  "type": "object",
+  "required": ["schema_version", "regions"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "regions": {
+      "type": "array", "minItems": 2, "maxItems": 2,
+      "items": {
+        "type": "object", "required": ["id", "name_key", "url"], "additionalProperties": false,
+        "properties": {
+          "id": {"type": "string", "enum": ["us-central", "europe-west"]},
+          "name_key": {"type": "string", "enum": ["online.us", "online.eu"]},
+          "url": {"type": "string", "maxLength": 300, "pattern": "(|https://[^\\s@?#/]+/?)"}
+        }
+      }
+    }
+  }
+}

@@ -18,6 +18,7 @@ var phase: String = ""
 var deadline: int = 0
 var pending_session: Dictionary = {}
 var request_timeout: float = 8.0
+var departures: Dictionary = {}
 
 func configure(app_data: AppData, service: GuestIdentityService, url: String, ca: X509Certificate = null) -> Error:
 	if busy():
@@ -44,7 +45,7 @@ func online() -> bool:
 	return not session_token.is_empty() and int(Time.get_unix_time_from_system())<session_expiry and data!=null and session_name==data.profile.display_name
 
 func begin(kind: String, payload: Dictionary = {}) -> Error:
-	if busy() or not is_instance_valid(identity_service) or identity_service.busy():
+	if busy() or not is_instance_valid(identity_service) or identity_service.busy() and kind not in ["rooms","regions"]:
 		return ERR_BUSY
 	if base.is_empty() or data==null or not kind in ["authenticate","regions","rooms","create","join","code","leave"]:
 		return ERR_INVALID_PARAMETER
@@ -56,6 +57,8 @@ func begin(kind: String, payload: Dictionary = {}) -> Error:
 		return ERR_INVALID_DATA
 	if kind=="code" and (not payload.get("code") is String or not PeerAddress.parse_code(payload.code).valid or payload.code.is_empty()):
 		return ERR_INVALID_DATA
+	if kind=="join" and departures.has(str(payload.room_id)):
+		return ERR_BUSY
 	var checked := PlayerName.validate(data.profile.display_name)
 	if not checked.valid:
 		return ERR_INVALID_DATA
@@ -127,6 +130,7 @@ func send(path: String, method: HTTPClient.Method, body: Dictionary = {}, author
 		finish(false,"timeout")
 		return
 	var current := HTTPRequest.new()
+	current.use_threads = true
 	current.timeout = minf(request_timeout,maxf(.1,float(deadline-Time.get_ticks_msec())/1000.0))
 	current.max_redirects = 0
 	current.body_size_limit = 262144
@@ -168,7 +172,7 @@ func response(result: int, status: int, bytes: PackedByteArray) -> void:
 		return
 	if status<200 or status>=300:
 		var code := "service_unavailable"
-		if payload.get("error") is Dictionary and payload.error.get("code") is String and payload.error.code in ["rate_limited","room_unavailable","room_full","invalid_name","invalid_rules","invalid_auth","invalid_guest","incompatible","no_capacity"]:
+		if payload.get("error") is Dictionary and payload.error.get("code") is String and payload.error.code in ["rate_limited","room_unavailable","room_full","invalid_name","invalid_rules","invalid_auth","invalid_guest","incompatible","no_capacity","capacity"]:
 			code = payload.error.code
 		finish(false,"room_unavailable" if job.kind=="code" and status!=429 else code)
 		return
@@ -226,6 +230,26 @@ func cancel() -> void:
 	if is_instance_valid(identity_service):
 		identity_service.cancel()
 	status_changed.emit("online" if online() else "offline")
+
+func depart(room: String) -> void:
+	# A best-effort HTTPS leave survives ordinary menu cancellation. ENet also
+	# flushes its leave packet; this path releases directory reservations.
+	if base.is_empty() or session_token.is_empty() or not GuestIdentity.valid_uuid(room) or departures.has(room):
+		return
+	var current := HTTPRequest.new()
+	current.use_threads = true
+	current.timeout = 3.0
+	current.max_redirects = 0
+	current.body_size_limit = 8192
+	if certificate!=null: current.set_tls_options(TLSOptions.client(certificate))
+	add_child(current)
+	departures[room] = current
+	current.request_completed.connect(func(_result: int,_status: int,_headers: PackedStringArray,_bytes: PackedByteArray) -> void:
+		if departures.get(room)==current: departures.erase(room)
+		current.queue_free())
+	if current.request(base+"/v1/rooms/"+room+"/leave",PackedStringArray(["Content-Type: application/json","Authorization: Bearer "+session_token]),HTTPClient.METHOD_POST,"{}")!=OK:
+		departures.erase(room)
+		current.queue_free()
 
 func forget_session() -> void:
 	cancel()

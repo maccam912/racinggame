@@ -46,13 +46,16 @@ def validate(value, schema, path='$'):
 
 
 def check():
-    for name in ('cars','tracks','rules'):
+    for name in ('cars','tracks','rules','regions'):
         schema = json.loads((ROOT/f'schemas/{name}.schema.json').read_text())
         value = json.loads((ROOT/f'game/content/{name}.json').read_text())
         validate(value,schema,name)
         if name in ('cars','tracks'):
             ids = [record['id'] for record in value[name]]
             assert len(ids) == len(set(ids)), f'{name}: duplicate IDs'
+        if name == 'regions':
+            expected = {'us-central':'online.us','europe-west':'online.eu'}
+            assert {row['id']:row['name_key'] for row in value['regions']} == expected, 'regions: require both named launch regions exactly once'
         if name == 'tracks':
             for track in value[name]:
                 assert track['baked_route_id'] == f'res://game/content/baked/{track["id"]}.json', f'{track["id"]}: mismatched bake ID'

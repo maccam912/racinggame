@@ -1,0 +1,27 @@
+{
+  "passed": true,
+  "transport": "HTTPS with scoped isolated CA; no system trust changes",
+  "identity_backend": "game OS-protected adapter when available, otherwise explicit session-only identity",
+  "menu": true,
+  "visual": true,
+  "checks": [
+    "three verified region probes",
+    "create form rules and official lobby",
+    "public browser row admission",
+    "formatted private code join",
+    "code show/hide",
+    "Quick Join",
+    "same guest UUID across menu joins",
+    "Data reset erases protected identity"
+  ],
+  "actual_identity_backend": "Keychain",
+  "profile_cleanup": true,
+  "source_commit": "cbc61ab7d43e1d9d13f4dc7fd6325a9dbeb842a3",
+  "working_tree_dirty": true,
+  "ui_scale": 150,
+  "platform": "macOS ARM64 native graphical window",
+  "limits": [
+    "Source worktree fixture, not a clean exported release.",
+    "No hosted regions or physical Android acceptance are established."
+  ]
+}

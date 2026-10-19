@@ -10,6 +10,7 @@ var revert_timer: Timer
 var display_modal: ConfirmationDialog
 var display_generation: int = 0
 var pending_focus: String = ""
+var reset_pending: bool = false
 
 
 func _init(owner_app: Node) -> void:
@@ -17,7 +18,7 @@ func _init(owner_app: Node) -> void:
 
 
 func show_tab(selected: String, return_to: Callable) -> void:
-	if not is_instance_valid(app) or not app.is_inside_tree():
+	if reset_pending or not is_instance_valid(app) or not app.is_inside_tree():
 		return
 	finish_display(false, display_generation, false)
 	back = return_to
@@ -258,18 +259,51 @@ func restore_this_tab() -> void:
 
 
 func reset_data(all_data: bool) -> void:
+	if reset_pending:
+		return
+	if all_data:
+		reset_pending = true
+		app.online_page.cancel_work()
+		app.dispose_drive()
+		app.directory_client.forget_session()
+		app.back_action = Callable()
+		var controls: Array[Dictionary] = []
+		for control: BaseButton in app.menu.root.find_children("*","BaseButton",true,false):
+			controls.append({"control":control,"disabled":control.disabled})
+			control.disabled = true
+		status.text = I18n.t("data.resetting")
+		var deadline := Time.get_ticks_msec()+10000
+		while app.guest_service.busy() and Time.get_ticks_msec()<deadline:
+			await app.get_tree().process_frame
+		if app.guest_service.busy() or app.guest_service.begin("erase")!=OK:
+			restore_reset_controls(controls,"online.storage_busy")
+			return
+		var erased: Dictionary = await app.guest_service.completed
+		if not erased.ok:
+			restore_reset_controls(controls,"online.identity_unavailable")
+			return
 	var error: Error = app.data.reset_local(all_data)
-	if error != OK:
+	if error!=OK:
+		if all_data:
+			reset_pending = false
+			show_tab("data",app.show_menu)
 		status.text = I18n.t("data.save_failed")
 		return
 	app.unsaved_results.clear()
 	app.result_receipt = null
+	reset_pending = false
 	if all_data:
-		if app.drive:
-			app.dispose_drive()
+		BindingBook.apply(app.data.settings.bindings)
+		app.menu.settings = app.data.settings
+		SettingsRuntime.apply(app,app.data.settings)
 		app.show_name(true)
 	else:
-		show_tab("data", back)
+		show_tab("data",back)
+
+func restore_reset_controls(_controls: Array[Dictionary], key: String) -> void:
+	reset_pending = false
+	show_tab("data",app.show_menu)
+	if is_instance_valid(status): status.text = I18n.t(key)
 
 
 func export_diagnostics() -> void:

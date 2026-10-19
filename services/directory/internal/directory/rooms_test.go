@@ -349,3 +349,47 @@ func TestOperatorBanRevokesAdmissionAndQueuesLiveRemoval(t *testing.T) {
 		t.Fatal("unban did not restore authorization", err)
 	}
 }
+
+func TestRejoinWaitsForLeaveAcknowledgement(t *testing.T) {
+	s, _ := testService(t)
+	a := newAllocator(s)
+	host, guest := guestFor(t, s), guestFor(t, s)
+	created := createFor(t, s, host, false)
+	allocation := a.get(created.Worker)
+	ctx := context.Background()
+	joined, err := s.JoinRoom(ctx, guest, created.Room, 3, s.config.Content)
+	if err != nil {
+		t.Fatal(err)
+	}
+	old := claimsFor(t, s, joined)
+	if err = s.Consume(ctx, allocation.ID, allocation.Token, guest.Guest, old.Nonce); err != nil {
+		t.Fatal(err)
+	}
+	if err = s.LeaveRoom(ctx, guest, created.Room); err != nil {
+		t.Fatal(err)
+	}
+	heartbeat := heartbeatFor(allocation, "Lobby", []string{host.Guest, guest.Guest})
+	reply, err := s.Heartbeat(ctx, allocation.ID, allocation.Token, heartbeat)
+	if err != nil || len(reply.Commands) != 1 {
+		t.Fatal("leave delivery", err)
+	}
+	_, err = s.JoinRoom(ctx, guest, created.Room, 3, s.config.Content)
+	expectCode(t, err, "room_unavailable")
+	heartbeat.Guests = []string{host.Guest}
+	heartbeat.Acknowledged = []string{reply.Commands[0].ID}
+	if _, err = s.Heartbeat(ctx, allocation.ID, allocation.Token, heartbeat); err != nil {
+		t.Fatal(err)
+	}
+	joined, err = s.JoinRoom(ctx, guest, created.Room, 3, s.config.Content)
+	if err != nil {
+		t.Fatal("acknowledged rejoin", err)
+	}
+	fresh := claimsFor(t, s, joined)
+	if fresh.Nonce == old.Nonce {
+		t.Fatal("ticket nonce reused")
+	}
+	expectCode(t, s.Consume(ctx, allocation.ID, allocation.Token, guest.Guest, old.Nonce), "admission_expired")
+	if err = s.Consume(ctx, allocation.ID, allocation.Token, guest.Guest, fresh.Nonce); err != nil {
+		t.Fatal("fresh consume", err)
+	}
+}

@@ -66,6 +66,17 @@ func _initialize() -> void:
 	var after_failure := AppData.new(folder, false)
 	check(after_failure.profile.races_completed == 4 and after_failure.records.pending.is_empty(), "cold reload completes pending statistics journal")
 	check(AppData.new(folder, false).profile.races_completed == 4, "recovered journal cannot count twice")
+	app.store.fail_stage = ""
+	app.store.fail_component = ""
+	check(app.start_cup()==OK,"create trophy reset fixture")
+	var order: Array[Dictionary] = []
+	for id: String in ["local"]+app.cup.data.roster.filter(func(row: Dictionary) -> bool: return row.bot).map(func(row: Dictionary) -> String: return row.id):
+		order.append({"id":id,"dnf":"","time":60.0+order.size(),"best_lap":30.0,"distance_m":100.0})
+	for event in range(6): check(app.cup.commit(event,RaceSetup.uuid(),order),"complete trophy fixture event")
+	check(app.store.save_component("cup",app.cup.data)==OK and app.reconcile_cup_profile()==OK,"persist completed Cup trophy")
+	check(app.profile.trophies.size()==1,"completed Cup earns trophy")
+	check(app.reset_local(false)==OK,"record reset persists trophy suppression for a completed Cup")
+	check(AppData.new(folder,false).profile.trophies.is_empty(),"cold reload cannot resurrect a reset Cup trophy")
 	remove_tree(ProjectSettings.globalize_path(folder))
 	print("App data fixtures: platform settings, tab restore, records/ghosts and idempotent stats; failures %d" % failures)
 	quit(1 if failures else 0)

@@ -56,12 +56,18 @@ func TestTLSRoomAPIAndPrivateListenerIsolation(t *testing.T) {
 	claim := claimsFor(t, s, joined)
 	request(http.DefaultClient, private.URL, "POST", "/workers/"+allocation.ID+"/consume", allocation.Token, map[string]string{"guest_id": session.Guest, "nonce": claim.Nonce}, 200)
 	request(public.Client(), public.URL, "POST", "/v1/rooms/"+joined.Room+"/leave", session.Token, map[string]any{}, 204)
-	// A new join cancels an undelivered old leave command.
-	request(public.Client(), public.URL, "POST", "/v1/rooms/"+joined.Room+"/join", session.Token, map[string]any{"protocol": 3, "content_hash": s.config.Content}, 200)
+	// A leave must be acknowledged before this guest can receive a new ticket.
+	request(public.Client(), public.URL, "POST", "/v1/rooms/"+joined.Room+"/join", session.Token, map[string]any{"protocol": 3, "content_hash": s.config.Content}, 409)
 	reply, err := s.Heartbeat(context.Background(), allocation.ID, allocation.Token, heartbeat)
-	if err != nil || len(reply.Commands) != 0 {
-		t.Fatal("old leave could remove rejoining guest", reply, err)
+	if err != nil || len(reply.Commands) != 1 {
+		t.Fatal("leave delivery", reply, err)
 	}
+	heartbeat.Acknowledged = []string{reply.Commands[0].ID}
+	reply, err = s.Heartbeat(context.Background(), allocation.ID, allocation.Token, heartbeat)
+	if err != nil || len(reply.Commands) != 0 {
+		t.Fatal("leave acknowledgement", reply, err)
+	}
+	request(public.Client(), public.URL, "POST", "/v1/rooms/"+joined.Room+"/join", session.Token, map[string]any{"protocol": 3, "content_hash": s.config.Content}, 200)
 	// Forwarded headers never grant access to the separate private interface.
 	req := httptest.NewRequest("POST", path, bytes.NewReader([]byte(`{}`)))
 	req.RemoteAddr = "192.0.2.5:4000"

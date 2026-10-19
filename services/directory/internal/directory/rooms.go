@@ -295,6 +295,16 @@ func (s *Service) joinRoom(ctx context.Context, session Session, id string, prot
 		_ = tx.Commit()
 		return JoinReply{}, unavailable
 	}
+	// A delivered-but-unacknowledged leave could otherwise evict a fresh
+	// admission for the same guest. Wait until the worker confirms removal.
+	var leaving int
+	if err = tx.QueryRowContext(ctx, `SELECT count(*) FROM worker_commands WHERE worker=? AND kind='leave' AND guest=?`, room.worker, session.Guest).Scan(&leaving); err != nil {
+		return JoinReply{}, err
+	}
+	if leaving != 0 {
+		_ = tx.Commit()
+		return JoinReply{}, unavailable
+	}
 	set, err := occupants(ctx, tx, room, now)
 	if err != nil {
 		return JoinReply{}, err
@@ -317,9 +327,6 @@ func (s *Service) joinRoom(ctx context.Context, session Session, id string, prot
 		return JoinReply{}, err
 	}
 	if _, err = tx.ExecContext(ctx, `INSERT INTO reservations(room,guest,nonce,expires,ticket_expires) VALUES(?,?,?,?,?) ON CONFLICT(room,guest) DO UPDATE SET nonce=excluded.nonce,expires=excluded.expires,ticket_expires=excluded.ticket_expires,consumed=0`, id, session.Guest, claims.Nonce, now+15, claims.Expires); err != nil {
-		return JoinReply{}, err
-	}
-	if _, err = tx.ExecContext(ctx, `DELETE FROM worker_commands WHERE worker=? AND kind='leave' AND guest=?`, room.worker, session.Guest); err != nil {
 		return JoinReply{}, err
 	}
 	if err = tx.Commit(); err != nil {
