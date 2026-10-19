@@ -9,11 +9,19 @@ import shlex
 import subprocess
 import sys
 import tempfile
+import uuid
 from bootstrap import ROOT
 
 
+def engine_commands():
+    scope = 'test:'+str(uuid.uuid4())
+    return [['--headless','--editor','--import','--quit'],['--headless','--script','tests/native_store_tests.gd']] + [
+        ['--headless','--','--protected-store-probe','--probe-scope='+scope,'--probe-action='+action]
+        for action in ['write','read','replace','read_replaced','erase']]
+
+
 def engine_tests():
-    for args in [['--headless','--editor','--import','--quit'],['--headless','--script','tests/native_store_tests.gd']]:
+    for args in engine_commands():
         subprocess.run([sys.executable,str(ROOT/'tools/godot.py'),*args],cwd=ROOT,check=True)
 
 
@@ -64,7 +72,7 @@ def linux_child():
             daemon.stdin.write(secrets.token_hex(24).encode())
             daemon.stdin.close()
             subprocess.run(['gdbus','wait','--session','--timeout=10','org.freedesktop.secrets'],env=environment,check=True)
-            for args in [['--headless','--editor','--import','--quit'],['--headless','--script','tests/native_store_tests.gd']]:
+            for args in engine_commands():
                 subprocess.run([sys.executable,str(ROOT/'tools/godot.py'),*args],cwd=ROOT,env=environment,check=True)
         finally:
             daemon.terminate()

@@ -3,6 +3,9 @@ extends Node3D
 
 
 func _ready() -> void:
+	if "--protected-store-probe" in OS.get_cmdline_user_args():
+		add_child(load("res://game/platform/protected_store_probe.gd").new())
+		return
 	if "--platform-probe" in OS.get_cmdline_user_args():
 		if not ClassDB.class_exists("PacificPlatform"):
 			push_error("PACIFIC_PLATFORM_MISSING")

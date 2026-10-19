@@ -1,0 +1,45 @@
+{
+  "kind": "exported ARM64 Android emulator; physical hardware key backing not established",
+  "apk_sha256": "f8c01973869908e9ba9f3ffde097ba552054eceb78f995f2c14039b585933471",
+  "cold_processes": true,
+  "tamper_rejected": true,
+  "replacement": true,
+  "steps": {
+    "write": true,
+    "read": true,
+    "replace": true,
+    "read_replaced": true,
+    "erase": true,
+    "cleanup": true
+  },
+  "errors": [],
+  "passed": true,
+  "build": {
+    "version": "0.0.40-dev",
+    "build_number": 40,
+    "working_tree_dirty": true,
+    "commit": "75b48d97c5f10613ae146c9f96d3bfde6a2667f5",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "78e8df7a34088aade409918658a3cd1d62b2a53c12b2779d52b2ac0ffcc6f078",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "63a9d2b77947e27c6a39a318e564426575ae3e7344b4393502f3656566b3a900",
+      "sha256": "6a63b31ddbda12151c42553e59d9cea38c03229d40f89ff4913b6081c855981b"
+    }
+  },
+  "limits": [
+    "Local Build 40 includes an uncommitted storage worktree; not a clean CI release.",
+    "The emulator does not establish hardware-backed storage or physical device behavior."
+  ]
+}
