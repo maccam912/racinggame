@@ -6,6 +6,7 @@ Godot. Uses diagnostic autodrive, normal lobby timers and actual authority rows.
 Keeps unrelated profiles and archives only the unique QA profile it creates.
 """
 import argparse
+from datetime import datetime, timezone
 import hashlib
 import json
 from pathlib import Path
@@ -21,6 +22,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--serial', required=True)
     parser.add_argument('--number', required=True, type=int)
+    parser.add_argument('--ui-scale', type=int, choices=[100,125,150], default=100)
     parser.add_argument('--adb', default=str(Path.home()/'Library/Android/sdk/platform-tools/adb'))
     args = parser.parse_args()
     adb = [args.adb, '-s', args.serial]
@@ -49,7 +51,7 @@ def main():
               'apk_sha256': hashlib.sha256(apk.read_bytes()).hexdigest(),
               'serial': args.serial, 'model': device('shell', 'getprop', 'ro.product.model').decode().strip(),
               'android_release': device('shell', 'getprop', 'ro.build.version.release').decode().strip(),
-              'profile': profile, 'transport': 'Local real ENet; Android emulator host gateway and native loopback',
+              'profile': profile, 'ui_scale': args.ui_scale, 'transport': 'Local real ENet; Android emulator host gateway and native loopback',
               'boundary': 'Installed release APK with diagnostic autodrive and seven native shared-controller clients. Normal lobby/results timers, original graphics/HUD and actual authority. Automated emulator cross-play; not physical touch, cellular, thermal, human feel or ten-race impaired-network acceptance.'}
     android_log = ''
 
@@ -76,6 +78,19 @@ def main():
     try:
         device('install', '-r', str(apk))
         device('shell', 'am', 'force-stop', 'dev.pacificrush.game')
+        if args.ui_scale != 100:
+            # Seed only this brand-new owned QA profile while the app is stopped.
+            # Partial mobile settings merge with normal shipped defaults.
+            settings = {'schema_version':1,'saved_at_utc':datetime.now(timezone.utc).isoformat(),
+                        'payload':{'desktop':{},'mobile':{'ui_scale':args.ui_scale}}}
+            seed = folder/'seed-settings.json'
+            seed.write_text(json.dumps(settings)+'\n')
+            device('shell','mkdir','-m','700',profile_path)
+            device('push',str(seed),profile_path+'/settings.json')
+            uid = device('shell','stat','-c','%u','/data/user/0/dev.pacificrush.game').decode().strip()
+            assert uid.isdigit()
+            device('shell','chown','-R',uid+':'+uid,profile_path)
+            device('shell','chmod','600',profile_path+'/settings.json')
         device('shell', 'logcat', '-c')
         launch(['--script', 'tests/mobile_worker_evidence.gd', '--', '--port='+str(port), '--network-evidence', '--authority-report='+str(folder/'authority.json')], 'server.log')
         wait_for(lambda: 'PACIFIC_RUSH_SERVER_READY' in (folder/'server.log').read_text(), 10)
