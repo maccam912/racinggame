@@ -27,19 +27,31 @@ func show_tab(selected: String, return_to: Callable) -> void:
 	var shell: MenuShell = app.menu
 	shell.settings = app.data.settings
 	var body := shell.reset(I18n.t("settings.title"))
-	var tabs := GridContainer.new()
-	tabs.columns = 4 if app.data.mobile or int(app.data.settings.ui_scale) >= 125 else 7
-	body.add_child(tabs)
 	var names := ["display", "graphics", "audio", "controls", "accessibility", "gameplay", "data"]
 	if app.data.mobile:
 		names.insert(4, "touch")
 	var selected_button: Button
-	for key: String in names:
-		var button := shell.ui.button(I18n.t("tab." + key), func() -> void: show_tab(key, back))
-		button.modulate = UIFactory.TURQUOISE if key == tab else Color.WHITE
-		tabs.add_child(button)
-		if key == tab:
-			selected_button = button
+	var geometry := TouchDriving.safe_geometry(app.get_viewport().get_visible_rect().size)
+	if app.data.mobile and geometry.safe.size.y<600:
+		var selector := OptionButton.new()
+		selector.name = "settings_sections"
+		selector.custom_minimum_size.y = shell.ui.row_height()
+		for name_key: String in names:
+			selector.add_item(I18n.t("tab."+name_key))
+		selector.selected = maxi(0,names.find(tab))
+		selector.item_selected.connect(func(index: int) -> void: show_tab(names[index],back))
+		body.add_child(selector)
+		selected_button = selector
+	else:
+		var tabs := GridContainer.new()
+		tabs.columns = 4 if app.data.mobile or int(app.data.settings.ui_scale)>=125 else 7
+		body.add_child(tabs)
+		for key: String in names:
+			var button := shell.ui.button(I18n.t("tab."+key),func() -> void: show_tab(key,back))
+			button.modulate = UIFactory.TURQUOISE if key==tab else Color.WHITE
+			tabs.add_child(button)
+			if key==tab:
+				selected_button = button
 	var list := shell.scroll_column(body)
 	for definition: Dictionary in SettingsCatalog.rows:
 		if definition.tab != tab or (definition.get("platform", "") == "desktop" and app.data.mobile) or (definition.get("platform", "") == "mobile" and not app.data.mobile):

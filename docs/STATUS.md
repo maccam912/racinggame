@@ -134,3 +134,6 @@ All 30 source checks pass. New tests cover normalized cold reload, 32 independen
 
 
 Android export preference fix: the build helper temporarily applies only its SDK/JDK/development-keystore editor keys, then restores those keys and its release-signing environment variables even when export fails. Unrelated editor preferences written during the import are preserved. New temporary configuration files use owner-only permissions and atomic replacement. Three failure/creation/CRLF tests pass, and a real local Android export verified restoration of the previous target preferences. Its local Build 23 metadata correctly records the tooling worktree as dirty; it is packaging evidence, not a clean release claim.
+
+
+Android 150% follow-up: the exported Build 23 packaging fixture exposed a phone settings body too short to fully display a row beneath the two large tab rows. Phones now use a compact section selector, retaining all eight sections and keyboard/controller focus. Desktop and tablet tab grids remain. The editor, display transaction and complete menu-flow source suites pass; the corrected APK is being checked separately.
