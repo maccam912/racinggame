@@ -1,6 +1,7 @@
 extends SceneTree
 
 func _initialize() -> void:
+	assert(UIFactory.popup_bounds(Vector2(1600,720),Vector2(2400,1080),Rect2i(0,0,2400,1080))==Vector2i(1440,648),"popup bounds use canvas units on a scaled Android viewport")
 	var font: Font = load("res://assets/fonts/Barlow-SemiBold.ttf")
 	for logical_unit: float in [1.0,1.5,2.625,3.0]:
 		for ui_scale: float in [.9,1.0,1.1,1.25,1.5]:

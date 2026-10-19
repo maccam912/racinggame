@@ -12,9 +12,11 @@ var mobile: bool = false
 var body_font: Font
 var title_font: Font
 var theme: Theme
+var owner_viewport: Viewport
 
 
 func _init(viewport: Viewport, settings: Dictionary) -> void:
+	owner_viewport = viewport
 	mobile = OS.has_feature("mobile")
 	if mobile:
 		unit = viewport.get_visible_rect().size.y / maxf(DisplayServer.window_get_size().y, 1) * maxf(160, DisplayServer.screen_get_dpi()) / 160.0
@@ -111,6 +113,10 @@ func configure_picker(control: OptionButton) -> void:
 	var popup := control.get_popup()
 	var fit := func() -> void:
 		popup.min_size = Vector2i.ZERO
-		popup.max_size = Vector2i(Vector2(DisplayServer.get_display_safe_area().size)*.90)
+		popup.max_size = popup_bounds(owner_viewport.get_visible_rect().size,Vector2(DisplayServer.window_get_size()),DisplayServer.get_display_safe_area())
 	fit.call()
 	popup.about_to_popup.connect(fit)
+
+
+static func popup_bounds(canvas: Vector2,physical: Vector2,safe_pixels: Rect2i) -> Vector2i:
+	return Vector2i(Vector2(safe_pixels.size)*canvas/physical.max(Vector2.ONE)*.90)
