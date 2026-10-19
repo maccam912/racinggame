@@ -1,0 +1,49 @@
+{
+  "device": "owned Pixel 7 AVD / Android 15 API 35 ARM64 / emulator-5580",
+  "physical_device": false,
+  "apk": {
+    "version": "0.0.40-dev",
+    "build_number": 40,
+    "working_tree_dirty": true,
+    "commit": "975f28b0cef28240816559d5551a11f776824c9a",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "78e8df7a34088aade409918658a3cd1d62b2a53c12b2779d52b2ac0ffcc6f078",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "63a9d2b77947e27c6a39a318e564426575ae3e7344b4393502f3656566b3a900",
+      "sha256": "6a63b31ddbda12151c42553e59d9cea38c03229d40f89ff4913b6081c855981b"
+    }
+  },
+  "ui_scale": 150,
+  "verified": [
+    "Edit Name field and Save/Back remain above the landscape IME; Save returns to Main Menu",
+    "Two real finger drags reveal Create Room and Join Code without selecting intermediate buttons",
+    "Room-name field and Create/Back remain above the landscape IME",
+    "Create button under an open IME registers and joins a ticket-required local HTTPS/ENet lobby",
+    "Code field and Join/Back remain above the IME; Back returns to the hub",
+    "A cold app restart reloads AndroidKeyStore identity and Quick Join enters a lobby; isolated directory has exactly one guest and at least two sessions for that same guest"
+  ],
+  "boundaries": [
+    "Local isolated CA scoped to test requests; no system trust changes",
+    "Dirty-worktree packaging fixture; clean remote Build 35 is a separate release",
+    "No physical-device ergonomics, hardware-backed-key or public-hosting claim"
+  ],
+  "screenshots": [
+    "m3-android-ime-name.png",
+    "m3-android-online-scrolled.png",
+    "m3-android-ime-create.png",
+    "m3-android-ime-code.png",
+    "m3-android-online-lobby.png"
+  ]
+}

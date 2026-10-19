@@ -21,7 +21,11 @@ def main():
     parser=argparse.ArgumentParser()
     parser.add_argument("--menu",action="store_true")
     parser.add_argument("--visual",action="store_true")
+    parser.add_argument("--hold",action="store_true",help="Keep the isolated service running for manual game checks")
+    parser.add_argument("--android",action="store_true",help="Advertise the emulator host gateway to workers")
     args=parser.parse_args()
+    if args.hold and args.menu:parser.error("--hold and --menu are separate modes")
+    if args.android and not args.hold:parser.error("--android requires --hold")
     if args.visual and not args.menu:parser.error("--visual requires --menu")
     folder=ROOT/'reports'/('directory-client-'+str(uuid.uuid4()))
     folder.mkdir(parents=True,mode=0o700)
@@ -39,7 +43,7 @@ def main():
     summary={'passed':False,'transport':'HTTPS with scoped isolated CA; no system trust changes','identity_backend':'in-memory protected-store fixture; real OS persistence has separate native gates'}
     try:
         output=(folder/'directory.log').open('w');handles.append(output)
-        service=subprocess.Popen([str(binary),'serve','--db',str(folder/'directory.sqlite'),'--keys',str(folder/'keys'),'--logs',str(folder/'logs'),'--listen','127.0.0.1:29880','--private-listen','127.0.0.1:29881','--public-url',url,'--worker',str(engine()),'--worker-project',str(ROOT),'--first-port','27230','--workers','4','--protocol',str(versions['protocol']),'--content-hash',versions['content_hash']],stdout=output,stderr=subprocess.STDOUT);processes.append(service)
+        service=subprocess.Popen([str(binary),'serve','--db',str(folder/'directory.sqlite'),'--keys',str(folder/'keys'),'--logs',str(folder/'logs'),'--listen','127.0.0.1:29880','--private-listen','127.0.0.1:29881','--public-url',url,'--worker',str(engine()),'--worker-project',str(ROOT),'--first-port','27230','--workers','4','--worker-host','10.0.2.2' if args.android else '127.0.0.1','--protocol',str(versions['protocol']),'--content-hash',versions['content_hash']],stdout=output,stderr=subprocess.STDOUT);processes.append(service)
         deadline=time.monotonic()+10
         while 'PACIFIC_DIRECTORY_READY' not in (folder/'directory.log').read_text():
             if service.poll() is not None or time.monotonic()>deadline:raise RuntimeError('Directory fixture did not start')
@@ -60,6 +64,16 @@ def main():
             except (urllib.error.URLError,ConnectionError):
                 if time.monotonic()>deadline:raise
                 time.sleep(.05)
+        if args.hold:
+            connection=folder/'connection.json'
+            connection.write_text(json.dumps({'url':url,'ca':str(ca),'worker_host':'10.0.2.2' if args.android else '127.0.0.1'},indent=2)+'\n')
+            print(json.dumps({'ready':True,'connection':str(connection)}),flush=True)
+            summary.update(passed=True,kind='manual local HTTPS fixture; game behavior checked separately')
+            try:
+                while service.poll() is None and proxy.poll() is None:time.sleep(.2)
+                raise RuntimeError('Manual directory fixture stopped unexpectedly')
+            except KeyboardInterrupt:
+                return
         output=(folder/'client.log').open('w');handles.append(output)
         display=[] if args.visual else ['--headless']
         visual_dir=folder/'visuals'

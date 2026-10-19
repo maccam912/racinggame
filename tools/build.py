@@ -27,7 +27,7 @@ def checked(args):
 
 def metadata(target, number):
     return {'version':f'0.0.{number}-dev', 'build_number':number,
-            'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=no'],cwd=ROOT,text=True).strip()),
+            'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=normal'],cwd=ROOT,text=True).strip()),
             'commit':subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),
             'engine_version':LOCK['version'], 'engine_checksum':LOCK['assets'][sys.platform]['sha256'],
             'export_templates_checksum':LOCK['assets']['templates']['sha256'],
