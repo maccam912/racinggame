@@ -21,6 +21,7 @@ var rank: int = 1
 var racers: int = 1
 var control_notice: String = ""
 var notice_until_ms: int = 0
+var recovery_armed: bool = false
 
 
 func _ready() -> void:
@@ -88,6 +89,8 @@ func _draw() -> void:
 	var banner := ""
 	if state.recovery_ticks > 0:
 		banner = I18n.t("hud.recovering")
+	elif recovery_armed:
+		banner = I18n.t("hud.recover_confirm")
 	elif state.wrong_way_ticks >= 60:
 		banner = I18n.t("hud.wrong_way")
 	elif phase == "Grid":
@@ -101,7 +104,13 @@ func _draw() -> void:
 	if trial and not state.trial_valid:
 		text(Vector2(size.x * .3, size.y * .14), I18n.t("hud.invalid"), 20, Color.html("F16B50"))
 	if banner != "":
-		text(Vector2(size.x / 2 - banner.length() * 18, size.y * .32), banner, 64, Color.html("F3CD48"))
+		var width := HUD_FONT.get_string_size(banner,HORIZONTAL_ALIGNMENT_LEFT,-1,64).x
+		text(Vector2((size.x-width)/2,size.y*.32),banner,64,Color.html("F3CD48"))
+	if recovery_armed:
+		var help := I18n.t("hud.recover_again")
+		var font_size := int(16*unit)
+		var width := HUD_FONT.get_string_size(help,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
+		text(Vector2((size.x-width)/2,size.y*.39),help,font_size)
 	if state.recovery_hold_ticks > 0:
 		draw_arc(speed_at - Vector2(20, 80), 20, -PI / 2, -PI / 2 + TAU * state.recovery_hold_ticks / 30.0, 30, Color.html("F3CD48"), 5)
 

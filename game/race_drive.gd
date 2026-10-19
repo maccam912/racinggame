@@ -262,6 +262,8 @@ func _physics_process(_dt: float) -> void:
 
 
 func _process(dt: float) -> void:
+	hud.recovery_armed = driver.recovery_armed
+	touch.recovery_armed = driver.recovery_armed
 	var rendered := state
 	if spectator_button:
 		spectator_button.visible = state.finished and session.states.size() > 1 and not paused and not result_sent
@@ -308,7 +310,10 @@ func _input(event: InputEvent) -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("pause"):
+	if (driver.recovery_armed or driver.recovery_presses>0) and (event.is_action_pressed("pause") or event.is_action_pressed("ui_cancel")):
+		driver.cancel_recovery_assist()
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("pause"):
 		if paused:
 			resume()
 		else:
@@ -320,7 +325,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func touch_action(action: String) -> void:
 	if action == "pause":
-		show_pause()
+		if driver.recovery_armed or driver.recovery_presses>0: driver.cancel_recovery_assist()
+		else: show_pause()
 	elif action == "camera":
 		camera.mode = (camera.mode + 1) % 3
 
@@ -414,11 +420,12 @@ func apply_settings() -> void:
 	camera.base_fov = float(settings.base_fov)
 	camera.dynamic_fov = bool(settings.dynamic_fov)
 	camera.mode = ["near", "far", "hood"].find(settings.camera)
-	camera.far = float(settings.draw_distance)
+	camera.far = 3000.0 # Scenery distance must not cull the road or signs.
 	hud.mph = settings.units == "mph"
 	driver.auto_accelerate = bool(settings.auto_accelerate)
 	driver.deadzone = float(settings.deadzone)
 	driver.sensitivity = float(settings.sensitivity)
+	driver.hold_assistance = bool(settings.hold_assistance)
 	touch.auto_accelerate = bool(settings.get("touch_auto_accelerate", true)) if touch.visible else false
 	touch.steering_style = str(settings.get("steering_style", "slider"))
 	touch.button_scale = float(settings.get("button_size", 100)) / 100

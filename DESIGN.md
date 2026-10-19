@@ -420,7 +420,7 @@ Settings has tabs Display, Graphics, Audio, Controls, Accessibility, Gameplay, a
 | Accessibility | High contrast UI | Off default, On; panels opaque, stronger outlines |
 | Accessibility | Rival marker palette | Standard default, Deuteranopia, Protanopia, Tritanopia; numbers always retained |
 | Accessibility | Announcer captions | On default, Off |
-| Accessibility | Hold assistance | Off default, On; recovery becomes press then confirm, same total 0.5-second minimum |
+| Accessibility | Hold assistance | Off default, On; press Recover to arm, press it again to confirm, Back/Pause cancels; no deadline; same 30-tick (0.5-second) minimum |
 | Gameplay | Speed units | mph default, km/h; distance follows miles/km |
 | Gameplay | Camera | Near Chase default, Far Chase, Hood |
 | Gameplay | Base vertical FOV | 55–85°, default 65°, step 1° |

@@ -3,6 +3,8 @@ extends Control
 
 signal action_pressed(action: String)
 signal capture_started(action: String)
+signal capture_cancelled(action: String)
+signal captures_cleared
 signal layout_reset(profile: String)
 
 var captures: Dictionary = {}
@@ -21,6 +23,11 @@ var layout_supported: bool = true
 var logical_safe: Rect2
 var layouts: Dictionary = {}
 var reset_notices: Dictionary = {}
+var recovery_armed: bool = false:
+	set(value):
+		if recovery_armed!=value:
+			recovery_armed = value
+			queue_redraw()
 
 
 
@@ -169,12 +176,15 @@ func pointer_move(id: int, at: Vector2) -> void:
 	if action == "steer":
 		update_steer(at)
 	else:
-		captures[id].active = controls[action].grow(24 * unit).has_point(at)
+		var active: bool = controls[action].grow(24 * unit).has_point(at)
+		if captures[id].active and not active: capture_cancelled.emit(action)
+		captures[id].active = active
 		update_buttons()
 	queue_redraw()
 
 
-func pointer_up(id: int) -> void:
+func pointer_up(id: int, cancelled: bool = false) -> void:
+	if cancelled and captures.has(id): capture_cancelled.emit(str(captures[id].action))
 	if captures.has(id) and captures[id].action == "steer":
 		steer = 0.0
 	captures.erase(id)
@@ -202,6 +212,7 @@ func has_driving_capture() -> bool:
 
 func clear() -> void:
 	captures.clear()
+	captures_cleared.emit()
 	steer = 0.0
 	queue_redraw()
 
@@ -213,7 +224,7 @@ func _input(event: InputEvent) -> void:
 		if event.pressed and not event.canceled:
 			pointer_down(event.index, event.position)
 		else:
-			pointer_up(event.index)
+			pointer_up(event.index,event.canceled)
 	elif event is InputEventScreenDrag:
 		pointer_move(event.index, event.position)
 
@@ -235,6 +246,9 @@ func _draw() -> void:
 func draw_icon(action: String, center: Vector2) -> void:
 	var cream := Color(Color.html("F5EBD3"), minf(1, opacity / .6))
 	if action == "recover":
+		if recovery_armed:
+			draw_polyline(PackedVector2Array([center+Vector2(-12,0)*unit,center+Vector2(-3,10)*unit,center+Vector2(14,-12)*unit]),Color.html("F3CD48"),4*unit,true)
+			return
 		draw_arc(center, 14 * unit, -.3, TAU - 1.0, 32, cream, 2 * unit, true)
 		var tip := center + Vector2(14, -4) * unit
 		draw_colored_polygon(PackedVector2Array([tip, tip + Vector2(-9, -5) * unit, tip + Vector2(-5, 5) * unit]), cream)

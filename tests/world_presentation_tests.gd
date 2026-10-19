@@ -44,6 +44,7 @@ func run() -> void:
 	await physics_frame
 	display._process(0)
 	assert(display.camera.global_transform==app.drive.camera.global_transform,"the render camera follows scene camera ownership")
+	assert(app.drive.camera.far>=1000,"the driving camera must retain the road beyond the scenery setting")
 	app.queue_free()
 	await process_frame
 	assert(not root.disable_3d,"presentation teardown restores its host viewport")
