@@ -1,6 +1,8 @@
 class_name InputBuffer
 extends RefCounted
 
+const DELAY_TICKS: int = 3
+
 var frames: Array[InputFrame] = []
 var last_sequence: int = 0
 var last_frame := InputFrame.make()
@@ -29,7 +31,7 @@ func push(frame: InputFrame, server_tick: int) -> void:
 
 
 func sample(server_tick: int) -> InputFrame:
-	if not frames.is_empty() and frames[0].tick + 3 <= server_tick:
+	if not frames.is_empty() and frames[0].tick + DELAY_TICKS <= server_tick:
 		last_frame = frames.pop_front()
 		last_sequence = last_frame.sequence
 		missing_ticks = 0

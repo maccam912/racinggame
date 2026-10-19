@@ -74,3 +74,6 @@ Content version is **2**, and protocol version is **3** for the full lobby/loadi
 ## Next
 
 Finish M3: directory/ticket APIs, remaining input/settings behavior and broader end-to-end mode checks. M4–M6 remain unimplemented. Physical M0/M1/M2 gates stay open while source implementation continues; no physical-mobile acceptance is claimed.
+
+
+Linux reconnect follow-up: held/neutral server ticks can advance the car without advancing its input acknowledgement. Replaying every unacknowledged frame then duplicated elapsed time, especially when several snapshots arrived together. Reconciliation now uses the snapshot tick and fixed input buffer to bound replay, preserves old frames for redundant transmission, uses monotonic intended ticks, and rejects snapshots until welcome completes. A regression fixture verifies an unchanged-ack pair of snapshots preserves the same predicted endpoint. The local forced-right-lane fault run has moving clear-road p95 0.0183 m; remote Linux verification is tracked separately.

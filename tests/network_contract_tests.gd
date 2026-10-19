@@ -1,5 +1,11 @@
 extends SceneTree
 
+class TimelinePrediction extends PredictionBuffer:
+	func simulate(_frame: InputFrame) -> void:
+		elapsed_ticks += 1
+		state.position.x += 1
+
+
 var failures: int = 0
 
 
@@ -88,5 +94,38 @@ func _initialize() -> void:
 	terminal.reconcile(finish, 4000)
 	check(terminal.history.is_empty() and terminal.state.position == finish.position, "finished authority does not replay stale human input over AI")
 	check(terminal.terminal_corrections.size() == 1 and terminal.clear_corrections.is_empty(), "autopilot corrections are reported separately from active driving")
+	var timeline := TimelinePrediction.new()
+	timeline.state = VehicleState.new()
+	timeline.track = Catalog.tracks[0]
+	timeline.query = terminal.query
+	timeline.car = Catalog.cars[0]
+	for index in range(13):
+		var frame := InputFrame.make()
+		frame.sequence = 101 + index
+		frame.tick = 95 + index
+		timeline.history.append(frame)
+	var held := VehicleState.new()
+	held.last_ack = 100
+	held.position.x = 100
+	timeline.reconcile(held, 600, 106)
+	check(timeline.state.position.x == 104, "elapsed missing-input ticks are not replayed twice")
+	held.position.x = 103
+	timeline.reconcile(held, 603, 109)
+	check(timeline.state.position.x == 104, "coalesced snapshots with unchanged ack preserve the same predicted endpoint")
+	check(timeline.history.size() == 13, "unacknowledged inputs remain available for redundant transmission")
+	var clocked := NetworkClient.new()
+	clocked.prediction = TimelinePrediction.new()
+	clocked.prediction.state = VehicleState.new()
+	clocked.connected = true
+	clocked.server_tick = 500.6
+	clocked.start_tick = 0
+	clocked.control_tick = 0
+	clocked.phase = RaceSession.Phase.RACING
+	clocked._physics_process(1.0 / 60)
+	clocked.server_tick -= .8
+	clocked._physics_process(1.0 / 60)
+	check(clocked.prediction.history[1].tick == clocked.prediction.history[0].tick + 1, "clock smoothing never duplicates an input tick")
+	clocked.wire.close()
+	clocked.free()
 	print("Network contract fixtures: eight-car snapshot %d bytes; input batch %d bytes; failures %d" % [packet.size(), inputs.size(), failures])
 	quit(1 if failures else 0)

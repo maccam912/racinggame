@@ -30,6 +30,7 @@ var latest_snapshot: Dictionary = {}
 var phase: int = RaceSession.Phase.LOBBY
 var elapsed_ticks: int = 0
 var sequence: int = 0
+var next_input_tick: int = -1
 var connected: bool = false
 var hello_sent: bool = false
 var name_value: String = "Driver"
@@ -127,7 +128,10 @@ func _physics_process(_dt: float) -> void:
 	var frame: InputFrame = input_provider.call() if input_provider.is_valid() else InputFrame.make()
 	sequence = (sequence + 1) & 0xffffffff
 	frame.sequence = sequence
-	frame.tick = roundi(server_tick)
+	if next_input_tick < 0:
+		next_input_tick = roundi(server_tick)
+	frame.tick = next_input_tick
+	next_input_tick += 1
 	frame = NetCodec.quantize(frame)
 	prediction.advance(frame)
 	if tick_counter % 2 == 0:
@@ -153,6 +157,7 @@ func receive_event(event: Dictionary) -> void:
 			server_tick = float(event.tick) + rtt_ms / 2000 * 60
 			clock_ready = true
 			if restoring_reconnect:
+				next_input_tick = -1
 				sequence = int(event.get("ack", sequence))
 				control_tick = roundi(server_tick) + 30
 				prediction.history.clear()
@@ -198,6 +203,7 @@ func receive_event(event: Dictionary) -> void:
 			slot = int(event.slot)
 			if new_race:
 				latest_snapshot.clear()
+				next_input_tick = -1
 				sequence = 0
 				latest_snapshot_tick = -1
 			config = event
@@ -230,7 +236,7 @@ func receive_event(event: Dictionary) -> void:
 
 
 func receive_snapshot(bytes: PackedByteArray) -> void:
-	if start_tick < 0:
+	if start_tick < 0 or not connected:
 		return
 	var snapshot := NetCodec.decode_snapshot(bytes, race_id, Compatibility.content_hash().hex_decode())
 	if snapshot.is_empty() or int(snapshot.tick) <= latest_snapshot_tick:
@@ -249,7 +255,7 @@ func receive_snapshot(bytes: PackedByteArray) -> void:
 		if restoring_reconnect or server_tick < control_tick:
 			prediction.restore_reconnect(snapshot.states[slot], snapshot.elapsed, roundi(server_tick) - int(snapshot.tick))
 		else:
-			prediction.reconcile(snapshot.states[slot], snapshot.elapsed)
+			prediction.reconcile(snapshot.states[slot], snapshot.elapsed, snapshot.tick)
 
 
 func attach_prediction(state: VehicleState, car: CarDefinition, query: WorldQuery, track: TrackDefinition, laps: int) -> void:
@@ -260,7 +266,7 @@ func attach_prediction(state: VehicleState, car: CarDefinition, query: WorldQuer
 	prediction.track = track
 	prediction.lap_count = laps
 	if not latest_snapshot.is_empty():
-		prediction.reconcile(latest_snapshot.states[slot], latest_snapshot.elapsed)
+		prediction.reconcile(latest_snapshot.states[slot], latest_snapshot.elapsed, latest_snapshot.tick)
 
 
 func _exit_tree() -> void:

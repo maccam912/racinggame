@@ -34,7 +34,7 @@ func simulate(frame: InputFrame) -> void:
 	ProgressTracker.safety(state, frame, track, query)
 
 
-func reconcile(authority: VehicleState, ticks: int) -> void:
+func reconcile(authority: VehicleState, ticks: int, authority_tick: int = -1) -> void:
 	var previous := state.position
 	var missing_history := not history.is_empty() and InputBuffer.newer(history[0].sequence, (authority.last_ack + 1) & 0xffffffff)
 	apply_authority(authority, ticks)
@@ -43,7 +43,11 @@ func reconcile(authority: VehicleState, ticks: int) -> void:
 		history.clear()
 	else:
 		for frame: InputFrame in history:
-			simulate(frame)
+			# Missing input may already have advanced authority using held/neutral
+			# controls without advancing its acknowledgement. Do not simulate
+			# those elapsed ticks a second time merely because ack stayed still.
+			if authority_tick < 0 or frame.tick + InputBuffer.DELAY_TICKS > authority_tick:
+				simulate(frame)
 	var delta := previous - state.position
 	if trace_enabled and trace.size() < 12000:
 		trace.append({"server_elapsed":ticks, "ack":authority.last_ack, "history":history.size(), "latest_sequence":history[-1].sequence if not history.is_empty() else authority.last_ack, "latest_intended":history[-1].tick if not history.is_empty() else -1, "delta":delta.length(), "speed":authority.speed(), "finished":authority.finished, "route":authority.route_s})
