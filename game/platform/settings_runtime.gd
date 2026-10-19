@@ -1,0 +1,23 @@
+class_name SettingsRuntime
+extends RefCounted
+
+
+static func apply(owner_node: Node, settings: Dictionary, display: bool = false) -> void:
+	Engine.max_fps = int(settings.frame_cap)
+	var viewport := owner_node.get_viewport()
+	viewport.msaa_3d = {0:Viewport.MSAA_DISABLED, 2:Viewport.MSAA_2X, 4:Viewport.MSAA_4X}.get(int(settings.msaa), Viewport.MSAA_DISABLED)
+	viewport.scaling_3d_scale = .5 if settings.retro else float(settings.render_scale) / 100
+	var master := float(settings.master) / 100
+	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(master, .0001)))
+	AudioServer.set_bus_mute(0, master <= 0)
+	for item: Node in owner_node.get_tree().root.find_children("*", "WorldEnvironment", true, false):
+		var environment: Environment = item.environment
+		environment.adjustment_enabled = true
+		environment.adjustment_brightness = float(settings.brightness)
+	for item: Node in owner_node.get_tree().root.find_children("*", "DirectionalLight3D", true, false):
+		item.shadow_enabled = settings.shadows != "off"
+	if display and DisplayServer.get_name() != "headless" and not OS.has_feature("mobile"):
+		DisplayServer.window_set_current_screen(clampi(int(settings.monitor), 0, DisplayServer.get_screen_count() - 1))
+		var modes := {"windowed":DisplayServer.WINDOW_MODE_WINDOWED, "borderless":DisplayServer.WINDOW_MODE_FULLSCREEN, "fullscreen":DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN}
+		DisplayServer.window_set_mode(modes.get(settings.window_mode, DisplayServer.WINDOW_MODE_WINDOWED))
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if settings.vsync else DisplayServer.VSYNC_DISABLED)

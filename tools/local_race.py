@@ -7,8 +7,8 @@ processes = []
 try:
     command = [str(engine()), '--path', str(ROOT)]
     processes.append(subprocess.Popen([*command, '--headless', '--', '--server']))
-    for _ in range(2):
-        processes.append(subprocess.Popen([*command, '--', '--connect=127.0.0.1:27020']))
+    for profile in ('left', 'right'):
+        processes.append(subprocess.Popen([*command, '--', '--connect=127.0.0.1:27020', '--profile='+profile]))
     for process in processes[1:]:
         process.wait()
 except KeyboardInterrupt:

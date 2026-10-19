@@ -18,6 +18,14 @@ var lap_count: int = 2
 var contact_enabled: bool = true
 var first_finish_tick: int = -1
 var settled_ticks: int = 0
+var bots: Dictionary = {}
+var finish_drivers: Array[BotDriver] = []
+var roster: Array[Dictionary] = []
+var human_slot: int = 0
+var mode: String = "quick"
+var race_uuid: String = ""
+var event_uuid: String = ""
+var cup_event: int = -1
 
 
 func setup(route: TrackDefinition, car_indices: Array[int], world: World3D, laps: int = 2) -> void:
@@ -34,6 +42,7 @@ func setup(route: TrackDefinition, car_indices: Array[int], world: World3D, laps
 		cars.append(Catalog.cars[car_indices[index]])
 		queries.append(WorldQuery.new(world, track, s))
 		inputs.append(InputFrame.make())
+		finish_drivers.append(BotDriver.new())
 
 
 func step(frames: Dictionary) -> void:
@@ -57,7 +66,11 @@ func step(frames: Dictionary) -> void:
 	for index in range(states.size()):
 		previous.append(states[index].position)
 		inputs[index] = frames.get(index, InputFrame.make())
-		if not states[index].finished and states[index].dnf_reason == "":
+		if states[index].finished:
+			inputs[index] = finish_drivers[index].sample(states[index], cars[index], track, queries[index], states)
+		elif bots.has(index):
+			inputs[index] = bots[index].sample(states[index], cars[index], track, queries[index], states)
+		if states[index].dnf_reason == "":
 			VehicleSim.step(states[index], inputs[index], cars[index], queries[index])
 	if contact_enabled:
 		CarContact.resolve(states, queries)
@@ -65,6 +78,8 @@ func step(frames: Dictionary) -> void:
 		var state := states[index]
 		if state.finished or state.dnf_reason != "":
 			continue
+		if state.recovery_ticks == 0 and previous[index].distance_to(state.position) < 5:
+			state.distance_m += previous[index].distance_to(state.position)
 		ProgressTracker.advance(state, previous[index], track, elapsed_ticks, lap_count)
 		ProgressTracker.safety(state, inputs[index], track, queries[index])
 		if state.finished and first_finish_tick < 0:
@@ -75,6 +90,9 @@ func step(frames: Dictionary) -> void:
 		for state: VehicleState in states:
 			if not state.finished and state.dnf_reason == "":
 				state.dnf_reason = "Time limit" if elapsed_ticks >= 36000 else "Finish grace expired"
+		phase = Phase.RESULTS
+		phase_ticks = 0
+		return
 	var complete := states.all(func(state: VehicleState) -> bool: return state.finished or state.dnf_reason != "")
 	settled_ticks = settled_ticks + 1 if complete else 0
 	if settled_ticks >= 120:
@@ -104,3 +122,13 @@ func bounded_progress(state: VehicleState) -> float:
 	var next: int = (state.last_gate + 1) % track.bake.gates.size()
 	var maximum: float = track.bake.gates[next].s - gate.s if next > 0 else track.length - gate.s
 	return clampf((state.position - ProgressTracker.vector(gate.position)).dot(ProgressTracker.vector(gate.forward)), 0, maximum)
+
+
+func configure_bots(records: Array[Dictionary], local_slot: int, difficulty: int) -> void:
+	roster = records
+	human_slot = local_slot
+	for index in range(records.size()):
+		if records[index].get("bot", false):
+			var driver := BotDriver.new()
+			driver.difficulty = difficulty
+			bots[index] = driver

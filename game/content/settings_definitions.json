@@ -1,0 +1,493 @@
+{
+  "schema_version": 1,
+  "rows": [
+    {
+      "tab": "display",
+      "id": "window_mode",
+      "label": "Window mode",
+      "kind": "choice",
+      "values": [
+        "windowed",
+        "borderless",
+        "fullscreen"
+      ],
+      "default": "borderless",
+      "platform": "desktop"
+    },
+    {
+      "tab": "display",
+      "id": "monitor",
+      "label": "Monitor",
+      "kind": "choice",
+      "values": [
+        0
+      ],
+      "default": 0,
+      "platform": "desktop",
+      "dynamic": "monitors"
+    },
+    {
+      "tab": "display",
+      "id": "resolution",
+      "label": "Resolution",
+      "kind": "choice",
+      "values": [
+        "native"
+      ],
+      "default": "native",
+      "platform": "desktop",
+      "dynamic": "resolutions"
+    },
+    {
+      "tab": "display",
+      "id": "vsync",
+      "label": "VSync",
+      "kind": "toggle",
+      "default": true,
+      "platform": "desktop"
+    },
+    {
+      "tab": "display",
+      "id": "frame_cap",
+      "label": "Frame cap",
+      "kind": "choice",
+      "values": [
+        30,
+        60,
+        90,
+        120,
+        144,
+        0
+      ],
+      "default": 60,
+      "mobile_values": [
+        30,
+        60
+      ]
+    },
+    {
+      "tab": "display",
+      "id": "ui_scale",
+      "label": "UI scale",
+      "kind": "choice",
+      "values": [
+        90,
+        100,
+        110,
+        125,
+        150
+      ],
+      "default": 100
+    },
+    {
+      "tab": "display",
+      "id": "brightness",
+      "label": "Brightness",
+      "kind": "range",
+      "minimum": 0.8,
+      "maximum": 1.2,
+      "step": 0.05,
+      "default": 1.0
+    },
+    {
+      "tab": "graphics",
+      "id": "preset",
+      "label": "Preset",
+      "kind": "choice",
+      "values": [
+        "low",
+        "medium",
+        "high",
+        "custom"
+      ],
+      "default": "medium",
+      "mobile_values": [
+        "low",
+        "medium",
+        "high",
+        "battery",
+        "custom"
+      ]
+    },
+    {
+      "tab": "graphics",
+      "id": "render_scale",
+      "label": "Render scale",
+      "kind": "range",
+      "minimum": 50,
+      "maximum": 100,
+      "step": 10,
+      "default": 100,
+      "mobile_default": 80
+    },
+    {
+      "tab": "graphics",
+      "id": "msaa",
+      "label": "Anti-aliasing",
+      "kind": "choice",
+      "values": [
+        0,
+        2,
+        4
+      ],
+      "default": 4,
+      "mobile_default": 2
+    },
+    {
+      "tab": "graphics",
+      "id": "shadows",
+      "label": "Shadows",
+      "kind": "choice",
+      "values": [
+        "off",
+        "low",
+        "high"
+      ],
+      "default": "low"
+    },
+    {
+      "tab": "graphics",
+      "id": "draw_distance",
+      "label": "Draw distance",
+      "kind": "choice",
+      "values": [
+        400,
+        700,
+        1000
+      ],
+      "default": 700,
+      "mobile_default": 400
+    },
+    {
+      "tab": "graphics",
+      "id": "effects",
+      "label": "Effects",
+      "kind": "choice",
+      "values": [
+        "off",
+        "reduced",
+        "full"
+      ],
+      "default": "full",
+      "mobile_default": "reduced"
+    },
+    {
+      "tab": "graphics",
+      "id": "anisotropic",
+      "label": "Anisotropic filtering",
+      "kind": "choice",
+      "values": [
+        2,
+        4,
+        8,
+        16
+      ],
+      "default": 4,
+      "mobile_default": 2
+    },
+    {
+      "tab": "graphics",
+      "id": "retro",
+      "label": "Retro presentation",
+      "kind": "toggle",
+      "default": false
+    },
+    {
+      "tab": "graphics",
+      "id": "adaptive_resolution",
+      "label": "Adaptive resolution",
+      "kind": "toggle",
+      "default": true,
+      "platform": "mobile"
+    },
+    {
+      "tab": "audio",
+      "id": "master",
+      "label": "Master",
+      "kind": "range",
+      "minimum": 0,
+      "maximum": 100,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "tab": "audio",
+      "id": "music",
+      "label": "Music",
+      "kind": "range",
+      "minimum": 0,
+      "maximum": 100,
+      "step": 5,
+      "default": 60
+    },
+    {
+      "tab": "audio",
+      "id": "engine",
+      "label": "Engine",
+      "kind": "range",
+      "minimum": 0,
+      "maximum": 100,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "tab": "audio",
+      "id": "effects_volume",
+      "label": "Effects",
+      "kind": "range",
+      "minimum": 0,
+      "maximum": 100,
+      "step": 5,
+      "default": 80
+    },
+    {
+      "tab": "audio",
+      "id": "announcer",
+      "label": "Announcer",
+      "kind": "range",
+      "minimum": 0,
+      "maximum": 100,
+      "step": 5,
+      "default": 60
+    },
+    {
+      "tab": "audio",
+      "id": "dynamic_range",
+      "label": "Dynamic range",
+      "kind": "choice",
+      "values": [
+        "standard",
+        "night"
+      ],
+      "default": "standard"
+    },
+    {
+      "tab": "audio",
+      "id": "background_audio",
+      "label": "Background audio",
+      "kind": "toggle",
+      "default": false
+    },
+    {
+      "tab": "controls",
+      "id": "deadzone",
+      "label": "Stick deadzone",
+      "kind": "range",
+      "minimum": 0.05,
+      "maximum": 0.35,
+      "step": 0.01,
+      "default": 0.15
+    },
+    {
+      "tab": "controls",
+      "id": "sensitivity",
+      "label": "Steering sensitivity",
+      "kind": "range",
+      "minimum": 0.75,
+      "maximum": 1.25,
+      "step": 0.05,
+      "default": 1.0
+    },
+    {
+      "tab": "controls",
+      "id": "vibration",
+      "label": "Gamepad vibration",
+      "kind": "range",
+      "minimum": 0,
+      "maximum": 100,
+      "step": 5,
+      "default": 50
+    },
+    {
+      "tab": "controls",
+      "id": "prompts",
+      "label": "Prompt icons",
+      "kind": "choice",
+      "values": [
+        "auto",
+        "xbox",
+        "playstation",
+        "keyboard"
+      ],
+      "default": "auto"
+    },
+    {
+      "tab": "controls",
+      "id": "auto_accelerate",
+      "label": "Auto Accelerate",
+      "kind": "toggle",
+      "default": false
+    },
+    {
+      "tab": "touch",
+      "id": "touch_auto_accelerate",
+      "label": "Auto Accelerate",
+      "kind": "toggle",
+      "default": true,
+      "platform": "mobile"
+    },
+    {
+      "tab": "touch",
+      "id": "steering_style",
+      "label": "Steering style",
+      "kind": "choice",
+      "values": [
+        "slider",
+        "buttons"
+      ],
+      "default": "slider",
+      "platform": "mobile"
+    },
+    {
+      "tab": "touch",
+      "id": "button_size",
+      "label": "Button size",
+      "kind": "range",
+      "minimum": 85,
+      "maximum": 130,
+      "step": 5,
+      "default": 100,
+      "platform": "mobile"
+    },
+    {
+      "tab": "touch",
+      "id": "opacity",
+      "label": "Opacity",
+      "kind": "range",
+      "minimum": 25,
+      "maximum": 100,
+      "step": 5,
+      "default": 60,
+      "platform": "mobile"
+    },
+    {
+      "tab": "touch",
+      "id": "left_handed",
+      "label": "Left-handed layout",
+      "kind": "toggle",
+      "default": false,
+      "platform": "mobile"
+    },
+    {
+      "tab": "touch",
+      "id": "haptics",
+      "label": "Haptics",
+      "kind": "toggle",
+      "default": false,
+      "platform": "mobile"
+    },
+    {
+      "tab": "accessibility",
+      "id": "reduce_motion",
+      "label": "Reduce Motion",
+      "kind": "toggle",
+      "default": false
+    },
+    {
+      "tab": "accessibility",
+      "id": "high_contrast",
+      "label": "High contrast UI",
+      "kind": "toggle",
+      "default": false
+    },
+    {
+      "tab": "accessibility",
+      "id": "palette",
+      "label": "Rival marker palette",
+      "kind": "choice",
+      "values": [
+        "standard",
+        "deuteranopia",
+        "protanopia",
+        "tritanopia"
+      ],
+      "default": "standard"
+    },
+    {
+      "tab": "accessibility",
+      "id": "captions",
+      "label": "Announcer captions",
+      "kind": "toggle",
+      "default": true
+    },
+    {
+      "tab": "accessibility",
+      "id": "hold_assistance",
+      "label": "Hold assistance",
+      "kind": "toggle",
+      "default": false
+    },
+    {
+      "tab": "gameplay",
+      "id": "units",
+      "label": "Speed units",
+      "kind": "choice",
+      "values": [
+        "mph",
+        "km/h"
+      ],
+      "default": "mph"
+    },
+    {
+      "tab": "gameplay",
+      "id": "camera",
+      "label": "Camera",
+      "kind": "choice",
+      "values": [
+        "near",
+        "far",
+        "hood"
+      ],
+      "default": "near"
+    },
+    {
+      "tab": "gameplay",
+      "id": "base_fov",
+      "label": "Base vertical FOV",
+      "kind": "range",
+      "minimum": 55,
+      "maximum": 85,
+      "step": 1,
+      "default": 65
+    },
+    {
+      "tab": "gameplay",
+      "id": "dynamic_fov",
+      "label": "Dynamic FOV",
+      "kind": "toggle",
+      "default": true
+    },
+    {
+      "tab": "gameplay",
+      "id": "collision_shake",
+      "label": "Collision camera shake",
+      "kind": "range",
+      "minimum": 0,
+      "maximum": 100,
+      "step": 5,
+      "default": 50
+    },
+    {
+      "tab": "gameplay",
+      "id": "trial_ghost",
+      "label": "Trial ghost",
+      "kind": "toggle",
+      "default": true
+    },
+    {
+      "tab": "gameplay",
+      "id": "nameplates",
+      "label": "Rival nameplates",
+      "kind": "toggle",
+      "default": true,
+      "mobile_default": false
+    },
+    {
+      "tab": "gameplay",
+      "id": "driving_hints",
+      "label": "Driving hints",
+      "kind": "toggle",
+      "default": true
+    }
+  ]
+}

@@ -9,7 +9,8 @@ import time
 from bootstrap import ROOT, engine
 
 SUITES = ['content_tests', 'driving_tests', 'world_tests', 'progress_touch_tests',
-          'slice_smoke', 'network_contract_tests', 'race_contact_tests', 'jump_track_tests']
+          'slice_smoke', 'network_contract_tests', 'race_contact_tests', 'jump_track_tests',
+          'save_cup_tests', 'ghost_medal_tests', 'app_data_tests', 'name_tests', 'menu_flow_tests', 'mode_tests']
 
 
 def main():
@@ -19,7 +20,7 @@ def main():
                 [sys.executable,'tools/content_hash.py','--check'],
                 [sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py'],
                 [sys.executable,'tools/godot.py','--headless','--editor','--import','--quit']]
-    commands += [[sys.executable,'tools/godot.py','--headless','--fixed-fps','60','--script',f'tests/{suite}.gd'] for suite in SUITES]
+    commands += [[sys.executable,'tools/godot.py','--headless','--fixed-fps','60','--script',f'tests/{suite}.gd', '--', '--profile=ci_tests'] for suite in SUITES]
     results = []
     for command in commands:
         started = time.monotonic()

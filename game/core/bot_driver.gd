@@ -7,16 +7,31 @@ var previous := InputFrame.make()
 var difficulty: int = 1
 var offset: float = 0.0
 var stuck_ticks: int = 0
+var recover_hold_ticks: int = 0
 
 
 func sample(state: VehicleState, car: CarDefinition, track: TrackDefinition, query: WorldQuery, others: Array[VehicleState] = []) -> InputFrame:
+	if state.recovery_ticks > 0:
+		stuck_ticks = 0
+		recover_hold_ticks = 0
+		planning_ticks = 0
+		previous = InputFrame.make()
+		return previous
+	if recover_hold_ticks > 0:
+		recover_hold_ticks -= 1
+		var recovery := InputFrame.make()
+		recovery.recover = true
+		return recovery
 	if state.speed() < 2 and previous.throttle > .7:
 		stuck_ticks += 1
 	else:
 		stuck_ticks = 0
 	if stuck_ticks >= 240:
-		previous.recover = true
-		return previous
+		stuck_ticks = 0
+		recover_hold_ticks = 30
+		var recovery := InputFrame.make()
+		recovery.recover = true
+		return recovery
 	planning_ticks -= 1
 	if planning_ticks > 0:
 		return previous
@@ -24,6 +39,8 @@ func sample(state: VehicleState, car: CarDefinition, track: TrackDefinition, que
 	var nearest := query.nearest(state.position)
 	var target_s: float = nearest.s + clampf(8 + .45 * state.speed(), 12, 35)
 	var target_speed: float = track.bake.ai_speeds[car.id][nearest.i] * [.78, .90, 1.0][difficulty]
+	if state.finished:
+		target_speed *= .6
 	var wanted_offset := 0.0
 	for rival: VehicleState in others:
 		if rival == state or rival.finished:

@@ -1,27 +1,47 @@
 extends Node3D
 
-var menu: CanvasLayer
+var menu := MenuShell.new()
 var drive: RaceDrive
+var stage: MenuStage
+var data: AppData
+var events: EventMenu
 var touch_demo: bool = false
-var reduce_motion: bool = false
 var capture_path: String = ""
 var rendered_frames: int = 0
 var capture_frame: int = 150
 var network: NetworkClient
 var connection_label: Label
+var page: String = "main"
+var back_action: Callable
+var pending_config: Dictionary = {}
+var result_summary: Dictionary = {}
+var settings_page: SettingsPage
 
 
 func _ready() -> void:
 	Catalog.load_all()
 	DrivingInput.register_defaults()
+	var folder := "user://"
 	touch_demo = "--touch" in OS.get_cmdline_user_args()
 	for arg: String in OS.get_cmdline_user_args():
-		if arg.begins_with("--capture="):
+		if arg.begins_with("--profile="):
+			var profile := arg.trim_prefix("--profile=")
+			if GhostCodec.valid_id(profile):
+				folder = "user://diagnostic_profiles/" + profile
+		elif arg.begins_with("--capture="):
 			capture_path = arg.trim_prefix("--capture=")
 		elif arg.begins_with("--capture-frame="):
 			capture_frame = maxi(1, int(arg.trim_prefix("--capture-frame=")))
+	data = AppData.new(folder)
+	SettingsRuntime.apply(self, data.settings)
+	menu.settings = data.settings
+	add_child(menu)
+	events = EventMenu.new(self)
+	settings_page = SettingsPage.new(self)
 	if "--drive" in OS.get_cmdline_user_args():
 		start_drive()
+	elif not data.profile.first_run_complete:
+		show_name(true)
 	else:
 		show_menu()
 	for arg: String in OS.get_cmdline_user_args():
@@ -31,135 +51,450 @@ func _ready() -> void:
 	print("PACIFIC_RUSH_CLIENT_READY")
 
 
-func show_menu() -> void:
-	if is_instance_valid(menu):
-		menu.queue_free()
-	menu = CanvasLayer.new()
-	add_child(menu)
-	var background := ColorRect.new()
-	background.color = Color.html("172C40")
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	menu.add_child(background)
-	var list := VBoxContainer.new()
-	list.position = Vector2(100, 60)
-	list.custom_minimum_size.x = 640
-	list.add_theme_constant_override("separation", 20)
-	menu.add_child(list)
-	var title := Label.new()
-	title.text = "PACIFIC\nRUSH"
-	title.add_theme_font_size_override("font_size", 84)
-	title.add_theme_color_override("font_color", Color.html("F3CD48"))
-	list.add_child(title)
-	var caption := Label.new()
-	caption.text = "SUNNY COAST. CLEAN LINES. FULL THROTTLE.\n3D driving slice • Comet • Palm Bay"
-	caption.add_theme_font_size_override("font_size", 24)
-	list.add_child(caption)
-	var start := Button.new()
-	start.text = "Drive Palm Bay  →"
-	start.custom_minimum_size = Vector2(440, 64)
-	start.add_theme_font_size_override("font_size", 30)
-	start.pressed.connect(start_drive)
-	list.add_child(start)
-	var motion := CheckButton.new()
-	motion.text = "Reduce Motion"
-	motion.button_pressed = reduce_motion
-	motion.toggled.connect(func(value: bool) -> void: reduce_motion = value)
-	list.add_child(motion)
-	var touch_toggle := CheckButton.new()
-	touch_toggle.text = "Show touch controls / auto acceleration"
-	touch_toggle.button_pressed = touch_demo
-	touch_toggle.toggled.connect(func(value: bool) -> void: touch_demo = value)
-	list.add_child(touch_toggle)
-	var connect_button := Button.new()
-	connect_button.text = "Direct Connect  •  Community server"
-	connect_button.custom_minimum_size.y = 54
-	connect_button.pressed.connect(show_connection_form)
-	list.add_child(connect_button)
-	start.grab_focus()
+func ensure_stage() -> void:
+	if not is_instance_valid(stage):
+		stage = MenuStage.new()
+		add_child(stage)
+	stage.reduce_motion = bool(data.settings.reduce_motion)
+	stage.set_paint(int(data.profile.selected_paint))
 
 
-func start_drive() -> void:
-	if is_instance_valid(menu):
-		menu.queue_free()
+func dispose_drive() -> void:
 	if is_instance_valid(drive):
+		remove_child(drive)
 		drive.queue_free()
+		drive = null
+	if is_instance_valid(network):
+		network.queue_free()
+		network = null
+
+
+func show_menu() -> void:
+	dispose_drive()
+	ensure_stage()
+	page = "main"
+	back_action = Callable()
+	menu.settings = data.settings
+	var body := menu.reset(I18n.t("app.title"), I18n.t("app.tagline"), false)
+	var list := menu.scroll_column(body)
+	list.get_parent().size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+	var choices := ["online", "quick", "trial", "cup", "school", "garage", "settings", "credits", "quit"]
+	for choice: String in choices:
+		var button := menu.ui.button(I18n.t("menu." + choice), func() -> void: main_choice(choice), 270)
+		list.add_child(button)
+		if choice == data.profile.last_menu:
+			menu.focus_later(button)
+	menu.footer.add_child(menu.ui.label(data.profile.display_name))
+	menu.footer.add_child(menu.ui.button(I18n.t("menu.edit_name"), func() -> void: show_name(false)))
+	var spacer := Control.new()
+	spacer.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	menu.footer.add_child(spacer)
+	menu.footer.add_child(menu.ui.label(build_name() + " • " + I18n.t("menu.offline")))
+	show_notices()
+
+
+func main_choice(choice: String) -> void:
+	data.profile.last_menu = choice
+	data.save_profile()
+	match choice:
+		"quick", "trial", "garage": show_garage(choice)
+		"cup": show_cup()
+		"online": show_online()
+		"school": show_school()
+		"settings": settings_page.show_tab("display", show_menu)
+		"credits": show_credits()
+		"quit": get_tree().quit()
+
+
+func show_name(first: bool) -> void:
+	page = "name"
+	back_action = Callable() if first else show_menu
+	var body := menu.reset(I18n.t("first.title" if first else "menu.edit_name"))
+	var list := menu.scroll_column(body)
+	list.add_child(menu.ui.label(I18n.t("first.name")))
+	var edit := LineEdit.new()
+	edit.text = data.profile.display_name
+	edit.custom_minimum_size.y = menu.ui.row_height()
+	list.add_child(edit)
+	var error := menu.ui.paragraph("")
+	error.modulate = UIFactory.CORAL
+	list.add_child(error)
+	if first:
+		events.choice(list, "first.units", ["mph", "km/h"], 0 if data.settings.units == "mph" else 1, func(index: int) -> void: data.set_setting("units", ["mph", "km/h"][index]))
+		var reduce := CheckButton.new()
+		reduce.text = I18n.t("first.reduce_motion")
+		reduce.button_pressed = data.settings.reduce_motion
+		reduce.toggled.connect(func(value: bool) -> void: data.set_setting("reduce_motion", value))
+		list.add_child(reduce)
+	var save := func() -> void:
+		var checked := PlayerName.validate(edit.text)
+		if not checked.valid:
+			error.text = I18n.t(checked.error)
+			return
+		data.profile.display_name = checked.value
+		data.profile.first_run_complete = true
+		if data.save_profile() != OK:
+			error.text = I18n.t("data.save_failed")
+			return
+		show_school_offer() if first else show_menu()
+	menu.footer.add_child(menu.ui.button(I18n.t("button.continue" if first else "button.save"), save))
+	if not first:
+		menu.add_back(show_menu)
+	edit.text_submitted.connect(func(_text: String) -> void: save.call())
+	edit.call_deferred("grab_focus")
+
+
+func show_school_offer() -> void:
+	page = "school_offer"
+	back_action = show_menu
+	var body := menu.reset(I18n.t("first.school_title"), I18n.t("first.school_body"))
+	body.add_child(menu.ui.button(I18n.t("first.start_school"), show_school))
+	body.add_child(menu.ui.button(I18n.t("button.skip"), show_menu))
+	menu.first_focus()
+
+
+func show_garage(mode: String = "garage") -> void:
+	page = "garage"
+	back_action = show_menu
+	ensure_stage()
+	var body := menu.reset(I18n.t("garage.title"), "", false)
+	var list := menu.scroll_column(body)
+	var cards := GridContainer.new()
+	cards.columns = 2 if data.mobile else 4
+	list.add_child(cards)
+	for index in range(4):
+		var car: CarDefinition = Catalog.cars[index]
+		var caption := I18n.t("car." + car.id) + "\n" + I18n.t("role." + car.id)
+		var button := menu.ui.button(caption, func() -> void:
+			data.select_car(index, int(data.profile.selected_paint))
+			show_garage(mode), 230)
+		button.modulate = UIFactory.TURQUOISE if index == int(data.profile.selected_car) else Color.WHITE
+		cards.add_child(button)
+	var selected: CarDefinition = Catalog.cars[int(data.profile.selected_car)]
+	list.add_child(menu.ui.label("%s  %.0f   •   %s  %.1f   •   %s  %.0f" % [I18n.t("garage.speed"), selected.top_speed * (2.236936 if data.settings.units == "mph" else 3.6), I18n.t("garage.acceleration"), selected.acceleration, I18n.t("garage.grip"), selected.grip]))
+	var space := Control.new()
+	space.custom_minimum_size.y = 140 * menu.ui.unit
+	list.add_child(space)
+	var paints := GridContainer.new()
+	paints.columns = 4 if data.mobile else 8
+	list.add_child(paints)
+	for index in range(8):
+		var button := menu.ui.button(I18n.t("paint." + str(index)), func() -> void:
+			data.select_car(int(data.profile.selected_car), index)
+			show_garage(mode))
+		button.add_theme_color_override("font_color", Catalog.paints[index].lightened(.25))
+		if index == int(data.profile.selected_paint):
+			button.text = "✓ " + button.text
+		paints.add_child(button)
+	list.add_child(menu.ui.paragraph(I18n.t("garage.rotate")))
+	menu.add_back(show_menu)
+	menu.footer.add_child(menu.ui.button(I18n.t("button.confirm" if mode == "garage" else "button.continue"), func() -> void:
+		if mode == "garage":
+			show_menu()
+		elif mode == "cup":
+			if data.start_cup() == OK:
+				start_cup_event()
+		else:
+			events.mode = mode
+			page = "event"
+			back_action = func() -> void: show_garage(mode)
+			events.show_event()))
+	menu.first_focus()
+
+
+func start_drive(configuration: Dictionary = {}) -> void:
+	if is_instance_valid(stage):
+		remove_child(stage)
+		stage.queue_free()
+		stage = null
+	if is_instance_valid(drive):
+		remove_child(drive)
+		drive.queue_free()
+	pending_config = configuration.duplicate(true)
+	page = "race"
+	menu.hide()
 	drive = RaceDrive.new()
+	drive.config = configuration
+	drive.app_data = data
+	drive.external_menus = true
 	drive.show_touch = touch_demo
-	drive.reduce_motion = reduce_motion
+	drive.reduce_motion = bool(data.settings.reduce_motion)
 	drive.leave_requested.connect(return_to_menu)
+	drive.pause_requested.connect(show_pause)
+	drive.results_ready.connect(show_results)
+	drive.school_completed.connect(show_school_complete)
+	drive.school_skipped.connect(skip_school)
 	add_child(drive)
 
 
 func return_to_menu() -> void:
-	if is_instance_valid(network):
-		network.queue_free()
-		network = null
-	if is_instance_valid(drive):
-		drive.queue_free()
-		drive = null
 	show_menu()
 
 
+func show_pause() -> void:
+	page = "pause"
+	back_action = resume_drive
+	var mode: String = drive.session.mode
+	var body := menu.reset(I18n.t("pause.online" if network else "pause.title"))
+	var list := menu.scroll_column(body)
+	list.add_child(menu.ui.button(I18n.t("pause.resume"), resume_drive))
+	if not network and mode != "cup":
+		list.add_child(menu.ui.button(I18n.t("pause.restart_trial" if mode == "trial" else "pause.restart"), func() -> void: start_drive(pending_config)))
+	if mode == "trial":
+		var ghost := CheckButton.new()
+		ghost.text = I18n.t("event.ghost")
+		ghost.button_pressed = drive.show_ghost
+		ghost.toggled.connect(func(value: bool) -> void:
+			drive.show_ghost = value)
+		list.add_child(ghost)
+	list.add_child(menu.ui.button(I18n.t("menu.settings"), func() -> void: settings_page.show_tab("display", show_pause)))
+	list.add_child(menu.ui.button(I18n.t("pause.controls"), func() -> void: settings_page.show_tab("controls", show_pause)))
+	var quit_key := "cup.save_quit" if mode == "cup" else "pause.leave" if network else "pause.quit"
+	list.add_child(menu.ui.button(I18n.t(quit_key), func() -> void: menu.confirm(I18n.t("pause.leave_confirm" if network else "pause.offline_confirm"), return_to_menu)))
+	menu.first_focus()
+
+
+func resume_drive() -> void:
+	menu.hide()
+	page = "race"
+	drive.apply_settings()
+	drive.resume()
+
+
+func show_results() -> void:
+	page = "results"
+	back_action = Callable()
+	var session := drive.session
+	if session.mode == "cup" and data.commit_cup(session) != OK:
+		result_summary = {"saved":false, "new_best":false}
+	else:
+		result_summary = data.commit_result(session, drive.ghost_samples)
+	render_results()
+
+
+func render_results() -> void:
+	var session := drive.session
+	var body := menu.reset(I18n.t("results.trial_title" if session.mode == "trial" else "results.title"))
+	var list := menu.scroll_column(body)
+	if not result_summary.saved:
+		list.add_child(menu.ui.paragraph(I18n.t("data.save_failed")))
+		list.add_child(menu.ui.button(I18n.t("data.retry_save"), show_results))
+	elif result_summary.new_best:
+		list.add_child(menu.ui.label(I18n.t("results.new_best"), true))
+	var timer := RaceHUD.new()
+	if session.mode == "trial":
+		list.add_child(menu.ui.label(timer.time(drive.state.finish_time) if drive.state.finished else I18n.t("results.dnf"), true))
+		if not drive.state.trial_valid:
+			list.add_child(menu.ui.paragraph(I18n.t("results.invalid")))
+		var medal := Medals.award(drive.track.length, drive.state.finish_time, drive.state.finished and drive.state.trial_valid)
+		list.add_child(menu.ui.label(I18n.t(["results.no_medal", "results.gold", "results.silver", "results.bronze"][medal + 1])))
+		var previous := float(result_summary.get("previous", -1))
+		list.add_child(menu.ui.label(I18n.t("results.previous") + ": " + (timer.time(previous) + "  (%+.3f)" % (drive.state.finish_time - previous) if previous > 0 and drive.state.finished else I18n.t("results.no_previous"))))
+		var thresholds := Medals.thresholds(drive.track.length)
+		for index in range(3):
+			list.add_child(menu.ui.label(I18n.t("results." + ["gold", "silver", "bronze"][index]) + "  " + timer.time(thresholds[index])))
+	else:
+		var order := session.standings()
+		for index in range(order.size()):
+			var state: VehicleState = order[index]
+			var record: Dictionary = session.roster[state.slot]
+			var gap := "—" if index == 0 or not state.finished or not order[0].finished else "+%.3f" % (state.finish_time - order[0].finish_time)
+			var row := menu.ui.paragraph("%d  %s  •  %s  •  %s  •  %s  •  %s" % [index + 1, record.name, I18n.t("car." + session.cars[state.slot].id), timer.time(state.finish_time) if state.finished else I18n.t("results.dnf") + " " + state.dnf_reason, timer.time(state.best_lap_time) if state.best_lap_time > 0 else "—", gap])
+			list.add_child(menu.ui.panel(row) if state.slot == session.human_slot else row)
+	if session.mode == "cup":
+		append_cup_standings(list)
+		if int(data.cup.data.next_event) < 6:
+			menu.footer.add_child(menu.ui.button(I18n.t("cup.next"), start_cup_event))
+		menu.footer.add_child(menu.ui.button(I18n.t("cup.save_quit"), return_to_menu))
+	else:
+		menu.footer.add_child(menu.ui.button(I18n.t("results.retry"), func() -> void: start_drive(pending_config)))
+		menu.footer.add_child(menu.ui.button(I18n.t("results.change_track" if session.mode == "trial" else "results.change_event"), func() -> void:
+			dispose_drive()
+			ensure_stage()
+			events.mode = session.mode
+			events.show_event()))
+		menu.footer.add_child(menu.ui.button(I18n.t("button.main_menu"), return_to_menu))
+	menu.first_focus()
+
+
+func show_cup() -> void:
+	page = "cup"
+	back_action = show_menu
+	var body := menu.reset(I18n.t("cup.title"), I18n.t("cup.rules"))
+	var list := menu.scroll_column(body)
+	for index in range(6):
+		list.add_child(menu.ui.label("%d  %s" % [index + 1, I18n.t("track." + Catalog.tracks[index].id)]))
+	if not data.cup.data.is_empty():
+		if data.cup.compatible(Compatibility.content_hash()):
+			append_cup_standings(list)
+			if int(data.cup.data.next_event) < 6:
+				menu.footer.add_child(menu.ui.button(I18n.t("cup.continue"), start_cup_event))
+		else:
+			list.add_child(menu.ui.paragraph(I18n.t("cup.old_version")))
+		menu.footer.add_child(menu.ui.button(I18n.t("cup.abandon"), func() -> void: menu.confirm(I18n.t("cup.abandon_confirm"), func() -> void:
+			if data.abandon_cup() == OK:
+				show_cup())))
+	menu.footer.add_child(menu.ui.button(I18n.t("cup.start"), func() -> void:
+		if not data.cup.data.is_empty() and int(data.cup.data.next_event) < 6:
+			menu.confirm(I18n.t("cup.replace"), func() -> void: show_garage("cup"))
+		else:
+			show_garage("cup")))
+	menu.add_back(show_menu)
+	menu.first_focus()
+
+
+func append_cup_standings(parent: Node) -> void:
+	parent.add_child(menu.ui.label(I18n.t("cup.standings"), true))
+	var rank := 0
+	for row: Dictionary in data.cup.standings():
+		rank += 1
+		parent.add_child(menu.ui.label("%d  %s   %d %s" % [rank, row.name, row.points, I18n.t("cup.points")]))
+
+
+func start_cup_event() -> void:
+	var cup := data.cup
+	if not cup.compatible(Compatibility.content_hash()) or int(cup.data.next_event) >= 6:
+		show_cup()
+		return
+	var index := int(cup.data.next_event)
+	var roster := cup.grid()
+	var human: Dictionary = roster.filter(func(row: Dictionary) -> bool: return row.id == "local")[0]
+	start_drive({"mode":"cup", "track":index, "car":int(human.car), "paint":int(human.paint), "laps":2, "roster":roster, "seed":int(cup.data.seeds[index]), "cup_event":index, "contact":true, "difficulty":1})
+
+
+func show_school() -> void:
+	dispose_drive()
+	ensure_stage()
+	page = "school"
+	back_action = show_menu
+	var body := menu.reset(I18n.t("school.title"))
+	var list := menu.scroll_column(body)
+	for index in range(5):
+		list.add_child(menu.ui.button(("✓ " if data.profile.school_steps[index] else "") + I18n.t("school." + str(index)), func() -> void: start_drive({"mode":"school", "lesson":index})))
+	menu.add_back(show_menu)
+	menu.first_focus()
+
+
+func skip_school() -> void:
+	var index := int(drive.config.get("lesson", 0))
+	if index < 4:
+		start_drive({"mode":"school", "lesson":index + 1})
+	else:
+		show_school_complete()
+
+
+func show_school_complete() -> void:
+	var index := int(drive.config.get("lesson", 0))
+	if drive.lesson.done:
+		data.profile.school_steps[index] = true
+		data.save_profile()
+	drive.paused = true
+	drive.touch.clear()
+	drive.touch.enabled = false
+	page = "school_complete"
+	back_action = show_school
+	var body := menu.reset(I18n.t("school.finished" if index == 4 else "school.complete"))
+	body.add_child(menu.ui.button(I18n.t("school.retry"), func() -> void: start_drive(pending_config)))
+	if index < 4:
+		body.add_child(menu.ui.button(I18n.t("school.next"), func() -> void: start_drive({"mode":"school", "lesson":index + 1})))
+	else:
+		body.add_child(menu.ui.paragraph(I18n.t("school.final_body")))
+		body.add_child(menu.ui.button(I18n.t("menu.quick"), func() -> void:
+			dispose_drive()
+			show_garage("quick")))
+	body.add_child(menu.ui.button(I18n.t("button.main_menu"), show_menu))
+	menu.first_focus()
+
+
+func show_online() -> void:
+	page = "online"
+	back_action = show_menu
+	var body := menu.reset(I18n.t("online.title"))
+	body.add_child(menu.ui.paragraph(I18n.t("online.unavailable")))
+	body.add_child(menu.ui.button(I18n.t("online.direct"), show_connection_form))
+	menu.add_back(show_menu)
+	menu.first_focus()
+
+
 func show_connection_form() -> void:
-	if is_instance_valid(menu):
-		menu.queue_free()
-	menu = CanvasLayer.new()
-	add_child(menu)
-	var background := ColorRect.new()
-	background.color = Color.html("172C40")
-	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	menu.add_child(background)
-	var list := VBoxContainer.new()
-	list.position = Vector2(160, 150)
-	list.custom_minimum_size.x = 900
-	list.add_theme_constant_override("separation", 20)
-	menu.add_child(list)
-	var title := Label.new()
-	title.text = "DIRECT CONNECT"
-	title.add_theme_font_size_override("font_size", 48)
-	list.add_child(title)
+	page = "connect"
+	back_action = show_online
+	var body := menu.reset(I18n.t("online.direct"), I18n.t("online.community"))
 	var address := LineEdit.new()
-	address.placeholder_text = "hostname:27020 or [IPv6]:27020"
+	address.placeholder_text = I18n.t("online.address_help")
 	address.text = "127.0.0.1:27020"
-	address.custom_minimum_size.y = 64
-	address.add_theme_font_size_override("font_size", 28)
-	list.add_child(address)
-	connection_label = Label.new()
-	connection_label.text = "Community server • two racers start the M2 test race."
-	connection_label.add_theme_font_size_override("font_size", 24)
-	list.add_child(connection_label)
-	for text: String in ["Connect / Retry", "Back"]:
-		var button := Button.new()
-		button.text = text
-		button.custom_minimum_size.y = 60
-		button.pressed.connect(func() -> void: connect_address(address.text)) if text.begins_with("Connect") else button.pressed.connect(return_to_menu)
-		list.add_child(button)
-	address.grab_focus()
+	address.custom_minimum_size.y = menu.ui.row_height()
+	body.add_child(address)
+	connection_label = menu.ui.paragraph(I18n.t("online.waiting"))
+	body.add_child(connection_label)
+	body.add_child(menu.ui.button(I18n.t("online.connect"), func() -> void: connect_address(address.text)))
+	menu.add_back(func() -> void:
+		if network:
+			network.queue_free()
+			network = null
+		show_online())
+	address.call_deferred("grab_focus")
 
 
 func connect_address(value: String) -> void:
 	var address := PeerAddress.parse(value)
 	if address.is_empty():
-		connection_label.text = "Enter hostname:port, or [IPv6]:port. Port must be 1–65535."
+		connection_label.text = I18n.t("online.address_error")
 		return
 	if is_instance_valid(network):
 		network.queue_free()
 	network = NetworkClient.new()
 	add_child(network)
 	network.race_started.connect(func(_config: Dictionary) -> void:
-		if is_instance_valid(menu):
-			menu.queue_free()
+		if is_instance_valid(stage):
+			remove_child(stage)
+			stage.queue_free()
+			stage = null
+		menu.hide()
 		drive = RaceDrive.new()
 		drive.network = network
+		drive.app_data = data
 		drive.show_touch = touch_demo
-		drive.reduce_motion = reduce_motion
 		drive.leave_requested.connect(return_to_menu)
 		add_child(drive))
 	network.status_changed.connect(func(message: String) -> void:
 		if is_instance_valid(connection_label):
 			connection_label.text = message
 		print("NETWORK_STATUS " + message))
-	network.connect_to(address.host, address.port, "Driver")
+	network.connect_to(address.host, address.port, data.profile.display_name)
+
+
+func show_credits() -> void:
+	page = "credits"
+	back_action = show_menu
+	var body := menu.reset(I18n.t("credits.title"))
+	var list := menu.scroll_column(body)
+	for key in ["creator", "software", "fonts", "inspiration", "licenses"]:
+		list.add_child(menu.ui.paragraph(I18n.t("credits." + key)))
+	list.add_child(menu.ui.label(build_name()))
+	menu.add_back(show_menu)
+	menu.first_focus()
+
+
+func build_name() -> String:
+	var filename := "res://game/build.json"
+	if OS.has_feature("standalone") and FileAccess.file_exists(filename):
+		var info: Variant = JSON.parse_string(FileAccess.get_file_as_string(filename))
+		if info is Dictionary:
+			return str(info.get("version", "Development"))
+	return "Development • " + Compatibility.content_hash().left(8)
+
+
+func show_notices() -> void:
+	for notice: String in data.store.notices:
+		menu.footer.add_child(menu.ui.paragraph(I18n.t(notice)))
+	data.store.notices.clear()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel") and page != "race" and back_action.is_valid():
+		back_action.call()
+		get_viewport().set_input_as_handled()
 
 
 func _process(_dt: float) -> void:
@@ -175,11 +510,7 @@ func _process(_dt: float) -> void:
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST and is_inside_tree():
-		if is_instance_valid(drive):
-			if drive.paused:
-				drive.resume()
-			else:
-				drive.show_pause()
-		else:
-			return_to_menu()
-
+		if page == "race" and is_instance_valid(drive):
+			drive.show_pause()
+		elif back_action.is_valid():
+			back_action.call()

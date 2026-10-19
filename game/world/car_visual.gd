@@ -90,3 +90,12 @@ func present(state: VehicleState, input: InputFrame, dt: float) -> void:
 		var mat: StandardMaterial3D = light.material_override
 		mat.albedo_color = Color.html("FF634D") if input.brake > .1 or input.handbrake else Color.html("A32F39")
 	visible = state.recovery_ticks < 30
+
+
+func set_ghost(alpha: float) -> void:
+	for item: Node in find_children("*", "MeshInstance3D", true, false):
+		var mesh: MeshInstance3D = item
+		var material: StandardMaterial3D = mesh.material_override
+		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+		material.albedo_color.a = alpha
+		mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

@@ -2,6 +2,22 @@ class_name RaceDrive
 extends Node3D
 
 signal leave_requested
+signal pause_requested
+signal results_ready
+signal school_completed
+signal school_skipped
+
+var config: Dictionary = {}
+var app_data: AppData
+var external_menus: bool = false
+var result_sent: bool = false
+var ghost_samples: Array[Dictionary] = []
+var best_ghost: Dictionary = {}
+var ghost_visual: CarVisual
+var local_slot: int = 0
+var show_ghost: bool = true
+var lesson: SchoolLesson
+var school_overlay: SchoolOverlay
 
 var state := VehicleState.new()
 var frame := InputFrame.make()
@@ -31,22 +47,73 @@ var demo_driver := BotDriver.new()
 
 
 func _ready() -> void:
-	track = Catalog.tracks[0]
-	car = Catalog.cars[0]
+	track = Catalog.tracks[int(config.get("track", 0))]
+	var selected_car := int(config.get("car", 0))
+	car = Catalog.cars[selected_car]
+	lap_count = int(config.get("laps", 2))
 	world.build(track)
 	add_child(world)
 	session = RaceSession.new()
-	var cars: Array[int] = [0]
+	var roster: Array[Dictionary] = []
+	roster.assign(config.get("roster", RaceSetup.roster(int(config.get("opponents", 0)), selected_car, int(config.get("paint", 0)), "Driver")))
+	var cars := RaceSetup.car_indices(roster)
 	if network:
 		cars.clear()
 		for _racer in range(int(network.config.count)):
 			cars.append(0)
 		lap_count = int(network.config.laps)
+		local_slot = network.slot
+	else:
+		for index in range(roster.size()):
+			if not roster[index].bot:
+				local_slot = index
 	session.setup(track, cars, get_world_3d(), lap_count)
-	state = session.states[network.slot if network else 0]
-	query = session.queries[network.slot if network else 0]
-	visual.build(Catalog.paints[0])
+	session.mode = config.get("mode", "quick")
+	session.race_uuid = config.get("race_uuid", RaceSetup.uuid())
+	session.cup_event = int(config.get("cup_event", -1))
+	session.seed = int(config.get("seed", 1))
+	session.contact_enabled = bool(config.get("contact", true)) and session.mode != "trial"
+	if not network:
+		session.configure_bots(roster, local_slot, int(config.get("difficulty", 1)))
+	state = session.states[local_slot]
+	query = session.queries[local_slot]
+	if session.mode == "school":
+		lesson = SchoolLesson.new()
+		lesson.configure(int(config.get("lesson", 0)), track)
+		var pose := track.pose(lesson.spawn_s)
+		state.position = pose.origin + Vector3.UP * .35
+		state.yaw = atan2(-pose.basis.z.x, pose.basis.z.z)
+		state.route_s = lesson.spawn_s
+		query.hint = track.sample_index(lesson.spawn_s)
+		session.phase = RaceSession.Phase.RACING
+		session.contact_enabled = false
+		for marker: Vector3 in lesson.markers:
+			for side in [-4, 4]:
+				var cone := MeshInstance3D.new()
+				var mesh := CylinderMesh.new()
+				mesh.top_radius = .05
+				mesh.bottom_radius = .45
+				mesh.height = 1.2
+				cone.mesh = mesh
+				cone.material_override = world.material(UIFactory.CORAL)
+				cone.position = marker + Vector3(side, .6, 0)
+				world.add_child(cone)
+	visual.build(Catalog.paints[int(config.get("paint", 0))])
 	add_child(visual)
+	for index in range(session.states.size()):
+		if index == local_slot:
+			continue
+		var rival := CarVisual.new()
+		rival.build(Catalog.paints[int(roster[index].paint) if not network else (index + 1) % 8])
+		remote_visuals[index] = rival
+		add_child(rival)
+	if session.mode == "trial" and app_data and bool(config.get("ghost", true)):
+		best_ghost = app_data.load_ghost(track.id, car.id)
+		if not best_ghost.is_empty():
+			ghost_visual = CarVisual.new()
+			ghost_visual.build(Catalog.paints[int(config.get("paint", 0))])
+			ghost_visual.set_ghost(.35)
+			add_child(ghost_visual)
 	add_child(camera)
 	camera.current = true
 	camera.reduce_motion = reduce_motion
@@ -56,11 +123,25 @@ func _ready() -> void:
 	hud.lap_count = lap_count
 	ui.add_child(hud)
 	ui.add_child(touch)
+	if lesson:
+		hud.hide()
+		school_overlay = SchoolOverlay.new()
+		school_overlay.lesson = lesson
+		school_overlay.state = state
+		ui.add_child(school_overlay)
+		var skip := Button.new()
+		skip.text = I18n.t("button.skip")
+		skip.position = Vector2(30, 30)
+		skip.custom_minimum_size = Vector2(120, 48)
+		skip.pressed.connect(func() -> void: school_skipped.emit())
+		ui.add_child(skip)
 	touch.visible = show_touch or OS.has_feature("mobile")
 	touch.auto_accelerate = touch.visible
 	hud.mobile = touch.visible
 	hud.mobile_unit = touch.unit
 	hud.racers = session.states.size()
+	hud.trial = session.mode == "trial"
+	apply_settings()
 	touch.action_pressed.connect(touch_action)
 	var help := Label.new()
 	help.text = "W / ↑  Accelerate     A D / ← →  Steer     S / ↓  Brake     SPACE  Slide     Hold R  Recover     C  Camera     ESC  Pause"
@@ -76,13 +157,6 @@ func _ready() -> void:
 		if "--autodrive" in OS.get_cmdline_user_args():
 			network.input_provider = func() -> InputFrame: return demo_driver.sample(state, car, track, query)
 			state.trial_valid = false
-		for index in range(session.states.size()):
-			if index == state.slot:
-				continue
-			var rival := CarVisual.new()
-			rival.build(Catalog.paints[(index + 1) % 8])
-			remote_visuals[index] = rival
-			add_child(rival)
 	print("PACIFIC_RUSH_DRIVING_READY")
 
 
@@ -107,23 +181,60 @@ func _physics_process(_dt: float) -> void:
 	if "--autodrive" in OS.get_cmdline_user_args():
 		frame = demo_driver.sample(state, car, track, query)
 		state.trial_valid = false
-	session.step({0:frame})
+	var previous := state.copy()
+	if session.mode == "trial" and session.phase == RaceSession.Phase.RACING and session.elapsed_ticks == 0:
+		ghost_samples.append({"time":0.0, "position":state.position, "yaw":state.yaw})
+	if lesson:
+		VehicleSim.step(state, frame, car, query)
+		ProgressTracker.safety(state, frame, track, query)
+		lesson.update(state, frame, track)
+		if lesson.done and not result_sent:
+			result_sent = true
+			paused = true
+			touch.clear()
+			school_completed.emit()
+		return
+	session.step({local_slot:frame})
+	if session.mode == "trial" and session.elapsed_ticks > 0 and not previous.finished:
+		if state.finished:
+			var alpha := clampf(state.finish_time * 60 - (session.elapsed_ticks - 1), 0, 1)
+			ghost_samples.append({"time":state.finish_time, "position":previous.position.lerp(state.position, alpha), "yaw":lerp_angle(previous.yaw, state.yaw, alpha)})
+		elif session.elapsed_ticks % 3 == 0:
+			ghost_samples.append({"time":session.elapsed_ticks / 60.0, "position":state.position, "yaw":state.yaw})
 	race_ticks = session.elapsed_ticks
 	phase = ["Lobby", "Loading", "Grid", "Countdown", "Racing", "Finish Grace", "Results"][session.phase]
 	phase_ticks = session.phase_ticks
 	if "recovery" in state.events:
 		touch.clear()
-	if state.finished:
-		show_pause(true)
+	if session.phase == RaceSession.Phase.RESULTS and not result_sent:
+		result_sent = true
+		touch.clear()
+		touch.enabled = false
+		results_ready.emit()
+		if not external_menus:
+			show_pause(true)
 	hud.ticks = race_ticks
 	hud.phase = phase
 	hud.phase_ticks = phase_ticks
+	hud.rank = session.standings().find(state) + 1
 	hud.queue_redraw()
 
 
 func _process(dt: float) -> void:
 	visual.present(state, frame, dt)
 	var rendered := state
+	if not network:
+		hud.rivals.clear()
+		for slot: int in remote_visuals:
+			remote_visuals[slot].present(session.states[slot], session.inputs[slot], dt)
+			hud.rivals.append(session.states[slot])
+	if ghost_visual:
+		var pose := GhostCodec.at_time(best_ghost, race_ticks / 60.0)
+		var ghost_state := VehicleState.new()
+		ghost_state.position = pose.position
+		ghost_state.yaw = pose.yaw
+		ghost_visual.present(ghost_state, InputFrame.make(), dt)
+		ghost_visual.visible = show_ghost and race_ticks / 60.0 <= float(best_ghost.time)
 	if network and network.prediction:
 		rendered = state.copy()
 		rendered.position += network.prediction.render_offset(dt)
@@ -162,6 +273,9 @@ func show_pause(finished: bool = false) -> void:
 	touch.clear()
 	touch.enabled = false
 	frame = InputFrame.make()
+	if external_menus:
+		pause_requested.emit()
+		return
 	pause_panel = PanelContainer.new()
 	pause_panel.position = Vector2(440, 170)
 	pause_panel.custom_minimum_size = Vector2(400, 330)
@@ -191,8 +305,6 @@ func button(parent: Node, text: String, action: Callable) -> void:
 
 
 func resume() -> void:
-	if state.finished:
-		return
 	paused = false
 	touch.enabled = true
 	touch.clear()
@@ -208,3 +320,21 @@ func restart() -> void:
 func _notification(what: int) -> void:
 	if what in [NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED] and is_inside_tree() and not Array(OS.get_cmdline_user_args()).any(func(arg: String) -> bool: return arg.begins_with("--capture=")):
 		show_pause()
+
+
+func apply_settings() -> void:
+	if app_data == null:
+		return
+	var settings := app_data.settings
+	SettingsRuntime.apply(self, settings)
+	reduce_motion = bool(settings.reduce_motion)
+	camera.reduce_motion = reduce_motion
+	camera.base_fov = float(settings.base_fov)
+	camera.dynamic_fov = bool(settings.dynamic_fov)
+	camera.mode = ["near", "far", "hood"].find(settings.camera)
+	camera.far = float(settings.draw_distance)
+	hud.mph = settings.units == "mph"
+	driver.auto_accelerate = bool(settings.auto_accelerate)
+	driver.deadzone = float(settings.deadzone)
+	driver.sensitivity = float(settings.sensitivity)
+	touch.auto_accelerate = bool(settings.get("touch_auto_accelerate", true)) if touch.visible else false

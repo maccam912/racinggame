@@ -1,0 +1,125 @@
+{
+  "platform": "Darwin-arm64",
+  "engine": "4.6.3-stable",
+  "commit": "0a3e5654c729f83e4883344792e20c6a1aeb88b6",
+  "passed": true,
+  "results": [
+    {
+      "suite": "tools/validate_content.py",
+      "passed": true,
+      "seconds": 0.029,
+      "output": "Validated cars: strict schema and references\nValidated tracks: strict schema and references\nValidated rules: strict schema and references\n"
+    },
+    {
+      "suite": "tools/bake_tracks.py --check",
+      "passed": true,
+      "seconds": 0.27,
+      "output": "palm_bay: 3098.3 m, minimum radius 43.9 m, start 4, 31 gates\ncitrus_pass: 3245.5 m, minimum radius 32.5 m, start 21, 33 gates\nmarina_lights: 3058.6 m, minimum radius 35.6 m, start 0, 31 gates\nredwood_run: 3271.3 m, minimum radius 44.0 m, start 0, 33 gates\nsunstone_canyon: 3727.1 m, minimum radius 39.0 m, start 0, 38 gates\npacific_summit: 3947.8 m, minimum radius 45.3 m, start 0, 40 gates\n"
+    },
+    {
+      "suite": "tools/content_hash.py --check",
+      "passed": true,
+      "seconds": 0.037,
+      "output": "45239f7e79aef6d76d9d0525bd3d11fe462052a777f3f607bc957bc608777ece\n"
+    },
+    {
+      "suite": "-m unittest discover -s tests -p test_*.py",
+      "passed": true,
+      "seconds": 0.036,
+      "output": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.001s\n\nOK\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --editor --import --quit",
+      "passed": true,
+      "seconds": 1.792,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\n[   0% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Started Project initialization (5 steps)\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Scanning file structure...\u001b[39m\u001b[0m\n[  16% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Loading global class names...\u001b[39m\u001b[0m\n[  33% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Verifying GDExtensions...\u001b[39m\u001b[0m\n[  50% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Creating autoload scripts...\u001b[39m\u001b[0m\n[  66% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Initializing plugins...\u001b[39m\u001b[0m\n[  83% ] \u001b[90m\u001b[1mfirst_scan_filesystem\u001b[22m | Starting file scan...\u001b[39m\u001b[0m\n\u001b[92m[ DONE ]\u001b[39m \u001b[1mfirst_scan_filesystem\u001b[22m\n\u001b[0m\n[   0% ] \u001b[90m\u001b[1mupdate_scripts_classes\u001b[22m | Started Registering global classes... (2 steps)\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mupdate_scripts_classes\u001b[22m | CupBook\u001b[39m\u001b[0m\n[  33% ] \u001b[90m\u001b[1mupdate_scripts_classes\u001b[22m | AppData\u001b[39m\u001b[0m\n\u001b[92m[ DONE ]\u001b[39m \u001b[1mupdate_scripts_classes\u001b[22m\n\u001b[0m\n[   0% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Started Loading editor (5 steps)\u001b[39m\u001b[0m\n[   0% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Loading editor layout...\u001b[39m\u001b[0m\n[  16% ] \u001b[90m\u001b[1mloading_editor_layout\u001b[22m | Loading docks...\u001b[39m\u001b[0m\n\u001b[92m[ DONE ]\u001b[39m \u001b[1mloading_editor_layout\u001b[22m\n\u001b[0m\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.215,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nTEST PASS: 4 cars, 6 routes, 8 paints, grid/start/recovery contracts\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/driving_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.317,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nDriving fixtures: 0\u2013100 2.300 s; stop 20.806 m; failures 0\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/world_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.318,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nWorld fixtures: wall contacts 109; initial 37.058 m/s; final tangent 33.458 m/s; x 9.0479; failures 0\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/progress_touch_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.219,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nProgress/touch fixtures: failures 0\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/slice_smoke.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.424,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_DRIVING_READY\nDriving scene smoke: failures 0\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/network_contract_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.311,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nNetwork contract fixtures: eight-car snapshot 727 bytes; input batch 82 bytes; failures 0\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/race_contact_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.32,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nRace/contact fixtures: 20 bounded bumps, countdown, precise finishes and hard cap; failures 0\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/jump_track_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.314,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nJump fixture 30 m/s: 1 launch, 1 landing, 0.200 s airborne\nJump fixture 45 m/s: 1 launch, 1 landing, 0.200 s airborne\nJump fixture 60 m/s: 1 launch, 1 landing, 0.200 s airborne\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/save_cup_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.219,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPersistence/cup fixtures: corruption, interrupted writes, future schema, points and grids; failures 0\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/ghost_medal_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.216,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nGhost/medal fixtures: exact final time, interpolation, corruption and thresholds; failures 0\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/app_data_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.314,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nReload stats=3.0 best=0.123456 notices=[]\nApp data fixtures: platform settings, tab restore, records/ghosts and idempotent stats; failures 0\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/name_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.22,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPlayer names: NFC, Hangul, grapheme bounds, byte cap and control/markup rejection pass\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/menu_flow_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.621,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_CLIENT_READY\nPACIFIC_RUSH_DRIVING_READY\nMenu flow: all pages, six routes, eight-car race, settings tabs, pause and resume pass\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/mode_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "seconds": 0.898,
+      "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_DRIVING_READY\nTrial real finish 67.223876227, samples 1346, medal 0\nMode fixtures: standing-start trial/ghost commit, five school objectives, exact cap; failures 0\n"
+    }
+  ],
+  "working_tree_dirty": true,
+  "content_hash": "45239f7e79aef6d76d9d0525bd3d11fe462052a777f3f607bc957bc608777ece",
+  "note": "Validated source working tree immediately before the offline checkpoint commit."
+}

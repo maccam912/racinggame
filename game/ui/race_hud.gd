@@ -7,6 +7,7 @@ var ticks: int = 0
 var phase_ticks: int = 0
 var lap_count: int = 2
 var phase: String = "Grid"
+var trial: bool = false
 var mph: bool = true
 var rivals: Array[VehicleState] = []
 var map_points := PackedVector2Array()
@@ -34,7 +35,7 @@ func _ready() -> void:
 
 
 func text(at: Vector2, value: String, font_size: int, color: Color = Color("f8f4e8")) -> void:
-	draw_string(ThemeDB.fallback_font, at, value, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
+	draw_string(load("res://assets/fonts/Barlow-SemiBold.ttf"), at, value, HORIZONTAL_ALIGNMENT_LEFT, -1, font_size, color)
 
 
 func time(seconds: float) -> String:
@@ -47,14 +48,14 @@ func _draw() -> void:
 	var safe := size * .05
 	var unit := mobile_unit if mobile else 1.0
 	draw_style_box(panel(), Rect2(safe, Vector2(180 * unit, 45 * unit) if mobile else Vector2(230, 80)))
-	text(safe + Vector2(16, 31) * unit, "POS  %d / %d" % [rank, racers], int(22 * unit), Color.html("20BFC5"))
-	var lap_text := "LAP  %d / %d" % [mini(lap_count, state.laps + 1), lap_count]
+	text(safe + Vector2(16, 31) * unit, I18n.t("hud.trial") if trial else I18n.t("hud.position", [rank, racers]), int(22 * unit), Color.html("20BFC5"))
+	var lap_text := I18n.t("hud.lap", [mini(lap_count, state.laps + 1), lap_count])
 	text(Vector2(size.x * .72, safe.y + 30 * unit) if mobile else safe + Vector2(16, 64), lap_text, int(24 * unit) if mobile else 28)
 	text(Vector2(size.x / 2 - 85 * unit, safe.y + 36 * unit), time(ticks / 60.0), int(28 * unit) if mobile else 36)
 	if not mobile:
-		text(Vector2(size.x - safe.x - 240, safe.y + 30), "COMET  /  DRIVING SLICE", 18)
+		text(Vector2(size.x - safe.x - 240, safe.y + 30), I18n.t("track." + track.id), 18)
 	var map_origin := Vector2(safe.x + 10, size.y - safe.y - 155)
-	var map_factor := minf(130 * unit / 190, 90 * unit / 135) if mobile else 1.0
+	var map_factor := minf(130 * unit / 220, 90 * unit / 160) if mobile else 1.0
 	if mobile:
 		map_origin = Vector2(safe.x + 10 * map_factor, safe.y + 55 * unit + 10 * map_factor)
 	draw_style_box(panel(), Rect2(map_origin - Vector2(10, 10) * map_factor, Vector2(220, 160) * map_factor))
@@ -76,17 +77,19 @@ func _draw() -> void:
 	text(speed_at + Vector2(90 * unit if mobile else 125, 0), "MPH" if mph else "KM/H", int(16 * unit) if mobile else 20, Color.html("20BFC5"))
 	var banner := ""
 	if state.recovery_ticks > 0:
-		banner = "RECOVERING"
+		banner = I18n.t("hud.recovering")
 	elif state.wrong_way_ticks >= 60:
-		banner = "WRONG WAY"
+		banner = I18n.t("hud.wrong_way")
 	elif phase == "Grid":
-		banner = "GET READY"
+		banner = I18n.t("hud.get_ready")
 	elif phase == "Countdown":
 		banner = str(3 - phase_ticks / 60)
 	elif ticks < 36 and phase == "Racing":
-		banner = "GO!"
+		banner = I18n.t("hud.go")
 	elif state.finished:
-		banner = "FINISH  " + time(state.finish_time)
+		banner = I18n.t("hud.finish") + "  " + time(state.finish_time)
+	if trial and not state.trial_valid:
+		text(Vector2(size.x * .3, size.y * .14), I18n.t("hud.invalid"), 20, Color.html("F16B50"))
 	if banner != "":
 		text(Vector2(size.x / 2 - banner.length() * 18, size.y * .32), banner, 64, Color.html("F3CD48"))
 	if state.recovery_hold_ticks > 0:

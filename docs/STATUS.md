@@ -30,7 +30,7 @@ Pending M1 gates: physical phone driving, human cornering/feel playtest, complet
 ## M2 — dedicated networking risk slice
 
 - Dedicated authoritative 60 Hz shared RaceSession; client inputs only, ordered gates, bounded car contact and immutable sub-tick standings.
-- Raw ENet channels: reliable session/results, 30 Hz redundant six-frame inputs, 20 Hz snapshots, 2 Hz clock probes. Full eight-car snapshot is **575 bytes**, input batch **82 bytes**.
+- Raw ENet channels: reliable session/results, 30 Hz redundant six-frame inputs, 20 Hz snapshots, 2 Hz clock probes. Full eight-car snapshot was **575 bytes** at the M2 checkpoint (M3 protocol 2 extends it to **727 bytes**), input batch **82 bytes**.
 - Quantized prediction, 180-tick input history, authoritative restore/replay, separate 0.12 s visual correction half-life, 100 ms remote interpolation and capped 150 ms extrapolation.
 - Missing-input neutralization, uint32 sequence wrap, malformed/overflow rejection, eight-seat cap, 20-second reconnect reservation and bot takeover.
 - Direct Connect validates host/port (including bracketed IPv6) and labels the community server. M2 worker auto-starts when two clients load; full ready/lobby flow remains M3.
@@ -45,6 +45,20 @@ The first Linux CI reconnect run exposed stale pre-disconnect input replay. Reco
 
 Pending M2 gates: physical-device network tests, 25-second disconnect expiry, eight-client/security fault matrix and broader correction/performance soak. Official ticket-required directory workers are M3 work; current tested service mode is explicitly community/direct-guest.
 
+## M3 — offline modes and persistence checkpoint
+
+- First-run name/units/motion preferences, shared four-car/eight-paint Garage, exact Main Menu inventory, six-track selection, configurable Quick Race and standing-start Time Trial.
+- Quick Race uses up to seven bots, mixed car definitions, contact toggle and complete standings. Human grid slot is fifth when available. Finishers continue at reduced AI speed until results; the hard cap now ends at exactly 600 seconds.
+- Coast Cup keeps its car/roster, six event seeds, completed results and points between launches; later grids reverse championship standings. No mid-event result or restart button advances the cup.
+- Five noncompetitive Driving School objectives with fixed Palm Bay spawns, temporary turn cones, input demonstration, Retry and Skip. Human lesson usability is not yet established.
+- Component saves use versioned JSON envelopes, temporary replacement, good backups, corrupt-file preservation and read-only handling of future versions. Result/stat journals are idempotent across interrupted writes. Native fsync and interprocess locking remain M5 work.
+- Trial ghosts use checksummed PRGH v1 transforms at 20 Hz plus the exact sub-tick final sample, and a 2 MiB limit. A real shared-controller trial finished in **67.223876227 s**, recorded **1,346 samples**, and cold-loaded the matching record/ghost. Medals use the specified length-based thresholds.
+- Desktop/mobile settings are separate. The tabs expose the specified value rows; working preferences include units, camera/FOV/motion, input deadzone/sensitivity/auto acceleration, UI scale/contrast, frame cap, MSAA/render scale, brightness/shadows and master volume. Display changes have a 15-second Keep/Revert flow. Per-channel audio, remapping, touch-layout editing and adaptive quality are still pending.
+- Bundled Barlow fonts/OFL licenses and external English text catalog. Display names normalize to NFC with vendored Unicode 16 tables and enforce grapheme/UTF-8/control/markup limits.
+- Automated menu navigation, real scene pause/resume, save/ghost/cup/name/mode fixtures pass. Native macOS screenshots were reviewed at 100%/150% UI scale and 4:3; a footer overflow was corrected. These checks do not establish Android menu usability or final art quality.
+
+Content/protocol versions are now **2** because recovery/progress state required by reconciliation changed. M2 clients and their records/cups are intentionally not silently mixed with this version. Snapshot decoding validates the added lap and distance fields; the eight-car payload remains below 1200 bytes.
+
 ## Next
 
-M3: complete mode/menu flow, bots, persistent lobbies, directory APIs, settings, records, ghosts and cup saves. M4–M6 remain unimplemented. Physical M0/M1/M2 gates stay open while source implementation continues; no physical-mobile acceptance is claimed.
+Finish M3: persistent online lobbies, directory/ticket APIs, authoritative multi-track/multi-car online flow, remaining input/settings behavior and broader end-to-end mode checks. M4–M6 remain unimplemented. Physical M0/M1/M2 gates stay open while source implementation continues; no physical-mobile acceptance is claimed.

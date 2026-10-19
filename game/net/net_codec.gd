@@ -2,7 +2,7 @@ class_name NetCodec
 extends RefCounted
 ## Explicit fixed-width little-endian packets. No Variant deserialization on UDP.
 
-const PROTOCOL: int = 1
+const PROTOCOL: int = 2
 const MAX_PACKET: int = 1200
 const FIELDS: Array = [
 	["yaw", "i16", 100.0 * 180 / PI], ["yaw_rate", "i16", 100.0 * 180 / PI],
@@ -15,6 +15,7 @@ const FIELDS: Array = [
 	["wrong_way_ticks", "u16", 1], ["forward_ticks", "u16", 1],
 	["launch_ticks", "u8", 1], ["jump_lap", "i8", 1], ["last_gate", "i8", 1],
 	["route_s", "i32", 100],
+	["backwards_m", "u16", 100],
 	["laps", "u8", 1], ["last_ack", "u32", 1]
 ]
 
@@ -33,6 +34,8 @@ static func encode_inputs(race: int, frames: Array[InputFrame]) -> PackedByteArr
 	buffer.put_u32(race)
 	buffer.put_u8(frames.size())
 	for frame: InputFrame in frames:
+		if not is_finite(frame.steer) or not is_finite(frame.throttle) or not is_finite(frame.brake) or absf(frame.steer) > 1 or frame.throttle < 0 or frame.throttle > 1 or frame.brake < 0 or frame.brake > 1 or frame.sequence < 0 or frame.sequence > 0xffffffff or frame.tick < 0 or frame.tick > 0xffffffff:
+			return PackedByteArray()
 		buffer.put_u32(frame.sequence)
 		buffer.put_u32(frame.tick)
 		buffer.put_8(roundi(frame.steer * 127))
@@ -95,6 +98,11 @@ static func encode_snapshot(session: RaceSession, server_tick: int, hash_prefix:
 			if not is_finite(value) or absf(value) > 327.67:
 				return PackedByteArray()
 			buffer.put_16(roundi(value * 100))
+		if not state.ground_normal.is_finite() or state.ground_normal.x * state.ground_normal.x + state.ground_normal.z * state.ground_normal.z > 1.001 or not state.surface in ["asphalt", "sand", "grass"]:
+			return PackedByteArray()
+		for value: float in [state.finish_time, state.lap_start_time, state.last_lap_time, state.best_lap_time, state.distance_m]:
+			if not is_finite(value) or value < -1 or value > 100000:
+				return PackedByteArray()
 		buffer.put_16(roundi(state.ground_normal.x * 32767))
 		buffer.put_16(roundi(state.ground_normal.z * 32767))
 		for field: Array in FIELDS:
@@ -106,10 +114,15 @@ static func encode_snapshot(session: RaceSession, server_tick: int, hash_prefix:
 			if scaled < bounds[0] or scaled > bounds[1]:
 				return PackedByteArray()
 			buffer.call("put_" + str(field[1]).replace("i", ""), scaled)
-		var flags := int(state.grounded) | (int(state.reversing) << 1) | (int(state.wall_contact) << 2) | (int(state.finished) << 3) | (int(state.trial_valid) << 4) | (int(state.dnf_reason != "") << 5)
+		var flags := int(state.grounded) | (int(state.reversing) << 1) | (int(state.wall_contact) << 2) | (int(state.finished) << 3) | (int(state.trial_valid) << 4) | (int(state.dnf_reason != "") << 5) | (int(state.recovery_latched) << 6)
 		buffer.put_u8(flags)
+		buffer.put_u8(int(state.lap_valid))
 		buffer.put_u8(["asphalt", "sand", "grass"].find(state.surface))
 		buffer.put_float(state.finish_time)
+		buffer.put_float(state.lap_start_time)
+		buffer.put_float(state.last_lap_time)
+		buffer.put_float(state.best_lap_time)
+		buffer.put_float(state.distance_m)
 		var events := int("wall" in state.events) | (int("bump" in state.events) << 1) | (int("recovery" in state.events) << 2) | (int("land" in state.events) << 3)
 		buffer.put_u8(events)
 	if buffer.data_array.size() > MAX_PACKET:
@@ -132,7 +145,7 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 	var elapsed := buffer.get_u32()
 	var event_sequence := buffer.get_u32()
 	var count := buffer.get_u8()
-	var record_size := 1 + 12 + 6 + 4 + 1 + 1 + 4 + 1
+	var record_size := 1 + 12 + 6 + 4 + 1 + 1 + 1 + 20 + 1
 	for field: Array in FIELDS:
 		record_size += {"i8":1, "u8":1, "i16":2, "u16":2, "i32":4, "u32":4}[field[1]]
 	if count < 1 or count > 8 or bytes.size() != 31 + count * record_size or phase > RaceSession.Phase.RESULTS:
@@ -156,7 +169,7 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 			var value: float = buffer.call("get_" + str(field[1]).replace("i", ""))
 			state.set(field[0], value / float(field[2]))
 		var flags := buffer.get_u8()
-		if flags & ~63:
+		if flags & ~127:
 			return {}
 		state.grounded = bool(flags & 1)
 		state.reversing = bool(flags & 2)
@@ -164,14 +177,26 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 		state.finished = bool(flags & 8)
 		state.trial_valid = bool(flags & 16)
 		state.dnf_reason = "DNF" if flags & 32 else ""
+		state.recovery_latched = bool(flags & 64)
+		var lap_valid := buffer.get_u8()
+		if lap_valid > 1:
+			return {}
+		state.lap_valid = bool(lap_valid)
 		var surface := buffer.get_u8()
 		if surface > 2 or state.drift_phase > 2 or state.last_gate < -1 or state.last_gate > 40 or absf(state.steer_filter) > 1:
 			return {}
 		state.surface = ["asphalt", "sand", "grass"][surface]
 		state.finish_time = buffer.get_float()
+		state.lap_start_time = buffer.get_float()
+		state.last_lap_time = buffer.get_float()
+		state.best_lap_time = buffer.get_float()
+		state.distance_m = buffer.get_float()
 		var events := buffer.get_u8()
-		if events & ~15 or not is_finite(state.finish_time):
+		if events & ~15:
 			return {}
+		for value: float in [state.finish_time, state.lap_start_time, state.last_lap_time, state.best_lap_time, state.distance_m]:
+			if not is_finite(value) or value < -1 or value > 100000:
+				return {}
 		for bit in range(4):
 			if events & (1 << bit):
 				state.events.append(["wall", "bump", "recovery", "land"][bit])

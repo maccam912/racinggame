@@ -23,6 +23,12 @@ static func advance(state: VehicleState, previous: Vector3, track: TrackDefiniti
 		if absf((crossing - origin).dot(forward.cross(Vector3.UP))) > half_width or absf(crossing.y - origin.y) > 6:
 			break
 		if next == 0 and state.last_gate > 0:
+			var crossing_time := (ticks - 1 + fraction) / 60.0
+			state.last_lap_time = crossing_time - state.lap_start_time
+			if state.lap_valid and (state.best_lap_time < 0 or state.last_lap_time < state.best_lap_time):
+				state.best_lap_time = state.last_lap_time
+			state.lap_start_time = crossing_time
+			state.lap_valid = true
 			state.laps += 1
 			state.events.append("lap")
 			if state.laps >= lap_count:
@@ -52,14 +58,23 @@ static func recover(state: VehicleState, track: TrackDefinition) -> void:
 	state.reversing = false
 	state.recovery_ticks = 60
 	state.recovery_hold_ticks = 0
+	state.recovery_latched = true
 	state.ghost_ticks = 180
 	state.offroad_ticks = 0
 	state.trial_valid = false
+	state.lap_valid = false
 	state.events.append("recovery")
 
 
 static func safety(state: VehicleState, frame: InputFrame, track: TrackDefinition, query: WorldQuery) -> void:
+	if state.recovery_ticks > 0:
+		state.recovery_hold_ticks = 0
+		return
 	var nearest := query.nearest(state.position)
+	if state.route_s >= 0:
+		var delta := fposmod(float(nearest.s) - state.route_s + track.length / 2, track.length) - track.length / 2
+		if absf(delta) < 5:
+			state.backwards_m = minf(11, state.backwards_m - delta) if delta < -.001 else 0.0 if delta > .001 else state.backwards_m
 	for marker: float in track.definition.ramp_markers:
 		var crest := fposmod(marker * track.length - track.start_sample * 2, track.length)
 		if state.route_s >= 0 and state.route_s < crest and nearest.s >= crest and nearest.s - state.route_s < 5 and state.grounded and state.speed() >= 30 and state.jump_lap != state.laps:
@@ -73,10 +88,13 @@ static func safety(state: VehicleState, frame: InputFrame, track: TrackDefinitio
 	state.outside_ticks = state.outside_ticks + 1 if absf(nearest.lateral) > half_width else 0
 	if state.outside_ticks > 15:
 		state.trial_valid = false
+		state.lap_valid = false
 	var offroad: bool = absf(nearest.lateral) > half_width + 2 or state.position.y < track.points[nearest.i].y - 8
 	state.offroad_ticks = state.offroad_ticks + 1 if offroad else 0
-	state.recovery_hold_ticks = state.recovery_hold_ticks + 1 if frame.recover else 0
-	var wrong: bool = state.forward().dot(track.forwards[nearest.i]) < -.25 and state.speed() > 5
+	if not frame.recover:
+		state.recovery_latched = false
+	state.recovery_hold_ticks = state.recovery_hold_ticks + 1 if frame.recover and not state.recovery_latched else 0
+	var wrong: bool = (state.forward().dot(track.forwards[nearest.i]) < -.25 and state.speed() > 5) or state.backwards_m > 10
 	if wrong:
 		state.wrong_way_ticks += 1
 		state.forward_ticks = 0
@@ -86,6 +104,7 @@ static func safety(state: VehicleState, frame: InputFrame, track: TrackDefinitio
 			state.wrong_way_ticks = 0
 	if state.wrong_way_ticks > 180:
 		state.trial_valid = false
+		state.lap_valid = false
 	if state.offroad_ticks >= 30 or state.recovery_hold_ticks >= 30 or state.position.y < -80:
 		recover(state, track)
 		query.hint = track.sample_index(track.bake.gates[maxi(0, state.last_gate)].s - 6)

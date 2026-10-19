@@ -29,7 +29,7 @@ def metadata(target, number):
             'commit':subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),
             'engine_version':LOCK['version'], 'engine_checksum':LOCK['assets'][sys.platform]['sha256'],
             'export_templates_checksum':LOCK['assets']['templates']['sha256'],
-            'protocol_version':1,'save_schema':1,'content_hash':compute()['content_hash'],'target_platform':target,
+            'protocol_version':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'],'save_schema':1,'content_hash':compute()['content_hash'],'target_platform':target,
             'distribution':'development', 'public_signing':'not configured'}
 
 
@@ -39,6 +39,8 @@ def stamped(data, number):
     project = ROOT/'project.godot'
     presets = ROOT/'export_presets.cfg'
     original_project, original_presets = project.read_text(), presets.read_text()
+    build_info = ROOT/'game/build.json'
+    original_info = build_info.read_bytes() if build_info.exists() else None
     (ROOT/'game/build.json').write_text(json.dumps(data, indent=2)+'\n')
     project.write_text(re.sub(r'config/version="[^"]+"', f'config/version="0.0.{number}-dev"', original_project))
     text = re.sub(r'version/code=\d+', f'version/code={number}', original_presets)
@@ -51,6 +53,10 @@ def stamped(data, number):
     finally:
         project.write_text(original_project)
         presets.write_text(original_presets)
+        if original_info is None:
+            build_info.unlink(missing_ok=True)
+        else:
+            build_info.write_bytes(original_info)
 
 
 def build(target, number):
