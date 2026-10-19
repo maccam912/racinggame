@@ -69,3 +69,12 @@ is submitted during the initial Grid frames, sharing the active world. Run
 views; headless numerical tests do not establish shader compilation. Recovery
 covers the world while relocating the chase camera and preserves the existing
 simulation freeze/ghost timers.
+
+`generate_icons.py` creates the 60 original 64×64 SVG interface assets and catalog
+using only Python's standard library. Course outlines come from the canonical
+baked routes, and swatches use the actual eight car paints. No external icon
+set is used. Regenerate with `python3 assets/source/generate_icons.py`, preserve
+the mipmapped SVG import settings, reimport and run `python3 tools/asset_hash.py`.
+`tests/interface_icon_evidence.gd` renders the library plus selection, medal,
+trophy, settings and results views. Synthetic records/trophies in that isolated
+fixture demonstrate presentation only.

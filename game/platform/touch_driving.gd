@@ -245,20 +245,9 @@ func _draw() -> void:
 
 func draw_icon(action: String, center: Vector2) -> void:
 	var cream := Color(Color.html("F5EBD3"), minf(1, opacity / .6))
-	if action == "recover":
-		if recovery_armed:
-			draw_polyline(PackedVector2Array([center+Vector2(-12,0)*unit,center+Vector2(-3,10)*unit,center+Vector2(14,-12)*unit]),Color.html("F3CD48"),4*unit,true)
-			return
-		draw_arc(center, 14 * unit, -.3, TAU - 1.0, 32, cream, 2 * unit, true)
-		var tip := center + Vector2(14, -4) * unit
-		draw_colored_polygon(PackedVector2Array([tip, tip + Vector2(-9, -5) * unit, tip + Vector2(-5, 5) * unit]), cream)
-	elif action == "look_back":
-		draw_polyline(PackedVector2Array([center + Vector2(13, 10) * unit, center + Vector2(13, -8) * unit, center + Vector2(-11, -8) * unit]), cream, 3 * unit, true)
-		draw_colored_polygon(PackedVector2Array([center + Vector2(-16, -8) * unit, center + Vector2(-5, -16) * unit, center + Vector2(-5, 0) * unit]), cream)
-	else:
-		draw_rect(Rect2(center - Vector2(15, 10) * unit, Vector2(30, 22) * unit), cream, false, 2 * unit)
-		draw_circle(center + Vector2(0, 1) * unit, 6 * unit, cream, false, 2 * unit, true)
-		draw_rect(Rect2(center + Vector2(-9, -15) * unit, Vector2(10, 5) * unit), cream)
+	var id := "action_ui_accept" if action=="recover" and recovery_armed else "action_"+action
+	var tint := Color(UIFactory.YELLOW,cream.a) if action=="recover" and recovery_armed else Color(1,1,1,cream.a)
+	draw_texture_rect(UIIcons.texture(id),Rect2(center-Vector2.ONE*16*unit,Vector2.ONE*32*unit),false,tint)
 
 
 func style(fill: Color) -> StyleBoxFlat:

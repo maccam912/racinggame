@@ -40,7 +40,10 @@ func show_lobby() -> void:
 			own = member
 		var role := " • " + I18n.t("online.host") if member.id == state.host else ""
 		var text := "%d  %s%s  •  %s  •  %s  •  %s  •  %d ms" % [int(member.slot) + 1, member.name, role, I18n.t("car." + Catalog.cars[int(member.car)].id), I18n.t("paint." + str(int(member.paint))), I18n.t("online.ready" if member.ready else "online.unready"), int(member.ping)]
-		list.add_child(shell.ui.paragraph(text))
+		var row := HBoxContainer.new()
+		row.add_child(shell.ui.icon("car_"+Catalog.cars[int(member.car)].id))
+		row.add_child(shell.ui.paragraph(text))
+		list.add_child(row)
 	if rules.bot_fill:
 		for index in range(8 - state.members.size()):
 			var slot: int = state.members.size() + index

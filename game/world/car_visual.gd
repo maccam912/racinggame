@@ -106,6 +106,7 @@ func _process(_dt: float) -> void:
 		choose_lod(0 if distance<35 else 1 if distance<90 else 2)
 
 func present(state: VehicleState, input: InputFrame, dt: float) -> void:
+	if not state.dnf_reason.is_empty(): dt = 0
 	if state.recovery_ticks>prior_recovery and state.recovery_ticks>30 and has_presented:
 		recovery_anchor = transform
 		recovery_anchor_active = true

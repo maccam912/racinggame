@@ -50,6 +50,12 @@ func run() -> void:
 	fx.set_mode("off")
 	assert(fx.particles.is_empty() and fx.skid_batch.multimesh.visible_instance_count==0)
 	for batch: MultiMeshInstance3D in fx.batches.values(): assert(batch.multimesh.visible_instance_count==0)
+	fx.set_mode("full")
+	own.dnf_reason = "Reconnect expired"
+	fx.elapsed += 2
+	fx.consume(own)
+	assert(fx.particles.is_empty(),"frozen DNF impact flags cannot spawn repeated particles")
+	own.dnf_reason = ""
 	var motors := Motors.new()
 	drive.driver.owner_device = "gamepad"
 	drive.driver.joy_device = 7

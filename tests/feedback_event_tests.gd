@@ -22,6 +22,12 @@ func run() -> void:
 	assert(a.events.is_empty() and b.events.is_empty(),"presentation latching never mutates per-tick simulation events")
 	decoded = NetCodec.decode_snapshot(latch.encode(session,6,hash_prefix),session.race_id,hash_prefix)
 	assert(decoded.states[0].events.is_empty() and decoded.states[1].events.is_empty(),"sent flags never repeat in the next snapshot")
+	a.events.assign(["wall"])
+	a.dnf_reason = "Reconnect expired"
+	latch.collect(session)
+	decoded = NetCodec.decode_snapshot(latch.encode(session,9,hash_prefix),session.race_id,hash_prefix)
+	assert(decoded.states[0].events.is_empty(),"a frozen DNF state cannot re-latch its last impact forever")
+	a.dnf_reason = ""
 	var client := NetworkClient.new()
 	root.add_child(client)
 	client.connected = true

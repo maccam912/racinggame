@@ -37,6 +37,7 @@ func show_page(return_to: Callable) -> void:
 		list.add_child(shell.ui.label(I18n.t("binding.driving" if group==BindingBook.DRIVING else "binding.menus"),true))
 		for action: String in group:
 			var row:=HBoxContainer.new()
+			row.add_child(shell.ui.icon("action_"+action))
 			var label:=shell.ui.label(I18n.t("action."+action))
 			label.size_flags_horizontal=Control.SIZE_EXPAND_FILL
 			row.add_child(label)

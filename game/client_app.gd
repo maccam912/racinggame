@@ -5,6 +5,9 @@ var drive: RaceDrive
 var stage: MenuStage
 var data: AppData
 var events: EventMenu
+var garage_mode: String = "garage"
+var garage_car_buttons: Array[Button] = []
+var garage_paint_buttons: Array[Button] = []
 var touch_demo: bool = false
 var capture_path: String = ""
 var rendered_frames: int = 0
@@ -96,6 +99,9 @@ func missing_car_asset() -> String:
 	if not FileAccess.file_exists("res://assets/exported/audio/catalog.json"): return I18n.t("installation.audio")
 	for row: Dictionary in AudioLibrary.entries().values():
 		if not ResourceLoader.exists("res://"+str(row.path)): return I18n.t("installation.audio")
+	if not FileAccess.file_exists("res://assets/exported/icons/catalog.json"): return I18n.t("installation.icons")
+	for row: Dictionary in UIIcons.entries().values():
+		if not ResourceLoader.exists("res://"+str(row.path)): return I18n.t("installation.icons")
 	return ""
 
 func open_start_screen() -> void:
@@ -179,6 +185,7 @@ func show_menu() -> void:
 		choices.erase("quit")
 	for choice: String in choices:
 		var button := menu.ui.button(I18n.t("menu." + choice), func() -> void: main_choice(choice), 270)
+		menu.ui.set_icon(button,"menu_"+choice)
 		list.add_child(button)
 		if choice == data.profile.last_menu:
 			menu.focus_later(button)
@@ -259,6 +266,9 @@ func show_school_offer() -> void:
 
 
 func show_garage(mode: String = "garage") -> void:
+	garage_mode = mode
+	garage_car_buttons.clear()
+	garage_paint_buttons.clear()
 	page = "garage"
 	back_action = lobby_page.show_lobby if mode == "online" else show_menu
 	ensure_stage()
@@ -267,21 +277,32 @@ func show_garage(mode: String = "garage") -> void:
 	var cards := GridContainer.new()
 	cards.columns = 2 if data.mobile or int(data.settings.ui_scale) >= 125 else 4
 	list.add_child(cards)
+	var acceleration_max := 0.0
+	var grip_max := 0.0
+	for candidate: CarDefinition in Catalog.cars:
+		acceleration_max = maxf(acceleration_max,candidate.acceleration)
+		grip_max = maxf(grip_max,candidate.grip)
 	for index in range(4):
 		var car: CarDefinition = Catalog.cars[index]
 		var caption := I18n.t("car." + car.id)
 		var button := menu.ui.button(caption, func() -> void:
 			data.select_car(index, int(data.profile.selected_paint))
 			show_garage(mode), 230)
+		menu.ui.set_icon(button,"car_"+car.id)
+		garage_car_buttons.append(button)
 		button.modulate = UIFactory.TURQUOISE if index == int(data.profile.selected_car) else Color.WHITE
 		var card := VBoxContainer.new()
 		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		card.add_child(button)
 		card.add_child(menu.ui.paragraph(I18n.t("role." + car.id)))
-		card.add_child(menu.ui.paragraph("%s %.0f\n%s %.1f\n%s %.0f" % [I18n.t("garage.speed"), car.top_speed * (2.236936 if data.settings.units == "mph" else 3.6), I18n.t("garage.acceleration"), car.acceleration, I18n.t("garage.grip"), car.grip]))
+		card.add_child(menu.ui.paragraph("%s %.0f %s" % [I18n.t("garage.speed"),car.top_speed*(2.236936 if data.settings.units=="mph" else 3.6),"mph" if data.settings.units=="mph" else "km/h"]))
+		card.add_child(menu.ui.stat("%s %.1f m/s²"%[I18n.t("garage.acceleration"),car.acceleration],car.acceleration,acceleration_max))
+		card.add_child(menu.ui.stat("%s %.0f m/s²"%[I18n.t("garage.grip"),car.grip],car.grip,grip_max))
 		cards.add_child(menu.ui.panel(card))
 	var space := Control.new()
 	space.custom_minimum_size.y = 140 * menu.ui.unit
+	space.mouse_default_cursor_shape = Control.CURSOR_DRAG
+	space.gui_input.connect(stage.preview_input)
 	list.add_child(space)
 	var paints := GridContainer.new()
 	paints.columns = 4 if data.mobile else 8
@@ -289,12 +310,14 @@ func show_garage(mode: String = "garage") -> void:
 	for index in range(8):
 		var button := menu.ui.button(I18n.t("paint." + str(index)), func() -> void:
 			data.select_car(int(data.profile.selected_car), index)
-			show_garage(mode))
-		button.add_theme_color_override("font_color", Catalog.paints[index].lightened(.25))
+			show_garage(mode)
+			menu.focus_later(garage_paint_buttons[index]))
 		if index == int(data.profile.selected_paint):
 			button.text = "✓ " + button.text
+		menu.ui.set_icon(button,"paint_"+str(index))
 		paints.add_child(button)
-	list.add_child(menu.ui.paragraph(I18n.t("garage.rotate")))
+		garage_paint_buttons.append(button)
+	list.add_child(menu.ui.panel(menu.ui.paragraph(I18n.t("garage.rotate"))))
 	menu.add_back(lobby_page.show_lobby if mode == "online" else show_menu)
 	menu.footer.add_child(menu.ui.button(I18n.t("button.confirm" if mode == "garage" else "button.continue"), func() -> void:
 		if mode == "garage":
@@ -310,7 +333,7 @@ func show_garage(mode: String = "garage") -> void:
 			page = "event"
 			back_action = func() -> void: show_garage(mode)
 			events.show_event()))
-	menu.first_focus()
+	menu.focus_later(garage_car_buttons[int(data.profile.selected_car)])
 
 
 func cancel_loading() -> void:
@@ -342,7 +365,13 @@ func show_loading(configuration: Dictionary, cancel: Callable) -> TrackLoader:
 	var prompts: Array[String] = []
 	for action: String in ["accelerate","brake","handbrake","recover"]:
 		prompts.append(I18n.t("action."+action)+": "+str(hints[action]))
-	list.add_child(menu.ui.paragraph("  •  ".join(prompts)))
+	var input_row := HFlowContainer.new()
+	for index in range(prompts.size()):
+		var row := HBoxContainer.new()
+		row.add_child(menu.ui.icon("action_"+["accelerate","brake","handbrake","recover"][index]))
+		row.add_child(menu.ui.label(prompts[index]))
+		input_row.add_child(row)
+	list.add_child(input_row)
 	loading_bar = ProgressBar.new()
 	loading_bar.min_value = 0
 	loading_bar.max_value = 1
@@ -454,6 +483,7 @@ func show_pause() -> void:
 	menu.first_focus()
 
 func set_trial_ghost(value: bool) -> void:
+	data.set_setting("trial_ghost",value)
 	if is_instance_valid(drive) and drive.session.mode=="trial":
 		drive.show_ghost = value
 		drive.config["ghost"] = value
@@ -556,12 +586,18 @@ func render_results() -> void:
 		if not local_state.trial_valid:
 			list.add_child(menu.ui.paragraph(I18n.t("results.invalid")))
 		var medal := Medals.award(session.track.length, local_state.finish_time, local_state.finished and local_state.trial_valid)
-		list.add_child(menu.ui.label(I18n.t(["results.no_medal", "results.gold", "results.silver", "results.bronze"][medal + 1])))
+		var award_row := HBoxContainer.new()
+		award_row.add_child(menu.ui.icon(UIIcons.medal_id(medal),48))
+		award_row.add_child(menu.ui.label(I18n.t(["results.no_medal", "results.gold", "results.silver", "results.bronze"][medal + 1])))
+		list.add_child(award_row)
 		var previous := float(result_summary.get("previous", -1))
 		list.add_child(menu.ui.label(I18n.t("results.previous") + ": " + (RaceHUD.format_time(previous) + "  (%+.3f)" % (local_state.finish_time - previous) if previous > 0 and local_state.finished else I18n.t("results.no_previous"))))
 		var thresholds := Medals.thresholds(session.track.length)
 		for index in range(3):
-			list.add_child(menu.ui.label(I18n.t("results." + ["gold", "silver", "bronze"][index]) + "  " + RaceHUD.format_time(thresholds[index])))
+			var row := HBoxContainer.new()
+			row.add_child(menu.ui.icon(UIIcons.medal_id(index)))
+			row.add_child(menu.ui.label(I18n.t("results." + ["gold", "silver", "bronze"][index]) + "  " + RaceHUD.format_time(thresholds[index])))
+			list.add_child(row)
 	else:
 		var order: Array[VehicleState] = []
 		for slot: int in result_receipt.order:
@@ -605,7 +641,20 @@ func show_cup() -> void:
 	var body := menu.reset(I18n.t("cup.title"), I18n.t("cup.rules"))
 	var list := menu.scroll_column(body)
 	for index in range(6):
-		list.add_child(menu.ui.label("%d  %s" % [index + 1, I18n.t("track." + Catalog.tracks[index].id)]))
+		var row := HBoxContainer.new()
+		row.add_child(menu.ui.icon("track_"+Catalog.tracks[index].id))
+		row.add_child(menu.ui.label("%d  %s" % [index + 1, I18n.t("track." + Catalog.tracks[index].id)]))
+		list.add_child(row)
+	if not data.profile.trophies.is_empty():
+		var history := HFlowContainer.new()
+		for rank in range(3):
+			var count: int = data.profile.trophies.filter(func(trophy: Dictionary) -> bool: return int(trophy.rank)==rank).size()
+			if count==0: continue
+			var row := HBoxContainer.new()
+			row.add_child(menu.ui.icon("trophy_"+["gold","silver","bronze"][rank],32))
+			row.add_child(menu.ui.label(I18n.t("cup.trophies",[rank+1,count])))
+			history.add_child(row)
+		list.add_child(history)
 	if not data.cup.data.is_empty():
 		if data.cup.compatible(Compatibility.content_hash()):
 			append_cup_standings(list)
@@ -857,12 +906,19 @@ func show_notices() -> void:
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") and page != "race" and back_action.is_valid():
+	if page=="garage" and event is InputEventJoypadButton and event.pressed and event.button_index in [JOY_BUTTON_LEFT_SHOULDER,JOY_BUTTON_RIGHT_SHOULDER]:
+		var next := posmod(int(data.profile.selected_car)+(-1 if event.button_index==JOY_BUTTON_LEFT_SHOULDER else 1),Catalog.cars.size())
+		data.select_car(next,int(data.profile.selected_paint))
+		show_garage(garage_mode)
+		game_audio.effect("ui_confirm")
+		get_viewport().set_input_as_handled()
+	elif event.is_action_pressed("ui_cancel") and page != "race" and back_action.is_valid():
 		back_action.call()
 		get_viewport().set_input_as_handled()
 
 
 func _process(_dt: float) -> void:
+	if is_instance_valid(stage): stage.interactive = page=="garage"
 	var has_drive := is_instance_valid(drive)
 	audio_mix.context(has_drive and drive.paused and drive.network==null,has_drive and drive.paused and drive.network!=null)
 	if page=="loading":

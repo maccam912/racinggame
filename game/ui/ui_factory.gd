@@ -87,7 +87,51 @@ func button(text: String, action: Callable, minimum_width: float = 0, sound: Str
 		control.create_tween().tween_property(control, "modulate", Color(1.06, 1.06, 1.06), .1))
 	control.focus_exited.connect(func() -> void:
 		control.create_tween().tween_property(control, "modulate", Color.WHITE, .1))
+	var pointer := FocusPointer.new()
+	pointer.button = control
+	pointer.unit = unit
+	control.add_child(pointer)
 	return control
+
+func set_icon(control: Button, id: String) -> void:
+	control.icon = UIIcons.texture(id)
+	control.expand_icon = true
+	control.add_theme_constant_override("icon_max_width",roundi(24*unit*scale))
+	control.add_theme_constant_override("h_separation",roundi(10*unit))
+	var width := 0.0
+	for line: String in control.text.split("\n"):
+		width = maxf(width,body_font.get_string_size(line,HORIZONTAL_ALIGNMENT_LEFT,-1,theme.get_font_size("font_size","Button")).x)
+	control.custom_minimum_size.x = maxf(control.custom_minimum_size.x,width+24*unit*scale+38*unit)
+
+func icon(id: String, base_size: float = 24) -> TextureRect:
+	var control := TextureRect.new()
+	control.texture = UIIcons.texture(id)
+	control.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	control.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	control.custom_minimum_size = Vector2.ONE*base_size*unit*scale
+	control.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	control.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	return control
+
+func stat(caption: String, value: float, maximum: float) -> VBoxContainer:
+	var list := VBoxContainer.new()
+	list.add_child(paragraph(caption))
+	var bar := ProgressBar.new()
+	bar.min_value = 0
+	bar.max_value = maximum
+	bar.value = value
+	bar.show_percentage = false
+	bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	bar.custom_minimum_size.y = 7*unit*scale
+	var fill := StyleBoxFlat.new()
+	fill.bg_color = TURQUOISE
+	fill.set_corner_radius_all(3)
+	var background := fill.duplicate() as StyleBoxFlat
+	background.bg_color = Color("384B58")
+	bar.add_theme_stylebox_override("fill",fill)
+	bar.add_theme_stylebox_override("background",background)
+	list.add_child(bar)
+	return list
 
 
 func paragraph(text: String) -> Label:

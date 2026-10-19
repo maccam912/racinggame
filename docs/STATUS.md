@@ -2,7 +2,7 @@
 
 The design remains the complete launch contract. Milestone work is sequential; blocked physical-device validation is recorded separately from source implementation.
 
-Current work is M4 content and style. The M0–M3 source implementation includes offline modes, protected guest identities, the complete local HTTPS directory/menu path and settings/accessibility contracts; historical checkpoints and their remaining human/device acceptance boundaries follow below. Four original cars, six scenery kits, original audio and bounded driving feedback now replace their placeholders. Interface work and M5–M6 remain. Neither official region is hosted, and physical-device gates remain open.
+Current work is M4 content and style. The M0–M3 source implementation includes offline modes, protected guest identities, the complete local HTTPS directory/menu path and settings/accessibility contracts; historical checkpoints and their remaining human/device acceptance boundaries follow below. Four original cars, six scenery kits, original audio and bounded driving feedback now replace their placeholders. Race HUD/interface work and M5–M6 remain. Neither official region is hosted, and physical-device gates remain open.
 
 ## M0 — toolchain and contracts
 
@@ -306,3 +306,14 @@ These are scripted native presentation and numerical network/motor-command resul
 Build 53 passed every remote gate, including the corrected actual-audio, HTTPS menu and native startup checks, and published all 18 release files at `v0.0.53-dev`.
 
 The dirty local Build 54 APK passes actual touch entry to an eight-car race, Look Back/release and a 700 ms held Recover on the Android 15 ARM64 emulator. The [captured recovery](evidence/m4-android-feedback-recovery.png) shows the world fade and translucent car; logs contain no Godot script errors. [Exact build/device metadata](evidence/m4-feedback-android-validation.json) keeps the emulator and hardware boundaries explicit.
+
+
+## M4 — original interface assets and selection checkpoint
+
+Sixty original editable SVG icons now cover all 15 actions, eight settings tabs, nine menu modes, three connection states, four car silhouettes, six canonical course outlines, four medal states, three trophy tiers and eight labeled paint swatches. All are MIT, mipmapped and checked against the real route/paint catalogs. Main, Garage, loading, bindings, settings, lobby, touch secondary controls, course cards, Trial results and Cup trophy history use the shared assets with text labels. Garage acceleration/grip bars use the actual car values, not invented ratings. Shoulder buttons wrap all four selections, while mouse drag/right stick rotate the scoped preview.
+
+Course focus now updates a separate description/minimap pane with its own keyboard and touch scrolling. Phone cards reflow from two columns to one at large text; fixed footer actions remain available. A real 150% Android check caught missing touch scrolling in that pane, corrected by using the existing gesture component. Back/car selection also retains the Trial ghost preference. Focused buttons gain the specified small triangle. Frozen DNF cars now suppress stale impact cues, dust, engine/surface output and wheel motion; shared simulation is unchanged.
+
+All **59 source checks pass**. Native macOS Compatibility captures [the complete icon library](evidence/m4-ui-icon-library.png), [Garage](evidence/m4-ui-garage.png), [selected-car gold medal](evidence/m4-ui-trial-gold.png), large-text selection/settings/bindings and Trial/Cup presentation; [metadata](evidence/m4-ui-reference.json) explicitly identifies the synthetic isolated record/trophy fixture. CI adds actual graphics captures. Current cosmetic hash is `9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828`; gameplay content/protocol remain unchanged.
+
+The dirty local Build 55 APK renders actual touch menus on the named Android 15 ARM64 **phone and tablet emulators**. [Phone course selection](evidence/m4-ui-phone-marina.png), [150% independently scrolled description](evidence/m4-ui-phone-details-150.png), [tablet Garage](evidence/m4-ui-tablet-garage.png), [tablet track selection](evidence/m4-ui-tablet-redwood.png) and [exact metadata](evidence/m4-ui-android-validation.json) record this evidence. Physical device ergonomics and performance remain open. Build 54 passed every remote gate and published all 18 desktop/Android/server release files. Race HUD timing/nameplates, remaining interface behavior and final M4 acceptance are next.

@@ -7,6 +7,7 @@ var pending: Dictionary = {}
 func collect(session: RaceSession) -> void:
 	if session.phase==RaceSession.Phase.RESULTS: return
 	for state: VehicleState in session.states:
+		if not state.dnf_reason.is_empty(): continue
 		if not pending.has(state.slot): pending[state.slot] = []
 		for event: String in state.events:
 			if event in ALLOWED and not event in pending[state.slot]: pending[state.slot].append(event)

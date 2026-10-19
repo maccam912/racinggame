@@ -124,7 +124,7 @@ func _physics_process(dt: float) -> void:
 	var settings := drive.app_data.settings if drive.app_data else SettingsCatalog.defaults(OS.has_feature("mobile"))
 	set_mode(str(settings.effects))
 	var suspended := drive.paused and drive.network==null or drive.resume_ticks>0 or drive.result_sent
-	haptics.update(drive,settings,dt,suspended)
+	haptics.update(drive,settings,dt,suspended or drive.state.finished or not drive.state.dnf_reason.is_empty())
 	if suspended: return
 	elapsed += dt
 	if drive.network:
@@ -133,7 +133,7 @@ func _physics_process(dt: float) -> void:
 	for index in range(drive.session.states.size()):
 		var state: VehicleState = drive.state if index==drive.local_slot else drive.session.states[index]
 		if drive.network==null: consume(state)
-		if mode=="off" or not state.grounded or state.recovery_ticks>0 or state.speed()<5:
+		if mode=="off" or not state.dnf_reason.is_empty() or not state.grounded or state.recovery_ticks>0 or state.speed()<5:
 			last_tires.erase(index)
 			continue
 		var slip := state.drift_phase==1 or absf(state.velocity.dot(state.forward().cross(Vector3.UP)))>3
@@ -165,6 +165,7 @@ func set_mode(value: String) -> void:
 	if is_instance_valid(skid_batch): advance(0,drive.camera.global_basis)
 
 func consume(state: VehicleState) -> void:
+	if not state.dnf_reason.is_empty(): return
 	for event: String in state.events:
 		if event not in ["wall","land"]: continue
 		var key := event+str(state.slot)

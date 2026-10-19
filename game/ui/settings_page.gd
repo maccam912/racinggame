@@ -46,10 +46,11 @@ func show_tab(selected: String, return_to: Callable) -> void:
 		selected_button = selector
 	else:
 		var tabs := GridContainer.new()
-		tabs.columns = 4 if app.data.mobile or int(app.data.settings.ui_scale)>=125 else 7
+		tabs.columns = 4 if app.data.mobile or int(app.data.settings.ui_scale)>=125 or app.get_viewport().get_visible_rect().size.x<1450 else 7
 		body.add_child(tabs)
 		for key: String in names:
 			var button := shell.ui.button(I18n.t("tab."+key),func() -> void: show_tab(key,back))
+			shell.ui.set_icon(button,"tab_"+key)
 			button.modulate = UIFactory.TURQUOISE if key==tab else Color.WHITE
 			tabs.add_child(button)
 			if key==tab:

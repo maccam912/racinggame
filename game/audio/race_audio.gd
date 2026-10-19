@@ -44,16 +44,16 @@ func _physics_process(dt: float) -> void:
 			throttle = 1.0 if state.speed()>=float(previous_speeds.get(index,0)) else 0.0
 		previous_speeds[index] = state.speed()
 		engines[index].position = state.position
-		engines[index].update(state.speed(),throttle,drive.session.cars[index].top_speed,dt,suspended or not engines[index].own and state.position.distance_to(drive.camera.global_position)>=120)
+		engines[index].update(state.speed(),throttle,drive.session.cars[index].top_speed,dt,suspended or not state.dnf_reason.is_empty() or not engines[index].own and state.position.distance_to(drive.camera.global_position)>=120)
 	var own: EngineAudio = engines[drive.local_slot]
 	drive.hud.gear = own.gear
 	drive.hud.rpm = own.rpm
 	for id: String in surfaces:
-		var active := not suspended and drive.state.grounded and drive.state.speed()>3
+		var active := not suspended and drive.state.dnf_reason.is_empty() and drive.state.grounded and drive.state.speed()>3
 		if id=="asphalt_squeal": active = active and drive.state.surface=="asphalt" and drive.state.drift_phase==1
 		else: active = active and drive.state.surface==id.trim_suffix("_rumble")
 		surfaces[id].volume_db = move_toward(surfaces[id].volume_db,-12.0 if active else -80.0,dt*160)
-		surfaces[id].stream_paused = suspended
+		surfaces[id].stream_paused = suspended or not drive.state.dnf_reason.is_empty()
 	if suspended: return
 	elapsed += dt
 	var phase := "Countdown" if drive.resume_ticks>0 else drive.phase
@@ -87,6 +87,7 @@ func _physics_process(dt: float) -> void:
 	for state: VehicleState in drive.session.states: consume(state)
 
 func consume(state: VehicleState) -> void:
+	if not state.dnf_reason.is_empty(): return
 	# Rival impacts outside the audible radius never enter the shared pool.
 	if state.slot!=drive.local_slot and state.position.distance_to(drive.state.position)>=120: return
 	for event: String in state.events:

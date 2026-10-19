@@ -67,6 +67,32 @@ def validate():
     print('Validated four original cars, twelve explicit LODs, shared 1024 atlas and editable source')
     validate_scenery()
     validate_audio()
+    validate_icons()
+
+
+def validate_icons():
+    import xml.etree.ElementTree as ET
+    value=json.loads((ROOT/'assets/exported/icons/catalog.json').read_text())
+    rows=value['assets']
+    assert value['license']=='MIT' and (ROOT/value['source']).is_file()
+    assert len(rows)==60 and len({r['id'] for r in rows})==60
+    assert [sum(row['category']==kind for row in rows) for kind in ['action','tab','menu','connection','car','track','medal','trophy','paint']]==[15,8,9,3,4,6,4,3,8]
+    actions=['steer_left','steer_right','accelerate','brake','handbrake','recover','camera','look_back','pause','ui_up','ui_down','ui_left','ui_right','ui_accept','ui_cancel']
+    assert {row['id'] for row in rows if row['category']=='action'}=={'action_'+a for a in actions}
+    for row in rows:
+        path=ROOT/row['path'];data=path.read_bytes()
+        assert digest(path)==row['sha256'],row['id']
+        svg=ET.fromstring(data)
+        assert svg.attrib['viewBox']=='0 0 24 24' and svg.attrib['width']==svg.attrib['height']=='64'
+        assert 'http' not in data.decode().replace('http://www.w3.org/2000/svg',''),'Icons must contain no external references'
+        assert 'mipmaps/generate=true' in path.with_suffix('.svg.import').read_text()
+        if row['category']=='track':
+            bake=json.loads((ROOT/f'game/content/baked/{row["id"].removeprefix("track_")}.json').read_text())
+            assert row['route_hash']==bake['content_hash']
+        if row['category']=='paint':
+            paints=json.loads((ROOT/'game/content/cars.json').read_text())['paints']
+            assert row['color']==paints[int(row['id'].removeprefix('paint_'))]
+    print('Validated 60 original editable SVG interface icons, canonical course outlines, paint swatches and mipmaps')
 
 
 def validate_audio():
