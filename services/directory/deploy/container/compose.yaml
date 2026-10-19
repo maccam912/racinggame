@@ -1,0 +1,63 @@
+# Linux host networking keeps the private supervisor/worker link on loopback and
+# exposes only the operator's selected public HTTPS / UDP ranges via its firewall.
+services:
+  region:
+    image: ${PR_SERVER_IMAGE:?Set an immutable released server image}
+    network_mode: host
+    user: "10001:10001"
+    read_only: true
+    cap_drop: [ALL]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=64m,mode=1777"]
+    restart: unless-stopped
+    stop_grace_period: 11m
+    environment:
+      PR_HEALTH_LISTEN: 127.0.0.1:${PR_HTTP_PORT:-8080}
+    command:
+      - serve
+      - --db=/var/lib/pacific-rush/directory.sqlite
+      - --keys=/var/lib/pacific-rush/keys
+      - --logs=/var/log/pacific-rush/${PR_POOL_ID:-pool-a}
+      - --listen=127.0.0.1:${PR_HTTP_PORT:-8080}
+      - --private-listen=127.0.0.1:${PR_PRIVATE_PORT:-8081}
+      - --public-url=${PR_PUBLIC_ADDRESS:?Set the owned HTTPS address}
+      - --worker-host=${PR_WORKER_HOST:?Set the advertised worker DNS or IP}
+      - --region=${PR_REGION_ID:?Set the region ID}
+      - --region-name=${PR_REGION_NAME:?Set the region display name}
+      - --worker=/opt/pacific-rush/pacific-rush-server.x86_64
+      - --first-port=${PR_FIRST_PORT:-27020}
+      - --workers=${PR_WORKERS:?Set the measured pool cap}
+      - --host-workers=${PR_HOST_WORKERS:?Set the shared measured host cap}
+      - --protocol=${PR_PROTOCOL:?Copy the exact build protocol}
+      - --content-hash=${PR_CONTENT_HASH:?Copy the exact gameplay hash}
+    volumes:
+      - region-data:/var/lib/pacific-rush
+      - region-logs:/var/log/pacific-rush
+  https:
+    image: caddy:2.11.7-alpine@sha256:d8542f48d34a9cf4e4c11a478865229840e87e4c96ea3f439101f31a5d35f75f
+    network_mode: host
+    read_only: true
+    cap_drop: [ALL]
+    cap_add: [NET_BIND_SERVICE]
+    security_opt: [no-new-privileges:true]
+    tmpfs: ["/tmp:rw,noexec,nosuid,size=16m,mode=1777"]
+    restart: unless-stopped
+    environment:
+      PR_PUBLIC_ADDRESS: ${PR_PUBLIC_ADDRESS:?Set the owned HTTPS address}
+      PR_DIRECTORY_UPSTREAM: 127.0.0.1:${PR_HTTP_PORT:-8080}
+    command: [caddy, run, --config, /etc/caddy/Caddyfile, --adapter, caddyfile]
+    volumes:
+      - ../Caddyfile:/etc/caddy/Caddyfile:ro
+      - ../tls-public.caddy:/etc/caddy/tls-public.caddy:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      region:
+        condition: service_healthy
+volumes:
+  region-data:
+    name: ${PR_DATA_VOLUME:?Set the shared local region data volume}
+  region-logs:
+    name: ${PR_LOG_VOLUME:?Set the shared local region log volume}
+  caddy-data:
+  caddy-config:

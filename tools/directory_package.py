@@ -49,7 +49,7 @@ def build(folder, game_build):
     shutil.copy(ROOT/'docs/SERVER_PACKAGE.md',folder/'README_SERVER.md')
     documentation = folder/'operator'
     documentation.mkdir(exist_ok=True)
-    for name in ['DIRECTORY_BACKUPS.md','SUPERVISOR_LIFECYCLE.md','SERVER_PERFORMANCE.md','WORKER_RETIREMENT.md']:
+    for name in ['DIRECTORY_BACKUPS.md','SUPERVISOR_LIFECYCLE.md','SERVER_PERFORMANCE.md','WORKER_RETIREMENT.md','CONTAINER_HOSTING.md']:
         shutil.copy(ROOT/'docs'/name,documentation/name)
     shutil.copy(ROOT/'services/directory/README.md',documentation/'DIRECTORY.md')
     shutil.copytree(ROOT/'services/directory/deploy',documentation/'deploy',dirs_exist_ok=True)

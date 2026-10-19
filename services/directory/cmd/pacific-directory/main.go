@@ -32,9 +32,11 @@ func main() {
 }
 func run() error {
 	if len(os.Args) < 2 {
-		return errors.New("use keygen, serve, drain, backup, restore, version, ban or unban")
+		return errors.New("use keygen, serve, drain, backup, restore, version, probe, ban or unban")
 	}
 	switch os.Args[1] {
+	case "probe":
+		return probe(os.Args[2:])
 	case "version":
 		if len(os.Args) != 2 {
 			return errors.New("version takes no arguments")

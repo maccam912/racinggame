@@ -73,8 +73,8 @@ backup/restart/auth drill with the **shipped** operator binary and two impaired
 eight-client, two-lap races against the **exported** worker. The worker starts
 from the extracted bundle without a source project path. These startup and
 operator checks are separate from cross-play load, physical devices, public
-hosting, scheduled backup drills and publisher release approval. OCI packaging
-and public regional deployment remain separate work at this checkpoint.
+hosting, scheduled backup drills and publisher release approval. [OCI runtime setup](CONTAINER_HOSTING.md) has a separate image/recovery gate;
+public regional deployment remains operator work.
 
 
 Dedicated exports explicitly flush stdout and disable automatic Godot file logs.

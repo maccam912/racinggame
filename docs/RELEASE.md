@@ -5,3 +5,5 @@ Desktop packages, Android ARM64 APK/AAB, and Linux dedicated worker are publishe
 See docs/STATUS.md for implemented milestones and outstanding acceptance gates. Automated exports do not establish physical Android usability, cross-play, performance, public hosting, or launch readiness.
 
 The Linux server ZIP also includes the matching `pacific-directory` operator, build identity, service dependency licenses, Caddy examples and backup/drain runbooks. Public regions remain unconfigured.
+
+The matching Linux OCI runtime is published only after its actual eight-player crash/recovery and graceful-stop gate passes. Its immutable registry reference is appended below by the publisher; region hosting remains operator-configured.

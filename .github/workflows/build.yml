@@ -387,11 +387,12 @@ jobs:
       always() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
       needs.export.result == 'success' && needs.network.result == 'success' &&
       needs.native.result == 'success' && needs.lobbies.result == 'success' &&
-      needs.directory.result == 'success' && needs['directory-lifecycle'].result == 'success' && needs.render.result == 'success' && needs.audio.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped')
-    needs: [export, network, native, lobbies, directory, directory-lifecycle, ai, render, audio]
+      needs.directory.result == 'success' && needs['directory-lifecycle'].result == 'success' && needs.render.result == 'success' && needs.audio.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped') && needs.containers.result == 'success'
+    needs: [export, network, native, lobbies, directory, directory-lifecycle, ai, render, audio, containers]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
+      packages: write
     steps:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
@@ -399,6 +400,10 @@ jobs:
           pattern: package-*
           merge-multiple: true
           path: release
+      - uses: actions/download-artifact@v4
+        with:
+          name: server-container
+          path: container-release
       - name: Publish all platforms together
         env:
           GH_TOKEN: ${{ github.token }}
@@ -416,7 +421,18 @@ jobs:
           fi
           tag_commit=$(printf '%s' "$remote_tag" | cut -f1)
           test "$tag_commit" = "$GITHUB_SHA"
-          gh release create "$RELEASE_TAG" release/* --verify-tag --title "Development Build ${{ github.run_number }}" --notes-file docs/RELEASE.md --prerelease
+          cd container-release
+          sha256sum --check image.sha256
+          docker load --input image.tar.gz
+          cd ..
+          server_image="ghcr.io/${GITHUB_REPOSITORY_OWNER,,}/pacific-rush-server"
+          docker tag "pacific-rush-ci:${{ github.run_number }}" "$server_image:$RELEASE_TAG"
+          printf '%s' "$GH_TOKEN" | docker login ghcr.io --username "$GITHUB_ACTOR" --password-stdin
+          docker push "$server_image:$RELEASE_TAG"
+          image_digest=$(docker image inspect "$server_image:$RELEASE_TAG" --format '{{index .RepoDigests 0}}')
+          cp docs/RELEASE.md /tmp/pacific-release-notes.md
+          printf '\nServer OCI image: `%s`.\n' "$image_digest" >> /tmp/pacific-release-notes.md
+          gh release create "$RELEASE_TAG" release/* --verify-tag --title "Development Build ${{ github.run_number }}" --notes-file /tmp/pacific-release-notes.md --prerelease
 
   native:
     needs: export
@@ -618,3 +634,64 @@ jobs:
             reports/directory-lifecycle-*/workers/*.json
             reports/directory-lifecycle-*/logs/*.jsonl
           if-no-files-found: error
+
+
+  containers:
+    needs: export
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: package-server
+          path: build/download
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - name: Import independent source clients
+        run: python tools/godot.py --headless --editor --import --quit
+      - name: Build the pinned runtime from the verified server artifact
+        run: python tools/container_image.py build/download/*-server.zip --context build/container-context --tag pacific-rush-ci:${{ github.run_number }}
+      - name: Check the operator region configuration without deployment
+        env:
+          PR_SERVER_IMAGE: pacific-rush-ci:${{ github.run_number }}
+          PR_PUBLIC_ADDRESS: https://fixture.invalid
+          PR_WORKER_HOST: 127.0.0.1
+          PR_REGION_ID: test
+          PR_REGION_NAME: Test Region
+          PR_WORKERS: '1'
+          PR_HOST_WORKERS: '1'
+          PR_PROTOCOL: '5'
+          PR_CONTENT_HASH: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+          PR_DATA_VOLUME: fixture-data
+          PR_LOG_VOLUME: fixture-logs
+        run: docker compose --file services/directory/deploy/container/compose.yaml config --quiet
+      - name: Eight actual racers survive directory SIGKILL and graceful image stop
+        run: python tools/container_integration.py --image pacific-rush-ci:${{ github.run_number }} --context build/container-context
+      - name: Preserve the exact tested image for gated publication
+        run: |
+          mkdir -p build/container-release
+          docker save pacific-rush-ci:${{ github.run_number }} | gzip -1 > build/container-release/image.tar.gz
+          cp build/container-context/context.json build/container-release/image.json
+          cd build/container-release
+          sha256sum image.tar.gz > image.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: server-container
+          path: build/container-release/
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: container-evidence
+          path: |
+            build/container-context/context.json
+            reports/container-*/summary.json
+            reports/container-*/*.log
+            reports/container-*/client-*.json
+          if-no-files-found: warn
