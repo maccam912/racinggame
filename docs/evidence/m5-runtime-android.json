@@ -1,0 +1,41 @@
+{
+  "profile": "m5_runtime64_c81255f0",
+  "root": "/data/user/0/dev.pacificrush.game/files/diagnostic_profiles/m5_runtime64_c81255f0",
+  "keep_screen_on": {
+    "active_play": true,
+    "paused": false,
+    "background": false,
+    "saved_prompt": false,
+    "main_menu": false
+  },
+  "no_godot_errors": true,
+  "passed": true,
+  "build": {
+    "version": "0.0.64-dev",
+    "build_number": 64,
+    "working_tree_dirty": true,
+    "commit": "c0e5f93e127676c6f7df7c73883b3b90aad2df73",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+    "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "e071ba0088b7345b32af11f31088bb8770b656fb9c12a16f59a346357ba9ac5b",
+      "sha256": "510963fddd472bc21011028e9da6ff37ef08f315476296a33e75a693a9d5d74a"
+    }
+  },
+  "apk_sha256": "afee4ae9d28e95f0fb05ad77782800fb69113ff150ad1e96ff42f35d5a256d59",
+  "boundary": "Actual exported Android emulator Window flags during play, Pause, Home, cold saved prompt and Main Menu. Not physical sleep/thermal acceptance or an actual Android memory-pressure/thermal adaptive-resolution test. APK predates final profiling-on-active-race guard and diagnostic fields; native/source checks cover those changes.",
+  "archived_profile": "/data/local/tmp/pacific-rush-m5_runtime64_c81255f0"
+}

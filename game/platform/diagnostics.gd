@@ -109,12 +109,14 @@ func snapshot() -> Dictionary:
 	var size := app.get_viewport().get_visible_rect().size
 	var pixels := app.get_window().size
 	var platform := {"os":OS.get_name(),"mobile":app.data.mobile,"renderer":RenderingServer.get_current_rendering_method(),"processor_count":OS.get_processor_count(),"viewport_width":int(size.x),"viewport_height":int(size.y),"window_pixel_width":pixels.x,"window_pixel_height":pixels.y,"native_save_dialog":DisplayServer.has_feature(DisplayServer.FEATURE_NATIVE_DIALOG_FILE)}
+	var display: WorldPresentation = app.presentation
+	var runtime := {"selected_scale":display.adaptive.selected,"current_scale":display.adaptive.current,"adaptive_enabled":display.adaptive.enabled,"adaptive_changes":display.adaptive.changes,"world_width":display.viewport.size.x,"world_height":display.viewport.size.y,"render_work_ms":display.last_work_seconds*1000,"render_gpu_ms":display.last_gpu_seconds*1000,"presentation_interval_ms":display.last_interval_seconds*1000,"keep_awake":app.mobile_runtime.awake,"memory_warnings":app.mobile_runtime.memory_warnings}
 	var race: Dictionary = {}
 	if is_instance_valid(app.drive):
 		var drive: RaceDrive = app.drive
 		race = {"mode":drive.session.mode if drive.session.mode in ["quick","trial","cup","school","online"] else "unknown","track":drive.track.id,"car":drive.car.id,"laps":drive.lap_count,"elapsed_ticks":drive.race_ticks}
 		if drive.network==null: race["seed"] = str(drive.session.seed)
-	return {"build.json":safe_build(build),"platform.json":platform,"settings.json":safe_settings(app.data.settings,app.data.mobile),"performance.json":{"window_seconds":60,"seconds":performance},"events.json":log.snapshot(),"race.json":race}
+	return {"build.json":safe_build(build),"platform.json":platform,"settings.json":safe_settings(app.data.settings,app.data.mobile),"performance.json":{"window_seconds":60,"seconds":performance,"runtime":runtime},"events.json":log.snapshot(),"race.json":race}
 
 static func write_zip(path: String, contents: Dictionary) -> Error:
 	if contents.keys().size()!=FILES.size(): return ERR_INVALID_DATA

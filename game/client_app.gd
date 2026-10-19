@@ -35,6 +35,7 @@ var regions := RegionBook.new()
 var online_page: OnlinePage
 var online_status: Label
 var presentation := WorldPresentation.new()
+var mobile_runtime := MobileRuntime.new()
 var audio_mix := AudioMix.new()
 var game_audio := GameAudio.new()
 var diagnostics := Diagnostics.new()
@@ -69,6 +70,8 @@ func _ready() -> void:
 	add_child(diagnostics)
 	presentation.app = self
 	add_child(presentation)
+	mobile_runtime.app = self
+	add_child(mobile_runtime)
 	add_child(audio_mix)
 	game_audio.app = self
 	add_child(game_audio)
@@ -1033,6 +1036,8 @@ func _process(_dt: float) -> void:
 func _notification(what: int) -> void:
 	if not is_inside_tree():
 		return
+	if what==MainLoop.NOTIFICATION_OS_MEMORY_WARNING:
+		mobile_runtime.release_inactive_assets()
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST and is_inside_tree():
 		if ChoicePicker.close_active(get_viewport()):
 			return
@@ -1050,12 +1055,14 @@ func _notification(what: int) -> void:
 		foreground = true
 		menu_repeat.clear_context()
 		if data.mobile and is_instance_valid(network): network.set_suspended(false)
+		mobile_runtime.refresh()
 
 
 func handle_background() -> void:
 	var was_foreground := foreground
 	foreground = false
 	menu_repeat.clear_context()
+	mobile_runtime.refresh()
 	if not was_foreground: return
 	if data.mobile and is_instance_valid(network): network.set_suspended(true)
 	if not is_instance_valid(drive): return
