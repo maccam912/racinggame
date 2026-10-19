@@ -71,8 +71,10 @@ def main():
                     process.send_signal(signal.SIGINT)
                     assert process.wait(timeout=10) == 0, 'Drill service did not stop cleanly'
                     process = None
-            def post(path, body, expected=200):
-                request = urllib.request.Request(url+path,json.dumps(body).encode(),{'Content-Type':'application/json'})
+            def post(path, body, expected=200, token=''):
+                headers = {'Content-Type':'application/json'}
+                if token: headers['Authorization'] = 'Bearer '+token
+                request = urllib.request.Request(url+path,json.dumps(body).encode(),headers)
                 try:response = urllib.request.urlopen(request,timeout=5)
                 except urllib.error.HTTPError as error:response = error
                 with response:
@@ -84,12 +86,16 @@ def main():
             name = 'Backup Driver'
             start(database,'before')
             session = post('/v1/guests',{'guest_id':guest,'secret':encode(secret),'display_name':name},201)
+            deletion = post('/v1/data/deletion-request',{},202,session['session_token'])
+            duplicate = post('/v1/data/deletion-request',{},202,session['session_token'])
+            requests = command('deletion-requests','--db',database)['requests']
+            checks['authenticated_request_operator_lookup'] = deletion == duplicate and deletion['status'] == 'pending_operator' and len(requests) == 1 and requests[0]['guest_id'] == guest and requests[0]['request_id'] == deletion['request_id']
             post('/v1/guests',{'guest_id':banned,'secret':encode(banned_secret),'display_name':'Banned Driver'},201)
             command('ban','--db',database,'--guest',banned)
             old_nonce = post('/v1/auth/challenge',{'guest_id':guest})['nonce']
             backup = root/'snapshot'
             result = command('backup','--db',database,'--keys',keys,'--backup',backup)
-            checks['live_cli_backup'] = result['backup']['schema'] == 3 and result['backup']['bytes'] >= 4096
+            checks['live_cli_backup'] = result['backup']['schema'] == 4 and result['backup']['bytes'] >= 4096
             summary['snapshot'] = result['backup']
             before = (backup/'directory.sqlite').read_bytes()
             command('backup','--db',database,'--keys',keys,'--backup',backup,ok=False)
@@ -98,6 +104,8 @@ def main():
             command('restore','--backup',backup,'--keys',keys,'--out',restored)
             command('restore','--backup',backup,'--keys',keys,'--out',restored,ok=False)
             checks['backup_unchanged'] = (backup/'directory.sqlite').read_bytes() == before
+            restored_requests = command('deletion-requests','--db',restored)['requests']
+            checks['pending_deletion_request_survives_restore'] = restored_requests == requests
             with sqlite3.connect('file:'+str(restored)+'?mode=ro',uri=True) as db:
                 checks['two_guests_preserved'] = db.execute('SELECT count(*) FROM guests').fetchone()[0] == 2
                 checks['no_ephemeral_leases_or_replay_state'] = all(db.execute('SELECT count(*) FROM '+table).fetchone()[0] == 0 for table in ['workers','rooms','reservations','worker_commands','nonces','sessions'])

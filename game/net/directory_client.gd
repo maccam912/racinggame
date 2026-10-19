@@ -47,8 +47,10 @@ func online() -> bool:
 func begin(kind: String, payload: Dictionary = {}) -> Error:
 	if busy() or not is_instance_valid(identity_service) or identity_service.busy() and kind not in ["rooms","regions"]:
 		return ERR_BUSY
-	if base.is_empty() or data==null or not kind in ["authenticate","regions","rooms","create","join","code","leave"]:
+	if base.is_empty() or data==null or not kind in ["authenticate","regions","rooms","create","join","code","leave","deletion_request"]:
 		return ERR_INVALID_PARAMETER
+	if kind=="deletion_request" and data.profile.guest_reference.is_empty() and (not is_instance_valid(identity_service.identity) or not identity_service.identity.registered(base)):
+		return ERR_DOES_NOT_EXIST
 	if kind=="create" and not DirectorySchema.create_request(payload):
 		return ERR_INVALID_DATA
 	if kind in ["join","leave"] and (not payload.get("room_id") is String or not GuestIdentity.valid_uuid(payload.room_id)):
@@ -91,6 +93,8 @@ func identity_completed(result: Dictionary) -> void:
 	if identity.registered(base):
 		phase = "challenge"
 		send("/v1/auth/challenge",HTTPClient.METHOD_POST,{"guest_id":identity.guest_id})
+	elif job.kind=="deletion_request":
+		finish(false,"no_registered_identity")
 	else:
 		phase = "register"
 		send("/v1/guests",HTTPClient.METHOD_POST,{"guest_id":identity.guest_id,"secret":TicketVerifier.encode64(identity.secret),"display_name":job.name})
@@ -105,6 +109,7 @@ func perform_job() -> void:
 	var payload: Dictionary = job.payload
 	match str(job.kind):
 		"authenticate": finish(true,"ok",{"session_only":not identity_service.identity.persistent})
+		"deletion_request": send("/v1/data/deletion-request",HTTPClient.METHOD_POST,{},true)
 		"regions": send("/v1/regions",HTTPClient.METHOD_GET)
 		"rooms": send("/v1/rooms?protocol=%d&content_hash=%s&show_in_race=%s" % [NetCodec.PROTOCOL,Compatibility.content_hash(),"true" if bool(payload.get("show_in_race",false)) else "false"],HTTPClient.METHOD_GET)
 		"create": send("/v1/rooms",HTTPClient.METHOD_POST,payload,true)
@@ -165,7 +170,7 @@ func response(result: int, status: int, bytes: PackedByteArray) -> void:
 			finish(false,"invalid_response")
 			return
 		payload = parser.data
-	if status==401 and phase=="operation" and job.kind in ["create","join","code","leave"] and not job.retried:
+	if status==401 and phase=="operation" and job.kind in ["create","join","code","leave","deletion_request"] and not job.retried:
 		job.retried = true
 		session_token = ""
 		load_identity()
@@ -202,6 +207,7 @@ func response(result: int, status: int, bytes: PackedByteArray) -> void:
 			match str(job.kind):
 				"rooms": valid = DirectorySchema.rooms(payload)
 				"regions": valid = DirectorySchema.regions(payload)
+				"deletion_request": valid = DirectorySchema.deletion_request(payload,now)
 				"create","join","code": valid = DirectorySchema.admission(payload,now)
 			finish(valid,"ok" if valid else "invalid_response",payload if valid else {})
 

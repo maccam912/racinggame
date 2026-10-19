@@ -66,3 +66,6 @@ static func session(payload: Dictionary, guest: String, name_value: String, now:
 static func auth_proof(secret: PackedByteArray, guest: String, nonce: String, name_value: String) -> String:
 	var message := "pacific-rush-auth-v1\n%s\n%s\n%s" % [guest,nonce,PlayerName.nfc(name_value)]
 	return TicketVerifier.encode64(Crypto.new().hmac_digest(HashingContext.HASH_SHA256,secret,message.to_utf8_buffer()))
+
+static func deletion_request(payload: Dictionary, now: int) -> bool:
+	return payload.size()==3 and payload.get("request_id") is String and GuestIdentity.valid_uuid(payload.request_id) and payload.get("status") is String and payload.status=="pending_operator" and NetEvents.integer(payload.get("created_at"),0,now+60)

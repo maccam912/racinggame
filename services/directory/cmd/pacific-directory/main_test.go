@@ -32,7 +32,7 @@ func TestVersionReportsRuntimeAndEmbeddedIdentityWithoutKeys(t *testing.T) {
 		if err = json.Unmarshal(data, &value); err != nil {
 			t.Fatal(err)
 		}
-		if value["go_version"] != runtime.Version() || value["service_schema"] != float64(3) {
+		if value["go_version"] != runtime.Version() || value["service_schema"] != float64(4) {
 			t.Fatal("runtime identity was replaced", value)
 		}
 		if embedded != "" && (value["commit"] != "test-commit" || value["build_number"] != float64(80)) {

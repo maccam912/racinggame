@@ -12,20 +12,24 @@ var display_modal: ConfirmationDialog
 var display_generation: int = 0
 var pending_focus: String = ""
 var reset_pending: bool = false
+var deletion_button: Button
+var deletion_waiting: bool = false
 
 
 func _init(owner_app: Node) -> void:
 	app = owner_app
+	app.directory_client.completed.connect(deletion_received)
 
 
 func show_tab(selected: String, return_to: Callable) -> void:
 	if reset_pending or not is_instance_valid(app) or not app.is_inside_tree():
 		return
+	cancel_deletion_request()
 	finish_display(false, display_generation, false)
 	back = return_to
 	tab = selected
 	app.page = "settings"
-	app.back_action = back
+	app.back_action = leave_settings
 	var shell: MenuShell = app.menu
 	shell.settings = app.data.settings
 	var body := shell.reset(I18n.t("settings.title"))
@@ -79,6 +83,9 @@ func show_tab(selected: String, return_to: Callable) -> void:
 	if tab == "data":
 		list.add_child(shell.ui.button(I18n.t("settings.name"), func() -> void: app.show_name(false)))
 		list.add_child(shell.ui.button(I18n.t("settings.export"), export_diagnostics))
+		list.add_child(shell.ui.paragraph(I18n.t("data.deletion_help")))
+		deletion_button = shell.ui.button(I18n.t("data.deletion_request"),confirm_deletion_request)
+		list.add_child(deletion_button)
 		list.add_child(shell.ui.button(I18n.t("settings.reset_records"), func() -> void: shell.confirm(I18n.t("settings.reset_records_confirm"), func() -> void: reset_data(false), true)))
 		list.add_child(shell.ui.button(I18n.t("settings.reset_all"), func() -> void: shell.confirm(I18n.t("settings.reset_all_confirm"), func() -> void: reset_data(true), true)))
 	status = shell.ui.paragraph("")
@@ -88,11 +95,63 @@ func show_tab(selected: String, return_to: Callable) -> void:
 		restore_tab.disabled = tab=="touch" and touch_layout_locked()
 		shell.ui.help(restore_tab,I18n.t("touch.change_lobby"),true)
 		shell.footer.add_child(restore_tab)
-	shell.add_back(back)
+	shell.add_back(leave_settings)
 	if selected_button:
 		shell.focus_later(selected_button)
 	else:
 		shell.first_focus()
+
+
+func confirm_deletion_request() -> void:
+	if app.directory_client.busy():
+		status.text = I18n.t("online.storage_busy")
+		return
+	var region: Dictionary = app.regions.selected()
+	if region.is_empty():
+		status.text = I18n.t("data.deletion_select_region")
+		return
+	if not app.online_page.configure_directory():
+		status.text = I18n.t("online.unavailable")
+		return
+	app.menu.confirm(I18n.t("data.deletion_confirm",[I18n.t(region.name_key)]),func() -> void:
+		app.menu.confirm(I18n.t("data.deletion_second"),send_deletion_request))
+
+
+func send_deletion_request() -> void:
+	var directory: DirectoryClient = app.directory_client
+	if directory.busy():
+		status.text = I18n.t("online.storage_busy")
+		return
+	deletion_waiting = true
+	deletion_button.disabled = true
+	status.text = I18n.t("data.deletion_sending")
+	var error := directory.begin("deletion_request")
+	if error!=OK:
+		deletion_waiting = false
+		deletion_button.disabled = false
+		status.text = I18n.t("data.deletion_no_identity" if error==ERR_DOES_NOT_EXIST else "online.storage_busy")
+		app.menu.reveal_later(status)
+
+
+func deletion_received(result: Dictionary) -> void:
+	if result.kind!="deletion_request" or not deletion_waiting: return
+	deletion_waiting = false
+	if app.page!="settings" or tab!="data" or not is_instance_valid(status) or not is_instance_valid(deletion_button): return
+	deletion_button.disabled = false
+	if result.ok: status.text = I18n.t("data.deletion_pending",[result.payload.request_id])
+	elif result.state=="no_registered_identity": status.text = I18n.t("data.deletion_no_identity")
+	else: status.text = app.online_page.message(result.state)
+	app.menu.reveal_later(status)
+
+
+func cancel_deletion_request() -> void:
+	deletion_waiting = false
+	if is_instance_valid(app.directory_client) and app.directory_client.job.get("kind")=="deletion_request": app.directory_client.cancel()
+
+
+func leave_settings() -> void:
+	cancel_deletion_request()
+	if back.is_valid(): back.call()
 
 
 func setting_row(parent: Node, definition: Dictionary) -> void:

@@ -210,7 +210,7 @@ func TestSchemaTwoUpgradePreservesEncryptedGuestAndBearer(t *testing.T) {
 	var version int
 	upgraded.db.QueryRow(`SELECT secret FROM guests WHERE id=?`, guest.Guest).Scan(&after)
 	upgraded.db.QueryRow(`PRAGMA user_version`).Scan(&version)
-	if !bytes.Equal(before, after) || version != 3 {
+	if !bytes.Equal(before, after) || version != DatabaseSchemaVersion {
 		t.Fatal("encrypted identity bytes changed")
 	}
 	session, err := service.Authorize(context.Background(), guest.Token)

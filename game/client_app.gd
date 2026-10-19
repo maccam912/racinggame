@@ -1124,6 +1124,9 @@ func _process(_dt: float) -> void:
 		capture_due = is_instance_valid(drive) and drive.race_ticks>=capture_race_tick and drive.session.phase==RaceSession.Phase.RACING
 	if capture_due:
 		capture_pending = true
+		# Hold this genuine simulated instant while waiting for GPU readback;
+		# an obscured window may otherwise advance before frame_post_draw.
+		if is_instance_valid(drive): drive.set_physics_process(false)
 		await RenderingServer.frame_post_draw
 		var image := get_viewport().get_texture().get_image()
 		if image.save_png(capture_path)!=OK:

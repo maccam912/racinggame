@@ -39,3 +39,9 @@ The filesystem-only `backup` and `restore` commands create verified live-WAL sna
 Production room creation now requires fresh authenticated worker tick/RSS measurements and reserves p95 headroom. The worker deadline alert uses a full 30-second window. [Measurement, admission and alert contract](../../docs/SERVER_PERFORMANCE.md) records exact thresholds, missing-data behavior, native API sources and benchmark boundaries.
 
 Development Linux server downloads now include the pinned operator binary. `pacific-directory version` reports its embedded public provenance, actual Go runtime and service schema without loading keys. [Bundle setup and native CI gates](../../docs/SERVER_PACKAGE.md) describe matching identities and shipped-binary validation.
+
+Authenticated `POST /v1/data/deletion-request` records a stable pending receipt for
+the caller's own guest. The filesystem-only `deletion-requests` CLI exposes the
+regional operator queue. [Request and fulfillment boundaries](../../docs/DATA_DELETION_REQUESTS.md)
+separate receiving requests from the owner's operated deletion/retention policy.
+Service schema 4 preserves this queue through verified backups/restores.

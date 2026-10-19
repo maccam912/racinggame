@@ -151,6 +151,26 @@ func run_fixture() -> void:
 	await wait_lobby()
 	assert(app.network.guest_id==guest and not app.network.lobby.private)
 	await leave_lobby()
+	# The actual Data menu sends an authenticated regional request; duplicate
+	# presses retain one receipt and preserve local records/identity/settings.
+	app.settings_page.show_tab("data",app.show_menu)
+	var before_profile: Dictionary = app.data.profile.duplicate(true)
+	var before_settings: Dictionary = app.data.settings.duplicate(true)
+	app.settings_page.deletion_button.pressed.emit()
+	assert(is_instance_valid(app.menu.modal) and app.menu.modal.dialog_text.contains(I18n.t("online.test")))
+	app.menu.modal.get_ok_button().pressed.emit()
+	app.menu.modal.get_ok_button().pressed.emit() # Both real dialog button callbacks.
+	until = Time.get_ticks_msec()+10000
+	while app.settings_page.deletion_waiting and Time.get_ticks_msec()<until: await process_frame
+	assert(not app.settings_page.deletion_waiting and not app.settings_page.deletion_button.disabled)
+	var receipt_text: String = app.settings_page.status.text
+	assert(receipt_text.begins_with("Request recorded; pending operator action.") and not receipt_text.contains(guest))
+	assert(app.data.profile==before_profile and app.data.settings==before_settings and app.guest_service.identity.guest_id==guest)
+	app.settings_page.send_deletion_request()
+	until = Time.get_ticks_msec()+10000
+	while app.settings_page.deletion_waiting and Time.get_ticks_msec()<until: await process_frame
+	assert(app.settings_page.status.text==receipt_text,"repeat request must preserve receipt")
+	await capture("data-request-150")
 	# The real Data action must erase protected identity before resetting the profile.
 	app.settings_page.show_tab("data",app.show_menu)
 	app.settings_page.reset_data(true)

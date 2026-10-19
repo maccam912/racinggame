@@ -4,6 +4,7 @@ import base64
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -26,7 +27,7 @@ def build(folder, game_build):
         source.update(path.relative_to(ROOT).as_posix().encode())
         source.update(path.read_bytes())
     identity = {key:game_build[key] for key in ['version','build_number','commit','working_tree_dirty','protocol_version','content_hash','distribution']}
-    identity.update(source_sha256=source.hexdigest(),target_platform='linux-amd64',go_version=version,service_schema=3)
+    identity.update(source_sha256=source.hexdigest(),target_platform='linux-amd64',go_version=version,service_schema=4)
     encoded = base64.urlsafe_b64encode(json.dumps(identity,sort_keys=True,separators=(',',':')).encode()).decode().rstrip('=')
     folder.mkdir(parents=True,exist_ok=True)
     binary = folder/'pacific-directory'
@@ -46,12 +47,26 @@ def build(folder, game_build):
         pending.unlink(missing_ok=True)
     (folder/'directory-build.json').write_text(json.dumps(identity,indent=2)+'\n')
     shutil.copytree(ROOT/'services/directory/licenses',folder/'licenses/directory',dirs_exist_ok=True)
-    shutil.copy(ROOT/'docs/SERVER_PACKAGE.md',folder/'README_SERVER.md')
+    runbooks = ['DIRECTORY_BACKUPS.md','SUPERVISOR_LIFECYCLE.md','SERVER_PERFORMANCE.md','WORKER_RETIREMENT.md','CONTAINER_HOSTING.md','DATA_DELETION_REQUESTS.md']
+    readme = (ROOT/'docs/SERVER_PACKAGE.md').read_text()
+    for name in runbooks:
+        readme = readme.replace(']('+name+')','](operator/'+name+')')
+    (folder/'README_SERVER.md').write_text(readme)
     documentation = folder/'operator'
     documentation.mkdir(exist_ok=True)
-    for name in ['DIRECTORY_BACKUPS.md','SUPERVISOR_LIFECYCLE.md','SERVER_PERFORMANCE.md','WORKER_RETIREMENT.md','CONTAINER_HOSTING.md']:
+    for name in runbooks:
         shutil.copy(ROOT/'docs'/name,documentation/name)
-    shutil.copy(ROOT/'services/directory/README.md',documentation/'DIRECTORY.md')
+        # Numeric historical evidence linked from an operated runbook travels
+        # with that runbook; extracted packages cannot resolve repository paths.
+        for reference in re.findall(r'\]\((evidence/[^)]+)\)',(ROOT/'docs'/name).read_text()):
+            source = (ROOT/'docs'/reference).resolve()
+            if not source.is_relative_to((ROOT/'docs/evidence').resolve()) or not source.is_file():
+                raise RuntimeError('Runbook evidence is missing or outside docs/evidence')
+            destination = documentation/reference
+            destination.parent.mkdir(parents=True,exist_ok=True)
+            shutil.copy(source,destination)
+    directory_readme = (ROOT/'services/directory/README.md').read_text().replace('../../docs/SERVER_PACKAGE.md','../README_SERVER.md').replace('../../docs/','')
+    (documentation/'DIRECTORY.md').write_text(directory_readme)
     shutil.copytree(ROOT/'services/directory/deploy',documentation/'deploy',dirs_exist_ok=True)
     return {**identity,'path':binary.name,'sha256':digest(binary),'cgo_enabled':False,
             'go_sum_sha256':digest(ROOT/'services/directory/go.sum')}
@@ -71,5 +86,5 @@ def verify(folder, game_build):
     for key,value in identity.items():
         assert expected[key] == value, 'Directory manifest identity differs: '+key
     assert identity['go_version'] == 'go'+json.loads((ROOT/'tools/toolchain.lock').read_text())['go']
-    assert identity['service_schema'] == 3 and identity['target_platform'] == 'linux-amd64'
+    assert identity['service_schema'] == 4 and identity['target_platform'] == 'linux-amd64'
     return identity

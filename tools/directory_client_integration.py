@@ -91,7 +91,7 @@ def main():
         if args.menu:
             summary['identity_backend']='game OS-protected adapter when available, otherwise explicit session-only identity'
             summary['actual_identity_backend']=next((line.split(' ',1)[1] for line in text.splitlines() if line.startswith('MENU_IDENTITY_BACKEND ')),'unknown')
-            summary['checks']=['three verified region probes','create form rules and official lobby','ready/start through staged local world and collision-ready acknowledgement','public browser row admission','formatted private code join','code show/hide','Quick Join','same guest UUID across menu joins','Data reset erases protected identity']
+            summary['checks']=['three verified region probes','create form rules and official lobby','ready/start through staged local world and collision-ready acknowledgement','public browser row admission','formatted private code join','code show/hide','Quick Join','same guest UUID across menu joins','Data authenticated deletion request, stable duplicate receipt and local data preservation','Data reset erases protected identity']
     finally:
         for process in reversed(processes):
             if process.poll() is None:

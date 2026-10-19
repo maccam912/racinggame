@@ -1,8 +1,16 @@
 # Implementation status
 
-Latest release: **Build 84**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; physical hardware and owner-operated publishing/regions remain open.
+Owner scope update, 19 October 2026: use phone/tablet **emulators only** for this
+implementation. Physical checks in historical checkpoints are optional owner
+follow-up, not blockers. Human usability, real thermal behavior and other hardware
+remain unmeasured; emulator evidence retains its actual label. The latest owner feedback
+authorizes physics tuning for manic arcade speed, stronger hills/drops and dramatic
+set pieces, superseding the earlier exact-physics choice. Original illustrated
+billboard decorations are approved. DESIGN.md v1.3 records this direction.
 
-The design remains the complete launch contract. Milestone work is sequential; blocked physical-device validation is recorded separately from source implementation.
+Latest release: **Build 86**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
+
+The design, including the latest owner decisions, remains the launch contract. Historical checkpoint notes retain their original measurements and open gates; the owner update above supersedes physical-device blockers.
 
 Current work is M5 mobile and robustness. M4 source/assets and the current reference inventory are complete, with human/physical acceptance still open. The M0–M3 source implementation includes offline modes, protected guest identities, the complete local HTTPS directory/menu path and settings/accessibility contracts; historical checkpoints and their remaining human/device acceptance boundaries follow below. Four original cars, six scenery kits, original audio and bounded driving feedback now replace their placeholders. M4 human/physical reviews and M5–M6 remain. Neither official region is hosted, and physical-device gates remain open.
 
@@ -648,3 +656,16 @@ Cosmetic identity changes to `ea3d4cf4170d1cfbe539cba79dad342fd48d319d64b23653bf
 The exported client can now capture an actual ordinary Quick Race on a named track after a specified number of racing ticks, using a fresh diagnostic profile, seven Medium opponents, a fixed seed, Near Chase and Medium graphics. The production loading/warmup path, simulation, camera and normal HUD remain active. A hash-bound sidecar records the real export identity, vehicle/race state, graphics settings and world/output dimensions. The [capture helper and factual copy](STORE_COPY.md) distinguish this diagnostic driving from human/physical acceptance and leave publisher/support/privacy/rating details open.
 
 The first actual macOS source render reaches 1,200 racing ticks (20 simulation seconds), 49.22 m/s and the Palm Bay course at 1920×1080 with the normal eight-car racing HUD; no vehicle pose is injected. All 108 shipped scripts, mode/ghost objectives, real menu navigation, staged loading/cancellation and accessibility fixtures pass. Six-course exported desktop/Android captures await the new package; no storefront submission or physical-device proof is claimed. Game compatibility identities are unchanged.
+
+
+## M6 authenticated regional data-request checkpoint
+
+Settings → Data now sends a twice-confirmed deletion request to the selected regional operator using the existing protected guest/session. No unused online identity is registered for the request. The HTTP body cannot choose another guest. Concurrent/repeated submissions retain one durable receipt and original timestamp; the UI reveals **pending operator action**, preserving local saves/settings. Cancellation, invalid response, missing identity and failed authentication remain distinct from successful receipt. [Operator/request contract](DATA_DELETION_REQUESTS.md) explicitly leaves actual fulfillment/retention policy to operated deployment.
+
+The filesystem-only `deletion-requests` CLI pages receipt/guest/time mappings without exposing names/secrets/tokens. Service schema **4** adds the queue; frozen schema-1/2/3 fixtures migrate with encrypted identity/session continuity. Verified live-WAL backup/restore retains pending requests while clearing ephemeral worker/room/auth state. The server bundle includes the new runbook; all its relative documentation/evidence links now resolve after extraction.
+
+All **83 source checks** pass, with **108 shipped scripts**. Go race/vet pass, including strict TLS/session binding, expired/forged bearer rejection, arbitrary-guest/null/trailing-body rejection, 32 simultaneous duplicate requests and operator pagination. The [actual compiled CLI drill](evidence/data-request-cli.json) proves lookup and request persistence through backup/restore. The [full real HTTPS menu fixture](evidence/data-request-https-menu.json) passes both dialog button callbacks, stable repeated receipt, preserved local data and subsequent explicit local reset. Its native 150% [receipt render](evidence/data-request-150.png) is reviewed; the UI reveals it above Back. [Source evidence](evidence/data-request-source-checks.json) precedes the final focused confirmation/receipt-layout rerun, which also passes. No production erasure or operated policy acceptance is claimed.
+
+Build **85** passes all remote icon/resource/native gates; its publisher defers. Build **86** passes all remote gates and publishes all **18 files** as [v0.0.86-dev](https://github.com/maccam912/racinggame/releases/tag/v0.0.86-dev), with tested OCI digest `sha256:b5d5b2c212f0c4ae4f9c8609df7bdb970f79f631217d573b74693f4e0c5d0609`. This request checkpoint awaits its own CI. Game content 4/protocol 5/save 1/cosmetic identity remain unchanged.
+
+The actual clean-commit Build 86 exports also complete [all six desktop and Android gameplay baseline captures](evidence/store-baseline86). Eleven capture at tick 1,200; desktop Summit captures at tick 5,360 after delayed GPU readback. The measured later timestamp is preserved. Capture now holds the genuine simulation instant before awaiting GPU readback. These unretouched baseline images precede the owner's approved illustrated billboard, speed/verticality and physics-tuning direction; final store captures will be refreshed after that pass. Physical checks are optional owner follow-up under the updated scope.

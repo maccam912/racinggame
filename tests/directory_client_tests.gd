@@ -27,6 +27,14 @@ func run_tests() -> void:
 	assert(not DirectorySchema.admission(admission,1060))
 	assert(not DirectorySchema.rooms({"rooms":[room,room]}))
 	assert(not DirectorySchema.regions({"regions":[region,region]}))
+	var receipt := {"request_id":guest,"created_at":1000,"status":"pending_operator"}
+	assert(DirectorySchema.deletion_request(receipt,1000))
+	for key: String in receipt:
+		for wrong: Variant in [null,true,false,{},[],1e40]:
+			var malformed := receipt.duplicate()
+			malformed[key] = wrong
+			assert(not DirectorySchema.deletion_request(malformed,1000))
+	assert(not DirectorySchema.deletion_request({"request_id":guest,"created_at":1000,"status":"deleted"},1000))
 	# Service data with arbitrary JSON types must reject safely, without a script error.
 	for fixture: Dictionary in [{"row":region,"kind":"region"},{"row":room,"kind":"room"},{"row":admission,"kind":"admission"},{"row":session,"kind":"session"}]:
 		for key: String in fixture.row:
@@ -46,6 +54,7 @@ func run_tests() -> void:
 	root.add_child(service)
 	assert(client.configure(data,service,"http://localhost")==ERR_INVALID_PARAMETER)
 	assert(client.configure(data,service,"https://localhost:29999")==OK)
+	assert(client.begin("deletion_request")==ERR_DOES_NOT_EXIST and data.profile.guest_reference.is_empty() and not service.busy(),"request must not create an unused identity")
 	var results: Array[Dictionary] = []
 	client.completed.connect(func(result: Dictionary) -> void: results.append(result))
 	assert(client.begin("rooms")==OK and client.busy())

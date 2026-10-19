@@ -40,7 +40,10 @@ func run_tests() -> void:
 		if control.text==I18n.t("button.back"):
 			back_found = true
 			assert(not control.disabled)
-	assert(back_found and app.back_action==app.show_menu)
+	assert(back_found)
+	app.back_action.call()
+	assert(app.page=="main","failed reset must retain working Back navigation")
+	app.settings_page.show_tab("data",app.show_menu)
 	adapter.locked = false
 	var remapped := BindingBook.defaults()
 	remapped.keyboard.ui_accept = [BindingBook.key(KEY_F),null]

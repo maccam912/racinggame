@@ -51,3 +51,11 @@ Use `--track=TRACK_ID` for a single-track repeat into a fresh folder. The comman
 line capture path requires a diagnostic profile and `--autodrive`; it never saves
 these temporary camera/graphics choices into a player's settings. Existing M4
 no-HUD composition references remain separate from these gameplay screenshots.
+
+Build 86's [pre-feedback desktop/Android baseline](evidence/store-baseline86)
+contains all six courses per family with exact hashes and export identity. Desktop
+Summit actually reached tick 5,360 during delayed GPU readback; the other eleven
+captures reached tick 1,200. That difference is retained in metadata. The current
+capture code holds the genuine simulated instant before waiting for GPU readback.
+These images preserve the previous presentation for comparison; final store images
+will be recaptured after the owner's approved billboard/speed/verticality pass.

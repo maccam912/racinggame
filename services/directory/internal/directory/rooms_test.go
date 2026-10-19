@@ -301,7 +301,7 @@ func TestMigrationAndFutureSchemaPreservation(t *testing.T) {
 	var count, version int
 	store.db.QueryRow(`SELECT count(*) FROM guests WHERE id='kept'`).Scan(&count)
 	store.db.QueryRow(`PRAGMA user_version`).Scan(&version)
-	if count != 1 || version != 3 {
+	if count != 1 || version != DatabaseSchemaVersion {
 		t.Fatal("migration lost data/version")
 	}
 	store.db.Exec(`PRAGMA user_version=999`)

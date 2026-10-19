@@ -126,6 +126,7 @@ func (s *Service) Handler() http.Handler {
 	mux.HandleFunc("POST /v1/guests", s.registerHTTP)
 	mux.HandleFunc("POST /v1/auth/challenge", s.challengeHTTP)
 	mux.HandleFunc("POST /v1/auth/session", s.sessionHTTP)
+	mux.HandleFunc("POST /v1/data/deletion-request", s.deletionHTTP)
 	s.roomRoutes(mux)
 	mux.HandleFunc("GET /v1/regions", func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, 200, map[string]any{"regions": []map[string]any{{"id": s.config.Region, "name": s.config.RegionName, "url": s.config.PublicURL, "available": !s.draining.Load(), "protocol": s.config.Protocol, "content_hash": s.config.Content}}})

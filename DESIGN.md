@@ -1,6 +1,17 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.1 — 19 October 2026
+Version 1.3 — 19 October 2026
+
+Owner decisions, 19 October 2026: implementation validation uses Android phone
+and tablet **emulators only**. Physical-device checks elsewhere in this document
+are optional owner follow-up, not implementation/release-work blockers. Emulator
+results must still be labeled accurately and never presented as physical hardware
+or thermal evidence. Latest owner feedback supersedes the earlier decision to
+retain exact physics: physics is a starting point and may be tuned to achieve
+manic arcade speed, stronger hills/drops and dramatic set pieces. Hybrid original
+illustrated billboard decorations with retained 3D structures/landmarks are
+approved. Update numeric rules/content versions and repeat driving/network checks
+when handling or course geometry changes; preserve historical evidence.
 
 Working title: **Pacific Rush**. The title is provisional; title availability is not established. Product: a downloadable 3D online arcade circuit racer for Windows, macOS, Linux, and Android. This document defines the complete first release, including offline play, online services, touch controls, cross-play, content, presentation, controls, and delivery criteria.
 
@@ -279,7 +290,7 @@ Route points: `(0,20,0), (0,20,-200), (0,20,-400), (160,30,-660), (420,44,-820),
 
 Landmarks: u=.14 observatory at -65 m; .33 overlook platform at +35 m; .50 mountain lodge at -45 m; .69 coastal viaduct at +0 m supporting road; .84 balloon cluster beyond +60 m, static. The viaduct is continuously driveable, without gaps.
 
-Jump marker at original u=.72: place a 12 m ramp rising by 0.6 m relative to ordinary road, then a 22 m smooth descent back to original surface. The crest crossing sets vertical launch speed to 3.8 m/s when forward speed ≥30 m/s, once per lap per car; this explicit rule overrides ground snap for 0.18 seconds. Slower cars drive over the ramp normally. Ramp is the full paved width; no bottomless gap. Paint yellow bars before it and a white landing stripe after it. Nominal airtime is about 0.35 seconds under 22 m/s² gravity; the intended travel distance is 10–22 m depending on speed/slope. The bake retains base-curve progress length, while road collision includes the ramp deformation.
+Jump marker at original u=.72: place a 12 m ramp rising by 0.6 m relative to ordinary road, then a 22 m smooth descent back to original surface. The crest crossing sets vertical launch speed to 3.8 m/s when forward speed ≥30 m/s, once per lap per car; this explicit rule overrides ground snap for 0.18 seconds. Slower cars drive over the ramp normally. Ramp is the full paved width; no bottomless gap. Paint yellow bars before it and a white landing stripe after it. The exact §7 ground-snap/launch rules are authoritative: the straight-ramp fixture yields about **0.20 seconds** airborne at 30/45/60 m/s, accepted by the owner. The previous illustrative 0.35-second estimate and 10–22 m travel estimate are not tuning targets; actual duration/distance depend on those rules and the road slope. The bake retains base-curve progress length, while road collision includes the ramp deformation.
 
 ### 11.7 Shared course furniture
 

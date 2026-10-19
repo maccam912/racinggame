@@ -3,6 +3,9 @@
 Development server downloads include the stripped Linux x86-64 Godot worker,
 `pacific-directory`, both build identities, native platform adapter, game and
 service dependency licenses, Caddy configuration examples and operator runbooks.
+The [authenticated data-request queue](DATA_DELETION_REQUESTS.md) has a
+filesystem-only `deletion-requests` command; request fulfillment is an operated
+policy task, separate from receiving the request.
 The directory binary uses pinned Go 1.27.0 with CGO disabled; client packages do
 not contain the regional database, operator service, keys or deploy files.
 

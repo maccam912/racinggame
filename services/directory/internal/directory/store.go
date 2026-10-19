@@ -10,7 +10,7 @@ import (
 )
 
 // DatabaseSchemaVersion is the current regional service schema, not the game save format.
-const DatabaseSchemaVersion = 3
+const DatabaseSchemaVersion = 4
 
 type Store struct{ db *sql.DB }
 
@@ -65,7 +65,7 @@ func OpenStore(filename string) (*Store, error) {
 			return failMigration(err)
 		}
 	}
-	if _, err = tx.Exec(`PRAGMA user_version=3`); err != nil {
+	if _, err = tx.Exec(`PRAGMA user_version=4`); err != nil {
 		return failMigration(err)
 	}
 	if err = tx.Commit(); err != nil {
@@ -90,4 +90,6 @@ CREATE TABLE IF NOT EXISTS rooms(id TEXT PRIMARY KEY, worker TEXT UNIQUE NOT NUL
 CREATE TABLE IF NOT EXISTS reservations(room TEXT NOT NULL REFERENCES rooms(id), guest TEXT NOT NULL REFERENCES guests(id), nonce TEXT NOT NULL UNIQUE, expires INTEGER NOT NULL, ticket_expires INTEGER NOT NULL DEFAULT 0, consumed INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(room,guest));
 CREATE TABLE IF NOT EXISTS worker_commands(id TEXT PRIMARY KEY, worker TEXT NOT NULL REFERENCES workers(id), kind TEXT NOT NULL, guest TEXT NOT NULL, created INTEGER NOT NULL, UNIQUE(worker,kind,guest));
 CREATE TABLE IF NOT EXISTS service_events(at INTEGER NOT NULL, kind TEXT NOT NULL, room TEXT NOT NULL, guest TEXT NOT NULL, code TEXT NOT NULL);
+CREATE TABLE IF NOT EXISTS deletion_requests(id TEXT PRIMARY KEY, guest TEXT NOT NULL UNIQUE REFERENCES guests(id), created INTEGER NOT NULL);
+CREATE INDEX IF NOT EXISTS deletion_requests_created ON deletion_requests(created,id);
 `

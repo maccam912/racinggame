@@ -130,7 +130,7 @@ func TestLiveWALBackupRestoresIdentityButNotLeasesOrReplayState(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if manifest.Schema != 3 || manifest.Bytes < 4096 || manifest.KeyID == "" {
+	if manifest.Schema != DatabaseSchemaVersion || manifest.Bytes < 4096 || manifest.KeyID == "" {
 		t.Fatal(manifest)
 	}
 	snapshot := filepath.Join(folder, "directory.sqlite")
@@ -314,7 +314,7 @@ func TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture(t *test
 }
 
 func TestBackupHistoricalSchemasRestoreOnCopy(t *testing.T) {
-	for _, version := range []int{1, 2} {
+	for _, version := range []int{1, 2, 3} {
 		t.Run(string(rune('0'+version)), func(t *testing.T) {
 			s, filename, keys := backupService(t)
 			s.store.Close()
@@ -357,7 +357,7 @@ func TestBackupHistoricalSchemasRestoreOnCopy(t *testing.T) {
 			defer restored.Close()
 			var current int
 			restored.db.QueryRow(`PRAGMA user_version`).Scan(&current)
-			if current != 3 || backupCount(t, restored.db, "guests") != 1 {
+			if current != DatabaseSchemaVersion || backupCount(t, restored.db, "guests") != 1 {
 				t.Fatal("copy migration failed")
 			}
 			after, _ := os.ReadFile(filepath.Join(folder, "directory.sqlite"))

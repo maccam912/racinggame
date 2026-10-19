@@ -32,9 +32,39 @@ func main() {
 }
 func run() error {
 	if len(os.Args) < 2 {
-		return errors.New("use keygen, serve, drain, backup, restore, version, probe, ban or unban")
+		return errors.New("use keygen, serve, drain, backup, restore, version, probe, deletion-requests, ban or unban")
 	}
 	switch os.Args[1] {
+	case "deletion-requests":
+		flags := flag.NewFlagSet("deletion-requests", flag.ContinueOnError)
+		database := flags.String("db", "var/directory.sqlite", "existing operator SQLite file")
+		after := flags.String("after", "", "last receipt ID from the previous page")
+		limit := flags.Int("limit", 100, "page size, 1 through 1000")
+		if err := flags.Parse(os.Args[2:]); err != nil {
+			return err
+		}
+		if flags.NArg() != 0 {
+			return errors.New("unexpected deletion-requests arguments")
+		}
+		if info, err := os.Stat(*database); err != nil || !info.Mode().IsRegular() {
+			return errors.New("deletion-requests requires an existing regular database")
+		}
+		store, err := directory.OpenStore(*database)
+		if err != nil {
+			return err
+		}
+		defer store.Close()
+		ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+		defer cancel()
+		requests, err := store.DeletionRequests(ctx, *after, *limit)
+		if err != nil {
+			return err
+		}
+		next := ""
+		if len(requests) == *limit {
+			next = requests[len(requests)-1].ID
+		}
+		return json.NewEncoder(os.Stdout).Encode(map[string]any{"status": "pending_operator", "requests": requests, "after": next})
 	case "probe":
 		return probe(os.Args[2:])
 	case "version":

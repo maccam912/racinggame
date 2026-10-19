@@ -62,7 +62,8 @@ def main():
         summary['binary_sha256'] = hashlib.sha256(args.desktop_binary.read_bytes()).hexdigest()
     try:
         for track in tracks:
-            profile = 'qa_capture_' + run + '_' + track
+            # GhostCodec IDs cap at 32 bytes; the longest course ID is 15.
+            profile = 'cap_' + run + '_' + str(catalog.index(track))
             output = args.out/(track+'.png')
             assert not output.exists(), 'Refuse to replace a previous capture'
             screenshot = 'user://diagnostic_profiles/'+profile+'/capture.png' if mobile else str(output)
@@ -72,7 +73,7 @@ def main():
             if mobile:
                 folder = '/data/user/0/'+PACKAGE+'/files/diagnostic_profiles/'+profile
                 archive = '/data/local/tmp/pacific-rush-captures-'+run+'-'+track
-                assert adb('shell', 'sh', '-c', 'test ! -e '+folder, capture_output=True).returncode == 0
+                adb('shell', 'test', '!', '-e', folder, capture_output=True)
                 adb('shell', 'am', 'force-stop', PACKAGE, capture_output=True)
                 adb('shell', 'am', 'start', '-n', PACKAGE+'/com.godot.game.GodotApp',
                     '--esa', 'command_line_params', ','.join(['--', *options]), capture_output=True)
