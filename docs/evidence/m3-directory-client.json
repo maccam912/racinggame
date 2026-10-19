@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "transport": "HTTPS with scoped isolated CA; no system trust changes",
+  "identity_backend": "in-memory protected-store fixture; real OS persistence has separate native gates",
+  "checks": [
+    "region and empty browser",
+    "HTTPS registration",
+    "cold protected payload reload and nonce/HMAC session",
+    "public allocation and browser reservation",
+    "real signed-ticket ENet admission",
+    "one 401 reauthentication retry retains guest UUID",
+    "private code visibility and generic failure",
+    "formatted code join",
+    "explicit leave",
+    "credentials absent from logs and profile"
+  ]
+}

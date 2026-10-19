@@ -117,13 +117,14 @@ func mark_registered(url: String) -> Dictionary:
 	return {"ok":true,"state":"ok"}
 
 func erase(reference: String) -> Dictionary:
+	var required := persistent or not reference.is_empty()
 	if reference.is_empty():
 		reference = guest_id
 	if not reference.is_empty():
 		if not valid_uuid(reference):
 			return {"ok":false,"state":"invalid_reference"}
 		var result := store.erase_secret("guest:"+reference)
-		if not result.ok:
+		if not result.ok and required:
 			return result
 	guest_id = ""
 	secret.fill(0)

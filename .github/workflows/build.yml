@@ -281,6 +281,8 @@ jobs:
           python tools/godot.py --headless --script tests/ticket_tests.gd
       - name: Caddy HTTPS, auth, forwarding and private-interface boundaries
         run: python tools/caddy_integration.py
+      - name: Game HTTPS client, HMAC sessions, allocation and private codes
+        run: python tools/directory_client_integration.py
       - name: Real allocated worker, eight signed admissions and two races
         run: python tools/directory_integration.py
       - uses: actions/upload-artifact@v4
@@ -292,4 +294,6 @@ jobs:
             reports/directory-eight-*/*.log
             reports/caddy-*/summary.json
             reports/caddy-*/*.log
+            reports/directory-client-*/summary.json
+            reports/directory-client-*/*.log
           if-no-files-found: warn

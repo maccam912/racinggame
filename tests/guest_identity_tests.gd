@@ -89,6 +89,9 @@ func _initialize() -> void:
 	var ephemeral_id := ephemeral.guest_id
 	assert(ephemeral.load_or_create("").ok and ephemeral.guest_id==ephemeral_id)
 	assert(ephemeral.commit_reference(data)==OK and data.profile.guest_reference==original)
+	var disposable := GuestIdentity.new(protected)
+	assert(disposable.load_or_create("").ok and disposable.state=="session_only")
+	assert(disposable.erase("").ok and disposable.secret.is_empty())
 	fake.unavailable = false
 	assert(ephemeral.retry_storage().ok and ephemeral.persistent)
 	assert(ephemeral.commit_reference(data)==ERR_INVALID_DATA)
