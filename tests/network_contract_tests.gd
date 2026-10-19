@@ -127,5 +127,12 @@ func _initialize() -> void:
 	check(clocked.prediction.history[1].tick == clocked.prediction.history[0].tick + 1, "clock smoothing never duplicates an input tick")
 	clocked.wire.close()
 	clocked.free()
+	var transport := WirePeer.new()
+	transport.active_peers[42] = true
+	transport.send(42, 0, "queued".to_ascii_buffer(), true)
+	transport.disconnect_target(42)
+	transport.disconnect_target(42)
+	check(transport.active_peers.is_empty() and transport.pending.is_empty(), "forced disconnect removes mirrored identity and pending sends exactly once")
+	transport.close()
 	print("Network contract fixtures: eight-car snapshot %d bytes; input batch %d bytes; failures %d" % [packet.size(), inputs.size(), failures])
 	quit(1 if failures else 0)

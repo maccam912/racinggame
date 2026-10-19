@@ -77,11 +77,10 @@ func _physics_process(_dt: float) -> void:
 		if not connections.has(peer_id):
 			connections[peer_id] = new_meter()
 		if tick - int(connections[peer_id].joined) > 600 and player_for_peer(peer_id).is_empty():
-			wire.peer.disconnect_peer(peer_id, true)
+			drop_peer(peer_id)
 	for player: Dictionary in players.duplicate():
 		if player.connected and tick - int(player.last_seen) >= 180:
-			disconnect_peer(int(player.peer))
-			wire.peer.disconnect_peer(int(player.peer), true)
+			drop_peer(int(player.peer))
 	if lobby.phase == LobbyState.Phase.LOBBY and auto_start and players.size() >= 2:
 		for player: Dictionary in players:
 			lobby.set_ready(player.id, true)
@@ -170,7 +169,7 @@ func receive(packet: Dictionary) -> void:
 		if int(meter.violation_tick) < 0:
 			meter.violation_tick = tick
 		elif tick - int(meter.violation_tick) >= 300:
-			wire.peer.disconnect_peer(packet.sender, true)
+			drop_peer(packet.sender)
 		return
 	var player := player_for_peer(packet.sender)
 	if not player.is_empty():
@@ -349,6 +348,11 @@ func reset_race() -> void:
 	for player: Dictionary in players:
 		player.buffer = InputBuffer.new()
 	broadcast_lobby()
+
+
+func drop_peer(peer_id: int) -> void:
+	disconnect_peer(peer_id)
+	wire.disconnect_target(peer_id)
 
 
 func disconnect_peer(peer_id: int) -> void:

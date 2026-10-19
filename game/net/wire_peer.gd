@@ -86,10 +86,22 @@ static func decode_event(bytes: PackedByteArray) -> Dictionary:
 	return parser.data if parser.data is Dictionary else {}
 
 
+func disconnect_target(id: int) -> void:
+	# ENet forced removal does not emit the local peer_disconnected signal.
+	# Remove our mirror and queued sends before asking ENet to drop it once.
+	if not active_peers.has(id):
+		return
+	active_peers.erase(id)
+	pending = pending.filter(func(item: Dictionary) -> bool: return int(item.target) != id)
+	if peer.get_connection_status() == MultiplayerPeer.CONNECTION_CONNECTED:
+		peer.disconnect_peer(id, true)
+
+
 func close() -> void:
 	peer.close()
 	pending.clear()
 	fragments.pending.clear()
+	active_peers.clear()
 	for signal_name in ["peer_connected", "peer_disconnected"]:
 		for connection: Dictionary in peer.get_signal_connection_list(signal_name):
 			peer.disconnect(signal_name, connection.callable)

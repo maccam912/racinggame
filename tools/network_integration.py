@@ -45,8 +45,11 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
                     time.sleep(.05)
         deadline = time.monotonic()+seconds+20
         while any(p.poll() is None for p in processes[1:]):
-            if server.poll() is not None or time.monotonic() > deadline:
-                raise RuntimeError('Network integration timeout/worker exit')
+            worker_exit = server.poll()
+            if worker_exit is not None and (worker_exit != 0 or 'PACIFIC_RUSH_AUTHORITATIVE_RESULTS' not in (folder/'server.log').read_text()):
+                raise RuntimeError('Worker exited before authoritative results')
+            if time.monotonic() > deadline:
+                raise RuntimeError('Network integration timeout')
             time.sleep(.2)
         for index, process in enumerate(processes[1:]):
             assert process.returncode == 0, f'Client {index} failed: {(folder / f"client{index}.log").read_text()[-2000:]}'
