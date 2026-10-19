@@ -1,10 +1,14 @@
 #include "platform_store.hpp"
+#include "save_files.hpp"
 #include <godot_cpp/core/class_db.hpp>
 #include <godot_cpp/godot.hpp>
 
 using namespace godot;
 void initialize_platform(ModuleInitializationLevel level) {
-    if (level == MODULE_INITIALIZATION_LEVEL_SCENE) GDREGISTER_CLASS(PacificPlatform);
+    if (level == MODULE_INITIALIZATION_LEVEL_SCENE) {
+        GDREGISTER_CLASS(PacificPlatform);
+        GDREGISTER_CLASS(PacificSaveFiles);
+    }
 }
 void uninitialize_platform(ModuleInitializationLevel) {}
 extern "C" {

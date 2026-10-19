@@ -21,6 +21,8 @@ func busy() -> bool:
 func begin(action: String = "load", url: String = "") -> Error:
 	if busy() or data==null:
 		return ERR_BUSY
+	if not data.store.writable:
+		return ERR_BUSY # Loading may create a secret; every identity operation needs ownership.
 	if not action in ["load","register","erase"]:
 		return ERR_INVALID_PARAMETER
 	operation = action

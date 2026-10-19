@@ -3,11 +3,14 @@ extends Node3D
 
 
 func _ready() -> void:
+	if "--save-files-probe" in OS.get_cmdline_user_args():
+		add_child(load("res://game/platform/save_files_probe.gd").new())
+		return
 	if "--protected-store-probe" in OS.get_cmdline_user_args():
 		add_child(load("res://game/platform/protected_store_probe.gd").new())
 		return
 	if "--platform-probe" in OS.get_cmdline_user_args():
-		if not ClassDB.class_exists("PacificPlatform"):
+		if not ClassDB.class_exists("PacificPlatform") or not ClassDB.class_exists("PacificSaveFiles"):
 			push_error("PACIFIC_PLATFORM_MISSING")
 			get_tree().quit(1)
 			return

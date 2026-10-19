@@ -27,6 +27,10 @@ func run_tests() -> void:
 	service.identity = GuestIdentity.new(ProtectedGuestStore.new(folder,SlowStore.new()))
 	root.add_child(service)
 	service.completed.connect(func(_result: Dictionary) -> void: completions += 1)
+	data.store.writable = false
+	for operation: String in ["load","register","erase"]:
+		assert(service.begin(operation,"https://example.invalid")==ERR_BUSY and not service.busy(),"a read-only second process cannot mutate protected identity storage")
+	data.store.writable = true
 	assert(service.begin()==OK)
 	assert(service.begin()==ERR_BUSY)
 	service.cancel()

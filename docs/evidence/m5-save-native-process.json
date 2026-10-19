@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "platform": "darwin",
+  "cases": [
+    "busy",
+    "after_kill",
+    "verify_interrupted-sync_file",
+    "verify_interrupted-sync_directory",
+    "verify_interrupted-after_tmp",
+    "verify_interrupted-after_backup",
+    "verify_interrupted-before_replace",
+    "verify_deleted-after_delete_marker",
+    "verify_deleted-after_delete_primary"
+  ],
+  "boundary": "Native barriers and process termination; not an actual power-cut or physical Android storage test. Windows uses file flush/write-through moves; no portable directory-fsync guarantee is claimed."
+}

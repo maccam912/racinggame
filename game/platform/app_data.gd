@@ -205,7 +205,7 @@ func commit_result(session: RaceSession, samples: Array[Dictionary] = []) -> Dic
 		var repeated: Dictionary = summary.duplicate(true) if summary is Dictionary else {"new_best":false, "previous":previous}
 		repeated.saved = not records.pending.has(session.race_uuid)
 		return repeated
-	if store.read_only.get("records", false):
+	if not store.writable or store.read_only.get("records", false):
 		return {"saved":false, "new_best":false, "previous":previous}
 	var updated := records.duplicate(true)
 	var ghost_filename := ""
@@ -229,7 +229,7 @@ func commit_result(session: RaceSession, samples: Array[Dictionary] = []) -> Dic
 			if not prior_ghost.is_empty():
 				write_binary_atomic(ghost_filename, prior_ghost)
 			else:
-				DirAccess.remove_absolute(ghost_filename)
+				store.remove_file(ghost_filename)
 		return {"saved":false, "new_best":false, "previous":previous}
 	records = updated
 	resume_stat_commits()
@@ -258,6 +258,7 @@ func resume_stat_commits() -> void:
 
 
 func write_ghost(filename: String, bytes: PackedByteArray, previous: PackedByteArray) -> Error:
+	if not store.writable: return ERR_BUSY
 	if DirAccess.make_dir_recursive_absolute(filename.get_base_dir()) != OK:
 		return ERR_CANT_CREATE
 	var error := write_binary(filename + ".tmp", bytes)
@@ -270,15 +271,16 @@ func write_ghost(filename: String, bytes: PackedByteArray, previous: PackedByteA
 		error = write_binary_atomic(filename + ".bak", previous)
 		if error != OK:
 			return error
-	return DirAccess.rename_absolute(filename + ".tmp", filename)
+	return OK if store.replace_file(filename+".tmp",filename) else ERR_FILE_CANT_WRITE
 
 
 func write_binary_atomic(filename: String, bytes: PackedByteArray) -> Error:
 	var error := write_binary(filename + ".tmp", bytes)
-	return DirAccess.rename_absolute(filename + ".tmp", filename) if error == OK else error
+	return (OK if store.replace_file(filename+".tmp",filename) else ERR_FILE_CANT_WRITE) if error == OK else error
 
 
 func write_binary(filename: String, bytes: PackedByteArray) -> Error:
+	if not store.writable: return ERR_BUSY
 	var file := FileAccess.open(filename, FileAccess.WRITE)
 	if file == null:
 		return ERR_FILE_CANT_WRITE
@@ -286,7 +288,7 @@ func write_binary(filename: String, bytes: PackedByteArray) -> Error:
 	file.flush()
 	var error := file.get_error()
 	file.close()
-	return error
+	return error if error!=OK else OK if store.sync_file(filename) else ERR_FILE_CANT_WRITE
 
 
 static func validate_profile(value: Dictionary) -> bool:
@@ -359,6 +361,7 @@ static func remove_tree(folder: String) -> Error:
 	var directory := DirAccess.open(folder)
 	if directory == null:
 		return ERR_CANT_OPEN
+	directory.include_hidden = true
 	for child: String in directory.get_directories():
 		var error := remove_tree(folder.path_join(child))
 		if error != OK:

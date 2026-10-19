@@ -62,7 +62,9 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
             expired = reconnect and away_seconds > 20 and index == 0
             assert value['snapshots'] >= (150 if expired else 1000 if seconds >= 65 else 20), 'Insufficient snapshot samples'
             assert value['max_speed'] > 15, 'Inputs did not drive the car'
-            if seconds >= 65 and not expired:
+            # Expiry/contact fixtures may freeze or script the sole rival before
+            # any braking. Both lamp states are required in ordinary full races.
+            if seconds >= 65 and not contacts and not (reconnect and away_seconds > 20):
                 assert value['remote_brake_on'] > 0 and value['remote_brake_off'] > 0, 'Remote authoritative brake lights never switched in the race'
             if seconds >= 65 and not expired:
                 assert value['contact_corrections' if contacts else 'clear_corrections']['count'] >= 1000, 'Insufficient moving correction samples for scenario'

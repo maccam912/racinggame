@@ -1,0 +1,152 @@
+{
+  "passed": true,
+  "laps": 2,
+  "protocol": 5,
+  "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+  "away_seconds": 25.0,
+  "client_hitch_seconds": 0,
+  "seconds": 160.0,
+  "one_way_latency_ms": 75,
+  "jitter_ms": 30,
+  "loss": 0.03,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "wire_metrics": {
+    "upstream_bytes": 396355,
+    "downstream_bytes": 674251,
+    "upstream_packets": 4911,
+    "downstream_packets": 3781,
+    "dropped_packets": 242
+  },
+  "contact_events": 1,
+  "clients": [
+    {
+      "acknowledged_sequence": 540,
+      "clear_corrections": {
+        "count": 122,
+        "max": 0.0163471959531307,
+        "p95": 0.0135090285912156
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 6,
+      "connected": false,
+      "contact_corrections": {
+        "count": 39,
+        "max": 0.583682417869568,
+        "p95": 0.161953806877136
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 3,
+      "max_speed": 49.1504020690918,
+      "permanent_error": "Reconnect expired \u2014 return to lobby",
+      "received_bytes": 58513,
+      "reconnect_done": true,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 262,
+      "remote_brake_on": 0,
+      "results": [],
+      "resume_count": 0,
+      "rtt_ms": 163.0,
+      "sent_bytes": 23449,
+      "sequence": 540,
+      "slot": 1,
+      "snapshots": 171,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      }
+    },
+    {
+      "acknowledged_sequence": 7948,
+      "clear_corrections": {
+        "count": 2398,
+        "max": 0.109919257462025,
+        "p95": 0.0153666334226727
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 94,
+      "connected": true,
+      "contact_corrections": {
+        "count": 36,
+        "max": 0.597230195999146,
+        "p95": 0.170268729329109
+      },
+      "dropped_packets": 0,
+      "finish_time": 132.629745483398,
+      "hitch_done": false,
+      "initial_slot": 0,
+      "laps": 2,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 49.2705726623535,
+      "permanent_error": "",
+      "received_bytes": 565386,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 2575,
+      "remote_brake_on": 0,
+      "results": [
+        {
+          "best_lap": 65.0295552835091,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 6220.86240662821,
+          "dnf": "",
+          "id": "a5cea772-709e-4d8b-9e86-e59407cc9d31",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 132.629738077914
+        },
+        {
+          "best_lap": -1.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 1314.80237911316,
+          "dnf": "Reconnect expired",
+          "id": "a7d83891-0cd0-4527-913c-6630b28c4bb2",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": -1.0
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 183.0,
+      "sent_bytes": 335338,
+      "sequence": 7955,
+      "slot": 0,
+      "snapshots": 2480,
+      "terminal_corrections": {
+        "count": 37,
+        "max": 3.17001795768738,
+        "p95": 3.0101478099823
+      }
+    }
+  ]
+}

@@ -247,6 +247,9 @@ jobs:
         if: matrix.platform == 'android'
         run: sdkmanager 'ndk;28.1.13356709'
       - run: python tools/native_build.py ${{ matrix.platform }}
+      - name: Native save barriers and process-lock crash recovery
+        if: matrix.platform != 'android'
+        run: python tools/save_acceptance.py
       - name: Exercise the real OS store with temporary test data
         if: matrix.platform != 'android'
         run: python tools/native_store_ci.py --isolated
@@ -258,6 +261,12 @@ jobs:
             native/bin/*.dll
             native/bin/*.dylib
             native/bin/manifest-*.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        if: always() && matrix.platform != 'android'
+        with:
+          name: native-save-evidence-${{ matrix.platform }}
+          path: reports/save-acceptance/
           if-no-files-found: error
 
   export:
