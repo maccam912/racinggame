@@ -88,6 +88,8 @@ func run() -> void:
 		data.recoveries = link.prediction.recovery_corrections
 		data.reconnect_restores = statistics(link.prediction.reconnect_corrections)
 		data.terminal_corrections = statistics(link.prediction.terminal_corrections)
+		if link.prediction.trace_enabled:
+			data.reconciliation_trace = link.prediction.trace
 		data.last_gate = link.prediction.state.last_gate
 		data.laps = link.prediction.state.laps
 		data.finish_time = link.prediction.state.finish_time
@@ -95,7 +97,9 @@ func run() -> void:
 	if report != "":
 		var file := FileAccess.open(report, FileAccess.WRITE)
 		file.store_string(JSON.stringify(data, "\t"))
-	print("TEST_NETWORK_REPORT " + JSON.stringify(data))
+	var console_data := data.duplicate()
+	console_data.erase("reconciliation_trace")
+	print("TEST_NETWORK_REPORT " + JSON.stringify(console_data))
 	var exit_code := 0 if link.prediction and maximum_speed > 15 else 1
 	link.input_provider = Callable()
 	link.prediction = null
@@ -113,6 +117,7 @@ func start_race(config: Dictionary) -> void:
 		cars.append(int(row.car))
 	setup_session.setup(Catalog.tracks[0], cars, scene.get_world_3d(), int(config.laps))
 	link.attach_prediction(setup_session.states[link.slot], setup_session.cars[link.slot], setup_session.queries[link.slot], setup_session.track, int(config.laps))
+	link.prediction.trace_enabled = "--trace-network" in OS.get_cmdline_user_args()
 	link.input_provider = func() -> InputFrame:
 		if contact_exercises:
 			return InputFrame.make(0, .05)

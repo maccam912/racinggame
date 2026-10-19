@@ -15,6 +15,8 @@ var snapshot_count: int = 0
 var reconnect_corrections: Array[float] = []
 var elapsed_ticks: int = 0
 var terminal_corrections: Array[float] = []
+var trace_enabled: bool = false
+var trace: Array[Dictionary] = []
 
 
 func advance(frame: InputFrame) -> void:
@@ -43,6 +45,8 @@ func reconcile(authority: VehicleState, ticks: int) -> void:
 		for frame: InputFrame in history:
 			simulate(frame)
 	var delta := previous - state.position
+	if trace_enabled and trace.size() < 12000:
+		trace.append({"server_elapsed":ticks, "ack":authority.last_ack, "history":history.size(), "latest_sequence":history[-1].sequence if not history.is_empty() else authority.last_ack, "latest_intended":history[-1].tick if not history.is_empty() else -1, "delta":delta.length(), "speed":authority.speed(), "finished":authority.finished, "route":authority.route_s})
 	snapshot_count += 1
 	if "recovery" in authority.events or authority.recovery_ticks > 0 or missing_history:
 		recovery_corrections += 1

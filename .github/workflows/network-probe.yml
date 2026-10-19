@@ -1,0 +1,37 @@
+name: Diagnose a real-client reconnect
+on:
+  workflow_dispatch:
+    inputs:
+      reverse_start:
+        description: Connect Driver0 second to exercise the right grid lane
+        type: boolean
+        default: false
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Capture acknowledgement, replay-count and correction traces
+        env:
+          REVERSE: ${{ inputs.reverse_start }}
+        run: |
+          args=()
+          if [ "$REVERSE" = true ]; then args+=(--reverse-start); fi
+          python tools/network_integration.py --seconds 90 --latency 75 --jitter 30 --loss .03 --reconnect --trace "${args[@]}"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reconnect-diagnostic
+          path: reports/network-*/
+          if-no-files-found: error

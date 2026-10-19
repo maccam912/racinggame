@@ -9,7 +9,7 @@ from bootstrap import ROOT, engine
 from udp_proxy import UDPProxy
 
 
-def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5):
+def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False):
     folder = ROOT/'reports'/f'network-udp-{latency}-{jitter}-{loss}-{port}'
     folder.mkdir(parents=True, exist_ok=True)
     command = [str(engine()), '--headless', '--path', str(ROOT)]
@@ -28,15 +28,21 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
             if server.poll() is not None or time.monotonic() > deadline:
                 raise RuntimeError('Worker failed to start: '+(folder/'server.log').read_text()[-2000:])
             time.sleep(.1)
-        for index in range(2):
+        for index in ([1,0] if reverse_start else [0,1]):
             log = (folder/f'client{index}.log').open('w')
             files.append(log)
             args = [*command, '--script', 'tests/network_bot_client.gd', '--', f'--port={port}', f'--name=Driver{index}', f'--report={folder / f"client{index}.json"}', f'--seconds={seconds}']
             if reconnect and index == 0:
                 args += ['--reconnect-at=15', f'--away-seconds={away_seconds}']
+            if trace:
+                args += ['--trace-network']
             if contacts:
                 args += ['--contact-exercises']
             processes.append(subprocess.Popen(args, stdout=log, stderr=subprocess.STDOUT))
+            if reverse_start and index == 1:
+                until = time.monotonic()+5
+                while 'waiting for racers' not in (folder/'client1.log').read_text() and time.monotonic() < until:
+                    time.sleep(.05)
         deadline = time.monotonic()+seconds+20
         while any(p.poll() is None for p in processes[1:]):
             if server.poll() is not None or time.monotonic() > deadline:
@@ -69,7 +75,8 @@ def run(seconds=70, latency=0, jitter=0, loss=0, reconnect=False, port=27021, co
             assert contact_events >= 20, f'Only {contact_events} distinct contact episodes; need 20'
         report = {'passed':True, 'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'], 'content_hash':json.loads((ROOT/'game/content/compatibility.json').read_text())['content_hash'], 'away_seconds':away_seconds if reconnect else 0, 'seconds':seconds, 'one_way_latency_ms':latency, 'jitter_ms':jitter, 'loss':loss, 'transport':'UDP proxy including ENet handshake/ACK/reliable packets' if proxy else 'loopback ENet', 'wire_metrics':dict(proxy.stats) if proxy else {}, 'contact_events':contact_events, 'clients':values}
         (folder/'summary.json').write_text(json.dumps(report, indent=2)+'\n')
-        print(json.dumps(report, indent=2), flush=True)
+        console_report = {**report, 'clients':[{k:v for k,v in value.items() if k != 'reconciliation_trace'} for value in values]}
+        print(json.dumps(console_report, indent=2), flush=True)
         return report
     finally:
         for process in reversed(processes):
@@ -100,5 +107,6 @@ if __name__ == '__main__':
     parser.add_argument('--port', type=int, default=27021)
     parser.add_argument('--contacts', action='store_true')
     parser.add_argument('--away-seconds', type=float, default=5)
-    args = parser.parse_args()
-    run(args.seconds, args.latency, args.jitter, args.loss, args.reconnect, args.port, args.contacts, args.away_seconds)
+    parser.add_argument('--trace', action='store_true')
+    parser.add_argument('--reverse-start', action='store_true')
+    run(**vars(parser.parse_args()))
