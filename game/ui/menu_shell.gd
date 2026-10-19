@@ -90,11 +90,12 @@ func confirm(text: String, action: Callable, second: bool = false) -> void:
 	if is_instance_valid(modal):
 		modal.queue_free()
 	modal = ConfirmationDialog.new()
+	modal.dialog_autowrap = true
 	modal.dialog_text = text
 	modal.ok_button_text = I18n.t("button.confirm")
 	modal.cancel_button_text = I18n.t("button.cancel")
 	modal.theme = ui.theme
-	modal.min_size = Vector2i(440 * ui.unit, 160 * ui.unit)
+	modal.min_size = Vector2i(minf(440 * ui.unit,get_viewport().get_visible_rect().size.x * .9), minf(160 * ui.unit,get_viewport().get_visible_rect().size.y * .85))
 	root.add_child(modal)
 	modal.confirmed.connect(func() -> void:
 		if second:

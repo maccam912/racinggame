@@ -16,6 +16,7 @@ var back_action: Callable
 var pending_config: Dictionary = {}
 var result_summary: Dictionary = {}
 var settings_page: SettingsPage
+var bindings_page: BindingsPage
 var lobby_page: LobbyPage
 var prepared_world: TrackWorld
 var online_result_label: Label
@@ -36,11 +37,13 @@ func _ready() -> void:
 		elif arg.begins_with("--capture-frame="):
 			capture_frame = maxi(1, int(arg.trim_prefix("--capture-frame=")))
 	data = AppData.new(folder)
+	BindingBook.apply(data.settings.bindings)
 	SettingsRuntime.apply(self, data.settings, capture_path.is_empty())
 	menu.settings = data.settings
 	add_child(menu)
 	events = EventMenu.new(self)
 	settings_page = SettingsPage.new(self)
+	bindings_page = BindingsPage.new(self)
 	lobby_page = LobbyPage.new(self)
 	if "--drive" in OS.get_cmdline_user_args():
 		start_drive()

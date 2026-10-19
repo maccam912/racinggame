@@ -46,6 +46,7 @@ func show_tab(selected: String, return_to: Callable) -> void:
 			continue
 		setting_row(list, definition)
 	if tab == "controls":
+		list.add_child(shell.ui.button(I18n.t("binding.title"),func() -> void: app.bindings_page.show_page(func() -> void: show_tab("controls",back))))
 		list.add_child(shell.ui.paragraph(I18n.t("settings.controls_help")))
 	if tab == "data":
 		list.add_child(shell.ui.button(I18n.t("settings.name"), func() -> void: app.show_name(false)))
@@ -140,6 +141,7 @@ func preview_display(values: Dictionary, focus_key: String = "") -> void:
 		app.data.settings[key] = values[key]
 	SettingsRuntime.apply(app, app.data.settings, true)
 	display_modal = ConfirmationDialog.new()
+	display_modal.dialog_autowrap = true
 	display_modal.dialog_text = I18n.t("display.confirm_seconds", [15])
 	display_modal.ok_button_text = I18n.t("button.keep")
 	display_modal.cancel_button_text = I18n.t("button.revert")
@@ -215,6 +217,8 @@ func restore_this_tab() -> void:
 		return
 	if app.data.restore_tab(tab) == OK:
 		SettingsRuntime.apply(app, app.data.settings)
+		if tab == "controls":
+			BindingBook.apply(app.data.settings.bindings)
 		if app.drive:
 			app.drive.apply_settings()
 		show_tab(tab, back)

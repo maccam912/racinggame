@@ -20,6 +20,7 @@ var lesson: SchoolLesson
 var school_overlay: SchoolOverlay
 var spectator_slot: int = -1
 var spectator_button: Button
+var help_label: Label
 
 var state := VehicleState.new()
 var frame := InputFrame.make()
@@ -149,6 +150,7 @@ func _ready() -> void:
 		school_overlay = SchoolOverlay.new()
 		school_overlay.lesson = lesson
 		school_overlay.state = state
+		school_overlay.unit = touch.unit if show_touch or OS.has_feature("mobile") else (float(app_data.settings.ui_scale) / 100 if app_data else 1.0)
 		ui.add_child(school_overlay)
 		var skip := Button.new()
 		skip.text = I18n.t("button.skip")
@@ -164,17 +166,16 @@ func _ready() -> void:
 	hud.trial = session.mode == "trial"
 	apply_settings()
 	driver.attach_touch(touch)
-	driver.device_changed.connect(func(_device: String) -> void: hud.queue_redraw())
+	driver.device_changed.connect(func(_device: String) -> void: update_control_hints())
 	Input.joy_connection_changed.connect(controller_connection)
 	touch.action_pressed.connect(touch_action)
-	var help := Label.new()
-	help.text = "W / ↑  Accelerate     A D / ← →  Steer     S / ↓  Brake     SPACE  Slide     Hold R  Recover     C  Camera     ESC  Pause"
-	help.add_theme_font_size_override("font_size", 16)
-	help.position = Vector2(180, 690)
-	help.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	ui.add_child(help)
-	if touch.visible:
-		help.hide()
+	help_label = Label.new()
+	help_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	help_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	help_label.grow_vertical = Control.GROW_DIRECTION_BEGIN
+	ui.add_child(help_label)
+	get_viewport().size_changed.connect(update_control_hints)
+	update_control_hints()
 	if network:
 		network.attach_prediction(state, car, query, track, lap_count)
 		network.input_provider = func() -> InputFrame: return driver.sample(not paused and state.recovery_ticks == 0, touch if touch.visible else null)
@@ -396,6 +397,7 @@ func apply_settings() -> void:
 	if app_data == null:
 		return
 	var settings := app_data.settings
+	BindingBook.apply(settings.bindings)
 	SettingsRuntime.apply(self, settings)
 	reduce_motion = bool(settings.reduce_motion)
 	camera.reduce_motion = reduce_motion
@@ -413,6 +415,7 @@ func apply_settings() -> void:
 	touch.opacity = float(settings.get("opacity", 60)) / 100
 	touch.left_handed = bool(settings.get("left_handed", false))
 	touch.rebuild()
+	update_control_hints()
 
 
 func next_racer() -> void:
@@ -426,3 +429,44 @@ func next_racer() -> void:
 	candidates.append(state.slot)
 	spectator_slot = candidates[(candidates.find(spectator_slot) + 1) % candidates.size()]
 	camera.initialized = false
+
+
+func update_control_hints() -> void:
+	var values: Dictionary = app_data.settings if app_data else SettingsCatalog.defaults(OS.has_feature("mobile"))
+	var book := BindingBook.sanitize(values.bindings)
+	var device_name := driver.owner_device
+	var icons := str(values.prompts)
+	if device_name != "touch":
+		if icons == "keyboard":
+			device_name = "keyboard"
+		elif icons in ["xbox","playstation"]:
+			device_name = "gamepad"
+	var hints: Dictionary = {}
+	for action: String in BindingBook.DRIVING:
+		if device_name == "touch":
+			hints[action] = I18n.t("touch.hint." + action)
+			if action == "accelerate" and touch.auto_accelerate:
+				hints[action] = I18n.t("touch.hint.auto")
+		else:
+			var labels: Array[String] = []
+			for binding: Variant in book[device_name][action]:
+				if binding != null:
+					labels.append(BindingBook.caption(binding, icons))
+			hints[action] = " / ".join(labels) if not labels.is_empty() else I18n.t("binding.empty")
+	if is_instance_valid(school_overlay):
+		school_overlay.hints = hints
+	if not is_instance_valid(help_label):
+		return
+	help_label.visible = not touch.visible and lesson == null and bool(values.driving_hints)
+	var parts: Array[String] = []
+	for action: String in ["accelerate","steer_left","steer_right","brake","handbrake","recover","camera","look_back","pause"]:
+		parts.append(I18n.t("action." + action) + ": " + str(hints[action]))
+	help_label.text = "   •   ".join(parts)
+	help_label.add_theme_font_override("font",load("res://assets/fonts/Barlow-SemiBold.ttf"))
+	help_label.add_theme_font_size_override("font_size",int(16 * float(values.ui_scale) / 100))
+	help_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
+	var canvas := get_viewport().get_visible_rect().size
+	help_label.offset_left = canvas.x * .25
+	help_label.offset_right = -canvas.x * .25
+	help_label.offset_top = -100 * float(values.ui_scale) / 100
+	help_label.offset_bottom = -15

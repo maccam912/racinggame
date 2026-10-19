@@ -20,28 +20,12 @@ var previous_axes: Dictionary = {}
 var touch_controls: TouchDriving
 
 
+func _init() -> void:
+	BindingBook.ensure_defaults()
+
+
 static func register_defaults() -> void:
-	var keys := {"steer_left": [KEY_A, KEY_LEFT], "steer_right": [KEY_D, KEY_RIGHT], "accelerate": [KEY_W, KEY_UP], "brake": [KEY_S, KEY_DOWN], "handbrake": [KEY_SPACE], "recover": [KEY_R], "camera": [KEY_C], "look_back": [KEY_V], "pause": [KEY_ESCAPE]}
-	var buttons := {"handbrake": JOY_BUTTON_A, "recover": JOY_BUTTON_Y, "camera": JOY_BUTTON_B, "look_back": JOY_BUTTON_RIGHT_STICK, "pause": JOY_BUTTON_START}
-	var axes := {"steer_left":[JOY_AXIS_LEFT_X,-1.0], "steer_right":[JOY_AXIS_LEFT_X,1.0], "accelerate":[JOY_AXIS_TRIGGER_RIGHT,1.0], "brake":[JOY_AXIS_TRIGGER_LEFT,1.0]}
-	for action: String in keys:
-		if not InputMap.has_action(action):
-			InputMap.add_action(action, 0.0)
-		if not InputMap.action_get_events(action).is_empty():
-			continue
-		for key: int in keys[action]:
-			var event := InputEventKey.new()
-			event.physical_keycode = key
-			InputMap.action_add_event(action, event)
-		if buttons.has(action):
-			var button := InputEventJoypadButton.new()
-			button.button_index = buttons[action]
-			InputMap.action_add_event(action, button)
-		if axes.has(action):
-			var axis := InputEventJoypadMotion.new()
-			axis.axis = int(axes[action][0])
-			axis.axis_value = float(axes[action][1])
-			InputMap.action_add_event(action, axis)
+	BindingBook.ensure_defaults()
 
 
 func attach_touch(control: TouchDriving) -> void:
