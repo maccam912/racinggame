@@ -82,6 +82,7 @@ func run() -> void:
 		data.clear_corrections = statistics(link.prediction.clear_corrections)
 		data.contact_corrections = statistics(link.prediction.contact_corrections)
 		data.recoveries = link.prediction.recovery_corrections
+		data.reconnect_restores = statistics(link.prediction.reconnect_corrections)
 		data.last_gate = link.prediction.state.last_gate
 		data.laps = link.prediction.state.laps
 		data.finish_time = link.prediction.state.finish_time

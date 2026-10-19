@@ -213,7 +213,7 @@ func hello(sender: int, event: Dictionary) -> void:
 		player.buffer.frames.clear()
 		player.buffer.missing_ticks = 7
 		player.last_driving = tick
-	wire.event(sender, {"type":"welcome", "slot":player.slot, "race":1, "token":player.token, "tick":tick})
+	wire.event(sender, {"type":"welcome", "slot":player.slot, "race":1, "token":player.token, "tick":tick, "ack":player.buffer.last_sequence})
 	if session:
 		send_start(player)
 

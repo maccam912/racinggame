@@ -33,6 +33,7 @@ var retry_at: int = 0
 var retry_count: int = 0
 var disconnected_at: int = 0
 var clock_ready: bool = false
+var restoring_reconnect: bool = false
 
 
 func connect_to(address: String, udp_port: int, display_name: String = "Driver") -> Error:
@@ -99,6 +100,9 @@ func _physics_process(_dt: float) -> void:
 		phase = RaceSession.Phase.GRID if server_tick < start_tick + 120 else RaceSession.Phase.COUNTDOWN if server_tick < start_tick + 300 else RaceSession.Phase.RACING
 	if phase not in [RaceSession.Phase.RACING, RaceSession.Phase.GRACE] or server_tick < control_tick:
 		return
+	if restoring_reconnect:
+		restoring_reconnect = false
+		prediction.history.clear()
 	var frame: InputFrame = input_provider.call() if input_provider.is_valid() else InputFrame.make()
 	sequence = (sequence + 1) & 0xffffffff
 	frame.sequence = sequence
@@ -117,6 +121,7 @@ func receive_event(event: Dictionary) -> void:
 		return
 	match event.get("type", ""):
 		"welcome":
+			restoring_reconnect = prediction != null
 			slot = int(event.slot)
 			race_id = int(event.race)
 			reconnect_token = event.token
@@ -125,6 +130,11 @@ func receive_event(event: Dictionary) -> void:
 			retry_count = 0
 			server_tick = float(event.tick) + rtt_ms / 2000 * 60
 			clock_ready = true
+			if restoring_reconnect:
+				sequence = int(event.get("ack", sequence))
+				control_tick = roundi(server_tick) + 30
+				prediction.history.clear()
+				remotes.samples.clear()
 			status_changed.emit("Community server — waiting for racers")
 			wire.event(1, {"type":"loaded"})
 		"start":
@@ -163,7 +173,10 @@ func receive_snapshot(bytes: PackedByteArray) -> void:
 		phase = snapshot.phase
 	remotes.push(snapshot.tick, snapshot.states)
 	if prediction and slot >= 0 and slot < snapshot.states.size() and int(snapshot.phase) >= RaceSession.Phase.RACING:
-		prediction.reconcile(snapshot.states[slot], snapshot.elapsed)
+		if restoring_reconnect or server_tick < control_tick:
+			prediction.restore_reconnect(snapshot.states[slot], snapshot.elapsed, roundi(server_tick) - int(snapshot.tick))
+		else:
+			prediction.reconcile(snapshot.states[slot], snapshot.elapsed)
 
 
 func attach_prediction(state: VehicleState, car: CarDefinition, query: WorldQuery, track: TrackDefinition, laps: int) -> void:

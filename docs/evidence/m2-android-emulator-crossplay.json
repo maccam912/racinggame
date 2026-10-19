@@ -1,0 +1,22 @@
+{
+  "scenario": "Android APK versus native macOS client and dedicated authority",
+  "android": "Disposable Pixel 7 profile, Android 15/API 35 ARM64 emulator; rooted diagnostic launch; not a physical device",
+  "desktop": "macOS ARM64 native graphical source client",
+  "engine": "4.6.3-stable",
+  "content_hash": "2dac5eb0bfa5a857cd5d228dda0eb638ec999be2435a7bd491d73745beb41b48",
+  "passed": true,
+  "identical_results": [
+    {
+      "dnf": "",
+      "name": "Driver",
+      "slot": 0,
+      "time": 67.3026625468448
+    },
+    {
+      "dnf": "",
+      "name": "Driver",
+      "slot": 1,
+      "time": 67.5413295023917
+    }
+  ]
+}

@@ -39,7 +39,11 @@ Pending M1 gates: physical phone driving, human cornering/feel playtest, complet
 - 340-second alternating side/rear fixture: **84 distinct contact episodes**, 1,075/1,224 contact correction samples, p95 **0.906/0.826 m** (limit 1.5 m). Reset transitions are explicitly tagged/excluded; moving clear-road p95 remains below 0.01 m. See [contact evidence](evidence/m2-udp-contact.json) and [race/reconnect evidence](evidence/m2-udp-race-reconnect.json).
 - Source contracts/numeric/scene/race/contact/jump suites pass. CI now gates publishing on these suites, faulted network runs, six exports, and native package startup on Linux, Windows, macOS ARM64/Intel and Linux server.
 
-Pending M2 gates: Android/desktop cross-play evidence, physical-device network tests, 25-second disconnect expiry, eight-client/security fault matrix and broader correction/performance soak. Official ticket-required directory workers are M3 work; current tested service mode is explicitly community/direct-guest.
+Android-versus-native-macOS cross-play also completes with identical authoritative standings and sub-tick times using the installed Android 15 ARM64 emulator APK: [cross-play evidence](evidence/m2-android-emulator-crossplay.json). This is not a physical-device result.
+
+The first Linux CI reconnect run exposed stale pre-disconnect input replay. Reconnect now clears that history, restores the server's current bot-controlled state, resets the sequence from its acknowledgement, and honors the future control tick. Full reconnect restores are measured separately from ordinary driving corrections; the large restore after five seconds away is retained in evidence rather than averaged away.
+
+Pending M2 gates: physical-device network tests, 25-second disconnect expiry, eight-client/security fault matrix and broader correction/performance soak. Official ticket-required directory workers are M3 work; current tested service mode is explicitly community/direct-guest.
 
 ## Next
 

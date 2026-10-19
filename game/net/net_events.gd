@@ -10,6 +10,8 @@ static func integer(value: Variant, minimum: int, maximum: int) -> bool:
 static func server_event(event: Dictionary) -> bool:
 	match event.get("type", ""):
 		"welcome":
+			if event.has("ack") and not integer(event.ack, 0, 0xffffffff):
+				return false
 			return integer(event.get("slot"), 0, 7) and integer(event.get("race"), 0, 0xffffffff) and integer(event.get("tick"), 0, 0xffffffff) and event.get("token") is String and event.token.length() == 64 and event.token.is_valid_hex_number(false)
 		"start":
 			return integer(event.get("race"), 0, 0xffffffff) and integer(event.get("start_tick"), 0, 0xffffffff) and integer(event.get("control_tick"), 0, 0xffffffff) and integer(event.get("count"), 1, 8) and integer(event.get("track"), 0, 5) and integer(event.get("laps"), 1, 3)
