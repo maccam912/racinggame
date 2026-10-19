@@ -278,7 +278,7 @@ func show_name(first: bool) -> void:
 	var body := menu.reset(I18n.t("first.title" if first else "menu.edit_name"))
 	var list := menu.scroll_column(body)
 	list.add_child(menu.ui.label(I18n.t("first.name")))
-	var edit := LineEdit.new()
+	var edit := UIFactory.text_edit()
 	edit.text = data.profile.display_name
 	edit.max_length = 96
 	edit.custom_minimum_size.y = menu.ui.row_height()
@@ -862,13 +862,13 @@ func show_connection_form() -> void:
 	page = "connect"
 	back_action = cancel_connection
 	var body := menu.reset(I18n.t("online.direct"), I18n.t("online.community"))
-	var address := LineEdit.new()
+	var address := UIFactory.text_edit()
 	address.name = "direct_address"
 	address.placeholder_text = I18n.t("online.address_help")
 	address.text = "127.0.0.1:27020"
 	address.custom_minimum_size.y = menu.ui.row_height()
 	body.add_child(address)
-	var code := LineEdit.new()
+	var code := UIFactory.text_edit()
 	code.name = "direct_code"
 	code.placeholder_text = I18n.t("online.code_optional")
 	code.custom_minimum_size.y = menu.ui.row_height()

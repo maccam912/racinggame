@@ -255,7 +255,7 @@ func show_create() -> void:
 	action.name = "create_room_start"
 	region_choice(list,func() -> void: action.disabled = regions.selected().is_empty())
 	list.add_child(app.menu.ui.label(I18n.t("online.room_name")))
-	var name_edit := LineEdit.new()
+	var name_edit := UIFactory.text_edit()
 	name_edit.name = "room_name"
 	name_edit.text = draft.name
 	name_edit.max_length = 96
@@ -297,7 +297,7 @@ func show_code() -> void:
 	app.back_action = exit_to_hub
 	var body: VBoxContainer = app.menu.reset(I18n.t("online.join_code"),region_caption())
 	var list: VBoxContainer = app.menu.scroll_column(body)
-	var edit := LineEdit.new()
+	var edit := UIFactory.text_edit()
 	edit.name = "room_code"
 	edit.placeholder_text = "XXXX-XXXX"
 	edit.max_length = 9

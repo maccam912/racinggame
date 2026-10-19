@@ -39,7 +39,7 @@ func _ready() -> void:
 	add_child(caption_layer)
 	caption.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	caption.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	caption.add_theme_font_override("font",load("res://assets/fonts/Barlow-SemiBold.ttf"))
+	caption.add_theme_font_override("font",load("res://assets/fonts/body.tres"))
 	caption.add_theme_color_override("font_color",UIFactory.CREAM)
 	caption.add_theme_color_override("font_outline_color",UIFactory.NAVY)
 	caption.add_theme_constant_override("outline_size",6)

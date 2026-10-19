@@ -38,7 +38,7 @@ func _ready() -> void:
 	row.add_child(list)
 	for label: Label in [instruction,inputs]:
 		label.autowrap_mode=TextServer.AUTOWRAP_WORD_SMART
-		label.add_theme_font_override("font",preload("res://assets/fonts/Barlow-SemiBold.ttf"))
+		label.add_theme_font_override("font",preload("res://assets/fonts/body.tres"))
 		label.add_theme_font_size_override("font_size",int(20*unit*ui_scale))
 		label.add_theme_color_override("font_color",UIFactory.CREAM if label==instruction else UIFactory.TURQUOISE)
 		list.add_child(label)

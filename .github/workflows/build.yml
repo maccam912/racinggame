@@ -152,6 +152,10 @@ jobs:
         run: |
           mkdir -p reports
           xvfb-run -a python tools/godot.py --max-fps 60 --script tests/car_asset_evidence.gd -- --ci --game-ui --profile=car_render_ci 2>&1 | tee reports/car-render.log
+      - name: Render bundled emoji with system font fallback disabled
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/font_render_evidence.gd 2>&1 | tee reports/font-render.log
       - name: Render all original scenery silhouettes and 24 course references
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
@@ -206,6 +210,8 @@ jobs:
             reports/m5-runtime-reference.json
             reports/m5-shader-*.png
             reports/m5-shader-warmup.json
+            reports/font-render/
+            reports/font-render.log
             reports/car-render.log
           if-no-files-found: error
 

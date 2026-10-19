@@ -540,7 +540,7 @@ func update_control_hints() -> void:
 	for action: String in pairs[hint_page]:
 		parts.append(I18n.t("action." + action) + ": " + str(hints[action]))
 	help_label.text = "   •   ".join(parts)
-	help_label.add_theme_font_override("font",load("res://assets/fonts/Barlow-SemiBold.ttf"))
+	help_label.add_theme_font_override("font",load("res://assets/fonts/body.tres"))
 	help_label.add_theme_font_size_override("font_size",int(16 * float(values.ui_scale) / 100))
 	help_label.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
 	var canvas := get_viewport().get_visible_rect().size

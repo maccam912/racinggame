@@ -34,6 +34,19 @@
       "modifications": "Unmodified font file BarlowCondensed-Bold.ttf"
     },
     {
+      "id": "noto_color_emoji_font",
+      "source": "https://github.com/googlefonts/noto-emoji/tree/f3ae03f5e9b3b8516fa151f7168159ca1a3e7515",
+      "creator": "Google Inc. and Noto Emoji contributors",
+      "license": "SIL Open Font License 1.1",
+      "attribution": "assets/fonts/notoemoji-OFL.txt",
+      "exports": [
+        "assets/fonts/NotoColorEmoji.ttf",
+        "assets/fonts/body.tres",
+        "assets/fonts/heading.tres"
+      ],
+      "modifications": "Unmodified v2.051 CBDT/CBLC font, SHA-256 72a635cb3d2f3524c51620cdde406b217204e8a6a06c6a096ff8ed4b5fd6e27b; original Barlow fallback resources. Bundled because the tested Android 15 system emoji font uses unsupported COLR tables."
+    },
+    {
       "id": "unicode_normalization",
       "source": "Python unicodedata 16.0.0 / Unicode Character Database",
       "creator": "Unicode, Inc.",

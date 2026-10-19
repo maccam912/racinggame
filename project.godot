@@ -35,6 +35,9 @@ common/max_physics_steps_per_frame=6
 [audio]
 driver/enable_input=false
 
+[internationalization]
+locale/include_text_server_data=true
+
 [editor_plugins]
 enabled=PackedStringArray("res://addons/pacific_mobile/plugin.cfg")
 

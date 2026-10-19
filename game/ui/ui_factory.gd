@@ -25,8 +25,8 @@ func _init(viewport: Viewport, settings: Dictionary, mobile_override: Variant = 
 	if logical_unit_override>0:
 		unit = logical_unit_override
 	scale = float(settings.get("ui_scale", 100)) / 100
-	body_font = load("res://assets/fonts/Barlow-SemiBold.ttf")
-	title_font = load("res://assets/fonts/BarlowCondensed-Bold.ttf")
+	body_font = load("res://assets/fonts/body.tres")
+	title_font = load("res://assets/fonts/heading.tres")
 	theme = Theme.new()
 	theme.default_font = body_font
 	theme.default_font_size = font_size(16)
@@ -170,3 +170,9 @@ func choice_picker(subject: String = "") -> Variant:
 		if is_instance_valid(owner_viewport) and owner_viewport.is_inside_tree():
 			owner_viewport.get_tree().call_group("menu_navigation_repeat","clear_context"))
 	return control
+
+
+static func text_edit() -> LineEdit:
+	var edit := LineEdit.new()
+	edit.backspace_deletes_composite_character_enabled = true
+	return edit

@@ -3,6 +3,9 @@ extends Node3D
 
 
 func _ready() -> void:
+	if "--text-probe" in OS.get_cmdline_user_args() and not OS.has_feature("dedicated_server") and not "--server" in OS.get_cmdline_user_args():
+		add_child(load("res://game/platform/text_probe.gd").new())
+		return
 	if "--mobile-services-probe" in OS.get_cmdline_user_args():
 		add_child(load("res://game/platform/mobile_services_probe.gd").new())
 		return

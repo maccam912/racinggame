@@ -1,0 +1,8 @@
+{
+  "passed": false,
+  "apk_sha256": "e946dbd45daadcce835e05c9875ce0233cd2fc672b975450f537f601be3b1f0c",
+  "cause": "ICU support data alone does not change the LineEdit default: Backspace removed only one code point. The final shared text-field factory explicitly enables complete-composite deletion.",
+  "log": [
+    "I/godot   (28029): TEXT_PROBE_EDIT {\"codepoints\":8,\"equals_ab\":false}"
+  ]
+}

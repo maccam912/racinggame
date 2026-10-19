@@ -71,7 +71,7 @@ func build(paint: Color, id: String = "comet", slot: int = 0) -> void:
 	for side: float in [-1.0,1.0]:
 		var label := Label3D.new()
 		label.text = str(slot+1)
-		label.font = load("res://assets/fonts/BarlowCondensed-Bold.ttf")
+		label.font = load("res://assets/fonts/heading.tres")
 		label.font_size = 64
 		label.pixel_size = .005
 		label.position = Vector3(side*({"comet":.95,"needle":.99,"switch":.90,"sunset":1.03}[id]),.46,.08)

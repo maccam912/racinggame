@@ -1,7 +1,7 @@
 class_name RaceHUD
 extends Control
 
-const HUD_FONT = preload("res://assets/fonts/Barlow-SemiBold.ttf")
+const HUD_FONT = preload("res://assets/fonts/body.tres")
 
 var state: VehicleState
 var track: TrackDefinition
