@@ -445,10 +445,19 @@ func show_loading(configuration: Dictionary, cancel: Callable) -> TrackLoader:
 	menu.footer.add_child(menu.ui.button(I18n.t("button.cancel"),back_action))
 	menu.first_focus()
 	track_loader = TrackLoader.new()
+	track_loader.settings = data.settings.duplicate(true)
+	track_loader.active = func() -> bool: return foreground
 	track_loader.begin(track)
 	var expected := track_loader
 	expected.progress.connect(func(value: float) -> void:
 		if track_loader==expected and page=="loading" and is_instance_valid(loading_bar): loading_bar.value = value)
+	expected.failed.connect(func() -> void:
+		if track_loader!=expected or page!="loading": return
+		loading_status.text = I18n.t("loading.graphics_failed")
+		var retry := menu.ui.button(I18n.t("button.retry"),func() -> void: expected.retry_graphics())
+		menu.footer.add_child(retry)
+		retry.pressed.connect(func() -> void: retry.queue_free())
+		retry.grab_focus())
 	add_child(expected)
 	return expected
 
@@ -1031,10 +1040,12 @@ func _process(_dt: float) -> void:
 	if page=="loading":
 		if is_instance_valid(loading_hint):
 			loading_hint.text = I18n.t(LOADING_HINTS[((Time.get_ticks_msec()-loading_hint_started)/4000)%LOADING_HINTS.size()])
-		if network and is_instance_valid(loading_status):
-			var members: Array = network.lobby.get("members",[])
-			var loaded := members.filter(func(row: Dictionary) -> bool: return bool(row.get("loaded",false))).size()
-			loading_status.text = I18n.t("loading.waiting",[loaded,members.size()]) if not is_instance_valid(track_loader) else I18n.t("loading.local")
+		if is_instance_valid(loading_status):
+			if is_instance_valid(track_loader): loading_status.text = I18n.t("loading.graphics_failed" if track_loader.graphics_error else "loading.graphics" if track_loader.warming else "loading.local")
+			elif network:
+				var members: Array = network.lobby.get("members",[])
+				var loaded := members.filter(func(row: Dictionary) -> bool: return bool(row.get("loaded",false))).size()
+				loading_status.text = I18n.t("loading.waiting",[loaded,members.size()])
 	if network and page == "results" and is_instance_valid(online_result_label):
 		online_result_label.text = I18n.t("online.return_countdown", [maxi(0, ceili((float(network.result_event.get("return_tick", 0)) - network.server_tick) / 60))])
 	if lobby_page and page == "lobby":

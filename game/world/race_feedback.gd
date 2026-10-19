@@ -34,17 +34,25 @@ var haptics := DrivingHaptics.new()
 var warming: Array[MeshInstance3D] = []
 var warm_frames: int = 3
 
+static func particle_material(spark: bool) -> ShaderMaterial:
+	var material := ShaderMaterial.new()
+	material.shader = load("res://assets/exported/shaders/feedback_particle.gdshader")
+	material.set_shader_parameter("spark",spark)
+	return material
+
+static func skid_material() -> ShaderMaterial:
+	var material := ShaderMaterial.new()
+	material.shader = load("res://assets/exported/shaders/feedback_skid.gdshader")
+	return material
+
 func _ready() -> void:
 	random.seed = 72531
 	for kind: String in ["smoke","dust","spark"]:
-		var material := ShaderMaterial.new()
-		material.shader = load("res://assets/exported/shaders/feedback_particle.gdshader")
-		material.set_shader_parameter("spark",kind=="spark")
+		var material := particle_material(kind=="spark")
 		var mesh := QuadMesh.new()
 		mesh.size = Vector2.ONE
 		batches[kind] = make_batch(mesh,material,128 if kind=="spark" else 256)
-	var material := ShaderMaterial.new()
-	material.shader = load("res://assets/exported/shaders/feedback_skid.gdshader")
+	var material := skid_material()
 	var plane := PlaneMesh.new()
 	plane.size = Vector2.ONE
 	skid_batch = make_batch(plane,material,8*640)

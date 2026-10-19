@@ -10,6 +10,8 @@ var pending_geometry: Dictionary = {}
 var art: Dictionary = {}
 var landmark_cursor: int = 0
 var start_lamps: Array[MeshInstance3D] = []
+var warmed_resources: Array[Resource] = []
+var shader_warmup: Dictionary = {}
 static var skies: Dictionary = {}
 
 

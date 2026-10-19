@@ -173,6 +173,10 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/mobile_runtime_evidence.gd -- --profile=mobile_runtime_ci --capture=res://reports/unused-runtime.png 2>&1 | tee -a reports/car-render.log
+      - name: Render required material variants before entering the grid
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/shader_warmup_evidence.gd -- --profile=shader_warmup_ci --capture=res://reports/unused-warmup.png 2>&1 | tee -a reports/car-render.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -187,6 +191,8 @@ jobs:
             reports/m4-surface-lamp-reference.json
             reports/m5-runtime-*.png
             reports/m5-runtime-reference.json
+            reports/m5-shader-*.png
+            reports/m5-shader-warmup.json
             reports/car-render.log
           if-no-files-found: error
 
