@@ -163,6 +163,9 @@ func _ready() -> void:
 	hud.racers = session.states.size()
 	hud.trial = session.mode == "trial"
 	apply_settings()
+	driver.attach_touch(touch)
+	driver.device_changed.connect(func(_device: String) -> void: hud.queue_redraw())
+	Input.joy_connection_changed.connect(controller_connection)
 	touch.action_pressed.connect(touch_action)
 	var help := Label.new()
 	help.text = "W / ↑  Accelerate     A D / ← →  Steer     S / ↓  Brake     SPACE  Slide     Hold R  Recover     C  Camera     ESC  Pause"
@@ -174,7 +177,7 @@ func _ready() -> void:
 		help.hide()
 	if network:
 		network.attach_prediction(state, car, query, track, lap_count)
-		network.input_provider = func() -> InputFrame: return driver.sample(not paused, touch if touch.visible else null)
+		network.input_provider = func() -> InputFrame: return driver.sample(not paused and state.recovery_ticks == 0, touch if touch.visible else null)
 		if "--autodrive" in OS.get_cmdline_user_args():
 			network.input_provider = func() -> InputFrame: return demo_driver.sample(state, car, track, query)
 			state.trial_valid = false
@@ -204,7 +207,7 @@ func _physics_process(_dt: float) -> void:
 		hud.phase = "Countdown"
 		hud.phase_ticks = 180 - resume_ticks
 		return
-	frame = driver.sample(session.phase in [RaceSession.Phase.RACING, RaceSession.Phase.GRACE], touch if touch.visible else null)
+	frame = driver.sample(session.phase in [RaceSession.Phase.RACING, RaceSession.Phase.GRACE] and state.recovery_ticks == 0, touch if touch.visible else null)
 	if "--autodrive" in OS.get_cmdline_user_args():
 		frame = demo_driver.sample(state, car, track, query)
 		state.trial_valid = false
@@ -285,7 +288,12 @@ func _process(dt: float) -> void:
 			target = spectated
 		else:
 			spectator_slot = state.slot
-	camera.follow(target, dt, Input.is_action_pressed("look_back") or touch.held("look_back"))
+	camera.follow(target, dt, driver.held("look_back", touch if touch.visible else null))
+
+
+func _input(event: InputEvent) -> void:
+	if not paused:
+		driver.observe(event)
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -310,6 +318,7 @@ func show_pause(finished: bool = false) -> void:
 	if paused:
 		return
 	paused = true
+	driver.context_reset(network != null)
 	touch.clear()
 	touch.enabled = false
 	frame = InputFrame.make()
@@ -346,6 +355,10 @@ func button(parent: Node, text: String, action: Callable) -> void:
 
 func resume() -> void:
 	paused = false
+	driver.context_reset(network != null)
+	if network:
+		hud.control_notice = I18n.t("hud.controls_active")
+		hud.notice_until_ms = Time.get_ticks_msec() + 500
 	touch.enabled = true
 	touch.clear()
 	if pause_panel:
@@ -358,7 +371,24 @@ func restart() -> void:
 
 
 func _notification(what: int) -> void:
-	if what in [NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED] and is_inside_tree() and not Array(OS.get_cmdline_user_args()).any(func(arg: String) -> bool: return arg.begins_with("--capture=")):
+	if not is_inside_tree():
+		return
+	if what in [NOTIFICATION_APPLICATION_FOCUS_IN, NOTIFICATION_APPLICATION_RESUMED]:
+		driver.set_focus(true)
+	elif what in [NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED] and not Array(OS.get_cmdline_user_args()).any(func(arg: String) -> bool: return arg.begins_with("--capture=")):
+		driver.set_focus(false)
+		show_pause()
+
+
+func controller_connection(device: int, connected: bool) -> void:
+	if connected or driver.owner_device != "gamepad" or driver.joy_device != device:
+		return
+	driver.claim("keyboard")
+	driver.context_reset(network != null)
+	if network:
+		hud.control_notice = I18n.t("hud.controller_lost")
+		hud.notice_until_ms = Time.get_ticks_msec() + 5000
+	else:
 		show_pause()
 
 
@@ -378,6 +408,11 @@ func apply_settings() -> void:
 	driver.deadzone = float(settings.deadzone)
 	driver.sensitivity = float(settings.sensitivity)
 	touch.auto_accelerate = bool(settings.get("touch_auto_accelerate", true)) if touch.visible else false
+	touch.steering_style = str(settings.get("steering_style", "slider"))
+	touch.button_scale = float(settings.get("button_size", 100)) / 100
+	touch.opacity = float(settings.get("opacity", 60)) / 100
+	touch.left_handed = bool(settings.get("left_handed", false))
+	touch.rebuild()
 
 
 func next_racer() -> void:

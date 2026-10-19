@@ -28,15 +28,25 @@ func run() -> void:
 	var bot := BotDriver.new()
 	for tick in range(10000):
 		var frame := bot.sample(drive.state, drive.car, drive.track, drive.query)
-		Input.action_press("steer_left", maxf(0, -frame.steer))
-		Input.action_press("steer_right", maxf(0, frame.steer))
-		Input.action_press("accelerate", frame.throttle)
-		Input.action_press("brake", frame.brake)
+		# Feed real device events through the device-specific input reader. Undo
+		# the configured radial/exponent mapping to request the bot's raw steer.
+		var raw_steer := 0.0 if frame.steer == 0 else signf(frame.steer) * (drive.driver.deadzone + (1 - drive.driver.deadzone) * pow(absf(frame.steer), 1 / 1.3))
+		for pair: Array in [[JOY_AXIS_LEFT_X,raw_steer],[JOY_AXIS_TRIGGER_RIGHT,frame.throttle],[JOY_AXIS_TRIGGER_LEFT,frame.brake]]:
+			var event := InputEventJoypadMotion.new()
+			event.device = 0
+			event.axis = int(pair[0])
+			event.axis_value = float(pair[1])
+			Input.parse_input_event(event)
+		Input.flush_buffered_events()
 		drive._physics_process(1.0 / 60)
 		if drive.session.phase == RaceSession.Phase.RESULTS:
 			break
-	for action in ["steer_left", "steer_right", "accelerate", "brake"]:
-		Input.action_release(action)
+	for axis: int in [JOY_AXIS_LEFT_X,JOY_AXIS_TRIGGER_RIGHT,JOY_AXIS_TRIGGER_LEFT]:
+		var released := InputEventJoypadMotion.new()
+		released.device = 0
+		released.axis = axis
+		Input.parse_input_event(released)
+	Input.flush_buffered_events()
 	check(drive.state.finished and drive.state.trial_valid, "standing trial completes valid with shared input/controller")
 	check(drive.ghost_samples.size() > 1000, "trial records at 20 Hz")
 	var result := data.commit_result(drive.session, drive.ghost_samples)

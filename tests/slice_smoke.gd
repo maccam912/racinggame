@@ -22,10 +22,16 @@ func run() -> void:
 	drive.phase = "Racing"
 	drive.session.phase = RaceSession.Phase.RACING
 	var initial := drive.state.position
-	Input.action_press("accelerate")
+	var press := InputEventKey.new()
+	press.physical_keycode = KEY_W
+	press.pressed = true
+	Input.parse_input_event(press)
+	Input.flush_buffered_events()
 	for tick in range(120):
 		await physics_frame
-	Input.action_release("accelerate")
+	press.pressed = false
+	Input.parse_input_event(press)
+	Input.flush_buffered_events()
 	check(drive.state.speed() > 20, "scene input accelerates the real chassis")
 	check(drive.state.position.distance_to(initial) > 20, "scene moves on baked road")
 	check(drive.state.grounded, "baked mesh ground probes support moving chassis")

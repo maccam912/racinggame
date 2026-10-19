@@ -17,6 +17,8 @@ var mobile: bool = false
 var mobile_unit: float = 1.0
 var rank: int = 1
 var racers: int = 1
+var control_notice: String = ""
+var notice_until_ms: int = 0
 
 
 func _ready() -> void:
@@ -45,6 +47,8 @@ func time(seconds: float) -> String:
 func _draw() -> void:
 	if state == null:
 		return
+	if Time.get_ticks_msec() < notice_until_ms:
+		text(Vector2(size.x * .5 - 180, size.y * .18), control_notice, 20)
 	var safe := size * .05
 	var unit := mobile_unit if mobile else 1.0
 	draw_style_box(panel(), Rect2(safe, Vector2(180 * unit, 45 * unit) if mobile else Vector2(230, 80)))

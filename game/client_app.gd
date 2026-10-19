@@ -221,6 +221,8 @@ func show_garage(mode: String = "garage") -> void:
 
 
 func start_drive(configuration: Dictionary = {}) -> void:
+	if not touch_layout_available():
+		return
 	if is_instance_valid(stage):
 		remove_child(stage)
 		stage.queue_free()
@@ -504,6 +506,8 @@ func connect_address(value: String, code_value: String = "") -> void:
 
 
 func prepare_online(configuration: Dictionary) -> void:
+	if not touch_layout_available():
+		return
 	page = "loading"
 	back_action = func() -> void:
 		network.leave_room()
@@ -625,3 +629,26 @@ func _notification(what: int) -> void:
 			drive.show_pause()
 		elif back_action.is_valid():
 			back_action.call()
+
+
+func _input(event: InputEvent) -> void:
+	if page != "race":
+		DrivingInput.remember_menu_device(event)
+
+
+func touch_layout_available() -> bool:
+	if not (touch_demo or OS.has_feature("mobile")):
+		return true
+	var geometry := TouchDriving.safe_geometry(get_viewport().get_visible_rect().size)
+	var layout := TouchDriving.build_layout(geometry.safe, bool(data.settings.touch_auto_accelerate), str(data.settings.steering_style), float(data.settings.button_size) / 100, bool(data.settings.left_handed))
+	if not layout.is_empty():
+		return true
+	dispose_drive()
+	ensure_stage()
+	page = "touch_unavailable"
+	back_action = show_menu
+	var body := menu.reset(I18n.t("tab.touch"))
+	body.add_child(menu.ui.paragraph(I18n.t("touch.screen_small")))
+	menu.add_back(show_menu)
+	menu.first_focus()
+	return false
