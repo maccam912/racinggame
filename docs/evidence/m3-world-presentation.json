@@ -1,0 +1,22 @@
+{
+  "host_pixels": "(1280, 720)",
+  "physical_device": false,
+  "renderer": "gl_compatibility",
+  "variants": [
+    {
+      "hud_pixels": "(1280, 720)",
+      "name": "scaled",
+      "world_pixels": "(1024, 576)"
+    },
+    {
+      "hud_pixels": "(1280, 720)",
+      "name": "retro",
+      "world_pixels": "(640, 360)"
+    },
+    {
+      "hud_pixels": "(1280, 720)",
+      "name": "restored",
+      "world_pixels": "(1024, 576)"
+    }
+  ]
+}

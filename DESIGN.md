@@ -407,7 +407,7 @@ Settings has tabs Display, Graphics, Audio, Controls, Accessibility, Gameplay, a
 | Graphics | Draw distance | 400, 700 default, 1000 m; road collision and signs unaffected |
 | Graphics | Effects | Off, Reduced, Full default |
 | Graphics | Anisotropic filtering | 2×, 4× default, 8×, 16× |
-| Graphics | Retro presentation | Off default, 640×360 internal world render; UI stays native |
+| Graphics | Retro presentation | Off default, 640×360 internal world render, letterboxed outside 16:9; UI stays native |
 | Audio | Master / music / engine / effects / announcer | 0–100%, step 5; defaults 80/60/80/80/60 |
 | Audio | Dynamic range | Standard default, Night; Night compresses loud peaks |
 | Audio | Background audio | Off default, On |

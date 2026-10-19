@@ -31,6 +31,7 @@ var directory_client := DirectoryClient.new()
 var regions := RegionBook.new()
 var online_page: OnlinePage
 var online_status: Label
+var presentation := WorldPresentation.new()
 
 
 func _ready() -> void:
@@ -49,6 +50,8 @@ func _ready() -> void:
 		elif arg.begins_with("--capture-frame="):
 			capture_frame = maxi(1, int(arg.trim_prefix("--capture-frame=")))
 	data = AppData.new(folder)
+	presentation.app = self
+	add_child(presentation)
 	BindingBook.apply(data.settings.bindings)
 	SettingsRuntime.apply(self, data.settings, capture_path.is_empty())
 	menu.settings = data.settings
@@ -87,6 +90,7 @@ func ensure_stage() -> void:
 		add_child(stage)
 	stage.reduce_motion = bool(data.settings.reduce_motion)
 	stage.set_paint(int(data.profile.selected_paint))
+	SettingsRuntime.apply(self,data.settings)
 
 
 func dispose_drive(keep_network: bool = false) -> void:

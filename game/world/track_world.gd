@@ -13,6 +13,7 @@ func material(color: Color, roughness: float = 0.9) -> StandardMaterial3D:
 	var result := StandardMaterial3D.new()
 	result.albedo_color = color
 	result.roughness = roughness
+	result.texture_filter = BaseMaterial3D.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS_ANISOTROPIC
 	materials[key] = result
 	return result
 
@@ -85,9 +86,11 @@ func palm(at: Vector3) -> void:
 	trunk.mesh = cylinder
 	trunk.material_override = material(Color.html("B96344"))
 	trunk.position = at + Vector3.UP * 4
+	trunk.add_to_group("scenery_distance")
 	add_child(trunk)
 	for angle in range(0, 360, 60):
 		var leaf := box(at + Vector3.UP * 8, Vector3(0.8, .18, 5), Color.html("2F6650"))
+		leaf.add_to_group("scenery_distance")
 		leaf.rotation_degrees = Vector3(12, angle, 0)
 		leaf.position += leaf.basis.z * 1.8
 

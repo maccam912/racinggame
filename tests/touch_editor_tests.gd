@@ -53,6 +53,7 @@ func run() -> void:
 	var editor: TouchLayoutEditor = app.touch_editor
 	assert(app.page=="touch_layout" and not app.menu.visible and not editor.previewing)
 	assert(editor.sample.paused and original.paused and root.disable_3d)
+	assert(not app.presentation.visible and app.presentation.viewport.render_target_update_mode==SubViewport.UPDATE_DISABLED,"editor suspends the underlying world render")
 	assert(editor.sample.get_world_3d()!=original.get_world_3d(),"sample has its own collision/render world")
 	var previous: Dictionary = app.data.settings.touch_layouts.duplicate(true)
 	var initial: Rect2 = editor.controls.steer
@@ -69,7 +70,7 @@ func run() -> void:
 	assert(TouchDriving.legal_layout(editor.controls,editor.safe))
 	editor.cancel()
 	await settle()
-	assert(app.touch_editor==null and app.data.settings.touch_layouts==previous and not root.disable_3d,"Cancel does not mutate settings and restores main rendering")
+	assert(app.touch_editor==null and app.data.settings.touch_layouts==previous and root.disable_3d and app.presentation.visible and app.presentation.viewport.render_target_update_mode==SubViewport.UPDATE_ALWAYS,"Cancel does not mutate settings and restores the world presentation")
 	assert(app.drive==original and original.paused and original.state.position==position)
 	app.show_touch_editor()
 	await settle()

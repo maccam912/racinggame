@@ -1,0 +1,40 @@
+{
+  "device": "owned Pixel 7 AVD / Android 15 API 35 ARM64 / emulator-5580",
+  "physical_device": false,
+  "apk": {
+    "version": "0.0.41-dev",
+    "build_number": 41,
+    "working_tree_dirty": true,
+    "commit": "11929d5e4061e2eb8b531b194c1ae85ab9d9f8bf",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "78e8df7a34088aade409918658a3cd1d62b2a53c12b2779d52b2ac0ffcc6f078",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "63a9d2b77947e27c6a39a318e564426575ae3e7344b4393502f3656566b3a900",
+      "sha256": "6a63b31ddbda12151c42553e59d9cea38c03229d40f89ff4913b6081c855981b"
+    }
+  },
+  "verified": [
+    "Scaled shared-world rendering, live race timer and touch HUD render on the exported GLES APK",
+    "Retro uses a centered 16:9 world image with side bars on the wide phone display; HUD and touch controls retain their original full-screen geometry"
+  ],
+  "boundaries": [
+    "Exact world-texture dimensions were measured on the native macOS fixture; Android evidence here is visual",
+    "Dirty-worktree development export; no physical-device frame-time or thermal claim"
+  ],
+  "screenshots": [
+    "m3-android-world.png",
+    "m3-android-world-retro.png"
+  ]
+}

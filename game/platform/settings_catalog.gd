@@ -38,8 +38,9 @@ static func valid_value(row: Dictionary, value: Variant, mobile: bool) -> bool:
 	return float(value) >= float(row.minimum) and float(value) <= float(row.maximum)
 
 
-static func sanitize(saved: Dictionary, mobile: bool) -> Dictionary:
+static func sanitize(saved: Variant, mobile: bool) -> Dictionary:
 	var result := defaults(mobile)
+	if not saved is Dictionary: return result
 	for row: Dictionary in rows:
 		if saved.has(row.id) and valid_value(row, saved[row.id], mobile):
 			result[row.id] = saved[row.id]
