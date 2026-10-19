@@ -23,6 +23,7 @@ def main():
                 [sys.executable,'tools/godot.py','--headless','--editor','--import','--quit']]
     commands += [[sys.executable,'tools/godot.py','--headless','--fixed-fps','60','--script',f'tests/{suite}.gd', '--', '--profile=ci_tests'] for suite in SUITES]
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/leave_delivery_tests.gd'])
+    commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/lobby_reconnect_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/audio_dsp_evidence.gd'])
     results = []
     for command in commands:

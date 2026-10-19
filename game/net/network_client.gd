@@ -23,6 +23,7 @@ var admission_ticket: String = ""
 var official: bool = false
 var result_event: Dictionary = {}
 var deliberate_leave: bool = false
+var departure_started: bool = false
 var race_id: int = 1
 var server_tick: float = 0
 var start_tick: int = -1
@@ -336,7 +337,8 @@ func attach_prediction(state: VehicleState, car: CarDefinition, query: WorldQuer
 
 
 func _exit_tree() -> void:
-	wire.close()
+	if not departure_started:
+		wire.close()
 
 
 func mark_loaded(race: int) -> void:
@@ -352,12 +354,21 @@ func command(type: String, values: Dictionary = {}) -> void:
 
 
 func leave_room() -> void:
+	if departure_started:
+		return
 	deliberate_leave = true
 	command("leave")
 	wire.poll()
 	if wire.peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
 		wire.peer.get_host().flush()
 	connected = false
+	if is_inside_tree() and wire.peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED:
+		departure_started = true
+		set_process(false)
+		set_physics_process(false)
+		var departure := NetworkDeparture.new()
+		departure.wire = wire
+		get_tree().root.add_child(departure)
 
 
 func expand_resume(event: Dictionary) -> Dictionary:

@@ -305,6 +305,10 @@ jobs:
     needs: verify
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [rematch, lobby-reconnect]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -315,12 +319,18 @@ jobs:
           path: ~/.cache/pacific-rush/toolchain
           key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
       - run: python tools/godot.py --headless --editor --import --quit
+      - name: Lobby identity reservation and immediate explicit leave
+        run: python tools/godot.py --headless --max-fps 60 --script tests/lobby_reconnect_tests.gd
       - name: Eight clients, all cars, two tracks and persistent rematch
+        if: matrix.scenario == 'rematch'
         run: python tools/lobby_integration.py
+      - name: Eight clients and rematch after five-second lobby transport loss
+        if: matrix.scenario == 'lobby-reconnect'
+        run: python tools/lobby_integration.py --lobby-reconnect
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: lobby-eight-client-evidence
+          name: lobby-eight-client-evidence-${{ matrix.scenario }}
           path: reports/lobby-eight-*/
           if-no-files-found: error
 

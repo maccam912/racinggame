@@ -24,11 +24,15 @@ func run_tests() -> void:
 		until = Time.get_ticks_msec()+3000
 		while (alpha.lobby.is_empty() or beta.lobby.members.size()!=2) and Time.get_ticks_msec()<until: await process_frame
 		assert(not alpha.lobby.is_empty() and beta.lobby.members.size()==2)
+		alpha.wire.latency_ms = attempt * 75
 		alpha.leave_room()
 		alpha.queue_free()
 		until = Time.get_ticks_msec()+1000
 		while beta.lobby.members.size()!=1 and Time.get_ticks_msec()<until: await process_frame
 		assert(beta.lobby.members.size()==1,"explicit leave must arrive before the three-second liveness timeout")
+		until = Time.get_ticks_msec()+2500
+		while root.get_children().any(func(node: Node) -> bool: return node is NetworkDeparture) and Time.get_ticks_msec()<until: await process_frame
+		assert(not root.get_children().any(func(node: Node) -> bool: return node is NetworkDeparture),"acknowledged departure must release its temporary transport owner")
 	beta.queue_free()
 	server.queue_free()
 	await process_frame

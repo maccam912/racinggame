@@ -103,7 +103,10 @@ func _physics_process(_dt: float) -> void:
 			drop_peer(peer_id)
 	for player: Dictionary in players.duplicate():
 		if player.connected and tick - int(player.last_seen) >= 180:
-			drop_peer(int(player.peer))
+			drop_peer(int(player.peer), "liveness")
+		elif not player.connected and lobby.phase == LobbyState.Phase.LOBBY and tick - int(player.disconnected_tick) >= 1200:
+			lobby.leave(player.id)
+			if is_instance_valid(directory_link): directory_link.next_heartbeat = 0
 	if lobby.phase == LobbyState.Phase.LOBBY and auto_start and players.size() >= 2:
 		for player: Dictionary in players:
 			lobby.set_ready(player.id, true)
@@ -258,6 +261,7 @@ func receive(packet: Dictionary) -> void:
 				if session and not session.states[int(player.slot)].finished:
 					session.states[int(player.slot)].dnf_reason = "Left race"
 				disconnect_peer(packet.sender)
+			wire.event(packet.sender, {"type":"left"})
 		"away": disconnect_peer(packet.sender)
 
 
@@ -282,7 +286,7 @@ func hello(sender: int, event: Dictionary) -> void:
 	var player: Dictionary = {}
 	if token != "":
 		for record: Dictionary in players:
-			if crypto.constant_time_compare(record.token.to_utf8_buffer(), token.to_utf8_buffer()) and tick - int(record.disconnected_tick) <= 1200:
+			if crypto.constant_time_compare(record.token.to_utf8_buffer(), token.to_utf8_buffer()) and (record.connected or tick - int(record.disconnected_tick) <= 1200):
 				player = record
 				break
 		if player.is_empty():
@@ -307,11 +311,17 @@ func hello(sender: int, event: Dictionary) -> void:
 
 
 func complete_hello(sender: int, player: Dictionary) -> void:
+	# A valid token may arrive while the old transport still appears live (one-way loss).
+	# Retire that transport before reusing the same reserved identity.
+	if player.has("peer") and int(player.peer) != sender:
+		wire.disconnect_target(int(player.peer))
 	player.peer = sender
 	player.connected = true
 	player.last_seen = tick
 	player.disconnected_tick = tick
 	player.control_tick = tick + 30 if session else 0
+	if lobby.host_id == "":
+		lobby.transfer_host()
 	if session:
 		player.buffer.frames.clear()
 		player.buffer.missing_ticks = 7
@@ -388,24 +398,25 @@ func reset_race() -> void:
 	broadcast_lobby()
 
 
-func drop_peer(peer_id: int) -> void:
-	disconnect_peer(peer_id)
+func drop_peer(peer_id: int, reason: String = "protocol") -> void:
+	disconnect_peer(peer_id, reason)
 	wire.disconnect_target(peer_id)
 
 
-func disconnect_peer(peer_id: int) -> void:
+func disconnect_peer(peer_id: int, reason: String = "transport") -> void:
 	connections.erase(peer_id)
 	var player := player_for_peer(peer_id)
 	if player.is_empty() or not player.connected:
 		return
+	print("PACIFIC_RUSH_PEER_DROPPED phase=%d slot=%d tick=%d last_seen_age=%d reason=%s" % [lobby.phase, player.slot, tick, tick - int(player.last_seen), reason])
+	player.connected = false
+	player.disconnected_tick = tick
+	if player.id == lobby.host_id:
+		lobby.transfer_host()
 	if lobby.phase == LobbyState.Phase.LOBBY:
-		lobby.leave(player.id)
-		if is_instance_valid(directory_link): directory_link.next_heartbeat = 0
+		player.ready = false
+		lobby.changed()
 	else:
-		player.connected = false
-		player.disconnected_tick = tick
-		if player.id == lobby.host_id:
-			lobby.transfer_host()
 		lobby.revision += 1
 
 

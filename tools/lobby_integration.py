@@ -8,7 +8,7 @@ import time
 from bootstrap import ROOT, engine
 
 
-def run(port):
+def run(port, lobby_reconnect=False):
     folder = ROOT/'reports'/f'lobby-eight-{port}'
     folder.mkdir(parents=True, exist_ok=True)
     command = [str(engine()), '--path', str(ROOT), '--headless']
@@ -25,7 +25,8 @@ def run(port):
         clients = []
         for index in range(8):
             log = (folder/f'client-{index}.log').open('w'); handles.append(log)
-            client = subprocess.Popen([*command, '--script', 'tests/lobby_network_client.gd', '--', f'--port={port}', f'--index={index}', f'--report={folder/f"client-{index}.json"}'], stdout=log, stderr=subprocess.STDOUT)
+            faults = ['--lobby-reconnect'] if lobby_reconnect and index == 0 else []
+            client = subprocess.Popen([*command, '--script', 'tests/lobby_network_client.gd', '--', f'--port={port}', f'--index={index}', f'--report={folder/f"client-{index}.json"}', *faults], stdout=log, stderr=subprocess.STDOUT)
             processes.append(client); clients.append(client)
         deadline = time.monotonic()+360
         while any(client.poll() is None for client in clients):
@@ -40,7 +41,7 @@ def run(port):
         for name in ['server.log',*[f'client-{index}.log' for index in range(8)]]:
             text = (folder/name).read_text()
             passed &= not any(marker in text for marker in ('SCRIPT ERROR:', 'ERROR:', 'Leaked instance'))
-        summary = {'passed':bool(passed), 'humans':8, 'tracks':[0,1], 'races':results,
+        summary = {'passed':bool(passed), 'humans':8, 'tracks':[0,1], 'races':results, 'lobby_reconnect':lobby_reconnect,
                    'names':'three family graphemes plus two letters, 77 UTF-8 bytes each',
                    'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'],
                    'content_hash':json.loads((ROOT/'game/content/compatibility.json').read_text())['content_hash'],
@@ -59,4 +60,6 @@ def run(port):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(); parser.add_argument('--port',type=int,default=27050)
-    raise SystemExit(run(parser.parse_args().port))
+    parser.add_argument('--lobby-reconnect', action='store_true')
+    args = parser.parse_args()
+    raise SystemExit(run(args.port, args.lobby_reconnect))
