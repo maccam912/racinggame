@@ -5,6 +5,7 @@ This is a local automated matrix, not physical controls or the named cloud-host
 CPU acceptance. Unique output paths preserve failures and process ownership.
 """
 import argparse
+import hashlib
 import json
 import platform
 from pathlib import Path
@@ -18,6 +19,7 @@ from udp_proxy import UDPProxy
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=27410)
+    parser.add_argument('--server-binary', type=Path, help='Use an actual exported server with its adjacent build.json')
     parser.add_argument('--races', type=int, default=10)
     parser.add_argument('--laps', type=int, choices=[1,2], default=2)
     parser.add_argument('--seconds', type=int, default=1800)
@@ -27,6 +29,18 @@ def main():
     folder = ROOT/'reports'/('soak-eight-'+uuid.uuid4().hex[:10])
     folder.mkdir(parents=True)
     command = [str(engine()), '--headless', '--path', str(ROOT)]
+    authority_command = command
+    authority_folder = ROOT
+    worker_build = None
+    if args.server_binary:
+        binary = args.server_binary.resolve()
+        worker_build = json.loads((binary.parent/'build.json').read_text())
+        assert worker_build['target_platform'] == 'server'
+        assert worker_build['content_hash'] == json.loads((ROOT/'game/content/compatibility.json').read_text())['content_hash']
+        assert worker_build['protocol_version'] == json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version']
+        assert binary.is_file(), 'Exported server missing'
+        authority_command = [str(binary),'--headless']
+        authority_folder = binary.parent
     worker_port = args.port + 20
     processes, handles, proxies = [], [], []
     summary = {'passed':False, 'base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
@@ -35,11 +49,18 @@ def main():
                'races_requested':args.races, 'laps':args.laps, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
                'independent_datagram_loss':.01, 'transport':'Eight independent real UDP proxies, including ENet ACKs and retransmissions',
                'boundary':'Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.'}
+    if worker_build:
+        summary['worker_kind'] = 'Actual exported Linux x86-64 binary with its embedded project, no source-project path'
+        summary['worker_build'] = worker_build
+        with args.server_binary.open('rb') as file:
+            summary['worker_executable_sha256'] = hashlib.file_digest(file,'sha256').hexdigest()
+    else:
+        summary['worker_kind'] = 'Pinned editor running the source headless worker'
     observations, race_wire, race_begin = [], [], {}
     began = time.monotonic()
     try:
         handle = (folder/'server.log').open('w'); handles.append(handle)
-        server = subprocess.Popen([*command, '--', '--server', f'--port={worker_port}', '--network-evidence'], stdout=handle, stderr=subprocess.STDOUT)
+        server = subprocess.Popen([*authority_command, '--', '--server', f'--port={worker_port}', '--network-evidence'], cwd=authority_folder, stdout=handle, stderr=subprocess.STDOUT)
         processes.append(server)
         deadline = time.monotonic()+15
         while 'PACIFIC_RUSH_SERVER_READY' not in (folder/'server.log').read_text():

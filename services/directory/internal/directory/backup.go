@@ -72,7 +72,7 @@ func inspectDatabase(ctx context.Context, db *sql.DB, key []byte) (int, error) {
 	if err := db.QueryRowContext(ctx, `PRAGMA user_version`).Scan(&version); err != nil {
 		return 0, err
 	}
-	if version > databaseVersion {
+	if version > DatabaseSchemaVersion {
 		return 0, errFutureDatabase
 	}
 	if version < 1 {
@@ -168,7 +168,7 @@ func BackupDatabase(ctx context.Context, source, folder, keys string) (manifest 
 	if err = db.QueryRowContext(ctx, `PRAGMA user_version`).Scan(&version); err != nil {
 		return manifest, err
 	}
-	if version > databaseVersion {
+	if version > DatabaseSchemaVersion {
 		return manifest, errFutureDatabase
 	}
 	if version < 1 {
@@ -268,7 +268,7 @@ func readManifest(folder string) (BackupManifest, error) {
 		return manifest, errors.New("invalid backup manifest trailing data")
 	}
 	_, dateErr := time.Parse(time.RFC3339, manifest.Created)
-	if manifest.Format != 1 || manifest.Service != "pacific-rush-directory" || manifest.Schema < 1 || manifest.Schema > databaseVersion || manifest.Bytes < 512 || !validBackupHash(manifest.SHA256) || !validBackupHash(manifest.KeyID) || dateErr != nil {
+	if manifest.Format != 1 || manifest.Service != "pacific-rush-directory" || manifest.Schema < 1 || manifest.Schema > DatabaseSchemaVersion || manifest.Bytes < 512 || !validBackupHash(manifest.SHA256) || !validBackupHash(manifest.KeyID) || dateErr != nil {
 		return manifest, errors.New("unsupported or invalid backup manifest")
 	}
 	return manifest, nil

@@ -1,0 +1,86 @@
+{
+  "passed": true,
+  "boundary": "Locally exported Linux x86-64 package and cross-compiled static operator on macOS; Linux executable/network validation awaits CI",
+  "game_build": {
+    "version": "0.0.81-dev",
+    "build_number": 81,
+    "working_tree_dirty": true,
+    "commit": "cf0a30b67956d5c2dacc785d3cd89ab03e0389ba",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+    "asset_hash": "64547c7923d7a7d0ab85f044ea1c6ed3c2f94d9c0d4789526d1eb714dedfea98",
+    "target_platform": "server",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "linux",
+      "architecture": "x86_64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e",
+      "sha256": "9c4783a6a462dcb23ac69be53c3cca94352a5b34e3f879591626b06bf3a097fb"
+    },
+    "directory_service": {
+      "version": "0.0.81-dev",
+      "build_number": 81,
+      "commit": "cf0a30b67956d5c2dacc785d3cd89ab03e0389ba",
+      "working_tree_dirty": true,
+      "protocol_version": 5,
+      "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+      "distribution": "development",
+      "source_sha256": "c686cf811b648fc879b3e004ebe37f0115282ee925faf9a6b487a1a5b573f78b",
+      "target_platform": "linux-amd64",
+      "go_version": "go1.27.0",
+      "service_schema": 3,
+      "path": "pacific-directory",
+      "sha256": "0d8c3b482e4508faa28ba5c83b7f04b904c802a28d420365ab917fc98c757101",
+      "cgo_enabled": false,
+      "go_sum_sha256": "d4f4737252e72cdf461a67ebaf0eaa24366c520464962c89e46c355049842c2d"
+    }
+  },
+  "archive": {
+    "name": "pacific-rush-00081-server.zip",
+    "sha256": "170c1e88887696f6510f3516dbd9495f223b3dea5736bca327028a1a7ce160d5",
+    "bytes": 36785236
+  },
+  "directory_binary_bytes": 11899004,
+  "worker_with_embedded_project_bytes": 77974056,
+  "service_license_files": 22,
+  "keys_or_database_included": false,
+  "go_race_passed": true,
+  "go_vet_passed": true,
+  "python_suites_passed": true,
+  "yaml_parsed": true,
+  "linux_native_adapter": {
+    "ci_run": 39319375088,
+    "artifact": 12219806675,
+    "source_and_binary_hash_validated": true
+  },
+  "repeat_builds": {
+    "passed": true,
+    "kind": "Shipped server bundle plus two byte-identical Linux x86-64 cross-builds on macOS; execution awaits actual Linux CI",
+    "identity": {
+      "version": "0.0.81-dev",
+      "build_number": 81,
+      "commit": "cf0a30b67956d5c2dacc785d3cd89ab03e0389ba",
+      "working_tree_dirty": true,
+      "protocol_version": 5,
+      "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+      "distribution": "development",
+      "source_sha256": "c686cf811b648fc879b3e004ebe37f0115282ee925faf9a6b487a1a5b573f78b",
+      "target_platform": "linux-amd64",
+      "go_version": "go1.27.0",
+      "service_schema": 3,
+      "path": "pacific-directory",
+      "sha256": "0d8c3b482e4508faa28ba5c83b7f04b904c802a28d420365ab917fc98c757101",
+      "cgo_enabled": false,
+      "go_sum_sha256": "d4f4737252e72cdf461a67ebaf0eaa24366c520464962c89e46c355049842c2d"
+    },
+    "artifact": "build/download/pacific-rush-00081-server.zip"
+  }
+}

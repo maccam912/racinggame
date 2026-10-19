@@ -364,6 +364,11 @@ jobs:
           pattern: platform-adapter-*
           merge-multiple: true
           path: native/bin
+      - uses: actions/setup-go@v6
+        if: matrix.target == 'server'
+        with:
+          go-version: '1.27.0'
+          cache-dependency-path: services/directory/go.sum
       - run: python tools/build.py ${{ matrix.target }} --number ${{ github.run_number }}
       - name: Verify Android package
         if: matrix.target == 'android'
@@ -430,7 +435,7 @@ jobs:
           - target: macos
             runner: macos-15-intel
     runs-on: ${{ matrix.runner }}
-    timeout-minutes: 10
+    timeout-minutes: ${{ matrix.target == 'server' && 20 || 10 }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -440,6 +445,14 @@ jobs:
         with:
           name: package-${{ matrix.target }}
           path: build/download
+      - uses: actions/cache@v4
+        if: matrix.target == 'server'
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - name: Import source clients for actual exported-server cross-play
+        if: matrix.target == 'server'
+        run: python tools/godot.py --headless --editor --import --quit
       - name: Run exported native package
         shell: bash
         run: python tools/native_package_smoke.py ${{ matrix.target }} build/download/*-${{ matrix.target }}.zip
@@ -447,7 +460,11 @@ jobs:
         if: always()
         with:
           name: native-evidence-${{ matrix.target }}-${{ matrix.runner }}
-          path: reports/native-*.json
+          path: |
+            reports/native-*.json
+            reports/directory-backup-*/summary.json
+            reports/directory-backup-*/*.log
+            reports/soak-eight-*/
           if-no-files-found: error
 
   lobbies:

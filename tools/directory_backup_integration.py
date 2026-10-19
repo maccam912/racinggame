@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Real CLI backup/restart/auth drill with entirely temporary local identities."""
+import argparse
 import base64
 import hashlib
 import hmac
@@ -21,6 +22,9 @@ from bootstrap import ROOT
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--binary',type=Path,help='Verify the already exported operator binary')
+    args = parser.parse_args()
     folder = ROOT/'reports'/('directory-backup-'+uuid.uuid4().hex[:10])
     folder.mkdir(parents=True, mode=0o700)
     summary = {'passed':False, 'base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
@@ -31,8 +35,9 @@ def main():
     try:
         with tempfile.TemporaryDirectory(prefix='pacific-backup-') as temporary:
             root = Path(temporary)
-            binary, keys, database = root/'pacific-directory', root/'keys', root/'live.sqlite'
-            subprocess.run(['go','-C',str(ROOT/'services/directory'),'build','-o',str(binary),'./cmd/pacific-directory'],check=True,capture_output=True)
+            binary, keys, database = args.binary.resolve() if args.binary else root/'pacific-directory', root/'keys', root/'live.sqlite'
+            if not args.binary:
+                subprocess.run(['go','-C',str(ROOT/'services/directory'),'build','-o',str(binary),'./cmd/pacific-directory'],check=True,capture_output=True)
             def command(*args, ok=True):
                 result = subprocess.run([str(binary),*map(str,args)],capture_output=True,text=True,timeout=30)
                 assert (result.returncode == 0) == ok, 'Unexpected operator command status'

@@ -7,7 +7,10 @@ from pathlib import Path
 import platform
 import plistlib
 import stat
+import shutil
 import subprocess
+import sys
+from directory_package import verify as verify_directory
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -15,7 +18,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def main(target, artifact):
     folder = ROOT/'build/native-smoke'/target
-    folder.mkdir(parents=True,exist_ok=True)
+    if folder.exists():
+        shutil.rmtree(folder)
+    folder.mkdir(parents=True)
     with zipfile.ZipFile(artifact) as archive:
         archive.extractall(folder)
         for item in archive.infolist():
@@ -43,6 +48,22 @@ def main(target, artifact):
     expected = 'PACIFIC_RUSH_SERVER_READY' if target == 'server' else 'PACIFIC_RUSH_DRIVING_READY'
     passed = probe.returncode==0 and 'PACIFIC_PLATFORM_READY' in probe_output and 'ERROR:' not in probe_output and result.returncode == 0 and expected in output and 'ERROR:' not in output and 'SCRIPT ERROR:' not in output
     report = {'target':target,'host':platform.system()+'-'+platform.machine(),'kind':'exported binary headless startup; graphical/device performance not measured', 'passed':passed,'platform_probe':probe_output,'output':output}
+    if target == 'server':
+        try:
+            data = json.loads((folder/'build.json').read_text())
+            report['directory_service'] = verify_directory(folder,data)
+            drill = subprocess.run([sys.executable,str(ROOT/'tools/directory_backup_integration.py'),'--binary',str(folder/'pacific-directory')],cwd=ROOT,capture_output=True,text=True,timeout=90)
+            report['directory_drill_output'] = drill.stdout+drill.stderr
+            report['passed'] = passed = passed and drill.returncode == 0
+            if passed:
+                race = subprocess.run([sys.executable,str(ROOT/'tools/soak_acceptance.py'),'--server-binary',str(binary),
+                                       '--races','2','--laps','2','--seconds','600','--minimum-seconds','0'],
+                                      cwd=ROOT,capture_output=True,text=True,timeout=750)
+                report['exported_worker_races_output'] = race.stdout+race.stderr
+                report['passed'] = passed = passed and race.returncode == 0
+        except (AssertionError,KeyError,ValueError,OSError,subprocess.SubprocessError) as error:
+            report['directory_error'] = str(error)
+            report['passed'] = passed = False
     reports = ROOT/'reports'
     reports.mkdir(exist_ok=True)
     (reports/f'native-{target}-{platform.machine()}.json').write_text(json.dumps(report,indent=2)+'\n')

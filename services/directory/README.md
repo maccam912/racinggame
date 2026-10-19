@@ -37,3 +37,5 @@ The checked-in Caddyfile allows only `/v1/*`, `/healthz` and `/readyz` to reach 
 The filesystem-only `backup` and `restore` commands create verified live-WAL snapshots and restore to new paths with the original separately stored keys. [Backup commands and drill runbook](../../docs/DIRECTORY_BACKUPS.md) describe schema migration, identity preservation, stale-state removal and no-overwrite rules.
 
 Production room creation now requires fresh authenticated worker tick/RSS measurements and reserves p95 headroom. The worker deadline alert uses a full 30-second window. [Measurement, admission and alert contract](../../docs/SERVER_PERFORMANCE.md) records exact thresholds, missing-data behavior, native API sources and benchmark boundaries.
+
+Development Linux server downloads now include the pinned operator binary. `pacific-directory version` reports its embedded public provenance, actual Go runtime and service schema without loading keys. [Bundle setup and native CI gates](../../docs/SERVER_PACKAGE.md) describe matching identities and shipped-binary validation.

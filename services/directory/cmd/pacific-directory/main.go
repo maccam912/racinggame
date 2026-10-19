@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"flag"
@@ -12,12 +13,16 @@ import (
 	"os"
 	"os/signal"
 	"path/filepath"
+	"runtime"
 	"strings"
 	"syscall"
 	"time"
 
 	"github.com/maccam912/racinggame/services/directory/internal/directory"
 )
+
+// Set only by the pinned packaging tool; contains public build provenance.
+var buildIdentityB64 string
 
 func main() {
 	if err := run(); err != nil {
@@ -27,9 +32,26 @@ func main() {
 }
 func run() error {
 	if len(os.Args) < 2 {
-		return errors.New("use keygen, serve, drain, backup, restore, ban or unban")
+		return errors.New("use keygen, serve, drain, backup, restore, version, ban or unban")
 	}
 	switch os.Args[1] {
+	case "version":
+		if len(os.Args) != 2 {
+			return errors.New("version takes no arguments")
+		}
+		info := map[string]any{"distribution": "source"}
+		if buildIdentityB64 != "" {
+			value, err := base64.RawURLEncoding.DecodeString(buildIdentityB64)
+			if err != nil {
+				return errors.New("invalid embedded build identity")
+			}
+			if err = json.Unmarshal(value, &info); err != nil || info == nil {
+				return errors.New("invalid embedded build identity")
+			}
+		}
+		info["go_version"] = runtime.Version()
+		info["service_schema"] = directory.DatabaseSchemaVersion
+		return json.NewEncoder(os.Stdout).Encode(info)
 	case "keygen":
 		flags := flag.NewFlagSet("keygen", flag.ContinueOnError)
 		folder := flags.String("keys", "var/keys", "operator key directory")

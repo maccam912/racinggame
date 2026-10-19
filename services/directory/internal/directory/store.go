@@ -9,7 +9,8 @@ import (
 	_ "modernc.org/sqlite"
 )
 
-const databaseVersion = 3
+// DatabaseSchemaVersion is the current regional service schema, not the game save format.
+const DatabaseSchemaVersion = 3
 
 type Store struct{ db *sql.DB }
 
@@ -42,7 +43,7 @@ func OpenStore(filename string) (*Store, error) {
 	if err = db.QueryRow(`PRAGMA user_version`).Scan(&version); err != nil {
 		return fail(err)
 	}
-	if version > databaseVersion {
+	if version > DatabaseSchemaVersion {
 		return fail(errFutureDatabase)
 	}
 	tx, err := db.Begin()
