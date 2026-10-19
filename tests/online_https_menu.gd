@@ -87,6 +87,17 @@ func run_fixture() -> void:
 	var guest: String = app.network.guest_id
 	assert(GuestIdentity.valid_uuid(guest) and app.guest_service.identity.guest_id==guest)
 	if app.guest_service.identity.persistent: assert(app.data.profile.guest_reference==guest)
+	# Actual menu -> worker lock -> staged local world -> collision-ready ACK.
+	app.network.command("ready",{"value":true})
+	until = Time.get_ticks_msec()+3000
+	while not app.network.lobby.members[0].ready and Time.get_ticks_msec()<until: await process_frame
+	assert(app.network.lobby.members[0].ready)
+	app.network.command("start")
+	until = Time.get_ticks_msec()+10000
+	while app.page!="race" and Time.get_ticks_msec()<until: await process_frame
+	assert(app.page=="race" and app.drive.network==app.network and app.drive.track==Catalog.tracks[5])
+	assert(app.track_loader==null and app.prepared_world==null and app.network.loaded_race==app.network.loading_race)
+	assert(app.loading_bar.value==1.0,"only completed local work fills the progress bar")
 	await leave_lobby()
 	# A second client creates public/private rooms so browser and code flows have targets.
 	outside_folder = "user://outside-menu-fixture-"+RaceSetup.uuid()

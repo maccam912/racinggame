@@ -32,6 +32,12 @@ var regions := RegionBook.new()
 var online_page: OnlinePage
 var online_status: Label
 var presentation := WorldPresentation.new()
+var track_loader: TrackLoader
+var loading_bar: ProgressBar
+var loading_status: Label
+var loading_hint: Label
+var loading_hint_started: int = 0
+const LOADING_HINTS: Array[String] = ["loading.hint_brake","loading.hint_slide","loading.hint_recover","loading.hint_look"]
 
 
 func _ready() -> void:
@@ -94,6 +100,7 @@ func ensure_stage() -> void:
 
 
 func dispose_drive(keep_network: bool = false) -> void:
+	cancel_loading()
 	if is_instance_valid(drive):
 		remove_child(drive)
 		drive.queue_free()
@@ -257,16 +264,84 @@ func show_garage(mode: String = "garage") -> void:
 	menu.first_focus()
 
 
-func start_drive(configuration: Dictionary = {}, reuse_world: bool = false) -> void:
+func cancel_loading() -> void:
+	if is_instance_valid(track_loader):
+		track_loader.cancel()
+		track_loader.queue_free()
+	track_loader = null
+
+
+func show_loading(configuration: Dictionary, cancel: Callable) -> TrackLoader:
+	cancel_loading()
+	page = "loading"
+	back_action = func() -> void:
+		cancel_loading()
+		cancel.call()
+	var track: TrackDefinition = Catalog.tracks[int(configuration.get("track",0))]
+	var body := menu.reset(I18n.t("online.loading"),I18n.t("track."+track.id))
+	var list := menu.scroll_column(body)
+	var postcard := RoutePreview.new()
+	postcard.track = track
+	postcard.custom_minimum_size = Vector2(320,160)*menu.ui.unit
+	list.add_child(menu.ui.panel(postcard))
+	list.add_child(menu.ui.paragraph(I18n.t("loading.event",[I18n.t("menu."+str(configuration.get("mode","online"))),int(configuration.get("laps",2))])))
+	var device := DrivingInput.last_device
+	if device.is_empty(): device = "touch" if data.mobile else "keyboard"
+	var hints := RaceDrive.control_captions(data.settings,device,bool(data.settings.touch_auto_accelerate))
+	var prompts: Array[String] = []
+	for action: String in ["accelerate","brake","handbrake","recover"]:
+		prompts.append(I18n.t("action."+action)+": "+str(hints[action]))
+	list.add_child(menu.ui.paragraph("  •  ".join(prompts)))
+	loading_bar = ProgressBar.new()
+	loading_bar.min_value = 0
+	loading_bar.max_value = 1
+	loading_bar.show_percentage = false
+	loading_bar.custom_minimum_size.y = 16*menu.ui.unit
+	menu.footer.add_child(loading_bar)
+	loading_bar.custom_minimum_size.x = 220*menu.ui.unit
+	loading_status = menu.ui.label(I18n.t("loading.local"))
+	menu.footer.add_child(loading_status)
+	loading_hint = menu.ui.paragraph(I18n.t(LOADING_HINTS[0]))
+	list.add_child(loading_hint)
+	loading_hint_started = Time.get_ticks_msec()
+	menu.footer.add_child(menu.ui.button(I18n.t("button.cancel"),back_action))
+	menu.first_focus()
+	track_loader = TrackLoader.new()
+	track_loader.begin(track)
+	var expected := track_loader
+	expected.progress.connect(func(value: float) -> void:
+		if track_loader==expected and page=="loading" and is_instance_valid(loading_bar): loading_bar.value = value)
+	add_child(expected)
+	return expected
+
+
+func request_drive(configuration: Dictionary, return_to: Callable) -> void:
+	if not touch_layout_available(): return
+	if is_instance_valid(drive):
+		drive.paused = true
+		drive.touch.clear()
+		drive.touch.enabled = false
+	var snapshot := configuration.duplicate(true)
+	var job := show_loading(snapshot,return_to)
+	job.completed.connect(func() -> void:
+		if track_loader!=job or page!="loading": return
+		var built := job.take_world()
+		cancel_loading()
+		start_drive(snapshot,false,built))
+
+
+func start_drive(configuration: Dictionary = {}, reuse_world: bool = false, supplied_world: TrackWorld = null) -> void:
 	if not touch_layout_available():
+		if is_instance_valid(supplied_world): supplied_world.queue_free()
 		return
+	cancel_loading()
 	configuration = configuration.duplicate(true)
 	if configuration.get("mode","quick")=="quick" and not configuration.has("seed"):
 		# Fresh event entropy stays outside deterministic simulation. Retry uses
 		# pending_config, retaining this exact seed and roster order.
 		configuration["seed"] = int(Crypto.new().generate_random_bytes(4).decode_u32(0))
-	var retained_world: TrackWorld
-	if reuse_world and is_instance_valid(drive) and not network and drive.session.mode in ["trial","quick"] and drive.track==Catalog.tracks[int(configuration.get("track",0))]:
+	var retained_world: TrackWorld = supplied_world
+	if retained_world==null and reuse_world and is_instance_valid(drive) and not network and drive.session.mode in ["trial","quick"] and drive.track==Catalog.tracks[int(configuration.get("track",0))]:
 		retained_world = drive.world
 		drive.remove_child(retained_world)
 	if is_instance_valid(stage):
@@ -282,7 +357,7 @@ func start_drive(configuration: Dictionary = {}, reuse_world: bool = false) -> v
 	drive = RaceDrive.new()
 	drive.config = configuration
 	drive.prepared_world = retained_world
-	drive.retry_countdown = retained_world!=null and configuration.get("mode","")=="trial"
+	drive.retry_countdown = reuse_world and retained_world!=null and configuration.get("mode","")=="trial"
 	drive.app_data = data
 	drive.external_menus = true
 	drive.show_touch = touch_demo
@@ -500,7 +575,7 @@ func start_cup_event() -> void:
 	var index := int(cup.data.next_event)
 	var roster := cup.grid()
 	var human: Dictionary = roster.filter(func(row: Dictionary) -> bool: return row.id == "local")[0]
-	start_drive({"mode":"cup", "track":index, "car":int(human.car), "paint":int(human.paint), "laps":2, "roster":roster, "seed":int(cup.data.seeds[index]), "cup_event":index, "cup_id":str(cup.data.id), "contact":true, "difficulty":1})
+	request_drive({"mode":"cup", "track":index, "car":int(human.car), "paint":int(human.paint), "laps":2, "roster":roster, "seed":int(cup.data.seeds[index]), "cup_event":index, "cup_id":str(cup.data.id), "contact":true, "difficulty":1},show_cup)
 
 
 func show_school() -> void:
@@ -511,7 +586,7 @@ func show_school() -> void:
 	var body := menu.reset(I18n.t("school.title"))
 	var list := menu.scroll_column(body)
 	for index in range(5):
-		list.add_child(menu.ui.button(("✓ " if data.profile.school_steps[index] else "") + I18n.t("school." + str(index)), func() -> void: start_drive({"mode":"school", "lesson":index})))
+		list.add_child(menu.ui.button(("✓ " if data.profile.school_steps[index] else "") + I18n.t("school." + str(index)), func() -> void: request_drive({"mode":"school", "lesson":index},show_school)))
 	menu.add_back(show_menu)
 	menu.first_focus()
 
@@ -519,7 +594,7 @@ func show_school() -> void:
 func skip_school() -> void:
 	var index := int(drive.config.get("lesson", 0))
 	if index < 4:
-		start_drive({"mode":"school", "lesson":index + 1})
+		request_drive({"mode":"school", "lesson":index + 1},show_school)
 	else:
 		show_school_complete()
 
@@ -535,9 +610,9 @@ func show_school_complete() -> void:
 	page = "school_complete"
 	back_action = show_school
 	var body := menu.reset(I18n.t("school.finished" if index == 4 else "school.complete"))
-	body.add_child(menu.ui.button(I18n.t("school.retry"), func() -> void: start_drive(pending_config)))
+	body.add_child(menu.ui.button(I18n.t("school.retry"), func() -> void: request_drive(pending_config,show_school)))
 	if index < 4:
-		body.add_child(menu.ui.button(I18n.t("school.next"), func() -> void: start_drive({"mode":"school", "lesson":index + 1})))
+		body.add_child(menu.ui.button(I18n.t("school.next"), func() -> void: request_drive({"mode":"school", "lesson":index + 1},show_school)))
 	else:
 		body.add_child(menu.ui.paragraph(I18n.t("school.final_body")))
 		body.add_child(menu.ui.button(I18n.t("menu.quick"), func() -> void:
@@ -618,29 +693,27 @@ func connect_address(value: String, code_value: String = "", admission_ticket: S
 
 
 func prepare_online(configuration: Dictionary) -> void:
-	if not touch_layout_available():
-		return
-	page = "loading"
-	back_action = func() -> void:
-		network.leave_room()
-		show_menu()
-	if is_instance_valid(stage):
-		remove_child(stage)
-		stage.queue_free()
-		stage = null
-	var body := menu.reset(I18n.t("online.loading"), I18n.t("track." + Catalog.tracks[int(configuration.track)].id))
-	body.add_child(menu.ui.paragraph(I18n.t("settings.controls_help")))
-	body.add_child(menu.ui.paragraph(I18n.t("online.waiting")))
-	menu.add_back(back_action)
-	await get_tree().process_frame
-	if not network or page != "loading":
-		return
-	prepared_world = TrackWorld.new()
-	prepared_world.build(Catalog.tracks[int(configuration.track)])
-	add_child(prepared_world)
-	await get_tree().physics_frame
-	if network and page == "loading":
-		network.mark_loaded(int(configuration.race))
+	if not touch_layout_available(): return
+	var expected_network := network
+	var snapshot := configuration.duplicate(true)
+	snapshot["mode"] = "online"
+	var job := show_loading(snapshot,func() -> void:
+		data.store.notice("loading.left_room")
+		show_menu())
+	job.completed.connect(func() -> void:
+		if track_loader!=job or page!="loading" or network!=expected_network: return
+		var built := job.take_world()
+		cancel_loading()
+		if is_instance_valid(stage):
+			remove_child(stage)
+			stage.queue_free()
+			stage = null
+		prepared_world = built
+		add_child(prepared_world)
+		SettingsRuntime.apply(self,data.settings)
+		await get_tree().physics_frame
+		if network==expected_network and page=="loading" and prepared_world==built:
+			network.mark_loaded(int(snapshot.race)))
 
 
 func start_online(_configuration: Dictionary) -> void:
@@ -724,6 +797,13 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(_dt: float) -> void:
+	if page=="loading":
+		if is_instance_valid(loading_hint):
+			loading_hint.text = I18n.t(LOADING_HINTS[((Time.get_ticks_msec()-loading_hint_started)/4000)%LOADING_HINTS.size()])
+		if network and is_instance_valid(loading_status):
+			var members: Array = network.lobby.get("members",[])
+			var loaded := members.filter(func(row: Dictionary) -> bool: return bool(row.get("loaded",false))).size()
+			loading_status.text = I18n.t("loading.waiting",[loaded,members.size()]) if not is_instance_valid(track_loader) else I18n.t("loading.local")
 	if network and page == "results" and is_instance_valid(online_result_label):
 		online_result_label.text = I18n.t("online.return_countdown", [maxi(0, ceili((float(network.result_event.get("return_tick", 0)) - network.server_tick) / 60))])
 	if lobby_page and page == "lobby":

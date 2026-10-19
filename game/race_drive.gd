@@ -444,26 +444,7 @@ func next_racer() -> void:
 
 func update_control_hints() -> void:
 	var values: Dictionary = app_data.settings if app_data else SettingsCatalog.defaults(OS.has_feature("mobile"))
-	var book := BindingBook.sanitize(values.bindings)
-	var device_name := driver.owner_device
-	var icons := str(values.prompts)
-	if device_name != "touch":
-		if icons == "keyboard":
-			device_name = "keyboard"
-		elif icons in ["xbox","playstation"]:
-			device_name = "gamepad"
-	var hints: Dictionary = {}
-	for action: String in BindingBook.DRIVING:
-		if device_name == "touch":
-			hints[action] = I18n.t("touch.hint." + action)
-			if action == "accelerate" and touch.auto_accelerate:
-				hints[action] = I18n.t("touch.hint.auto")
-		else:
-			var labels: Array[String] = []
-			for binding: Variant in book[device_name][action]:
-				if binding != null:
-					labels.append(BindingBook.caption(binding, icons))
-			hints[action] = " / ".join(labels) if not labels.is_empty() else I18n.t("binding.empty")
+	var hints := control_captions(values,driver.owner_device,touch.auto_accelerate)
 	if is_instance_valid(school_overlay):
 		school_overlay.hints = hints
 	if not is_instance_valid(help_label):
@@ -481,3 +462,26 @@ func update_control_hints() -> void:
 	help_label.offset_right = -canvas.x * .25
 	help_label.offset_top = -100 * float(values.ui_scale) / 100
 	help_label.offset_bottom = -15
+
+
+static func control_captions(values: Dictionary, device_name: String, touch_auto: bool = true) -> Dictionary:
+	var book := BindingBook.sanitize(values.bindings)
+	var icons := str(values.prompts)
+	if device_name != "touch":
+		if icons == "keyboard":
+			device_name = "keyboard"
+		elif icons in ["xbox","playstation"]:
+			device_name = "gamepad"
+	var hints: Dictionary = {}
+	for action: String in BindingBook.DRIVING:
+		if device_name == "touch":
+			hints[action] = I18n.t("touch.hint." + action)
+			if action == "accelerate" and touch_auto:
+				hints[action] = I18n.t("touch.hint.auto")
+		else:
+			var labels: Array[String] = []
+			for binding: Variant in book[device_name][action]:
+				if binding != null:
+					labels.append(BindingBook.caption(binding, icons))
+			hints[action] = " / ".join(labels) if not labels.is_empty() else I18n.t("binding.empty")
+	return hints

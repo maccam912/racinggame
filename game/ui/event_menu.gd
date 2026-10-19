@@ -19,6 +19,8 @@ func _init(owner_app: Node) -> void:
 
 
 func show_event() -> void:
+	app.page = "event"
+	app.back_action = func() -> void: app.show_garage(mode)
 	var shell: MenuShell = app.menu
 	var body := shell.reset(I18n.t("event.title"), I18n.t("menu." + mode))
 	var list := shell.scroll_column(body)
@@ -97,4 +99,4 @@ func choice(parent: Node, key: String, items: Array, selected: int, callback: Ca
 
 func start() -> void:
 	var configuration := {"mode":mode, "track":track_index, "car":int(app.data.profile.selected_car), "paint":int(app.data.profile.selected_paint), "laps":1 if mode == "trial" else laps, "opponents":0 if mode == "trial" else opponents, "difficulty":difficulty, "contact":contact, "ghost":ghost}
-	app.start_drive(configuration)
+	app.request_drive(configuration,show_event)

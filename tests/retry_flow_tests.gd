@@ -10,6 +10,7 @@ func run() -> void:
 	app.events.mode = "quick"
 	app.events.opponents = 7
 	app.events.start()
+	while app.page=="loading": await process_frame
 	var first_seed: int = app.pending_config.seed
 	var first_roster: Array = app.drive.session.roster.duplicate(true)
 	var first_world: TrackWorld = app.drive.world
@@ -22,6 +23,7 @@ func run() -> void:
 	assert(app.drive.session.roster==first_roster and app.drive.session.race_uuid!=first_uuid,"retry retains event seed/grid but starts a new result identity")
 	assert(app.drive.session.phase==RaceSession.Phase.GRID)
 	app.events.start()
+	while app.page=="loading": await process_frame
 	app.drive.set_physics_process(false)
 	assert(app.pending_config.seed!=first_seed,"a new confirmed event draws a fresh seed")
 	app.start_drive({"mode":"trial","track":0,"car":2,"paint":5,"opponents":0,"laps":1,"ghost":false})

@@ -4,6 +4,9 @@ extends Node3D
 
 var track: TrackDefinition
 var materials: Dictionary = {}
+var build_stage: int = 0
+var scenery_cursor: int = 0
+var pending_geometry: Dictionary = {}
 
 
 func material(color: Color, roughness: float = 0.9) -> StandardMaterial3D:
@@ -19,7 +22,41 @@ func material(color: Color, roughness: float = 0.9) -> StandardMaterial3D:
 
 
 func build(data: TrackDefinition) -> void:
+	begin_build(data)
+	while not advance_build(): pass
+
+
+func begin_build(data: TrackDefinition) -> void:
 	track = data
+	build_stage = 0
+	scenery_cursor = 0
+
+
+func build_steps() -> int:
+	return 4+ceili(float(int(track.length))/220.0)
+
+
+func advance_build() -> bool:
+	match build_stage:
+		0: build_environment()
+		1: build_road()
+		2: build_collision()
+		_:
+			if scenery_cursor<int(track.length):
+				for s: int in range(scenery_cursor,mini(scenery_cursor+220,int(track.length)),22):
+					palm(track.pose(s,-24).origin)
+					palm(track.pose(s+10,-42).origin)
+					if s%66==0: palm(track.pose(s,28).origin)
+				scenery_cursor += 220
+			else:
+				gantry()
+				build_stage += 1
+				return true
+	build_stage += 1
+	return false
+
+
+func build_environment() -> void:
 	var environment := WorldEnvironment.new()
 	var settings := Environment.new()
 	settings.background_mode = Environment.BG_SKY
@@ -43,7 +80,11 @@ func build(data: TrackDefinition) -> void:
 	sun.light_energy = 1.15
 	add_child(sun)
 	box(Vector3(500, -1, -200), Vector3(9000, 1, 9000), Color.html("31BFC1"))
-	var geometry := RouteGeometry.meshes(track, true)
+
+
+func build_road() -> void:
+	pending_geometry = RouteGeometry.meshes(track,true)
+	var geometry := pending_geometry
 	var sand := material(Color.html("D8BD86") if track.definition.surface == "sand" else Color.html("79A269"))
 	for key: String in geometry:
 		var instance := MeshInstance3D.new()
@@ -52,17 +93,14 @@ func build(data: TrackDefinition) -> void:
 		mat.cull_mode = BaseMaterial3D.CULL_DISABLED
 		instance.material_override = mat
 		add_child(instance)
+
+
+func build_collision() -> void:
 	var collision := RouteCollision.new()
 	for key in ["asphalt", "shoulder", "walls"]:
-		collision.add_mesh(geometry[key])
+		collision.add_mesh(pending_geometry[key])
 	add_child(collision)
-	for s in range(0, int(track.length), 22):
-		var pose := track.pose(s, -24)
-		palm(pose.origin)
-		palm(track.pose(s + 10, -42).origin)
-		if s % 66 == 0:
-			palm(track.pose(s, 28).origin)
-	gantry()
+	pending_geometry.clear()
 
 
 func box(at: Vector3, size: Vector3, color: Color, parent: Node3D = null) -> MeshInstance3D:
