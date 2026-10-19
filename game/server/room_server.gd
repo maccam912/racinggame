@@ -28,6 +28,8 @@ var directory_link: WorkerDirectory
 var retiring: bool = false
 var performance := WorkerPerformance.new()
 var next_performance_evidence: int = 0
+var retire_requested_ms: int = -1
+var retire_results_until_ms: int = -1
 
 
 func _ready() -> void:
@@ -107,7 +109,7 @@ func _process(_dt: float) -> void:
 func step_worker() -> void:
 	tick += 1
 	wire.racing = session != null and not result_sent and tick >= start_tick + 300
-	if retiring and (session == null or result_sent):
+	if retirement_due(Time.get_ticks_msec()):
 		get_tree().quit()
 		return
 	for packet: Dictionary in wire.poll():
@@ -123,12 +125,12 @@ func step_worker() -> void:
 		elif not player.connected and lobby.phase == LobbyState.Phase.LOBBY and tick - int(player.disconnected_tick) >= 1200:
 			lobby.leave(player.id)
 			if is_instance_valid(directory_link): directory_link.next_heartbeat = 0
-	if lobby.phase == LobbyState.Phase.LOBBY and auto_start and players.size() >= 2:
+	if not retiring and lobby.phase == LobbyState.Phase.LOBBY and auto_start and players.size() >= 2:
 		for player: Dictionary in players:
 			lobby.set_ready(player.id, true)
 		if lobby.request_start(lobby.host_id, tick):
 			send_loading()
-	var transition := lobby.step(tick)
+	var transition := lobby.step(tick) if not retiring else ""
 	match transition:
 		"load": send_loading()
 		"start": start_race()
@@ -136,12 +138,22 @@ func step_worker() -> void:
 		"close": get_tree().quit()
 	if lobby.revision != last_broadcast or tick % 300 == 0:
 		broadcast_lobby()
-	if session and tick > start_tick:
+	if session and tick > start_tick and not result_sent:
 		step_race()
 	var active := players.filter(func(player: Dictionary) -> bool: return player.connected).size()
 	empty_ticks = empty_ticks + 1 if active == 0 else 0
 	if empty_ticks >= 1800:
 		get_tree().quit()
+
+
+func retirement_due(now_ms: int) -> bool:
+	if not retiring: return false
+	if retire_requested_ms < 0: retire_requested_ms = now_ms
+	if result_sent and retire_results_until_ms < 0:
+		# Results entered WirePeer's queue on the previous tick. Continue
+		# polling/flushing ENet and reliable retries before releasing the port.
+		retire_results_until_ms = now_ms + 5000
+	return session == null or now_ms - retire_requested_ms >= 600000 or (retire_results_until_ms >= 0 and now_ms >= retire_results_until_ms)
 
 
 func step_race() -> void:
@@ -289,6 +301,9 @@ func receive(packet: Dictionary) -> void:
 
 
 func hello(sender: int, event: Dictionary) -> void:
+	if retiring and event.get("token", "") == "":
+		wire.event(sender, {"type":"error", "message":"Room unavailable"})
+		return
 	if auth_mode == "ticket_required" and event.get("token", "") == "":
 		if player_for_peer(sender).is_empty() and lobby.phase == LobbyState.Phase.LOBBY:
 			directory_link.admit(sender, event)

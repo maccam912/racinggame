@@ -54,6 +54,7 @@ jobs:
           path: |
             reports/checks.json
             reports/m5-packet-faults.json
+            reports/worker-retirement-*/
           if-no-files-found: error
 
   ai:

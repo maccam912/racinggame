@@ -1,0 +1,126 @@
+{
+  "passed": false,
+  "base_commit": "91f1fd16d2a05a3eee542d631102f365be482353",
+  "boundary": "Synthetic two-driver finish exercises active-race retirement and real reliable ENet delivery. No profile, score, timing or genuine race finish acceptance.",
+  "clients": [
+    {
+      "acknowledged_sequence": 137,
+      "clear_corrections": {
+        "count": 20,
+        "max": 0.0210801213979721,
+        "p95": 0.0205791015177965
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 7,
+      "connected": false,
+      "contact_corrections": {
+        "count": 13,
+        "max": 0.542199373245239,
+        "p95": 0.542199373245239
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 0,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 27.0056457519531,
+      "permanent_error": "",
+      "received_bytes": 31457,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 130,
+      "remote_brake_on": 0,
+      "results": [],
+      "resume_count": 0,
+      "rtt_ms": 198.0,
+      "sent_bytes": 6201,
+      "sequence": 137,
+      "slot": 0,
+      "snapshots": 43,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      }
+    },
+    {
+      "acknowledged_sequence": 137,
+      "clear_corrections": {
+        "count": 19,
+        "max": 0.0202715471386909,
+        "p95": 0.0202715471386909
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 7,
+      "connected": false,
+      "contact_corrections": {
+        "count": 13,
+        "max": 0.468189120292664,
+        "p95": 0.468189120292664
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 25.2628231048584,
+      "permanent_error": "",
+      "received_bytes": 31302,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 132,
+      "remote_brake_on": 0,
+      "results": [],
+      "resume_count": 0,
+      "rtt_ms": 201.0,
+      "sent_bytes": 6201,
+      "sequence": 137,
+      "slot": 1,
+      "snapshots": 41,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      }
+    }
+  ],
+  "worker_exit": 0,
+  "wire": {
+    "upstream_bytes": 16128,
+    "downstream_bytes": 67164,
+    "upstream_packets": 254,
+    "downstream_packets": 374,
+    "dropped_packets": 14,
+    "offered_upstream_bytes": 16332,
+    "offered_downstream_bytes": 68785,
+    "offered_upstream_packets": 258,
+    "offered_downstream_packets": 384
+  },
+  "retired_during_active_race": true,
+  "advanced_before_finish": true,
+  "failure": "AssertionError: Retirement failed to deliver the final authoritative rows"
+}

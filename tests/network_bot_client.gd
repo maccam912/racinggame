@@ -64,7 +64,12 @@ func run() -> void:
 	scene.add_child(link)
 	link.race_started.connect(start_race)
 	link.loading_requested.connect(func(config: Dictionary) -> void: link.mark_loaded(int(config.race)))
-	link.results_received.connect(func(value: Array) -> void: result = value)
+	link.results_received.connect(func(value: Array) -> void:
+		result = value
+		if "--retirement-commands" in OS.get_cmdline_user_args():
+			link.command("return_lobby")
+			link.command("ready", {"value":true})
+			link.command("start"))
 	link.disconnected_permanently.connect(func(message: String) -> void: permanent_error = message)
 	link.status_changed.connect(func(message: String) -> void: print("TEST_NETWORK_STATUS " + message))
 	await physics_frame
