@@ -1,6 +1,8 @@
 class_name MenuShell
 extends CanvasLayer
 
+signal context_changed
+
 var root: Control
 var frame: MarginContainer
 var column: VBoxContainer
@@ -52,6 +54,7 @@ func reset(title: String, subtitle: String = "", dark: bool = true) -> VBoxConta
 	column.add_child(ui.panel(footer))
 	layout()
 	visible = true
+	context_changed.emit()
 	return content
 
 

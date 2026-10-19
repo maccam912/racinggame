@@ -10,7 +10,7 @@ from bootstrap import ROOT, engine
 
 SUITES = ['content_tests', 'driving_tests', 'world_tests', 'progress_touch_tests',
           'slice_smoke', 'network_contract_tests', 'race_contact_tests', 'jump_track_tests',
-          'save_cup_tests', 'ghost_medal_tests', 'app_data_tests', 'name_tests', 'menu_flow_tests', 'mode_tests', 'lobby_tests', 'compact_control_tests', 'input_ownership_tests', 'display_tests', 'ghost_transaction_tests', 'binding_tests', 'binding_ui_tests']
+          'save_cup_tests', 'ghost_medal_tests', 'app_data_tests', 'name_tests', 'menu_flow_tests', 'mode_tests', 'lobby_tests', 'compact_control_tests', 'input_ownership_tests', 'display_tests', 'ghost_transaction_tests', 'binding_tests', 'binding_ui_tests', 'menu_repeat_tests']
 
 
 def main():

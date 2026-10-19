@@ -17,6 +17,8 @@ var pending_config: Dictionary = {}
 var result_summary: Dictionary = {}
 var settings_page: SettingsPage
 var bindings_page: BindingsPage
+var menu_repeat := MenuRepeat.new()
+var foreground: bool = true
 var lobby_page: LobbyPage
 var prepared_world: TrackWorld
 var online_result_label: Label
@@ -44,6 +46,9 @@ func _ready() -> void:
 	events = EventMenu.new(self)
 	settings_page = SettingsPage.new(self)
 	bindings_page = BindingsPage.new(self)
+	menu_repeat.allowed = func() -> bool: return foreground and page != "race" and menu.visible and (not is_instance_valid(bindings_page.capture) or not bindings_page.capture.visible)
+	add_child(menu_repeat)
+	menu.context_changed.connect(menu_repeat.clear_context)
 	lobby_page = LobbyPage.new(self)
 	if "--drive" in OS.get_cmdline_user_args():
 		start_drive()
@@ -627,11 +632,21 @@ func _process(_dt: float) -> void:
 
 
 func _notification(what: int) -> void:
+	if not is_inside_tree():
+		return
 	if what == NOTIFICATION_WM_GO_BACK_REQUEST and is_inside_tree():
 		if page == "race" and is_instance_valid(drive):
 			drive.show_pause()
 		elif back_action.is_valid():
 			back_action.call()
+	if capture_path != "":
+		return
+	if what in [NOTIFICATION_APPLICATION_FOCUS_OUT, NOTIFICATION_APPLICATION_PAUSED]:
+		foreground = false
+		menu_repeat.clear_context()
+	elif what in [NOTIFICATION_APPLICATION_FOCUS_IN, NOTIFICATION_APPLICATION_RESUMED]:
+		foreground = true
+		menu_repeat.clear_context()
 
 
 func _input(event: InputEvent) -> void:
