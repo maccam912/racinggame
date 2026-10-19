@@ -2,7 +2,7 @@
 
 The design remains the complete launch contract. Milestone work is sequential; blocked physical-device validation is recorded separately from source implementation.
 
-Current work is M4 content and style. The M0–M3 source implementation includes offline modes, protected guest identities, the complete local HTTPS directory/menu path and settings/accessibility contracts; historical checkpoints and their remaining human/device acceptance boundaries follow below. Four original cars, six scenery kits, original audio and bounded driving feedback now replace their placeholders. Race HUD/interface work and M5–M6 remain. Neither official region is hosted, and physical-device gates remain open.
+Current work is M4 content and style. The M0–M3 source implementation includes offline modes, protected guest identities, the complete local HTTPS directory/menu path and settings/accessibility contracts; historical checkpoints and their remaining human/device acceptance boundaries follow below. Four original cars, six scenery kits, original audio and bounded driving feedback now replace their placeholders. Remaining M4 contract checks and M5–M6 remain. Neither official region is hosted, and physical-device gates remain open.
 
 ## M0 — toolchain and contracts
 
@@ -330,3 +330,14 @@ All **60 source checks pass**, including real occlusion against an inserted scen
 Build 55 passed all remote gates and published all 18 desktop/Android/server files. The local development Build 56 Android HUD check is recorded separately below. Final menu behavior, the Summit mixed shoulder surface contract, broad reference/feel review and M5/M6 remain open.
 
 The dirty local Build 56 APK installs in place and renders actual single-car Quick Race driving at 100%/150% on the Android 15 ARM64 Pixel 7 emulator. [Default HUD](evidence/m4-hud-android-100.png), [large text](evidence/m4-hud-android-150.png) and [metadata](evidence/m4-hud-android-validation.json) record the bounded map, omitted gear/tach, accessible Pause and lower-quarter speed panel above the secondary buttons. Observed logs contain no Godot script/parse errors. A physical phone/tablet, full Android race and Android saved-ghost comparison remain separate acceptance gates.
+
+
+## M4 — menu motion and focus explanations checkpoint
+
+Screen changes now slide horizontally over 0.18 seconds, while same-screen refreshes keep their position and Reduce Motion cuts instantly. The focus triangle transitions over 0.10 seconds. Selection accents use text/icon theme colors instead of modulating the entire control, preserving the bright yellow focus border; selected car names also have a check mark. Paint swatches reflow to two phone/four desktop columns at large text to keep Garage inside its centered safe region.
+
+Focused contextual help appears after 0.5 seconds and dismisses on navigation/scrolling. Disabled online, lobby-start, locked touch-layout and essential-binding controls explain the specific reason immediately on focus and remain nonactivating. Keyboard/gamepad can inspect disabled controls; mouse/touch can focus them. Main help uses available space beside the choices. Dialog help remains within its own window, and overlays do not intercept input. The native [Main focus help](evidence/m4-menu-main-focus-help.png), [selected Garage](evidence/m4-menu-garage-selected.png), [large-text Garage](evidence/m4-menu-garage-150.png), [disabled explanation](evidence/m4-menu-disabled-reason-150.png), slide and instant-cut views are recorded in [metadata](evidence/m4-menu-reference.json).
+
+A regression reproduces and fixes lost very short navigation taps: press/release in the same render frame now emits exactly one initial step for keyboard, gamepad and stick flick, while release cancels held repeats. Changing menu context still cancels queued initial movement. The existing 350/90 ms repeat cadence, OS-echo suppression and text-editing behavior remain covered. All **61 source checks pass**; CI includes native menu references. Build 56 passed all remote gates and published all 18 release files. Physical input devices, screen-reader/human comprehension, instructional demonstration polish and remaining M4/M5/M6 gates remain separate.
+
+The dirty local Build 57 APK passes the actual 150% touch layout check on the Android 15 ARM64 Pixel 7 emulator: [Main contextual help](evidence/m4-menu-android-main-150.png), [dismissal while scrolling](evidence/m4-menu-android-scrolled.png), and [disabled Quick Join explanation](evidence/m4-menu-android-disabled-150.png). The action does not activate; observed logs show no script/parse errors. [Build/device metadata](evidence/m4-menu-android-validation.json) identifies seeded preferences, the owned QA profile and emulator boundary.

@@ -134,7 +134,7 @@ func select_track(index: int) -> void:
 		var best: float = app.data.best("trial", track.id, Catalog.cars[int(app.data.profile.selected_car)].id)
 		info.text += "\n" + I18n.t("event.best") + ": " + (RaceHUD.format_time(best) if best > 0 else I18n.t("event.no_record"))
 	for i in range(buttons.size()):
-		buttons[i].modulate = UIFactory.TURQUOISE if i == index else Color.WHITE
+		app.menu.ui.selected(buttons[i],i==index)
 
 
 func choice(parent: Node, key: String, items: Array, selected: int, callback: Callable) -> void:

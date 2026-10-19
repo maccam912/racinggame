@@ -185,6 +185,8 @@ func show_menu() -> void:
 		choices.erase("quit")
 	for choice: String in choices:
 		var button := menu.ui.button(I18n.t("menu." + choice), func() -> void: main_choice(choice), 270)
+		menu.ui.help(button,I18n.t("help.menu."+choice))
+		button.set_meta("help_side",true)
 		menu.ui.set_icon(button,"menu_"+choice)
 		list.add_child(button)
 		if choice == data.profile.last_menu:
@@ -284,13 +286,14 @@ func show_garage(mode: String = "garage") -> void:
 		grip_max = maxf(grip_max,candidate.grip)
 	for index in range(4):
 		var car: CarDefinition = Catalog.cars[index]
-		var caption := I18n.t("car." + car.id)
+		var selected := index==int(data.profile.selected_car)
+		var caption := ("✓ " if selected else "")+I18n.t("car." + car.id)
 		var button := menu.ui.button(caption, func() -> void:
 			data.select_car(index, int(data.profile.selected_paint))
 			show_garage(mode), 230)
 		menu.ui.set_icon(button,"car_"+car.id)
 		garage_car_buttons.append(button)
-		button.modulate = UIFactory.TURQUOISE if index == int(data.profile.selected_car) else Color.WHITE
+		menu.ui.selected(button,selected)
 		var card := VBoxContainer.new()
 		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		card.add_child(button)
@@ -305,7 +308,7 @@ func show_garage(mode: String = "garage") -> void:
 	space.gui_input.connect(stage.preview_input)
 	list.add_child(space)
 	var paints := GridContainer.new()
-	paints.columns = 4 if data.mobile else 8
+	paints.columns = (2 if int(data.settings.ui_scale)>=125 else 4) if data.mobile else (4 if int(data.settings.ui_scale)>=125 else 8)
 	list.add_child(paints)
 	for index in range(8):
 		var button := menu.ui.button(I18n.t("paint." + str(index)), func() -> void:

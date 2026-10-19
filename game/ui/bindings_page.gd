@@ -70,10 +70,12 @@ func begin_capture(action: String,slot: int) -> void:
 	var remove:=capture.add_button(I18n.t("binding.remove"),true,"remove")
 	var cleared:=BindingBook.change(app.data.settings.bindings,device_name,action,slot,null)
 	remove.disabled=cleared.status!="ok"
+	app.menu.ui.help(remove,I18n.t("binding.essential"),true)
 	capture.custom_action.connect(func(_action: String) -> void:
 		close_capture()
 		choose.call_deferred(null))
 	app.menu.root.add_child(capture)
+	app.menu.explain_window(capture)
 
 func choose(value: Variant,decision: String = "") -> void:
 	pending=value
@@ -109,6 +111,9 @@ func show_conflict(other: String) -> void:
 	conflict_dialog.popup_centered(Vector2i(600,200))
 	conflict_dialog.get_ok_button().disabled=true
 	replace_button.disabled=true
+	app.menu.ui.help(conflict_dialog.get_ok_button(),I18n.t("binding.essential") if not can_swap else I18n.t("ui.wait"),true)
+	app.menu.ui.help(replace_button,I18n.t("binding.essential") if not can_replace else I18n.t("ui.wait"),true)
+	app.menu.explain_window(conflict_dialog)
 	var gate:=Timer.new()
 	gate.wait_time=.05
 	conflict_dialog.add_child(gate)

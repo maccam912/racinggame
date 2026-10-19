@@ -1,0 +1,46 @@
+{
+  "build": {
+    "version": "0.0.57-dev",
+    "build_number": 57,
+    "working_tree_dirty": true,
+    "commit": "83cfa411305026f82475a5babc698ff86a91b5bc",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "4899e636e87a2e0dbda39be146a526c4f1b3be608fec9411da2a92ca17f5fbc3",
+    "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "839540d19ada13cd2463f7ff8e24ceaba91384de2fa3808dd65438231cedce82",
+      "sha256": "1e7411b8f6fd4d8529c8947db00af0e37174b741dfd4d221c08f3cc75097fa64"
+    }
+  },
+  "device": {
+    "avd": "pacific_rush_test",
+    "profile": "Pixel 7",
+    "os": "Android 15/API 35 ARM64",
+    "resolution": [
+      2400,
+      1080
+    ]
+  },
+  "ui_scale": 150,
+  "observed": [
+    "in-place release-mode development APK install",
+    "owned prior QA profile copied for the layout check; QA-only file ownership corrected to the app UID before use",
+    "Main contextual help appears alongside choices",
+    "touch drag scrolls disabled online actions and dismisses help",
+    "fresh tap on disabled Quick Join shows the service-unavailable reason without opening a room",
+    "observed Godot logs contain zero script/parse errors"
+  ],
+  "boundary": "Emulator only, with seeded large text and Reduce Motion preferences. No physical touch/controller or human comprehension acceptance."
+}

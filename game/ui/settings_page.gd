@@ -51,7 +51,7 @@ func show_tab(selected: String, return_to: Callable) -> void:
 		for key: String in names:
 			var button := shell.ui.button(I18n.t("tab."+key),func() -> void: show_tab(key,back))
 			shell.ui.set_icon(button,"tab_"+key)
-			button.modulate = UIFactory.TURQUOISE if key==tab else Color.WHITE
+			shell.ui.selected(button,key==tab)
 			tabs.add_child(button)
 			if key==tab:
 				selected_button = button
@@ -70,6 +70,8 @@ func show_tab(selected: String, return_to: Callable) -> void:
 		var restore := shell.ui.button(I18n.t("touch.restore_layout"),restore_layout)
 		edit.disabled = touch_layout_locked()
 		restore.disabled = touch_layout_locked()
+		shell.ui.help(edit,I18n.t("touch.change_lobby"),true)
+		shell.ui.help(restore,I18n.t("touch.change_lobby"),true)
 		list.add_child(edit)
 		list.add_child(restore)
 		if touch_layout_locked():
@@ -84,6 +86,7 @@ func show_tab(selected: String, return_to: Callable) -> void:
 	if tab != "data":
 		var restore_tab := shell.ui.button(I18n.t("settings.restore_tab"), restore_this_tab)
 		restore_tab.disabled = tab=="touch" and touch_layout_locked()
+		shell.ui.help(restore_tab,I18n.t("touch.change_lobby"),true)
 		shell.footer.add_child(restore_tab)
 	shell.add_back(back)
 	if selected_button:
@@ -145,6 +148,9 @@ func setting_row(parent: Node, definition: Dictionary) -> void:
 			control.disabled = true
 		elif control is SpinBox:
 			control.editable = false
+		app.menu.ui.help(control,I18n.t("touch.change_lobby"),true)
+	var help_key := "help.setting."+str(definition.id)
+	if I18n.t(help_key)!=help_key: app.menu.ui.help(row.get_child(1),I18n.t(help_key))
 	parent.add_child(row)
 
 

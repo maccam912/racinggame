@@ -20,6 +20,10 @@ var headers: Array[Control] = []
 var saved_controls: Array[Dictionary] = []
 var saved_control_ids: Dictionary = {}
 var touches: Dictionary = {}
+var motion: Control
+var transition: Tween
+var screen_title: String = ""
+var focus_help: MenuFocusHelp
 
 
 func _ready() -> void:
@@ -28,6 +32,9 @@ func _ready() -> void:
 
 
 func reset(title: String, subtitle: String = "", dark: bool = true) -> VBoxContainer:
+	var animate := is_instance_valid(root) and title!=screen_title and not bool(settings.get("reduce_motion",false))
+	screen_title = title
+	if transition: transition.kill()
 	if is_instance_valid(root):
 		root.hide()
 		root.process_mode = Node.PROCESS_MODE_DISABLED
@@ -46,8 +53,12 @@ func reset(title: String, subtitle: String = "", dark: bool = true) -> VBoxConta
 		background.color = Color(.04, .09, .14, .88)
 		background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 		root.add_child(background)
+	motion = Control.new()
+	motion.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	motion.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(motion)
 	frame = MarginContainer.new()
-	root.add_child(frame)
+	motion.add_child(frame)
 	column = VBoxContainer.new()
 	frame.add_child(column)
 	if title != "":
@@ -71,6 +82,13 @@ func reset(title: String, subtitle: String = "", dark: bool = true) -> VBoxConta
 	column.add_child(ui.panel(footer))
 	layout()
 	layout.call_deferred()
+	focus_help = MenuFocusHelp.new()
+	focus_help.shell = self
+	root.add_child(focus_help)
+	if animate:
+		motion.position.x = minf(80*ui.unit,get_viewport().get_visible_rect().size.x*.08)
+		transition = create_tween()
+		transition.tween_property(motion,"position:x",0.0,.18).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 	visible = true
 	context_changed.emit()
 	return content
@@ -171,6 +189,11 @@ func scroll_column(parent: Node) -> VBoxContainer:
 	list.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	scroll.add_child(list)
 	return list
+
+func explain_window(window: Window) -> void:
+	var helper := MenuFocusHelp.new()
+	helper.shell = self
+	window.add_child(helper)
 
 
 func add_back(action: Callable) -> Button:

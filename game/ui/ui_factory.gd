@@ -13,10 +13,12 @@ var body_font: Font
 var title_font: Font
 var theme: Theme
 var owner_viewport: Viewport
+var reduce_motion: bool = false
 
 
 func _init(viewport: Viewport, settings: Dictionary, mobile_override: Variant = null, logical_unit_override: float = 0.0) -> void:
 	owner_viewport = viewport
+	reduce_motion = bool(settings.get("reduce_motion",false))
 	mobile = OS.has_feature("mobile") if mobile_override==null else bool(mobile_override)
 	if mobile:
 		unit = viewport.get_visible_rect().size.y / maxf(DisplayServer.window_get_size().y, 1) * maxf(160, DisplayServer.screen_get_dpi()) / 160.0
@@ -83,15 +85,21 @@ func button(text: String, action: Callable, minimum_width: float = 0, sound: Str
 	control.pressed.connect(func() -> void: AudioLibrary.ui(owner_viewport,sound))
 	control.pressed.connect(action)
 	control.focus_entered.connect(func() -> void:
-		AudioLibrary.ui(owner_viewport,"move")
-		control.create_tween().tween_property(control, "modulate", Color(1.06, 1.06, 1.06), .1))
-	control.focus_exited.connect(func() -> void:
-		control.create_tween().tween_property(control, "modulate", Color.WHITE, .1))
+		AudioLibrary.ui(owner_viewport,"move"))
 	var pointer := FocusPointer.new()
 	pointer.button = control
 	pointer.unit = unit
+	pointer.instant = reduce_motion
 	control.add_child(pointer)
 	return control
+
+func selected(control: Button,value: bool) -> void:
+	control.add_theme_color_override("font_color",TURQUOISE if value else CREAM)
+	control.add_theme_color_override("font_focus_color",TURQUOISE if value else CREAM)
+	control.add_theme_color_override("icon_normal_color",TURQUOISE if value else CREAM)
+
+func help(control: Control,value: Variant,disabled: bool = false) -> void:
+	control.set_meta("disabled_reason" if disabled else "focus_help",value)
 
 func set_icon(control: Button, id: String) -> void:
 	control.icon = UIIcons.texture(id)

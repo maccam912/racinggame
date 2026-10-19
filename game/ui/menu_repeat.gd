@@ -11,6 +11,7 @@ var clock: Callable = func() -> int: return Time.get_ticks_usec()
 var held_action: String = ""
 var repeat_at: int = 0
 var generation: int = 0
+var context_generation: int = 0
 var blocked: Dictionary = {}
 var last_joy: int = -1
 var was_allowed: bool = false
@@ -21,6 +22,7 @@ func _ready() -> void:
 
 func clear_context() -> void:
 	generation+=1
+	context_generation+=1
 	held_action=""
 	repeat_at=0
 	blocked.clear()
@@ -85,7 +87,7 @@ func _input(event: InputEvent) -> void:
 	if held_action!=action:
 		held_action=action
 		repeat_at=int(clock.call())+DELAY_US
-		emit_navigation.call_deferred(action,generation)
+		emit_first.call_deferred(action,context_generation)
 
 func _process(_dt: float) -> void:
 	var active:=is_allowed()
@@ -110,6 +112,11 @@ func _process(_dt: float) -> void:
 		emit_navigation.call_deferred(held_action,generation)
 		# A long frame skips missed repeats rather than jumping through a menu.
 		repeat_at=now+INTERVAL_US if now>repeat_at+INTERVAL_US else repeat_at+INTERVAL_US
+
+func emit_first(action: String,token: int) -> void:
+	# Key/pad down and up may arrive in one render frame. Releasing cancels
+	# held repeats, while the initial step survives until its menu context ends.
+	if token==context_generation and is_allowed(): emit_navigation(action,generation)
 
 func emit_navigation(action: String,token: int) -> void:
 	if token!=generation or not is_allowed():

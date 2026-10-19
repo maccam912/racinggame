@@ -67,6 +67,7 @@ func show_lobby() -> void:
 		shell.footer.add_child(shell.ui.button(I18n.t("online.settings"), show_rules))
 		var start := shell.ui.button(I18n.t("online.start"), func() -> void: app.network.command("start"))
 		start.disabled = not state.members.all(func(row: Dictionary) -> bool: return row.ready and row.connected)
+		shell.ui.help(start,I18n.t("online.ready_required"),true)
 		if start.disabled:
 			list.add_child(shell.ui.paragraph(I18n.t("online.ready_required")))
 		shell.footer.add_child(start)

@@ -61,6 +61,7 @@ func show_hub(refresh: bool = true) -> void:
 	for row: Array in [["online.quick_join",func() -> void: begin_action("quick")],["online.browse",browse],["online.create",show_create],["online.join_code",show_code]]:
 		var button: Button = app.menu.ui.button(I18n.t(row[0]),row[1])
 		button.disabled = regions.probing or regions.selected().is_empty()
+		app.menu.ui.help(button,func() -> String: return region_caption(),true)
 		list.add_child(button)
 		hub_buttons.append(button)
 	list.add_child(app.menu.ui.button(I18n.t("online.direct"),func() -> void:
@@ -152,6 +153,7 @@ func browse() -> void:
 	body.add_child(browser_status)
 	room_list = app.menu.scroll_column(body)
 	refresh_button = app.menu.ui.button(I18n.t("online.refresh"),request_rooms)
+	app.menu.ui.help(refresh_button,I18n.t("online.refreshing"),true)
 	app.menu.footer.add_child(refresh_button)
 	app.menu.footer.add_child(app.menu.ui.button(I18n.t("online.create"),show_create))
 	app.menu.add_back(exit_to_hub)
@@ -213,6 +215,7 @@ func render_rooms() -> void:
 	for room: Dictionary in displayed:
 		var join: Button = app.menu.ui.button(I18n.t("online.join"),func() -> void: begin_action("join",{"room_id":room.id}))
 		join.disabled = room.state!="Lobby" or int(room.humans)>=8
+		app.menu.ui.help(join,I18n.t("online.room_not_joinable"),true)
 		join.set_meta("room_id",room.id)
 		join.name = "join_"+str(room.id).replace("-","_")
 		var values: Array[String] = [room.name,I18n.t("track."+Catalog.tracks[int(room.rules.track)].id),"%d/8" % int(room.humans),"~%d ms" % roundi(float(regions.selected().get("ping_ms",0))),I18n.t("online.state_"+str(room.state)),I18n.t("choice.on" if room.rules.contact else "choice.off")]
@@ -247,6 +250,7 @@ func show_create() -> void:
 	var body: VBoxContainer = app.menu.reset(I18n.t("online.create"))
 	var list: VBoxContainer = app.menu.scroll_column(body)
 	var action: Button = app.menu.ui.button(I18n.t("online.create"),create_room)
+	app.menu.ui.help(action,func() -> String: return region_caption(),true)
 	action.name = "create_room_start"
 	region_choice(list,func() -> void: action.disabled = regions.selected().is_empty())
 	list.add_child(app.menu.ui.label(I18n.t("online.room_name")))
@@ -309,6 +313,7 @@ func show_code() -> void:
 	var join: Button = app.menu.ui.button(I18n.t("online.join"),submit)
 	join.name = "join_code_start"
 	join.disabled = regions.selected().is_empty()
+	app.menu.ui.help(join,func() -> String: return region_caption(),true)
 	app.menu.footer.add_child(join)
 	app.menu.add_back(exit_to_hub)
 	edit.text_submitted.connect(func(_text: String) -> void: submit.call())
