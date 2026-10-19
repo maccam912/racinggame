@@ -114,9 +114,22 @@ func configure_picker(control: OptionButton) -> void:
 	var fit := func() -> void:
 		popup.min_size = Vector2i.ZERO
 		popup.max_size = popup_bounds(owner_viewport.get_visible_rect().size,Vector2(DisplayServer.window_get_size()),DisplayServer.get_display_safe_area())
+		clamp_popup.call_deferred(popup)
 	fit.call()
 	popup.about_to_popup.connect(fit)
 
 
 static func popup_bounds(canvas: Vector2,physical: Vector2,safe_pixels: Rect2i) -> Vector2i:
 	return Vector2i(Vector2(safe_pixels.size)*canvas/physical.max(Vector2.ONE)*.90)
+
+
+func clamp_popup(popup: Variant) -> void:
+	if not is_instance_valid(popup) or not popup.is_inside_tree() or not popup.visible:
+		return
+	var canvas := owner_viewport.get_visible_rect().size
+	var physical := Vector2(DisplayServer.window_get_size()).max(Vector2.ONE)
+	var safe_pixels := DisplayServer.get_display_safe_area()
+	var safe_canvas := Rect2(Vector2(safe_pixels.position)*canvas/physical,Vector2(safe_pixels.size)*canvas/physical)
+	var minimum := Vector2i(safe_canvas.position+safe_canvas.size*.05)
+	var maximum: Vector2i = Vector2i(safe_canvas.end-safe_canvas.size*.05)-Vector2i(popup.size)
+	popup.position = Vector2i(popup.position).clamp(minimum,maximum.max(minimum))
