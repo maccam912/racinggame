@@ -7,9 +7,14 @@ Requires Python 3.14.7. The bootstrap downloads checksum-verified Godot 4.6.3 in
 ```sh
 python3 tools/godot.py --editor --import --quit
 python3 tools/godot.py
+python3 tools/godot.py -- --drive
 python3 tools/godot.py --headless -- --server --port=27020
 python3 tools/bake_tracks.py --check
 python3 tools/godot.py --headless --script tests/content_tests.gd
+python3 tools/godot.py --headless --script tests/driving_tests.gd
+python3 tools/godot.py --headless --script tests/world_tests.gd
+python3 tools/godot.py --headless --script tests/progress_touch_tests.gd
+python3 tools/godot.py --headless --fixed-fps 60 --script tests/slice_smoke.gd
 python3 tools/build.py macos --number 1
 ```
 

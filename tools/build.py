@@ -56,7 +56,8 @@ def build(target, number):
             text += f'{key}="{value}"\n'
         settings.write_text(text)
     checked(['--headless','--editor','--import','--quit'])
-    checked(['--headless','--export-debug',preset,str(folder/name)])
+    install = ['--install-android-build-template'] if target == 'android' else []
+    checked(['--headless', *install, '--export-debug',preset,str(folder/name)])
     data = metadata(target, number)
     (folder/'build.json').write_text(json.dumps(data, indent=2)+'\n')
     shutil.copy(ROOT/'LICENSE', folder/'LICENSE')

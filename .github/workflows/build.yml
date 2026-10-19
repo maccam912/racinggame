@@ -25,6 +25,10 @@ jobs:
       - run: python tools/bake_tracks.py --check
       - run: python tools/godot.py --headless --editor --import --quit
       - run: python tools/godot.py --headless --script tests/content_tests.gd
+      - run: python tools/godot.py --headless --script tests/driving_tests.gd
+      - run: python tools/godot.py --headless --script tests/world_tests.gd
+      - run: python tools/godot.py --headless --script tests/progress_touch_tests.gd
+      - run: python tools/godot.py --headless --fixed-fps 60 --script tests/slice_smoke.gd
 
   export:
     needs: verify
