@@ -13,6 +13,45 @@ jobs:
   verify:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    outputs:
+      gameplay_changed: ${{ steps.gameplay.outputs.changed }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/check.py
+      - name: Determine whether full AI acceptance is needed
+        id: gameplay
+        shell: bash
+        run: |
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1 && git diff --quiet HEAD^ HEAD -- game/content/compatibility.json tests/bot_tracks.gd tools/bot_acceptance.py; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-check-evidence
+          path: reports/checks.json
+          if-no-files-found: error
+
+  ai:
+    needs: verify
+    if: needs.verify.outputs.gameplay_changed == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        track: [palm_bay, citrus_pass, marina_lights, redwood_run, sunstone_canyon, pacific_summit]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,12 +61,26 @@ jobs:
         with:
           path: ~/.cache/pacific-rush/toolchain
           key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
-      - run: python tools/check.py
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Seven bots and reference driver, all difficulties and 20 seeds
+        run: python tools/godot.py --headless --fixed-fps 60 --script tests/bot_tracks.gd -- --track=${{ matrix.track }} --seeds=20 --report=res://reports/ai-field.json
+      - name: Single-car difficulty ordering on the flat reference
+        if: matrix.track == 'palm_bay'
+        shell: bash
+        run: |
+          python tools/godot.py --headless --fixed-fps 60 --script tests/bot_tracks.gd -- --track=palm_bay --seeds=4 --solo --report=res://reports/ai-solo.json
+          python - <<'PY'
+          import json
+          rows = json.load(open('reports/ai-solo.json'))['results']
+          for car in range(4):
+              times = [next(row['times'][0] for row in rows if row['reference_car']==car and row['difficulty']==difficulty) for difficulty in range(3)]
+              assert times[2] < times[1] < times[0], (car,times)
+          PY
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: source-check-evidence
-          path: reports/checks.json
+          name: ai-evidence-${{ matrix.track }}
+          path: reports/ai-*.json
           if-no-files-found: error
 
   network:
@@ -176,8 +229,12 @@ jobs:
           if-no-files-found: error
 
   publish:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-    needs: [export, network, native, lobbies, directory]
+    if: >-
+      always() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
+      needs.export.result == 'success' && needs.network.result == 'success' &&
+      needs.native.result == 'success' && needs.lobbies.result == 'success' &&
+      needs.directory.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped')
+    needs: [export, network, native, lobbies, directory, ai]
     runs-on: ubuntu-24.04
     permissions:
       contents: write

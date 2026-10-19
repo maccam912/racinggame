@@ -41,22 +41,47 @@ func sample(state: VehicleState, car: CarDefinition, track: TrackDefinition, que
 	var target_speed: float = track.bake.ai_speeds[car.id][nearest.i] * [.78, .90, 1.0][difficulty]
 	if state.finished:
 		target_speed *= .6
-	var wanted_offset := 0.0
-	for rival: VehicleState in others:
-		if rival == state or rival.finished:
-			continue
-		var delta := rival.position - state.position
-		var ahead := delta.dot(state.forward())
-		var lateral := delta.dot(state.forward().cross(Vector3.UP))
-		if ahead > 0 and ahead < 25 and absf(lateral) < 3:
-			wanted_offset = -3 if lateral > 0 or (absf(lateral) < .1 and state.slot % 2 == 0) else 3
-			var half_width: float = track.bake.samples[nearest.i][8] / 2
-			if absf(nearest.lateral + wanted_offset) + 2.5 > half_width:
-				wanted_offset = 0
-				target_speed = minf(target_speed, maxf(0, rival.speed() - 1))
-	offset = move_toward(offset, wanted_offset, 2 * planning_ticks / 60.0)
+	var passing := passing_plan(state,nearest,track,others,target_speed)
+	target_speed = passing.speed
+	offset = move_toward(offset,float(passing.offset),2*planning_ticks/60.0)
 	var target := track.pose(target_s, offset).origin - state.position
 	var forward := state.forward()
 	var error := atan2(forward.x * target.z - forward.z * target.x, forward.x * target.x + forward.z * target.z)
 	previous = InputFrame.make(clampf(rad_to_deg(error) / 30, -1, 1), clampf((target_speed - state.speed()) / 6, 0, 1), clampf((state.speed() - target_speed) / 6, 0, 1))
 	return previous
+
+func passing_plan(state: VehicleState, nearest: Dictionary, track: TrackDefinition, others: Array[VehicleState], target_speed: float) -> Dictionary:
+	var lead: VehicleState
+	var lead_ahead: float = INF
+	var forward := state.forward()
+	var right := track.forwards[int(nearest.i)].cross(Vector3.UP).normalized()
+	for rival: VehicleState in others:
+		if rival==state or rival.finished or rival.dnf_reason!="": continue
+		var delta := rival.position-state.position
+		var ahead := delta.dot(forward)
+		if ahead<=0 or ahead>=25 or absf(delta.dot(forward.cross(Vector3.UP)))>=3: continue
+		if ahead<lead_ahead-.01 or absf(ahead-lead_ahead)<=.01 and (lead==null or rival.slot<lead.slot):
+			lead = rival
+			lead_ahead = ahead
+	if lead==null: return {"offset":0.0,"speed":target_speed}
+	var half_width: float = float(track.bake.samples[int(nearest.i)][8])/2
+	var lead_lateral: float = float(nearest.lateral)+(lead.position-state.position).dot(right)
+	var clearance := {-1:half_width+lead_lateral,1:half_width-lead_lateral}
+	var available: Array[int] = []
+	for side: int in [-1,1]:
+		var candidate := side*3.0
+		if half_width-absf(candidate)<2.5: continue
+		var blocked := false
+		for rival: VehicleState in others:
+			if rival==state or rival.finished or rival.dnf_reason!="": continue
+			var delta := rival.position-state.position
+			var ahead := delta.dot(forward)
+			if ahead>=-5 and ahead<25 and absf(candidate-float(nearest.lateral)-delta.dot(right))<2.5:
+				blocked = true
+				break
+		if not blocked: available.append(side)
+	if available.is_empty(): return {"offset":0.0,"speed":minf(target_speed,maxf(0,lead.speed()-1))}
+	var side: int = available[0]
+	if available.size()==2:
+		side = -1 if float(clearance[-1])>float(clearance[1])+.01 else 1 if float(clearance[1])>float(clearance[-1])+.01 else (-1 if state.slot%2==0 else 1)
+	return {"offset":side*3.0,"speed":target_speed}
