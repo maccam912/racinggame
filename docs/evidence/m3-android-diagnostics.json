@@ -1,0 +1,58 @@
+{
+  "device": "owned Pixel 7 AVD / Android 15 API 35 ARM64 / emulator-5580",
+  "physical_device": false,
+  "apk": {
+    "version": "0.0.43-dev",
+    "build_number": 43,
+    "working_tree_dirty": true,
+    "commit": "81e4b050d8ec710bd8a2f4eb65e110c0a732279c",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "78e8df7a34088aade409918658a3cd1d62b2a53c12b2779d52b2ac0ffcc6f078",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "63a9d2b77947e27c6a39a318e564426575ae3e7344b4393502f3656566b3a900",
+      "sha256": "6a63b31ddbda12151c42553e59d9cea38c03229d40f89ff4913b6081c855981b"
+    }
+  },
+  "verified": [
+    "Actual Data Export action opens Android DocumentsUI SAF save picker",
+    "Native picker saved ZIP into Download through content URI without storage permission request",
+    "Six fixed JSON entries parse and ZIP CRCs pass",
+    "No fixture name, personal path, guest reference, raw IPv4, credential key, room code or selected path in the archive",
+    "Successful export removes its internal temporary archive",
+    "A second actual export cancels through Android Back and shows Export cancelled"
+  ],
+  "archive": {
+    "bytes": 2749,
+    "sha256": "ae9a7ca8bf623152052a40b82ce404d3663648b26fd07a7ce7685cb77b321abc",
+    "entries": [
+      "build.json",
+      "platform.json",
+      "settings.json",
+      "performance.json",
+      "events.json",
+      "race.json"
+    ],
+    "performance_seconds": 28
+  },
+  "screenshots": [
+    "m3-android-diagnostics-picker.png",
+    "m3-android-diagnostics-saved.png"
+  ],
+  "boundaries": [
+    "Emulator evidence, not physical-device or other desktop native-picker acceptance",
+    "No data uploaded; source fixture covers malicious-field omission, overwrite failure, bounded logging and size limit"
+  ],
+  "cleanup": "Owned exported ZIP and fixture profile removed; pre-existing touch layout profile preserved"
+}

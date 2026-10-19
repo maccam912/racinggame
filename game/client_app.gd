@@ -33,6 +33,7 @@ var online_page: OnlinePage
 var online_status: Label
 var presentation := WorldPresentation.new()
 var audio_mix := AudioMix.new()
+var diagnostics := Diagnostics.new()
 var track_loader: TrackLoader
 var loading_bar: ProgressBar
 var loading_status: Label
@@ -57,6 +58,8 @@ func _ready() -> void:
 		elif arg.begins_with("--capture-frame="):
 			capture_frame = maxi(1, int(arg.trim_prefix("--capture-frame=")))
 	data = AppData.new(folder)
+	diagnostics.app = self
+	add_child(diagnostics)
 	presentation.app = self
 	add_child(presentation)
 	add_child(audio_mix)
@@ -66,6 +69,7 @@ func _ready() -> void:
 	add_child(menu)
 	events = EventMenu.new(self)
 	settings_page = SettingsPage.new(self)
+	diagnostics.export_finished.connect(settings_page.diagnostics_finished)
 	bindings_page = BindingsPage.new(self)
 	menu_repeat.allowed = func() -> bool: return foreground and page != "race" and (menu.visible or is_instance_valid(touch_editor) and not touch_editor.previewing) and (not is_instance_valid(bindings_page.capture) or not bindings_page.capture.visible)
 	add_child(menu_repeat)

@@ -307,16 +307,13 @@ func restore_reset_controls(_controls: Array[Dictionary], key: String) -> void:
 
 
 func export_diagnostics() -> void:
-	var folder: String = app.data.store.root_path.path_join("diagnostics")
-	DirAccess.make_dir_recursive_absolute(folder)
-	var filename := folder.path_join("diagnostics-" + str(Time.get_unix_time_from_system()) + ".json")
-	var file := FileAccess.open(filename, FileAccess.WRITE)
-	if file == null:
-		status.text = I18n.t("data.save_failed")
-		return
-	file.store_string(JSON.stringify({"build":app.build_name(), "protocol":NetCodec.PROTOCOL, "content_hash":Compatibility.content_hash(), "os":OS.get_name(), "gpu":RenderingServer.get_video_adapter_name(), "settings":app.data.settings, "notices":app.data.store.notices}, "\t"))
-	file.close()
-	status.text = filename
+	var error: Error = app.diagnostics.begin_export()
+	status.text = I18n.t("diagnostics.choose" if error==OK else "diagnostics.busy" if error==ERR_BUSY else "diagnostics.unavailable" if error==ERR_UNAVAILABLE else "diagnostics.failed")
+
+
+func diagnostics_finished(state: String) -> void:
+	if app.page=="settings" and tab=="data" and is_instance_valid(status):
+		status.text = I18n.t("diagnostics."+state)
 
 
 func touch_layout_locked() -> bool:
