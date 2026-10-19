@@ -32,6 +32,7 @@ var regions := RegionBook.new()
 var online_page: OnlinePage
 var online_status: Label
 var presentation := WorldPresentation.new()
+var audio_mix := AudioMix.new()
 var track_loader: TrackLoader
 var loading_bar: ProgressBar
 var loading_status: Label
@@ -58,6 +59,7 @@ func _ready() -> void:
 	data = AppData.new(folder)
 	presentation.app = self
 	add_child(presentation)
+	add_child(audio_mix)
 	BindingBook.apply(data.settings.bindings)
 	SettingsRuntime.apply(self, data.settings, capture_path.is_empty())
 	menu.settings = data.settings
@@ -797,6 +799,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(_dt: float) -> void:
+	var has_drive := is_instance_valid(drive)
+	audio_mix.context(has_drive and drive.paused and drive.network==null,has_drive and drive.paused and drive.network!=null)
 	if page=="loading":
 		if is_instance_valid(loading_hint):
 			loading_hint.text = I18n.t(LOADING_HINTS[((Time.get_ticks_msec()-loading_hint_started)/4000)%LOADING_HINTS.size()])

@@ -13,9 +13,14 @@ static func apply(owner_node: Node, settings: Dictionary, display: bool = false)
 	if not presented:
 		viewport.msaa_3d = {0:Viewport.MSAA_DISABLED, 2:Viewport.MSAA_2X, 4:Viewport.MSAA_4X}.get(int(settings.msaa), Viewport.MSAA_DISABLED)
 		viewport.scaling_3d_scale = float(settings.render_scale) / 100
-	var master := float(settings.master) / 100
-	AudioServer.set_bus_volume_db(0, linear_to_db(maxf(master, .0001)))
-	AudioServer.set_bus_mute(0, master <= 0)
+	var mixed := false
+	for mixer: AudioMix in owner_node.get_tree().get_nodes_in_group("audio_mixes"):
+		mixer.configure(settings)
+		mixed = true
+	if not mixed:
+		var master := float(settings.master)/100
+		AudioServer.set_bus_volume_db(0,linear_to_db(maxf(master,.0001)))
+		AudioServer.set_bus_mute(0,master<=0)
 	for item: Node in owner_node.get_tree().root.find_children("*", "WorldEnvironment", true, false):
 		var environment: Environment = item.environment
 		environment.adjustment_enabled = true
