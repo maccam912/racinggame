@@ -84,6 +84,11 @@ func button(text: String, action: Callable, minimum_width: float = 0, sound: Str
 	control.custom_minimum_size = Vector2(minimum_width * unit, row_height())
 	control.pressed.connect(func() -> void: AudioLibrary.ui(owner_viewport,sound))
 	control.pressed.connect(action)
+	control.gui_input.connect(func(event: InputEvent) -> void:
+		if event is InputEventMouseButton and event.pressed and event.device in [-1,MenuScroll.TAP_DEVICE]:
+			DrivingInput.last_device = "touch"
+		else:
+			DrivingInput.remember_menu_device(event))
 	control.focus_entered.connect(func() -> void:
 		AudioLibrary.ui(owner_viewport,"move"))
 	var pointer := FocusPointer.new()

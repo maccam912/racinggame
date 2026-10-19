@@ -27,6 +27,16 @@ func run() -> void:
 	assert(not shell.focus_help.panel.visible)
 	shell.focus_help._process(.011)
 	assert(shell.focus_help.panel.visible and shell.focus_help.caption.text.begins_with("Choose"),"focus tooltip appears after half a second")
+	DrivingInput.last_device = "keyboard"
+	for pressed: bool in [true,false]:
+		var touch_click := InputEventMouseButton.new()
+		touch_click.device = MenuScroll.TAP_DEVICE
+		touch_click.button_index = MOUSE_BUTTON_LEFT
+		touch_click.pressed = pressed
+		touch_click.position = first.get_global_rect().get_center()
+		touch_click.global_position = touch_click.position
+		root.push_input(touch_click,true)
+	assert(DrivingInput.last_device=="touch","touch menu confirmation selects touch hints for the next scene")
 	action("ui_down")
 	await process_frame
 	assert(blocked.has_focus(),"keyboard/gamepad navigation can inspect a disabled button")

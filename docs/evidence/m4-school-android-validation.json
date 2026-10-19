@@ -1,0 +1,49 @@
+{
+  "boundary": "Scripted actual Android touch and recovery objective on emulator; not physical-device or human usability acceptance. Owned QA profile seeded at 150%, manual throttle; skipped steps are not awarded.",
+  "device": "Pixel 7 Android 15 API 35 ARM64 emulator",
+  "resolution": [
+    2400,
+    1080
+  ],
+  "ui_scale": 150,
+  "build": {
+    "version": "0.0.58-dev",
+    "build_number": 58,
+    "working_tree_dirty": true,
+    "commit": "d83cd8226318e6c08d7ec8cbcc334f69ded14bec",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "4899e636e87a2e0dbda39be146a526c4f1b3be608fec9411da2a92ca17f5fbc3",
+    "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "839540d19ada13cd2463f7ff8e24ceaba91384de2fa3808dd65438231cedce82",
+      "sha256": "1e7411b8f6fd4d8529c8947db00af0e37174b741dfd4d221c08f3cc75097fa64"
+    }
+  },
+  "school_steps": [
+    false,
+    false,
+    false,
+    false,
+    true
+  ],
+  "races_completed": 0,
+  "godot_script_parse_errors": 0,
+  "captures": [
+    "m4-school-android-slide-150.png",
+    "m4-school-android-recover-150.png",
+    "m4-school-android-recovery-fade.png",
+    "m4-school-android-complete.png"
+  ]
+}

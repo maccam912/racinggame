@@ -161,6 +161,10 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/menu_style_evidence.gd -- --profile=menu_style_ci --capture=res://reports/unused-menu-style.png 2>&1 | tee -a reports/car-render.log
+      - name: Render Driving School input demonstrations
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/school_presentation_evidence.gd -- --profile=school_style_ci --capture=res://reports/unused-school-reference.png 2>&1 | tee -a reports/car-render.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -171,6 +175,7 @@ jobs:
             reports/m4-ui-reference.json
             reports/m4-hud-reference.json
             reports/m4-menu-reference.json
+            reports/m4-school-reference.json
             reports/car-render.log
           if-no-files-found: error
 

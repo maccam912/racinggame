@@ -361,7 +361,7 @@ func show_loading(configuration: Dictionary, cancel: Callable) -> TrackLoader:
 	postcard.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	postcard.custom_minimum_size = Vector2(320,180)*menu.ui.unit
 	list.add_child(menu.ui.panel(postcard))
-	list.add_child(menu.ui.paragraph(I18n.t("loading.event",[I18n.t("menu."+str(configuration.get("mode","online"))),int(configuration.get("laps",2))])))
+	list.add_child(menu.ui.paragraph(I18n.t("school.exercise",[int(configuration.get("lesson",0))+1]) if configuration.get("mode","")=="school" else I18n.t("loading.event",[I18n.t("menu."+str(configuration.get("mode","online"))),int(configuration.get("laps",2))])))
 	var device := DrivingInput.last_device
 	if device.is_empty(): device = "touch" if data.mobile else "keyboard"
 	var hints := RaceDrive.control_captions(data.settings,device,bool(data.settings.touch_auto_accelerate))
@@ -451,6 +451,7 @@ func start_drive(configuration: Dictionary = {}, reuse_world: bool = false, supp
 	drive.results_ready.connect(show_results)
 	drive.school_completed.connect(show_school_complete)
 	drive.school_skipped.connect(skip_school)
+	drive.school_retry_requested.connect(func() -> void: request_drive(pending_config,show_school))
 	add_child(drive)
 
 
@@ -733,6 +734,9 @@ func show_school_complete() -> void:
 	drive.paused = true
 	drive.touch.clear()
 	drive.touch.enabled = false
+	drive.touch.hide()
+	drive.school_overlay.hide()
+	drive.school_actions.hide()
 	page = "school_complete"
 	back_action = show_school
 	var body := menu.reset(I18n.t("school.finished" if index == 4 else "school.complete"))

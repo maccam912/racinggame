@@ -6,6 +6,7 @@ signal pause_requested
 signal results_ready
 signal school_completed
 signal school_skipped
+signal school_retry_requested
 
 var config: Dictionary = {}
 var app_data: AppData
@@ -18,6 +19,7 @@ var local_slot: int = 0
 var show_ghost: bool = true
 var lesson: SchoolLesson
 var school_overlay: SchoolOverlay
+var school_actions: VBoxContainer
 var spectator_slot: int = -1
 var spectator_button: Button
 var help_label: Label
@@ -173,14 +175,21 @@ func _ready() -> void:
 		school_overlay = SchoolOverlay.new()
 		school_overlay.lesson = lesson
 		school_overlay.state = state
-		school_overlay.unit = touch.unit if show_touch or OS.has_feature("mobile") else (float(app_data.settings.ui_scale) / 100 if app_data else 1.0)
+		school_overlay.mobile = show_touch or OS.has_feature("mobile")
+		school_overlay.unit = touch.unit if school_overlay.mobile else 1.0
+		school_overlay.ui_scale = float(app_data.settings.ui_scale)/100 if app_data else 1.0
+		var turn_index := track.sample_index(lesson.turn_s)
+		var before := track.forwards[turn_index]
+		var after := track.forwards[(turn_index+8)%track.forwards.size()]
+		school_overlay.turn_action = "steer_right" if angle_difference(atan2(before.x,-before.z),atan2(after.x,-after.z))>=0 else "steer_left"
 		ui.add_child(school_overlay)
-		var skip := Button.new()
-		skip.text = I18n.t("button.skip")
-		skip.position = Vector2(30, 30)
-		skip.custom_minimum_size = Vector2(120, 48)
-		skip.pressed.connect(func() -> void: school_skipped.emit())
-		ui.add_child(skip)
+		var school_ui := UIFactory.new(get_viewport(),app_data.settings if app_data else SettingsCatalog.defaults(OS.has_feature("mobile")))
+		school_actions = VBoxContainer.new()
+		school_actions.theme = school_ui.theme
+		school_actions.position = get_viewport().get_visible_rect().size*.05
+		school_actions.add_child(school_ui.button(I18n.t("button.retry"),func() -> void: school_retry_requested.emit(),120))
+		school_actions.add_child(school_ui.button(I18n.t("button.skip"),func() -> void: school_skipped.emit(),120))
+		ui.add_child(school_actions)
 	touch.visible = show_touch or OS.has_feature("mobile")
 	touch.auto_accelerate = touch.visible
 	hud.mobile = touch.visible
@@ -255,8 +264,9 @@ func _physics_process(_dt: float) -> void:
 	if lesson:
 		VehicleSim.step(state, frame, car, query)
 		ProgressTracker.safety(state, frame, track, query)
+		if "recovery" in state.events: touch.clear()
 		lesson.update(state, frame, track)
-		if lesson.done and not result_sent:
+		if lesson.done and state.recovery_ticks==0 and not result_sent:
 			result_sent = true
 			paused = true
 			touch.clear()
@@ -290,6 +300,7 @@ func _physics_process(_dt: float) -> void:
 
 func _process(dt: float) -> void:
 	var visual_dt := 0.0 if paused and network==null or resume_ticks>0 else dt
+	if is_instance_valid(school_overlay): school_overlay.suspended = paused or resume_ticks>0
 	var cover_alpha := 1.0-absf(float(state.recovery_ticks-30)/30) if state.recovery_ticks>0 else 0.0
 	recovery_cover.color.a = smoothstep(0,1,cover_alpha)
 	world.set_start_lamps(phase,phase_ticks,race_ticks)
@@ -471,6 +482,17 @@ func apply_settings() -> void:
 	camera.dynamic_fov = bool(settings.dynamic_fov)
 	camera.shake_scale = float(settings.collision_shake)/100
 	camera.mode = ["near", "far", "hood"].find(settings.camera)
+	if is_instance_valid(school_overlay):
+		school_overlay.reduce_motion = reduce_motion
+		school_overlay.hold_assistance = bool(settings.hold_assistance)
+		school_overlay.ui_scale = float(settings.ui_scale)/100
+	if is_instance_valid(school_actions):
+		var school_ui := UIFactory.new(get_viewport(),settings)
+		school_actions.theme = school_ui.theme
+		for button: Button in school_actions.get_children():
+			button.custom_minimum_size = Vector2(120*school_ui.unit,school_ui.row_height())
+			for child: Node in button.get_children():
+				if child is FocusPointer: child.instant = reduce_motion
 	camera.far = 3000.0 # Scenery distance must not cull the road or signs.
 	hud.mph = settings.units == "mph"
 	hud.ui_scale = float(settings.ui_scale)/100
