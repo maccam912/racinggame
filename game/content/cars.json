@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "cars": [
+    {
+      "id": "comet",
+      "display_name_key": "car.comet",
+      "name": "Comet",
+      "mesh_id": "comet",
+      "top_speed": 58,
+      "acceleration": 13.5,
+      "grip": 20,
+      "turn_factor": 1,
+      "default_paint": 0,
+      "audio_profile_id": "comet",
+      "role": "Balanced coupe"
+    },
+    {
+      "id": "needle",
+      "display_name_key": "car.needle",
+      "name": "Needle",
+      "mesh_id": "needle",
+      "top_speed": 61,
+      "acceleration": 12,
+      "grip": 18,
+      "turn_factor": 0.94,
+      "default_paint": 1,
+      "audio_profile_id": "needle",
+      "role": "Fast straights, careful entries"
+    },
+    {
+      "id": "switch",
+      "display_name_key": "car.switch",
+      "name": "Switch",
+      "mesh_id": "switch",
+      "top_speed": 55,
+      "acceleration": 15,
+      "grip": 22,
+      "turn_factor": 1.08,
+      "default_paint": 2,
+      "audio_profile_id": "switch",
+      "role": "Strong exits, easy corners"
+    },
+    {
+      "id": "sunset",
+      "display_name_key": "car.sunset",
+      "name": "Sunset",
+      "mesh_id": "sunset",
+      "top_speed": 59,
+      "acceleration": 13,
+      "grip": 19,
+      "turn_factor": 0.98,
+      "default_paint": 3,
+      "audio_profile_id": "sunset",
+      "role": "Stable coupe, mild slide bias"
+    }
+  ],
+  "paints": [
+    "F16B50",
+    "20BFC5",
+    "F3CD48",
+    "8465CC",
+    "498DD3",
+    "F5EBD3",
+    "79C697",
+    "343C49"
+  ]
+}

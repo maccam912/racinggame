@@ -1,0 +1,96 @@
+name: Build, verify, and publish development releases
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/bake_tracks.py --check
+      - run: python tools/godot.py --headless --editor --import --quit
+      - run: python tools/godot.py --headless --script tests/content_tests.gd
+
+  export:
+    needs: verify
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [linux, windows, macos, android, server]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-exports-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - uses: actions/setup-java@v4
+        if: matrix.target == 'android'
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        if: matrix.target == 'android'
+      - name: Android packages and stable development identity
+        if: matrix.target == 'android'
+        env:
+          KEYSTORE: ${{ secrets.ANDROID_DEBUG_KEYSTORE_BASE64 }}
+        run: |
+          sdkmanager 'platforms;android-36' 'build-tools;35.0.1' 'ndk;28.1.13356709'
+          mkdir -p ~/.android
+          if [ -n "$KEYSTORE" ]; then
+            umask 077
+            printf '%s' "$KEYSTORE" | base64 --decode > ~/.android/debug.keystore
+          elif [ "$GITHUB_EVENT_NAME" = push ]; then
+            echo 'Missing stable development Android signing identity.' >&2
+            exit 1
+          else
+            keytool -genkeypair -keystore ~/.android/debug.keystore -storepass android -keypass android -alias androiddebugkey -dname 'CN=Pacific Rush PR' -keyalg RSA -keysize 2048 -validity 30
+          fi
+      - run: python tools/build.py ${{ matrix.target }} --number ${{ github.run_number }}
+      - name: Verify Android package
+        if: matrix.target == 'android'
+        run: $ANDROID_HOME/build-tools/35.0.1/apksigner verify --verbose build/android/pacific-rush.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.target }}
+          path: build/download/
+          if-no-files-found: error
+
+  publish:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: export
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          merge-multiple: true
+          path: release
+      - name: Publish all platforms together
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "v0.0.${{ github.run_number }}-dev" release/* --target "$GITHUB_SHA" --title "Development Build ${{ github.run_number }}" --notes-file docs/RELEASE.md --prerelease
