@@ -60,8 +60,8 @@ def main(target, artifact):
             report['passed'] = passed = passed and drill.returncode == 0
             if passed:
                 race = subprocess.run([sys.executable,str(ROOT/'tools/soak_acceptance.py'),'--server-binary',str(binary),
-                                       '--races','2','--laps','2','--seconds','600','--minimum-seconds','0'],
-                                      cwd=ROOT,capture_output=True,text=True,timeout=750)
+                                       '--races','2','--laps','3','--seconds','850','--minimum-seconds','0'],
+                                      cwd=ROOT,capture_output=True,text=True,timeout=900)
                 report['exported_worker_races_output'] = race.stdout+race.stderr
                 report['passed'] = passed = passed and race.returncode == 0
         except (AssertionError,KeyError,ValueError,OSError,subprocess.SubprocessError) as error:
@@ -71,6 +71,10 @@ def main(target, artifact):
     reports.mkdir(exist_ok=True)
     (reports/f'native-{target}-{platform.machine()}.json').write_text(json.dumps(report,indent=2)+'\n')
     print(probe_output+output)
+    if not passed:
+        print('Native package acceptance failed; inspect '+str(reports/f'native-{target}-{platform.machine()}.json'))
+        print(report.get('directory_error',''))
+        print(report.get('exported_worker_races_output',''))
     raise SystemExit(0 if passed else 1)
 
 

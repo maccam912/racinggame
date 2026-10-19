@@ -596,7 +596,7 @@ jobs:
     if: github.event_name == 'workflow_dispatch' && inputs.run_soak
     needs: [verify, platform-adapter]
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -613,7 +613,7 @@ jobs:
           key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
       - run: python tools/godot.py --headless --editor --import --quit
       - name: Ten impaired eight-client races and five-to-fifteen-minute native RSS
-        run: python tools/soak_acceptance.py
+        run: python tools/soak_acceptance.py --laps 3 --seconds 2400
       - uses: actions/upload-artifact@v4
         if: always()
         with:
