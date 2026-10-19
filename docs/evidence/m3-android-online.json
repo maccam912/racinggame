@@ -32,7 +32,8 @@
     "Room-name field and Create/Back remain above the landscape IME",
     "Create button under an open IME registers and joins a ticket-required local HTTPS/ENet lobby",
     "Code field and Join/Back remain above the IME; Back returns to the hub",
-    "A cold app restart reloads AndroidKeyStore identity and Quick Join enters a lobby; isolated directory has exactly one guest and at least two sessions for that same guest"
+    "A cold app restart reloads AndroidKeyStore identity and Quick Join enters a lobby; isolated directory has exactly one guest and at least two sessions for that same guest",
+    "Reset All from the actual Data page erases the fixture protected identity and profile; its no-backup ciphertext directory is empty afterwards"
   ],
   "boundaries": [
     "Local isolated CA scoped to test requests; no system trust changes",
@@ -45,5 +46,6 @@
     "m3-android-ime-create.png",
     "m3-android-ime-code.png",
     "m3-android-online-lobby.png"
-  ]
+  ],
+  "cleanup": "Owned fixture profile/certificate/reverse mapping removed; local service stopped; pre-existing touch_editor_23 profile preserved"
 }

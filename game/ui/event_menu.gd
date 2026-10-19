@@ -48,7 +48,7 @@ func show_event() -> void:
 	info = shell.ui.paragraph("")
 	list.add_child(info)
 	if mode == "quick":
-		choice(list, "event.laps", ["1", "2", "3", "5"], [1, 2, 3, 5].find(laps), func(index: int) -> void: laps = [1, 2, 3, 5][index])
+		choice(list, "event.laps", ["1", "2", "3"], laps-1, func(index: int) -> void: laps = index+1)
 		choice(list, "event.opponents", ["0", "1", "2", "3", "4", "5", "6", "7"], opponents, func(index: int) -> void: opponents = index)
 		choice(list, "event.difficulty", [I18n.t("difficulty.easy"), I18n.t("difficulty.medium"), I18n.t("difficulty.hard")], difficulty, func(index: int) -> void: difficulty = index)
 		var toggle := CheckButton.new()
@@ -96,4 +96,5 @@ func choice(parent: Node, key: String, items: Array, selected: int, callback: Ca
 
 
 func start() -> void:
-	app.start_drive({"mode":mode, "track":track_index, "car":int(app.data.profile.selected_car), "paint":int(app.data.profile.selected_paint), "laps":1 if mode == "trial" else laps, "opponents":0 if mode == "trial" else opponents, "difficulty":difficulty, "contact":contact, "ghost":ghost})
+	var configuration := {"mode":mode, "track":track_index, "car":int(app.data.profile.selected_car), "paint":int(app.data.profile.selected_paint), "laps":1 if mode == "trial" else laps, "opponents":0 if mode == "trial" else opponents, "difficulty":difficulty, "contact":contact, "ghost":ghost}
+	app.start_drive(configuration)

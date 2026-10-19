@@ -29,6 +29,7 @@ var track: TrackDefinition
 var car: CarDefinition
 var world: TrackWorld
 var prepared_world: TrackWorld
+var retry_countdown: bool = false
 var query: WorldQuery
 var visual := CarVisual.new()
 var camera := ChaseCamera.new()
@@ -86,6 +87,8 @@ func _ready() -> void:
 	session.cup_event = int(config.get("cup_event", -1))
 	session.event_uuid = str(config.get("cup_id", ""))
 	session.seed = int(config.get("seed", 1))
+	if retry_countdown and not network and session.mode=="trial":
+		session.phase = RaceSession.Phase.COUNTDOWN
 	session.roster = roster
 	session.human_slot = local_slot
 	session.contact_enabled = bool(config.get("contact", true)) and session.mode != "trial"

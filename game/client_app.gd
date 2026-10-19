@@ -253,9 +253,18 @@ func show_garage(mode: String = "garage") -> void:
 	menu.first_focus()
 
 
-func start_drive(configuration: Dictionary = {}) -> void:
+func start_drive(configuration: Dictionary = {}, reuse_world: bool = false) -> void:
 	if not touch_layout_available():
 		return
+	configuration = configuration.duplicate(true)
+	if configuration.get("mode","quick")=="quick" and not configuration.has("seed"):
+		# Fresh event entropy stays outside deterministic simulation. Retry uses
+		# pending_config, retaining this exact seed and roster order.
+		configuration["seed"] = int(Crypto.new().generate_random_bytes(4).decode_u32(0))
+	var retained_world: TrackWorld
+	if reuse_world and is_instance_valid(drive) and not network and drive.session.mode in ["trial","quick"] and drive.track==Catalog.tracks[int(configuration.get("track",0))]:
+		retained_world = drive.world
+		drive.remove_child(retained_world)
 	if is_instance_valid(stage):
 		remove_child(stage)
 		stage.queue_free()
@@ -268,6 +277,8 @@ func start_drive(configuration: Dictionary = {}) -> void:
 	menu.hide()
 	drive = RaceDrive.new()
 	drive.config = configuration
+	drive.prepared_world = retained_world
+	drive.retry_countdown = retained_world!=null and configuration.get("mode","")=="trial"
 	drive.app_data = data
 	drive.external_menus = true
 	drive.show_touch = touch_demo
@@ -278,6 +289,10 @@ func start_drive(configuration: Dictionary = {}) -> void:
 	drive.school_completed.connect(show_school_complete)
 	drive.school_skipped.connect(skip_school)
 	add_child(drive)
+
+
+func retry_drive() -> void:
+	start_drive(pending_config,true)
 
 
 func return_to_menu() -> void:
@@ -292,7 +307,7 @@ func show_pause() -> void:
 	var list := menu.scroll_column(body)
 	list.add_child(menu.ui.button(I18n.t("pause.resume"), resume_drive))
 	if not network and mode != "cup":
-		list.add_child(menu.ui.button(I18n.t("pause.restart_trial" if mode == "trial" else "pause.restart"), func() -> void: start_drive(pending_config)))
+		list.add_child(menu.ui.button(I18n.t("pause.restart_trial" if mode == "trial" else "pause.restart"), retry_drive))
 	if mode == "trial":
 		var ghost := CheckButton.new()
 		ghost.text = I18n.t("event.ghost")
@@ -429,7 +444,7 @@ func render_results() -> void:
 			menu.footer.add_child(menu.ui.button(I18n.t("cup.next"), start_cup_event))
 		menu.footer.add_child(menu.ui.button(I18n.t("cup.save_quit"), return_to_menu))
 	else:
-		menu.footer.add_child(menu.ui.button(I18n.t("results.retry"), func() -> void: start_drive(pending_config)))
+		menu.footer.add_child(menu.ui.button(I18n.t("results.retry"), retry_drive))
 		menu.footer.add_child(menu.ui.button(I18n.t("results.change_track" if session.mode == "trial" else "results.change_event"), func() -> void:
 			dispose_drive()
 			ensure_stage()
