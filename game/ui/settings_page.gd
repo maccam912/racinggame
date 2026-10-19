@@ -48,6 +48,15 @@ func show_tab(selected: String, return_to: Callable) -> void:
 	if tab == "controls":
 		list.add_child(shell.ui.button(I18n.t("binding.title"),func() -> void: app.bindings_page.show_page(func() -> void: show_tab("controls",back))))
 		list.add_child(shell.ui.paragraph(I18n.t("settings.controls_help")))
+	if tab == "touch":
+		var edit := shell.ui.button(I18n.t("touch.edit_layout"),app.show_touch_editor)
+		var restore := shell.ui.button(I18n.t("touch.restore_layout"),restore_layout)
+		edit.disabled = touch_layout_locked()
+		restore.disabled = touch_layout_locked()
+		list.add_child(edit)
+		list.add_child(restore)
+		if touch_layout_locked():
+			list.add_child(shell.ui.paragraph(I18n.t("touch.change_lobby")))
 	if tab == "data":
 		list.add_child(shell.ui.button(I18n.t("settings.name"), func() -> void: app.show_name(false)))
 		list.add_child(shell.ui.button(I18n.t("settings.export"), export_diagnostics))
@@ -56,7 +65,9 @@ func show_tab(selected: String, return_to: Callable) -> void:
 	status = shell.ui.paragraph("")
 	list.add_child(status)
 	if tab != "data":
-		shell.footer.add_child(shell.ui.button(I18n.t("settings.restore_tab"), restore_this_tab))
+		var restore_tab := shell.ui.button(I18n.t("settings.restore_tab"), restore_this_tab)
+		restore_tab.disabled = tab=="touch" and touch_layout_locked()
+		shell.footer.add_child(restore_tab)
 	shell.add_back(back)
 	if selected_button:
 		shell.focus_later(selected_button)
@@ -109,10 +120,18 @@ func setting_row(parent: Node, definition: Dictionary) -> void:
 		number.custom_minimum_size = Vector2(180 * app.menu.ui.unit, app.menu.ui.row_height())
 		number.value_changed.connect(func(new_value: float) -> void: changed(definition, new_value))
 		row.add_child(number)
+	if definition.id in ["touch_auto_accelerate","steering_style","button_size","left_handed"] and touch_layout_locked():
+		var control := row.get_child(1)
+		if control is BaseButton:
+			control.disabled = true
+		elif control is SpinBox:
+			control.editable = false
 	parent.add_child(row)
 
 
 func changed(definition: Dictionary, value: Variant) -> void:
+	if definition.id in ["touch_auto_accelerate","steering_style","button_size","left_handed"] and touch_layout_locked():
+		return
 	if definition.id in ["window_mode", "monitor", "resolution"]:
 		begin_display(definition.id, value)
 		return
@@ -207,6 +226,8 @@ func refresh_display(save_failed: bool) -> void:
 
 
 func restore_this_tab() -> void:
+	if tab=="touch" and touch_layout_locked():
+		return
 	if tab == "display" and not app.data.mobile:
 		var defaults := SettingsCatalog.defaults(false)
 		var changes: Dictionary = {}
@@ -250,3 +271,24 @@ func export_diagnostics() -> void:
 	file.store_string(JSON.stringify({"build":app.build_name(), "protocol":NetCodec.PROTOCOL, "content_hash":Compatibility.content_hash(), "os":OS.get_name(), "gpu":RenderingServer.get_video_adapter_name(), "settings":app.data.settings, "notices":app.data.store.notices}, "\t"))
 	file.close()
 	status.text = filename
+
+
+func touch_layout_locked() -> bool:
+	return is_instance_valid(app.network) and is_instance_valid(app.drive) and app.drive.network!=null
+
+
+func restore_layout() -> void:
+	if touch_layout_locked():
+		return
+	var settings: Dictionary = app.data.settings
+	var geometry := TouchDriving.safe_geometry(app.get_viewport().get_visible_rect().size)
+	var key := TouchLayoutBook.profile_key(geometry.safe,bool(settings.touch_auto_accelerate),str(settings.steering_style),bool(settings.left_handed))
+	var previous: Dictionary = settings.touch_layouts.duplicate(true)
+	settings.touch_layouts.erase(key)
+	if app.data.save_settings()!=OK:
+		settings.touch_layouts = previous
+		status.text = I18n.t("data.save_failed")
+		return
+	if is_instance_valid(app.drive):
+		app.drive.apply_settings()
+	status.text = I18n.t("settings.saved")

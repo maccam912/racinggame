@@ -165,6 +165,12 @@ func _ready() -> void:
 	hud.mobile_unit = touch.unit
 	hud.racers = session.states.size()
 	hud.trial = session.mode == "trial"
+	touch.layout_reset.connect(func(key: String) -> void:
+		if app_data and app_data.settings.touch_layouts.has(key):
+			app_data.settings.touch_layouts.erase(key)
+			if app_data.save_settings()!=OK:
+				app_data.store.notice("data.save_failed")
+			app_data.store.notice("touch.layout_reset"))
 	apply_settings()
 	driver.attach_touch(touch)
 	driver.device_changed.connect(func(_device: String) -> void: update_control_hints())
@@ -415,6 +421,7 @@ func apply_settings() -> void:
 	touch.button_scale = float(settings.get("button_size", 100)) / 100
 	touch.opacity = float(settings.get("opacity", 60)) / 100
 	touch.left_handed = bool(settings.get("left_handed", false))
+	touch.layouts = settings.touch_layouts.duplicate(true)
 	touch.rebuild()
 	update_control_hints()
 

@@ -3,6 +3,7 @@ extends Control
 
 signal action_pressed(action: String)
 signal capture_started(action: String)
+signal layout_reset(profile: String)
 
 var captures: Dictionary = {}
 var controls: Dictionary = {}
@@ -18,6 +19,8 @@ var suppressed: bool = false
 var suppressed_at: int = 0
 var layout_supported: bool = true
 var logical_safe: Rect2
+var layouts: Dictionary = {}
+var reset_notices: Dictionary = {}
 
 
 
@@ -34,7 +37,13 @@ func rebuild() -> void:
 	unit = geometry.unit
 	logical_safe = geometry.safe
 	layout_supported = logical_safe.size.y >= 320
-	controls = build_layout(logical_safe, auto_accelerate, steering_style, button_scale, left_handed)
+	var base := build_layout(logical_safe, auto_accelerate, steering_style, button_scale, left_handed)
+	var key := TouchLayoutBook.profile_key(logical_safe,auto_accelerate,steering_style,left_handed)
+	var resolved := TouchLayoutBook.resolve(base,logical_safe,layouts.get(key,{}))
+	controls = resolved.controls
+	if resolved.reset and not reset_notices.has(key):
+		reset_notices[key] = true
+		layout_reset.emit(key)
 	if controls.is_empty():
 		layout_supported = false
 	for action: String in controls:
@@ -66,7 +75,7 @@ static func build_layout(safe: Rect2, automatic: bool, steering: String, scale_f
 			if mirrored and action not in ["camera","look_back","pause"]:
 				fraction.x = 1 - fraction.x
 			var center := safe.position + safe.size * fraction
-			center = center.clamp(safe.position + dimensions / 2 + Vector2.ONE * 16, safe.end - dimensions / 2 - Vector2.ONE * 16)
+			center = clamp_center(safe,center,dimensions,action)
 			result[action] = Rect2(center - dimensions / 2, dimensions)
 		if mirrored and result.has("left"):
 			var temporary: Rect2 = result.left
@@ -101,10 +110,20 @@ static func build_layout(safe: Rect2, automatic: bool, steering: String, scale_f
 	return {}
 
 
+static func clamp_center(safe: Rect2,center: Vector2,dimensions: Vector2,action: String) -> Vector2:
+	var margin := dimensions/2+Vector2.ONE*16
+	if action in ["steer","left","right","throttle","brake"]:
+		margin = margin.max(Vector2.ONE*64)
+	return center.clamp(safe.position+margin,safe.end-margin)
+
+
 static func legal_layout(layout: Dictionary, safe: Rect2) -> bool:
 	for action: String in layout:
 		var rect: Rect2 = layout[action]
-		if not safe.grow(-16).encloses(rect):
+		var minimum := Vector2(150,90) if action=="steer" else Vector2.ONE*(72 if action in ["left","right","throttle","brake"] else 48)
+		if not safe.grow(-16).encloses(rect) or rect.size.x<minimum.x or rect.size.y<minimum.y:
+			return false
+		if action in ["steer","left","right","throttle","brake"] and (rect.get_center().x<safe.position.x+64 or rect.get_center().y<safe.position.y+64 or rect.get_center().x>safe.end.x-64 or rect.get_center().y>safe.end.y-64):
 			return false
 		for other: String in layout:
 			if action != other and rect.intersects(layout[other]):

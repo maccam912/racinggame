@@ -21,6 +21,8 @@ var settings_page: SettingsPage
 var bindings_page: BindingsPage
 var menu_repeat := MenuRepeat.new()
 var foreground: bool = true
+var touch_editor: TouchLayoutEditor
+var touch_editor_return: Callable
 var lobby_page: LobbyPage
 var prepared_world: TrackWorld
 var online_result_label: Label
@@ -49,7 +51,7 @@ func _ready() -> void:
 	events = EventMenu.new(self)
 	settings_page = SettingsPage.new(self)
 	bindings_page = BindingsPage.new(self)
-	menu_repeat.allowed = func() -> bool: return foreground and page != "race" and menu.visible and (not is_instance_valid(bindings_page.capture) or not bindings_page.capture.visible)
+	menu_repeat.allowed = func() -> bool: return foreground and page != "race" and (menu.visible or is_instance_valid(touch_editor) and not touch_editor.previewing) and (not is_instance_valid(bindings_page.capture) or not bindings_page.capture.visible)
 	add_child(menu_repeat)
 	menu.context_changed.connect(menu_repeat.clear_context)
 	lobby_page = LobbyPage.new(self)
@@ -354,6 +356,8 @@ func request_quit() -> void:
 	if unsaved_results.is_empty():
 		get_tree().quit()
 	else:
+		if is_instance_valid(touch_editor):
+			close_touch_editor()
 		if page=="race" and is_instance_valid(drive):
 			drive.show_pause()
 		menu.confirm(I18n.t("data.quit_unsaved"),func() -> void: get_tree().quit())
@@ -738,3 +742,34 @@ func touch_layout_available() -> bool:
 	menu.add_back(show_menu)
 	menu.first_focus()
 	return false
+
+
+func show_touch_editor() -> void:
+	if settings_page.touch_layout_locked():
+		return
+	touch_editor_return = settings_page.back if settings_page.back.is_valid() else show_menu
+	menu.hide()
+	page = "touch_layout"
+	touch_editor = TouchLayoutEditor.new()
+	touch_editor.app = self
+	touch_editor.closed.connect(close_touch_editor)
+	back_action = func() -> void:
+		if is_instance_valid(touch_editor):
+			if touch_editor.previewing:
+				touch_editor.finish_preview()
+			else:
+				touch_editor.cancel()
+	add_child(touch_editor)
+	menu_repeat.clear_context()
+
+
+func close_touch_editor() -> void:
+	if not is_instance_valid(touch_editor):
+		return
+	touch_editor.hide()
+	remove_child(touch_editor)
+	touch_editor.queue_free()
+	touch_editor = null
+	if is_instance_valid(drive):
+		drive.apply_settings()
+	settings_page.show_tab("touch",touch_editor_return)
