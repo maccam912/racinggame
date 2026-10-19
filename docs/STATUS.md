@@ -727,3 +727,28 @@ six new structure sequences were inspected, including the repaired Summit
 viaduct. [Source/numeric/render evidence](evidence/content5/) retains the current
 gameplay and cosmetic identities. The final full AI run, ten-race impaired soak
 and matching exported Android/desktop follow-up are still running or pending.
+
+The **final** content-5 full AI matrix also passes: 360 field races, **2,880
+finishes**, zero DNFs and zero recoveries, with strict Easy/Medium/Hard ordering
+for all four cars on the flat single-car reference fixture. Gameplay digest is
+`4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a`;
+cosmetic digest is
+`b61a53bf151b3b69e8eb5a7f021924dc32a4e0de10f1db3a31ea91d932e46e99`.
+[Final AI evidence](evidence/content5/ai-summary.json) retains its scripted-input
+boundary. Clean local Build 91 macOS and Android packages embed commit `70015cf`
+and these identities. Their actual cross-play/capture follow-up is in progress.
+
+A native capture sometimes quit before the audio mixer retired playback
+references. Diagnostic capture now uses the existing .5-second stopped-audio
+quit sequence; the capture helper rejects engine/resource-leak errors. Capture
+metadata records horizontal and 3D speed separately and includes identities even
+for clearly labeled editor-source captures.
+
+All six actual native rendered eight-car races finish with all eight cars and no
+DNF. The installed clean Build 91 release APK also completes **two two-lap
+eight-player rematches** against seven native clients, at 150% mobile UI scale,
+with equal authoritative standings and all 16 human finishes. This is Android
+15 ARM64 emulator cross-play, not physical or impaired-network evidence.
+[Native races](evidence/content5/native-course-races.json) and
+[APK cross-play](evidence/content5/android91-crossplay.json) retain their exact
+identities. The longer independent three-lap impaired soak continues.

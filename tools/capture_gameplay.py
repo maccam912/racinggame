@@ -77,6 +77,14 @@ def main():
                 adb('shell', 'am', 'force-stop', PACKAGE, capture_output=True)
                 adb('shell', 'am', 'start', '-n', PACKAGE+'/com.godot.game.GodotApp',
                     '--esa', 'command_line_params', ','.join(['--', *options]), capture_output=True)
+                pid = ''
+                for _attempt in range(50):
+                    process = subprocess.run([str(args.adb), '-s', args.android_serial, 'shell', 'pidof', PACKAGE], capture_output=True, text=True)
+                    if process.returncode == 0 and process.stdout.strip().isdigit():
+                        pid = process.stdout.strip()
+                        break
+                    time.sleep(.1)
+                assert pid, 'Owned capture process did not start'
                 deadline = time.monotonic()+240
                 while time.monotonic()<deadline:
                     exists = subprocess.run([str(args.adb), '-s', args.android_serial, 'shell', 'test', '-f', folder+'/capture.png.json'], capture_output=True)
@@ -87,12 +95,20 @@ def main():
                     time.sleep(1)
                 else:
                     raise TimeoutError('Actual Android gameplay capture timed out: '+track)
+                # The successful PNG/sidecar precedes the ordinary stopped-audio
+                # quit path. Observe that process only, including its shutdown.
+                time.sleep(1)
+                logs = adb('shell', 'logcat', '-d', '--pid='+pid, '-v', 'raw', '-s', 'godot', capture_output=True, text=True).stdout
+                output.with_suffix('.log').write_text(logs)
+                assert not any(marker in logs for marker in ['SCRIPT ERROR:', 'ERROR:', 'instances leaked']), 'Android export capture emitted engine/shutdown errors; inspect '+str(output.with_suffix('.log'))
                 adb('shell', 'am', 'force-stop', PACKAGE, capture_output=True)
                 adb('shell', 'mv', folder, archive, capture_output=True)
             else:
                 with output.with_suffix('.log').open('w') as log:
                     subprocess.run([str(args.desktop_binary), '--resolution', '1920x1080', '--', *options],
                                    cwd=args.desktop_binary.parent, stdout=log, stderr=subprocess.STDOUT, check=True, timeout=240)
+                log_text = output.with_suffix('.log').read_text()
+                assert not any(marker in log_text for marker in ['SCRIPT ERROR:', 'ERROR:', 'instances leaked']), 'Export capture emitted engine/shutdown errors; inspect '+str(output.with_suffix('.log'))
             value = verify(output, track, mobile, args.race_tick)
             value['png'] = output.name
             if archive: value['owned_profile_archive'] = archive

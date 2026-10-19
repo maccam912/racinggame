@@ -1138,7 +1138,8 @@ func _process(_dt: float) -> void:
 				"track":drive.track.id,"car":drive.car.id,"paint":pending_config.paint,
 				"seed":pending_config.seed,"mode":drive.session.mode,"opponents":7,
 				"phase":drive.session.phase,"race_ticks":drive.race_ticks,
-				"route_s":drive.state.route_s,"speed_mps":drive.state.velocity.length(),
+				"route_s":drive.state.route_s,"speed_mps":drive.state.speed(),"speed_3d_mps":drive.state.velocity.length(),
+				"content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,
 				"camera":data.settings.camera,"settings":data.settings,
 				"width":image.get_width(),"height":image.get_height(),"platform":OS.get_name(),
 				"renderer":RenderingServer.get_current_rendering_method(),"autodrive":true,
@@ -1155,7 +1156,7 @@ func _process(_dt: float) -> void:
 			output.store_string(JSON.stringify(evidence,"\t")+"\n")
 			output.close()
 		print("PACIFIC_RUSH_CAPTURE_SAVED")
-		get_tree().quit()
+		finish_quit()
 
 
 func _notification(what: int) -> void:
