@@ -38,6 +38,7 @@ def main():
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/shader_warmup_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/packet_fault_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/grapheme_tests.gd'])
+    commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/worker_performance_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/audio_dsp_evidence.gd'])
     results = []
     for command in commands:

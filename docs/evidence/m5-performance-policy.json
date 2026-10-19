@@ -1,0 +1,336 @@
+{
+  "passed": true,
+  "base_commit": "3d40f50bab74784352294d4ab0a9bf73e8f44159",
+  "working_tree_dirty": true,
+  "full_source_checks": 76,
+  "shipped_scripts": 107,
+  "native_rss_probe": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nNATIVE_MEMORY_PASS before=116047872 after=149651456 delta=33603584\n",
+  "go_race_detector": "?   \tgithub.com/maccam912/racinggame/services/directory/cmd/pacific-directory\t[no test files]\n?   \tgithub.com/maccam912/racinggame/services/directory/cmd/ticket-fixture\t[no test files]\nok  \tgithub.com/maccam912/racinggame/services/directory/internal/directory\t2.855s\nok  \tgithub.com/maccam912/racinggame/services/directory/internal/names\t(cached)\n",
+  "worker_performance_suite": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nWORKER_PERFORMANCE_PASS window=30s samples=1800 misses=90 ring=3600\n",
+  "private_heartbeat_observations": [
+    {
+      "at": "2026-10-19T19:12:43Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 6,
+        "window_us": 290,
+        "full_window": false,
+        "p95_us": 37,
+        "p99_us": 37,
+        "max_us": 37,
+        "deadline_misses": 0,
+        "rss_bytes": 143163392,
+        "cars": 0
+      },
+      "worker": "b8a98c55-b422-4fe9-9020-2e019956f412"
+    },
+    {
+      "at": "2026-10-19T19:12:48Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 306,
+        "window_us": 5003956,
+        "full_window": false,
+        "p95_us": 42,
+        "p99_us": 67,
+        "max_us": 99,
+        "deadline_misses": 0,
+        "rss_bytes": 145358848,
+        "cars": 0
+      },
+      "worker": "b8a98c55-b422-4fe9-9020-2e019956f412"
+    },
+    {
+      "at": "2026-10-19T19:12:50Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 5,
+        "window_us": 225,
+        "full_window": false,
+        "p95_us": 32,
+        "p99_us": 32,
+        "max_us": 32,
+        "deadline_misses": 0,
+        "rss_bytes": 143147008,
+        "cars": 0
+      },
+      "worker": "202df0f1-e6b3-46c4-97f9-0b1c97f7baf0"
+    },
+    {
+      "at": "2026-10-19T19:12:53Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 607,
+        "window_us": 10006421,
+        "full_window": false,
+        "p95_us": 101,
+        "p99_us": 186,
+        "max_us": 46975,
+        "deadline_misses": 1,
+        "rss_bytes": 173113344,
+        "cars": 1
+      },
+      "worker": "b8a98c55-b422-4fe9-9020-2e019956f412"
+    },
+    {
+      "at": "2026-10-19T19:12:53Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 613,
+        "window_us": 10109149,
+        "full_window": false,
+        "p95_us": 101,
+        "p99_us": 186,
+        "max_us": 46975,
+        "deadline_misses": 1,
+        "rss_bytes": 173113344,
+        "cars": 1
+      },
+      "worker": "b8a98c55-b422-4fe9-9020-2e019956f412"
+    },
+    {
+      "at": "2026-10-19T19:12:55Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 306,
+        "window_us": 5004144,
+        "full_window": false,
+        "p95_us": 39,
+        "p99_us": 45,
+        "max_us": 88,
+        "deadline_misses": 0,
+        "rss_bytes": 145309696,
+        "cars": 0
+      },
+      "worker": "202df0f1-e6b3-46c4-97f9-0b1c97f7baf0"
+    },
+    {
+      "at": "2026-10-19T19:12:55Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 326,
+        "window_us": 5338562,
+        "full_window": false,
+        "p95_us": 43,
+        "p99_us": 88,
+        "max_us": 476,
+        "deadline_misses": 0,
+        "rss_bytes": 145424384,
+        "cars": 0
+      },
+      "worker": "202df0f1-e6b3-46c4-97f9-0b1c97f7baf0"
+    },
+    {
+      "at": "2026-10-19T19:12:56Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 6,
+        "window_us": 276,
+        "full_window": false,
+        "p95_us": 34,
+        "p99_us": 34,
+        "max_us": 34,
+        "deadline_misses": 0,
+        "rss_bytes": 143163392,
+        "cars": 0
+      },
+      "worker": "51ebfd28-d0b6-4039-aa33-53fa4e219514"
+    },
+    {
+      "at": "2026-10-19T19:13:00Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 627,
+        "window_us": 10355127,
+        "full_window": false,
+        "p95_us": 44,
+        "p99_us": 83,
+        "max_us": 476,
+        "deadline_misses": 0,
+        "rss_bytes": 145440768,
+        "cars": 0
+      },
+      "worker": "202df0f1-e6b3-46c4-97f9-0b1c97f7baf0"
+    },
+    {
+      "at": "2026-10-19T19:13:00Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 633,
+        "window_us": 10454721,
+        "full_window": false,
+        "p95_us": 44,
+        "p99_us": 83,
+        "max_us": 476,
+        "deadline_misses": 0,
+        "rss_bytes": 145440768,
+        "cars": 0
+      },
+      "worker": "202df0f1-e6b3-46c4-97f9-0b1c97f7baf0"
+    },
+    {
+      "at": "2026-10-19T19:13:01Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 307,
+        "window_us": 5007354,
+        "full_window": false,
+        "p95_us": 40,
+        "p99_us": 49,
+        "max_us": 87,
+        "deadline_misses": 0,
+        "rss_bytes": 145326080,
+        "cars": 0
+      },
+      "worker": "51ebfd28-d0b6-4039-aa33-53fa4e219514"
+    },
+    {
+      "at": "2026-10-19T19:13:01Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 332,
+        "window_us": 5420727,
+        "full_window": false,
+        "p95_us": 44,
+        "p99_us": 87,
+        "max_us": 682,
+        "deadline_misses": 0,
+        "rss_bytes": 145424384,
+        "cars": 0
+      },
+      "worker": "51ebfd28-d0b6-4039-aa33-53fa4e219514"
+    },
+    {
+      "at": "2026-10-19T19:13:05Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 5,
+        "window_us": 242,
+        "full_window": false,
+        "p95_us": 35,
+        "p99_us": 35,
+        "max_us": 35,
+        "deadline_misses": 0,
+        "rss_bytes": 143196160,
+        "cars": 0
+      },
+      "worker": "e433b791-5ec8-46f7-bf36-4428472f035f"
+    },
+    {
+      "at": "2026-10-19T19:13:05Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 934,
+        "window_us": 15470559,
+        "full_window": false,
+        "p95_us": 62,
+        "p99_us": 88,
+        "max_us": 476,
+        "deadline_misses": 0,
+        "rss_bytes": 145440768,
+        "cars": 0
+      },
+      "worker": "202df0f1-e6b3-46c4-97f9-0b1c97f7baf0"
+    },
+    {
+      "at": "2026-10-19T19:13:06Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 633,
+        "window_us": 10437195,
+        "full_window": false,
+        "p95_us": 70,
+        "p99_us": 96,
+        "max_us": 682,
+        "deadline_misses": 0,
+        "rss_bytes": 145473536,
+        "cars": 0
+      },
+      "worker": "51ebfd28-d0b6-4039-aa33-53fa4e219514"
+    },
+    {
+      "at": "2026-10-19T19:13:06Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 639,
+        "window_us": 10537527,
+        "full_window": false,
+        "p95_us": 70,
+        "p99_us": 96,
+        "max_us": 682,
+        "deadline_misses": 0,
+        "rss_bytes": 145473536,
+        "cars": 0
+      },
+      "worker": "51ebfd28-d0b6-4039-aa33-53fa4e219514"
+    },
+    {
+      "at": "2026-10-19T19:13:10Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 306,
+        "window_us": 5004542,
+        "full_window": false,
+        "p95_us": 37,
+        "p99_us": 65,
+        "max_us": 95,
+        "deadline_misses": 0,
+        "rss_bytes": 145375232,
+        "cars": 0
+      },
+      "worker": "e433b791-5ec8-46f7-bf36-4428472f035f"
+    },
+    {
+      "at": "2026-10-19T19:13:10Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 322,
+        "window_us": 5270552,
+        "full_window": false,
+        "p95_us": 39,
+        "p99_us": 95,
+        "max_us": 583,
+        "deadline_misses": 0,
+        "rss_bytes": 145489920,
+        "cars": 0
+      },
+      "worker": "e433b791-5ec8-46f7-bf36-4428472f035f"
+    },
+    {
+      "at": "2026-10-19T19:13:10Z",
+      "code": "worker_performance",
+      "performance": {
+        "version": 1,
+        "samples": 1234,
+        "window_us": 20472322,
+        "full_window": false,
+        "p95_us": 60,
+        "p99_us": 85,
+        "max_us": 476,
+        "deadline_misses": 0,
+        "rss_bytes": 145489920,
+        "cars": 0
+      },
+      "worker": "202df0f1-e6b3-46c4-97f9-0b1c97f7baf0"
+    }
+  ],
+  "boundary": "Actual macOS universal native RSS + source/Go + real local HTTPS worker creation/menu. Other OS native probes await CI. Ten-race impairment/RSS soak is still running separately."
+}

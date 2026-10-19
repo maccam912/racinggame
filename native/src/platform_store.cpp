@@ -115,6 +115,7 @@ Dictionary dpapi(const String &scope, const PackedByteArray &value, bool encrypt
 } // namespace
 
 void PacificPlatform::_bind_methods() {
+    ClassDB::bind_method(D_METHOD("resident_memory_bytes"), &PacificPlatform::resident_memory_bytes);
     ClassDB::bind_method(D_METHOD("screen_modes", "screen", "x", "y", "width", "height"), &PacificPlatform::screen_modes);
     ClassDB::bind_method(D_METHOD("backend_name"), &PacificPlatform::backend_name);
     ClassDB::bind_method(D_METHOD("secret_read", "scope"), &PacificPlatform::secret_read);

@@ -4,7 +4,9 @@ import (
 	"crypto/rsa"
 	"encoding/hex"
 	"errors"
+	"io"
 	"net/netip"
+	"sync"
 	"time"
 )
 
@@ -38,10 +40,15 @@ type Config struct {
 	MaxWorkers            int
 	ReadyTimeout          time.Duration
 	WorkerNets            []netip.Prefix
+	RequirePerformance    bool
+	PerformanceEvents     io.Writer
 }
 type Service struct {
-	store  *Store
-	config Config
+	store            *Store
+	config           Config
+	performanceMu    sync.Mutex
+	performance      map[string]workerHealth
+	performanceLogMu sync.Mutex
 }
 
 func New(store *Store, config Config) (*Service, error) {
@@ -80,7 +87,7 @@ func New(store *Store, config Config) (*Service, error) {
 	if config.IPRegisterLimit <= 0 {
 		config.IPRegisterLimit = 20
 	}
-	return &Service{store: store, config: config}, nil
+	return &Service{store: store, config: config, performance: map[string]workerHealth{}}, nil
 }
 
 type Session struct {

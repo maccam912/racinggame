@@ -107,7 +107,7 @@ func serve(args []string) error {
 	defer log.Close()
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
 	defer cancel()
-	config := directory.Config{EncryptionKey: encryption, SigningKey: signing, Protocol: *protocol, Content: *content, Region: *region, RegionName: *regionName, PublicURL: *publicURL, WorkerHost: *workerHost, AllowInsecureLoopback: *insecure, FirstPort: *ports, MaxWorkers: *maximum, IPRequestLimit: *apiLimit, IPRegisterLimit: *registerLimit}
+	config := directory.Config{EncryptionKey: encryption, SigningKey: signing, Protocol: *protocol, Content: *content, Region: *region, RegionName: *regionName, PublicURL: *publicURL, WorkerHost: *workerHost, AllowInsecureLoopback: *insecure, FirstPort: *ports, MaxWorkers: *maximum, IPRequestLimit: *apiLimit, IPRegisterLimit: *registerLimit, RequirePerformance: true, PerformanceEvents: log}
 	for _, value := range strings.Split(*proxies, ",") {
 		if value == "" {
 			continue

@@ -9,13 +9,14 @@ import (
 )
 
 type HeartbeatRequest struct {
-	State        string   `json:"state"`
-	Ready        bool     `json:"ready"`
-	Guests       []string `json:"guests"`
-	Rules        Rules    `json:"rules"`
-	Name         string   `json:"name"`
-	Private      bool     `json:"private"`
-	Acknowledged []string `json:"acknowledged"`
+	State        string             `json:"state"`
+	Ready        bool               `json:"ready"`
+	Guests       []string           `json:"guests"`
+	Rules        Rules              `json:"rules"`
+	Name         string             `json:"name"`
+	Private      bool               `json:"private"`
+	Acknowledged []string           `json:"acknowledged"`
+	Performance  *WorkerPerformance `json:"performance,omitempty"`
 }
 type WorkerCommand struct {
 	ID    string `json:"id"`
@@ -52,7 +53,7 @@ func (s *Service) Heartbeat(ctx context.Context, id, token string, request Heart
 		}
 	}
 	name, err := names.Validate(request.Name, 24)
-	if err != nil || !validState || !request.Rules.valid() || len(request.Guests) > 8 || len(request.Acknowledged) > 16 {
+	if err != nil || !validState || !request.Rules.valid() || len(request.Guests) > 8 || len(request.Acknowledged) > 16 || (request.Performance != nil && !request.Performance.valid()) {
 		return HeartbeatReply{}, apiError(400, "invalid_heartbeat")
 	}
 	seen := map[string]bool{}
@@ -102,7 +103,11 @@ func (s *Service) Heartbeat(ctx context.Context, id, token string, request Heart
 	if err != nil {
 		return reply, err
 	}
-	return reply, tx.Commit()
+	if err = tx.Commit(); err != nil {
+		return reply, err
+	}
+	s.observePerformance(id, request.Performance)
+	return reply, nil
 }
 func (s *Service) Consume(ctx context.Context, worker, token, guest, nonce string) error {
 	tx, err := s.store.db.BeginTx(ctx, nil)

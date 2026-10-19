@@ -11,7 +11,7 @@ if env['platform'] == 'macos':
     objc.Append(CXXFLAGS=['-fobjc-arc'])
     sources += objc.SharedObject('src/auth_context.mm')
 elif env['platform'] == 'windows':
-    env.Append(LIBS=['crypt32','user32'])
+    env.Append(LIBS=['crypt32','user32','psapi'])
 elif env['platform'] == 'linux':
     import shlex, subprocess
     env.Append(CCFLAGS=shlex.split(subprocess.check_output(['pkg-config','--cflags','libsecret-1'],text=True)))

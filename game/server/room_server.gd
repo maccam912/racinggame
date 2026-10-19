@@ -26,9 +26,12 @@ var final_results: Array[Dictionary] = []
 var auth_mode: String = "direct_guest"
 var directory_link: WorkerDirectory
 var retiring: bool = false
+var performance := WorkerPerformance.new()
+var next_performance_evidence: int = 0
 
 
 func _ready() -> void:
+	set_process("--network-evidence" in OS.get_cmdline_user_args())
 	Catalog.load_all()
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--port="): port = int(arg.trim_prefix("--port="))
@@ -90,6 +93,18 @@ func player_for_peer(peer_id: int) -> Dictionary:
 
 
 func _physics_process(_dt: float) -> void:
+	var before := Time.get_ticks_usec()
+	step_worker()
+	performance.record(before, Time.get_ticks_usec())
+
+
+func _process(_dt: float) -> void:
+	if Time.get_ticks_msec() >= next_performance_evidence:
+		next_performance_evidence = Time.get_ticks_msec() + 5000
+		print("PACIFIC_RUSH_WORKER_PERFORMANCE " + JSON.stringify(performance.snapshot(Time.get_ticks_usec(), session.states.size() if session else 0)))
+
+
+func step_worker() -> void:
 	tick += 1
 	wire.racing = session != null and not result_sent and tick >= start_tick + 300
 	if retiring and (session == null or result_sent):
@@ -439,7 +454,8 @@ func directory_state() -> Dictionary:
 	for player: Dictionary in players:
 		guests.append(player.id)
 	var phases := ["Lobby", "Loading", "InRace", "Results", "Closed"]
-	return {"state":phases[int(lobby.phase)], "ready":not retiring, "guests":guests, "rules":lobby.rules, "name":lobby.name_value, "private":lobby.private_room}
+	var metrics := performance.snapshot(Time.get_ticks_usec(), session.states.size() if session else 0)
+	return {"state":phases[int(lobby.phase)], "ready":not retiring and int(metrics.samples) >= 60, "guests":guests, "rules":lobby.rules, "name":lobby.name_value, "private":lobby.private_room, "performance":metrics}
 
 
 func official_admitted(sender: int, claims: Dictionary, car: int, paint: int) -> void:

@@ -12,6 +12,7 @@ protected:
     static void _bind_methods();
 public:
     String backend_name() const;
+    int64_t resident_memory_bytes() const;
     Array screen_modes(int screen, int x, int y, int width, int height) const;
     Dictionary secret_read(const String &scope) const;
     Dictionary secret_write(const String &scope, const PackedByteArray &value) const;

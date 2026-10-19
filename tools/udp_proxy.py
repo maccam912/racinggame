@@ -23,12 +23,15 @@ class UDPProxy:
         self.stopping = threading.Event()
         self.thread = threading.Thread(target=self._run,daemon=True)
         self.errors = []
-        self.stats = {'upstream_bytes':0,'downstream_bytes':0,'upstream_packets':0,'downstream_packets':0,'dropped_packets':0}
+        self.stats = {'upstream_bytes':0,'downstream_bytes':0,'upstream_packets':0,'downstream_packets':0,'dropped_packets':0,
+                      'offered_upstream_bytes':0,'offered_downstream_bytes':0,'offered_upstream_packets':0,'offered_downstream_packets':0}
 
     def start(self):
         self.thread.start()
 
     def _schedule(self, sender, data, destination, direction):
+        self.stats['offered_'+direction+'_bytes'] += len(data)
+        self.stats['offered_'+direction+'_packets'] += 1
         if self.random.random() < self.loss:
             self.stats['dropped_packets'] += 1
             return

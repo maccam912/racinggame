@@ -156,6 +156,15 @@ func (s *Service) CreateRoom(ctx context.Context, session Session, request Creat
 		return JoinReply{}, err
 	}
 	defer tx.Rollback()
+	if s.config.RequirePerformance {
+		allowed, capacityErr := s.capacityAvailable(ctx, tx)
+		if capacityErr != nil {
+			return JoinReply{}, capacityErr
+		}
+		if !allowed {
+			return JoinReply{}, apiError(503, "capacity")
+		}
+	}
 	if err = checkWindows(ctx, tx, session.Guest, "create", now, map[int64]int{60: 3, 3600: 10}); err != nil {
 		return JoinReply{}, err
 	}
@@ -228,7 +237,13 @@ func (s *Service) ReleaseWorker(ctx context.Context, id string) error {
 	if _, err = tx.ExecContext(ctx, `DELETE FROM worker_commands WHERE worker=?;DELETE FROM reservations WHERE room IN (SELECT id FROM rooms WHERE worker=?);DELETE FROM rooms WHERE worker=?;DELETE FROM workers WHERE id=?;`, id, id, id, id); err != nil {
 		return err
 	}
-	return tx.Commit()
+	if err = tx.Commit(); err != nil {
+		return err
+	}
+	s.performanceMu.Lock()
+	delete(s.performance, id)
+	s.performanceMu.Unlock()
+	return nil
 }
 func roomInTx(ctx context.Context, tx *sql.Tx, id string) (storedRoom, error) {
 	var room storedRoom
