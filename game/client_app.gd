@@ -122,6 +122,7 @@ func show_name(first: bool) -> void:
 	list.add_child(menu.ui.label(I18n.t("first.name")))
 	var edit := LineEdit.new()
 	edit.text = data.profile.display_name
+	edit.max_length = 96
 	edit.custom_minimum_size.y = menu.ui.row_height()
 	list.add_child(edit)
 	var error := menu.ui.paragraph("")

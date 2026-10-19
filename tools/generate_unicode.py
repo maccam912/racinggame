@@ -18,4 +18,6 @@ for point in range(0x110000):
         if len(parts) == 2 and unicodedata.normalize('NFC',''.join(map(chr,parts))) == character:
             composition[f'{parts[0]}:{parts[1]}'] = point
 value = {'unicode_version':unicodedata.unidata_version,'decomposition':decomposition,'combining':combining,'composition':composition}
-(ROOT/'game/content/unicode_nfc.json').write_text(json.dumps(value,separators=(',',':'))+'\n')
+encoded = json.dumps(value,separators=(',',':'))+'\n'
+(ROOT/'game/content/unicode_nfc.json').write_text(encoded)
+(ROOT/'services/directory/internal/names/unicode_nfc.json').write_text(encoded)

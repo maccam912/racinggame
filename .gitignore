@@ -11,3 +11,7 @@ export_credentials.cfg
 services/directory/pacific-directory
 android/
 
+
+services/directory/var/
+services/directory/*.sqlite*
+services/directory/*.pem

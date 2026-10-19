@@ -71,6 +71,8 @@ static func compose(first: int, second: int) -> int:
 
 
 static func validate(value: String, maximum: int = 16) -> Dictionary:
+	if value.to_utf8_buffer().size() > 384:
+		return {"valid":false, "value":"", "error":"name.length"}
 	var normalized := nfc(value)
 	var count := TextServerManager.get_primary_interface().string_get_character_breaks(normalized).size()
 	if count < 3 or count > maximum or normalized.to_utf8_buffer().size() > 96:

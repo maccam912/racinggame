@@ -1,0 +1,97 @@
+{
+  "go": "1.27.0",
+  "modules": [
+    {
+      "module": "github.com/clipperhouse/stringish",
+      "version": "v0.1.1",
+      "license_files": [
+        "github.com_clipperhouse_stringish-v0.1.1-LICENSE"
+      ]
+    },
+    {
+      "module": "github.com/clipperhouse/uax29/v2",
+      "version": "v2.4.0",
+      "license_files": [
+        "github.com_clipperhouse_uax29_v2-v2.4.0-LICENSE"
+      ]
+    },
+    {
+      "module": "github.com/dustin/go-humanize",
+      "version": "v1.0.1",
+      "license_files": [
+        "github.com_dustin_go-humanize-v1.0.1-LICENSE"
+      ]
+    },
+    {
+      "module": "github.com/google/uuid",
+      "version": "v1.6.0",
+      "license_files": [
+        "github.com_google_uuid-v1.6.0-LICENSE"
+      ]
+    },
+    {
+      "module": "github.com/mattn/go-isatty",
+      "version": "v0.0.24",
+      "license_files": [
+        "github.com_mattn_go-isatty-v0.0.24-LICENSE"
+      ]
+    },
+    {
+      "module": "github.com/ncruces/go-strftime",
+      "version": "v1.0.0",
+      "license_files": [
+        "github.com_ncruces_go-strftime-v1.0.0-LICENSE"
+      ]
+    },
+    {
+      "module": "github.com/remyoudompheng/bigfft",
+      "version": "v0.0.0-20230129092748-24d4a6f8daec",
+      "license_files": [
+        "github.com_remyoudompheng_bigfft-v0.0.0-20230129092748-24d4a6f8daec-LICENSE"
+      ]
+    },
+    {
+      "module": "golang.org/x/sys",
+      "version": "v0.48.0",
+      "license_files": [
+        "golang.org_x_sys-v0.48.0-LICENSE"
+      ]
+    },
+    {
+      "module": "modernc.org/libc",
+      "version": "v1.77.1",
+      "license_files": [
+        "modernc.org_libc-v1.77.1-LICENSE",
+        "modernc.org_libc-v1.77.1-LICENSE-3RD-PARTY.md"
+      ]
+    },
+    {
+      "module": "modernc.org/mathutil",
+      "version": "v1.7.1",
+      "license_files": [
+        "modernc.org_mathutil-v1.7.1-LICENSE"
+      ]
+    },
+    {
+      "module": "modernc.org/memory",
+      "version": "v1.12.1",
+      "license_files": [
+        "modernc.org_memory-v1.12.1-LICENSE",
+        "modernc.org_memory-v1.12.1-LICENSE-MMAP-GO",
+        "modernc.org_memory-v1.12.1-LICENSE-LOGO",
+        "modernc.org_memory-v1.12.1-LICENSE-GO"
+      ]
+    },
+    {
+      "module": "modernc.org/sqlite",
+      "version": "v1.60.1",
+      "license_files": [
+        "modernc.org_sqlite-v1.60.1-LICENSE",
+        "modernc.org_sqlite-v1.60.1-LICENSE-SQLITE",
+        "modernc.org_sqlite-v1.60.1-LICENSE-3RD-PARTY.md",
+        "modernc.org_sqlite-v1.60.1-LICENSE-SQLITE_VEC"
+      ]
+    }
+  ],
+  "unicode": "shared Unicode 16.0.0 normalization tables"
+}
