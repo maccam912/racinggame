@@ -27,6 +27,7 @@ var required_races: int = 2
 var timeout_ms: int = 340000
 var race_metrics: Array[Dictionary] = []
 var minimum_ms: int = 0
+var requested_laps: int = 1
 
 
 func _initialize() -> void:
@@ -44,6 +45,7 @@ func run() -> void:
 		elif arg.begins_with("--races="): required_races = int(arg.trim_prefix("--races="))
 		elif arg.begins_with("--seconds="): timeout_ms = int(float(arg.trim_prefix("--seconds=")) * 1000)
 		elif arg.begins_with("--minimum-seconds="): minimum_ms = int(float(arg.trim_prefix("--minimum-seconds=")) * 1000)
+		elif arg.begins_with("--laps="): requested_laps = int(arg.trim_prefix("--laps="))
 	link.admission_ticket = OS.get_environment("PR_TEST_TICKET")
 	root.add_child(scene)
 	scene.add_child(link)
@@ -111,7 +113,7 @@ func on_lobby(state: Dictionary) -> void:
 	if results.size() >= required_races: return
 	if int(state.phase) != LobbyState.Phase.LOBBY or state.members.size() != expected_humans:
 		return
-	var target := {"track":results.size() % 2, "laps":1, "bot_fill":false, "difficulty":1, "contact":true}
+	var target := {"track":results.size() % 2, "laps":requested_laps, "bot_fill":false, "difficulty":1, "contact":true}
 	if state.host == link.guest_id and state.rules != target:
 		if requested_rules != target:
 			requested_rules = target

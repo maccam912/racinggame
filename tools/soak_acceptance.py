@@ -19,6 +19,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--port', type=int, default=27410)
     parser.add_argument('--races', type=int, default=10)
+    parser.add_argument('--laps', type=int, choices=[1,2], default=2)
     parser.add_argument('--seconds', type=int, default=1800)
     parser.add_argument('--minimum-seconds', type=int, default=960)
     args = parser.parse_args()
@@ -31,7 +32,7 @@ def main():
     summary = {'passed':False, 'base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True)),
                'platform':platform.platform(), 'processor':platform.processor(),
-               'races_requested':args.races, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
+               'races_requested':args.races, 'laps':args.laps, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
                'independent_datagram_loss':.01, 'transport':'Eight independent real UDP proxies, including ENet ACKs and retransmissions',
                'boundary':'Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.'}
     observations, race_wire, race_begin = [], [], {}
@@ -50,6 +51,7 @@ def main():
             handle = (folder/f'client-{index}.log').open('w'); handles.append(handle)
             processes.append(subprocess.Popen([*command, '--script','tests/soak_network_client.gd','--',
                 f'--port={args.port+index}',f'--index={index}',f'--races={args.races}',
+                f'--laps={args.laps}',
                 f'--seconds={args.seconds}',f'--minimum-seconds={args.minimum_seconds}',
                 f'--report={folder/f"client-{index}.json"}'], stdout=handle, stderr=subprocess.STDOUT))
         seen_perf = 0
@@ -121,7 +123,7 @@ def main():
                        max_clear_p95_m=max((row['p95'] for row in corrections),default=None),
                        min_clear_samples=min((row['count'] for row in corrections),default=0),clear_samples=sum(row['count'] for row in corrections),
                        proxy_seeds=[94723+101*index for index in range(8)],
-                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; test-only target speed factors [1,.91,1.04,.94,.88,.97,.85,1.01], four normal car types',
+                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; test-only target speed factors [1,.96,.985,.945,.97,.955,.93,.995], four normal car types',
                        clients_reports=reports,memory=memory,racing_wire=race_wire)
         assert summary['passed'], 'Failed checks: '+', '.join(key for key,value in checks.items() if not value)
     except Exception as error:

@@ -1,0 +1,2123 @@
+{
+  "passed": true,
+  "base_commit": "a540bf5267e9cd8ce07239c333678550396ddbf0",
+  "working_tree_dirty": true,
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "processor": "arm",
+  "races_requested": 2,
+  "laps": 2,
+  "clients": 8,
+  "one_way_latency_ms": 50,
+  "one_way_jitter_ms": 20,
+  "independent_datagram_loss": 0.01,
+  "transport": "Eight independent real UDP proxies, including ENet ACKs and retransmissions",
+  "boundary": "Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.",
+  "checks": {
+    "client_exit": true,
+    "identical_standings": true,
+    "all_finish_same_eight": true,
+    "bounded_racing_control": true,
+    "clear_coverage_500_each": true,
+    "clear_p95_025m_each": true,
+    "racing_wire_intervals": true,
+    "wire_budgets": true,
+    "engine_logs": true
+  },
+  "races": [
+    {
+      "race": 1,
+      "rows": [
+        {
+          "best_lap": 64.5017505516845,
+          "bot": false,
+          "car": 3.0,
+          "distance_m": 6222.04356971011,
+          "dnf": "",
+          "id": "97f5e9bf-bc8f-499f-acb9-e863c47c6354",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 7.0,
+          "slot": 0.0,
+          "time": 131.419576855636
+        },
+        {
+          "best_lap": 64.6037672342472,
+          "bot": false,
+          "car": 1.0,
+          "distance_m": 6191.15007320466,
+          "dnf": "",
+          "id": "56d9726f-f251-45bc-97a7-f9dec18316b2",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 1.0,
+          "slot": 1.0,
+          "time": 131.904744149942
+        },
+        {
+          "best_lap": 66.7960193505726,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 6224.36571124691,
+          "dnf": "",
+          "id": "68f9fcb6-742c-4f00-884d-d4b40b43386b",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 4.0,
+          "slot": 4.0,
+          "time": 138.1287076251
+        },
+        {
+          "best_lap": 65.5523110548657,
+          "bot": false,
+          "car": 1.0,
+          "distance_m": 6231.55648868295,
+          "dnf": "",
+          "id": "6661581c-5b2b-4895-8602-183bd2464696",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 5.0,
+          "slot": 5.0,
+          "time": 138.332929957728
+        },
+        {
+          "best_lap": 66.1819973391557,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 6240.99104839872,
+          "dnf": "",
+          "id": "faa65d4d-f69d-483f-b212-e022c3a5eda2",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 138.700453682216
+        },
+        {
+          "best_lap": 67.5972304992204,
+          "bot": false,
+          "car": 3.0,
+          "distance_m": 6209.52116045819,
+          "dnf": "",
+          "id": "897c641d-3de2-4829-bbce-3c06718d6d1d",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 3.0,
+          "slot": 3.0,
+          "time": 139.293798555747
+        },
+        {
+          "best_lap": 68.562179610737,
+          "bot": false,
+          "car": 2.0,
+          "distance_m": 6222.43737282971,
+          "dnf": "",
+          "id": "05675347-95ab-450e-bf19-bb6d76d85810",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 2.0,
+          "slot": 2.0,
+          "time": 140.628556059151
+        },
+        {
+          "best_lap": 72.537134876082,
+          "bot": false,
+          "car": 2.0,
+          "distance_m": 6232.62158311659,
+          "dnf": "",
+          "id": "e5995c0e-37e4-4fc8-b6a5-d1d967d4fb46",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 6.0,
+          "slot": 6.0,
+          "time": 150.646518188161
+        }
+      ],
+      "track": 0
+    },
+    {
+      "race": 2,
+      "rows": [
+        {
+          "best_lap": 72.1951631346429,
+          "bot": false,
+          "car": 3.0,
+          "distance_m": 6531.77586305933,
+          "dnf": "",
+          "id": "97f5e9bf-bc8f-499f-acb9-e863c47c6354",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 7.0,
+          "slot": 0.0,
+          "time": 146.844889818491
+        },
+        {
+          "best_lap": 73.6987589968258,
+          "bot": false,
+          "car": 1.0,
+          "distance_m": 6524.13343741233,
+          "dnf": "",
+          "id": "56d9726f-f251-45bc-97a7-f9dec18316b2",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 1.0,
+          "slot": 1.0,
+          "time": 149.953785989445
+        },
+        {
+          "best_lap": 73.8190466105845,
+          "bot": false,
+          "car": 1.0,
+          "distance_m": 6535.91488400579,
+          "dnf": "",
+          "id": "6661581c-5b2b-4895-8602-183bd2464696",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 5.0,
+          "slot": 5.0,
+          "time": 153.161112600927
+        },
+        {
+          "best_lap": 75.0119533263076,
+          "bot": false,
+          "car": 2.0,
+          "distance_m": 6524.02849117451,
+          "dnf": "",
+          "id": "05675347-95ab-450e-bf19-bb6d76d85810",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 2.0,
+          "slot": 2.0,
+          "time": 153.261061927771
+        },
+        {
+          "best_lap": 74.2848316456437,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 6539.71389556408,
+          "dnf": "",
+          "id": "68f9fcb6-742c-4f00-884d-d4b40b43386b",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 4.0,
+          "slot": 4.0,
+          "time": 153.706187598552
+        },
+        {
+          "best_lap": 73.7688676970294,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 6548.99922446033,
+          "dnf": "",
+          "id": "faa65d4d-f69d-483f-b212-e022c3a5eda2",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 153.944737490868
+        },
+        {
+          "best_lap": 75.2606363503768,
+          "bot": false,
+          "car": 3.0,
+          "distance_m": 6534.74841883639,
+          "dnf": "",
+          "id": "897c641d-3de2-4829-bbce-3c06718d6d1d",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 3.0,
+          "slot": 3.0,
+          "time": 155.011961750685
+        },
+        {
+          "best_lap": 78.8273489266641,
+          "bot": false,
+          "car": 2.0,
+          "distance_m": 6535.34585163748,
+          "dnf": "",
+          "id": "e5995c0e-37e4-4fc8-b6a5-d1d967d4fb46",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 6.0,
+          "slot": 6.0,
+          "time": 163.131807805147
+        }
+      ],
+      "track": 1
+    }
+  ],
+  "finishes": 16,
+  "identical_standings": true,
+  "max_clear_p95_m": 0.0276904739439487,
+  "min_clear_samples": 1843,
+  "clear_samples": 40469,
+  "proxy_seeds": [
+    94723,
+    94824,
+    94925,
+    95026,
+    95127,
+    95228,
+    95329,
+    95430
+  ],
+  "driver_fixture": "Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; test-only target speed factors [1,.96,.985,.945,.97,.955,.93,.995], four normal car types",
+  "clients_reports": [
+    {
+      "index": 0,
+      "large_racing_events": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "lobby_rejoin_ok": true,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2232,
+            "max": 0.149861708283424,
+            "p95": 0.0177510231733322
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 450,
+            "max": 0.219128951430321,
+            "p95": 0.0730174705386162
+          },
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 121.0,
+          "snapshots": 3004,
+          "terminal": {
+            "count": 271,
+            "max": 3.82753157615662,
+            "p95": 1.62151253223419
+          }
+        },
+        {
+          "clear": {
+            "count": 2567,
+            "max": 0.112151205539703,
+            "p95": 0.0204779822379351
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 377,
+            "max": 0.367134183645248,
+            "p95": 0.106865242123604
+          },
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 133.0,
+          "snapshots": 3214,
+          "terminal": {
+            "count": 220,
+            "max": 2.98620295524597,
+            "p95": 1.71011602878571
+          }
+        }
+      ],
+      "reconnect_done": false,
+      "result_hashes": [
+        "8b542427f223412ccf10ce8302081606b74bb41fa99f6353e8d871cb98756e37",
+        "bbcd875d30142040b41d95674b50c9466421ecdbe6ab64e7b392ea479bd8c091"
+      ],
+      "resume_count": 0,
+      "wire_received": 4800781,
+      "wire_sent": 742279
+    },
+    {
+      "index": 1,
+      "large_racing_events": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "lobby_rejoin_ok": true,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2566,
+            "max": 0.0966907888650894,
+            "p95": 0.0152526255697012
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 25,
+            "max": 0.524661540985107,
+            "p95": 0.0871723890304565
+          },
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 133.0,
+          "snapshots": 3009,
+          "terminal": {
+            "count": 408,
+            "max": 3.73708486557007,
+            "p95": 1.60253155231476
+          }
+        },
+        {
+          "clear": {
+            "count": 2905,
+            "max": 0.0956490337848663,
+            "p95": 0.0185620933771133
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 29,
+            "max": 0.581960022449493,
+            "p95": 0.102463647723198
+          },
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 137.0,
+          "snapshots": 3240,
+          "terminal": {
+            "count": 296,
+            "max": 3.14080095291138,
+            "p95": 1.72011375427246
+          }
+        }
+      ],
+      "reconnect_done": false,
+      "result_hashes": [
+        "8b542427f223412ccf10ce8302081606b74bb41fa99f6353e8d871cb98756e37",
+        "bbcd875d30142040b41d95674b50c9466421ecdbe6ab64e7b392ea479bd8c091"
+      ],
+      "resume_count": 0,
+      "wire_received": 4816935,
+      "wire_sent": 715836
+    },
+    {
+      "index": 2,
+      "large_racing_events": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "lobby_rejoin_ok": true,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 1843,
+            "max": 0.0526977740228176,
+            "p95": 0.0159588810056448
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 897,
+            "max": 0.282222479581833,
+            "p95": 0.125523120164871
+          },
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 146.0,
+          "snapshots": 3000,
+          "terminal": {
+            "count": 239,
+            "max": 2.82640075683594,
+            "p95": 1.60000038146973
+          }
+        },
+        {
+          "clear": {
+            "count": 2735,
+            "max": 0.0709861069917679,
+            "p95": 0.0168398078531027
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 274,
+            "max": 0.243172258138657,
+            "p95": 0.131352797150612
+          },
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 117.0,
+          "snapshots": 3265,
+          "terminal": {
+            "count": 234,
+            "max": 3.72021245956421,
+            "p95": 1.61999893188477
+          }
+        }
+      ],
+      "reconnect_done": false,
+      "result_hashes": [
+        "8b542427f223412ccf10ce8302081606b74bb41fa99f6353e8d871cb98756e37",
+        "bbcd875d30142040b41d95674b50c9466421ecdbe6ab64e7b392ea479bd8c091"
+      ],
+      "resume_count": 0,
+      "wire_received": 4830289,
+      "wire_sent": 745313
+    },
+    {
+      "index": 3,
+      "large_racing_events": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "lobby_rejoin_ok": true,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2074,
+            "max": 0.107940427958965,
+            "p95": 0.0177242141216993
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 626,
+            "max": 0.243346080183983,
+            "p95": 0.105417892336845
+          },
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 138.0,
+          "snapshots": 2983,
+          "terminal": {
+            "count": 261,
+            "max": 3.04006671905518,
+            "p95": 1.65002989768982
+          }
+        },
+        {
+          "clear": {
+            "count": 2397,
+            "max": 0.0890948697924614,
+            "p95": 0.0178237296640873
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 647,
+            "max": 0.262070506811142,
+            "p95": 0.121796026825905
+          },
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 133.0,
+          "snapshots": 3266,
+          "terminal": {
+            "count": 199,
+            "max": 3.04000854492188,
+            "p95": 1.78011500835419
+          }
+        }
+      ],
+      "reconnect_done": false,
+      "result_hashes": [
+        "8b542427f223412ccf10ce8302081606b74bb41fa99f6353e8d871cb98756e37",
+        "bbcd875d30142040b41d95674b50c9466421ecdbe6ab64e7b392ea479bd8c091"
+      ],
+      "resume_count": 0,
+      "wire_received": 4813361,
+      "wire_sent": 746244
+    },
+    {
+      "index": 4,
+      "large_racing_events": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "lobby_rejoin_ok": true,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2384,
+            "max": 0.0919074788689613,
+            "p95": 0.0122805144637823
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 297,
+            "max": 0.252161264419556,
+            "p95": 0.126994386315346
+          },
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 140.0,
+          "snapshots": 2997,
+          "terminal": {
+            "count": 283,
+            "max": 3.08000183105469,
+            "p95": 1.69011890888214
+          }
+        },
+        {
+          "clear": {
+            "count": 2467,
+            "max": 0.0773761123418808,
+            "p95": 0.0190773289650679
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 522,
+            "max": 0.228093951940536,
+            "p95": 0.081753209233284
+          },
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 163.0,
+          "snapshots": 3248,
+          "terminal": {
+            "count": 225,
+            "max": 2.99043869972229,
+            "p95": 1.73072576522827
+          }
+        }
+      ],
+      "reconnect_done": false,
+      "result_hashes": [
+        "8b542427f223412ccf10ce8302081606b74bb41fa99f6353e8d871cb98756e37",
+        "bbcd875d30142040b41d95674b50c9466421ecdbe6ab64e7b392ea479bd8c091"
+      ],
+      "resume_count": 0,
+      "wire_received": 4809395,
+      "wire_sent": 740258
+    },
+    {
+      "index": 5,
+      "large_racing_events": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "lobby_rejoin_ok": true,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2444,
+            "max": 0.112873688340187,
+            "p95": 0.0276904739439487
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 228,
+            "max": 0.199032127857208,
+            "p95": 0.101442158222198
+          },
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 138.0,
+          "snapshots": 2990,
+          "terminal": {
+            "count": 280,
+            "max": 3.1405725479126,
+            "p95": 1.64999961853027
+          }
+        },
+        {
+          "clear": {
+            "count": 2457,
+            "max": 0.141690835356712,
+            "p95": 0.0176613479852676
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 523,
+            "max": 0.310122609138489,
+            "p95": 0.115248881280422
+          },
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 132.0,
+          "snapshots": 3248,
+          "terminal": {
+            "count": 233,
+            "max": 3.14169239997864,
+            "p95": 1.78011119365692
+          }
+        }
+      ],
+      "reconnect_done": false,
+      "result_hashes": [
+        "8b542427f223412ccf10ce8302081606b74bb41fa99f6353e8d871cb98756e37",
+        "bbcd875d30142040b41d95674b50c9466421ecdbe6ab64e7b392ea479bd8c091"
+      ],
+      "resume_count": 0,
+      "wire_received": 4804569,
+      "wire_sent": 739412
+    },
+    {
+      "index": 6,
+      "large_racing_events": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "lobby_rejoin_ok": true,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2875,
+            "max": 0.0808267369866371,
+            "p95": 0.0116210579872131
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 37,
+            "max": 0.0397406555712223,
+            "p95": 0.0321327038109303
+          },
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 172.0,
+          "snapshots": 2998,
+          "terminal": {
+            "count": 40,
+            "max": 1.99022686481476,
+            "p95": 1.90010488033295
+          }
+        },
+        {
+          "clear": {
+            "count": 3120,
+            "max": 0.124718315899372,
+            "p95": 0.0155678447335958
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 30,
+            "max": 0.0434347726404667,
+            "p95": 0.0419721975922585
+          },
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 121.0,
+          "snapshots": 3235,
+          "terminal": {
+            "count": 40,
+            "max": 2.07021713256836,
+            "p95": 1.9700266122818
+          }
+        }
+      ],
+      "reconnect_done": false,
+      "result_hashes": [
+        "8b542427f223412ccf10ce8302081606b74bb41fa99f6353e8d871cb98756e37",
+        "bbcd875d30142040b41d95674b50c9466421ecdbe6ab64e7b392ea479bd8c091"
+      ],
+      "resume_count": 0,
+      "wire_received": 4797250,
+      "wire_sent": 794264
+    },
+    {
+      "index": 7,
+      "large_racing_events": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "lobby_rejoin_ok": true,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2557,
+            "max": 0.139210909605026,
+            "p95": 0.0116143468767405
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 25,
+            "max": 0.525347948074341,
+            "p95": 0.0646219626069069
+          },
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 102.0,
+          "snapshots": 3010,
+          "terminal": {
+            "count": 418,
+            "max": 3.04000854492188,
+            "p95": 1.57003152370453
+          }
+        },
+        {
+          "clear": {
+            "count": 2846,
+            "max": 0.0984916612505913,
+            "p95": 0.0191285572946072
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 29,
+            "max": 0.567894816398621,
+            "p95": 0.0598694272339344
+          },
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 135.0,
+          "snapshots": 3239,
+          "terminal": {
+            "count": 354,
+            "max": 4.6100115776062,
+            "p95": 1.72003030776978
+          }
+        }
+      ],
+      "reconnect_done": false,
+      "result_hashes": [
+        "8b542427f223412ccf10ce8302081606b74bb41fa99f6353e8d871cb98756e37",
+        "bbcd875d30142040b41d95674b50c9466421ecdbe6ab64e7b392ea479bd8c091"
+      ],
+      "resume_count": 0,
+      "wire_received": 4814607,
+      "wire_sent": 707096
+    }
+  ],
+  "memory": {
+    "measured": false
+  },
+  "racing_wire": [
+    {
+      "race": 1,
+      "seconds": 157.67154541588388,
+      "scope": "First Start to last Results, includes Grid and ENet overhead; excludes handshake. IPv4+UDP adds 28 bytes per observed datagram; no Ethernet/VPN estimate.",
+      "clients": [
+        {
+          "udp_payload_up_Bps": 2537.5726415610657,
+          "udp_payload_down_Bps": 14921.519249363482,
+          "ipv4_udp_up_Bps": 3424.2513357493203,
+          "ipv4_udp_down_Bps": 15629.725664829688,
+          "counts": {
+            "upstream_bytes": 395965,
+            "downstream_bytes": 2334117,
+            "upstream_packets": 4945,
+            "downstream_packets": 3952,
+            "dropped_packets": 81,
+            "offered_upstream_bytes": 400103,
+            "offered_downstream_bytes": 2352699,
+            "offered_upstream_packets": 4993,
+            "offered_downstream_packets": 3988
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2420.138643237772,
+          "udp_payload_down_Bps": 14921.709518317344,
+          "ipv4_udp_up_Bps": 3271.122881681617,
+          "ipv4_udp_down_Bps": 15630.626271211298,
+          "counts": {
+            "upstream_bytes": 378589,
+            "downstream_bytes": 2326165,
+            "upstream_packets": 4756,
+            "downstream_packets": 3948,
+            "dropped_packets": 76,
+            "offered_upstream_bytes": 381587,
+            "offered_downstream_bytes": 2352729,
+            "offered_upstream_packets": 4792,
+            "offered_downstream_packets": 3992
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2569.13191870822,
+          "udp_payload_down_Bps": 14904.559943275965,
+          "ipv4_udp_up_Bps": 3465.5777525280296,
+          "ipv4_udp_down_Bps": 15613.299111812981,
+          "counts": {
+            "upstream_bytes": 401414,
+            "downstream_bytes": 2335819,
+            "upstream_packets": 5006,
+            "downstream_packets": 3964,
+            "dropped_packets": 68,
+            "offered_upstream_bytes": 405079,
+            "offered_downstream_bytes": 2350025,
+            "offered_upstream_packets": 5048,
+            "offered_downstream_packets": 3991
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2532.0802110929317,
+          "udp_payload_down_Bps": 14879.799610080127,
+          "ipv4_udp_up_Bps": 3416.272724284063,
+          "ipv4_udp_down_Bps": 15586.05259762002,
+          "counts": {
+            "upstream_bytes": 396237,
+            "downstream_bytes": 2317328,
+            "upstream_packets": 4943,
+            "downstream_packets": 3933,
+            "dropped_packets": 79,
+            "offered_upstream_bytes": 399237,
+            "offered_downstream_bytes": 2346121,
+            "offered_upstream_packets": 4979,
+            "offered_downstream_packets": 3977
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2530.1267831666205,
+          "udp_payload_down_Bps": 14857.677673044502,
+          "ipv4_udp_up_Bps": 3414.319296357752,
+          "ipv4_udp_down_Bps": 15563.575491870519,
+          "counts": {
+            "upstream_bytes": 394060,
+            "downstream_bytes": 2316062,
+            "upstream_packets": 4919,
+            "downstream_packets": 3930,
+            "dropped_packets": 103,
+            "offered_upstream_bytes": 398929,
+            "offered_downstream_bytes": 2342633,
+            "offered_upstream_packets": 4979,
+            "offered_downstream_packets": 3975
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2495.897398366944,
+          "udp_payload_down_Bps": 14881.372500098714,
+          "ipv4_udp_up_Bps": 3369.6124344987707,
+          "ipv4_udp_down_Bps": 15587.44790328167,
+          "counts": {
+            "upstream_bytes": 390081,
+            "downstream_bytes": 2324793,
+            "upstream_packets": 4876,
+            "downstream_packets": 3939,
+            "dropped_packets": 78,
+            "offered_upstream_bytes": 393532,
+            "offered_downstream_bytes": 2346369,
+            "offered_upstream_packets": 4920,
+            "offered_downstream_packets": 3976
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2745.4478159531736,
+          "udp_payload_down_Bps": 14923.009689502065,
+          "ipv4_udp_up_Bps": 3695.5241255680667,
+          "ipv4_udp_down_Bps": 15632.814364180706,
+          "counts": {
+            "upstream_bytes": 427297,
+            "downstream_bytes": 2324080,
+            "upstream_packets": 5282,
+            "downstream_packets": 3946,
+            "dropped_packets": 116,
+            "offered_upstream_bytes": 432879,
+            "offered_downstream_bytes": 2352934,
+            "offered_upstream_packets": 5350,
+            "offered_downstream_packets": 3997
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2413.1367457356705,
+          "udp_payload_down_Bps": 14921.38606109578,
+          "ipv4_udp_up_Bps": 3261.634803182392,
+          "ipv4_udp_down_Bps": 15629.23730784811,
+          "counts": {
+            "upstream_bytes": 376961,
+            "downstream_bytes": 2322461,
+            "upstream_packets": 4735,
+            "downstream_packets": 3940,
+            "dropped_packets": 88,
+            "offered_upstream_bytes": 380483,
+            "offered_downstream_bytes": 2352678,
+            "offered_upstream_packets": 4778,
+            "offered_downstream_packets": 3986
+          }
+        }
+      ]
+    },
+    {
+      "race": 2,
+      "seconds": 170.05971295805648,
+      "scope": "First Start to last Results, includes Grid and ENet overhead; excludes handshake. IPv4+UDP adds 28 bytes per observed datagram; no Ethernet/VPN estimate.",
+      "clients": [
+        {
+          "udp_payload_up_Bps": 2611.106371263363,
+          "udp_payload_down_Bps": 14793.315572751106,
+          "ipv4_udp_up_Bps": 3519.963603299975,
+          "ipv4_udp_down_Bps": 15494.716262692406,
+          "counts": {
+            "upstream_bytes": 439859,
+            "downstream_bytes": 2488254,
+            "upstream_packets": 5460,
+            "downstream_packets": 4215,
+            "dropped_packets": 100,
+            "offered_upstream_bytes": 444044,
+            "offered_downstream_bytes": 2515747,
+            "offered_upstream_packets": 5520,
+            "offered_downstream_packets": 4260
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2537.8203484704522,
+          "udp_payload_down_Bps": 14904.05902675567,
+          "ipv4_udp_up_Bps": 3423.956149706149,
+          "ipv4_udp_down_Bps": 15610.728454273993,
+          "counts": {
+            "upstream_bytes": 426719,
+            "downstream_bytes": 2506975,
+            "upstream_packets": 5319,
+            "downstream_packets": 4245,
+            "dropped_packets": 106,
+            "offered_upstream_bytes": 431581,
+            "offered_downstream_bytes": 2534580,
+            "offered_upstream_packets": 5382,
+            "offered_downstream_packets": 4292
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2597.787520133945,
+          "udp_payload_down_Bps": 14928.379895749611,
+          "ipv4_udp_up_Bps": 3502.693198987789,
+          "ipv4_udp_down_Bps": 15637.354395957882,
+          "counts": {
+            "upstream_bytes": 437854,
+            "downstream_bytes": 2513526,
+            "upstream_packets": 5442,
+            "downstream_packets": 4263,
+            "dropped_packets": 93,
+            "offered_upstream_bytes": 441779,
+            "offered_downstream_bytes": 2538716,
+            "offered_upstream_packets": 5496,
+            "offered_downstream_packets": 4306
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2629.223536971857,
+          "udp_payload_down_Bps": 14924.475384866639,
+          "ipv4_udp_up_Bps": 3543.349506585493,
+          "ipv4_udp_down_Bps": 15632.297348729935,
+          "counts": {
+            "upstream_bytes": 443308,
+            "downstream_bytes": 2513967,
+            "upstream_packets": 5501,
+            "downstream_packets": 4258,
+            "dropped_packets": 89,
+            "offered_upstream_bytes": 447125,
+            "offered_downstream_bytes": 2538052,
+            "offered_upstream_packets": 5552,
+            "offered_downstream_packets": 4299
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2572.372917669774,
+          "udp_payload_down_Bps": 14899.043141540044,
+          "ipv4_udp_up_Bps": 3468.7168979609546,
+          "ipv4_udp_down_Bps": 15605.218624910522,
+          "counts": {
+            "upstream_bytes": 432963,
+            "downstream_bytes": 2510536,
+            "upstream_packets": 5385,
+            "downstream_packets": 4247,
+            "dropped_packets": 99,
+            "offered_upstream_bytes": 437457,
+            "offered_downstream_bytes": 2533727,
+            "offered_upstream_packets": 5444,
+            "offered_downstream_packets": 4289
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2580.18193943572,
+          "udp_payload_down_Bps": 14884.060169055383,
+          "ipv4_udp_up_Bps": 3480.6421209589503,
+          "ipv4_udp_down_Bps": 15592.540725115807,
+          "counts": {
+            "upstream_bytes": 433320,
+            "downstream_bytes": 2500438,
+            "upstream_packets": 5399,
+            "downstream_packets": 4242,
+            "dropped_packets": 128,
+            "offered_upstream_bytes": 438785,
+            "offered_downstream_bytes": 2531179,
+            "offered_upstream_packets": 5469,
+            "offered_downstream_packets": 4303
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2747.2291460072524,
+          "udp_payload_down_Bps": 14824.234124291275,
+          "ipv4_udp_up_Bps": 3697.0837423150815,
+          "ipv4_udp_down_Bps": 15528.433831070368,
+          "counts": {
+            "upstream_bytes": 463167,
+            "downstream_bytes": 2493371,
+            "upstream_packets": 5717,
+            "downstream_packets": 4235,
+            "dropped_packets": 91,
+            "offered_upstream_bytes": 467193,
+            "offered_downstream_bytes": 2521005,
+            "offered_upstream_packets": 5769,
+            "offered_downstream_packets": 4277
+          }
+        },
+        {
+          "udp_payload_up_Bps": 2493.188966540083,
+          "udp_payload_down_Bps": 14896.785111149891,
+          "ipv4_udp_up_Bps": 3367.305460178194,
+          "ipv4_udp_down_Bps": 15605.101019161033,
+          "counts": {
+            "upstream_bytes": 418992,
+            "downstream_bytes": 2506309,
+            "upstream_packets": 5247,
+            "downstream_packets": 4260,
+            "dropped_packets": 102,
+            "offered_upstream_bytes": 423991,
+            "offered_downstream_bytes": 2533343,
+            "offered_upstream_packets": 5309,
+            "offered_downstream_packets": 4302
+          }
+        }
+      ]
+    }
+  ],
+  "elapsed_seconds": 341.11185549991205,
+  "worker_observations": [
+    {
+      "elapsed": 0.2336199169512838,
+      "cars": 0,
+      "deadline_misses": 0,
+      "full_window": false,
+      "max_us": 45,
+      "p95_us": 45,
+      "p99_us": 45,
+      "rss_bytes": 137101312,
+      "samples": 5,
+      "version": 1,
+      "window_us": 266
+    },
+    {
+      "elapsed": 5.37772420886904,
+      "cars": 0,
+      "deadline_misses": 0,
+      "full_window": false,
+      "max_us": 10684,
+      "p95_us": 385,
+      "p99_us": 883,
+      "rss_bytes": 145850368,
+      "samples": 306,
+      "version": 1,
+      "window_us": 5005309
+    },
+    {
+      "elapsed": 10.268059708876535,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": false,
+      "max_us": 29229,
+      "p95_us": 1219,
+      "p99_us": 2023,
+      "rss_bytes": 169099264,
+      "samples": 606,
+      "version": 1,
+      "window_us": 10006454
+    },
+    {
+      "elapsed": 15.429528916953132,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": false,
+      "max_us": 29229,
+      "p95_us": 2153,
+      "p99_us": 2499,
+      "rss_bytes": 169099264,
+      "samples": 906,
+      "version": 1,
+      "window_us": 15007258
+    },
+    {
+      "elapsed": 20.306896833935753,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": false,
+      "max_us": 29229,
+      "p95_us": 2187,
+      "p99_us": 2430,
+      "rss_bytes": 155533312,
+      "samples": 1207,
+      "version": 1,
+      "window_us": 20020745
+    },
+    {
+      "elapsed": 25.449098374927416,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": false,
+      "max_us": 29229,
+      "p95_us": 2194,
+      "p99_us": 2430,
+      "rss_bytes": 153812992,
+      "samples": 1507,
+      "version": 1,
+      "window_us": 25022616
+    },
+    {
+      "elapsed": 30.33862691698596,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": true,
+      "max_us": 29229,
+      "p95_us": 2216,
+      "p99_us": 2480,
+      "rss_bytes": 153812992,
+      "samples": 1799,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 35.47739754198119,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": true,
+      "max_us": 29229,
+      "p95_us": 2250,
+      "p99_us": 2491,
+      "rss_bytes": 153812992,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 40.35180624993518,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3049,
+      "p95_us": 2318,
+      "p99_us": 2500,
+      "rss_bytes": 153812992,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 45.49059058399871,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3137,
+      "p95_us": 2350,
+      "p99_us": 2504,
+      "rss_bytes": 153812992,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 50.37291349982843,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3137,
+      "p95_us": 2381,
+      "p99_us": 2574,
+      "rss_bytes": 153812992,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 55.5305547087919,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3137,
+      "p95_us": 2472,
+      "p99_us": 2766,
+      "rss_bytes": 153829376,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 60.422805042006075,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3137,
+      "p95_us": 2504,
+      "p99_us": 2768,
+      "rss_bytes": 153829376,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 65.31940066698007,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3137,
+      "p95_us": 2509,
+      "p99_us": 2768,
+      "rss_bytes": 153829376,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 70.47227874980308,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3137,
+      "p95_us": 2499,
+      "p99_us": 2768,
+      "rss_bytes": 153829376,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 75.3487462089397,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3061,
+      "p95_us": 2494,
+      "p99_us": 2755,
+      "rss_bytes": 153829376,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 80.4948506669607,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2971,
+      "p95_us": 2491,
+      "p99_us": 2755,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 85.38141095894389,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3058,
+      "p95_us": 2416,
+      "p99_us": 2587,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 90.52471499983221,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3058,
+      "p95_us": 2319,
+      "p99_us": 2526,
+      "rss_bytes": 153845760,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 95.40120162488893,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3058,
+      "p95_us": 2313,
+      "p99_us": 2526,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 100.5446084169671,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3058,
+      "p95_us": 2370,
+      "p99_us": 2544,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 105.4133672087919,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3770,
+      "p95_us": 2421,
+      "p99_us": 2701,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 110.56814020895399,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3770,
+      "p95_us": 2408,
+      "p99_us": 2701,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 115.45242362492718,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3770,
+      "p95_us": 2410,
+      "p99_us": 2701,
+      "rss_bytes": 153845760,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 120.59828508389182,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3770,
+      "p95_us": 2410,
+      "p99_us": 2702,
+      "rss_bytes": 153845760,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 125.4892735418398,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3770,
+      "p95_us": 2399,
+      "p99_us": 2668,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 130.6175910839811,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3770,
+      "p95_us": 2365,
+      "p99_us": 2656,
+      "rss_bytes": 153845760,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 135.50028954190202,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2888,
+      "p95_us": 2300,
+      "p99_us": 2488,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 140.6318717089016,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2873,
+      "p95_us": 2363,
+      "p99_us": 2586,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 145.52189029194415,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2873,
+      "p95_us": 2363,
+      "p99_us": 2585,
+      "rss_bytes": 153845760,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 150.66482204198837,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2873,
+      "p95_us": 2358,
+      "p99_us": 2584,
+      "rss_bytes": 153845760,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 155.57998845889233,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2873,
+      "p95_us": 2321,
+      "p99_us": 2572,
+      "rss_bytes": 153911296,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 160.72942362492904,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2873,
+      "p95_us": 2315,
+      "p99_us": 2572,
+      "rss_bytes": 153944064,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 165.6148527499754,
+      "cars": 0,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2873,
+      "p95_us": 2265,
+      "p99_us": 2568,
+      "rss_bytes": 153993216,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 170.5356834589038,
+      "cars": 0,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2572,
+      "p95_us": 2094,
+      "p99_us": 2268,
+      "rss_bytes": 153993216,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 175.7088022090029,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": true,
+      "max_us": 32437,
+      "p95_us": 1978,
+      "p99_us": 2201,
+      "rss_bytes": 171491328,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 180.59424637490883,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": true,
+      "max_us": 32437,
+      "p95_us": 2113,
+      "p99_us": 2437,
+      "rss_bytes": 168132608,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 185.75750358379446,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": true,
+      "max_us": 32437,
+      "p95_us": 2174,
+      "p99_us": 2438,
+      "rss_bytes": 157597696,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 190.65650041680783,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": true,
+      "max_us": 32437,
+      "p95_us": 2226,
+      "p99_us": 2437,
+      "rss_bytes": 155811840,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 195.54466449981555,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": true,
+      "max_us": 32437,
+      "p95_us": 2259,
+      "p99_us": 2438,
+      "rss_bytes": 155811840,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 200.68657570891082,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": true,
+      "max_us": 32437,
+      "p95_us": 2327,
+      "p99_us": 2533,
+      "rss_bytes": 155811840,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 205.5779581249226,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2974,
+      "p95_us": 2346,
+      "p99_us": 2535,
+      "rss_bytes": 155926528,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 210.73369020898826,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2984,
+      "p95_us": 2338,
+      "p99_us": 2519,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 215.63154687499627,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2984,
+      "p95_us": 2359,
+      "p99_us": 2538,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 220.7656233748421,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2984,
+      "p95_us": 2382,
+      "p99_us": 2570,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 225.65672704181634,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2984,
+      "p95_us": 2379,
+      "p99_us": 2581,
+      "rss_bytes": 155860992,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 230.8030052089598,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2984,
+      "p95_us": 2409,
+      "p99_us": 2606,
+      "rss_bytes": 155860992,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 235.68800579197705,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2984,
+      "p95_us": 2419,
+      "p99_us": 2606,
+      "rss_bytes": 155860992,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 240.57588525000028,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2884,
+      "p95_us": 2435,
+      "p99_us": 2628,
+      "rss_bytes": 155926528,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 245.7318242089823,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2884,
+      "p95_us": 2457,
+      "p99_us": 2634,
+      "rss_bytes": 155926528,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 250.6180184588302,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2884,
+      "p95_us": 2457,
+      "p99_us": 2648,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 255.7752039169427,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3051,
+      "p95_us": 2469,
+      "p99_us": 2635,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 260.68194883386604,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3051,
+      "p95_us": 2405,
+      "p99_us": 2589,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 265.8380354999099,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3051,
+      "p95_us": 2384,
+      "p99_us": 2583,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 270.72325499984436,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3051,
+      "p95_us": 2362,
+      "p99_us": 2540,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 275.6226763748564,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3051,
+      "p95_us": 2362,
+      "p99_us": 2526,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 280.7721612500027,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 3051,
+      "p95_us": 2378,
+      "p99_us": 2566,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 285.6614653340075,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2880,
+      "p95_us": 2376,
+      "p99_us": 2557,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 290.80394399981014,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2880,
+      "p95_us": 2414,
+      "p99_us": 2569,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 295.7222962498199,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2880,
+      "p95_us": 2416,
+      "p99_us": 2569,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 300.8754928340204,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2785,
+      "p95_us": 2411,
+      "p99_us": 2557,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 305.77721162489615,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2785,
+      "p95_us": 2354,
+      "p99_us": 2533,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 310.93183612497523,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2750,
+      "p95_us": 2343,
+      "p99_us": 2487,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 315.83470008382574,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2750,
+      "p95_us": 2333,
+      "p99_us": 2483,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 320.7214694588911,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2777,
+      "p95_us": 2320,
+      "p99_us": 2475,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 325.88273983378895,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2920,
+      "p95_us": 2317,
+      "p99_us": 2477,
+      "rss_bytes": 155910144,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 330.79407141683623,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2920,
+      "p95_us": 2315,
+      "p99_us": 2475,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 335.97443804191425,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2920,
+      "p95_us": 2297,
+      "p99_us": 2476,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    },
+    {
+      "elapsed": 340.85478449985385,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 2920,
+      "p95_us": 2229,
+      "p99_us": 2472,
+      "rss_bytes": 155910144,
+      "samples": 1801,
+      "version": 1,
+      "window_us": 30000000
+    }
+  ],
+  "wire_totals": [
+    {
+      "upstream_bytes": 838713,
+      "downstream_bytes": 4882933,
+      "upstream_packets": 10512,
+      "downstream_packets": 8310,
+      "dropped_packets": 183,
+      "offered_upstream_bytes": 846953,
+      "offered_downstream_bytes": 4928376,
+      "offered_upstream_packets": 10618,
+      "offered_downstream_packets": 8387
+    },
+    {
+      "upstream_bytes": 808090,
+      "downstream_bytes": 4902499,
+      "upstream_packets": 10189,
+      "downstream_packets": 8347,
+      "dropped_packets": 186,
+      "offered_upstream_bytes": 815865,
+      "offered_downstream_bytes": 4957051,
+      "offered_upstream_packets": 10285,
+      "offered_downstream_packets": 8437
+    },
+    {
+      "upstream_bytes": 842141,
+      "downstream_bytes": 4918302,
+      "upstream_packets": 10562,
+      "downstream_packets": 8376,
+      "dropped_packets": 166,
+      "offered_upstream_bytes": 849754,
+      "offered_downstream_bytes": 4959586,
+      "offered_upstream_packets": 10657,
+      "offered_downstream_packets": 8447
+    },
+    {
+      "upstream_bytes": 842369,
+      "downstream_bytes": 4899185,
+      "upstream_packets": 10555,
+      "downstream_packets": 8340,
+      "dropped_packets": 169,
+      "offered_upstream_bytes": 849109,
+      "offered_downstream_bytes": 4952201,
+      "offered_upstream_packets": 10639,
+      "offered_downstream_packets": 8425
+    },
+    {
+      "upstream_bytes": 829835,
+      "downstream_bytes": 4892031,
+      "upstream_packets": 10409,
+      "downstream_packets": 8322,
+      "dropped_packets": 202,
+      "offered_upstream_bytes": 839107,
+      "offered_downstream_bytes": 4941184,
+      "offered_upstream_packets": 10526,
+      "offered_downstream_packets": 8407
+    },
+    {
+      "upstream_bytes": 825670,
+      "downstream_bytes": 4888823,
+      "upstream_packets": 10371,
+      "downstream_packets": 8321,
+      "dropped_packets": 207,
+      "offered_upstream_bytes": 834585,
+      "offered_downstream_bytes": 4940511,
+      "offered_upstream_packets": 10484,
+      "offered_downstream_packets": 8415
+    },
+    {
+      "upstream_bytes": 893432,
+      "downstream_bytes": 4883995,
+      "upstream_packets": 11109,
+      "downstream_packets": 8331,
+      "dropped_packets": 208,
+      "offered_upstream_bytes": 902937,
+      "offered_downstream_bytes": 4940276,
+      "offered_upstream_packets": 11225,
+      "offered_downstream_packets": 8423
+    },
+    {
+      "upstream_bytes": 798904,
+      "downstream_bytes": 4902668,
+      "upstream_packets": 10095,
+      "downstream_packets": 8358,
+      "dropped_packets": 193,
+      "offered_upstream_bytes": 807362,
+      "offered_downstream_bytes": 4960396,
+      "offered_upstream_packets": 10199,
+      "offered_downstream_packets": 8447
+    }
+  ],
+  "cleanup_issues": [],
+  "raw_report": {
+    "path": "reports/soak-eight-19ffa393a0/summary.json",
+    "sha256": "219a8c2dd082089ceaf8fd01071002f67c3b6b852312b6792cf4fb74f6275e5b",
+    "bytes": 279611,
+    "retained_locally": true
+  },
+  "evidence_note": "Canonical standings, per-client result hashes, all race metrics, wire intervals and numeric worker observations retained; repetitive per-client standings and per-frame traces remain in hashed raw report."
+}

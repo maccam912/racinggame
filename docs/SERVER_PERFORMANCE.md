@@ -49,7 +49,7 @@ go -C services/directory test -race ./...
 python3 tools/soak_acceptance.py
 ```
 
-The optional source soak runs eight actual clients through ten Palm Bay/Citrus
+The optional source soak runs eight actual clients through ten two-lap Palm Bay/Citrus
 Pass races over independent real UDP proxies. Each direction adds 50±20 ms and
 1% independent datagram loss, including ENet acknowledgements/retransmissions.
 It checks matching standings, 80 finishes, clear-road p95 ≤0.25 m per client per
@@ -85,3 +85,18 @@ allocations between five-second RSS samples remain explicit measurement limits.
 API references: [Linux RSS accuracy](https://man7.org/linux/man-pages/man5/proc_pid_statm.5.html),
 [Windows process memory](https://learn.microsoft.com/en-us/windows/win32/api/psapi/nf-psapi-getprocessmemoryinfo),
 [Apple resident memory structure](https://developer.apple.com/documentation/kernel/mach_task_basic_info_data_t).
+
+
+The completed local two-lap run passes all eleven guards: 80 finishes with the
+same eight identities and identical standings, no DNF/bot substitutions, at least
+1,138 clear samples per driver/race and worst clear p95 0.0262932 m. IPv4+UDP
+per-race peaks are 3,716 B/s upstream and 15,656 B/s downstream. Five-to-fifteen
+minute cycle high-water growth is 0.0574%; maximum sampled RSS throughout is
+171,458,560 bytes. The full 1,699.7-second run cleans up all owned processes and
+proxies. [Full evidence](evidence/m5-soak-ten-two-lap.json) retains numeric window
+observations, all eighty client/race correction metrics and ten wire intervals.
+The preceding one-lap repeat remains failed for insufficient coverage in three
+client/race cases; its accuracy, standings, wire and memory guards passed.
+[Failed evidence](evidence/m5-soak-one-lap-coverage-failed.json).
+Two laps increase observation time without changing physics, car/AI parameters,
+contacts, speed factors, the 500-sample requirement or the 0.25 m guard.

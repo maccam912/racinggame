@@ -10,7 +10,7 @@ class PacedDriver extends BotDriver:
 func start_race(config: Dictionary) -> void:
 	super.start_race(config)
 	var paced := PacedDriver.new()
-	paced.pace = [1.0,.91,1.04,.94,.88,.97,.85,1.01][index]
+	paced.pace = [1.0,.96,.985,.945,.97,.955,.93,.995][index]
 	bot = paced
 	link.input_provider = func() -> InputFrame:
 		var rivals: Array[VehicleState] = []
