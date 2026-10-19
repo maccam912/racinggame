@@ -155,17 +155,27 @@ func ghost_path(track: String, car: String) -> String:
 	return store.root_path.path_join("ghosts").path_join(track).path_join(car).path_join(Compatibility.content_hash() + ".bin")
 
 
-func load_ghost(track: String, car: String) -> Dictionary:
-	var expected := best("trial", track, car)
-	if expected < 0:
+func matching_ghost(track: String, car: String, expected: float) -> Dictionary:
+	if expected <= 0:
 		return {}
 	for suffix in ["", ".bak"]:
 		var filename: String = ghost_path(track, car) + suffix
 		if not FileAccess.file_exists(filename):
 			continue
-		var ghost := GhostCodec.decode(FileAccess.get_file_as_bytes(filename), track, car, Compatibility.content_hash())
+		var bytes := FileAccess.get_file_as_bytes(filename)
+		var ghost := GhostCodec.decode(bytes, track, car, Compatibility.content_hash())
 		if not ghost.is_empty() and absf(float(ghost.time) - expected) < .00000001:
-			return ghost
+			return {"bytes":bytes, "ghost":ghost}
+	return {}
+
+
+func load_ghost(track: String, car: String) -> Dictionary:
+	var expected := best("trial", track, car)
+	if expected <= 0:
+		return {}
+	var matched := matching_ghost(track, car, expected)
+	if not matched.is_empty():
+		return matched.ghost
 	store.notice("data.ghost_unavailable")
 	return {}
 
@@ -192,14 +202,16 @@ func commit_result(session: RaceSession, samples: Array[Dictionary] = []) -> Dic
 		return {"saved":false, "new_best":false, "previous":previous}
 	var updated := records.duplicate(true)
 	var ghost_filename := ""
-	var had_ghost := false
+	var prior_ghost := PackedByteArray()
 	if new_best and session.mode == "trial":
 		var bytes := GhostCodec.encode(session.track.id, car, Compatibility.content_hash(), candidate, samples)
 		if bytes.is_empty():
 			return {"saved":false, "new_best":false, "previous":previous}
 		ghost_filename = ghost_path(session.track.id, car)
-		had_ghost = FileAccess.file_exists(ghost_filename)
-		if write_ghost(ghost_filename, bytes) != OK:
+		var matched := matching_ghost(session.track.id, car, previous)
+		if not matched.is_empty():
+			prior_ghost = matched.bytes
+		if write_ghost(ghost_filename, bytes, prior_ghost) != OK:
 			return {"saved":false, "new_best":false, "previous":previous}
 	if new_best:
 		updated.times[key] = {"time":candidate, "race_id":session.race_uuid, "medal":Medals.award(session.track.length, candidate, true) if session.mode == "trial" else -1}
@@ -207,9 +219,9 @@ func commit_result(session: RaceSession, samples: Array[Dictionary] = []) -> Dic
 	updated.pending[session.race_uuid] = {"distance_m":state.distance_m, "completed":state.finished}
 	if store.save_component("records", updated) != OK:
 		if ghost_filename != "":
-			if had_ghost and FileAccess.file_exists(ghost_filename + ".bak"):
-				DirAccess.copy_absolute(ghost_filename + ".bak", ghost_filename)
-			elif not had_ghost:
+			if not prior_ghost.is_empty():
+				write_binary_atomic(ghost_filename, prior_ghost)
+			else:
 				DirAccess.remove_absolute(ghost_filename)
 		return {"saved":false, "new_best":false, "previous":previous}
 	records = updated
@@ -238,21 +250,36 @@ func resume_stat_commits() -> void:
 		records = cleared
 
 
-func write_ghost(filename: String, bytes: PackedByteArray) -> Error:
+func write_ghost(filename: String, bytes: PackedByteArray, previous: PackedByteArray) -> Error:
 	if DirAccess.make_dir_recursive_absolute(filename.get_base_dir()) != OK:
 		return ERR_CANT_CREATE
-	var file := FileAccess.open(filename + ".tmp", FileAccess.WRITE)
+	var error := write_binary(filename + ".tmp", bytes)
+	if error != OK:
+		return error
+	# Only a checksum/identity/time-verified ghost matching the committed record
+	# may become the backup. The primary may be corrupt or from an interrupted
+	# faster run while its .bak is the sole matching copy.
+	if not previous.is_empty() and (not FileAccess.file_exists(filename + ".bak") or FileAccess.get_file_as_bytes(filename + ".bak") != previous):
+		error = write_binary_atomic(filename + ".bak", previous)
+		if error != OK:
+			return error
+	return DirAccess.rename_absolute(filename + ".tmp", filename)
+
+
+func write_binary_atomic(filename: String, bytes: PackedByteArray) -> Error:
+	var error := write_binary(filename + ".tmp", bytes)
+	return DirAccess.rename_absolute(filename + ".tmp", filename) if error == OK else error
+
+
+func write_binary(filename: String, bytes: PackedByteArray) -> Error:
+	var file := FileAccess.open(filename, FileAccess.WRITE)
 	if file == null:
 		return ERR_FILE_CANT_WRITE
 	file.store_buffer(bytes)
 	file.flush()
 	var error := file.get_error()
 	file.close()
-	if error != OK:
-		return error
-	if FileAccess.file_exists(filename) and DirAccess.copy_absolute(filename, filename + ".bak") != OK:
-		return ERR_FILE_CANT_WRITE
-	return DirAccess.rename_absolute(filename + ".tmp", filename)
+	return error
 
 
 static func validate_profile(value: Dictionary) -> bool:
