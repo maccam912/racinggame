@@ -27,7 +27,7 @@ func _process(dt: float) -> void:
 		log.event(last_page)
 	var now := Time.get_ticks_msec()/1000
 	if buckets.is_empty() or int(buckets[-1].second)!=now:
-		buckets.append({"second":now,"frames":0,"frame_ms_sum":0.0,"frame_ms_max":0.0,"physics_steps_max":0,"physics_ms_max":0.0,"draw_calls_max":0,"memory_bytes_max":0,"rtt_ms_max":0.0,"sent_bytes":0,"received_bytes":0})
+		buckets.append({"second":now,"frames":0,"frame_ms_sum":0.0,"frame_ms_max":0.0,"physics_steps_max":0,"physics_ms_max":0.0,"draw_calls_max":0,"memory_bytes_max":0,"rtt_ms_max":0.0,"delivery_loss_percent_max":0.0,"sent_bytes":0,"received_bytes":0})
 	while not buckets.is_empty() and int(buckets[0].second)<now-59: buckets.pop_front()
 	var row := buckets[-1]
 	row.frames += 1
@@ -44,6 +44,7 @@ func _process(dt: float) -> void:
 			previous_sent = 0
 			previous_received = 0
 		row.rtt_ms_max = maxf(row.rtt_ms_max,app.network.rtt_ms)
+		row.delivery_loss_percent_max = maxf(row.delivery_loss_percent_max,app.network.quality.measure(Time.get_ticks_msec(),app.network.start_tick>=0 and app.network.phase!=RaceSession.Phase.RESULTS).loss_percent)
 		row.sent_bytes += maxi(0,app.network.wire.sent_bytes-previous_sent)
 		row.received_bytes += maxi(0,app.network.wire.received_bytes-previous_received)
 		previous_sent = app.network.wire.sent_bytes

@@ -1,0 +1,52 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("run")
+func run() -> void:
+	var quality := NetworkQuality.new()
+	for sequence in range(100):
+		if not sequence in [20,40,60]: quality.observe_snapshot(1,sequence*3,sequence*50)
+	var values := quality.measure(4950)
+	assert(is_equal_approx(values.loss_percent,3.0) and values.level==1 and values.delivery_samples==100,"three missing snapshots of a rolling hundred reaches the specified threshold")
+	quality.observe_snapshot(1,60,4960)
+	values = quality.measure(4960)
+	assert(is_equal_approx(values.loss_percent,2.0) and values.level==0,"a late decoded packet fills a gap rather than adding loss")
+	quality.observe_pong(150,4960)
+	assert(quality.measure(4960).level==1)
+	quality.observe_pong(350,4960)
+	assert(quality.measure(4960).rtt_ms==250 and quality.measure(4960).level==2,"RTT is the five-second sample mean")
+	assert(quality.measure(10000).rtt_available==false and quality.measure(10000).loss_percent==100,"stale traffic is delivery loss rather than a healthy zero")
+	assert(quality.measure(10000,false).level==0,"results and idle menus do not show a stale race icon")
+	quality.observe_snapshot(2,900,10010)
+	assert(quality.measure(10010).loss_percent==0 and quality.snapshots.size()==1,"a new race resets the delivery baseline")
+	for index in range(100): quality.observe_snapshot(2,903+index*3,10020)
+	assert(quality.measure(10020).loss_percent==0 and quality.snapshots.size()==100,"queued/coalesced decoded packets remain received, with bounded history")
+	for index in range(100): quality.observe_pong(100,10020)
+	assert(quality.pongs.size()==16)
+	quality.reset(3)
+	for index in range(100):
+		if not index in range(20,28): quality.observe_snapshot(3,index*3,10000+index*50)
+	assert(is_equal_approx(quality.measure(14950).loss_percent,8.0) and quality.measure(14950).level==2)
+	var client := NetworkClient.new()
+	client.set_process(false)
+	client.set_physics_process(false)
+	client.start_tick = 1
+	client.phase = RaceSession.Phase.RACING
+	client.quality.observe_pong(180)
+	root.add_child(client)
+	var ui := UIFactory.new(root,SettingsCatalog.defaults(false))
+	var row := NetworkStatusRow.new(ui,client)
+	root.add_child(row)
+	var other := ui.button("Fixture focus",func() -> void: pass)
+	root.add_child(other)
+	await process_frame
+	assert(not row.detail.visible,"network text is hidden before focus")
+	row.button.grab_focus()
+	await process_frame
+	assert(row.detail.visible and row.detail.text.contains("180 ms") and row.detail.text.contains("0.0%"),"focus reveals numerical status without a modal or pause")
+	other.grab_focus()
+	assert(not row.detail.visible,"moving focus away removes numerical status")
+	row.queue_free()
+	other.queue_free()
+	client.queue_free()
+	await process_frame
+	print("NETWORK_FIVE_SECOND_THRESHOLDS_DELIVERY_COALESCING_FOCUS_ONLY_STATUS_PASS")
+	quit()

@@ -56,6 +56,7 @@ var resume_count: int = 0
 var clock_rebase_count: int = 0
 var clock_samples: Array[Dictionary] = []
 var coalesced_snapshots: int = 0
+var quality := NetworkQuality.new()
 
 
 func _init() -> void:
@@ -155,6 +156,7 @@ func receive_event(event: Dictionary) -> void:
 		large_racing_events += 1
 	match event.get("type", ""):
 		"welcome":
+			quality.reset(int(event.race))
 			restoring_reconnect = prediction != null
 			slot = int(event.slot)
 			guest_id = event.id
@@ -220,6 +222,7 @@ func receive_event(event: Dictionary) -> void:
 			apply_presence(event)
 		"pong":
 			rtt_ms = Time.get_ticks_msec() - float(event.sent)
+			quality.observe_pong(rtt_ms)
 			clock_samples.append({"at":Time.get_ticks_msec(),"rtt":rtt_ms})
 			observe_clock(int(event.tick),.25)
 		"results":
@@ -248,6 +251,7 @@ func receive_packets(packets: Array[Dictionary]) -> void:
 		if packet.channel==2:
 			var decoded := NetCodec.decode_snapshot(packet.bytes,race_id,Compatibility.content_hash().hex_decode())
 			if decoded.is_empty(): continue
+			quality.observe_snapshot(race_id,int(decoded.tick))
 			if newest_race!=race_id:
 				newest.clear()
 				newest_race = race_id
@@ -259,7 +263,9 @@ func receive_packets(packets: Array[Dictionary]) -> void:
 
 
 func receive_snapshot(bytes: PackedByteArray) -> void:
-	apply_snapshot(NetCodec.decode_snapshot(bytes,race_id,Compatibility.content_hash().hex_decode()))
+	var snapshot := NetCodec.decode_snapshot(bytes,race_id,Compatibility.content_hash().hex_decode())
+	if not snapshot.is_empty(): quality.observe_snapshot(race_id,int(snapshot.tick))
+	apply_snapshot(snapshot)
 
 
 func apply_snapshot(snapshot: Dictionary) -> void:
@@ -407,6 +413,7 @@ func receive_start(event: Dictionary) -> void:
 	race_id = int(event.race)
 	slot = int(event.slot)
 	if new_race:
+		quality.reset(race_id)
 		latest_snapshot.clear()
 		next_input_tick = -1
 		sequence = 0

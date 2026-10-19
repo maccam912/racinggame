@@ -1,0 +1,49 @@
+{
+  "source_checks": 48,
+  "quality_tests": "Exact five-second RTT/loss thresholds, late gaps, bounded history, stale delivery and focus-only details",
+  "wire_nonregression": {
+    "passed": true,
+    "seconds": 90.0,
+    "one_way_latency_ms": 75,
+    "jitter_ms": 30,
+    "loss": 0.03,
+    "client_hitch_seconds": 1.5,
+    "away_seconds": 5,
+    "clients": [
+      {
+        "slot": 1,
+        "clear_corrections": {
+          "count": 1083,
+          "max": 2.45052862167358,
+          "p95": 0.0194656047970057
+        },
+        "contact_corrections": {
+          "count": 29,
+          "max": 0.70745986700058,
+          "p95": 0.109100744128227
+        },
+        "clock_rebase_count": 0,
+        "all_finished": true
+      },
+      {
+        "slot": 0,
+        "clear_corrections": {
+          "count": 1190,
+          "max": 0.0753441378474236,
+          "p95": 0.0162040591239929
+        },
+        "contact_corrections": {
+          "count": 26,
+          "max": 0.704948663711548,
+          "p95": 0.074096605181694
+        },
+        "clock_rebase_count": 1,
+        "all_finished": true
+      }
+    ]
+  },
+  "boundaries": [
+    "Wire regression proves driving/reconnect behavior remains valid; numerical quality calculations have separate source fixtures",
+    "Final artwork and physical-device visual acceptance remain M4/M5"
+  ]
+}

@@ -374,7 +374,7 @@ Countdown text centered at x=50%, y=32%, 112 px high. No cinematics, track flyov
 
 Banner priority: recovery > wrong way > finish/countdown > lap announcement. Announcements last 1.2 seconds; no stack of transient messages. Minimap is north-up using world -Z at top, with the whole route fitting inside 200×140 px. Own marker white arrow, others colored dots with numbers; ghost dashed cyan. Rival nameplates show within 80 m and line of sight, maximum four nearest, hidden within 8 m to avoid blocking close racing. At 720p nameplates may be disabled by default to preserve clarity. No leaderboard column permanently occupying the road view.
 
-Display a network quality icon at RTT ≥150 ms or loss ≥3% over a rolling five-second window; severe state at RTT ≥250 ms or loss ≥8%. Text appears only when focusing the pause-menu Network Status row. Do not repeatedly play warning sounds.
+Display a network quality icon at RTT ≥150 ms or loss ≥3% over a rolling five-second window; severe state at RTT ≥250 ms or loss ≥8%. RTT is the mean of valid clock probes in that window. Loss is missing application snapshots among the latest five seconds (100 expected 20 Hz slots), including delivery stalls after a 100 ms jitter allowance. Count every valid decoded snapshot before rendering coalesces queued states; duplicates do not add delivery, and late arrivals fill known gaps. Wait for 20 delivery slots before using loss thresholds; reset the baseline on a new race or reconnect. Text appears only when focusing the pause-menu Network Status row. Do not repeatedly play warning sounds.
 
 ### 14.8 Pause menus
 

@@ -22,6 +22,7 @@ var racers: int = 1
 var control_notice: String = ""
 var notice_until_ms: int = 0
 var recovery_armed: bool = false
+var network_level: int = 0
 
 
 func _ready() -> void:
@@ -65,6 +66,13 @@ func _draw() -> void:
 	text(Vector2(size.x / 2 - 85 * unit, safe.y + 36 * unit), time(ticks / 60.0), int(28 * unit) if mobile else 36)
 	if not mobile:
 		text(Vector2(size.x - safe.x - 240, safe.y + 30), I18n.t("track." + track.id), 18)
+	if network_level>0:
+		var origin := Vector2(size.x-safe.x-50*unit,safe.y+65*unit)
+		draw_style_box(panel(),Rect2(origin-Vector2(8,32)*unit,Vector2(58,42)*unit))
+		for index in range(3):
+			var height_value := (8+index*8)*unit
+			var rect := Rect2(origin+Vector2(index*14*unit,-height_value),Vector2(9*unit,height_value))
+			draw_rect(rect,Color("f8f4e8"),index<(1 if network_level==2 else 2),2*unit)
 	var map_origin := Vector2(safe.x + 10, size.y - safe.y - 155)
 	var map_factor := minf(130 * unit / 220, 90 * unit / 160) if mobile else 1.0
 	if mobile:

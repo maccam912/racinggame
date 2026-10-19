@@ -163,6 +163,7 @@ func _initialize() -> void:
 		queued_packets.append({"channel":2,"bytes":NetCodec.encode_snapshot(queued,tick,Compatibility.content_hash().hex_decode())})
 	clocked.receive_packets(queued_packets)
 	check(clocked.latest_snapshot_tick==607 and clocked.coalesced_snapshots==2,"a stalled receive pass applies its newest valid snapshot even when delivery is reordered")
+	check(clocked.quality.measure().delivery_samples>=3,"delivery quality counts every decoded snapshot before coalescing")
 	check(clocked.prediction.snapshot_count==received_before+1 and clocked.clock_rebase_count==2,"the batch restores one authority state before resuming fresh input")
 	clock_authority.finished = true
 	queued.phase = RaceSession.Phase.GRACE

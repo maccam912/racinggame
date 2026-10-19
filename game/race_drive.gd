@@ -262,6 +262,7 @@ func _physics_process(_dt: float) -> void:
 
 
 func _process(dt: float) -> void:
+	hud.network_level = int(network.quality.measure(Time.get_ticks_msec(),network.start_tick>=0 and network.phase!=RaceSession.Phase.RESULTS).level) if network else 0
 	hud.recovery_armed = driver.recovery_armed
 	touch.recovery_armed = driver.recovery_armed
 	var rendered := state

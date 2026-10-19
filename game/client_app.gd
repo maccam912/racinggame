@@ -402,6 +402,7 @@ func show_pause() -> void:
 		list.add_child(ghost)
 	list.add_child(menu.ui.button(I18n.t("menu.settings"), func() -> void: settings_page.show_tab("display", show_pause)))
 	list.add_child(menu.ui.button(I18n.t("pause.controls"), func() -> void: settings_page.show_tab("controls", show_pause)))
+	if network: list.add_child(NetworkStatusRow.new(menu.ui,network))
 	var quit_key := "cup.save_quit" if mode == "cup" else "pause.leave" if network else "pause.quit"
 	list.add_child(menu.ui.button(I18n.t(quit_key), func() -> void: menu.confirm(I18n.t("pause.leave_confirm" if network else "pause.offline_confirm"), return_to_menu)))
 	menu.first_focus()
