@@ -16,6 +16,9 @@ func _init(folder: String = "user://", mobile_profile: Variant = null) -> void:
 	store = SaveStore.new(folder)
 	settings_document = store.load_component("settings", {"desktop":{}, "mobile":{}})
 	settings = SettingsCatalog.sanitize(settings_document.get("mobile" if mobile else "desktop", {}), mobile)
+	var desktop_settings: Variant = settings_document.get("desktop",{})
+	if not mobile and DisplayServer.get_name()!="headless" and (not desktop_settings is Dictionary or not desktop_settings.has("monitor")):
+		settings.monitor = DisplayServer.window_get_current_screen()
 	profile = store.load_component("profile", default_profile(), validate_profile)
 	records = store.load_component("records", {"times":{}, "committed":{}, "pending":{}}, validate_records)
 	cup.data = store.load_component("cup", {}, CupBook.validate_data)

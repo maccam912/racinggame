@@ -91,7 +91,7 @@ jobs:
           key: platform-sdk-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('tools/toolchain.lock') }}
       - name: Linux Secret Service build and isolated test dependencies
         if: matrix.platform == 'linux'
-        run: sudo apt-get update && sudo apt-get install -y libsecret-1-dev gnome-keyring dbus-x11
+        run: sudo apt-get update && sudo apt-get install -y libsecret-1-dev libxrandr-dev gnome-keyring dbus-x11
       - uses: android-actions/setup-android@v3
         if: matrix.platform == 'android'
         with:

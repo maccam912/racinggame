@@ -1,0 +1,41 @@
+{
+  "boundaries": [
+    "Single desktop monitor; hotplug and multiple-monitor placement require target acceptance",
+    "The OS can reserve a notch/safe area; native UI follows client pixels rather than the full display rectangle",
+    "Windows/X11 adapter compile and native gates run remotely"
+  ],
+  "fullscreen": {
+    "client_height": 2168,
+    "client_width": 3456,
+    "desktop_height": 2234,
+    "desktop_mode_unchanged": true,
+    "desktop_width": 3456,
+    "world_height": 1200,
+    "world_width": 1920
+  },
+  "platform": "macOS",
+  "renderer": "gl_compatibility",
+  "selected": "1920x1200",
+  "supported_sizes": [
+    "native",
+    "1920x1200",
+    "2336x1460",
+    "2336x1510",
+    "2560x1600",
+    "2624x1640",
+    "2624x1696",
+    "2992x1870",
+    "2992x1934",
+    "3456x2160",
+    "3456x2234"
+  ],
+  "window_preview": {
+    "height": 1200,
+    "width": 1920
+  },
+  "window_revert": {
+    "height": 630,
+    "position_restored": true,
+    "width": 1120
+  }
+}

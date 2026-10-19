@@ -12,6 +12,10 @@ func _ready() -> void:
 			get_tree().quit(1)
 			return
 		var platform: Object = ClassDB.instantiate("PacificPlatform")
+		if not platform.has_method("screen_modes") or platform.screen_modes(-1,0,0,0,0)!=[]:
+			push_error("PACIFIC_PLATFORM_DISPLAY_API_MISSING")
+			get_tree().quit(1)
+			return
 		print("PACIFIC_PLATFORM_READY "+str(platform.backend_name()))
 		get_tree().quit()
 		return

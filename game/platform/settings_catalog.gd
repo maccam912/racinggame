@@ -25,7 +25,7 @@ static func valid_value(row: Dictionary, value: Variant, mobile: bool) -> bool:
 		return value is bool
 	if row.kind == "choice":
 		if row.get("dynamic", "") != "":
-			return value is String if row.id == "resolution" else (value is int or value is float) and float(value) >= 0 and float(value) < 16
+			return value is String and (value=="native" or DesktopDisplay.resolution_size(value)!=Vector2i.ZERO) if row.id == "resolution" else (value is int or value is float) and is_finite(float(value)) and float(value)==floorf(float(value)) and float(value) >= 0 and float(value) < 16
 		var choices: Array = row.get("mobile_values", row.values) if mobile else row.values
 		for choice: Variant in choices:
 			if (value is float or value is int) and (choice is float or choice is int) and is_finite(float(value)) and float(value) == float(choice):

@@ -10,6 +10,10 @@ func _initialize() -> void:
 	call_deferred("run")
 
 func run() -> void:
+	check(DesktopDisplay.choices_from_sizes([Vector2i(1920,1080),Vector2i(1280,720),Vector2i(1920,1080),Vector2i(10,10),"private"])==["native","1280x720","1920x1080"],"supported sizes are sorted, deduplicated and bounded")
+	check(DesktopDisplay.resolution_size("1920x1080")==Vector2i(1920,1080) and DesktopDisplay.resolution_size("1920x1080/private")==Vector2i.ZERO,"resolution syntax is strictly numeric")
+	check(DesktopDisplay.fitted_size(Vector2i(3840,2160),Vector2i(1920,1080))==Vector2i(1778,1000),"window sizing fits the work area with a titlebar margin")
+	check(SettingsCatalog.sanitize({"resolution":"1920x1080/private","monitor":.5},false).resolution=="native","invalid saved modes restore defaults")
 	var app: Node = load("res://game/client_app.gd").new()
 	root.add_child(app)
 	await process_frame
@@ -23,6 +27,8 @@ func run() -> void:
 	check(app.data.settings.window_mode=="fullscreen" and not page.pending_display.is_empty(),"display change previews without commitment")
 	check(AppData.new(folder,false).settings.window_mode=="windowed","unconfirmed display change is not saved")
 	check(page.revert_timer.wait_time==15,"confirmation lasts fifteen seconds")
+	page.begin_display("monitor",1)
+	check(app.data.settings.resolution=="native" and page.pending_display.has("resolution"),"monitor change resets resolution in the same reversible transaction")
 	app.show_menu()
 	await process_frame
 	await process_frame

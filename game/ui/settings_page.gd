@@ -6,6 +6,7 @@ var back: Callable
 var tab: String = "display"
 var status: Label
 var pending_display: Dictionary = {}
+var pending_geometry: Dictionary = {}
 var revert_timer: Timer
 var display_modal: ConfirmationDialog
 var display_generation: int = 0
@@ -54,6 +55,8 @@ func show_tab(selected: String, return_to: Callable) -> void:
 			if key==tab:
 				selected_button = button
 	var list := shell.scroll_column(body)
+	if tab=="display" and not app.data.mobile:
+		list.add_child(shell.ui.paragraph(I18n.t("display.resolution_help")))
 	for definition: Dictionary in SettingsCatalog.rows:
 		if definition.tab != tab or (definition.get("platform", "") == "desktop" and app.data.mobile) or (definition.get("platform", "") == "mobile" and not app.data.mobile):
 			continue
@@ -108,6 +111,8 @@ func setting_row(parent: Node, definition: Dictionary) -> void:
 			choices.clear()
 			for index in range(DisplayServer.get_screen_count()):
 				choices.append(index)
+		elif definition.id=="resolution":
+			choices = DesktopDisplay.modes(int(app.data.settings.monitor))
 		for index in range(choices.size()):
 			var choice: Variant = choices[index]
 			var key := "choice." + str(choice)
@@ -168,6 +173,8 @@ func preview_display(values: Dictionary, focus_key: String = "") -> void:
 	display_generation += 1
 	var generation := display_generation
 	pending_focus = focus_key
+	pending_geometry = DesktopDisplay.capture()
+	if values.has("monitor") and not values.has("resolution"): values["resolution"] = "native"
 	for key: String in values:
 		pending_display[key] = app.data.settings[key]
 		app.data.settings[key] = values[key]
@@ -207,7 +214,9 @@ func finish_display(keep: bool, generation: int, refresh: bool = true) -> void:
 	if generation != display_generation or pending_display.is_empty():
 		return
 	var previous := pending_display.duplicate(true)
+	var geometry := pending_geometry.duplicate(true)
 	pending_display.clear()
+	pending_geometry.clear()
 	display_generation += 1
 	if is_instance_valid(revert_timer):
 		revert_timer.stop()
@@ -220,6 +229,7 @@ func finish_display(keep: bool, generation: int, refresh: bool = true) -> void:
 				app.data.settings[key] = previous[key]
 		if app.is_inside_tree():
 			SettingsRuntime.apply(app, app.data.settings, true)
+			if not saved: DesktopDisplay.restore(geometry)
 	if is_instance_valid(display_modal) and not display_modal.is_queued_for_deletion():
 		display_modal.hide()
 		display_modal.queue_free()

@@ -10,6 +10,12 @@ func run() -> void:
 	assert(WorldPresentation.render_size(Vector2i(320,180),values)==Vector2i(320,180))
 	values.retro = true
 	assert(WorldPresentation.render_size(Vector2i(3440,1440),values)==Vector2i(640,360))
+	var fullscreen := SettingsCatalog.defaults(false)
+	fullscreen.resolution = "1280x720"
+	fullscreen.render_scale = 80
+	assert(WorldPresentation.render_size(Vector2i(3440,1440),fullscreen)==Vector2i(1024,576),"fullscreen world resolution precedes render scale while HUD stays native")
+	fullscreen.window_mode = "windowed"
+	assert(WorldPresentation.render_size(Vector2i(1600,900),fullscreen)==Vector2i(1280,720),"windowed world follows the actual fitted client size")
 	var app: Node = load("res://game/client_app.gd").new()
 	root.add_child(app)
 	await process_frame

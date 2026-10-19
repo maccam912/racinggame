@@ -4,6 +4,7 @@ extends RefCounted
 
 static func apply(owner_node: Node, settings: Dictionary, display: bool = false) -> void:
 	Engine.max_fps = int(settings.frame_cap)
+	if display: DesktopDisplay.apply(settings)
 	var viewport := owner_node.get_viewport()
 	var presented := false
 	for presentation: WorldPresentation in owner_node.get_tree().get_nodes_in_group("world_presentations"):
@@ -32,9 +33,3 @@ static func apply(owner_node: Node, settings: Dictionary, display: bool = false)
 		item.visibility_range_end = float(settings.draw_distance)
 	if DisplayServer.get_name() != "headless" and not OS.has_feature("mobile"):
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if settings.vsync else DisplayServer.VSYNC_DISABLED)
-	if display and DisplayServer.get_name() != "headless" and not OS.has_feature("mobile"):
-		DisplayServer.window_set_current_screen(clampi(int(settings.monitor), 0, DisplayServer.get_screen_count() - 1))
-		var modes := {"windowed":DisplayServer.WINDOW_MODE_WINDOWED, "borderless":DisplayServer.WINDOW_MODE_FULLSCREEN, "fullscreen":DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN}
-		DisplayServer.window_set_mode(modes.get(settings.window_mode, DisplayServer.WINDOW_MODE_WINDOWED))
-		if settings.window_mode == "windowed":
-			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)

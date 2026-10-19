@@ -47,6 +47,9 @@ func physical_size() -> Vector2i:
 
 static func render_size(pixels: Vector2i, values: Dictionary) -> Vector2i:
 	if values.get("retro",false): return Vector2i(640,360)
+	if not OS.has_feature("mobile") and values.get("window_mode","windowed")!="windowed":
+		var selected := DesktopDisplay.resolution_size(values.get("resolution","native"))
+		if selected!=Vector2i.ZERO: pixels = selected
 	var scale := float(values.get("render_scale",100))/100
 	return Vector2i(maxi(320,roundi(pixels.x*scale)),maxi(180,roundi(pixels.y*scale)))
 
@@ -62,7 +65,7 @@ func reflow() -> void:
 	viewport.size = render_size(physical_size(),settings)
 	# A fixed 16:9 Retro image is letterboxed on other aspect ratios. The HUD
 	# retains the full host safe area and native text rendering.
-	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED if settings.get("retro",false) else TextureRect.STRETCH_SCALE
+	image.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 
 func _process(_dt: float) -> void:
 	var suspended: bool = is_instance_valid(app) and is_instance_valid(app.touch_editor)
