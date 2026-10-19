@@ -18,14 +18,6 @@
       "modifications": "Unmodified pinned runtime/export templates"
     },
     {
-      "id": "comet_graybox",
-      "source": "game/world/car_visual.gd",
-      "creator": "Pacific Rush contributors",
-      "license": "MIT",
-      "attribution": "LICENSE",
-      "modifications": "Original editable procedural development geometry; final art remains M4"
-    },
-    {
       "id": "palm_bay_graybox",
       "source": "game/world/track_world.gd",
       "creator": "Pacific Rush contributors",
@@ -64,6 +56,74 @@
       "license": "MIT",
       "attribution": "assets/licenses/godot-cpp-LICENSE.txt",
       "modifications": "Unmodified pinned bindings; trimmed RefCounted/OS build profile for the original native platform adapter. Engine runtime remains 4.6.3."
+    },
+    {
+      "id": "car_comet",
+      "source": "assets/source/pacific_cars.blend",
+      "generator": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/cars/comet.glb"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original model, three explicit LODs, atlas UVs and shader role masks; no external vehicle model"
+    },
+    {
+      "id": "car_needle",
+      "source": "assets/source/pacific_cars.blend",
+      "generator": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/cars/needle.glb"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original model, three explicit LODs, atlas UVs and shader role masks; no external vehicle model"
+    },
+    {
+      "id": "car_switch",
+      "source": "assets/source/pacific_cars.blend",
+      "generator": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/cars/switch.glb"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original model, three explicit LODs, atlas UVs and shader role masks; no external vehicle model"
+    },
+    {
+      "id": "car_sunset",
+      "source": "assets/source/pacific_cars.blend",
+      "generator": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/cars/sunset.glb"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original model, three explicit LODs, atlas UVs and shader role masks; no external vehicle model"
+    },
+    {
+      "id": "car_materials",
+      "source": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/textures/cars_atlas.png",
+        "assets/exported/shaders/car.gdshader",
+        "assets/exported/shaders/car_ghost.gdshader",
+        "assets/exported/shaders/car_surface.gdshaderinc",
+        "assets/exported/shaders/blob_shadow.gdshader"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original procedural panel atlas, paint/trim/brake role shader, translucent ghost and soft blob shadow"
     }
   ]
 }

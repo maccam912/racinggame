@@ -21,6 +21,11 @@ func append_locked(row: Dictionary) -> void:
 	if entries.size()>256: entries.pop_front()
 
 func event(code: String) -> void:
+	if code=="installation_error":
+		mutex.lock()
+		append_locked({"kind":"page","code":code})
+		mutex.unlock()
+		return
 	if not code in ["main","name","event","race","pause","settings","touch_layout","school","school_complete","cup","garage","online","online_create","online_rooms","online_code","online_wait","lobby","loading","results","connect","connection_lost","credits","touch_unavailable"]: code = "other"
 	mutex.lock()
 	append_locked({"kind":"page","code":code})

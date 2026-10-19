@@ -6,7 +6,8 @@ var camera := Camera3D.new()
 var elapsed: float = 0
 var reduce_motion: bool = false
 var rotation_offset: float = 0
-var paint_index: int = -1
+var paint_index: int = 0
+var car_index: int = 0
 var center := Vector3.ZERO
 
 
@@ -20,18 +21,22 @@ func _ready() -> void:
 	add_child(camera)
 	camera.current = true
 	camera.fov = 48
-	set_paint(0)
+	set_selection(car_index,paint_index)
 
 
 func set_paint(index: int) -> void:
-	if index == paint_index:
+	set_selection(car_index,index)
+
+func set_selection(car_id: int,paint_id: int) -> void:
+	if car_id==car_index and paint_id==paint_index and is_instance_valid(car):
 		return
-	paint_index = index
+	car_index = car_id
+	paint_index = paint_id
 	if is_instance_valid(car) and car.is_inside_tree():
 		remove_child(car)
 		car.queue_free()
 	car = CarVisual.new()
-	car.build(Catalog.paints[index])
+	car.build(Catalog.paints[paint_id],Catalog.cars[car_id].mesh_id)
 	car.position = center + Vector3.UP * .35
 	add_child(car)
 

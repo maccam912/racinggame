@@ -121,13 +121,13 @@ func _ready() -> void:
 				cone.material_override = world.material(UIFactory.CORAL)
 				cone.position = marker + Vector3(side, .6, 0)
 				world.add_child(cone)
-	visual.build(Catalog.paints[int(config.get("paint", 0))])
+	visual.build(Catalog.paints[int(config.get("paint",0))],car.mesh_id,local_slot)
 	add_child(visual)
 	for index in range(session.states.size()):
 		if index == local_slot:
 			continue
 		var rival := CarVisual.new()
-		rival.build(Catalog.paints[int(roster[index].paint) if not network else (index + 1) % 8])
+		rival.build(Catalog.paints[int(roster[index].paint)],session.cars[index].mesh_id,index)
 		remote_visuals[index] = rival
 		add_child(rival)
 	show_ghost = bool(config.get("ghost",app_data.settings.trial_ghost if app_data else true))
@@ -135,7 +135,7 @@ func _ready() -> void:
 		best_ghost = app_data.load_ghost(track.id, car.id)
 		if not best_ghost.is_empty():
 			ghost_visual = CarVisual.new()
-			ghost_visual.build(Catalog.paints[int(config.get("paint", 0))])
+			ghost_visual.build(Catalog.paints[int(config.get("paint",0))],car.mesh_id,local_slot)
 			ghost_visual.set_ghost(.35)
 			ghost_visual.visible = show_ghost
 			add_child(ghost_visual)

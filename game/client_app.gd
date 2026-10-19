@@ -83,6 +83,20 @@ func _ready() -> void:
 	online_page = OnlinePage.new(self)
 	add_child(online_page)
 	directory_client.status_changed.connect(update_online_status)
+	open_start_screen()
+
+func missing_car_asset() -> String:
+	for car: CarDefinition in Catalog.cars:
+		if not CarVisual.available(car.mesh_id): return I18n.t("car."+car.id)
+	for path: String in ["res://assets/exported/textures/cars_atlas.png","res://assets/exported/shaders/car.gdshader","res://assets/exported/shaders/car_ghost.gdshader","res://assets/exported/shaders/blob_shadow.gdshader"]:
+		if not ResourceLoader.exists(path): return I18n.t("installation.materials")
+	return ""
+
+func open_start_screen() -> void:
+	var missing := missing_car_asset()
+	if not missing.is_empty():
+		show_installation_error(missing)
+		return
 	if "--drive" in OS.get_cmdline_user_args():
 		start_drive()
 	elif not data.profile.first_run_complete:
@@ -95,13 +109,35 @@ func _ready() -> void:
 			connect_address(arg.trim_prefix("--connect="))
 	print("PACIFIC_RUSH_CLIENT_READY")
 
+func show_installation_error(missing: String) -> void:
+	dispose_drive()
+	if is_instance_valid(stage):
+		stage.queue_free()
+		stage = null
+	page = "installation_error"
+	back_action = Callable()
+	var body := menu.reset(I18n.t("installation.title"),I18n.t("installation.body",[missing]))
+	var status := menu.ui.paragraph("")
+	body.add_child(menu.ui.button(I18n.t("button.retry"),open_start_screen))
+	body.add_child(menu.ui.button(I18n.t("settings.export"),func() -> void:
+		var error := diagnostics.begin_export()
+		status.text = I18n.t("diagnostics.choose" if error==OK else "diagnostics.busy" if error==ERR_BUSY else "diagnostics.failed")
+		if error==OK:
+			diagnostics.export_finished.connect(func(state: String) -> void:
+				if is_instance_valid(status): status.text = I18n.t("diagnostics."+state),CONNECT_ONE_SHOT)))
+	body.add_child(status)
+	if not data.mobile: body.add_child(menu.ui.button(I18n.t("menu.quit"),request_quit))
+	menu.first_focus()
+
 
 func ensure_stage() -> void:
 	if not is_instance_valid(stage):
 		stage = MenuStage.new()
+		stage.car_index = int(data.profile.selected_car)
+		stage.paint_index = int(data.profile.selected_paint)
 		add_child(stage)
 	stage.reduce_motion = bool(data.settings.reduce_motion)
-	stage.set_paint(int(data.profile.selected_paint))
+	stage.set_selection(int(data.profile.selected_car),int(data.profile.selected_paint))
 	SettingsRuntime.apply(self,data.settings)
 
 

@@ -117,6 +117,37 @@ jobs:
           path: reports/network-*/
           if-no-files-found: error
 
+  render:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - name: Software graphics context for actual Compatibility shader compilation
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Render all four original models, ghost, garage choices and race
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          mkdir -p reports
+          xvfb-run -a python tools/godot.py --max-fps 60 --script tests/car_asset_evidence.gd -- --ci --game-ui --profile=car_render_ci 2>&1 | tee reports/car-render.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compatibility-render-evidence
+          path: |
+            reports/m4-*.png
+            reports/car-render.log
+          if-no-files-found: error
+
   platform-adapter:
     needs: verify
     strategy:
@@ -233,8 +264,8 @@ jobs:
       always() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
       needs.export.result == 'success' && needs.network.result == 'success' &&
       needs.native.result == 'success' && needs.lobbies.result == 'success' &&
-      needs.directory.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped')
-    needs: [export, network, native, lobbies, directory, ai]
+      needs.directory.result == 'success' && needs.render.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped')
+    needs: [export, network, native, lobbies, directory, ai, render]
     runs-on: ubuntu-24.04
     permissions:
       contents: write

@@ -13,6 +13,7 @@ from contextlib import contextmanager, nullcontext
 from export_environment import temporary_configuration
 from native_build import ensure_export
 from content_hash import compute
+from asset_hash import compute as cosmetic_manifest
 from bootstrap import ROOT, LOCK, engine, templates
 
 TARGETS = {'linux':('Linux','pacific-rush.x86_64'), 'windows':('Windows','pacific-rush.exe'),
@@ -31,7 +32,7 @@ def metadata(target, number):
             'commit':subprocess.check_output(['git','rev-parse','HEAD'], cwd=ROOT, text=True).strip(),
             'engine_version':LOCK['version'], 'engine_checksum':LOCK['assets'][sys.platform]['sha256'],
             'export_templates_checksum':LOCK['assets']['templates']['sha256'],
-            'protocol_version':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'],'save_schema':1,'content_hash':compute()['content_hash'],'target_platform':target,
+            'protocol_version':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'],'save_schema':1,'content_hash':compute()['content_hash'],'asset_hash':cosmetic_manifest()['asset_hash'],'target_platform':target,
             'distribution':'development', 'public_signing':'not configured'}
 
 

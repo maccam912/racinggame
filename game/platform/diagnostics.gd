@@ -85,7 +85,7 @@ static func safe_build(value: Variant) -> Dictionary:
 	for key: String in ["target_platform","distribution","public_signing"]:
 		var allowed: Array = {"target_platform":["linux","windows","macos","android","android_aab","server"],"distribution":["development","production","source"],"public_signing":["not configured","development","production","ad-hoc"]}[key]
 		if value.get(key) in allowed: result[key] = value[key]
-	for key: String in ["commit","engine_checksum","export_templates_checksum","content_hash"]:
+	for key: String in ["commit","engine_checksum","export_templates_checksum","content_hash","asset_hash"]:
 		var pattern := RegEx.create_from_string("\\A[0-9a-f]{%d}\\z"%(40 if key=="commit" else 64))
 		if value.get(key) is String and pattern.search(value[key])!=null: result[key] = value[key]
 	if NetEvents.integer(value.get("build_number"),1,2147483647): result["build_number"] = int(value.build_number)

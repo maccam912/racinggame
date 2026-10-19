@@ -1,0 +1,59 @@
+{
+  "device": "Owned Pixel 7 Android 15 API 35 ARM64 emulator",
+  "physical_device": false,
+  "resolution": [
+    2400,
+    1080
+  ],
+  "renderer": "Compatibility / Android Emulator OpenGL ES Translator / Apple M5 Pro",
+  "build": {
+    "version": "0.0.49-dev",
+    "build_number": 49,
+    "working_tree_dirty": true,
+    "commit": "420bd846150b81d0c0b3b213e5ac797599cc89e1",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "4899e636e87a2e0dbda39be146a526c4f1b3be608fec9411da2a92ca17f5fbc3",
+    "asset_hash": "d0fd54bc987590b1756823500008c9108552b7644baaa42b208e010ca9af5468",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "839540d19ada13cd2463f7ff8e24ceaba91384de2fa3808dd65438231cedce82",
+      "sha256": "1e7411b8f6fd4d8529c8947db00af0e37174b741dfd4d221c08f3cc75097fa64"
+    }
+  },
+  "selection_checks": [
+    {
+      "car": "needle",
+      "selected_car": 1,
+      "screenshot": "docs/evidence/m4-android-car-needle.png"
+    },
+    {
+      "car": "switch",
+      "selected_car": 2,
+      "screenshot": "docs/evidence/m4-android-car-switch.png"
+    },
+    {
+      "car": "sunset",
+      "selected_car": 3,
+      "screenshot": "docs/evidence/m4-android-car-sunset.png"
+    },
+    {
+      "car": "comet",
+      "selected_car": 0,
+      "screenshot": "docs/evidence/m4-android-car-comet.png"
+    }
+  ],
+  "race_screenshot": "docs/evidence/m4-android-cars-race.png",
+  "native_graphics_fixture": "Four models, ghost, four actual garage selections and eight-car race; clean macOS Compatibility exit",
+  "boundary": "Android selection was checked through actual taps and saved selection; screenshots reviewed. This is not physical-device performance or human feel acceptance."
+}

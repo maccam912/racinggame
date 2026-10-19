@@ -2,7 +2,7 @@
 
 The design remains the complete launch contract. Milestone work is sequential; blocked physical-device validation is recorded separately from source implementation.
 
-Current work is M3. Offline modes, protected guest identities and the complete local HTTPS directory/menu path are implemented with development art. Remaining M3 work includes accessibility/settings behavior and broader mode acceptance. M4–M6 implementation has not started. Neither official region is hosted, and physical-device gates remain open.
+Current work is M4 content and style. The M0–M3 source implementation includes offline modes, protected guest identities, the complete local HTTPS directory/menu path and settings/accessibility contracts; historical checkpoints and their remaining human/device acceptance boundaries follow below. Four original car models now replace the car graybox. Final scenery/audio/interface work and M5–M6 remain. Neither official region is hosted, and physical-device gates remain open.
 
 ## M0 — toolchain and contracts
 
@@ -27,7 +27,7 @@ Local macOS universal, release-mode Android ARM64 APK and development-signed AAB
 
 - Straight full-width jump fixture at 30/45/60 m/s: one launch and one safe landing per run. The explicit 0.18 s launch lockout plus ordinary ground snap produces **0.20 s** airborne in this fixture, shorter than the illustrative 0.35 s in §11.6. The explicit rule is preserved; this discrepancy needs a documented design/feel resolution before launch.
 
-Pending M1 gates: physical phone driving, human cornering/feel playtest, complete behavioral reference videos and all camera-collision edge cases. Recovery fades/ghost opacity and final visuals remain M4 work. Visuals are an explicitly labeled development graybox.
+Pending M1 gates: physical phone driving, human cornering/feel playtest and all camera-collision edge cases. Scripted behavioral reference videos are recorded in the later checkpoint below. Recovery fades and final visuals remain M4 work; graybox references remain clearly identified.
 
 ## M2 — dedicated networking risk slice
 
@@ -59,7 +59,7 @@ Pending M2 gates: physical-device network tests, adversarial security fault matr
 - Bundled Barlow fonts/OFL licenses and external English text catalog. Display names normalize to NFC with vendored Unicode 16 tables and enforce grapheme/UTF-8/control/markup limits.
 - Automated menu navigation, real scene pause/resume, save/ghost/cup/name/mode fixtures pass. Native macOS screenshots were reviewed at 100%/150% UI scale and 4:3; a footer overflow was corrected. These checks do not establish Android menu usability or final art quality.
 
-Content version is **2**, and protocol version is **4** for lobby/loading/rematch and compact racing control events. Recovery/progress state required by reconciliation is versioned. M2 clients and their records/cups are intentionally not silently mixed with this version. Snapshot decoding validates the added lap and distance fields; the eight-car payload remains below 1200 bytes.
+Current content version is **3**, and protocol version is **4** for lobby/loading/rematch and compact racing control events. The later bot-contract checkpoint records the content-3 change and migration evidence. Recovery/progress state required by reconciliation is versioned. Older incompatible clients and their records/cups are not silently mixed with this version. Snapshot decoding validates the added lap and distance fields; the eight-car payload remains below 1200 bytes.
 
 ## M3 — community lobby checkpoint
 
@@ -252,3 +252,12 @@ Reviewed frame samples show the slide in Drift, simultaneous touch steering/brak
 Lobby reconnect correction: Build 48 lost one client before loading, then seven racers completed an identical first race and the eight-client gate correctly blocked release. The initial transport-loss cause is unproven. A separate real ENet regression reproduced an unconditional identity deletion on unexpected lobby disconnect, making its existing reconnect token unusable. Lobby now reserves that identity/car/paint for 20 seconds, clears Ready, resets the countdown and transfers host administration. Expiry removes the reservation; a valid token can also replace a still-apparently-live old transport during one-way loss. Explicit Leave uses a bounded two-second detached transport owner until the server acknowledges removal, so disposing the UI cannot discard its reliable message.
 
 The real reconnect regression passes identity preservation, host transfer, rejoin, expiry and token handover; Leave delivery passes with immediate disposal and 0/75/150 ms injected send delay. An eight-client run with a deliberate five-second lobby transport loss completes two tracks with all eight finishers and identical results; see [reservation evidence](evidence/m3-lobby-reservation.json). CI now runs both ordinary rematch and lobby-loss rematch, and client fixtures retain bounded numerical connection traces. The M4 working tree passes all 53 source checks; this path-limited network checkpoint adds one source check to the preceding committed suite.
+
+
+## M4 — original cars checkpoint
+
+Comet, Needle, Switch and Sunset now use four original editable Blender/glTF models rather than the shared car graybox. Each has three explicit LODs, animated steering/spin on four wheels, fixed trim/stripe, all eight paints, grid-number door labels, brake lamps, capped body roll/pitch, landing compression and a road-aligned blob shadow. The Trial ghost uses matching geometry with a 35% alpha tint, no shadow or number labels. Garage, local racers and authoritative rivals use the selected mesh/paint. Startup presents a clear installation error with Retry and Diagnostics if a car/material asset is unavailable.
+
+LOD0 triangle counts are **6,858 / 6,802 / 6,674 / 6,706**, LOD1 **2,310 / 2,326 / 2,270 / 2,282** at 35 m, and LOD2 **458 / 458 / 438 / 458** at 90 m. Every LOD uses five shared-atlas mesh parts (body plus wheels). The original 1024² mipmapped atlas and vertex role masks avoid duplicate extracted textures. Source, regeneration, creator/license, exact dimensions/budgets and checksums ship in the repository. Cosmetic identity `d0fd54bc987590b1756823500008c9108552b7644baaa42b208e010ca9af5468` is separate from the unchanged content-3 gameplay hash and is recorded in build metadata/diagnostics.
+
+All 53 source checks pass. Native macOS Compatibility renders all four models and the ghost, verifies four real Garage selections and an eight-car race, then exits without graphics errors. See [models](evidence/m4-original-cars.png), [ghost](evidence/m4-car-ghost.png), [Garage](evidence/m4-garage-needle.png) and [race](evidence/m4-cars-race.png). The dirty local Build 49 APK renders the four selections and [race](evidence/m4-android-cars-race.png) on the Android 15 ARM64 emulator without shader errors; [validation metadata](evidence/m4-car-validation.json) records the exact parent/dirty build and device boundary. CI now includes a Linux Mesa/Xvfb actual graphics-context gate, since Dummy headless rendering cannot establish shader compilation. Final track/scenery kits, audio, effects, interface polish, recovery opacity and physical-device acceptance remain open.

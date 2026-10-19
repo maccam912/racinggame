@@ -1,101 +1,133 @@
 class_name CarVisual
 extends Node3D
-## Editable graybox Comet. Visual shape never controls collision dimensions.
-
+## Original Blender/glTF models. Rendering never supplies collision or handling.
+const MODEL_IDS: Array[String] = ["comet","needle","switch","sunset"]
 var chassis := Node3D.new()
 var wheels: Array[Node3D] = []
-var brake_lights: Array[MeshInstance3D] = []
+var wheel_rest: Dictionary = {}
+var lods: Array[Node3D] = []
+var body_meshes: Array[MeshInstance3D] = []
+var number_labels: Array[Label3D] = []
+var surface := ShaderMaterial.new()
+var ghost_surface: ShaderMaterial
+var shadow: MeshInstance3D
 var tire_rotation: float = 0.0
+var model_id: String = "comet"
+var active_lod: int = -1
+var ghost: bool = false
+var last_grounded: bool = true
+var landing_time: float = 0.0
 
+static func available(id: String) -> bool:
+	var path := "res://assets/exported/cars/"+id+".glb"
+	return id in MODEL_IDS and ResourceLoader.exists(path,"PackedScene") and load(path) is PackedScene
 
-func build(paint: Color) -> void:
+func relative_transform(node: Node3D) -> Transform3D:
+	var result := node.transform
+	var ancestor := node.get_parent() as Node3D
+	while ancestor!=null and ancestor!=self:
+		result = ancestor.transform*result
+		ancestor = ancestor.get_parent() as Node3D
+	return result
+
+func build(paint: Color, id: String = "comet", slot: int = 0) -> void:
+	assert(available(id),"Installation incomplete: missing car asset "+id)
+	model_id = id
 	add_child(chassis)
-	var body_material := StandardMaterial3D.new()
-	body_material.albedo_color = paint
-	body_material.roughness = .32
-	body_material.metallic = .3
-	part(Vector3(0, .36, 0), Vector3(1.85, .65, 4.0), body_material)
-	part(Vector3(0, .84, .2), Vector3(1.45, .64, 1.75), make_material(Color.html("203C50")))
-	part(Vector3(0, 1.18, .25), Vector3(1.53, .12, 1.3), body_material)
-	part(Vector3(0, .72, -1.35), Vector3(.26, .02, 1.25), make_material(Color.html("F5EBD3")))
-	part(Vector3(0, .72, 1.5), Vector3(.26, .02, .9), make_material(Color.html("F5EBD3")))
-	for side: float in [-1.0, 1.0]:
-		part(Vector3(side * .61, .36, -2.015), Vector3(.48, .2, .035), make_material(Color.html("FFF0BA")))
-		brake_lights.append(part(Vector3(side * .61, .38, 2.015), Vector3(.48, .16, .035), make_material(Color.html("A32F39"))))
-		for z: float in [-1.25, 1.25]:
-			var wheel := Node3D.new()
-			wheel.position = Vector3(side * .91, .02, z)
-			chassis.add_child(wheel)
-			var tire := MeshInstance3D.new()
-			var cylinder := CylinderMesh.new()
-			cylinder.top_radius = .34
-			cylinder.bottom_radius = .34
-			cylinder.height = .24
-			cylinder.radial_segments = 12
-			tire.mesh = cylinder
-			tire.material_override = make_material(Color.html("222C39"))
-			tire.rotation.z = PI / 2
-			wheel.add_child(tire)
-			var hub := MeshInstance3D.new()
-			var hub_mesh := CylinderMesh.new()
-			hub_mesh.top_radius = .20
-			hub_mesh.bottom_radius = .20
-			hub_mesh.height = .25
-			hub_mesh.radial_segments = 8
-			hub.mesh = hub_mesh
-			hub.material_override = make_material(Color.html("F5EBD3"))
-			hub.rotation.z = PI / 2
-			wheel.add_child(hub)
-			wheels.append(wheel)
-	var shadow := MeshInstance3D.new()
-	var shadow_mesh := QuadMesh.new()
-	shadow_mesh.size = Vector2(2.3, 4.5)
-	shadow.mesh = shadow_mesh
-	shadow.rotation.x = -PI / 2
+	var packed: PackedScene = load("res://assets/exported/cars/"+id+".glb")
+	var model := packed.instantiate() as Node3D
+	chassis.add_child(model)
+	surface.shader = load("res://assets/exported/shaders/car.gdshader")
+	surface.set_shader_parameter("atlas",load("res://assets/exported/textures/cars_atlas.png"))
+	surface.set_shader_parameter("paint",paint)
+	var stripe := Color("F5EBD3") if paint.get_luminance()<.55 else Color("343C49")
+	surface.set_shader_parameter("stripe",stripe)
+	for level in range(3):
+		var found: Node3D
+		for node: Node3D in model.find_children("LOD*","Node3D",true,false):
+			if str(node.name).begins_with("LOD%d"%level):
+				found = node
+				break
+		assert(found!=null,"Installation incomplete: car LOD missing")
+		lods.append(found)
+	for node: Node3D in model.find_children("*","Node3D",true,false):
+		if str(node.name).contains("_Wheel_") and not node is MeshInstance3D:
+			wheels.append(node)
+			wheel_rest[node] = relative_transform(node)
+		if node is MeshInstance3D:
+			body_meshes.append(node)
+			for index in range(node.mesh.get_surface_count()): node.set_surface_override_material(index,surface)
+	assert(wheels.size()==12 and body_meshes.size()==15,"Installation incomplete: car model hierarchy invalid")
+	for side: float in [-1.0,1.0]:
+		var label := Label3D.new()
+		label.text = str(slot+1)
+		label.font = load("res://assets/fonts/BarlowCondensed-Bold.ttf")
+		label.font_size = 64
+		label.pixel_size = .005
+		label.position = Vector3(side*({"comet":.95,"needle":.99,"switch":.90,"sunset":1.03}[id]),.46,.08)
+		label.rotation.y = side*PI/2
+		label.modulate = stripe
+		label.outline_size = 0
+		label.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		chassis.add_child(label)
+		number_labels.append(label)
+	shadow = MeshInstance3D.new()
+	var plane := PlaneMesh.new()
+	plane.size = Vector2(2.3,4.5)
+	shadow.mesh = plane
+	var material := ShaderMaterial.new()
+	material.shader = load("res://assets/exported/shaders/blob_shadow.gdshader")
+	shadow.material_override = material
+	shadow.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	shadow.position.y = -.32
-	var shadow_material := make_material(Color(0.09, .16, .22, .3))
-	shadow_material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-	shadow.material_override = shadow_material
 	add_child(shadow)
+	choose_lod(0)
 
+func choose_lod(level: int) -> void:
+	if active_lod==level: return
+	active_lod = clampi(level,0,2)
+	for index in range(lods.size()): lods[index].visible = index==active_lod
+	for label: Label3D in number_labels: label.visible = active_lod<2 and not ghost
 
-func make_material(color: Color) -> StandardMaterial3D:
-	var mat := StandardMaterial3D.new()
-	mat.albedo_color = color
-	return mat
-
-
-func part(at: Vector3, size: Vector3, mat: Material) -> MeshInstance3D:
-	var mesh := BoxMesh.new()
-	mesh.size = size
-	var node := MeshInstance3D.new()
-	node.mesh = mesh
-	node.material_override = mat
-	node.position = at
-	chassis.add_child(node)
-	return node
-
+func _process(_dt: float) -> void:
+	var camera := get_viewport().get_camera_3d()
+	if camera:
+		var distance := global_position.distance_to(camera.global_position)
+		choose_lod(0 if distance<35 else 1 if distance<90 else 2)
 
 func present(state: VehicleState, input: InputFrame, dt: float) -> void:
 	position = state.position
 	rotation.y = -state.yaw
-	chassis.rotation.z = lerp_angle(chassis.rotation.z, deg_to_rad(state.steer_filter * 4) * clampf(state.speed() / 35, 0, 1), 1 - exp(-10 * dt))
-	chassis.rotation.x = lerpf(chassis.rotation.x, deg_to_rad(input.brake * 2), 1 - exp(-10 * dt))
-	tire_rotation += state.velocity.dot(state.forward()) * dt / .34
+	if not last_grounded and state.grounded: landing_time = .2
+	last_grounded = state.grounded
+	landing_time = maxf(0,landing_time-dt)
+	chassis.position.y = -.12*sin(PI*landing_time/.2) if landing_time>0 else 0.0
+	chassis.rotation.z = lerp_angle(chassis.rotation.z,deg_to_rad(state.steer_filter*4)*clampf(state.speed()/35,0,1),1-exp(-10*dt))
+	chassis.rotation.x = lerpf(chassis.rotation.x,deg_to_rad(input.brake*2),1-exp(-10*dt))
+	tire_rotation += state.velocity.dot(state.forward())*dt/.34
 	for wheel: Node3D in wheels:
-		wheel.rotation.y = -deg_to_rad(state.steer_filter * 25) if wheel.position.z < 0 else 0.0
-		for child: Node3D in wheel.get_children():
-			child.rotation.x = tire_rotation
-	for light: MeshInstance3D in brake_lights:
-		var mat: StandardMaterial3D = light.material_override
-		mat.albedo_color = Color.html("FF634D") if input.brake > .1 or input.handbrake else Color.html("A32F39")
-	visible = state.recovery_ticks < 30
-
+		var rest: Transform3D = wheel_rest[wheel]
+		var steering := -deg_to_rad(state.steer_filter*25) if rest.origin.z<0 else 0.0
+		wheel.global_transform = global_transform*rest*Transform3D(Basis(Vector3.UP,steering),Vector3.ZERO)
+		for child: Node3D in wheel.get_children(): child.rotation.x = tire_rotation
+	surface.set_shader_parameter("braking",1.0 if input.brake>.1 or input.handbrake else 0.0)
+	if ghost_surface: ghost_surface.set_shader_parameter("braking",0.0)
+	shadow.visible = state.grounded and not ghost
+	if shadow.visible:
+		var normal := state.ground_normal.normalized()
+		var forward := state.forward().slide(normal).normalized()
+		var right := forward.cross(normal).normalized()
+		shadow.global_transform = Transform3D(Basis(right,normal,-forward),state.position-normal*.32)
+	visible = state.recovery_ticks<30
 
 func set_ghost(alpha: float) -> void:
-	for item: Node in find_children("*", "MeshInstance3D", true, false):
-		var mesh: MeshInstance3D = item
-		var material: StandardMaterial3D = mesh.material_override
-		material.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-		material.albedo_color.a = alpha
+	ghost = true
+	ghost_surface = ShaderMaterial.new()
+	ghost_surface.shader = load("res://assets/exported/shaders/car_ghost.gdshader")
+	for parameter: String in ["atlas","paint","stripe"]: ghost_surface.set_shader_parameter(parameter,surface.get_shader_parameter(parameter))
+	ghost_surface.set_shader_parameter("ghost_alpha",alpha)
+	for mesh: MeshInstance3D in body_meshes:
+		for index in range(mesh.mesh.get_surface_count()): mesh.set_surface_override_material(index,ghost_surface)
 		mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	shadow.hide()
+	for label: Label3D in number_labels: label.hide()
