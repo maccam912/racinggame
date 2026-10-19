@@ -33,6 +33,7 @@ def main():
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/online_lifecycle_tests.gd','--','--profile=ci_tests'])
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/mobile_runtime_tests.gd','--','--profile=ci_tests'])
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/mobile_services_tests.gd','--','--profile=ci_tests'])
+    commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/direct_connect_tests.gd','--','--profile=ci_tests'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/shader_warmup_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/audio_dsp_evidence.gd'])
     results = []

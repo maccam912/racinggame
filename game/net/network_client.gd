@@ -41,6 +41,7 @@ var name_value: String = "Driver"
 var reconnect_token: String = ""
 var rtt_ms: float = 0
 var last_received_ms: int = 0
+var initial_deadline_ms: int = 0
 var tick_counter: int = 0
 var prediction: PredictionBuffer
 var remotes := RemoteBuffer.new()
@@ -77,18 +78,22 @@ func connect_to(address: String, udp_port: int, display_name: String = "Driver")
 		status_changed.emit("Unable to connect")
 		return error
 	last_received_ms = Time.get_ticks_msec()
+	initial_deadline_ms = last_received_ms+10000
 	status_changed.emit("Connecting")
 	return OK
 
 
 func _process(_dt: float) -> void:
 	if suspended: return
-	receive_packets(wire.poll())
-	var status := wire.peer.get_connection_status()
-	if not hello_sent and disconnected_at == 0 and status == MultiplayerPeer.CONNECTION_CONNECTING and Time.get_ticks_msec() - last_received_ms > 10000:
-		wire.peer.close()
+	# ENet connectivity alone does not complete admission. A silent/invalid
+	# Welcome stream cannot keep the initial Connect action pending forever.
+	if slot<0 and initial_deadline_ms>0 and Time.get_ticks_msec()>=initial_deadline_ms:
+		initial_deadline_ms = 0
+		leave_room()
 		status_changed.emit("Connection timed out — Retry or Back")
 		return
+	receive_packets(wire.poll())
+	var status := wire.peer.get_connection_status()
 	if status == MultiplayerPeer.CONNECTION_CONNECTED and not hello_sent:
 		hello_sent = true
 		if admission_ticket != "" and reconnect_token == "":
@@ -135,6 +140,14 @@ func route_changed() -> void:
 
 func set_suspended(value: bool) -> void:
 	if suspended==value or deliberate_leave: return
+	if value and slot<0 and reconnect_token.is_empty():
+		# Before Welcome there is no reservation credential to reconnect with.
+		# Cancel this transport explicitly instead of creating another guest.
+		suspended = true
+		initial_deadline_ms = 0
+		leave_room()
+		status_changed.emit("Connection interrupted — Retry or Back")
+		return
 	suspended = value
 	if value:
 		# Drop queued controls before the best-effort Away. No background
@@ -203,6 +216,7 @@ func receive_event(event: Dictionary) -> void:
 		large_racing_events += 1
 	match event.get("type", ""):
 		"welcome":
+			initial_deadline_ms = 0
 			quality.reset(int(event.race))
 			restoring_reconnect = prediction != null
 			slot = int(event.slot)
@@ -296,6 +310,7 @@ func receive_packets(packets: Array[Dictionary]) -> void:
 	var newest: Dictionary = {}
 	var newest_race: int = -1
 	for packet: Dictionary in packets:
+		if deliberate_leave: break
 		last_received_ms = Time.get_ticks_msec()
 		if packet.channel==2:
 			var decoded := NetCodec.decode_snapshot(packet.bytes,race_id,Compatibility.content_hash().hex_decode())

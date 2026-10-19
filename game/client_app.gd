@@ -14,6 +14,8 @@ var rendered_frames: int = 0
 var capture_frame: int = 150
 var network: NetworkClient
 var connection_label: Label
+var connection_button: Button
+var connection_back: Button
 var page: String = "main"
 var back_action: Callable
 var pending_config: Dictionary = {}
@@ -858,40 +860,53 @@ func update_online_status(state: String) -> void:
 
 func show_connection_form() -> void:
 	page = "connect"
-	back_action = show_online
+	back_action = cancel_connection
 	var body := menu.reset(I18n.t("online.direct"), I18n.t("online.community"))
 	var address := LineEdit.new()
+	address.name = "direct_address"
 	address.placeholder_text = I18n.t("online.address_help")
 	address.text = "127.0.0.1:27020"
 	address.custom_minimum_size.y = menu.ui.row_height()
 	body.add_child(address)
 	var code := LineEdit.new()
+	code.name = "direct_code"
 	code.placeholder_text = I18n.t("online.code_optional")
 	code.custom_minimum_size.y = menu.ui.row_height()
 	body.add_child(code)
 	connection_label = menu.ui.paragraph(I18n.t("online.waiting"))
 	body.add_child(connection_label)
-	body.add_child(menu.ui.button(I18n.t("online.connect"), func() -> void: connect_address(address.text, code.text)))
-	menu.add_back(func() -> void:
-		if network:
-			network.queue_free()
-			network = null
-		show_online())
+	connection_button = menu.ui.button(I18n.t("online.connect"), func() -> void: connect_address(address.text, code.text))
+	connection_button.name = "direct_connect"
+	body.add_child(connection_button)
+	address.text_submitted.connect(func(_value: String) -> void: connect_address(address.text,code.text))
+	code.text_submitted.connect(func(_value: String) -> void: connect_address(address.text,code.text))
+	connection_back = menu.add_back(cancel_connection)
 	if data.mobile: menu.first_focus()
 	else: address.call_deferred("grab_focus")
 
+func cancel_connection() -> void:
+	if is_instance_valid(network):
+		network.leave_room()
+		network.queue_free()
+		network = null
+	show_online()
+
+func connection_pending() -> bool:
+	return is_instance_valid(network) and not network.deliberate_leave and (network.initial_deadline_ms>0 or network.connected or not network.reconnect_token.is_empty())
 
 func connect_address(value: String, code_value: String = "", admission_ticket: String = "") -> void:
-	if not mobile_runtime.allow_online(connect_address.bind(value,code_value,admission_ticket)): return
+	if connection_pending(): return
 	var address := PeerAddress.parse(value)
 	if address.is_empty():
-		connection_label.text = I18n.t("online.address_error")
+		if is_instance_valid(connection_label): connection_label.text = I18n.t("online.address_error")
 		return
 	var checked_code := PeerAddress.parse_code(code_value)
 	if not checked_code.valid:
-		connection_label.text = I18n.t("online.code_error")
+		if is_instance_valid(connection_label): connection_label.text = I18n.t("online.code_error")
 		return
+	if not mobile_runtime.allow_online(connect_address.bind(value,code_value,admission_ticket)): return
 	if is_instance_valid(network):
+		network.leave_room()
 		network.queue_free()
 	network = NetworkClient.new()
 	add_child(network)
@@ -899,24 +914,39 @@ func connect_address(value: String, code_value: String = "", admission_ticket: S
 	network.admission_ticket = admission_ticket
 	network.initial_car = int(data.profile.selected_car)
 	network.initial_paint = int(data.profile.selected_paint)
-	network.loading_requested.connect(prepare_online)
-	network.race_started.connect(start_online)
-	network.results_received.connect(online_results)
+	var expected_network := network
+	network.loading_requested.connect(func(configuration: Dictionary) -> void:
+		if network==expected_network: prepare_online(configuration))
+	network.race_started.connect(func(configuration: Dictionary) -> void:
+		if network==expected_network: start_online(configuration))
+	network.results_received.connect(func(results: Array) -> void:
+		if network==expected_network: online_results(results))
 	network.returned_to_lobby.connect(func() -> void:
+		if network!=expected_network: return
 		dispose_drive(true)
 		ensure_stage()
 		lobby_page.code_visible = false
 		lobby_page.show_lobby())
 	network.lobby_changed.connect(func(state: Dictionary) -> void:
+		if network!=expected_network: return
 		if int(state.phase) == LobbyState.Phase.LOBBY and page in ["connect", "lobby"]:
 			if int(state.revision) != lobby_page.shown_revision or page != "lobby":
 				lobby_page.show_lobby())
-	network.disconnected_permanently.connect(show_connection_lost)
+	network.disconnected_permanently.connect(func(message: String) -> void:
+		if network==expected_network: show_connection_lost(message))
 	network.status_changed.connect(func(message: String) -> void:
+		if network!=expected_network: return
 		if is_instance_valid(connection_label):
 			connection_label.text = message
+		if page=="connect" and is_instance_valid(connection_button) and not connection_pending():
+			connection_button.disabled = false
+			connection_button.grab_focus()
 		print("NETWORK_STATUS " + message))
 	network.connect_to(address.host, address.port, data.profile.display_name)
+	if page=="connect" and is_instance_valid(connection_button):
+		connection_button.disabled = connection_pending()
+		if connection_button.disabled and is_instance_valid(connection_back): connection_back.grab_focus()
+		if data.mobile and DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD): DisplayServer.virtual_keyboard_hide()
 
 
 func prepare_online(configuration: Dictionary) -> void:
@@ -1034,6 +1064,9 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _process(_dt: float) -> void:
+	if page=="connect" and is_instance_valid(connection_button):
+		connection_button.disabled = connection_pending()
+		connection_button.text = I18n.t("button.retry" if is_instance_valid(network) and network.deliberate_leave else "online.connect")
 	if is_instance_valid(stage): stage.interactive = page=="garage"
 	var has_drive := is_instance_valid(drive)
 	audio_mix.context(has_drive and drive.paused and drive.network==null,has_drive and drive.paused and drive.network!=null)

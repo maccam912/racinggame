@@ -42,6 +42,7 @@ func exit_to_hub() -> void:
 	cancel_work()
 	depart_active_room()
 	if is_instance_valid(app.network) and app.network.lobby.is_empty():
+		app.network.leave_room()
 		app.network.queue_free()
 		app.network = null
 	show_hub(false)
@@ -400,6 +401,7 @@ func fail(state: String) -> void:
 	pending = ""
 	connect_deadline = 0
 	if is_instance_valid(app.network) and app.network.lobby.is_empty():
+		app.network.leave_room()
 		app.network.queue_free()
 		app.network = null
 	app.page = "online_error"
