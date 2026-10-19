@@ -14,7 +14,7 @@ Joining atomically reserves one human seat for 15 seconds. Count pending reserva
 
 Allocation uses an operator-configured executable and bounded UDP/process pool; clients cannot supply paths/commands. Reserve allocation metadata in a short transaction, launch outside it and wait at most ten seconds for authenticated readiness. Per-worker heartbeat credentials are supplied through the environment. Workers report phase/rules/active guests every five seconds; advertisements disappear and joins fail after fifteen seconds without a heartbeat. Empty closure and graceful race retirement stay worker behavior.
 
-SQLite uses WAL, foreign keys, busy timeout and serialized short writes. Allocation waits never hold a transaction. Prune expired nonces/sessions/reservations/rate state. Match all §20.2 limits with Retry-After. Logs exclude bodies, room codes, credentials and raw addresses. Production rotation, daily backup/restore drills and two hosted regions remain distinct gates.
+SQLite uses WAL, foreign keys, busy timeout and serialized short writes. Allocation waits never hold a transaction. Prune expired nonces/sessions/reservations/rate state. Match all §20.2 limits with Retry-After. Logs exclude bodies, room codes, credentials and raw addresses. Daily operated backups/restore drills and two hosted regions remain distinct gates.
 
 ## APIs and tests
 
@@ -33,5 +33,7 @@ The service writes fixed structured process events, rotates by UTC day, caps out
 Crypto implementation references: [Godot 4.6 Crypto.verify](https://docs.godotengine.org/en/4.6/classes/class_crypto.html), [CryptoKey public-key loading](https://docs.godotengine.org/en/4.6/classes/class_cryptokey.html), and [Go process ownership](https://pkg.go.dev/os/exec). Interoperability is checked with newly generated Go signatures in the pinned Godot engine, including expiry, nonce replay, altered signatures and wrong room/worker/version bindings.
 
 The checked-in Caddyfile allows only `/v1/*`, `/healthz` and `/readyz` to reach the public service listener. Set `PR_PUBLIC_ADDRESS` and `PR_DIRECTORY_UPSTREAM` for deployment; keep the private listener on loopback. The default TLS fragment uses automatic public HTTPS. `tls-test.caddy` is selected only by the isolated fixture, with no system CA installation. `python3 tools/caddy_integration.py` verifies HTTPS auth and forwarding/private-route boundaries using checksum-pinned Caddy. See [Caddy reverse-proxy documentation](https://caddyserver.com/docs/caddyfile/directives/reverse_proxy) and [automatic HTTPS](https://caddyserver.com/docs/automatic-https).
+
+The filesystem-only `backup` and `restore` commands create verified live-WAL snapshots and restore to new paths with the original separately stored keys. [Backup commands and drill runbook](../../docs/DIRECTORY_BACKUPS.md) describe schema migration, identity preservation, stale-state removal and no-overwrite rules.
 
 Production room creation now requires fresh authenticated worker tick/RSS measurements and reserves p95 headroom. The worker deadline alert uses a full 30-second window. [Measurement, admission and alert contract](../../docs/SERVER_PERFORMANCE.md) records exact thresholds, missing-data behavior, native API sources and benchmark boundaries.

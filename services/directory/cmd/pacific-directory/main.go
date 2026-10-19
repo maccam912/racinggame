@@ -27,7 +27,7 @@ func main() {
 }
 func run() error {
 	if len(os.Args) < 2 {
-		return errors.New("use keygen, serve, drain, ban or unban")
+		return errors.New("use keygen, serve, drain, backup, restore, ban or unban")
 	}
 	switch os.Args[1] {
 	case "keygen":
@@ -37,6 +37,31 @@ func run() error {
 			return err
 		}
 		return directory.GenerateKeys(*folder)
+	case "backup", "restore":
+		flags := flag.NewFlagSet(os.Args[1], flag.ContinueOnError)
+		database := flags.String("db", "var/directory.sqlite", "source database (backup only)")
+		folder := flags.String("backup", "", "new backup folder, or existing backup to restore")
+		keys := flags.String("keys", "var/keys", "separately stored original operator keys")
+		output := flags.String("out", "", "new restored database path (restore only)")
+		if err := flags.Parse(os.Args[2:]); err != nil {
+			return err
+		}
+		if flags.NArg() != 0 || *folder == "" || (os.Args[1] == "restore" && *output == "") || (os.Args[1] == "backup" && *output != "") {
+			return errors.New("specify --backup folder, --keys folder and restore --out new-database")
+		}
+		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Minute)
+		defer cancel()
+		var manifest directory.BackupManifest
+		var err error
+		if os.Args[1] == "backup" {
+			manifest, err = directory.BackupDatabase(ctx, *database, *folder, *keys)
+		} else {
+			manifest, err = directory.RestoreDatabase(ctx, *folder, *output, *keys)
+		}
+		if err != nil {
+			return err
+		}
+		return json.NewEncoder(os.Stdout).Encode(map[string]any{"command": os.Args[1], "backup": manifest})
 	case "ban", "unban":
 		flags := flag.NewFlagSet("ban", flag.ContinueOnError)
 		database := flags.String("db", "var/directory.sqlite", "SQLite file")

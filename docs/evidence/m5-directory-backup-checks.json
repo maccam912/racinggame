@@ -1,0 +1,76 @@
+{
+  "base_commit": "852e91e5d3c04f4b5d446582566d735c3a02a352",
+  "working_tree_dirty": true,
+  "go": "1.27.0",
+  "race_detector": true,
+  "packages": [
+    {
+      "package": "github.com/maccam912/racinggame/services/directory/internal/names",
+      "result": "pass",
+      "seconds": 1.274
+    },
+    {
+      "package": "github.com/maccam912/racinggame/services/directory/internal/directory",
+      "result": "pass",
+      "seconds": 3.935
+    }
+  ],
+  "backup_tests": [
+    {
+      "test": "TestLiveWALBackupRestoresIdentityButNotLeasesOrReplayState",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture/incomplete",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture/checksum",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture/truncated",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture/future",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture/foreign-key",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture/identity-key",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture/trailing-manifest",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture/symlink",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupRestoreRefusesExistingIncompleteCorruptWrongKeysAndFuture",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupHistoricalSchemasRestoreOnCopy/1",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupHistoricalSchemasRestoreOnCopy/2",
+      "result": "pass"
+    },
+    {
+      "test": "TestBackupHistoricalSchemasRestoreOnCopy",
+      "result": "pass"
+    }
+  ],
+  "concurrent_snapshot_repetitions": 25,
+  "vet_passed": true,
+  "cli_drill": "m5-directory-backup-cli.json",
+  "boundary": "Local temporary data and source tests; operated daily backup and monthly production drill remain open."
+}

@@ -1,0 +1,14 @@
+{
+  "run": 39319375088,
+  "build": 75,
+  "base_commit": "852e91e5d3c04f4b5d446582566d735c3a02a352",
+  "job": 118291146640,
+  "result": "failure",
+  "stage": "SDK Manager NDK download, before native compile",
+  "message": "Error on ZipFile unknown archive",
+  "ndk": "28.1.13356709",
+  "local_log": "/tmp/pacific-ci75-android-adapter.log",
+  "repair": "At most three identical pinned SDK Manager attempts with five-second retry delay; no compile/test failure suppression",
+  "source_verify": "success",
+  "android_native_or_export_success": false
+}

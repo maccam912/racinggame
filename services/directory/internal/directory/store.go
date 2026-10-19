@@ -9,6 +9,8 @@ import (
 	_ "modernc.org/sqlite"
 )
 
+const databaseVersion = 3
+
 type Store struct{ db *sql.DB }
 
 func OpenStore(filename string) (*Store, error) {
@@ -40,7 +42,7 @@ func OpenStore(filename string) (*Store, error) {
 	if err = db.QueryRow(`PRAGMA user_version`).Scan(&version); err != nil {
 		return fail(err)
 	}
-	if version > 3 {
+	if version > databaseVersion {
 		return fail(errFutureDatabase)
 	}
 	tx, err := db.Begin()

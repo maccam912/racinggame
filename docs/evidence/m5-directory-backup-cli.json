@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "base_commit": "852e91e5d3c04f4b5d446582566d735c3a02a352",
+  "boundary": "Compiled operator CLI; explicit loopback HTTP fixture with temporary keys, guests and databases. No public region or operated backup schedule.",
+  "snapshot": {
+    "format": 1,
+    "service": "pacific-rush-directory",
+    "created_at_utc": "2026-10-19T20:34:50Z",
+    "schema": 3,
+    "bytes": 98304,
+    "sha256": "0185a3a799e05237c04544b547be387ad73db1195da09089a9e85c27231c2373",
+    "key_id": "93027b5840d9c8fe08a4db5bb3dd7a27409b9bccf27a634001f9af6a46301758"
+  },
+  "temporary_data_removed": true,
+  "checks": {
+    "live_cli_backup": true,
+    "existing_backup_refused": true,
+    "backup_unchanged": true,
+    "two_guests_preserved": true,
+    "no_ephemeral_leases_or_replay_state": true,
+    "ban_preserved": true,
+    "old_nonce_refused": true,
+    "original_guest_reauth": true,
+    "banned_guest_refused": true,
+    "file_mode": true,
+    "no_keys_in_backup": true
+  }
+}

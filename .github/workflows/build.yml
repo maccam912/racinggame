@@ -277,7 +277,12 @@ jobs:
           log-accepted-android-sdk-licenses: false
       - name: Android native toolchain
         if: matrix.platform == 'android'
-        run: sdkmanager 'ndk;28.1.13356709'
+        run: |
+          for attempt in 1 2 3; do
+            sdkmanager 'ndk;28.1.13356709' && break
+            [ "$attempt" -lt 3 ] || exit 1
+            sleep 5
+          done
       - run: python tools/native_build.py ${{ matrix.platform }}
       - name: Native save barriers and process-lock crash recovery
         if: matrix.platform != 'android'
@@ -333,7 +338,11 @@ jobs:
         env:
           KEYSTORE: ${{ secrets.ANDROID_DEBUG_KEYSTORE_BASE64 }}
         run: |
-          sdkmanager 'platforms;android-36' 'build-tools;35.0.1' 'ndk;28.1.13356709'
+          for attempt in 1 2 3; do
+            sdkmanager 'platforms;android-36' 'build-tools;35.0.1' 'ndk;28.1.13356709' && break
+            [ "$attempt" -lt 3 ] || exit 1
+            sleep 5
+          done
           mkdir -p ~/.android
           if [ -n "$KEYSTORE" ]; then
             umask 077
@@ -512,6 +521,8 @@ jobs:
         with:
           name: directory-evidence
           path: |
+            reports/directory-backup-*/summary.json
+            reports/directory-backup-*/*.log
             reports/directory-eight-*/summary.json
             reports/directory-eight-*/*.log
             reports/caddy-*/summary.json
