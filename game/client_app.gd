@@ -571,6 +571,9 @@ func finish_quit() -> void:
 
 
 func render_results() -> void:
+	if is_instance_valid(drive):
+		drive.hud.hide()
+		drive.help_label.hide()
 	var session := result_receipt.session
 	var local_state := session.states[session.human_slot]
 	var body := menu.reset(I18n.t("results.trial_title" if session.mode == "trial" else "results.title"))
@@ -607,7 +610,12 @@ func render_results() -> void:
 			var record: Dictionary = session.roster[state.slot]
 			var gap := "—" if index == 0 or not state.finished or not order[0].finished else "+%.3f" % (state.finish_time - order[0].finish_time)
 			var row := menu.ui.paragraph("%d  %s  •  %s  •  %s  •  %s  •  %s" % [index + 1, record.name, I18n.t("car." + session.cars[state.slot].id), RaceHUD.format_time(state.finish_time) if state.finished else I18n.t("results.dnf") + " " + state.dnf_reason, RaceHUD.format_time(state.best_lap_time) if state.best_lap_time > 0 else "—", gap])
-			list.add_child(menu.ui.panel(row) if state.slot == session.human_slot else row)
+			if state.slot==session.human_slot:
+				var highlight := menu.ui.panel(row)
+				highlight.add_theme_stylebox_override("panel",menu.ui.style(UIFactory.NAVY,UIFactory.YELLOW,2))
+				list.add_child(highlight)
+			else:
+				list.add_child(row)
 	if session.mode=="cup":
 		append_cup_standings(list)
 	if session.mode=="online":

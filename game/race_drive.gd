@@ -56,6 +56,8 @@ var audio := RaceAudio.new()
 var feedback := RaceFeedback.new()
 var recovery_cover := ColorRect.new()
 var camera_recovery_ticks: int = 0
+var nameplates := RaceNameplates.new()
+var delta_comparison := TrialDelta.new()
 
 
 func _ready() -> void:
@@ -137,6 +139,7 @@ func _ready() -> void:
 	show_ghost = bool(config.get("ghost",app_data.settings.trial_ghost if app_data else true))
 	if session.mode == "trial" and app_data:
 		best_ghost = app_data.load_ghost(track.id, car.id)
+		delta_comparison.build(track,best_ghost)
 		if not best_ghost.is_empty():
 			ghost_visual = CarVisual.new()
 			ghost_visual.build(Catalog.paints[int(config.get("paint",0))],car.mesh_id,local_slot)
@@ -155,6 +158,8 @@ func _ready() -> void:
 	hud.state = state
 	hud.lap_count = lap_count
 	ui.add_child(hud)
+	nameplates.drive = self
+	ui.add_child(nameplates)
 	spectator_button = Button.new()
 	spectator_button.text = I18n.t("hud.next_racer")
 	spectator_button.position = Vector2(540, 110)
@@ -296,6 +301,10 @@ func _process(dt: float) -> void:
 			update_control_hints()
 	hud.network_level = int(network.quality.measure(Time.get_ticks_msec(),network.start_tick>=0 and network.phase!=RaceSession.Phase.RESULTS).level) if network else 0
 	hud.recovery_armed = driver.recovery_armed
+	hud.trial_delta = delta_comparison.delta(state,race_ticks/60.0) if session.mode=="trial" else null
+	hud.pause_bounds = touch.controls.get("pause",Rect2()) if touch.visible else Rect2()
+	hud.secondary_bounds = touch.controls.get("camera",Rect2()).merge(touch.controls.get("look_back",Rect2())) if touch.visible else Rect2()
+	hud.advance(visual_dt)
 	touch.recovery_armed = driver.recovery_armed
 	var rendered := state
 	if spectator_button:
@@ -327,7 +336,7 @@ func _process(dt: float) -> void:
 			if rival:
 				remote_visuals[slot].present(rival, InputFrame.make(), dt)
 				hud.rivals.append(rival)
-	visual.present(rendered, frame, visual_dt)
+	visual.present(rendered,session.inputs[local_slot] if state.finished and not network else frame,visual_dt)
 	var target := rendered
 	if state.recovery_ticks>30:
 		target = rendered.copy()
@@ -467,6 +476,7 @@ func apply_settings() -> void:
 	hud.ui_scale = float(settings.ui_scale)/100
 	hud.high_contrast = bool(settings.high_contrast)
 	hud.palette = str(settings.palette)
+	nameplates.enabled = bool(settings.nameplates)
 	driver.auto_accelerate = bool(settings.auto_accelerate)
 	driver.deadzone = float(settings.deadzone)
 	driver.sensitivity = float(settings.sensitivity)
@@ -502,7 +512,7 @@ func update_control_hints() -> void:
 		school_overlay.hints = hints
 	if not is_instance_valid(help_label):
 		return
-	help_label.visible = not touch.visible and lesson == null and bool(values.driving_hints)
+	help_label.visible = not touch.visible and lesson == null and not result_sent and bool(values.driving_hints)
 	var parts: Array[String] = []
 	var pairs: Array = [["accelerate","brake"],["steer_left","steer_right"],["handbrake","recover"],["camera","look_back"]]
 	for action: String in pairs[hint_page]:

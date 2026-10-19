@@ -153,6 +153,10 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/interface_icon_evidence.gd -- --profile=interface_render_ci 2>&1 | tee -a reports/car-render.log
+      - name: Render race HUD and bounded rival nameplates
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/race_hud_evidence.gd -- --profile=hud_render_ci --capture=res://reports/unused-hud.png 2>&1 | tee -a reports/car-render.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -161,6 +165,7 @@ jobs:
             reports/m4-*.png
             reports/m4-feedback-render.json
             reports/m4-ui-reference.json
+            reports/m4-hud-reference.json
             reports/car-render.log
           if-no-files-found: error
 

@@ -1,0 +1,45 @@
+{
+  "build": {
+    "version": "0.0.56-dev",
+    "build_number": 56,
+    "working_tree_dirty": true,
+    "commit": "da4cd0f8d2036e6e2df30b948521220964fd1d73",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 4,
+    "save_schema": 1,
+    "content_hash": "4899e636e87a2e0dbda39be146a526c4f1b3be608fec9411da2a92ca17f5fbc3",
+    "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "839540d19ada13cd2463f7ff8e24ceaba91384de2fa3808dd65438231cedce82",
+      "sha256": "1e7411b8f6fd4d8529c8947db00af0e37174b741dfd4d221c08f3cc75097fa64"
+    }
+  },
+  "device": {
+    "avd": "pacific_rush_test",
+    "serial": "emulator-5580",
+    "profile": "Pixel 7",
+    "os": "Android 15/API 35 ARM64",
+    "resolution": [
+      2400,
+      1080
+    ]
+  },
+  "observed": [
+    "actual release-mode development APK installed in place without clearing app data",
+    "fresh owned single-car Quick Race launched with automatic touch throttle",
+    "100% and 150% UI captures while driving at 71/48 mph; clock, lap, minimap start stripe, speed and Pause remain readable",
+    "minimap dimensions stay bounded; touch gear/tach omitted; speed stays above Look Back/Camera and in lower quarter",
+    "no SCRIPT ERROR or Parse Error in observed Godot logs"
+  ],
+  "boundary": "Emulator only. UI scale seeded in an owned QA profile. No physical finger/controller/thermal/frame-rate acceptance, complete Android race or saved Trial ghost on Android is claimed."
+}

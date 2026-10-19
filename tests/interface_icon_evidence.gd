@@ -86,7 +86,7 @@ func run() -> void:
 	app.data.profile.trophies = [{"cup_id":RaceSetup.uuid(),"rank":0,"car":0,"content_hash":Compatibility.content_hash()}]
 	app.show_cup()
 	await capture("cup-trophy")
-	app.start_drive({"mode":"trial","track":0,"car":0})
+	app.start_drive({"mode":"trial","track":0,"car":0,"laps":1})
 	await process_frame
 	app.drive.set_physics_process(false)
 	app.drive.result_sent = true

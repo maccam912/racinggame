@@ -59,13 +59,19 @@ func _process(_dt: float) -> void:
 			best_announced[race_id] = true
 			say("new_best_time")
 	caption.visible = bool(app.data.settings.captions) and Time.get_ticks_msec()<caption_until
+	if active and app.page=="race" and app.drive.hud.is_visible_in_tree() and not app.drive.hud.banner_text().is_empty():
+		caption.hide() # The prioritized HUD already provides the visible race cue.
 	var size := get_viewport().get_visible_rect().size
 	var style := str(app.data.settings.ui_scale)+str(size)
 	if style!=caption_style:
 		caption_style = style
 		var ui := UIFactory.new(get_viewport(),app.data.settings)
 		caption.add_theme_font_size_override("font_size",ui.font_size(24))
-	caption.position = Vector2(size.x*.1,size.y*.19)
+	var caption_top := size.y*.19
+	if active and app.page=="race":
+		for area: Rect2 in app.drive.hud.timing_rects().values():
+			caption_top = maxf(caption_top,area.end.y*app.drive.hud.ui_scale+8)
+	caption.position = Vector2(size.x*.1,caption_top)
 	caption.size = Vector2(size.x*.8,64)
 
 func set_music(id: String) -> void:

@@ -21,7 +21,7 @@ def main():
                 [sys.executable,'tools/content_hash.py','--check'], [sys.executable,'tools/asset_hash.py','--check'],
                 [sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py'],
                 [sys.executable,'tools/godot.py','--headless','--editor','--import','--quit']]
-    for suite in SUITES+['race_audio_tests','feedback_event_tests','race_feedback_tests','recovery_presentation_tests','interface_icon_tests']:
+    for suite in SUITES+['race_audio_tests','feedback_event_tests','race_feedback_tests','recovery_presentation_tests','interface_icon_tests','race_hud_tests']:
         source=(ROOT/f'tests/{suite}.gd').read_text()
         # UI/race scenes now own real audio transports. Let the mixer thread
         # process stop/fade commands before shutdown; deterministic simulation

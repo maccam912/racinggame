@@ -56,6 +56,8 @@ func run() -> void:
 	app.data.settings.announcer = 0
 	app.data.settings.captions = true
 	app.audio_mix.configure(app.data.settings)
+	drive.hud.phase = "Racing"
+	drive.hud.ticks = 60
 	app.game_audio.say("wrong_way")
 	app.game_audio._process(.016)
 	assert(app.game_audio.caption.visible and app.game_audio.caption.text=="Wrong way")
@@ -64,6 +66,8 @@ func run() -> void:
 	state.events.clear()
 	other.events.clear()
 	state.wrong_way_ticks = 60
+	app.game_audio._process(.016)
+	assert(not app.game_audio.caption.visible and drive.hud.banner_text()==I18n.t("hud.wrong_way"),"one visible prioritized cue still works with announcer muted")
 	audio._physics_process(.016)
 	var wrong: int = app.game_audio.played.voice_wrong_way
 	audio._physics_process(12)

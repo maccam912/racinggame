@@ -17,6 +17,10 @@ static func defaults(mobile: bool) -> Dictionary:
 	var values: Dictionary = {"bindings":{}, "touch_layouts":{}}
 	for row: Dictionary in rows:
 		values[row.id] = row.get("mobile_default", row.default) if mobile else row.default
+	if mobile and OS.has_feature("mobile"):
+		var pixels := DisplayServer.screen_get_size()
+		var density := maxf(1,float(DisplayServer.screen_get_dpi())/160)
+		if minf(pixels.x,pixels.y)/density>=600: values.nameplates = true
 	return values
 
 

@@ -38,7 +38,7 @@ func _physics_process(dt: float) -> void:
 	var suspended := drive.paused and drive.network==null or drive.result_sent
 	for index: int in engines:
 		var state: VehicleState = drive.state if index==drive.local_slot else drive.session.states[index]
-		var input := drive.frame if index==drive.local_slot else drive.session.inputs[index]
+		var input := drive.frame if index==drive.local_slot and not state.finished else drive.session.inputs[index]
 		var throttle := input.throttle
 		if drive.network and index!=drive.local_slot:
 			throttle = 1.0 if state.speed()>=float(previous_speeds.get(index,0)) else 0.0

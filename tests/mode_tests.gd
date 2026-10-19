@@ -53,6 +53,20 @@ func run() -> void:
 	check(result.saved and result.new_best, "real trial saves a new best and matching ghost")
 	var loaded := data.load_ghost(drive.track.id, drive.car.id)
 	check(not loaded.is_empty() and absf(float(loaded.time) - drive.state.finish_time) < .00000001, "ghost preserves exact sub-tick finish")
+	var comparison := TrialDelta.new()
+	comparison.build(drive.track,loaded)
+	check(comparison.progress.size()>1000,"real saved standing-start ghost supplies the live delta lookup")
+	var probe := VehicleState.new()
+	probe.last_gate = 0
+	var worst_delta := 0.0
+	for sample: Dictionary in loaded.samples:
+		if float(sample.time)<2 or float(sample.time)>float(loaded.time)-.1: continue
+		probe.route_s = drive.query.nearest(sample.position).s
+		var value: Variant = comparison.delta(probe,float(sample.time))
+		check(value!=null,"valid real ghost point has a comparable recorded time")
+		if value!=null: worst_delta = maxf(worst_delta,absf(float(value)))
+	check(worst_delta<.008,"real ghost self-comparison stays below eight milliseconds through the full route")
+	print("Real saved ghost equal-progress delta worst seconds ",worst_delta)
 	print("Trial real finish %.9f, samples %d, medal %d" % [drive.state.finish_time, drive.ghost_samples.size(), Medals.award(drive.track.length, drive.state.finish_time, true)])
 	drive.queue_free()
 	await process_frame
