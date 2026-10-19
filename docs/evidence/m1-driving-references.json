@@ -1,0 +1,250 @@
+{
+  "boundaries": [
+    "Scripted offline-rendered shared-controller behavior, not human playtesting or frame-time evidence",
+    "Touch pointer paths exercise TouchDriving/DrivingInput; not physical-device ergonomics",
+    "Graybox capture before M4 models/scenery/audio"
+  ],
+  "car": "comet",
+  "cases": [
+    {
+      "airborne_ticks": 0,
+      "drift_ticks": 0,
+      "events": {},
+      "frames": 480,
+      "id": "acceleration",
+      "initial": {
+        "position": [
+          0.0,
+          4.34999990463257,
+          -80.0
+        ],
+        "route_s": 80.0,
+        "speed": 0.0,
+        "yaw": 0.0
+      },
+      "maximum_speed_mps": 54.0154228210449,
+      "start_frame": 2,
+      "title": "Comet / full throttle from rest",
+      "track": "reference_oval",
+      "video": "m1-acceleration.mp4",
+      "sha256": "df2978057fd24574e014150bfc33c36d2182fa56745ca47f847ca04b79fe83c7",
+      "video_bytes": 2293411
+    },
+    {
+      "airborne_ticks": 0,
+      "drift_ticks": 0,
+      "events": {},
+      "frames": 480,
+      "id": "bend_25",
+      "initial": {
+        "position": [
+          0.0,
+          4.34999990463257,
+          -370.0
+        ],
+        "route_s": 370.0,
+        "speed": 25.0,
+        "yaw": 0.0
+      },
+      "maximum_speed_mps": 25.0086135864258,
+      "start_frame": 486,
+      "title": "80 m radius bend / 25 m/s entry",
+      "track": "reference_oval",
+      "video": "m1-bend_25.mp4",
+      "sha256": "0cb99aefe693c4e7f90d57fe0440d17e8ea15e3d846d72d17ad73bf6152dcb4a",
+      "video_bytes": 1783987
+    },
+    {
+      "airborne_ticks": 0,
+      "drift_ticks": 0,
+      "events": {},
+      "frames": 480,
+      "id": "bend_40",
+      "initial": {
+        "position": [
+          0.0,
+          4.34999990463257,
+          -370.0
+        ],
+        "route_s": 370.0,
+        "speed": 40.0,
+        "yaw": 0.0
+      },
+      "maximum_speed_mps": 40.0017738342285,
+      "start_frame": 970,
+      "title": "80 m radius bend / 40 m/s entry",
+      "track": "reference_oval",
+      "video": "m1-bend_40.mp4",
+      "sha256": "a46629b194c87e980b7df2675cd7032e1a2afc66e92e1192f0b51d34f32ae0ee",
+      "video_bytes": 2056813
+    },
+    {
+      "airborne_ticks": 0,
+      "drift_ticks": 0,
+      "events": {
+        "wall": 1
+      },
+      "frames": 480,
+      "id": "bend_50",
+      "initial": {
+        "position": [
+          0.0,
+          4.34999990463257,
+          -370.0
+        ],
+        "route_s": 370.0,
+        "speed": 50.0,
+        "yaw": 0.0
+      },
+      "maximum_speed_mps": 49.9954566955566,
+      "start_frame": 1454,
+      "title": "80 m radius bend / 50 m/s entry",
+      "track": "reference_oval",
+      "video": "m1-bend_50.mp4",
+      "sha256": "1a1064fd4f6fdff9a8fd42f50907a23507264d3e2a399dd59291d32205f1fd05",
+      "video_bytes": 2228366
+    },
+    {
+      "airborne_ticks": 0,
+      "drift_ticks": 23,
+      "events": {},
+      "frames": 300,
+      "id": "slide",
+      "initial": {
+        "position": [
+          -4.0,
+          4.34999990463257,
+          -80.0
+        ],
+        "route_s": 80.0,
+        "speed": 32.0,
+        "yaw": 0.0
+      },
+      "maximum_speed_mps": 50.4120140075684,
+      "start_frame": 1938,
+      "title": "Short scripted handbrake slide / grip restoration",
+      "track": "reference_oval",
+      "video": "m1-slide.mp4",
+      "sha256": "42f6e0765920ad40dea4ca912fe77ed575f3351e372c175375e9ff46570072df",
+      "video_bytes": 1618710
+    },
+    {
+      "airborne_ticks": 0,
+      "drift_ticks": 0,
+      "events": {
+        "wall": 1
+      },
+      "frames": 300,
+      "id": "wall",
+      "initial": {
+        "position": [
+          9.0,
+          4.34999990463257,
+          -80.0
+        ],
+        "route_s": 80.0,
+        "speed": 40.0,
+        "yaw": 0.261799387799149
+      },
+      "maximum_speed_mps": 40.0630950927734,
+      "start_frame": 2242,
+      "title": "15 degree wall approach / sustained scrape",
+      "track": "reference_oval",
+      "video": "m1-wall.mp4",
+      "sha256": "80e07acb58ff23d25b81eaaedb69f7f5a87bfb38e67efcf1f548d346565940b2",
+      "video_bytes": 1156656
+    },
+    {
+      "airborne_ticks": 0,
+      "drift_ticks": 0,
+      "events": {
+        "bump": 1
+      },
+      "frames": 300,
+      "id": "bump",
+      "initial": {
+        "position": [
+          0.0,
+          4.34999990463257,
+          -80.0
+        ],
+        "route_s": 80.0,
+        "speed": 30.0,
+        "yaw": 0.0
+      },
+      "maximum_speed_mps": 30.8899898529053,
+      "start_frame": 2546,
+      "title": "Rear contact / shared two-car resolution",
+      "track": "reference_oval",
+      "video": "m1-bump.mp4",
+      "sha256": "b4df5f2a05ea138d3f191e521b9940ab98a148e00c6f3f72b6b719082af6ee1f",
+      "video_bytes": 1309924
+    },
+    {
+      "airborne_ticks": 12,
+      "drift_ticks": 0,
+      "events": {
+        "jump": 1,
+        "land": 1
+      },
+      "frames": 300,
+      "id": "jump",
+      "initial": {
+        "position": [
+          838.90673828125,
+          20.7286853790283,
+          475.155242919922
+        ],
+        "route_s": 2824.40831616,
+        "speed": 45.0,
+        "yaw": -2.19931338446741
+      },
+      "maximum_speed_mps": 53.2097091674805,
+      "start_frame": 2850,
+      "title": "Pacific Summit / explicit crest launch and landing",
+      "track": "pacific_summit",
+      "video": "m1-jump.mp4",
+      "sha256": "7ab040c242ed59b50a1c9661108976e749a7cabd595eb7872a008ed78a894f8b",
+      "video_bytes": 1829270
+    },
+    {
+      "airborne_ticks": 0,
+      "drift_ticks": 0,
+      "events": {},
+      "frames": 420,
+      "id": "touch",
+      "initial": {
+        "position": [
+          0.0,
+          4.34999990463257,
+          -370.0
+        ],
+        "route_s": 370.0,
+        "speed": 30.0,
+        "yaw": 0.0
+      },
+      "maximum_speed_mps": 51.5858764648438,
+      "start_frame": 3154,
+      "title": "Touch steering plus brake / scripted pointer path",
+      "track": "reference_oval",
+      "video": "m1-touch.mp4",
+      "sha256": "0877522b5a70b22a1e48437b81d189e7a86a3d19638363ee5d3436aa46fa7291",
+      "video_bytes": 1920586
+    }
+  ],
+  "content_hash": "4899e636e87a2e0dbda39be146a526c4f1b3be608fec9411da2a92ca17f5fbc3",
+  "movie_fps": 60,
+  "physics_hz": 60,
+  "reference_seed": 104729,
+  "source_commit": "9b558c63cca9e6d4fad7cfd3ab9b6b2e62934e40",
+  "working_tree_dirty": true,
+  "renderer": "macOS Godot 4.6.3 Compatibility",
+  "capture_script_sha256": "c619b92e43ec6422d90588341aeb74b8463fb766fe6b288e39dcbc693f395b1e",
+  "video_encoding": "1280x720, 60 fps, H.264 CRF 23, silent graybox, offline-rendered",
+  "encoder": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "camera": {
+    "mode": "Near Chase",
+    "reduce_motion": true,
+    "base_vertical_fov": 65
+  }
+}
