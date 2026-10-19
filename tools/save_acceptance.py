@@ -10,6 +10,8 @@ from bootstrap import ROOT, engine
 
 
 def run():
+    # A native-adapter job starts from a clean checkout with no class/import cache.
+    subprocess.run([sys.executable,'tools/godot.py','--headless','--editor','--import','--quit'],cwd=ROOT,check=True)
     report = {'passed':False, 'platform':sys.platform, 'cases':[], 'boundary':'Native barriers and process termination; not an actual power-cut or physical Android storage test. Windows uses file flush/write-through moves; no portable directory-fsync guarantee is claimed.'}
     folder = ROOT/'reports'/'save-acceptance'
     folder.mkdir(parents=True,exist_ok=True)
