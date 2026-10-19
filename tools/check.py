@@ -30,6 +30,7 @@ def main():
         commands.append([sys.executable,'tools/godot.py','--headless','--max-fps' if realtime else '--fixed-fps','60','--script',f'tests/{suite}.gd','--','--profile=ci_tests'])
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/leave_delivery_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/lobby_reconnect_tests.gd'])
+    commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/online_lifecycle_tests.gd','--','--profile=ci_tests'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/audio_dsp_evidence.gd'])
     results = []
     for command in commands:

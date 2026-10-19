@@ -35,7 +35,7 @@ func _ready() -> void:
 		player.play()
 
 func _physics_process(dt: float) -> void:
-	var suspended := drive.paused and drive.network==null or drive.result_sent
+	var suspended := drive.paused and drive.network==null or drive.result_sent or drive.network!=null and drive.network.suspended
 	for index: int in engines:
 		var state: VehicleState = drive.state if index==drive.local_slot else drive.session.states[index]
 		var input := drive.frame if index==drive.local_slot and not state.finished else drive.session.inputs[index]

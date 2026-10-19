@@ -42,6 +42,12 @@ func run() -> void:
 	values.background_audio = true
 	mix.configure(values)
 	assert(not AudioServer.is_bus_mute(0),"background preference applies while focus is already lost")
+	mix.mobile = true
+	mix.apply_levels()
+	assert(AudioServer.is_bus_mute(0),"mobile background always releases audio despite a desktop background preference")
+	mix.notification(Node.NOTIFICATION_APPLICATION_FOCUS_IN)
+	assert(not AudioServer.is_bus_mute(0),"mobile foreground restores the selected master level")
+	mix.mobile = false
 	values.master = 0
 	mix.configure(values)
 	assert(AudioServer.is_bus_mute(0),"master zero stays silent even with background audio enabled")

@@ -24,6 +24,7 @@ var official: bool = false
 var result_event: Dictionary = {}
 var deliberate_leave: bool = false
 var departure_started: bool = false
+var suspended: bool = false
 var race_id: int = 1
 var server_tick: float = 0
 var start_tick: int = -1
@@ -81,6 +82,7 @@ func connect_to(address: String, udp_port: int, display_name: String = "Driver")
 
 
 func _process(_dt: float) -> void:
+	if suspended: return
 	receive_packets(wire.poll())
 	var status := wire.peer.get_connection_status()
 	if not hello_sent and disconnected_at == 0 and status == MultiplayerPeer.CONNECTION_CONNECTING and Time.get_ticks_msec() - last_received_ms > 10000:
@@ -119,7 +121,36 @@ func begin_reconnect() -> void:
 	status_changed.emit("Reconnecting")
 
 
+func set_suspended(value: bool) -> void:
+	if suspended==value or deliberate_leave: return
+	suspended = value
+	if value:
+		# Drop queued controls before the best-effort Away. No background
+		# processing is needed for takeover: missed Away falls back to liveness.
+		wire.pending.clear()
+		if connected and wire.peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
+			wire.event(1,{"type":"away"})
+			wire.poll()
+			wire.peer.get_host().flush()
+		wire.peer.close()
+		wire.pending.clear()
+		wire.active_peers.clear()
+		wire.fragments.pending.clear()
+		hello_sent = false
+		connected = false
+		if disconnected_at==0: disconnected_at = Time.get_ticks_msec()
+		if prediction: prediction.history.clear()
+		reset_feedback()
+		status_changed.emit("Reconnecting")
+	else:
+		# The wall-clock deadline includes time spent with the OS suspended.
+		# Reuse the token and seat; never manufacture a fresh local race.
+		retry_at = Time.get_ticks_msec()
+		retry_count = 0
+
+
 func _physics_process(_dt: float) -> void:
+	if suspended: return
 	tick_counter += 1
 	server_tick += 1
 	if hello_sent and not deliberate_leave and tick_counter % 30 == 0:
@@ -379,9 +410,9 @@ func _exit_tree() -> void:
 
 
 func mark_loaded(race: int) -> void:
-	if race == loading_race and connected:
+	if race == loading_race:
 		loaded_race = race
-		wire.event(1, {"type":"loaded", "race":race})
+		if connected and not suspended: wire.event(1, {"type":"loaded", "race":race})
 
 
 func command(type: String, values: Dictionary = {}) -> void:

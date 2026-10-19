@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "device": "Pixel 7 Android 15 ARM64 emulator",
+  "serial": "emulator-5580",
+  "profile": "m5_online63_b00f0e51",
+  "port": 58347,
+  "build": {
+    "version": "0.0.63-dev",
+    "build_number": 63,
+    "working_tree_dirty": true,
+    "commit": "c78666de0f6397f3ca0cf26e8d889fd81fd0eaae",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+    "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "e071ba0088b7345b32af11f31088bb8770b656fb9c12a16f59a346357ba9ac5b",
+      "sha256": "510963fddd472bc21011028e9da6ff37ef08f315476296a33e75a693a9d5d74a"
+    }
+  },
+  "apk_sha256": "0a5a94779e32ac527ef3d0a5525a6818712ef7c42ae483e17bc238476291433c",
+  "boundary": "Actual exported Android Home/foreground callbacks against a local authoritative ENet worker and native companion. No physical hardware, real phone call, cellular handover, impaired-network or thermal acceptance. APK predates the loading-readiness latch repair, which is covered separately by the current real ENet source test.",
+  "same_process_pid": "18510",
+  "home_at_monotonic": 1539109.732656625,
+  "warm_resume": {
+    "same_process": true,
+    "compact_race_resume": true,
+    "explicit_pause_resume": true,
+    "no_offline_checkpoint": true
+  },
+  "expired": {
+    "away_seconds": 21,
+    "same_process": true,
+    "connection_lost_flow": true,
+    "no_godot_errors": true
+  },
+  "archived_profile": "/data/local/tmp/pacific-rush-m5_online63_b00f0e51"
+}

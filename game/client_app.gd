@@ -1049,13 +1049,16 @@ func _notification(what: int) -> void:
 	elif what in [NOTIFICATION_APPLICATION_FOCUS_IN, NOTIFICATION_APPLICATION_RESUMED]:
 		foreground = true
 		menu_repeat.clear_context()
+		if data.mobile and is_instance_valid(network): network.set_suspended(false)
 
 
 func handle_background() -> void:
 	var was_foreground := foreground
 	foreground = false
 	menu_repeat.clear_context()
-	if not was_foreground or not is_instance_valid(drive): return
+	if not was_foreground: return
+	if data.mobile and is_instance_valid(network): network.set_suspended(true)
+	if not is_instance_valid(drive): return
 	drive.driver.set_focus(false)
 	drive.show_pause()
 	if data.mobile and not network:
