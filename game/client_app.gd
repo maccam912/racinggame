@@ -671,6 +671,7 @@ func render_results() -> void:
 	var local_state := session.states[session.human_slot]
 	var body := menu.reset(I18n.t("results.trial_title" if session.mode == "trial" else "results.title"))
 	var list := menu.scroll_column(body)
+	var local_result: Control
 	if not result_summary.saved:
 		list.add_child(menu.ui.paragraph(I18n.t("data.save_failed")))
 		list.add_child(menu.ui.paragraph(I18n.t("data.cup_unsaved" if session.mode=="cup" else "data.continue_unsaved_help")))
@@ -707,6 +708,7 @@ func render_results() -> void:
 				var highlight := menu.ui.panel(row)
 				highlight.add_theme_stylebox_override("panel",menu.ui.style(UIFactory.NAVY,UIFactory.YELLOW,2))
 				list.add_child(highlight)
+				local_result = highlight
 			else:
 				list.add_child(row)
 	if session.mode=="cup":
@@ -735,6 +737,8 @@ func render_results() -> void:
 		menu.footer.add_child(menu.ui.button(I18n.t("button.main_menu"), return_to_menu))
 	menu.first_focus()
 
+	if result_summary.saved and is_instance_valid(local_result):
+		menu.reveal_later(local_result)
 
 func show_cup() -> void:
 	page = "cup"

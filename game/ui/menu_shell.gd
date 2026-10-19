@@ -248,3 +248,16 @@ func focus_later(control: Control) -> void:
 				parent.ensure_control_visible(control)
 				break
 			parent = parent.get_parent()
+
+
+func reveal_later(control: Control) -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
+	if not is_instance_valid(control) or not control.is_inside_tree() or not root.is_ancestor_of(control):
+		return
+	var parent := control.get_parent()
+	while parent and parent != root:
+		if parent is ScrollContainer:
+			parent.ensure_control_visible(control)
+			return
+		parent = parent.get_parent()

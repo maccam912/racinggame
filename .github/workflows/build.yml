@@ -157,6 +157,10 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/font_render_evidence.gd 2>&1 | tee reports/font-render.log
+      - name: Reveal local results across phone tablet and desktop layouts
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/results_visibility_tests.gd -- --profile=ci_tests 2>&1 | tee reports/results-visibility.log
       - name: Render all original scenery silhouettes and 24 course references
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
@@ -200,6 +204,8 @@ jobs:
         with:
           name: compatibility-render-evidence
           path: |
+            reports/results-visibility/
+            reports/results-visibility.log
             reports/m4-*.png
             reports/m4-feedback-render.json
             reports/m4-ui-reference.json
