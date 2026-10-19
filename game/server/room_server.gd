@@ -183,6 +183,8 @@ func new_meter() -> Dictionary:
 
 
 func receive(packet: Dictionary) -> void:
+	# A forced disconnect can invalidate later packets in the same read batch.
+	if not wire.active_peers.has(packet.sender): return
 	if not connections.has(packet.sender):
 		connections[packet.sender] = new_meter()
 	var meter: Dictionary = connections[packet.sender]
@@ -204,20 +206,24 @@ func receive(packet: Dictionary) -> void:
 			drop_peer(packet.sender)
 		return
 	var player := player_for_peer(packet.sender)
-	if not player.is_empty():
-		player.last_seen = tick
 	if packet.channel == 1:
 		if player.is_empty() or session == null or not player.connected:
 			return
 		var inputs := NetCodec.decode_inputs(packet.bytes, session.race_id)
 		if inputs.is_empty():
 			rejected_packets += 1
+		elif inputs.any(func(frame: InputFrame) -> bool: return absi(frame.tick-tick)<=12):
+			player.last_seen = tick
 		for frame: InputFrame in inputs:
 			player.buffer.push(frame, tick)
 		return
 	var event := WirePeer.decode_event(packet.bytes)
+	if event.is_empty():
+		rejected_packets += 1
+		return
 	if packet.channel == 3:
 		if not player.is_empty() and event.get("type") == "ping" and NetEvents.integer(event.get("sent"), 0, 9007199254740991):
+			player.last_seen = tick
 			wire.event(packet.sender, {"type":"pong", "sent":event.sent, "tick":tick}, 3)
 		return
 	if packet.channel != 0:
@@ -230,7 +236,7 @@ func receive(packet: Dictionary) -> void:
 		return
 	match event.get("type", ""):
 		"loaded":
-			if lobby.phase == LobbyState.Phase.LOADING and event.get("race") == race_number + 1:
+			if lobby.phase == LobbyState.Phase.LOADING and event.get("race") == race_number + 1 and not player.loaded:
 				player.loaded = true
 				lobby.revision += 1
 		"ready":

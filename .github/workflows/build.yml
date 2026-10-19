@@ -40,7 +40,9 @@ jobs:
         if: always()
         with:
           name: source-check-evidence
-          path: reports/checks.json
+          path: |
+            reports/checks.json
+            reports/m5-packet-faults.json
           if-no-files-found: error
 
   ai:

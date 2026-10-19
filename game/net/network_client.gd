@@ -311,10 +311,10 @@ func receive_packets(packets: Array[Dictionary]) -> void:
 	var newest_race: int = -1
 	for packet: Dictionary in packets:
 		if deliberate_leave: break
-		last_received_ms = Time.get_ticks_msec()
 		if packet.channel==2:
 			var decoded := NetCodec.decode_snapshot(packet.bytes,race_id,Compatibility.content_hash().hex_decode())
 			if decoded.is_empty(): continue
+			last_received_ms = Time.get_ticks_msec()
 			quality.observe_snapshot(race_id,int(decoded.tick))
 			observe_feedback(decoded)
 			if newest_race!=race_id:
@@ -322,8 +322,11 @@ func receive_packets(packets: Array[Dictionary]) -> void:
 				newest_race = race_id
 			if not newest.is_empty(): coalesced_snapshots += 1
 			if newest.is_empty() or int(decoded.tick)>int(newest.tick): newest = decoded
-		else:
-			receive_event(WirePeer.decode_event(packet.bytes))
+		elif packet.channel in [0,3]:
+			var event := WirePeer.decode_event(packet.bytes)
+			if not NetEvents.server_event(event) or (event.get("type")=="pong")!=(packet.channel==3): continue
+			last_received_ms = Time.get_ticks_msec()
+			receive_event(event)
 	if newest_race==race_id and not newest.is_empty(): apply_snapshot(newest)
 
 

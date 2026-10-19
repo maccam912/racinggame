@@ -18,7 +18,7 @@ if __name__ == '__main__':
     try:
         for line in process.stdout:
             print(line, end='', flush=True)
-            if any(marker in line for marker in ('SCRIPT ERROR:', 'Parse Error:', 'ERROR:', 'TEST FAIL')):
+            if any(marker in line for marker in ('SCRIPT ERROR:', 'Parse Error:', 'ERROR:', 'TEST FAIL', 'Unicode parsing error')):
                 failed = True
                 process.terminate()
         code = process.wait(timeout=5)
