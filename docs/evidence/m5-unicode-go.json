@@ -1,0 +1,7 @@
+{
+  "passed": true,
+  "base_commit": "34639ceb6524a7968637762b9ea642f8e2043b98",
+  "working_tree_dirty": true,
+  "command": "go -C services/directory test -race ./...",
+  "output": "?   \tgithub.com/maccam912/racinggame/services/directory/cmd/pacific-directory\t[no test files]\n?   \tgithub.com/maccam912/racinggame/services/directory/cmd/ticket-fixture\t[no test files]\nok  \tgithub.com/maccam912/racinggame/services/directory/internal/directory\t(cached)\nok  \tgithub.com/maccam912/racinggame/services/directory/internal/names\t1.316s\n"
+}

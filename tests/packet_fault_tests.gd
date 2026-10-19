@@ -84,13 +84,16 @@ func queued_burst() -> void:
 			bytes.fill(255)
 		else: bytes = event({"type":"fixture","sequence":index})
 		assert(sender.put_packet(bytes)==OK)
-		if index%32==31:
+		if index%4==3:
 			# Fill the application queue without overflowing the OS UDP buffer.
 			# Only underlying ENet is polled; WirePeer has not consumed any data.
 			sender.get_host().flush()
-			receiver.peer.poll()
-			sender.poll()
-			await process_frame
+			deadline = Time.get_ticks_msec()+5000
+			while receiver.peer.get_available_packet_count()<index+1 and Time.get_ticks_msec()<deadline:
+				receiver.peer.poll()
+				sender.poll()
+				await process_frame
+			assert(receiver.peer.get_available_packet_count()==index+1,"each reliable network batch arrives before staging the next")
 	sender.get_host().flush()
 	deadline = Time.get_ticks_msec()+5000
 	while receiver.peer.get_available_packet_count()<512 and Time.get_ticks_msec()<deadline:

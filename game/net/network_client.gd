@@ -63,6 +63,12 @@ var feedback_sequence: int = 0
 var feedback_events: Array[Dictionary] = []
 var feedback_seen: Dictionary = {}
 var quality := NetworkQuality.new()
+var evidence_channels: Array[int] = [0,0,0,0,0]
+var evidence_rejected_events: int = 0
+var evidence_rejected_snapshots: int = 0
+var evidence_wrong_channels: int = 0
+var evidence_next_ms: int = 0
+var evidence_bad_types: Dictionary = {}
 
 
 func _init() -> void:
@@ -85,6 +91,9 @@ func connect_to(address: String, udp_port: int, display_name: String = "Driver")
 
 func _process(_dt: float) -> void:
 	if suspended: return
+	if "--network-evidence" in OS.get_cmdline_user_args() and Time.get_ticks_msec()>=evidence_next_ms:
+		evidence_next_ms = Time.get_ticks_msec()+2000
+		print("NETWORK_HEALTH "+JSON.stringify({"channels":evidence_channels,"invalid_events":evidence_rejected_events,"invalid_snapshots":evidence_rejected_snapshots,"wrong_channels":evidence_wrong_channels,"raw_bytes":wire.received_bytes,"discarded":wire.discarded_packets,"fragment_pending":wire.fragments.pending.size(),"last_valid_age_ms":Time.get_ticks_msec()-last_received_ms,"connected":connected,"slot":slot,"suspended":suspended}))
 	# ENet connectivity alone does not complete admission. A silent/invalid
 	# Welcome stream cannot keep the initial Connect action pending forever.
 	if slot<0 and initial_deadline_ms>0 and Time.get_ticks_msec()>=initial_deadline_ms:
@@ -294,7 +303,9 @@ func receive_event(event: Dictionary) -> void:
 			result_event = event
 			phase = RaceSession.Phase.RESULTS
 			if "--network-evidence" in OS.get_cmdline_user_args():
-				print("PACIFIC_RUSH_CLIENT_RESULTS " + JSON.stringify(event.results))
+				# Android console records are bounded and may truncate mid-UTF-8.
+				# Hash complete parsed rows before presentation/stat work.
+				print("PACIFIC_RUSH_CLIENT_RESULTS_DIGEST %d %d %s" % [race_id,event.results.size(),JSON.stringify(event.results).sha256_text()])
 			results_received.emit(event.results)
 		"error":
 			var message := str(event.get("message", "Connection failed"))
@@ -311,9 +322,12 @@ func receive_packets(packets: Array[Dictionary]) -> void:
 	var newest_race: int = -1
 	for packet: Dictionary in packets:
 		if deliberate_leave: break
+		evidence_channels[int(packet.channel) if int(packet.channel) in [0,1,2,3] else 4] += 1
 		if packet.channel==2:
 			var decoded := NetCodec.decode_snapshot(packet.bytes,race_id,Compatibility.content_hash().hex_decode())
-			if decoded.is_empty(): continue
+			if decoded.is_empty():
+				evidence_rejected_snapshots += 1
+				continue
 			last_received_ms = Time.get_ticks_msec()
 			quality.observe_snapshot(race_id,int(decoded.tick))
 			observe_feedback(decoded)
@@ -324,10 +338,30 @@ func receive_packets(packets: Array[Dictionary]) -> void:
 			if newest.is_empty() or int(decoded.tick)>int(newest.tick): newest = decoded
 		elif packet.channel in [0,3]:
 			var event := WirePeer.decode_event(packet.bytes)
-			if not NetEvents.server_event(event) or (event.get("type")=="pong")!=(packet.channel==3): continue
+			if not NetEvents.server_event(event):
+				evidence_rejected_events += 1
+				trace_rejected_event(event)
+				continue
+			if (event.get("type")=="pong")!=(packet.channel==3):
+				evidence_wrong_channels += 1
+				continue
 			last_received_ms = Time.get_ticks_msec()
 			receive_event(event)
 	if newest_race==race_id and not newest.is_empty(): apply_snapshot(newest)
+
+func trace_rejected_event(event: Dictionary) -> void:
+	if not "--network-evidence" in OS.get_cmdline_user_args(): return
+	var kind: String = event.get("type","") if event.get("type","") in ["welcome","lobby","loading","start","presence","resume","pong","error","results"] else "unknown"
+	if evidence_bad_types.has(kind): return
+	evidence_bad_types[kind] = true
+	var names: Array[Dictionary] = []
+	var roster: Variant = event.get("members",event.get("roster",event.get("results",[])))
+	if roster is Array:
+		for index in range(mini(8,roster.size())):
+			if roster[index] is Dictionary and roster[index].get("name") is String:
+				var name_value: String = roster[index].name
+				names.append({"index":index,"characters":name_value.length(),"bytes":name_value.to_utf8_buffer().size(),"native_graphemes":TextServerManager.get_primary_interface().string_get_character_breaks(name_value).size(),"portable_graphemes":PlayerName.grapheme_count(name_value) if name_value.to_utf8_buffer().size()<=384 else -1,"valid":PlayerName.validate(name_value).valid})
+	print("NETWORK_REJECTED_SCHEMA "+JSON.stringify({"type":kind,"names":names}))
 
 
 func receive_snapshot(bytes: PackedByteArray) -> void:

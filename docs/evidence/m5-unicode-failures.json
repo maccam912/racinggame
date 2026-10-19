@@ -1,0 +1,117 @@
+{
+  "passed": false,
+  "historical_failed_runs": [
+    {
+      "report": "mixed-android-69-c799b61d",
+      "cause": "Android native text backend counts 23 code points rather than five extended graphemes, rejecting the roster and Loading.",
+      "evidence": {
+        "passed": false,
+        "build": {
+          "version": "0.0.69-dev",
+          "build_number": 69,
+          "working_tree_dirty": false,
+          "commit": "34639ceb6524a7968637762b9ea642f8e2043b98",
+          "engine_version": "4.6.3-stable",
+          "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+          "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+          "protocol_version": 5,
+          "save_schema": 1,
+          "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+          "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+          "target_platform": "android",
+          "distribution": "development",
+          "public_signing": "not configured",
+          "native_adapter": {
+            "platform": "android",
+            "architecture": "arm64",
+            "api_floor": "4.5",
+            "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+            "scons": "4.11.1",
+            "source_hash": "e071ba0088b7345b32af11f31088bb8770b656fb9c12a16f59a346357ba9ac5b",
+            "sha256": "510963fddd472bc21011028e9da6ff37ef08f315476296a33e75a693a9d5d74a"
+          },
+          "android_services": {
+            "source_hash": "d3b152de525fa6fc6804c9afc2dc1141871399d0bbfcf2b2668180c575523a77",
+            "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+            "android_api": 36,
+            "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+            "java_release": 17,
+            "compiler": "javac 17.0.20.1",
+            "sha256": "98e0e48ee687e68962f3e2a7bf89958df293f3c0b3e0f6b65106ad8a70e72de4"
+          }
+        },
+        "apk_sha256": "0072f794711269bb07503c1257216ae27197f09dc396fd5cc67d14814cee4048",
+        "serial": "emulator-5580",
+        "model": "sdk_gphone64_arm64",
+        "android_release": "15",
+        "profile": "m5_mixed_6928faa76c5c",
+        "transport": "Local real ENet; Android emulator host gateway and native loopback",
+        "boundary": "Installed release APK with diagnostic autodrive and seven native shared-controller clients. Normal lobby/results timers, original graphics/HUD and actual authority. Automated emulator cross-play; not physical touch, cellular, thermal, human feel or ten-race impaired-network acceptance.",
+        "archived_profile": "/data/local/tmp/pacific-rush-m5_mixed_6928faa76c5c"
+      }
+    },
+    {
+      "report": "mixed-android-70-4106a259",
+      "cause": "Instrumented pre-fix APK confirms the same backend mismatch in seven names.",
+      "evidence": {
+        "passed": false,
+        "build": {
+          "version": "0.0.70-dev",
+          "build_number": 70,
+          "working_tree_dirty": true,
+          "commit": "34639ceb6524a7968637762b9ea642f8e2043b98",
+          "engine_version": "4.6.3-stable",
+          "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+          "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+          "protocol_version": 5,
+          "save_schema": 1,
+          "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+          "asset_hash": "9620404cbe7e85958110db58d12d22d3d39884d8751d4462a4037856dd419828",
+          "target_platform": "android",
+          "distribution": "development",
+          "public_signing": "not configured",
+          "native_adapter": {
+            "platform": "android",
+            "architecture": "arm64",
+            "api_floor": "4.5",
+            "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+            "scons": "4.11.1",
+            "source_hash": "e071ba0088b7345b32af11f31088bb8770b656fb9c12a16f59a346357ba9ac5b",
+            "sha256": "510963fddd472bc21011028e9da6ff37ef08f315476296a33e75a693a9d5d74a"
+          },
+          "android_services": {
+            "source_hash": "d3b152de525fa6fc6804c9afc2dc1141871399d0bbfcf2b2668180c575523a77",
+            "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+            "android_api": 36,
+            "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+            "java_release": 17,
+            "compiler": "javac 17.0.20.1",
+            "sha256": "98e0e48ee687e68962f3e2a7bf89958df293f3c0b3e0f6b65106ad8a70e72de4"
+          }
+        },
+        "apk_sha256": "855ace46e28af61f2cf5da3c646f024f43809b2219eb9412ac9b5727a5f324cb",
+        "serial": "emulator-5580",
+        "model": "sdk_gphone64_arm64",
+        "android_release": "15",
+        "profile": "m5_mixed_8450352b7d0d",
+        "transport": "Local real ENet; Android emulator host gateway and native loopback",
+        "boundary": "Installed release APK with diagnostic autodrive and seven native shared-controller clients. Normal lobby/results timers, original graphics/HUD and actual authority. Automated emulator cross-play; not physical touch, cellular, thermal, human feel or ten-race impaired-network acceptance.",
+        "failure": "RuntimeError: Android reservation expired before the mixed run completed",
+        "archived_profile": "/data/local/tmp/pacific-rush-m5_mixed_8450352b7d0d"
+      }
+    },
+    {
+      "report": "mixed-android-70-2e3dec0c",
+      "cause": "After the name fix one race completed; the collector could not decode Android console output truncated mid-UTF-8. No rematch acceptance claimed. This unique profile was subsequently archived manually.",
+      "evidence": {
+        "passed": false,
+        "failure": "Collector strictly rejected an Android console record truncated at 1023 bytes within UTF-8; no rematch proof claimed",
+        "first_authority_race_eight_finishers": true,
+        "android_races_committed": 1,
+        "profile": "m5_mixed_98374483ccf3",
+        "archived_profile": "/data/local/tmp/pacific-rush-m5_mixed_98374483ccf3",
+        "boundary": "Partial eight-player run after portable Unicode fix. Source worker/native processes were stopped by collector cleanup; Android subsequently force-stopped and QA profile archived explicitly."
+      }
+    }
+  ]
+}

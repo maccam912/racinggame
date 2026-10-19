@@ -70,11 +70,15 @@ static func compose(first: int, second: int) -> int:
 	return int(tables.composition.get(str(first) + ":" + str(second), -1))
 
 
+static func grapheme_count(value: String) -> int:
+	return UnicodeGraphemes.count(value)
+
+
 static func validate(value: String, maximum: int = 16) -> Dictionary:
 	if value.to_utf8_buffer().size() > 384:
 		return {"valid":false, "value":"", "error":"name.length"}
 	var normalized := nfc(value)
-	var count := TextServerManager.get_primary_interface().string_get_character_breaks(normalized).size()
+	var count := grapheme_count(normalized)
 	if count < 3 or count > maximum or normalized.to_utf8_buffer().size() > 96:
 		return {"valid":false, "value":normalized, "error":"name.length"}
 	for character: String in normalized:

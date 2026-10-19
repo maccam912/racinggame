@@ -6,6 +6,7 @@ var collision: RouteCollision
 var setup_session: RaceSession
 var bot := BotDriver.new()
 var results: Array[Dictionary] = []
+var result_hashes: Array[String] = []
 var index: int = 0
 var output: String = ""
 var expected_humans: int = 8
@@ -45,6 +46,7 @@ func run() -> void:
 	link.lobby_changed.connect(on_lobby)
 	link.race_started.connect(start_race)
 	link.results_received.connect(func(rows: Array) -> void:
+		result_hashes.append(JSON.stringify(rows).sha256_text())
 		results.append({"race":link.race_id, "track":int(link.config.track), "rows":rows.duplicate(true)})
 		link.command("return_lobby"))
 	link.status_changed.connect(func(message: String) -> void: print("LOBBY_CLIENT_STATUS ", message))
@@ -73,7 +75,7 @@ func run() -> void:
 			link.process_mode = Node.PROCESS_MODE_INHERIT
 			link.begin_reconnect()
 	var lobby_rejoin_ok := not lobby_reconnect_test or (lobby_reconnect_done and link.guest_id == reserved_identity)
-	var report := {"index":index, "results":results, "loaded_tracks":loaded_tracks, "wire_sent":link.wire.sent_bytes, "wire_received":link.wire.received_bytes, "resume_count":link.resume_count, "large_racing_events":link.large_racing_events, "reconnect_done":reconnect_done, "lobby_rejoin_ok":lobby_rejoin_ok, "trace":trace}
+	var report := {"index":index, "results":results, "result_hashes":result_hashes, "loaded_tracks":loaded_tracks, "wire_sent":link.wire.sent_bytes, "wire_received":link.wire.received_bytes, "resume_count":link.resume_count, "large_racing_events":link.large_racing_events, "reconnect_done":reconnect_done, "lobby_rejoin_ok":lobby_rejoin_ok, "trace":trace}
 	if output != "":
 		var file := FileAccess.open(output, FileAccess.WRITE)
 		file.store_string(JSON.stringify(report, "\t"))

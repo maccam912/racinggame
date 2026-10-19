@@ -18,6 +18,7 @@ def main():
     reports.mkdir(exist_ok=True)
     (reports/'.gdignore').touch()
     commands = [[sys.executable,'tools/validate_content.py'], [sys.executable,'tools/bake_tracks.py','--check'],
+                [sys.executable,'tools/generate_graphemes.py','--check'],
                 [sys.executable,'tools/content_hash.py','--check'], [sys.executable,'tools/asset_hash.py','--check'],
                 [sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py'],
                 [sys.executable,'tools/godot.py','--headless','--editor','--import','--quit']]
@@ -36,6 +37,7 @@ def main():
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/direct_connect_tests.gd','--','--profile=ci_tests'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/shader_warmup_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--max-fps','60','--script','tests/packet_fault_tests.gd'])
+    commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/grapheme_tests.gd'])
     commands.append([sys.executable,'tools/godot.py','--headless','--script','tests/audio_dsp_evidence.gd'])
     results = []
     for command in commands:

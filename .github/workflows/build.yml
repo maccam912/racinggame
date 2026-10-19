@@ -26,6 +26,12 @@ jobs:
         with:
           path: ~/.cache/pacific-rush/toolchain
           key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      # The generated runtime data is committed. Cache checksum-pinned upstream
+      # inputs so the reproducibility check can also run without downloading.
+      - uses: actions/cache@v4
+        with:
+          path: build/unicode16
+          key: unicode16-${{ hashFiles('tools/generate_graphemes.py') }}
       - run: python tools/check.py
       - name: Determine whether full AI acceptance is needed
         id: gameplay

@@ -1,0 +1,270 @@
+{
+  "passed": true,
+  "build": {
+    "version": "0.0.70-dev",
+    "build_number": 70,
+    "working_tree_dirty": true,
+    "commit": "34639ceb6524a7968637762b9ea642f8e2043b98",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "538d6c1dec5d175634a818fb0b127c51c85439ffe29ad919aa653e54214d9170",
+    "asset_hash": "c0bc31a05f0ddb222f8684441fa503a87747bed7351827cda9c3d8e7f29bde3e",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "e071ba0088b7345b32af11f31088bb8770b656fb9c12a16f59a346357ba9ac5b",
+      "sha256": "510963fddd472bc21011028e9da6ff37ef08f315476296a33e75a693a9d5d74a"
+    },
+    "android_services": {
+      "source_hash": "d3b152de525fa6fc6804c9afc2dc1141871399d0bbfcf2b2668180c575523a77",
+      "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+      "android_api": 36,
+      "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+      "java_release": 17,
+      "compiler": "javac 17.0.20.1",
+      "sha256": "98e0e48ee687e68962f3e2a7bf89958df293f3c0b3e0f6b65106ad8a70e72de4"
+    }
+  },
+  "apk_sha256": "7a6db1e978f17efe6125dabe8120ceb46570ff7e9990367b2f8cfd4a1febdb9e",
+  "serial": "emulator-5580",
+  "model": "sdk_gphone64_arm64",
+  "android_release": "15",
+  "profile": "m5_mixed_fb13a4e83efe",
+  "transport": "Local real ENet; Android emulator host gateway and native loopback",
+  "boundary": "Installed release APK with diagnostic autodrive and seven native shared-controller clients. Normal lobby/results timers, original graphics/HUD and actual authority. Automated emulator cross-play; not physical touch, cellular, thermal, human feel or ten-race impaired-network acceptance.",
+  "humans": 8,
+  "native_clients": 7,
+  "android_clients": 1,
+  "tracks": [
+    0,
+    1
+  ],
+  "races": [
+    {
+      "race": 1,
+      "rows": [
+        {
+          "best_lap": 67.6802923798326,
+          "bot": false,
+          "car": 2.0,
+          "distance_m": 3112.93070371402,
+          "dnf": "",
+          "id": "c6441f36-1fca-4bfa-8cbd-d0bde7c1693e",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 6.0,
+          "slot": 1.0,
+          "time": 67.6802923798326
+        },
+        {
+          "best_lap": 67.9271735395892,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3114.1189385429,
+          "dnf": "",
+          "id": "5d47dd52-46af-4084-a979-30e04dc9bb9f",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 67.9271735395892
+        },
+        {
+          "best_lap": 68.0856342762395,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3121.21415741253,
+          "dnf": "",
+          "id": "32459c11-9a2b-424d-85dc-d2acbe12c459",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 4.0,
+          "slot": 2.0,
+          "time": 68.0856342762395
+        },
+        {
+          "best_lap": 68.2097459373794,
+          "bot": false,
+          "car": 2.0,
+          "distance_m": 3126.62721105525,
+          "dnf": "",
+          "id": "5e6a404e-8416-4983-b598-39ccfaf82a14",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 2.0,
+          "slot": 4.0,
+          "time": 68.2097459373794
+        },
+        {
+          "best_lap": 68.5849786861558,
+          "bot": false,
+          "car": 1.0,
+          "distance_m": 3120.58362700557,
+          "dnf": "",
+          "id": "3af75b72-8f0e-4767-aeb9-e88219bb43b6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 1.0,
+          "slot": 3.0,
+          "time": 68.5849786861558
+        },
+        {
+          "best_lap": 68.7029022034389,
+          "bot": false,
+          "car": 3.0,
+          "distance_m": 3140.11028392264,
+          "dnf": "",
+          "id": "c1f58d25-716d-4cef-ae08-35fc29ad7c53",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 3.0,
+          "slot": 5.0,
+          "time": 68.7029022034389
+        },
+        {
+          "best_lap": 68.7461834142243,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3134.54326264677,
+          "dnf": "",
+          "id": "c6e511a2-a1e4-4355-96ab-a7a3e0457a0f",
+          "name": "Driver1846",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 68.7461834142243
+        },
+        {
+          "best_lap": 68.9871694268968,
+          "bot": false,
+          "car": 1.0,
+          "distance_m": 3135.63067533658,
+          "dnf": "",
+          "id": "5d8ae982-3268-427e-8506-2b0b789f861d",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 5.0,
+          "slot": 6.0,
+          "time": 68.9871694268968
+        }
+      ],
+      "track": 0
+    },
+    {
+      "race": 2,
+      "rows": [
+        {
+          "best_lap": 74.3053926482655,
+          "bot": false,
+          "car": 2.0,
+          "distance_m": 3266.05829317588,
+          "dnf": "",
+          "id": "c6441f36-1fca-4bfa-8cbd-d0bde7c1693e",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 6.0,
+          "slot": 1.0,
+          "time": 74.3053926482655
+        },
+        {
+          "best_lap": 74.5438652273023,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3268.74497916037,
+          "dnf": "",
+          "id": "5d47dd52-46af-4084-a979-30e04dc9bb9f",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 74.5438652273023
+        },
+        {
+          "best_lap": 74.7018592615182,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3275.77284762263,
+          "dnf": "",
+          "id": "32459c11-9a2b-424d-85dc-d2acbe12c459",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 4.0,
+          "slot": 2.0,
+          "time": 74.7018592615182
+        },
+        {
+          "best_lap": 74.8529476575308,
+          "bot": false,
+          "car": 2.0,
+          "distance_m": 3279.32979052328,
+          "dnf": "",
+          "id": "5e6a404e-8416-4983-b598-39ccfaf82a14",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 2.0,
+          "slot": 4.0,
+          "time": 74.8529476575308
+        },
+        {
+          "best_lap": 75.1039929328622,
+          "bot": false,
+          "car": 1.0,
+          "distance_m": 3277.27795000188,
+          "dnf": "",
+          "id": "3af75b72-8f0e-4767-aeb9-e88219bb43b6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 1.0,
+          "slot": 3.0,
+          "time": 75.1039929328622
+        },
+        {
+          "best_lap": 75.2987559944034,
+          "bot": false,
+          "car": 3.0,
+          "distance_m": 3282.06465587206,
+          "dnf": "",
+          "id": "c1f58d25-716d-4cef-ae08-35fc29ad7c53",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 3.0,
+          "slot": 5.0,
+          "time": 75.2987559944034
+        },
+        {
+          "best_lap": 75.4583265718826,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 3288.13947019074,
+          "dnf": "",
+          "id": "c6e511a2-a1e4-4355-96ab-a7a3e0457a0f",
+          "name": "Driver1846",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 75.4583265718826
+        },
+        {
+          "best_lap": 75.7714372480662,
+          "bot": false,
+          "car": 1.0,
+          "distance_m": 3290.18516178243,
+          "dnf": "",
+          "id": "5d8ae982-3268-427e-8506-2b0b789f861d",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 5.0,
+          "slot": 6.0,
+          "time": 75.7714372480662
+        }
+      ],
+      "track": 1
+    }
+  ],
+  "all_sixteen_finishes": true,
+  "identical_authority_android_native_rows": true,
+  "same_eight_identities": true,
+  "android_graphics_prepared_twice": true,
+  "android_races_committed": 2,
+  "native_large_racing_events": 0,
+  "result_comparison": "Full authority/native rows and matching canonical parsed-row SHA-256 on Android and every native client",
+  "result_hashes": [
+    "73192721e1af0c6fd4d7281499ec7b01a1406a4db9b8e2835fc03726d986f58f",
+    "5e00623fb41419b2215534b64c33ba2afc221dc27396eff03098da726a245b81"
+  ],
+  "archived_profile": "/data/local/tmp/pacific-rush-m5_mixed_fb13a4e83efe",
+  "cleanup_issues": []
+}
