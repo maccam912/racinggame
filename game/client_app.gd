@@ -12,6 +12,9 @@ var touch_demo: bool = false
 var capture_path: String = ""
 var rendered_frames: int = 0
 var capture_frame: int = 150
+var capture_track: String = ""
+var capture_race_tick: int = -1
+var capture_pending: bool = false
 var network: NetworkClient
 var connection_label: Label
 var connection_button: Button
@@ -67,6 +70,10 @@ func _ready() -> void:
 			capture_path = arg.trim_prefix("--capture=")
 		elif arg.begins_with("--capture-frame="):
 			capture_frame = maxi(1, int(arg.trim_prefix("--capture-frame=")))
+		elif arg.begins_with("--capture-track="):
+			capture_track = arg.trim_prefix("--capture-track=")
+		elif arg.begins_with("--capture-race-tick="):
+			capture_race_tick = clampi(int(arg.trim_prefix("--capture-race-tick=")),1,18000)
 	data = AppData.new(folder)
 	diagnostics.app = self
 	add_child(diagnostics)
@@ -117,6 +124,28 @@ func open_start_screen() -> void:
 	var missing := missing_car_asset()
 	if not missing.is_empty():
 		show_installation_error(missing)
+		return
+	if not capture_track.is_empty():
+		# Explicit diagnostic capture uses a disposable profile and a genuine
+		# ordinary race. It cannot change a player's selected car/settings.
+		var diagnostic_root := ProjectSettings.globalize_path("user://diagnostic_profiles/").replace("\\","/")
+		if capture_path.is_empty() or not data.store.root_path.begins_with(diagnostic_root) or not "--autodrive" in OS.get_cmdline_user_args():
+			push_error("Gameplay capture requires --capture, --profile and --autodrive")
+			get_tree().quit(1)
+			return
+		var selected := -1
+		for index in range(Catalog.tracks.size()):
+			if Catalog.tracks[index].id==capture_track: selected = index
+		if selected<0:
+			push_error("Unknown gameplay capture track")
+			get_tree().quit(1)
+			return
+		data.settings.camera = "near"
+		data.settings.preset = "medium"
+		data.apply_preset("medium")
+		if capture_race_tick<0: capture_race_tick = 1200
+		SettingsRuntime.apply(self,data.settings,false)
+		request_drive({"mode":"quick","track":selected,"car":selected%4,"paint":selected%8,"opponents":7,"difficulty":1,"laps":2,"contact":true,"seed":0x505200+selected},show_menu)
 		return
 	local_checkpoint().reload()
 	if "--drive" in OS.get_cmdline_user_args():
@@ -1087,12 +1116,40 @@ func _process(_dt: float) -> void:
 		online_result_label.text = I18n.t("online.return_countdown", [maxi(0, ceili((float(network.result_event.get("return_tick", 0)) - network.server_tick) / 60))])
 	if lobby_page and page == "lobby":
 		lobby_page.update_countdown()
-	if capture_path.is_empty():
+	if capture_path.is_empty() or capture_pending:
 		return
 	rendered_frames += 1
-	if rendered_frames == capture_frame:
+	var capture_due := rendered_frames == capture_frame
+	if capture_race_tick>=0:
+		capture_due = is_instance_valid(drive) and drive.race_ticks>=capture_race_tick and drive.session.phase==RaceSession.Phase.RACING
+	if capture_due:
+		capture_pending = true
 		await RenderingServer.frame_post_draw
-		get_viewport().get_texture().get_image().save_png(capture_path)
+		var image := get_viewport().get_texture().get_image()
+		if image.save_png(capture_path)!=OK:
+			push_error("Gameplay capture output could not be saved")
+			get_tree().quit(1)
+			return
+		if not capture_track.is_empty():
+			var evidence := {
+				"track":drive.track.id,"car":drive.car.id,"paint":pending_config.paint,
+				"seed":pending_config.seed,"mode":drive.session.mode,"opponents":7,
+				"phase":drive.session.phase,"race_ticks":drive.race_ticks,
+				"route_s":drive.state.route_s,"speed_mps":drive.state.velocity.length(),
+				"camera":data.settings.camera,"settings":data.settings,
+				"width":image.get_width(),"height":image.get_height(),"platform":OS.get_name(),
+				"renderer":RenderingServer.get_current_rendering_method(),"autodrive":true,
+				"synthetic_pose":false,"hud":true,"touch":drive.touch.visible,
+				"world_width":presentation.viewport.size.x,"world_height":presentation.viewport.size.y,
+				"png_sha256":FileAccess.get_sha256(capture_path)}
+			if FileAccess.file_exists("res://game/build.json"): evidence.build = JSON.parse_string(FileAccess.get_file_as_string("res://game/build.json"))
+			var output := FileAccess.open(capture_path+".json",FileAccess.WRITE)
+			if output==null:
+				push_error("Gameplay capture metadata could not be saved")
+				get_tree().quit(1)
+				return
+			output.store_string(JSON.stringify(evidence,"\t")+"\n")
+			output.close()
 		print("PACIFIC_RUSH_CAPTURE_SAVED")
 		get_tree().quit()
 
