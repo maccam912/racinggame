@@ -32,6 +32,11 @@ type Config struct {
 	Now                   func() time.Time
 	IPRequestLimit        int
 	IPRegisterLimit       int
+	Allocator             Allocator
+	FirstPort             int
+	MaxWorkers            int
+	ReadyTimeout          time.Duration
+	WorkerNets            []netip.Prefix
 }
 type Service struct {
 	store  *Store
@@ -41,6 +46,25 @@ type Service struct {
 func New(store *Store, config Config) (*Service, error) {
 	if len(config.EncryptionKey) != 32 || config.SigningKey == nil || config.SigningKey.N.BitLen() != 2048 || config.Protocol < 1 || len(config.Content) != 64 {
 		return nil, errors.New("invalid service configuration")
+	}
+	if config.FirstPort == 0 {
+		config.FirstPort = 27020
+	}
+	if config.MaxWorkers == 0 {
+		config.MaxWorkers = 8
+	}
+	if config.ReadyTimeout == 0 {
+		config.ReadyTimeout = 10 * time.Second
+	}
+	if config.WorkerHost == "" {
+		config.WorkerHost = "127.0.0.1"
+	}
+	if config.Region == "" {
+		config.Region = "test"
+		config.RegionName = "Test Region"
+	}
+	if config.FirstPort < 1024 || config.MaxWorkers < 1 || config.MaxWorkers > 128 || config.FirstPort+config.MaxWorkers > 65536 {
+		return nil, errors.New("invalid worker port pool")
 	}
 	if config.Now == nil {
 		config.Now = time.Now

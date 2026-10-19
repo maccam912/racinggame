@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"errors"
 	"io"
+	"mime"
 	"net"
 	"net/http"
 	"net/netip"
@@ -33,7 +34,8 @@ func writeError(w http.ResponseWriter, err error) {
 	writeJSON(w, api.Status, map[string]any{"error": map[string]any{"code": api.Code}})
 }
 func decodeJSON(w http.ResponseWriter, r *http.Request, value any) error {
-	if strings.Split(r.Header.Get("Content-Type"), ";")[0] != "application/json" {
+	mediaType, _, mediaErr := mime.ParseMediaType(r.Header.Get("Content-Type"))
+	if mediaErr != nil || mediaType != "application/json" {
 		return apiError(415, "json_required")
 	}
 	body, err := io.ReadAll(http.MaxBytesReader(w, r.Body, 8192))
@@ -124,6 +126,7 @@ func (s *Service) Handler() http.Handler {
 	mux.HandleFunc("POST /v1/guests", s.registerHTTP)
 	mux.HandleFunc("POST /v1/auth/challenge", s.challengeHTTP)
 	mux.HandleFunc("POST /v1/auth/session", s.sessionHTTP)
+	s.roomRoutes(mux)
 	mux.HandleFunc("GET /v1/regions", func(w http.ResponseWriter, r *http.Request) {
 		writeJSON(w, 200, map[string]any{"regions": []map[string]any{{"id": s.config.Region, "name": s.config.RegionName, "url": s.config.PublicURL, "available": true, "protocol": s.config.Protocol, "content_hash": s.config.Content}}})
 	})
