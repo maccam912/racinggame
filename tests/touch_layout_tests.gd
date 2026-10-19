@@ -1,6 +1,11 @@
 extends SceneTree
 
 func _initialize() -> void:
+	var font: Font = load("res://assets/fonts/Barlow-SemiBold.ttf")
+	for logical_unit: float in [1.0,1.5,2.625,3.0]:
+		for ui_scale: float in [.9,1.0,1.1,1.25,1.5]:
+			var pixels := roundi(20*logical_unit*ui_scale)
+			assert(font.get_height(pixels)+UIFactory.popup_separation(font,pixels,logical_unit)>=48*logical_unit,"popup rows retain 48-point touch targets")
 	var safe := Rect2(16,8,900,400)
 	var base := TouchDriving.build_layout(safe,false,"slider",1.0,false)
 	assert(TouchDriving.legal_layout(base,safe))

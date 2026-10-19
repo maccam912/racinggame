@@ -34,6 +34,7 @@ func show_tab(selected: String, return_to: Callable) -> void:
 	var geometry := TouchDriving.safe_geometry(app.get_viewport().get_visible_rect().size)
 	if app.data.mobile and geometry.safe.size.y<600:
 		var selector := OptionButton.new()
+		shell.ui.configure_picker(selector)
 		selector.name = "settings_sections"
 		selector.custom_minimum_size.y = shell.ui.row_height()
 		for name_key: String in names:
@@ -101,6 +102,7 @@ func setting_row(parent: Node, definition: Dictionary) -> void:
 		row.add_child(toggle)
 	elif definition.kind == "choice":
 		var picker := OptionButton.new()
+		app.menu.ui.configure_picker(picker)
 		picker.custom_minimum_size = Vector2(200 * app.menu.ui.unit, app.menu.ui.row_height())
 		var choices: Array = definition.get("mobile_values", definition.values).duplicate() if app.data.mobile else definition.values.duplicate()
 		if definition.id == "monitor":

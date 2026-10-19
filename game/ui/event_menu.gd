@@ -86,6 +86,7 @@ func choice(parent: Node, key: String, items: Array, selected: int, callback: Ca
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(label)
 	var picker := OptionButton.new()
+	app.menu.ui.configure_picker(picker)
 	picker.custom_minimum_size = Vector2(180, app.menu.ui.row_height())
 	for item: String in items:
 		picker.add_item(item)

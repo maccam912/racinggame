@@ -137,3 +137,6 @@ Android export preference fix: the build helper temporarily applies only its SDK
 
 
 Android 150% follow-up: the exported Build 23 packaging fixture exposed a phone settings body too short to fully display a row beneath the two large tab rows. Phones now use a compact section selector, retaining all eight sections and keyboard/controller focus. Desktop and tablet tab grids remain. The editor, display transaction and complete menu-flow source suites pass; the corrected APK is being checked separately.
+
+
+Mobile dropdown follow-up: popup rows now retain at least 48 logical points at every UI scale, use the mobile font size and stay within 90% of the physical safe rectangle with scrolling when needed. The section selector and event/settings pickers share this configuration. Numerical font/target checks, actual popup repeat navigation and full menu-flow tests pass. APK behavior is being checked separately.

@@ -28,6 +28,11 @@ func _init(viewport: Viewport, settings: Dictionary) -> void:
 		theme.set_color("font_color", type, CREAM)
 		theme.set_color("font_focus_color", type, CREAM)
 		theme.set_font_size("font_size", type, font_size(20 if mobile and type != "Label" else 19 if type != "Label" else 16))
+	if mobile:
+		var popup_font_size := font_size(20)
+		theme.set_font_size("font_size","PopupMenu",popup_font_size)
+		theme.set_constant("v_separation","PopupMenu",popup_separation(body_font,popup_font_size,unit))
+		theme.set_stylebox("panel","PopupMenu",style(NAVY,TURQUOISE))
 	for type in ["Button", "OptionButton"]:
 		theme.set_stylebox("normal", type, style(NAVY, Color(0.25, .39, .47)))
 		theme.set_stylebox("hover", type, style(Color(.12, .25, .32), TURQUOISE))
@@ -94,3 +99,18 @@ func panel(child: Control) -> PanelContainer:
 	var control := PanelContainer.new()
 	control.add_child(child)
 	return control
+
+
+static func popup_separation(font: Font,pixels: int,logical_unit: float) -> int:
+	return ceili(maxf(4*logical_unit,48*logical_unit-font.get_height(pixels)))
+
+
+func configure_picker(control: OptionButton) -> void:
+	if not mobile:
+		return
+	var popup := control.get_popup()
+	var fit := func() -> void:
+		popup.min_size = Vector2i.ZERO
+		popup.max_size = Vector2i(Vector2(DisplayServer.get_display_safe_area().size)*.90)
+	fit.call()
+	popup.about_to_popup.connect(fit)
