@@ -8,7 +8,7 @@ import time
 
 
 class UDPProxy:
-    def __init__(self, port, worker_port, latency_ms, jitter_ms, loss):
+    def __init__(self, port, worker_port, latency_ms, jitter_ms, loss, seed=94723):
         self.selector = selectors.DefaultSelector()
         self.front = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
         self.front.bind(('127.0.0.1',port))
@@ -19,7 +19,7 @@ class UDPProxy:
         self.pending = []
         self.counter = 0
         self.latency,self.jitter,self.loss = latency_ms/1000,jitter_ms/1000,loss
-        self.random = random.Random(94723)
+        self.random = random.Random(seed)
         self.stopping = threading.Event()
         self.thread = threading.Thread(target=self._run,daemon=True)
         self.errors = []

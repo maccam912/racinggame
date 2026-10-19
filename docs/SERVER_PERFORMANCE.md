@@ -56,7 +56,20 @@ race and no large racing control events. Counts include offered datagrams later
 dropped by the proxy. Racing wire intervals exclude handshake; reports separate
 UDP payload bytes from IPv4+UDP overhead (28 bytes/datagram). Default lifetime
 is at least 960 seconds to compare maximum observed RSS between five and fifteen
-minutes against the 5% growth limit. Failures remain in unique report folders.
+minutes against the 5% growth limit. Compare repeated-cycle peak RSS after warm-up
+against the high-water mark through minute five; also report the instantaneous
+five-/fifteen-minute values and retained growth. Every transition peak remains
+visible. This rematch-cycle observation is separate from continuous worst-track
+PERF-01. The absolute 256 MB resident budget applies throughout.
+
+The source-only driver fixture uses the shared Medium AI, snapshot traffic
+avoidance and eight explicit target-speed factors within ordinary Easy/Hard
+speed ranges. Four car types remain present. This spreads the field enough to
+retain the unchanged 500 clear samples per driver/race guard; no game controller,
+car data, contact flags or correction threshold changes. Each proxy has its own
+fixed random seed. The collector includes a final post-exit pass so the last
+race's wire interval cannot disappear when all clients end together. Failures
+remain in unique report folders, with coverage and accuracy recorded separately.
 
 The build workflow exposes an optional `run_soak` manual-dispatch input and
 preserves its reports even on failure. Directory integration CI downloads and

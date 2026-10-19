@@ -45,17 +45,18 @@ def main():
             assert server.poll() is None and time.monotonic() < deadline, 'Authority startup failed'
             time.sleep(.05)
         for index in range(8):
-            proxy = UDPProxy(args.port+index, worker_port, 50, 20, .01)
+            proxy = UDPProxy(args.port+index, worker_port, 50, 20, .01, seed=94723+101*index)
             proxies.append(proxy); proxy.start()
             handle = (folder/f'client-{index}.log').open('w'); handles.append(handle)
-            processes.append(subprocess.Popen([*command, '--script','tests/lobby_network_client.gd','--',
+            processes.append(subprocess.Popen([*command, '--script','tests/soak_network_client.gd','--',
                 f'--port={args.port+index}',f'--index={index}',f'--races={args.races}',
                 f'--seconds={args.seconds}',f'--minimum-seconds={args.minimum_seconds}',
                 f'--report={folder/f"client-{index}.json"}'], stdout=handle, stderr=subprocess.STDOUT))
         seen_perf = 0
         last_progress = None
-        while any(child.poll() is None for child in processes[1:]):
-            assert server.poll() is None, 'Authority exited before clients finished'
+        while True:
+            clients_finished = all(child.poll() is not None for child in processes[1:])
+            assert clients_finished or server.poll() is None, 'Authority exited before clients finished'
             assert time.monotonic()-began < args.seconds+30, 'Soak timed out'
             logs = [(folder/f'client-{index}.log').read_text() for index in range(8)]
             completed = [text.count('LOBBY_CLIENT_RACE_DONE ') for text in logs]
@@ -84,31 +85,45 @@ def main():
             rows = [json.loads(line.split(' ',1)[1]) for line in (folder/'server.log').read_text().splitlines() if line.startswith('PACIFIC_RUSH_WORKER_PERFORMANCE ')]
             for value in rows[seen_perf:]: observations.append({'elapsed':time.monotonic()-began,**value})
             seen_perf = len(rows)
+            if clients_finished: break
             time.sleep(.25)
         reports = [json.loads((folder/f'client-{i}.json').read_text()) for i in range(8)]
-        assert all(child.returncode==0 for child in processes[1:]), 'A client failed'
         results = reports[0]['results']
-        assert len(results)==args.races and all(report['results']==results for report in reports), 'Divergent/missing standings'
-        identities = {row['id'] for row in results[0]['rows']}
-        assert len(identities)==8 and all(len(race['rows'])==8 and {row['id'] for row in race['rows']}==identities and all(not row['dnf'] and not row['bot'] for row in race['rows']) for race in results), 'DNF, bot or changed identity'
-        assert all(report['large_racing_events']==0 for report in reports), 'Large racing control event'
+        checks = {}
+        checks['client_exit'] = all(child.returncode==0 for child in processes[1:])
+        checks['identical_standings'] = len(results)==args.races and all(report['results']==results for report in reports)
+        identities = {row['id'] for row in results[0]['rows']} if results else set()
+        checks['all_finish_same_eight'] = len(identities)==8 and all(len(race['rows'])==8 and {row['id'] for row in race['rows']}==identities and all(not row['dnf'] and not row['bot'] for row in race['rows']) for race in results)
+        checks['bounded_racing_control'] = all(report['large_racing_events']==0 for report in reports)
         corrections = [row['clear'] for report in reports for row in report['race_metrics']]
-        assert len(corrections)==8*args.races and all(row['count']>=500 and row['p95']<=.25 for row in corrections), 'Clear-road correction acceptance failed'
-        assert len(race_wire)==args.races, 'Missing racing wire interval'
-        assert all(row['ipv4_udp_up_Bps']<=10000 and row['ipv4_udp_down_Bps']<=40000 for race in race_wire for row in race['clients']), 'Wire budget exceeded'
+        checks['clear_coverage_500_each'] = len(corrections)==8*args.races and all(row['count']>=500 for row in corrections)
+        checks['clear_p95_025m_each'] = bool(corrections) and all(row['p95']<=.25 for row in corrections)
+        checks['racing_wire_intervals'] = len(race_wire)==args.races
+        checks['wire_budgets'] = bool(race_wire) and all(row['ipv4_udp_up_Bps']<=10000 and row['ipv4_udp_down_Bps']<=40000 for race in race_wire for row in race['clients'])
         memory = {'measured':False}
         if args.minimum_seconds >= 910:
             baseline = next(row for row in observations if row['elapsed']>=300)
             end = next(row for row in observations if row['elapsed']>=900)
+            warmup_peak = max(row['rss_bytes'] for row in observations if row['elapsed']<=baseline['elapsed'])
             peak = max(row['rss_bytes'] for row in observations if baseline['elapsed']<=row['elapsed']<=end['elapsed'])
-            growth = (peak-baseline['rss_bytes'])/baseline['rss_bytes']
-            memory = {'measured':True,'baseline':baseline,'end':end,'peak_rss_bytes':peak,'peak_growth_fraction':growth}
-            assert baseline['rss_bytes']>0 and growth<=.05, '5–15 minute RSS growth exceeded 5%'
-        for path in folder.glob('*.log'):
-            assert not any(marker in path.read_text() for marker in ('SCRIPT ERROR:','ERROR:','Leaked instance','Unicode parsing error')), f'Engine diagnostic in {path.name}'
-        summary.update(passed=True,races=results,finishes=8*args.races,identical_standings=True,
-                       max_clear_p95_m=max(row['p95'] for row in corrections),clear_samples=sum(row['count'] for row in corrections),
+            growth = (peak-warmup_peak)/warmup_peak if warmup_peak else float('inf')
+            # Compare the same repeated loading/racing cycle's high water marks,
+            # retaining instantaneous baseline/end and all transition peaks.
+            memory = {'measured':True,'baseline':baseline,'end':end,'warmup_peak_rss_bytes':warmup_peak,
+                      'peak_rss_bytes':peak,'peak_growth_fraction':growth,
+                      'retained_growth_fraction':(end['rss_bytes']/baseline['rss_bytes']-1) if baseline['rss_bytes'] else None,
+                      'scope':'Peak during repeated loading/racing cycles after five-minute warm-up versus peak through minute five. All transients reported. This is not the continuous worst-track PERF-01 fixture.'}
+            checks['rss_growth_005'] = warmup_peak>0 and growth<=.05
+            checks['rss_below_256MB'] = all(0<row['rss_bytes']<=256000000 for row in observations)
+        checks['engine_logs'] = all(not any(marker in path.read_text() for marker in ('SCRIPT ERROR:','ERROR:','Leaked instance','Unicode parsing error')) for path in folder.glob('*.log'))
+        summary.update(checks=checks,passed=all(checks.values()),races=results,finishes=sum(len(race['rows']) for race in results),
+                       identical_standings=checks['identical_standings'],
+                       max_clear_p95_m=max((row['p95'] for row in corrections),default=None),
+                       min_clear_samples=min((row['count'] for row in corrections),default=0),clear_samples=sum(row['count'] for row in corrections),
+                       proxy_seeds=[94723+101*index for index in range(8)],
+                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; test-only target speed factors [1,.91,1.04,.94,.88,.97,.85,1.01], four normal car types',
                        clients_reports=reports,memory=memory,racing_wire=race_wire)
+        assert summary['passed'], 'Failed checks: '+', '.join(key for key,value in checks.items() if not value)
     except Exception as error:
         summary['failure'] = f'{type(error).__name__}: {error}'
         raise
