@@ -16,6 +16,14 @@ Use the equivalent Blender executable on other platforms. Blender is needed only
 
 The `PacificRoles` vertex color channel marks paint, stripe, brake light and roughness roles. Body/stripe masks let the same imported geometry use all eight fixed paints. The separate ghost shader uses the same geometry and a 35% alpha tint. Car presentation is independent of collision and gameplay hashing. `assets/checksums.json` and exported `build.json.asset_hash` identify cosmetic content separately.
 
+Near and middle car LODs include fitted painted A/B/C pillars, rubber glass
+seals, paired windscreen wipers, rear defroster lines, lamp trim and rear fascias
+with plate recesses. Needle has original rear-deck vents; Sunset retains a
+chrome bumper treatment. The four silhouettes, authoring dimensions, shared
+atlas and distant LODs remain unchanged. These are original model geometry,
+combined into the same five mesh parts per active LOD; no extra texture or
+runtime draw part is introduced.
+
 The source directory is ignored by Godot import so opening/building the game does not invoke Blender. Keep `.gdignore`. Generated authoring backup files are not release inputs.
 
 `pacific_scenery.blend` contains the 30 named landmarks plus five vegetation models, seven roadside props, three shared buildings and two landscape forms. `generate_scenery.py` creates the geometry, original atlases and explicit LODs. Landmark/building LODs are rebuilt with fewer structural segments and without lettering/trim; distant versions preserve their main shapes. Vegetation uses small meshes through 180 m, then grouped crossed silhouette cards from the original foliage atlas. Every model has one material surface per LOD, and batches share its mesh/material.
@@ -32,7 +40,7 @@ python3 tools/check.py
 python3 tools/godot.py --max-fps 60 --script tests/scenery_library_evidence.gd
 ```
 
-The postcard command renders six 512×288 images from the original scenes; ordinary reference/CI runs do not replace shipped postcards. Historical M1 videos use frozen `GrayboxTrackWorld` and `GrayboxCarVisual` source fixtures, so regenerating them keeps the pre-art composition.
+The postcard command renders ten 512×288 images from the original scenes; ordinary reference/CI runs do not replace shipped postcards. Historical M1 videos use frozen `GrayboxTrackWorld` and `GrayboxCarVisual` source fixtures, so regenerating them keeps the pre-art composition.
 
 `generate_audio.py` is the editable source for all 48 original Vorbis assets. It
 contains the seven compositions, arrangement, additive/FM/plucked instruments,
@@ -70,7 +78,7 @@ views; headless numerical tests do not establish shader compilation. Recovery
 covers the world while relocating the chase camera and preserves the existing
 simulation freeze/ghost timers.
 
-`generate_icons.py` creates the 60 original 64×64 SVG interface assets and catalog
+`generate_icons.py` creates the 64 original 64×64 SVG interface assets and catalog
 using only Python's standard library. Course outlines come from the canonical
 baked routes, and swatches use the actual eight car paints. No external icon
 set is used. Regenerate with `python3 assets/source/generate_icons.py`, preserve

@@ -7,8 +7,11 @@ requirement; human handling/usability and operated public regions remain open.
 
 Current gameplay is **content 9 / protocol 5 / save schema 1**, digest
 `f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f`, with ten playable courses.
-The [101-command source report](evidence/content9/source101-release/summary.json)
-contains the final source matrix; [content-9 evidence](evidence/content9/) also
+The [101-command source report](evidence/car-crater111/source101-final/summary.json)
+contains the final source matrix after the richer car geometry and near-plane
+hood correction. [Current cosmetic evidence](evidence/car-crater111/) retains
+all 40 corrected native framing cases and both original failed reports.
+[Content-9 evidence](evidence/content9/) also
 retains 600 field races, 40 Gold trials, 60 camera paths and the 80-case actual
 native scale/layout matrix. Each source-test link below points to its executable
 fixture; screenshots alone do not establish a numeric pass.

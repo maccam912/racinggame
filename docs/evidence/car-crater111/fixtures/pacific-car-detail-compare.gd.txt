@@ -1,0 +1,92 @@
+extends SceneTree
+
+func _initialize() -> void: call_deferred("run")
+
+func run() -> void:
+	Catalog.load_all()
+	root.size = Vector2i(2560,1440)
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	var canvas := Control.new()
+	root.add_child(canvas)
+	var report := {"content_hash":JSON.parse_string(FileAccess.get_file_as_string("res://game/content/compatibility.json")).content_hash,"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"shader_sha256":FileAccess.get_sha256("res://assets/exported/shaders/car_surface.gdshaderinc"),"boundary":"Original/prototype model comparison in actual native Godot, static inspection only; no driving or performance claim.","cars":[],"models":{}}
+	for row in range(4):
+		var id: String = Catalog.cars[row].mesh_id
+		report.models[id] = {"original_sha256":FileAccess.get_sha256("res://assets/exported/cars/"+id+".glb"),"prototype_sha256":FileAccess.get_sha256("res://build/car-detail-prototype/assets/exported/cars/"+id+".glb")}
+		for column in range(4):
+			var after := column%2==1
+			var front := column<2
+			var viewport := SubViewport.new()
+			viewport.size = Vector2i(640,360)
+			viewport.own_world_3d = true
+			viewport.msaa_3d = Viewport.MSAA_4X
+			viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+			canvas.add_child(viewport)
+			var world := Node3D.new()
+			viewport.add_child(world)
+			var environment := WorldEnvironment.new()
+			environment.environment = Environment.new()
+			environment.environment.background_mode = Environment.BG_COLOR
+			environment.environment.background_color = Color("739FB7")
+			environment.environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+			environment.environment.ambient_light_color = Color("B9E6ED")
+			environment.environment.ambient_light_energy = .7
+			world.add_child(environment)
+			var sun := DirectionalLight3D.new()
+			sun.rotation_degrees = Vector3(-45,-30,0)
+			sun.light_color = Color("FFF1D2")
+			world.add_child(sun)
+			var model: Node3D
+			if after:
+				var document := GLTFDocument.new()
+				var state := GLTFState.new()
+				assert(document.append_from_file("res://build/car-detail-prototype/assets/exported/cars/"+id+".glb",state)==OK)
+				model = document.generate_scene(state)
+			else: model = (load("res://assets/exported/cars/"+id+".glb") as PackedScene).instantiate()
+			world.add_child(model)
+			model.position.y = .35
+			var surface := ShaderMaterial.new()
+			surface.shader = load("res://assets/exported/shaders/car.gdshader")
+			surface.set_shader_parameter("atlas",load("res://assets/exported/textures/cars_atlas.png"))
+			var paint: Color = Catalog.paints[Catalog.cars[row].default_paint]
+			surface.set_shader_parameter("paint",paint)
+			surface.set_shader_parameter("stripe",Color("F5EBD3") if paint.get_luminance()<.55 else Color("343C49"))
+			for node: Node3D in model.find_children("*","Node3D",true,false):
+				if str(node.name).begins_with("LOD1") or str(node.name).begins_with("LOD2"): node.visible = false
+				if node is MeshInstance3D:
+					for part in range(node.mesh.get_surface_count()): node.set_surface_override_material(part,surface)
+			var ground := MeshInstance3D.new()
+			var plane := PlaneMesh.new()
+			plane.size = Vector2(200,200)
+			ground.mesh = plane
+			var material := StandardMaterial3D.new()
+			material.albedo_color = Color("D7CDAF")
+			ground.material_override = material
+			world.add_child(ground)
+			var camera := Camera3D.new()
+			world.add_child(camera)
+			camera.position = Vector3(4,2.6,-5.7 if front else 5.7)
+			camera.look_at(Vector3(0,.85,0))
+			camera.fov = 35
+			camera.current = true
+			var image := TextureRect.new()
+			image.texture = viewport.get_texture()
+			image.position = Vector2(column*640,row*360)
+			image.size = Vector2(640,360)
+			canvas.add_child(image)
+			var label := Label.new()
+			label.text = id.to_upper()+" / "+("PROTOTYPE" if after else "CURRENT")+" / "+("FRONT" if front else "REAR")
+			label.position = image.position+Vector2(16,10)
+			label.add_theme_font_override("font",load("res://assets/fonts/heading.tres"))
+			label.add_theme_font_size_override("font_size",22)
+			canvas.add_child(label)
+			report.cars.append({"id":id,"after":after,"front":front})
+	for index in range(20): await process_frame
+	await RenderingServer.frame_post_draw
+	var output := "res://reports/car-detail-prototype-comparison.png"
+	assert(root.get_texture().get_image().save_png(output)==OK)
+	var file := FileAccess.open("res://reports/car-detail-prototype-comparison.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify(report,"\t")+"\n")
+	canvas.queue_free()
+	for index in range(8): await process_frame
+	print("CAR_DETAIL_PROTOTYPE_NATIVE_COMPARISON_PASS")
+	quit()

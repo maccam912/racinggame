@@ -1,5 +1,13 @@
 # Implementation status
 
+## 20 October — richer car detail, exterior Caldera lava and clipped-contour camera correction
+
+The four original cars now have fitted window pillars/seals, paired wipers, rear defroster lines, lamp trim and plate/fascia details. Needle gains deck vents; Sunset has a chrome bumper. Silhouettes, authoring dimensions, the atlas, five mesh parts and distant LODs remain unchanged. The actual before/prototype native comparison and all four integrated models are reviewed; **240 lamp-attachment rays** and explicit LOD/role/animation budgets pass.
+
+Caldera adds three irregular exterior lava channels, visible without looking over its high rim. The **216 actual faces** remain inside its 300 m clearing, hit the underlying cone within 6 m and provide **360 unobstructed road-view/face pairs**. They share the existing pool material/shader and have no driving collision. The original narrow Switch look-back case failed native bonnet framing at **6.80556%**: its new defroster edge was clipped at the near plane but influenced the contour. The camera now excludes those clipped candidates. All **40 corrected native car/FOV/front/rear cases measure 10%**; the original failed report, targeted failure PNG and source remain retained.
+
+All **40 final course views** and ten native GPU-prepared worlds pass, including Retry/Cancel/background/real-ENet Loaded ordering. Maximum submissions / GPU deadline remain **61 / 15 s**. [Complete current art, corrected camera and geometry evidence](evidence/car-crater111/). Gameplay/protocol/save remain **9/5/1**, hash `f762fa68`; current cosmetics `d817e671`. Build 110's earlier passing lifetime run retains its own exact `1fe44b97` asset identity. All **101 final source commands pass** after the corrected camera and final channel geometry. Clean packages and the next remote release remain pending at this checkpoint.
+
 ## 20 October — ten routes, waterworks, volcanic scenery and responsive arcade selection
 
 Spillway Sprint adds a **7.457 km interwoven knot with three crossings**; Caldera Crosscut adds an **8.869 km seven-crossing star of long straights, climbs and hairpins**. Their concrete arches, tall illustrated cascades, basalt formations, central crater/lava and distant cliffs provide new original scenery. All eight prior route definitions/bakes and terrain bytes remain exact; the Coast Cup remains six events. New minimaps, native postcards, five-landmark arrangements, original painted posters, directory bounds and multiplayer choices cover all ten. Content/protocol/save **9/5/1**, gameplay `f762fa68`, cosmetics `1fe44b97`. The immutable content-8 fixture preserves old profile/record/ghost/Cup/active-race bytes.

@@ -10,6 +10,7 @@ import math
 from pathlib import Path
 import bpy
 import bmesh
+from mathutils import Vector
 
 ROOT = Path(__file__).resolve().parents[2]
 OUT = ROOT/'assets/exported/cars'
@@ -196,6 +197,13 @@ def build_body(identifier,spec,level,parent):
     return obj
 
 
+def trim_beam(name,a,b,width,parent,role='Body'):
+    a,b=Vector(a),Vector(b)
+    obj=cube(name,(a+b)/2,(width,width,(b-a).length),parent,role)
+    obj.rotation_euler=(b-a).to_track_quat('Z','Y').to_euler()
+    return obj
+
+
 def build_cabin(identifier,spec,level,parent):
     bottom = .62 if identifier!='needle' else .52
     width = spec['width']*.43
@@ -209,8 +217,38 @@ def build_cabin(identifier,spec,level,parent):
          (spec['roof_width']+.055,spec['roof_front']-spec['roof_rear']+.05,.07),parent,'Body',.025 if level==0 else 0,2)
     if level<2:
         for side in [-1,1]:
-            cube(identifier+'_B_pillar',(side*(width+roof_width)/2,-.16,(bottom+spec['roof'])/2),(.07,.085,spec['roof']-bottom),parent,'Body')
+            bottom_rear=(side*width,spec['cab_rear'],bottom)
+            bottom_front=(side*width,spec['cab_front'],bottom)
+            top_rear=(side*roof_width,spec['roof_rear'],spec['roof'])
+            top_front=(side*roof_width,spec['roof_front'],spec['roof'])
+            # Painted A/C pillars follow the actual glass trapezoid; black
+            # rubber seals make both end panes read as fitted car windows.
+            trim_beam(identifier+'_A_Pillar',bottom_front,top_front,.075,parent)
+            trim_beam(identifier+'_C_Pillar',bottom_rear,top_rear,.09,parent)
+            trim_beam(identifier+'_Sill',bottom_rear,bottom_front,.045,parent,'Rubber')
+            trim_beam(identifier+'_RoofSeal',top_rear,top_front,.025,parent,'Rubber')
+            t=.51 if identifier=='switch' else .55
+            lower=Vector(bottom_rear).lerp(Vector(bottom_front),t)
+            upper=Vector(top_rear).lerp(Vector(top_front),t)
+            trim_beam(identifier+'_B_Pillar',lower,upper,.065,parent)
             cube(identifier+'_Mirror',(side*(spec['width']/2+.07),.55,.72),(.18,.20,.11),parent,'Body',.025 if level==0 else 0,2)
+        for front in [False,True]:
+            base_y=spec['cab_front'] if front else spec['cab_rear']
+            top_y=spec['roof_front'] if front else spec['roof_rear']
+            offset=.012 if front else -.012
+            cube(identifier+'_GlassLowerSeal',(0,base_y+offset,bottom+.008),(width*2,.026,.026),parent,'Rubber')
+            cube(identifier+'_GlassUpperSeal',(0,top_y+offset,spec['roof']-.006),(roof_width*2,.022,.022),parent,'Rubber')
+            if front:
+                for side in [-1,1]:
+                    lower=(side*.48,base_y+(top_y-base_y)*.10+offset,bottom+(spec['roof']-bottom)*.10)
+                    upper=(side*.15,base_y+(top_y-base_y)*.31+offset,bottom+(spec['roof']-bottom)*.31)
+                    trim_beam(identifier+'_Wiper',lower,upper,.014,parent,'Rubber')
+            else:
+                for height_factor in [.2,.35,.5,.65]:
+                    z=bottom+(spec['roof']-bottom)*height_factor
+                    y=base_y+(top_y-base_y)*height_factor+offset
+                    pane_width=width+(roof_width-width)*height_factor
+                    cube(identifier+'_RearDefroster',(0,y,z),(pane_width*1.8,.009,.004),parent,'Rubber')
 
 
 def stripe(identifier,spec,parent):
@@ -338,7 +376,23 @@ def build_car(identifier,spec,index):
         cube(name+'_FrontGrille',(0,spec['length']/2+.016,nose_height*.45),
              (nose_width*.45,.028,min(.09,nose_height*.25)),group,'Grille')
         if level<2:
-            for side in [-1,1]: cube(name+'_DoorHandle',(side*(spec['width']/2+.012),-.28,.57),(.02,.19,.035),group,'Chrome')
+            # Rear fascia surrounds the original brake lenses. Their role
+            # masks and attachment positions remain unchanged.
+            rear=-spec['length']/2
+            cube(name+'_RearFascia',(0,rear-.012,tail_height*.60),(tail_width*.89,.026,min(.19,tail_height*.40)),group,'Grille')
+            cube(name+'_PlateRecess',(0,rear-.030,tail_height*.58),(.34,.018,.12),group,'Rubber')
+            cube(name+'_Plate',(0,rear-.042,tail_height*.58),(.27,.009,.075),group,'Rim')
+            cube(name+'_RearBumper',(0,rear-.016,max(.12,tail_height*.24)),(tail_width*.84,.045,.07),group,'Chrome' if identifier=='sunset' else 'Grille')
+            cube(name+'_FrontAirDam',(0,spec['length']/2+.018,max(.115,nose_height*.27)),(nose_width*.72,.035,.06),group,'Grille')
+            for side in [-1,1]:
+                cube(name+'_DoorHandle',(side*(spec['width']/2+.012),-.28,.57),(.02,.19,.035),group,'Chrome')
+                lamp_width=min(.46,tail_width*.32)
+                cube(name+'_LensDivider',(side*tail_width*.30,rear-.033,tail_height*.60),(.012,.008,min(.13,tail_height*.30)),group,'Grille')
+                cube(name+'_LensTrim',(side*tail_width*.30,rear-.033,tail_height*.60),(lamp_width*.94,.008,.007),group,'Grille')
+            if identifier=='needle':
+                for row in range(4):
+                    y=spec['cab_rear']-.10-row*.12
+                    cube(name+'_RearDeckVent',(0,y,body_top(spec,y)+.018),(1.0,.035,.012),group,'Grille')
         meshes = [obj for obj in descendants(group) if obj.type=='MESH']
         count = sum(triangles(obj) for obj in meshes)
         limit = [12000,4000,1200][level]

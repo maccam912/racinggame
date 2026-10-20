@@ -228,6 +228,10 @@ Base vertical FOV = 65 degrees at 16:9, increasing linearly by up to 18 degrees 
 
 No full-screen speed lines, radial blur, chromatic aberration, film grain, head bob, or mandatory motion blur. Speed comes from road markings at 12 m spacing, palms/barrier posts passing at road edges, tire/engine audio, and the camera's low sight line. Preserve view of the next 120 m of road on ordinary straights; signed blind crests are the only exception.
 
+Bonnet framing uses the actual model centreline contour. Details hidden inside
+the camera's 0.15 m near clipping plane cannot shift the eye away from the
+visible bonnet contour.
+
 ## 10 Track construction contract
 
 Eight closed circuits share a canonical route generator, ensuring independently built versions have the same layout. Points in section 11 are (X,Y,Z) in meters and are traversed in listed order, looping to point 0. Generate a uniform closed Catmull–Rom curve with standard 0.5 tension: `C(t)=0.5*((2*P1)+(-P0+P2)*t+(2*P0-5*P1+4*P2-P3)*t²+(-P0+3*P1-3*P2+P3)*t³)` for each P1→P2 span. Sample each span at 256 equal t intervals, make an arc-length lookup, then resample at 2 m intervals. Final closing sample joins the first exactly. Track length L is the measured 3D arc length; use the same baked route resource on client/server. Do not hand-adjust route points or use a different spline.
@@ -355,7 +359,11 @@ metallic 0.4 (cream stripes 0.3); opaque glass has broad illustrated reflection
 sweeps, and rims/chrome use roughness 0.18 and metallic 0.75. Distance filtering
 fades fine paint detail before it becomes subpixel. Brake/headlamp role behavior,
 ghost alpha and recovery fades remain explicit and readable. No animated noise
-or environment capture is required.
+or environment capture is required. Near/middle car LODs have fitted
+painted window pillars, rubber seals, paired wipers, rear defroster lines,
+segmented lamp trim and rear plate/fascia detail. Needle adds rear-deck vents;
+Sunset uses a chrome bumper. Their silhouettes, authoring dimensions, atlas,
+five-part draw structure and distant LODs remain unchanged.
 
 Dry asphalt has muted aggregate, broad weathering and four subtle tire-wear
 paths, roughness 0.94 and no mirror reflection. Render-only road UVs encode metres

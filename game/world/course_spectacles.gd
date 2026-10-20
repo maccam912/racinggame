@@ -108,6 +108,21 @@ static func caldera(world: TrackWorld) -> void:
 		var b := TAU*(segment+1)/48
 		CourseDecor.colored_triangle(pool,Vector3(0,300.5,0),Vector3(cos(a)*62,300.5,sin(a)*62),Vector3(cos(b)*62,300.5,sin(b)*62),Color("FF873B"))
 	finish(world,"CraterLava",pool,lava,Transform3D.IDENTITY,62,0)
+	# The pool is below the 345 m rim, so three visible channels carry its
+	# color down the exterior. They stay inside the existing 300 m clearing.
+	var streams := SurfaceTool.new()
+	streams.begin(Mesh.PRIMITIVE_TRIANGLES)
+	var bands := [-.07,-.028,.028,.07]
+	for river in range(3):
+		for step in range(12):
+			for band in range(3):
+				var color := Color("FFBB67") if band==1 else Color("E66040")
+				CourseDecor.colored_quad(streams,
+					channel_point(profile,river,step,bands[band]),
+					channel_point(profile,river,step,bands[band+1]),
+					channel_point(profile,river,step+1,bands[band+1]),
+					channel_point(profile,river,step+1,bands[band]),color)
+	finish(world,"CraterStreams",streams,lava,Transform3D.IDENTITY,300,0)
 	for site: Dictionary in world.spectacle_sites:
 		var pose: Transform3D = site.pose
 		var height: float = site.height
@@ -116,6 +131,20 @@ static func caldera(world: TrackWorld) -> void:
 		for index in range(3):
 			CourseDecor.stone(stone,Vector3((index-1)*18,-height*.1,index%2*4),Vector3(18,height*(.8+.1*index),16),Color("675D76"),index+int(site.s))
 		finish(world,"BasaltSpire_"+str(site.s)+"_"+str(int(site.side)),stone,basalt,pose,43)
+
+
+static func channel_point(profile: Array, river: int, step: int, band: float) -> Vector3:
+	var level := mini(int(floor(step/4.0)),2)
+	var lower: Vector2 = profile[level]
+	var upper: Vector2 = profile[level+1]
+	var at := lower.lerp(upper,step/4.0-level)
+	var lift := clampf(float(step),0,1)
+	at.x += lerpf(-3,2,lift)
+	at.y += lerpf(6,2,lift)
+	var angle := TAU*(.12+river/3.0)+sin(step*.7+river)*.10+sin(step*1.6+river)*.022
+	var width := 1.0+.27*sin(step*1.9+river)
+	angle += band*width
+	return Vector3(cos(angle)*at.x,at.y,sin(angle)*at.x)
 
 
 static func backdrop(world: TrackWorld, material: Material, waterworks: bool) -> void:

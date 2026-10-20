@@ -59,7 +59,9 @@ func run() -> void:
 				assert(ground.supported and absf(ground.height-state.position.y+.35)<.15,"probes stay on each actual crossing level")
 				assert(minf(absf(ground.s-s),track.length-absf(ground.s-s))<3)
 				query = null
-		if track.id=="caldera_crosscut": assert(world.clear_of_road(Vector3.ZERO,300) and world.has_node("CalderaCrater") and world.has_node("CraterLava"))
+		if track.id=="caldera_crosscut":
+			assert(world.clear_of_road(Vector3.ZERO,300) and world.has_node("CalderaCrater") and world.has_node("CraterLava"))
+			await assert_crater_channels(world)
 		evidence.append({"track":track.id,"structures":structures,"crossings":CROSSINGS[track.id].size(),"sites":world.spectacle_sites.size()})
 		world.queue_free()
 		await process_frame
@@ -69,3 +71,38 @@ func run() -> void:
 	file.close()
 	print("TEN_ROUTE_EIGHT_ARCHIVES_TEN_LAYERED_CROSSINGS_WATERWORKS_CALDERA_BOUNDS_WINDING_NO_COLLISION_PASS")
 	quit()
+
+
+func assert_crater_channels(world: TrackWorld) -> void:
+	var cone := world.get_node("CalderaCrater") as MeshInstance3D
+	var pool := world.get_node("CraterLava") as MeshInstance3D
+	var streams := world.get_node("CraterStreams") as MeshInstance3D
+	assert(streams.material_override==pool.material_override,"channels reuse the pool material and shader")
+	var body := StaticBody3D.new()
+	body.collision_layer = 8
+	var collider := CollisionShape3D.new()
+	var shape := ConcavePolygonShape3D.new()
+	shape.set_faces(cone.mesh.get_faces())
+	collider.shape = shape
+	body.add_child(collider)
+	world.add_child(body)
+	await physics_frame
+	await physics_frame
+	var vertices := streams.mesh.get_faces()
+	var arrays := streams.mesh.surface_get_arrays(0)
+	var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+	var visible_from_road := 0
+	for index in range(0,vertices.size(),3):
+		var center: Vector3 = (vertices[index]+vertices[index+1]+vertices[index+2])/3
+		var normal: Vector3 = normals[index]
+		var ray := PhysicsRayQueryParameters3D.create(center+normal*.1,center-normal*6,8)
+		var hit := world.get_world_3d().direct_space_state.intersect_ray(ray)
+		assert(not hit.is_empty() and center.distance_to(hit.position)<6,"each actual channel face stays just above the actual cone surface")
+		for fraction: float in [.0,.25,.5,.75]:
+			var eye := world.ground_pose(world.track.length*fraction,0).origin+Vector3.UP*1.8
+			ray = PhysicsRayQueryParameters3D.create(eye,center,8)
+			if world.get_world_3d().direct_space_state.intersect_ray(ray).is_empty(): visible_from_road += 1
+	assert(visible_from_road>0,"actual road-level views can see exterior lava without looking over the rim")
+	body.queue_free()
+	await process_frame
+	print("ACTUAL_CALDERA_CHANNEL_FACE_SUPPORT_AND_ROAD_LEVEL_LINE_OF_SIGHT_PASS faces="+str(vertices.size()/3)+" visible_pairs="+str(visible_from_road))

@@ -1,0 +1,78 @@
+{
+	"asset_hash": "d817e6717c7a87d4513b55d029bed7f32825c1f190d1384a79aa53c93d5df75f",
+	"boundary": "Static diagnostic overview/detail cameras on actual native course geometry. Near-detail scenery is deliberately retained beyond production draw distance and farther LOD variants are hidden for inspection. No driving, minimum-device or performance claim.",
+	"content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+	"gpu": "Apple M5 Pro",
+	"passed": true,
+	"renderer": "gl_compatibility",
+	"resolution": [
+		1920,
+		1080
+	],
+	"rows": [
+		{
+			"eye": [
+				1150.0,
+				950.0,
+				1350.0
+			],
+			"image": "spillway_sprint-overview.png",
+			"sha256": "fcd70a4930999b6f39ded9d65ed395baa8293907a3aab7f08fa33f603c66cfb4",
+			"target": [
+				0.0,
+				100.0,
+				0.0
+			],
+			"track": "spillway_sprint",
+			"view": "overview"
+		},
+		{
+			"eye": [
+				952.152465820312,
+				174.955093383789,
+				193.910339355469
+			],
+			"image": "spillway_sprint-cascade.png",
+			"sha256": "ebd033c53e643006419b7b9c90a13788543a960b974142e1ce43b5f9b43fd9fc",
+			"target": [
+				842.152465820312,
+				88.3005294799805,
+				73.9103317260742
+			],
+			"track": "spillway_sprint",
+			"view": "cascade"
+		},
+		{
+			"eye": [
+				1150.0,
+				950.0,
+				1350.0
+			],
+			"image": "caldera_crosscut-overview.png",
+			"sha256": "12c1f12221f610ef75317862f08045f7c779b0f1dcc91a34e8dd643a1f8f9793",
+			"target": [
+				0.0,
+				100.0,
+				0.0
+			],
+			"track": "caldera_crosscut",
+			"view": "overview"
+		},
+		{
+			"eye": [
+				510.0,
+				520.0,
+				430.0
+			],
+			"image": "caldera_crosscut-crater.png",
+			"sha256": "5e25d5d9f8f6d75b6899c9240899bf59a17a4d7661dbc6b548ea83946a10b1f8",
+			"target": [
+				0.0,
+				250.0,
+				0.0
+			],
+			"track": "caldera_crosscut",
+			"view": "crater"
+		}
+	]
+}

@@ -1,6 +1,8 @@
 class_name ChaseCamera
 extends Camera3D
 
+const NEAR_CLIP_M: float = .15
+
 var mode: int = 0
 var reduce_motion: bool = false
 var dynamic_fov: bool = true
@@ -24,7 +26,11 @@ func hood_distance(profile: PackedVector2Array) -> float:
 	var slope := .8*tan(deg_to_rad(fov*.5))
 	var distance := .8
 	for point: Vector2 in profile:
-		distance = maxf(distance,point.x-(.8-point.y)/slope)
+		var axial_distance := (.8-point.y)/slope
+		# A detail inside the near plane cannot frame the visible bonnet.
+		# Keep it from moving the eye away from the actual rendered contour.
+		if axial_distance<NEAR_CLIP_M: continue
+		distance = maxf(distance,point.x-axial_distance)
 	return distance
 
 func impact() -> void:
@@ -96,5 +102,5 @@ func follow(state: VehicleState, dt: float, look_back: bool = false) -> void:
 		v_offset = offset.y
 		rotate_object_local(Vector3.FORWARD,deg_to_rad(.4)*shake_scale*sin(t*143)*shake_remaining/.12)
 		shake_remaining = maxf(0,shake_remaining-dt)
-	near = .15
+	near = NEAR_CLIP_M
 	initialized = true

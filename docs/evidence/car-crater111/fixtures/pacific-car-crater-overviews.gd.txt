@@ -1,0 +1,48 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("run")
+func run() -> void:
+	assert(DisplayServer.get_name()!="headless")
+	Catalog.load_all()
+	root.size = Vector2i(1920,1080)
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	root.msaa_3d = Viewport.MSAA_4X
+	root.anisotropic_filtering_level = Viewport.ANISOTROPY_4X
+	var folder := "res://reports/car-crater-detail111-overviews"
+	DirAccess.make_dir_recursive_absolute(folder)
+	var rows: Array[Dictionary] = []
+	for id: String in ["spillway_sprint","caldera_crosscut"]:
+		var world := TrackWorld.new()
+		for track: TrackDefinition in Catalog.tracks:
+			if track.id==id: world.build(track)
+		root.add_child(world)
+		await physics_frame
+		await physics_frame
+		for node: GeometryInstance3D in get_nodes_in_group("scenery_distance"):
+			if node.visibility_range_begin>0: node.hide()
+			else: node.visibility_range_end = 0
+		var camera := Camera3D.new()
+		camera.fov = 60
+		camera.far = 5000
+		camera.current = true
+		world.add_child(camera)
+		var shots := [{"id":"overview","eye":Vector3(1150,950,1350),"target":Vector3(0,100,0)}]
+		if id=="spillway_sprint":
+			var site: Dictionary = world.spectacle_sites[0]
+			var at: Vector3 = site.pose.origin
+			shots.append({"id":"cascade","eye":at+Vector3(110,float(site.height)+30,120),"target":at+Vector3(0,float(site.height)*.6,0)})
+		else: shots.append({"id":"crater","eye":Vector3(510,520,430),"target":Vector3(0,250,0)})
+		for shot: Dictionary in shots:
+			camera.position = shot.eye
+			camera.look_at(shot.target,Vector3.UP)
+			for frame in range(8): await process_frame
+			await RenderingServer.frame_post_draw
+			var filename := id+"-"+str(shot.id)+".png"
+			assert(root.get_texture().get_image().save_png(folder+"/"+filename)==OK)
+			rows.append({"track":id,"view":shot.id,"eye":[shot.eye.x,shot.eye.y,shot.eye.z],"target":[shot.target.x,shot.target.y,shot.target.z],"image":filename,"sha256":FileAccess.get_sha256(folder+"/"+filename)})
+		world.queue_free()
+		for frame in range(3): await process_frame
+	var file := FileAccess.open(folder+"/reference.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify({"passed":true,"resolution":[1920,1080],"content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"gpu":RenderingServer.get_video_adapter_name(),"renderer":RenderingServer.get_current_rendering_method(),"rows":rows,"boundary":"Static diagnostic overview/detail cameras on actual native course geometry. Near-detail scenery is deliberately retained beyond production draw distance and farther LOD variants are hidden for inspection. No driving, minimum-device or performance claim."},"\t")+"\n")
+	file.close()
+	print("NATIVE_NEW_COURSE_OVERVIEW_AND_STRUCTURAL_DETAIL_VIEWS_PASS count=",rows.size())
+	quit()

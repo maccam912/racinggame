@@ -1,0 +1,106 @@
+{
+	"asset_hash": "1fe44b97904705d8c33d4a6d531e12bccd243882b48dfa82e540f57d62a9bd1b",
+	"boundary": "Original/prototype model comparison in actual native Godot, static inspection only; no driving or performance claim.",
+	"cars": [
+		{
+			"after": false,
+			"front": true,
+			"id": "comet"
+		},
+		{
+			"after": true,
+			"front": true,
+			"id": "comet"
+		},
+		{
+			"after": false,
+			"front": false,
+			"id": "comet"
+		},
+		{
+			"after": true,
+			"front": false,
+			"id": "comet"
+		},
+		{
+			"after": false,
+			"front": true,
+			"id": "needle"
+		},
+		{
+			"after": true,
+			"front": true,
+			"id": "needle"
+		},
+		{
+			"after": false,
+			"front": false,
+			"id": "needle"
+		},
+		{
+			"after": true,
+			"front": false,
+			"id": "needle"
+		},
+		{
+			"after": false,
+			"front": true,
+			"id": "switch"
+		},
+		{
+			"after": true,
+			"front": true,
+			"id": "switch"
+		},
+		{
+			"after": false,
+			"front": false,
+			"id": "switch"
+		},
+		{
+			"after": true,
+			"front": false,
+			"id": "switch"
+		},
+		{
+			"after": false,
+			"front": true,
+			"id": "sunset"
+		},
+		{
+			"after": true,
+			"front": true,
+			"id": "sunset"
+		},
+		{
+			"after": false,
+			"front": false,
+			"id": "sunset"
+		},
+		{
+			"after": true,
+			"front": false,
+			"id": "sunset"
+		}
+	],
+	"content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+	"models": {
+		"comet": {
+			"original_sha256": "c805c92a5825bd5aedac31fa932f4f203cf66d36362d70ba753c803419be13d4",
+			"prototype_sha256": "e8ecf39d6e80631e3ba20ddc4bae5cb8a2aa018fd63e1ac43c58cbd1ba317633"
+		},
+		"needle": {
+			"original_sha256": "6278db8ee8e265976b8d9974610b13bcd3f7fcbdad892a347de7d38816ea1cdc",
+			"prototype_sha256": "68a22f2626d20ca3cd384361af20e0070a6be3e91645abe174e6997f0625f7cb"
+		},
+		"sunset": {
+			"original_sha256": "0bedd4eeefa38fe1d57a73830351cc72002f858694eb8bc8a50917d64447b1b3",
+			"prototype_sha256": "3b21b0d701effed042a8b2554c9bc34ff1f04e7181a6355c472c9f77e6e92587"
+		},
+		"switch": {
+			"original_sha256": "7fcea564ec2c6e1d05e614daaec841aee734e2336e560c774cf4f4403ff7550d",
+			"prototype_sha256": "9d5853f61f0803e0e5fa99c04e1aa543e6840f40aa33278f419b34b018e2844c"
+		}
+	},
+	"shader_sha256": "96bd84787664f083fbf0c30a458fcc6619b20e067de9b8c8d422bf9dc9daf468"
+}

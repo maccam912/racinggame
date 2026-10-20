@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "creator": "Pacific Rush procedural asset generator",
+  "license": "MIT",
+  "source": "assets/source/generate_cars.py",
+  "editable_source": "assets/source/pacific_cars.blend",
+  "source_url": null,
+  "attribution": "Retain the project MIT notice",
+  "blender": "5.1.2",
+  "atlas": {
+    "path": "assets/exported/textures/cars_atlas.png",
+    "width": 1024,
+    "height": 1024,
+    "sha256": "de9fdddbb42523cf3f9cd952d99c60b76ac0e6838123f028060f03ed8051b0cb"
+  },
+  "cars": [
+    {
+      "id": "comet",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 7182,
+          "ceiling": 12000,
+          "distance_m": 0,
+          "mesh_parts": 5
+        },
+        {
+          "level": 1,
+          "triangles": 2634,
+          "ceiling": 4000,
+          "distance_m": 35,
+          "mesh_parts": 5
+        },
+        {
+          "level": 2,
+          "triangles": 458,
+          "ceiling": 1200,
+          "distance_m": 90,
+          "mesh_parts": 5
+        }
+      ],
+      "texture": "assets/exported/textures/cars_atlas.png",
+      "authoring_size_m": {
+        "length": 4.1,
+        "width": 1.88,
+        "roof": 1.24
+      },
+      "front_axis": "Blender +Y / exported Godot -Z",
+      "default_paint": "F16B50",
+      "path": "assets/exported/cars/comet.glb",
+      "sha256": "e8ecf39d6e80631e3ba20ddc4bae5cb8a2aa018fd63e1ac43c58cbd1ba317633"
+    },
+    {
+      "id": "needle",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 7174,
+          "ceiling": 12000,
+          "distance_m": 0,
+          "mesh_parts": 5
+        },
+        {
+          "level": 1,
+          "triangles": 2698,
+          "ceiling": 4000,
+          "distance_m": 35,
+          "mesh_parts": 5
+        },
+        {
+          "level": 2,
+          "triangles": 458,
+          "ceiling": 1200,
+          "distance_m": 90,
+          "mesh_parts": 5
+        }
+      ],
+      "texture": "assets/exported/textures/cars_atlas.png",
+      "authoring_size_m": {
+        "length": 4.34,
+        "width": 1.96,
+        "roof": 1.0
+      },
+      "front_axis": "Blender +Y / exported Godot -Z",
+      "default_paint": "20BFC5",
+      "path": "assets/exported/cars/needle.glb",
+      "sha256": "68a22f2626d20ca3cd384361af20e0070a6be3e91645abe174e6997f0625f7cb"
+    },
+    {
+      "id": "switch",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 6998,
+          "ceiling": 12000,
+          "distance_m": 0,
+          "mesh_parts": 5
+        },
+        {
+          "level": 1,
+          "triangles": 2594,
+          "ceiling": 4000,
+          "distance_m": 35,
+          "mesh_parts": 5
+        },
+        {
+          "level": 2,
+          "triangles": 438,
+          "ceiling": 1200,
+          "distance_m": 90,
+          "mesh_parts": 5
+        }
+      ],
+      "texture": "assets/exported/textures/cars_atlas.png",
+      "authoring_size_m": {
+        "length": 3.62,
+        "width": 1.78,
+        "roof": 1.4
+      },
+      "front_axis": "Blender +Y / exported Godot -Z",
+      "default_paint": "F3CD48",
+      "path": "assets/exported/cars/switch.glb",
+      "sha256": "9d5853f61f0803e0e5fa99c04e1aa543e6840f40aa33278f419b34b018e2844c"
+    },
+    {
+      "id": "sunset",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 7030,
+          "ceiling": 12000,
+          "distance_m": 0,
+          "mesh_parts": 5
+        },
+        {
+          "level": 1,
+          "triangles": 2606,
+          "ceiling": 4000,
+          "distance_m": 35,
+          "mesh_parts": 5
+        },
+        {
+          "level": 2,
+          "triangles": 458,
+          "ceiling": 1200,
+          "distance_m": 90,
+          "mesh_parts": 5
+        }
+      ],
+      "texture": "assets/exported/textures/cars_atlas.png",
+      "authoring_size_m": {
+        "length": 4.58,
+        "width": 2.04,
+        "roof": 1.22
+      },
+      "front_axis": "Blender +Y / exported Godot -Z",
+      "default_paint": "8465CC",
+      "path": "assets/exported/cars/sunset.glb",
+      "sha256": "3b21b0d701effed042a8b2554c9bc34ff1f04e7181a6355c472c9f77e6e92587"
+    }
+  ]
+}

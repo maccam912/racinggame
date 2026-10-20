@@ -55,6 +55,10 @@ func run() -> void:
 				var valid := fraction>=.085 and fraction<=.115
 				passed = passed and valid
 				rows.append({"car":car.id,"look_back":rear,"fov":degrees,"hood_fraction":fraction,"eye_forward_m":absf(camera.position.z),"envelope_points":visual.hood_profiles[1 if rear else 0].size(),"passed":valid})
+				if not valid:
+					var failed_name := car.id+"-"+("rear" if rear else "front")+"-fov%d-failed.png"%roundi(degrees)
+					assert(image.save_png("res://reports/hood-cameras/"+failed_name)==OK)
+					rows[-1]["failure_png"] = failed_name
 				if degrees==65:
 					var name := car.id+("-rear-mask.png" if rear else "-front-mask.png")
 					assert(image.save_png("res://reports/hood-cameras/"+name)==OK)
