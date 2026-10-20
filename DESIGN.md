@@ -1,6 +1,6 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.8 — 19 October 2026
+Version 1.9 — 19 October 2026
 
 Owner decisions, 19 October 2026: implementation validation uses Android phone
 and tablet **emulators only**. Physical-device checks elsewhere in this document
@@ -352,7 +352,20 @@ All source meshes, editable textures, font licenses, music licenses, and import 
 
 Reference canvas 1920×1080, 5% safe area. Scale with viewport height, preserving minimum logical button height 48 px at 1080p. At 1280×720, text must remain at least 16 physical pixels for body copy. UI scale options 90%, 100%, 110%, 125%, 150%; scale may reflow menus, never clip required actions. Support 16:9, 16:10, and 21:9; anchor HUD to the safe area, keep menu content within a centered 16:9 region. At 4:3, use a vertically scrolling menu layout; gameplay may render normally with HUD reflow.
 
-Use a permissively licensed condensed bold sans for headings and a highly legible sans for body. Concrete defaults: Barlow Condensed Bold for titles, Barlow SemiBold for controls/body, tabular numerals for times. Bundle font files and licenses. Headline 64 px, section label 32 px, button 28 px, body 24 px, small text 20 px at reference size. Main text #F8F4E8; panel #172C40 at 94% opacity; focus yellow #F3CD48; selected accent turquoise #20BFC5; error coral #F16B50. Color is always paired with icon/text/state change.
+Use the original **Pacific Rush Display** arcade face for section headings,
+buttons, large speed digits and race banners. Its chunky chamfered letterforms
+slant forward, use uppercase forms and equal-advance digits. Use bundled Rajdhani
+SemiBold for descriptions, names, input fields and timers; keep the explicit Noto
+emoji fallback. Ship editable display-font source and licenses. The main title is
+an original transparent illustrated wordmark with airbrushed chrome, warm gradient
+faces, deep extrusions and checkerboard flourishes. Buttons have cobalt/purple
+faces, chunky gold bevels, gloss, checker accents and magenta details. Panels use
+opaque deep-purple chrome frames; static checker/halftone/speed-slash artwork fills
+plain menu backgrounds. High Contrast retains opaque flat panels and clear focus
+borders. Scale fonts with the existing responsive layout; use scrollable content
+and persistent footers at large text sizes. Main text #F8F4E8; focus yellow
+#F3CD48; selected accent turquoise #20BFC5; error coral #F16B50. Color is always
+paired with icon/text/state change. Preserve existing Reduce Motion behavior.
 
 Use squared panels with 8 px corner radius, 2 px bright border on focused controls, and a small right-pointing triangle for focus. No glass blur dependency. Focus transition 0.10 seconds; screen transition horizontal slide 0.18 seconds, replaced by instant cut under Reduce Motion. Sound and visual change confirm clicks. Disabled controls explain why on focus. Tooltips appear after 0.5 seconds of focus and disappear on navigation. No hover-only information.
 
@@ -839,7 +852,10 @@ Revise the interface toward a nostalgic radical arcade presentation: bold techno
 lettering, gloss, saturated accents and energetic panels/buttons. Preserve
 required contrast, scalable text, visible focus, touch targets and reduced-motion
 support. This owner direction supersedes the current clinical dark-panel visual
-treatment; it is a planned implementation change, not completed acceptance.
+treatment. The original wordmark, custom display face and chrome are implemented;
+their current source/native/emulator validation is recorded in docs/STATUS.md.
+The owner specifically rejected the earlier tidy techno treatment as too modern:
+the intended reference is loud late-1990s arcade cabinet graphics.
 
 The owner also approves extending the decorations' dithered look into richer car
 and pavement materials. Add styled paint/surface detail and wear while retaining

@@ -36,6 +36,7 @@ func _init(viewport: Viewport, settings: Dictionary, mobile_override: Variant = 
 		theme.set_color("font_focus_color", type, CREAM)
 		theme.set_font_size("font_size", type, font_size(20 if mobile and type != "Label" else 19 if type != "Label" else 16))
 	for type in ["Button", "OptionButton"]:
+		theme.set_font("font",type,title_font)
 		theme.set_stylebox("normal", type, style(NAVY, CREAM if contrast else Color(0.25, .39, .47),2 if contrast else 1))
 		theme.set_stylebox("hover", type, style(Color(.12, .25, .32), TURQUOISE))
 		theme.set_stylebox("pressed", type, style(Color(.08, .32, .36), TURQUOISE))
@@ -44,6 +45,19 @@ func _init(viewport: Viewport, settings: Dictionary, mobile_override: Variant = 
 	theme.set_stylebox("panel", "PanelContainer", style(Color(NAVY, 1.0 if contrast else .94), CREAM if contrast else Color(.22, .37, .46),2 if contrast else 1))
 	theme.set_stylebox("normal", "LineEdit", style(NAVY, TURQUOISE))
 	theme.set_stylebox("focus", "LineEdit", style(Color(0, 0, 0, 0), YELLOW, 2))
+	if not contrast:
+		for type in ["Button","OptionButton"]:
+			for state: String in ["normal","hover","pressed","disabled","focus"]:
+				theme.set_stylebox(state,type,chrome("button" if state=="normal" else state))
+			theme.set_color("font_shadow_color",type,Color("080a25"))
+			theme.set_constant("shadow_offset_y",type,2)
+			theme.set_constant("outline_size",type,1)
+			theme.set_color("font_outline_color",type,Color("101333"))
+		theme.set_stylebox("panel","PanelContainer",chrome("panel"))
+		theme.set_stylebox("panel","PopupMenu",chrome("panel"))
+		theme.set_stylebox("hover","PopupMenu",chrome("hover"))
+		theme.set_stylebox("normal","LineEdit",chrome("panel"))
+		theme.set_stylebox("focus","LineEdit",chrome("focus"))
 	for type in ["VBoxContainer", "HBoxContainer", "GridContainer"]:
 		theme.set_constant("separation", type, int(10 * unit * scale))
 
@@ -69,12 +83,36 @@ func style(fill: Color, border: Color, width: int = 1) -> StyleBoxFlat:
 	return box
 
 
+func chrome(kind: String) -> StyleBoxTexture:
+	return chrome_box(kind,unit)
+
+
+static func chrome_box(kind: String, logical_unit: float = 1.0) -> StyleBoxTexture:
+	var box := StyleBoxTexture.new()
+	box.texture = load("res://assets/exported/arcade_ui/"+kind+".svg")
+	box.texture_margin_left = 12
+	box.texture_margin_right = 12
+	box.texture_margin_top = 12
+	box.texture_margin_bottom = 12
+	box.content_margin_left = 22*logical_unit
+	box.content_margin_right = 14*logical_unit
+	box.content_margin_top = 8*logical_unit
+	box.content_margin_bottom = 8*logical_unit
+	return box
+
+
 func label(text: String, heading: bool = false) -> Label:
 	var control := Label.new()
 	control.text = text
 	if heading:
 		control.add_theme_font_override("font", title_font)
 		control.add_theme_font_size_override("font_size", font_size(32 if mobile else 43))
+		control.add_theme_color_override("font_color",Color("fff8da"))
+		control.add_theme_color_override("font_shadow_color",Color("e13d9a"))
+		control.add_theme_constant_override("shadow_offset_x",2)
+		control.add_theme_constant_override("shadow_offset_y",3)
+		control.add_theme_color_override("font_outline_color",Color("15103c"))
+		control.add_theme_constant_override("outline_size",2)
 	return control
 
 
@@ -113,8 +151,8 @@ func set_icon(control: Button, id: String) -> void:
 	control.add_theme_constant_override("h_separation",roundi(10*unit))
 	var width := 0.0
 	for line: String in control.text.split("\n"):
-		width = maxf(width,body_font.get_string_size(line,HORIZONTAL_ALIGNMENT_LEFT,-1,theme.get_font_size("font_size","Button")).x)
-	control.custom_minimum_size.x = maxf(control.custom_minimum_size.x,width+24*unit*scale+38*unit)
+			width = maxf(width,title_font.get_string_size(line,HORIZONTAL_ALIGNMENT_LEFT,-1,theme.get_font_size("font_size","Button")).x)
+	control.custom_minimum_size.x = maxf(control.custom_minimum_size.x,width+24*unit*scale+46*unit)
 
 func icon(id: String, base_size: float = 24) -> TextureRect:
 	var control := TextureRect.new()

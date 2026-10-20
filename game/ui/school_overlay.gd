@@ -22,9 +22,7 @@ func _ready() -> void:
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	panel.show_behind_parent = true
-	var box := StyleBoxFlat.new()
-	box.bg_color = UIFactory.NAVY
-	box.set_corner_radius_all(5)
+	var box := UIFactory.chrome_box("panel",unit)
 	box.content_margin_left=16*unit
 	box.content_margin_right=16*unit
 	box.content_margin_top=12*unit

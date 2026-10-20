@@ -9,9 +9,15 @@ func _initialize() -> void:
 	assert(hash.finish().hex_encode() == "72a635cb3d2f3524c51620cdde406b217204e8a6a06c6a096ff8ed4b5fd6e27b")
 	for kind: String in ["body", "heading"]:
 		var font: FontVariation = load("res://assets/fonts/"+kind+".tres")
-		assert(font.fallbacks.size() == 1 and font.fallbacks[0] == emoji)
+		assert(font.fallbacks[0] == emoji)
 		var base: Font = font.base_font
-		# ASCII uses the original heading/body metrics, preserving existing UI.
+		# Explicit emoji fallback must not change this face's ASCII metrics.
+		if kind=="heading":
+			assert(base.get_font_name()=="Pacific Rush Display")
+			assert(font.fallbacks.size()==2 and font.fallbacks[1].resource_path.ends_with("Rajdhani-SemiBold.ttf"))
+			for codepoint in range(32,127): assert(base.has_char(codepoint),"Original display font covers printable ASCII")
+		else:
+			assert(font.fallbacks.size()==1)
 		for size: int in [16, 24, 36, 64]:
 			assert(font.get_string_size("Pacific Rush / 1:29.999", HORIZONTAL_ALIGNMENT_LEFT, -1, size) == base.get_string_size("Pacific Rush / 1:29.999", HORIZONTAL_ALIGNMENT_LEFT, -1, size))
 		# Remove host fallbacks: these characters must come from shipped data.
@@ -30,5 +36,5 @@ func _initialize() -> void:
 			assert(glyph.font_rid.is_valid() and int(glyph.index) != 0)
 			assert(isolated.fallbacks[0].get_rids().has(glyph.font_rid), "Glyph must use bundled emoji font")
 	assert(ProjectSettings.get_setting("internationalization/locale/include_text_server_data"))
-	print("SHIPPED_EMOJI_NOTO_CBDT_SHA_ASCII_METRICS_NO_SYSTEM_GLYPHS_FULL_SEQUENCE_SHAPING_PASS")
+	print("ORIGINAL_ARCADE_ASCII_SHIPPED_EMOJI_NOTO_CBDT_SHA_ASCII_METRICS_NO_SYSTEM_GLYPHS_FULL_SEQUENCE_SHAPING_PASS")
 	quit()

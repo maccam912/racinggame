@@ -1,9 +1,20 @@
 # Readable names in exported games
 
-Body and heading text now use shared `FontVariation` resources with the original
-Barlow faces and an explicit bundled Noto Color Emoji fallback. Every UI/HUD
-font load uses those resources, including captions, help, School overlays and
-3D door-number text. ASCII metrics match the original font at tested sizes.
+Body text uses the bundled Rajdhani SemiBold face. Headings, buttons, large speed
+digits and race banners use **Pacific Rush Display**, an original chamfered,
+forward-slanted arcade face authored from editable letterform patterns in
+[`author_font.py`](../assets/source/arcade-ui/author_font.py). It covers all 95
+printable ASCII codepoints; lowercase selects the uppercase display forms and
+digits have equal advances. Rebuild with `uv run assets/source/arcade-ui/author_font.py`.
+It contains no third-party font outlines and ships under the repository MIT
+license. Descriptions, player names, timers and input fields keep the body face.
+
+Shared `FontVariation` resources include an explicit bundled Noto Color Emoji
+fallback; the heading also falls back to Rajdhani for additional text. Every
+UI/HUD font load uses those resources, including captions, help, School overlays
+and 3D door-number text. Adding the fallback preserves each new base face's ASCII
+metrics at tested sizes. Historical Barlow assets remain available for authored
+landmark geometry; the new presentation does not preserve old Barlow UI metrics.
 Non-emoji scripts retain the existing system fallback behavior.
 
 The Android 15 emulator's system `NotoColorEmoji.ttf` has COLR/CPAL tables.
@@ -34,7 +45,7 @@ python3 tools/godot.py --max-fps 60 --script tests/font_render_evidence.gd
 python3 tools/godot.py -- --text-probe
 ```
 
-The source contract checks the exact font bytes, unchanged ASCII metrics and
+The source contract checks the exact emoji bytes, display alphabet, base-face ASCII metrics and
 complete sequence shaping with host font fallback disabled. Native graphics
 evidence reads back six drawn emoji cells from the actual renderer; Linux
 Compatibility rendering CI preserves that PNG and numeric report even on

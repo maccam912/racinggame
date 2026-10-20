@@ -65,7 +65,7 @@ func run() -> void:
 			app.render_results()
 			await settle()
 			var scroll: ScrollContainer = app.menu.body.get_child(0)
-			assert(scroll.scroll_vertical==0 and viewport_root.gui_get_focus_owner().text==I18n.t("data.retry_save"))
+			assert(scroll.scroll_vertical==0 and viewport_root.gui_get_focus_owner().text==I18n.t("data.retry_save"),"Save Retry must keep first focus: "+str([viewport.id,scale,scroll.scroll_vertical,viewport_root.gui_get_focus_owner().text]))
 	# A deferred reveal from the previous page cannot scroll a replacement menu.
 	var list: VBoxContainer = app.menu.scroll_column(app.menu.reset("Old"))
 	for index in range(20): list.add_child(app.menu.ui.label("Old row "+str(index)))

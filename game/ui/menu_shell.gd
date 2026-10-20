@@ -48,11 +48,14 @@ func reset(title: String, subtitle: String = "", dark: bool = true) -> VBoxConta
 	ui = UIFactory.new(get_viewport(), settings, mobile_override, logical_unit_override)
 	root.theme = ui.theme
 	add_child(root)
-	if dark:
-		var background := ColorRect.new()
-		background.color = Color(.04, .09, .14, .88)
-		background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-		root.add_child(background)
+	var background := TextureRect.new()
+	background.texture = load("res://assets/exported/arcade_ui/backdrop.svg")
+	background.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	background.stretch_mode = TextureRect.STRETCH_SCALE
+	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	background.modulate.a = 1.0 if dark else .22
+	background.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	root.add_child(background)
 	motion = Control.new()
 	motion.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	motion.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -64,7 +67,20 @@ func reset(title: String, subtitle: String = "", dark: bool = true) -> VBoxConta
 	if title != "":
 		var heading := ui.label(title, true)
 		heading.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
-		var title_control: Control = heading if dark else ui.panel(heading)
+		var title_control: Control
+		if title==I18n.t("app.title"):
+			var logo := TextureRect.new()
+			logo.texture = load("res://assets/exported/arcade_ui/pacific-rush-wordmark-v1.png")
+			logo.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+			logo.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+			logo.mouse_filter = Control.MOUSE_FILTER_IGNORE
+			logo.custom_minimum_size = (Vector2(150,56) if ui.mobile else Vector2(350,130))*ui.unit*minf(ui.scale,1.15)
+			logo.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+			logo.accessibility_name = title
+			title_control = logo
+			heading.free()
+		else:
+			title_control = heading if dark else ui.panel(heading)
 		headers.append(title_control)
 		column.add_child(title_control)
 	if subtitle != "":

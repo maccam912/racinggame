@@ -3,6 +3,16 @@ var app: Node
 var rows: Array[Dictionary] = []
 var folder: String
 func _initialize() -> void: call_deferred("run")
+func hold_graphics(child: Node) -> void:
+	if child is TrackLoader:
+		# frame_post_draw may complete the two submissions between SceneTree
+		# process_frame observations on a slow renderer. Hold the existing
+		# foreground guard before its first draw so the phase is observable.
+		child.set_meta("fixture_foreground",child.active)
+		child.active = func() -> bool: return false
+func release_graphics(job: TrackLoader) -> void:
+	job.active = job.get_meta("fixture_foreground")
+	job.warmer.active = job.active
 func until(condition: Callable) -> void:
 	var deadline := Time.get_ticks_msec()+15000
 	while not condition.call() and Time.get_ticks_msec()<deadline: await process_frame
@@ -17,6 +27,7 @@ func run() -> void:
 	app = load("res://game/client_app.gd").new()
 	app.capture_path = "user://unused-shader-reference.png"
 	app.capture_frame = 1000000
+	app.child_entered_tree.connect(hold_graphics)
 	root.add_child(app)
 	await process_frame
 	app.data = AppData.new(folder,false)
@@ -36,7 +47,7 @@ func run() -> void:
 			await RenderingServer.frame_post_draw
 			assert(root.get_texture().get_image().save_png("res://reports/m5-shader-loading.png")==OK)
 			assert(job.warmer.viewport.get_texture().get_image().save_png("res://reports/m5-shader-material-grid.png")==OK)
-			job.warmer.active = job.active
+		release_graphics(job)
 		await until(func() -> bool: return app.page=="race")
 		app.drive.set_physics_process(false)
 		var evidence: Dictionary = app.drive.world.shader_warmup.duplicate(true)
@@ -53,6 +64,7 @@ func run() -> void:
 	var failing: TrackLoader = app.track_loader
 	await until(func() -> bool: return failing.warming)
 	failing.warmer.force_failure = true
+	release_graphics(failing)
 	await until(func() -> bool: return failing.graphics_error)
 	assert(app.page=="loading" and app.drive==null and not failing.done and app.loading_bar.value<1)
 	await RenderingServer.frame_post_draw
@@ -92,7 +104,7 @@ func run() -> void:
 	app.track_loader.warmer.active = func() -> bool: return false
 	for frame in range(8): await process_frame
 	assert(not server.players[0].loaded and client.loaded_race==-1 and server.session==null,"authority receives no Loaded until real shader submissions finish")
-	app.track_loader.warmer.active = app.track_loader.active
+	release_graphics(app.track_loader)
 	await until(func() -> bool: return app.page=="race")
 	app.drive.set_physics_process(false)
 	assert(app.drive.world.shader_warmup.gpu_warmed and server.players[0].loaded and client.guest_id==identity)

@@ -2,6 +2,7 @@ class_name RaceHUD
 extends Control
 
 const HUD_FONT = preload("res://assets/fonts/body.tres")
+const DISPLAY_FONT = preload("res://assets/fonts/heading.tres")
 
 var state: VehicleState
 var track: TrackDefinition
@@ -37,6 +38,7 @@ var observed_laps: int = -1
 var dnf_lap_time: float = -1
 var pause_bounds := Rect2()
 var secondary_bounds := Rect2()
+var arcade_panel := UIFactory.chrome_box("panel")
 const PALETTES: Dictionary = {
 	"standard":["F16B50","20BFC5","F3CD48","8465CC","498DD3","F5EBD3","79C697","B6A4DC"],
 	"deuteranopia":["0072B2","E69F00","56B4E9","F0E442","CC79A7","D55E00","AABBDD","FFFFFF"],
@@ -144,7 +146,7 @@ func _draw() -> void:
 	var position_box: Rect2 = regions.position
 	var clock_box: Rect2 = regions.elapsed
 	var lap_box: Rect2 = regions.lap
-	for box: Rect2 in [position_box,clock_box,lap_box]: draw_style_box(panel(),box)
+	for box: Rect2 in [position_box,clock_box,lap_box]: draw_style_box(display_panel(),box)
 	fitted(position_box.position+Vector2(12,29)*unit,I18n.t("hud.trial") if trial else I18n.t("hud.position",[rank,racers]),int(22*unit),position_box.size.x-24*unit,UIFactory.TURQUOISE)
 	var lap_text := I18n.t("hud.lap", [mini(lap_count, state.laps + 1), lap_count])
 	if mobile:
@@ -164,13 +166,13 @@ func _draw() -> void:
 		fitted(Vector2(clock_box.get_center().x-minf(delta_width,clock_box.size.x-16*unit)/2,clock_box.position.y+56*unit),delta_text,delta_font,clock_box.size.x-16*unit,UIFactory.TURQUOISE if trial_delta!=null and float(trial_delta)<0 else UIFactory.CREAM)
 	if network_level>0:
 		var origin := lap_box.position+Vector2(lap_box.size.x-28*unit,lap_box.size.y+4*unit)
-		draw_style_box(panel(),Rect2(origin-Vector2(4,0)*unit,Vector2(32,32)*unit))
+		draw_style_box(display_panel(),Rect2(origin-Vector2(4,0)*unit,Vector2(32,32)*unit))
 		draw_texture_rect(UIIcons.texture("connection_poor" if network_level==2 else "connection_caution"),Rect2(origin+Vector2(0,4)*unit,Vector2(24,24)*unit),false)
 	var map_origin := Vector2(safe.x + 10, canvas.y - safe.y - 155)
 	var map_factor := minf(130 * unit / 220, 90 * unit / 160)/scale_value if mobile else 1.0
 	if mobile:
 		map_origin = Vector2(safe.x + 10 * map_factor, safe.y + 55 * unit + 10 * map_factor)
-	draw_style_box(panel(), Rect2(map_origin - Vector2(10, 10) * map_factor, Vector2(220, 160) * map_factor))
+	draw_style_box(display_panel(), Rect2(map_origin - Vector2(10, 10) * map_factor, Vector2(220, 160) * map_factor))
 	map_origin += (Vector2(200,140)-map_size)*map_factor/2
 	var screen_points := PackedVector2Array()
 	for p: Vector2 in map_points:
@@ -197,8 +199,8 @@ func _draw() -> void:
 	if mobile:
 		speed_at = Vector2(canvas.x / 2 - 70 * speed_unit, canvas.y * .81)
 		if secondary_bounds.has_area(): speed_at.y = secondary_bounds.position.y/ui_scale-14*speed_unit
-	draw_style_box(panel(), Rect2(speed_at - Vector2(10, 26) * speed_unit, Vector2(150, 36) * speed_unit) if mobile else Rect2(speed_at - Vector2(15, 60), Vector2(195, 90)))
-	text(speed_at, str(speed), int(30 * speed_unit) if mobile else 64)
+	draw_style_box(display_panel(), Rect2(speed_at - Vector2(10, 26) * speed_unit, Vector2(150, 36) * speed_unit) if mobile else Rect2(speed_at - Vector2(15, 60), Vector2(195, 90)))
+	display_text(speed_at, str(speed), int(30 * speed_unit) if mobile else 64)
 	text(speed_at + Vector2(90 * speed_unit if mobile else 125, 0), "MPH" if mph else "KM/H", int(16 * speed_unit) if mobile else 20, Color.html("20BFC5"))
 	if not mobile:
 		var tach_at := speed_at+Vector2(0,12)*unit
@@ -209,9 +211,9 @@ func _draw() -> void:
 	if trial and not state.trial_valid:
 		text(Vector2(canvas.x * .3, canvas.y * .14), I18n.t("hud.invalid"), 20, Color.html("F16B50"))
 	if banner != "":
-		var font_size := mini(64,maxi(16,int(64*canvas.x*.9/maxf(1,HUD_FONT.get_string_size(banner,HORIZONTAL_ALIGNMENT_LEFT,-1,64).x))))
-		var width := HUD_FONT.get_string_size(banner,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
-		text(Vector2((canvas.x-width)/2,canvas.y*.32),banner,font_size,Color.html("F3CD48"))
+		var font_size := mini(64,maxi(16,int(64*canvas.x*.9/maxf(1,DISPLAY_FONT.get_string_size(banner,HORIZONTAL_ALIGNMENT_LEFT,-1,64).x))))
+		var width := DISPLAY_FONT.get_string_size(banner,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
+		display_text(Vector2((canvas.x-width)/2,canvas.y*.32),banner,font_size,Color.html("F3CD48"))
 	if recovery_armed:
 		var help := I18n.t("hud.recover_again")
 		var font_size := int(16*unit)
@@ -221,6 +223,16 @@ func _draw() -> void:
 		var center := speed_at-Vector2(35,18)
 		draw_texture_rect(UIIcons.texture("action_recover"),Rect2(center-Vector2.ONE*12,Vector2.ONE*24),false)
 		draw_arc(center,20,-PI/2,-PI/2+TAU*state.recovery_hold_ticks/30.0,30,UIFactory.YELLOW,5)
+
+
+func display_text(at: Vector2, value: String, size_value: int, color: Color = UIFactory.CREAM) -> void:
+	draw_string_outline(DISPLAY_FONT,at+Vector2(1,2),value,HORIZONTAL_ALIGNMENT_LEFT,-1,size_value,3,Color("97196c"))
+	draw_string_outline(DISPLAY_FONT,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,size_value,2,Color("171039"))
+	draw_string(DISPLAY_FONT,at,value,HORIZONTAL_ALIGNMENT_LEFT,-1,size_value,color)
+
+
+func display_panel() -> StyleBox:
+	return panel() if high_contrast else arcade_panel
 
 
 func panel() -> StyleBoxFlat:

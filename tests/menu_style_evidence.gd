@@ -43,8 +43,28 @@ func run() -> void:
 	app.show_menu()
 	assert(app.menu.motion.position.x==0)
 	await capture("reduced-motion-cut",1)
+	app.data.mobile = true
+	app.menu.mobile_override = true
+	app.menu.logical_unit_override = 1.0
+	for layout: Dictionary in [{"id":"phone","size":Vector2i(884,398)},{"id":"tablet","size":Vector2i(1280,800)}]:
+		root.size = layout.size*2 if layout.id=="phone" else layout.size
+		root.content_scale_size = layout.size
+		for scale_value: int in [100,150]:
+			app.data.settings.ui_scale = scale_value
+			app.show_menu()
+			await capture(layout.id+"-main-"+str(scale_value))
+			assert(app.menu.body.size.y>=48,"narrow mobile menu retains at least one full touch row")
+			for button: Button in app.menu.footer.find_children("*","Button",true,false):
+				assert(root.get_visible_rect().encloses(button.get_global_rect()),"mobile footer remains inside the viewport")
+			app.show_garage("quick")
+			await capture(layout.id+"-garage-"+str(scale_value))
+			app.settings_page.show_tab("display",app.show_menu)
+			await capture(layout.id+"-settings-"+str(scale_value))
+	app.data.settings.high_contrast = true
+	app.settings_page.show_tab("accessibility",app.show_menu)
+	await capture("tablet-high-contrast-150")
 	var file := FileAccess.open("res://reports/m4-menu-reference.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"resolution":[1920,1080],"renderer":"Godot 4.6.3 Compatibility","captures":captures,"screen_transition_seconds":.18,"focus_transition_seconds":.1,"focus_help_seconds":.5,"boundary":"Native menu renders and deterministic keyboard/focus tests. No human comprehension, screen-reader or physical input-device acceptance."},"  "))
+	file.store_string(JSON.stringify({"desktop_resolution":[1920,1080],"mobile_layouts":[[884,398],[1280,800]],"renderer":"Godot 4.6.3 Compatibility","captures":captures,"screen_transition_seconds":.18,"focus_transition_seconds":.1,"focus_help_seconds":.5,"boundary":"Native desktop menu renders with explicit mobile-layout overrides, 100/150 percent scale, plus deterministic keyboard/focus tests. These are not Android APK captures, human comprehension, screen-reader or physical input-device acceptance."},"  "))
 	file.close()
 	app.queue_free()
 	await create_timer(.5).timeout

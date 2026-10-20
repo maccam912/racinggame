@@ -101,7 +101,7 @@ func _process(dt: float) -> void:
 		caption.add_theme_color_override("font_color",UIFactory.CREAM)
 		caption.add_theme_font_size_override("font_size",shell.ui.font_size(16))
 		caption.custom_minimum_size.x = width-28*shell.ui.unit
-		panel.add_theme_stylebox_override("panel",shell.ui.style(UIFactory.NAVY,UIFactory.YELLOW,2))
+		panel.add_theme_stylebox_override("panel",shell.ui.style(UIFactory.NAVY,UIFactory.YELLOW,2) if bool(shell.settings.get("high_contrast",false)) else shell.ui.chrome("hover"))
 	panel.size = Vector2(width,panel.get_combined_minimum_size().y)
 	var at := Vector2(bounds.position.x,bounds.end.y+8*shell.ui.unit)
 	if side: at = Vector2(bounds.end.x+8*shell.ui.unit,bounds.position.y)

@@ -710,8 +710,8 @@ func render_results() -> void:
 	var local_result: Control
 	if not result_summary.saved:
 		list.add_child(menu.ui.paragraph(I18n.t("data.save_failed")))
-		list.add_child(menu.ui.paragraph(I18n.t("data.cup_unsaved" if session.mode=="cup" else "data.continue_unsaved_help")))
 		list.add_child(menu.ui.button(I18n.t("data.retry_save"), retry_result_save))
+		list.add_child(menu.ui.paragraph(I18n.t("data.cup_unsaved" if session.mode=="cup" else "data.continue_unsaved_help")))
 	elif result_summary.new_best:
 		list.add_child(menu.ui.label(I18n.t("results.new_best"), true))
 	if session.mode == "trial":
@@ -895,7 +895,7 @@ func show_online() -> void:
 
 func update_online_status(state: String) -> void:
 	if is_instance_valid(online_status) and page=="main":
-		online_status.text = build_name()+" • "+I18n.t("menu."+{"connecting":"connecting","online":"online_status"}.get(state,"offline"))
+		online_status.text = I18n.t("menu."+{"connecting":"connecting","online":"online_status"}.get(state,"offline"))
 
 
 func show_connection_form() -> void:

@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "base_commit": "f3fa17dd911d88bd860db4ffa8b4134371d2e9cb",
+  "content_hash": "4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a",
+  "finishes": 80,
+  "elapsed_seconds": 1883.1910592259999,
+  "max_clear_p95_m": 0.0410579554736614,
+  "min_clear_samples": 1321,
+  "memory": {
+    "measured": true,
+    "baseline": {
+      "elapsed": 300.71915550499995,
+      "cars": 8,
+      "deadline_misses": 1,
+      "full_window": true,
+      "max_us": 20733,
+      "p95_us": 9190,
+      "p99_us": 12134,
+      "rss_bytes": 127201280,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    "end": {
+      "elapsed": 901.7320161709999,
+      "cars": 8,
+      "deadline_misses": 0,
+      "full_window": true,
+      "max_us": 7113,
+      "p95_us": 4712,
+      "p99_us": 5259,
+      "rss_bytes": 126840832,
+      "samples": 1800,
+      "version": 1,
+      "window_us": 30000000
+    },
+    "warmup_peak_rss_bytes": 127201280,
+    "peak_rss_bytes": 129175552,
+    "peak_growth_fraction": 0.015520850104653035,
+    "retained_growth_fraction": -0.0028336821767831477,
+    "scope": "Peak during repeated loading/racing cycles after five-minute warm-up versus peak through minute five. All transients reported. This is not the continuous worst-track PERF-01 fixture."
+  },
+  "checks": {
+    "client_exit": true,
+    "identical_standings": true,
+    "all_finish_same_eight": true,
+    "bounded_racing_control": true,
+    "clear_coverage_500_each": true,
+    "clear_p95_025m_each": true,
+    "racing_wire_intervals": true,
+    "wire_budgets": true,
+    "rss_growth_005": true,
+    "rss_below_256MB": true,
+    "engine_logs": true,
+    "source_manifest_unchanged": true
+  },
+  "run_url": "https://github.com/maccam912/racinggame/actions/runs/39354873955",
+  "job_id": 118409567976,
+  "boundary": "Actual GitHub-hosted Linux source-worker ten-race impairment fixture. The separate graphical job failed, so this run produced no release."
+}

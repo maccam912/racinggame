@@ -1,5 +1,45 @@
 # Implementation status
 
+## 19 October — original arcade interface and strict render follow-up
+
+The owner rejected the tidy techno treatment as too modern. The new interface
+uses an original generated chrome/airbrush title wordmark, the original **Pacific
+Rush Display** chamfered italic face, saturated cobalt/purple/gold glossy frames,
+checker accents and static halftone/speed-slash backgrounds. Smaller text, names
+and times use bundled Rajdhani SemiBold with the existing Noto emoji fallback.
+Display-font source, TrueType output, font licenses, editable SVG chrome and
+the exact built-in image-generation prompt ship in the asset manifest. The
+speed digits and countdown use the new display lettering too. Main-menu status
+shows connectivity; detailed build identity remains available in Credits.
+
+The narrow 150% phone layout exposed an oversized title/footer combination;
+the mobile wordmark is compact and keeps at least one full touch row above the
+footer. The save-failure result page now places Retry immediately after its
+warning, before the longer explanation, preserving visible first focus at 150%.
+Numeric state, saving behavior and menu actions are unchanged. Native menu
+evidence covers desktop and explicit phone/tablet layout overrides at 100/150%,
+plus High Contrast; these renders are separate from actual APK validation.
+
+Build 98's actual GitHub-hosted Linux ten-race source-worker soak passed with
+**80 matching finishes**, minimum **1,321** clear-road samples per client/race,
+worst clear p95 **0.04106 m**, and 1.5521% peak RSS growth during the measured
+repeated-cycle window. Its separate adaptive graphics fixture failed, so the
+parent run produced no release. [Complete Linux soak evidence](evidence/ci98-ten-race/).
+
+Build 99's corrected strict graphics job passed sixteen commands, including
+adaptive resolution, then exposed a shader-fixture observation race: GPU
+preparation completed before the loop observed its temporary `warming` phase.
+The fixture now holds the existing foreground guard before drawing, inspects
+the stage, and releases it for real two-frame GPU readback. Production shader
+loading and the 15-second stage deadline are unchanged. Native 60 fps and
+deliberately slow 3 fps runs pass all six courses, failure/Retry, Cancel and real
+ENet Loaded ordering. [Original failure and local follow-up](evidence/graphics-phase101/).
+All **92 final source commands pass** with complete raw logs, alongside 19 native
+menu captures, seven posed HUD references and real six-cell bundled emoji
+readback. [Interface and source evidence](evidence/arcade-ui101/). Corrected remote
+graphics execution and the new interface's release packages remain pending in
+this checkpoint.
+
 Owner scope update, 19 October 2026: use phone/tablet **emulators only** for this
 implementation. Physical checks in historical checkpoints are optional owner
 follow-up, not blockers. Human usability, real thermal behavior and other hardware
