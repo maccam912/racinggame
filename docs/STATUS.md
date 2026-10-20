@@ -1,5 +1,9 @@
 # Implementation status
 
+## 20 October — six-race installed-APK lifetime/cross-play pass
+
+The actual clean local Build112 APK and seven native clients complete **six impaired new-course races / 48 matching finishes** in **1,193.122 s**, retaining all eight identities and the same Android process. All six worlds complete graphics preparation and all six Android result journals commit. Every native client receives final gates **74/88**; separate arithmetic over all 42 native race metrics gives minimum **854 clear samples** and worst clear p95 **0.0408212 m**. Explicit Android process-memory acceptance passes: peak **434,458,624 bytes**, five-to-fifteen-minute comparable cycle growth **2.246021%**, full window coverage and no cleanup issues. [Exact APK/source identities, raw observations and fixtures](evidence/waterworks112/mixed-six-race/). This emulator population excludes separate GPU/host allocations and does not establish human touch or minimum-hardware performance.
+
 ## 20 October — Build 112 published; Build 113 clear-sample coverage failure
 
 [Build 112](https://github.com/maccam912/racinggame/releases/tag/v0.0.112-dev) publishes all **18 files** from clean `8b9fe9a`, with all **32 required jobs passing** and two correct unchanged-gameplay AI/soak skips. Tag, six metadata files and six GitHub payload digests match. Its exact downloaded public APK updates public Build 111 on a separate Android 15 emulator, preserving the UID/signer and all **28 existing files** before launch; ordinary exported Spillway gameplay then renders the new machinery. [Publication and actual public APK evidence](evidence/release112/).

@@ -1,0 +1,15 @@
+{
+  "passed": true,
+  "checks": {
+    "report_passed": true,
+    "native_race_metrics": true,
+    "native_clear_500_each": true,
+    "native_clear_p95_025m_each": true,
+    "final_gates_74_88": true,
+    "complete_emulator_memory_checks": true,
+    "cleanup": true
+  },
+  "native_min_clear_samples": 854,
+  "native_max_clear_p95_m": 0.0408211685717106,
+  "scope": "Additional arithmetic over the unchanged raw summary; the helper gates memory explicitly for this one-lap population. Android correction samples are not measured by these native-only metrics."
+}

@@ -82,3 +82,11 @@ Complete warm-up/window coverage is required, and whole-run RSS cap checks also
 include samples after minute 15. Separate GPU/emulator-host allocations are
 unmeasured; these are independent from the native desktop figures above.
 [Exact helper regressions and preserved initial interruption](evidence/emulator-memory-scope/).
+
+The [current waterworks six-race run](evidence/waterworks112/mixed-six-race/)
+passes with the actual clean Build112 APK and seven native clients: **48 matching
+finishes**, six graphics loads/result journals, the same Android PID and all eight
+identities over **1,193.122 s**. Explicit memory checks pass at a **434,458,624-byte**
+process peak and **2.246021%** comparable cycle growth. Gameplay/asset identities
+are `f762fa68` / `15a71230`. These are Android process VmRSS measurements; the
+native desktop lifetime figures above retain their separate source/asset labels.
