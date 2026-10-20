@@ -231,6 +231,7 @@ func build_scenery_batch(first: int, last: int) -> void:
 		var id := "sandstone_rock" if track.id=="sunstone_canyon" else "summit_peak"
 		var lateral := (-95 if first%320==0 else 100) if track.id=="sunstone_canyon" else -135
 		var pose := scenery_pose(first+40,lateral)
+		pose.basis = pose.basis.rotated(Vector3.UP,float((first/160)%7-3)*.17)
 		if clear_of_road(pose.origin,25 if id=="sandstone_rock" else 52): batches[id] = [pose] as Array[Transform3D]
 	if track.id=="pacific_summit":
 		var pose := scenery_pose(first+20,-48)

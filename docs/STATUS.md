@@ -811,3 +811,23 @@ and Summit's flight: [footage and reproduction notes](evidence/content5/footage/
 The required ten-race Linux soak now automatically runs after gameplay identity
 changes and gates publishing; it can also be requested manually. Cosmetic-only
 pushes retain the ordinary source, rendering, network and packaged-race gates.
+
+## Original rock geometry and shared-atlas follow-up
+
+Canyon buttes now have stepped strata and Summit has uneven paired ridges, with
+explicit three-level LODs. Original mathematical wood/stone/strata detail remains
+inside the shared palette atlases. Every vertex at all three levels fits the
+existing conservative road-clearance envelope; driving geometry is unchanged.
+The 47 GLBs now retain UVs/material slots without duplicate embedded atlas images,
+reducing geometry files from 3,929,256 to 3,072,752 bytes. This is a file-size
+measurement, not a runtime-memory claim. [Authoring and numeric details](SCENERY_DETAIL.md).
+
+All **90 source commands** pass again, including the 13 Python cases and actual
+engine geometry checks. Native views of all 47 assets at all three LODs and the
+Canyon/Summit road approaches were inspected. All-six native shader warm-up,
+readback and real ENet Loaded/retry/cancel/background checks also pass:
+[source/render evidence](evidence/scenery-detail/). Cosmetic digest becomes
+`442367da36de66721bbb1ac5b6f666880ab372f9ede98afa1be8573399ecbb74`;
+gameplay remains `4eaef43b…`, content 5/protocol 5/save 1. The capture helper now
+accepts an explicit expected tablet resolution and validates it without resizing.
+Matching exported phone/tablet/desktop follow-up remains pending at this point.

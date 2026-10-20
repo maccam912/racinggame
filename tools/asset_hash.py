@@ -148,6 +148,7 @@ def validate_scenery():
         size,kind=struct.unpack_from('<II',data,12)
         assert kind==0x4E4F534A
         gltf=json.loads(data[20:20+size])
+        assert not gltf.get('images') and not gltf.get('textures'),row['id']+' must use the runtime shared atlas instead of embedding duplicate images'
         counts={}
         for node in gltf['nodes']:
             if 'mesh' not in node: continue

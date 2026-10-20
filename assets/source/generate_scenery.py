@@ -18,7 +18,7 @@ OUT = ROOT/'assets/exported/scenery'
 TEXTURES = ROOT/'assets/exported/textures'
 COLORS = {'cream':'F3E4C4','terracotta':'B96344','dark':'172C40','wood':'865435',
           'leaf':'5E9654','glass':'3C7089','orange':'ED9B3B','sandstone':'D58C53',
-          'stone':'A9B7A8','sea':'31BFC1','windows':'E8D8B7','lit_windows':'436E8A',
+          'stone':'A5A4A0','sea':'31BFC1','windows':'E8D8B7','lit_windows':'436E8A',
           'yellow':'F3CD48','coral':'F16B50','white':'F8F4E8','trim':'8CA2AA'}
 PALETTE = list(COLORS)
 MATERIALS = {}
@@ -46,7 +46,22 @@ def atlas(name,size):
             if role in ['windows','lit_windows']:
                 if .13 < (u*4)%1 < .79 and .18 < (v*3)%1 < .77:
                     color = '32556A' if role=='windows' else 'F3CD82'
-            pixels.extend((*[linear(c) for c in rgb(color)],1))
+            shade = 1.0
+            # Original, deterministic painted grain in the existing palette cells.
+            # Keep the broad value readable at speed; mipmaps retire fine detail.
+            grain = math.sin(x*12.9898+y*78.233)*43758.5453
+            grain = grain-math.floor(grain)-.5
+            if role in ['sandstone','terracotta']:
+                strata = math.sin(v*math.tau*19+.45*math.sin(u*math.tau*2))
+                seam = abs(math.sin(v*math.tau*7+.18*math.sin(u*math.tau*3)))
+                shade = .97+.055*strata+.035*grain-(.13 if seam<.065 else 0)
+            elif role in ['stone','trim']:
+                veins = abs(math.sin((u+v*.7)*math.tau*5+.65*math.sin(v*math.tau*3)))
+                shade = .99+.09*grain-(.12 if veins<.05 else 0)
+            elif role=='wood':
+                growth = math.sin(u*math.tau*27+.8*math.sin(v*math.tau*2))
+                shade = .96+.095*growth+.045*grain
+            pixels.extend((*[linear(min(1,max(0,c*shade))) for c in rgb(color)],1))
     image.pixels.foreach_set(pixels)
     image.filepath_raw = str(TEXTURES/(name+'.png'))
     image.file_format = 'PNG'
@@ -201,6 +216,41 @@ def ring(center,radius,minor,role='cream',segments=48):
     for i in range(segments):
         for j in range(cross): faces.append((i*cross+j,i*cross+(j+1)%cross,((i+1)%segments)*cross+(j+1)%cross,((i+1)%segments)*cross+j))
     return mesh(CURRENT+'_Ring',vertices,faces,role)
+
+
+def crag(at,radius,height,profile,roles,sides,depth=.78,phase=0,jagged=.018):
+    """Eroded rings form a closed rock, with explicit shelves and ridge drift.
+
+    All rings stay inside the original clearance envelope. Role changes share
+    the ordinary atlas/material after joining, so strata add no draw surfaces.
+    """
+    rings=[]
+    for t,factor in profile:
+        ring_vertices=[]
+        for index in range(sides):
+            angle=index*math.tau/sides
+            ridge=.84+.11*math.sin(angle*3+phase)+.05*math.sin(angle*5-phase)
+            distance=radius*factor*ridge
+            drift_x=radius*.11*t*math.sin(phase+.8)
+            drift_y=radius*.07*t*math.cos(phase+.4)
+            z=height*t
+            if 0<t<1: z+=height*jagged*math.sin(angle*3+phase)*math.sin(t*math.pi)
+            ring_vertices.append((at[0]+drift_x+math.cos(angle)*distance,
+                                  at[1]+drift_y+math.sin(angle)*distance*depth,at[2]+z))
+        rings.append(ring_vertices)
+    mesh(CURRENT+'_RockBase',rings[0],[tuple(reversed(range(sides)))],roles[0])
+    for band in range(len(rings)-1):
+        vertices=rings[band]+rings[band+1]
+        # Alternating diagonals avoid the regular cone-shaped shading fans.
+        faces=[]
+        for index in range(sides):
+            nxt=(index+1)%sides
+            if (index+band)%2:
+                faces.extend([(index,nxt,index+sides),(nxt,nxt+sides,index+sides)])
+            else:
+                faces.extend([(index,nxt,nxt+sides),(index,nxt+sides,index+sides)])
+        mesh(CURRENT+'_RockLayer'+str(band),vertices,faces,roles[min(band,len(roles)-1)])
+    mesh(CURRENT+'_RockCrown',rings[-1],[tuple(range(sides))],roles[-1])
 
 
 def model(identifier):
@@ -397,12 +447,22 @@ def model(identifier):
         for x in [-9,9]: box((x,-6.2,9),(.3,.4,18),'coral')
         box((0,0,-1.2),(20,14,2.4),'stone')
     elif identifier=='sandstone_rock':
-        cylinder((0,0,11),18,22,'sandstone',7,top=10)
-        cylinder((0,0,13),14.5,2,'terracotta',7,top=14)
-        cylinder((3,0,22),10,2,'cream',7,top=8)
+        profiles=[[(0,1),(.12,.94),(.38,.84),(.43,.87),(.73,.63),(.79,.68),(1,.51)],
+                  [(0,1),(.38,.84),(.43,.87),(.79,.68),(1,.51)],
+                  [(0,1),(.43,.87),(.79,.68),(1,.51)]]
+        roles=[['sandstone','sandstone','terracotta','sandstone','cream','sandstone'],
+               ['sandstone','terracotta','sandstone','cream'],['sandstone','terracotta','cream']]
+        crag((0,0,0),20,24,profiles[MODEL_LEVEL],roles[MODEL_LEVEL],[12,8,6][MODEL_LEVEL],.76,.7)
+        if MODEL_LEVEL<2:
+            crag((11,5,0),5.6,8,[(0,1),(.4,.92),(.7,.65),(1,.54)],
+                 ['sandstone','terracotta','sandstone'],[8,6][MODEL_LEVEL],.85,1.8)
     elif identifier=='summit_peak':
-        cylinder((0,0,27.5),48,55,'stone',9,top=0)
-        cylinder((7,5,14),30,28,'sandstone',7,top=0)
+        profiles=[[(0,1),(.2,.96),(.48,.68),(.64,.59),(.85,.24),(1,.035)],
+                  [(0,1),(.2,.96),(.48,.68),(.71,.43),(1,.035)],
+                  [(0,1),(.48,.68),(1,.035)]]
+        crag((-4,-2,0),42,55,profiles[MODEL_LEVEL],['stone'],[12,8,6][MODEL_LEVEL],.72,.4,.055)
+        crag((25,8,0),20,43,[(0,1),(.25,.95),(.66,.47),(1,.045)] if MODEL_LEVEL<2 else [(0,1),(.5,.65),(1,.045)],
+             ['sandstone','stone','stone'],[10,6,5][MODEL_LEVEL],.7,1.9,.045)
     else:
         raise ValueError(identifier)
 
@@ -559,7 +619,9 @@ def export(identifier,category,index):
     for obj in lods: obj.select_set(True)
     bpy.context.view_layer.objects.active=root
     path=OUT/(identifier+'.glb')
-    bpy.ops.export_scene.gltf(filepath=str(path),export_format='GLB',use_selection=True,export_yup=True,export_materials='EXPORT',export_image_format='AUTO',export_extras=True)
+    # Runtime assigns one shared palette per category. Keep UVs/material slots
+    # without embedding the same atlas bytes in every geometry file.
+    bpy.ops.export_scene.gltf(filepath=str(path),export_format='GLB',use_selection=True,export_yup=True,export_materials='PLACEHOLDER',export_image_format='AUTO',export_extras=True)
     payload=path.read_bytes()
     gltf=json.loads(payload[20:20+struct.unpack_from('<I',payload,12)[0]])
     exported={}

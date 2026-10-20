@@ -8,7 +8,8 @@ still require the owner's details. Neither official region is currently hosted.
 
 **Short description:** Race four original cars across six courses in a 3D arcade racer.
 
-**Description:** Take the scenic route at speed. Pacific Rush is an original 3D
+**Description:** Charge over steep hills, sweep through corners and fly across
+the Summit crest. Pacific Rush is an original 3D
 arcade racing game with four cars, eight paint colors and six courses through
 beaches, citrus country, redwoods, city streets, desert and mountain scenery.
 
@@ -46,6 +47,11 @@ Desktop captures run at 1920×1080; the named Android emulator runs at its actua
 export identity, settings, world/output dimensions, race tick and vehicle state.
 The helper rejects menus, wrong dimensions, stationary cars and missing touch HUD.
 Desktop frames represent macOS; they do not prove Windows/Linux rendering.
+
+For the owned Pixel Tablet emulator use `--android-serial emulator-5582
+--expected-resolution 2560 1600` with a new output folder. The helper checks this
+explicit expected size against both PNG dimensions and the game's metadata;
+it does not resize the tablet output or change Android display configuration.
 
 Use `--track=TRACK_ID` for a single-track repeat into a fresh folder. The command
 line capture path requires a diagnostic profile and `--autodrive`; it never saves

@@ -13,7 +13,7 @@ from bootstrap import ROOT
 PACKAGE = 'dev.pacificrush.game'
 
 
-def verify(path, track, mobile, tick):
+def verify(path, track, mobile, tick, expected_size=None):
     image = path.read_bytes()
     assert image[:8] == b'\x89PNG\r\n\x1a\n'
     size = struct.unpack('>II', image[16:24])
@@ -25,7 +25,7 @@ def verify(path, track, mobile, tick):
     assert value['touch'] == mobile and value['camera'] == 'near'
     assert value['settings']['preset'] == 'medium'
     assert size == (value['width'], value['height'])
-    assert size == ((2400, 1080) if mobile else (1920, 1080))
+    assert size == (expected_size or ((2400, 1080) if mobile else (1920, 1080)))
     assert value['png_sha256'] == hashlib.sha256(image).hexdigest()
     assert value['build']['target_platform'] in (['android'] if mobile else ['macos', 'windows', 'linux'])
     return value
@@ -39,6 +39,8 @@ def main():
     parser.add_argument('--adb', type=Path, default=Path.home()/'Library/Android/sdk/platform-tools/adb')
     parser.add_argument('--out', required=True, type=Path)
     parser.add_argument('--race-tick', type=int, default=1200)
+    parser.add_argument('--expected-resolution', nargs=2, type=int, metavar=('WIDTH', 'HEIGHT'),
+                        help='Explicit capture size, including an owned tablet emulator; defaults to phone/desktop baselines')
     parser.add_argument('--track', action='append', help='Default: all six, in catalog order')
     args = parser.parse_args()
     args.out = args.out.resolve()
@@ -47,8 +49,10 @@ def main():
     tracks = args.track or catalog
     assert set(tracks) <= set(catalog) and 0 < args.race_tick <= 18000
     mobile = bool(args.android_serial)
+    expected_size = tuple(args.expected_resolution or ((2400,1080) if mobile else (1920,1080)))
+    assert all(640 <= size <= 8192 for size in expected_size)
     run = uuid.uuid4().hex[:10]
-    summary = {'passed': False, 'boundary': 'Unretouched native export gameplay, diagnostic ordinary AI inputs; no physical-device, human driving, other OS render or storefront approval claim.', 'captures': []}
+    summary = {'passed': False, 'boundary': 'Unretouched native export gameplay, diagnostic ordinary AI inputs; no physical-device, human driving, other OS render or storefront approval claim.', 'expected_resolution':list(expected_size), 'captures': []}
     def adb(*command, **options):
         return subprocess.run([str(args.adb), '-s', args.android_serial, *command], check=True, **options)
     if mobile:
@@ -105,11 +109,11 @@ def main():
                 adb('shell', 'mv', folder, archive, capture_output=True)
             else:
                 with output.with_suffix('.log').open('w') as log:
-                    subprocess.run([str(args.desktop_binary), '--resolution', '1920x1080', '--', *options],
+                    subprocess.run([str(args.desktop_binary), '--resolution', 'x'.join(map(str,expected_size)), '--', *options],
                                    cwd=args.desktop_binary.parent, stdout=log, stderr=subprocess.STDOUT, check=True, timeout=240)
                 log_text = output.with_suffix('.log').read_text()
                 assert not any(marker in log_text for marker in ['SCRIPT ERROR:', 'ERROR:', 'instances leaked']), 'Export capture emitted engine/shutdown errors; inspect '+str(output.with_suffix('.log'))
-            value = verify(output, track, mobile, args.race_tick)
+            value = verify(output, track, mobile, args.race_tick, expected_size)
             value['png'] = output.name
             if archive: value['owned_profile_archive'] = archive
             summary['captures'].append(value)

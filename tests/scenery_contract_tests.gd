@@ -23,6 +23,12 @@ func run() -> void:
 			assert(mesh.get_surface_count()==1)
 			var arrays := mesh.surface_get_arrays(0)
 			assert(arrays[Mesh.ARRAY_INDEX].size()/3==int(row.triangles[level]))
+			if row.category=="landscape":
+				for point: Vector3 in arrays[Mesh.ARRAY_VERTEX]:
+					var clearance := 25.0 if id=="sandstone_rock" else 52.0
+					var height := 24.0 if id=="sandstone_rock" else 55.0
+					assert(point.is_finite() and Vector2(point.x,point.z).length()<=clearance,"every rock LOD stays inside its roadside clearance envelope")
+					assert(point.y>=-.001 and point.y<=height+.001,"closed rock meshes stay rooted with bounded heights")
 			if row.category=="foliage" and level<2:
 				var texture: Texture2D = load("res://assets/exported/textures/foliage_atlas.png")
 				var pixels := texture.get_image()

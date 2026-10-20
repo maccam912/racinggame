@@ -68,7 +68,7 @@ func run() -> void:
 			label.add_theme_color_override("font_color",Color("172C40"))
 			canvas.add_child(label)
 			index += 1
-		for level in [0,2]:
+		for level in [0,1,2]:
 			for model: Node3D in models:
 				for node: MeshInstance3D in model.find_children("*","MeshInstance3D",true,false):
 					node.visible = CourseArt.level_of(str(node.name))==level
@@ -79,5 +79,5 @@ func run() -> void:
 			root.get_texture().get_image().save_png("res://reports/m4-"+category+"-library-lod"+str(level)+".png")
 		canvas.queue_free()
 		for frame in range(8): await process_frame
-	print("SCENERY_ORIGINAL_LIBRARY_NATIVE_LOD0_AND_SILHOUETTES_PASS")
+	print("SCENERY_ORIGINAL_LIBRARY_NATIVE_THREE_LODS_AND_SILHOUETTES_PASS")
 	quit()
