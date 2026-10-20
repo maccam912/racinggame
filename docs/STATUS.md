@@ -951,3 +951,26 @@ random UUIDs; old bytes and the failed report remain under
 [validation evidence](evidence/validation96/). The corrected **91-command source
 matrix passes**, including all 24 Gold cases and the actual 15-second lease.
 The actual supervisor lifecycle follow-up is running at this checkpoint.
+
+That follow-up now passes all **five actual supervisor scenarios**: idle drain,
+graceful active race, crash/restart, overlapping rollout and recovered-worker
+shutdown. Every case finishes with zero worker rows and no cleanup issue:
+[current lifecycle evidence](evidence/validation96/lifecycle/).
+
+## Menu preview clearance
+
+A native keyboard check of the published game exercises acceleration to a visible
+153 mph, steering/braking, Pause and keyboard return/quit. It is an automated key
+check, not human handling acceptance. It also reveals a nearby illustrated palm
+obscuring the parked car as the Main Menu camera orbits. Preview placement now
+excludes nearby scenery before creating billboard faces, their footprints and
+3D LODs; it no longer relies on GPU instance readback or former grass-only names.
+
+The actual native before/after census changes six nearby instances to zero;
+the nearest retained decoration is **19.105 m** away. A separate racing world
+retains all **1,966** original instances. All **32 native views** cover eight
+orbit angles for each car. Representative all-car views, actual Main Menu and
+150% Garage were reviewed. Five affected source suites pass, including all 112
+shipped scripts and memory-pressure reconstruction. Required CI adds the native
+clearance/orbit gate. [Evidence and scope](evidence/menu-turnout/).
+Gameplay, assets, save/protocol identities and driving scenery are unchanged.

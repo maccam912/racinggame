@@ -193,6 +193,10 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/menu_style_evidence.gd -- --profile=menu_style_ci --capture=res://reports/unused-menu-style.png 2>&1 | tee -a reports/car-render.log
+      - name: Check preview turnout and all four cars through a complete orbit
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/menu_stage_tests.gd -- --render 2>&1 | tee reports/menu-stage.log
       - name: Render Driving School input demonstrations
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
@@ -225,6 +229,9 @@ jobs:
             reports/m4-ui-reference.json
             reports/m4-hud-reference.json
             reports/m4-menu-reference.json
+            reports/menu-stage/
+            reports/menu-stage.json
+            reports/menu-stage.log
             reports/m4-school-reference.json
             reports/m4-surface-lamp-reference.json
             reports/m5-runtime-*.png

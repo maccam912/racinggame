@@ -14,6 +14,7 @@ var warmed_resources: Array[Resource] = []
 var shader_warmup: Dictionary = {}
 var terrain_grid: Dictionary = {}
 var poster_sites: Array[Dictionary] = []
+var scenery_clearings: Array[Dictionary] = []
 static var skies: Dictionary = {}
 
 
@@ -236,7 +237,18 @@ func build_scenery_batch(first: int, last: int) -> void:
 	if track.id=="pacific_summit":
 		var pose := scenery_pose(first+20,-48)
 		if not RoadsidePosterArt.blocks_sightline(poster_sites,pose.origin): batches.redwood = [pose] as Array[Transform3D]
-	for id: String in batches: CourseArt.batch(id,batches[id],self,float(art.get("emission",0)))
+	for id: String in batches:
+		var retained: Array[Transform3D] = []
+		for pose: Transform3D in batches[id]:
+			if decoration_allowed(pose.origin): retained.append(pose)
+		CourseArt.batch(id,retained,self,float(art.get("emission",0)))
+
+
+func decoration_allowed(at: Vector3) -> bool:
+	for clearing: Dictionary in scenery_clearings:
+		var center: Vector3 = clearing.center
+		if Vector2(at.x-center.x,at.z-center.z).length()<float(clearing.radius): return false
+	return true
 
 
 func clear_of_road(position: Vector3, radius: float) -> bool:

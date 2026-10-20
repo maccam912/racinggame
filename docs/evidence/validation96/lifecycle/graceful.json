@@ -1,0 +1,227 @@
+{
+  "passed": true,
+  "scenario": "graceful",
+  "base_commit": "9d50b491c5b512a38e924b8ff53278f324b1cb0d",
+  "boundary": "Owned local Go processes, SQLite and actual ticket-required Godot workers/ENet clients. Forced synthetic finish only; no profile, genuine timing, hosting or physical-device claim.",
+  "race_before": {
+    "advanced_after_retire": false,
+    "forced_synthetic_result": false,
+    "guest_ids": [
+      "c95074a2-caf8-4c8c-bc04-e44563ecd6e5",
+      "9843609b-7117-4c8c-b2b8-a3907765368b"
+    ],
+    "race_active": true,
+    "race_uuid": "b2840aed-076e-41e1-9ce6-0882f7a3ea2d",
+    "results_sent": false,
+    "retiring": false,
+    "tick": 712
+  },
+  "race_after": {
+    "advanced_after_retire": true,
+    "forced_synthetic_result": true,
+    "guest_ids": [
+      "c95074a2-caf8-4c8c-bc04-e44563ecd6e5",
+      "9843609b-7117-4c8c-b2b8-a3907765368b"
+    ],
+    "race_active": true,
+    "race_uuid": "b2840aed-076e-41e1-9ce6-0882f7a3ea2d",
+    "results_sent": true,
+    "retiring": true,
+    "tick": 977
+  },
+  "identical_synthetic_results": true,
+  "same_race_and_guest_ids": true,
+  "clients": [
+    {
+      "acknowledged_sequence": 335,
+      "clear_corrections": {
+        "count": 66,
+        "max": 0.0111828409135342,
+        "p95": 0.00986221060156822
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 0,
+      "connected": true,
+      "contact_corrections": {
+        "count": 38,
+        "max": 0.557529628276825,
+        "p95": 0.317273199558258
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 0,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 2,
+      "max_speed": 65.7207107543945,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 52,
+        "levels": [
+          52,
+          0,
+          0
+        ],
+        "max_delivery_loss_percent": 0.0,
+        "max_rtt_ms": 36.6
+      },
+      "received_bytes": 47623,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 211,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 0.0,
+        "max_requested_seconds": 0.0,
+        "samples": 0
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 210.385099097155,
+          "dnf": "",
+          "id": "c95074a2-caf8-4c8c-bc04-e44563ecd6e5",
+          "name": "LifecycleDriver0",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 221.231840489432,
+          "dnf": "",
+          "id": "9843609b-7117-4c8c-b2b8-a3907765368b",
+          "name": "LifecycleDriver1",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 23.0,
+      "sent_bytes": 14324,
+      "sequence": 335,
+      "slot": 0,
+      "snapshots": 111,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      }
+    },
+    {
+      "acknowledged_sequence": 335,
+      "clear_corrections": {
+        "count": 66,
+        "max": 0.0106302667409182,
+        "p95": 0.00849256385117769
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 0,
+      "connected": true,
+      "contact_corrections": {
+        "count": 38,
+        "max": 0.556142151355743,
+        "p95": 0.317646771669388
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 2,
+      "max_speed": 67.1350326538086,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 51,
+        "levels": [
+          51,
+          0,
+          0
+        ],
+        "max_delivery_loss_percent": 0.0,
+        "max_rtt_ms": 38.4
+      },
+      "received_bytes": 47196,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 211,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 0.0,
+        "max_requested_seconds": 0.0,
+        "samples": 0
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 210.385099097155,
+          "dnf": "",
+          "id": "c95074a2-caf8-4c8c-bc04-e44563ecd6e5",
+          "name": "LifecycleDriver0",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 221.231840489432,
+          "dnf": "",
+          "id": "9843609b-7117-4c8c-b2b8-a3907765368b",
+          "name": "LifecycleDriver1",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 16.0,
+      "sent_bytes": 14300,
+      "sequence": 335,
+      "slot": 1,
+      "snapshots": 111,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      }
+    }
+  ],
+  "graceful_supervisor_exit": true,
+  "remaining_worker_rows": 0,
+  "cleanup_issues": []
+}

@@ -1,0 +1,90 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "suite": "source_script_tests",
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--max-fps",
+        "60",
+        "--script",
+        "tests/source_script_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "seconds": 0.8005673340521753,
+      "exit_code": 0
+    },
+    {
+      "suite": "menu_flow_tests",
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--max-fps",
+        "60",
+        "--script",
+        "tests/menu_flow_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "seconds": 2.077940542018041,
+      "exit_code": 0
+    },
+    {
+      "suite": "world_presentation_tests",
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--max-fps",
+        "60",
+        "--script",
+        "tests/world_presentation_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "seconds": 1.4711985001340508,
+      "exit_code": 0
+    },
+    {
+      "suite": "mobile_runtime_tests",
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--max-fps",
+        "60",
+        "--script",
+        "tests/mobile_runtime_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "seconds": 2.528874292038381,
+      "exit_code": 0
+    },
+    {
+      "suite": "menu_style_tests",
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--max-fps",
+        "60",
+        "--script",
+        "tests/menu_style_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "seconds": 0.8939205841161311,
+      "exit_code": 0
+    }
+  ]
+}

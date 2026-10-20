@@ -13,29 +13,18 @@ var interactive: bool = false
 
 
 func _ready() -> void:
+	center = Catalog.tracks[0].pose(45,15).origin
 	var world := TrackWorld.new()
+	# Exclude source placements before creating either billboard faces or their
+	# footprints. No GPU instance readback, shared meshes or driving world edits.
+	world.scenery_clearings = [{"center":center,"radius":14.0}]
 	world.build(Catalog.tracks[0])
 	add_child(world)
-	var pose := Catalog.tracks[0].pose(45, 15)
-	center = pose.origin
 	world.box(center - Vector3.UP * .1, Vector3(20, .2, 20), Color("d8bd86"))
-	clear_turnout_grass(world)
 	add_child(camera)
 	camera.current = true
 	camera.fov = 48
 	set_selection(car_index,paint_index)
-
-func clear_turnout_grass(world: TrackWorld) -> void:
-	for batch: MultiMeshInstance3D in world.find_children("grass_Batch_*","MultiMeshInstance3D",true,false):
-		var count := 0
-		for index in range(batch.multimesh.instance_count):
-			var transform := batch.multimesh.get_instance_transform(index)
-			var at := batch.global_transform*transform.origin
-			if Vector2(at.x-center.x,at.z-center.z).length()<14: continue
-			batch.multimesh.set_instance_transform(count,transform)
-			count += 1
-		batch.multimesh.visible_instance_count = count
-
 
 func set_paint(index: int) -> void:
 	set_selection(car_index,index)

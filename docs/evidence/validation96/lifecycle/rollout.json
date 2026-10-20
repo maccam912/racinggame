@@ -1,0 +1,231 @@
+{
+  "passed": true,
+  "scenario": "rollout",
+  "base_commit": "9d50b491c5b512a38e924b8ff53278f324b1cb0d",
+  "boundary": "Owned local Go processes, SQLite and actual ticket-required Godot workers/ENet clients. Forced synthetic finish only; no profile, genuine timing, hosting or physical-device claim.",
+  "race_before": {
+    "advanced_after_retire": false,
+    "forced_synthetic_result": false,
+    "guest_ids": [
+      "d380cf4f-3fd3-428a-88bf-4d7005bca222",
+      "e02477e3-7915-4654-89c0-515ac74be483"
+    ],
+    "race_active": true,
+    "race_uuid": "4b3b29ad-bb88-4c97-9f0b-4fb6caad44fd",
+    "results_sent": false,
+    "retiring": false,
+    "tick": 711
+  },
+  "overlapping_pools": true,
+  "shared_host_cap_rejected": true,
+  "old_bearer_accepted_by_new_supervisor": true,
+  "race_after": {
+    "advanced_after_retire": true,
+    "forced_synthetic_result": true,
+    "guest_ids": [
+      "d380cf4f-3fd3-428a-88bf-4d7005bca222",
+      "e02477e3-7915-4654-89c0-515ac74be483"
+    ],
+    "race_active": true,
+    "race_uuid": "4b3b29ad-bb88-4c97-9f0b-4fb6caad44fd",
+    "results_sent": true,
+    "retiring": true,
+    "tick": 1041
+  },
+  "identical_synthetic_results": true,
+  "same_race_and_guest_ids": true,
+  "clients": [
+    {
+      "acknowledged_sequence": 401,
+      "clear_corrections": {
+        "count": 88,
+        "max": 0.0116590419784188,
+        "p95": 0.00942890159785748
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 0,
+      "connected": true,
+      "contact_corrections": {
+        "count": 38,
+        "max": 0.556142151355743,
+        "p95": 0.317646771669388
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 2,
+      "max_speed": 69.0313034057617,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 62,
+        "levels": [
+          62,
+          0,
+          0
+        ],
+        "max_delivery_loss_percent": 0.0,
+        "max_rtt_ms": 37.1
+      },
+      "received_bytes": 51843,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 233,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 0.0,
+        "max_requested_seconds": 0.0,
+        "samples": 0
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 284.422874136828,
+          "dnf": "",
+          "id": "d380cf4f-3fd3-428a-88bf-4d7005bca222",
+          "name": "LifecycleDriver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 296.187188742682,
+          "dnf": "",
+          "id": "e02477e3-7915-4654-89c0-515ac74be483",
+          "name": "LifecycleDriver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 24.0,
+      "sent_bytes": 17234,
+      "sequence": 401,
+      "slot": 1,
+      "snapshots": 133,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      }
+    },
+    {
+      "acknowledged_sequence": 401,
+      "clear_corrections": {
+        "count": 88,
+        "max": 0.0111828409135342,
+        "p95": 0.00961902923882008
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 0,
+      "connected": true,
+      "contact_corrections": {
+        "count": 38,
+        "max": 0.557529628276825,
+        "p95": 0.317273199558258
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 0,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 2,
+      "max_speed": 68.6548690795898,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 61,
+        "levels": [
+          61,
+          0,
+          0
+        ],
+        "max_delivery_loss_percent": 0.0,
+        "max_rtt_ms": 37.2
+      },
+      "received_bytes": 52224,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 233,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 0.0,
+        "max_requested_seconds": 0.0,
+        "samples": 0
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 284.422874136828,
+          "dnf": "",
+          "id": "d380cf4f-3fd3-428a-88bf-4d7005bca222",
+          "name": "LifecycleDriver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 296.187188742682,
+          "dnf": "",
+          "id": "e02477e3-7915-4654-89c0-515ac74be483",
+          "name": "LifecycleDriver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 29.0,
+      "sent_bytes": 17174,
+      "sequence": 401,
+      "slot": 0,
+      "snapshots": 133,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      }
+    }
+  ],
+  "old_supervisor_exited_after_drain": true,
+  "old_bearer_still_allocates": true,
+  "remaining_worker_rows": 0,
+  "cleanup_issues": []
+}
