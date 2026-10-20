@@ -1,5 +1,15 @@
 # Implementation status
 
+## 19 October — corrected Linux GPU-preparation diagnostic passes
+
+The [focused GitHub Linux diagnostic](https://github.com/maccam912/racinggame/actions/runs/39362822659)
+passes on commit `bdfcdc9`. All six courses reach real two-frame GPU readback;
+failed-readback Retry, Cancel, held-background behavior and actual ENet Loaded
+ordering also pass. The report retains separate 60-second construction and
+15-second GPU/readiness bounds. [Complete remote evidence](evidence/graphics103/linux-diagnostic2/).
+This confirms the targeted correction. The full Build 103 release workflow and
+publication remain pending; historical failed runs retain their original status.
+
 ## 19 October — Linux graphics construction deadline diagnosed
 
 The focused Linux diagnostic reproduced the strict shader-fixture failure and

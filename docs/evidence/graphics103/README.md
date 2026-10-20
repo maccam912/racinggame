@@ -21,6 +21,13 @@ performance acceptance limits are unchanged. This is a correctness fixture with
 a software-renderer construction allowance, not a new loading-speed target.
 Native follow-up and corrected Linux diagnostics are separate evidence files.
 
+The corrected focused Linux run
+`https://github.com/maccam912/racinggame/actions/runs/39362822659` passes on
+`bdfcdc9`: all six tracks, real two-frame GPU readback and failure/Retry/Cancel/
+background/ENet cases. The complete job log, PNGs and JSON live in
+`linux-diagnostic2/`. This targeted pass is separate from the full Build 103
+release workflow and its publication gate.
+
 The explicit slow-construction probe sets the engine cap to 3 **after** settings
 for Citrus only, restores the original cap before GPU readiness, and asserts
 that construction exceeds the old 15-second limit. Its report records the actual
