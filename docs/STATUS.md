@@ -1,5 +1,11 @@
 # Implementation status
 
+## 20 October — Build116 published and public APK/macOS executed
+
+[Build116](https://github.com/maccam912/racinggame/releases/tag/v0.0.116-dev) publishes all **18 files** from clean `9156350`, game `f762fa68`, cosmetics `f6fadc28`. All **33 required jobs pass**, with one correct unchanged-gameplay AI skip, including all **102 source commands** and the independent Linux ten-race soak: **80 matching normal finishes**, minimum **2,790 clear samples**, worst clear p95 **0.0377590 m**, worker RSS growth **0.136296%**, **1,950.907 s**, no cleanup issues. [Tag, six metadata files, six stored/downloaded payload digests, exact source and full soak](evidence/release116/).
+
+Its actual downloaded public APK upgrades public Build112 on separate emulator5586 while preserving UID/signer and all **28 files**. The actual public macOS binary passes platform/Keychain/headless startup. Both public binaries render ordinary eight-car tick1,800 gameplay: Android Citrus **2400×1080**, macOS Palm **1920×1080**, both visually reviewed. The later caption correction `44fffaa` has clean [local Build117 Android/macOS checks](evidence/caption117/packages117/) and preserved **47/41** phone/tablet update files; its [GitHub run](https://github.com/maccam912/racinggame/actions/runs/39424117390) remains pending.
+
 ## 20 October — pause/settings caption overlap corrected
 
 A live announcer GO caption could briefly cover Resume because its global audio canvas sits above menus. Race captions now require active unpaused driving; Results keep saved-record captions. The extended existing audio fixture traverses actual Pause, Audio Settings and Resume, retaining muted-announcer and prioritized-HUD behavior. All **102 source commands pass**. Two actual native menu frames hold a live GO deadline while proving the label hidden; observed viewport **3456×2168**, both visually reviewed. [Final source, checks, native frames and initial diagnostic failures](evidence/caption117/). Gameplay/protocol/save **9/5/1**, game `f762fa68` and cosmetic digest `f6fadc28` remain unchanged. Clean exports and remote publication are pending at this source checkpoint.

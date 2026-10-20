@@ -1,0 +1,23 @@
+{
+  "authority_elapsed_ticks": 308,
+  "boundary": "Owned local ENet application traffic, bounded read batches, malformed input and sustained rate offender. Not volumetric Internet denial-of-service protection, physical radio validation or a complete race/result soak.",
+  "burst": {
+    "deferred_passes": 1,
+    "delivered_once": 341,
+    "discarded_oversize": 171,
+    "packets_per_pass": 256,
+    "raw_packets": 512
+  },
+  "client_liveness_valid_packets_only": true,
+  "healthy_authority_speed_mps": 64.7223663330078,
+  "healthy_same_identity": true,
+  "invalid_utf8_vectors": 93,
+  "malformed_only_liveness_ms": 3000,
+  "no_fabricated_finish": true,
+  "passed": true,
+  "platform": "Linux",
+  "real_enet_eight_car_worker": true,
+  "sustained_offender_ms": 5067,
+  "valid_utf8_vectors": 1034,
+  "worker_rejected_packets": 9545
+}

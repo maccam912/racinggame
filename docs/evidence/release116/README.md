@@ -1,0 +1,9 @@
+# Public Build116 verified
+
+[Release](https://github.com/maccam912/racinggame/releases/tag/v0.0.116-dev), [complete workflow](https://github.com/maccam912/racinggame/actions/runs/39418437417). Clean source **91563505909aba0b37c1332882fad3328ae4b950**, content/protocol/save **9/5/1**, gameplay **f762fa68**, cosmetics **f6fadc28**. All **33 required jobs pass**; the sole AI skip correctly reuses unchanged gameplay acceptance. Source verification contains all **102 commands**, all passing.
+
+The independent Linux ten-race eight-client soak passes **80 matching normal finishes**, minimum **2,790 clear samples**, worst clear p95 **0.037759006 m**, **0.136296%** repeated-cycle worker RSS growth, **1,950.907 s**, no cleanup issues. All original coverage/correction/wire/memory/checkpoint/identity/engine assertions pass. Exact raw reports and fixture bytes are retained under `ten-race-soak/`; local macOS acceptance remains a separate population.
+
+All **18 files**, tag, six clean metadata files and six GitHub-stored payload digests match their published sidecars. `downloaded-payloads.json` separately verifies the actual downloaded public APK/macOS bytes. The public APK updates the earlier public Build112 on the separate Android15 emulator **5586**, preserving UID/signer and all **28 files**. The actual public macOS executable passes its platform/Keychain and headless startup probe. The actual downloaded public APK and macOS binary also render ordinary eight-car races at tick1,800: Citrus **2400×1080** and Palm **1920×1080**, with original PNGs, embedded build identity, hashes and complete logs retained. Both frames are visually reviewed; these are ordinary AI inputs, not human driving or performance samples.
+
+These are development releases. Official regions remain unconfigured by owner choice; Iroh/discovery is documentation only. Physical Android checks are waived, while human feel and minimum-hardware acceptance remain separate.
