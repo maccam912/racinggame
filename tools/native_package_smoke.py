@@ -2,6 +2,7 @@
 """Execute the exported native client/server, preserving clear headless evidence."""
 import argparse
 import json
+import hashlib
 import os
 from pathlib import Path
 import platform
@@ -17,6 +18,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main(target, artifact):
+    with artifact.open('rb') as source:
+        artifact_hash = hashlib.file_digest(source,'sha256').hexdigest()
     folder = ROOT/'build/native-smoke'/target
     if folder.exists():
         shutil.rmtree(folder)
@@ -47,7 +50,11 @@ def main(target, artifact):
     output = result.stdout+result.stderr
     expected = 'PACIFIC_RUSH_SERVER_READY' if target == 'server' else 'PACIFIC_RUSH_DRIVING_READY'
     passed = probe.returncode==0 and 'PACIFIC_PLATFORM_READY' in probe_output and 'ERROR:' not in probe_output and result.returncode == 0 and expected in output and 'ERROR:' not in output and 'SCRIPT ERROR:' not in output
-    report = {'target':target,'host':platform.system()+'-'+platform.machine(),'kind':'exported binary headless startup; graphical/device performance not measured', 'passed':passed,'platform_probe':probe_output,'output':output}
+    packaged_build = json.loads((folder/'build.json').read_text())
+    assert packaged_build['target_platform']==target, 'Packaged metadata must name the tested target'
+    with binary.open('rb') as source:
+        binary_hash = hashlib.file_digest(source,'sha256').hexdigest()
+    report = {'target':target,'host':platform.system()+'-'+platform.machine(),'kind':'exported binary headless startup; graphical/device performance not measured', 'artifact':artifact.name,'artifact_sha256':artifact_hash,'binary_sha256':binary_hash,'packaged_build':packaged_build,'passed':passed,'platform_probe':probe_output,'output':output}
     if target == 'server':
         try:
             settings = subprocess.run([str(binary),'--headless','--','--server-settings-probe'],cwd=folder,capture_output=True,text=True,timeout=30)
