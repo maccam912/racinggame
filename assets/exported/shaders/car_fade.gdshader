@@ -8,7 +8,8 @@ void fragment() {
 	vec3 glow;
 	float roughness;
 	float metal;
-	car_surface(UV,COLOR,color,roughness,metal,glow);
+	vec3 reflected_world = (INV_VIEW_MATRIX*vec4(reflect(-normalize(VIEW),normalize(NORMAL)),0.0)).xyz;
+	car_surface(UV,COLOR,NORMAL,VIEW,reflected_world,color,roughness,metal,glow);
 	ALBEDO = color;
 	ROUGHNESS = roughness;
 	METALLIC = metal;

@@ -1,5 +1,29 @@
 # Implementation status
 
+## 19 October — dithered paint, glass/chrome and dry asphalt
+
+Original car shaders now use object-space ordered dither, restrained metallic
+flakes, broad sky/horizon coating and illustrated glass sweeps. Rims/chrome have
+stronger gloss; ordinary, recovery-fade and ghost passes share the surface logic.
+Original dry paving has muted aggregate, weathering and four subtle tire paths.
+Fine paint/aggregate detail fades at distance. Paved shoulders share the texture
+with tire wear disabled. Cream road markings retain their original geometry.
+
+Asset identity is `714139d3`; content/protocol/save remain 5/5/1 and gameplay hash
+`4eaef43b` is unchanged. Render-only road UVs preserve every visual vertex/normal
+and do not change shared collision arrays. Native checks cover 24 course views,
+four cars/ghost, remote brake lamps and actual GPU preparation of all nine shaders
+before Grid, including Retry/Cancel and real ENet readiness. All 92 final source
+commands pass. [Material evidence](evidence/materials102/).
+
+Build 101's GitHub source check and all six exports pass, along with its first
+sixteen strict graphical commands. Its final GPU-preparation fixture still fails
+on Linux after the first foreground-guard change; the local 60/3 fps passes do
+not resolve that remote boundary. Loader-state traces and a separate manual-only
+Linux graphics diagnostic now isolate it. The release gate remains strict and
+Build 101 has not published. Local material renders do not establish an Android
+package or performance result.
+
 ## 19 October — original arcade interface and strict render follow-up
 
 The owner rejected the tidy techno treatment as too modern. The new interface

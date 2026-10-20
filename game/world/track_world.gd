@@ -120,10 +120,14 @@ func build_road() -> void:
 	for key: String in geometry:
 		if key in ["walls","shoulder"]: continue
 		var instance := MeshInstance3D.new()
-		instance.mesh = CourseRoadMesh.front_faces(geometry[key])
-		var mat: StandardMaterial3D = material(Color.html("646B75")) if key == "asphalt" else material(Color.html("F3E4C4")) if key == "markings" else sand
-		mat.cull_mode = BaseMaterial3D.CULL_BACK
-		instance.material_override = mat
+		instance.name = "Road_"+key
+		instance.mesh = CourseRoadMesh.front_faces(geometry[key],track if key=="asphalt" else null)
+		if key=="asphalt":
+			instance.material_override = paving_material()
+		else:
+			var mat: StandardMaterial3D = material(Color.html("F3E4C4")) if key == "markings" else sand
+			mat.cull_mode = BaseMaterial3D.CULL_BACK
+			instance.material_override = mat
 		add_child(instance)
 	var shoulders := CourseRoadMesh.shoulders(track)
 	for surface: String in shoulders:
@@ -131,13 +135,23 @@ func build_road() -> void:
 		instance.name = "Shoulder_"+surface
 		instance.mesh = shoulders[surface]
 		var color := Color("646B75") if surface=="asphalt" else Color("D8BD83") if surface=="sand" and track.definition.surface!="sand" else Color(art.ground)
-		instance.material_override = material(color)
+		instance.material_override = paving_material(true) if surface=="asphalt" else material(color)
 		add_child(instance)
 	var barrier := MeshInstance3D.new()
 	barrier.name = "RoadsideBarriers"
 	barrier.mesh = CourseRoadMesh.barriers(track,art)
 	barrier.material_override = material(Color.html("F3E4C4"))
 	add_child(barrier)
+
+
+func paving_material(shoulder: bool = false) -> ShaderMaterial:
+	var key := "paving_shoulder" if shoulder else "paving_road"
+	if materials.has(key): return materials[key]
+	var result := ShaderMaterial.new()
+	result.shader = load("res://assets/exported/shaders/asphalt.gdshader")
+	result.set_shader_parameter("lane_wear",0.0 if shoulder else 0.13)
+	materials[key] = result
+	return result
 
 
 func build_collision() -> void:

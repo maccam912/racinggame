@@ -1,0 +1,39 @@
+name: Diagnose Linux graphics preparation
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  graphics:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - name: Install software graphics dependencies
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri libxinerama1 libxcursor1 libxi6 libxrandr2
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Exercise the exact release graphics preparation command
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          mkdir -p reports
+          xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/shader_warmup_evidence.gd -- --profile=shader_warmup_ci --capture=res://reports/unused-warmup.png 2>&1 | tee reports/shader-diagnostic.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: linux-graphics-preparation-diagnostic
+          path: |
+            reports/shader-diagnostic.log
+            reports/m5-shader-*.png
+            reports/m5-shader-warmup.json
+          if-no-files-found: error

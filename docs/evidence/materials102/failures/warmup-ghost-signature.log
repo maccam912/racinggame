@@ -1,0 +1,20 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+--Main Shader--
+    8 |  vec3 glow;
+    9 |  float roughness;
+E  10->  float metal;
+   11 |  car_surface(UV, COLOR, color, roughness, metal, glow);
+   12 |  ALBEDO = mix(color, vec3(0.15, 0.68, 0.74), 0.38);
+SHADER ERROR: Too few arguments for "car_surface(vec2, vec4, vec3, vec3, vec3, vec3, float, float, vec3)" call. Expected at least 9 but received 6.
+          at: (null) (:10)
+          GDScript backtrace (most recent call first):
+              [0] set_ghost (res://game/world/car_visual.gd:203)
+              [1] prepare (res://game/world/shader_warmup.gd:53)
+              [2] run (res://tests/shader_warmup_tests.gd:12)
+ERROR: Shader compilation failed.
+   at: shader_set_code (servers/rendering/dummy/storage/material_storage.cpp:190)
+   GDScript backtrace (most recent call first):
+       [0] set_ghost (res://game/world/car_visual.gd:203)
+       [1] prepare (res://game/world/shader_warmup.gd:53)
+       [2] run (res://tests/shader_warmup_tests.gd:12)

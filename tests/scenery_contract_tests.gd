@@ -39,6 +39,16 @@ func run() -> void:
 		var raw := RouteGeometry.meshes(track,true)
 		var before := var_to_bytes(raw.asphalt.surface_get_arrays(0))
 		var face_mesh := CourseRoadMesh.front_faces(raw.asphalt)
+		var paved := CourseRoadMesh.front_faces(raw.asphalt,track)
+		var paved_arrays := paved.surface_get_arrays(0)
+		assert(paved_arrays[Mesh.ARRAY_VERTEX]==face_mesh.surface_get_arrays(0)[Mesh.ARRAY_VERTEX] and paved_arrays[Mesh.ARRAY_NORMAL]==face_mesh.surface_get_arrays(0)[Mesh.ARRAY_NORMAL],"cosmetic paving UVs cannot change road positions or normals")
+		var paving_uvs: PackedVector2Array = paved_arrays[Mesh.ARRAY_TEX_UV]
+		assert(paving_uvs.size()==paved_arrays[Mesh.ARRAY_VERTEX].size())
+		var last_s := 0.0
+		for uv: Vector2 in paving_uvs:
+			assert(uv.is_finite() and uv.x>=0 and uv.x<=track.length+.001 and absf(uv.y)==1,"route UVs retain metres along the lap and exact pavement edges")
+			last_s = maxf(last_s,uv.x)
+		assert(absf(last_s-track.length)<.001,"closing road segment keeps the full lap coordinate")
 		var arrays := face_mesh.surface_get_arrays(0)
 		var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
 		var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]

@@ -10,13 +10,23 @@ func hold_graphics(child: Node) -> void:
 		# foreground guard before its first draw so the phase is observable.
 		child.set_meta("fixture_foreground",child.active)
 		child.active = func() -> bool: return false
+		print("SHADER_FIXTURE_HOLD id="+str(child.get_instance_id())+" valid="+str(child.active.is_valid())+" allowed="+str(child.active.call()))
 func release_graphics(job: TrackLoader) -> void:
+	print("SHADER_FIXTURE_RELEASE "+JSON.stringify(loader_state()))
 	job.active = job.get_meta("fixture_foreground")
 	job.warmer.active = job.active
-func until(condition: Callable) -> void:
+func loader_state() -> Dictionary:
+	var result := {"page":app.page,"foreground":app.foreground}
+	if not is_instance_valid(app.track_loader): return result
+	var job: TrackLoader = app.track_loader
+	result.merge({"id":job.get_instance_id(),"warming":job.warming,"done":job.done,"graphics_error":job.graphics_error,"guard_saved":job.has_meta("fixture_foreground"),"active_valid":job.active.is_valid(),"active":bool(job.active.call()) if job.active.is_valid() else null,"world_stage":job.world.build_stage if is_instance_valid(job.world) else -1})
+	if is_instance_valid(job.warmer): result["warmer"] = {"allowed":job.warmer.allowed(),"frames":job.warmer.rendered_frames,"submissions":job.warmer.submissions,"draws":job.warmer.draw_calls,"finished":job.warmer.finished,"update_mode":job.warmer.viewport.render_target_update_mode}
+	return result
+func until(condition: Callable, label: String = "") -> void:
 	var deadline := Time.get_ticks_msec()+15000
 	while not condition.call() and Time.get_ticks_msec()<deadline: await process_frame
-	assert(condition.call(),"native graphics preparation completed before deadline")
+	if not condition.call(): print("SHADER_FIXTURE_TIMEOUT "+label+" "+JSON.stringify(loader_state()))
+	assert(condition.call(),"native graphics preparation completed before deadline: "+label)
 func run() -> void:
 	assert(DisplayServer.get_name()!="headless")
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://reports"))
@@ -33,11 +43,12 @@ func run() -> void:
 	app.data = AppData.new(folder,false)
 	app.data.profile.first_run_complete = true
 	for index in range(6):
+		print("SHADER_FIXTURE_COURSE_BEGIN "+Catalog.tracks[index].id)
 		app.data.settings.msaa = [4,2,0][index%3]
 		var started := Time.get_ticks_msec()
 		app.request_drive({"mode":"quick","track":index,"opponents":7,"car":index%4},app.show_menu)
 		var job: TrackLoader = app.track_loader
-		await until(func() -> bool: return job.warming)
+		await until(func() -> bool: return job.warming,"course_"+str(index)+"_warming")
 		assert(not job.done and job.world.get_parent()==null and app.loading_bar.value<1)
 		assert(job.warmer.viewport.find_world_3d()!=app.get_world_3d())
 		if index==0:

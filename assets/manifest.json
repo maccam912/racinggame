@@ -146,7 +146,7 @@
       "source_url": null,
       "license": "MIT",
       "attribution": "LICENSE",
-      "modifications": "Original procedural panel atlas, paint/trim/brake role shader, translucent ghost and soft blob shadow"
+      "modifications": "Original procedural panel atlas, paint/trim/brake role shader, stable object-space dither/metal flakes, stylized sky/horizon coating and glass sweeps, translucent ghost and soft blob shadow. No external bitmap or vehicle texture."
     },
     {
       "id": "palm_bay_scenery",
@@ -512,6 +512,17 @@
       "modifications": "Original generated transparent title wordmark copied byte-for-byte with alpha. Exact prompt and original output filename recorded in source provenance.",
       "exports": [
         "assets/exported/arcade_ui/pacific-rush-wordmark-v1.png"
+      ]
+    },
+    {
+      "id": "pavement_material",
+      "source": "assets/exported/shaders/asphalt.gdshader",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original code-native dry asphalt aggregate, weathering and route-aligned tire wear, with derivative-based distance filtering. Render-only UVs preserve original collision vertices and gameplay identity.",
+      "exports": [
+        "assets/exported/shaders/asphalt.gdshader"
       ]
     }
   ]

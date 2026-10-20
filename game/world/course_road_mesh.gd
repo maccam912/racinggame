@@ -10,11 +10,21 @@ static func quad(tool: SurfaceTool, a: Vector3, b: Vector3, c: Vector3, d: Vecto
 		tool.add_vertex(point)
 
 
-static func front_faces(source: ArrayMesh) -> ArrayMesh:
+static func front_faces(source: ArrayMesh, paving_track: TrackDefinition = null) -> ArrayMesh:
 	var arrays := source.surface_get_arrays(0)
 	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
 	var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
 	var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX] if arrays[Mesh.ARRAY_INDEX]!=null else PackedInt32Array()
+	var uvs: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV] if arrays[Mesh.ARRAY_TEX_UV]!=null else PackedVector2Array()
+	if paving_track!=null:
+		assert(indices.is_empty() and vertices.size()==paving_track.points.size()*6,"cosmetic road UVs follow canonical unindexed route quads")
+		uvs.resize(vertices.size())
+		var corners := [Vector2(0,-1),Vector2(0,1),Vector2(1,1),Vector2(0,-1),Vector2(1,1),Vector2(1,-1)]
+		for segment in range(paving_track.points.size()):
+			var start_s := paving_track.distances[segment]
+			var end_s := paving_track.distances[segment+1] if segment+1<paving_track.points.size() else paving_track.length
+			for corner in range(6):
+				uvs[segment*6+corner] = Vector2(lerpf(start_s,end_s,corners[corner].x),corners[corner].y)
 	var tool := SurfaceTool.new()
 	tool.begin(Mesh.PRIMITIVE_TRIANGLES)
 	for first in range(0,indices.size() if not indices.is_empty() else vertices.size(),3):
@@ -24,6 +34,7 @@ static func front_faces(source: ArrayMesh) -> ArrayMesh:
 			order = [order[0],order[2],order[1]]
 		for index: int in order:
 			tool.set_normal(normals[index])
+			if not uvs.is_empty(): tool.set_uv(uvs[index])
 			tool.add_vertex(vertices[index])
 	return tool.commit()
 

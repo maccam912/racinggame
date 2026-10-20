@@ -1,6 +1,6 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.9 — 19 October 2026
+Version 1.10 — 19 October 2026
 
 Owner decisions, 19 October 2026: implementation validation uses Android phone
 and tablet **emulators only**. Physical-device checks elsewhere in this document
@@ -324,7 +324,25 @@ Primary palette: sky #65B9EB, horizon #B9E6ED, sea #31BFC1, cream #F3E4C4, sands
 | Tree / palm | ≤1,200 | Shared 512² foliage atlas | ≤200 triangles at 70 m; grouped impostor at 180 m |
 | Small roadside prop | ≤500 | Shared 512² prop atlas | Cull after 100 m unless directional signage |
 
-These are ceilings, not reasons to add triangles. Cars have baked panel lines and simple specular highlights, roughness 0.25–0.45, metallic 0.3. Asphalt roughness 0.9, no mirror reflection. Texture filtering is bilinear with mipmaps and anisotropic filtering; no mandatory nearest-neighbor pixel crawl. Normal maps are optional for broad material response, not microdetail. Use one directional sun, ambient sky, baked/static lighting for environment, and blob or simple dynamic car shadows. No real-time global illumination or ray tracing requirement.
+These are ceilings, not reasons to add triangles. Cars retain their original
+panel atlas and role masks, with static object-space ordered dither, restrained
+metal flakes and stylized sky/horizon coating. Paint roughness is 0.23–0.31 and
+metallic 0.4 (cream stripes 0.3); opaque glass has broad illustrated reflection
+sweeps, and rims/chrome use roughness 0.18 and metallic 0.75. Distance filtering
+fades fine paint detail before it becomes subpixel. Brake/headlamp role behavior,
+ghost alpha and recovery fades remain explicit and readable. No animated noise
+or environment capture is required.
+
+Dry asphalt has muted aggregate, broad weathering and four subtle tire-wear
+paths, roughness 0.94 and no mirror reflection. Render-only road UVs encode metres
+along the route and normalized lateral position; they do not change the shared
+collision geometry or handling. Paved shoulders share aggregate with tire wear
+disabled. Fade fine grain with derivatives at distance, keeping cream edges and
+center marks clear. Texture filtering is bilinear with mipmaps and anisotropic
+filtering; no mandatory nearest-neighbor pixel crawl. Normal maps are optional
+for broad material response, not microdetail. Use one directional sun, ambient
+sky, baked/static lighting for environment, and blob or simple dynamic car
+shadows. No real-time global illumination or ray tracing requirement.
 
 Roadside density measured along road: near props average one per 12–20 m on decorated sides, trees one per 15–30 m, a major landmark every 400–700 m. Keep an unobstructed 3 m vertical wedge above the visible road surface in the driving view. Interior building rooms are not modeled. Water is a flat tinted surface with two scrolling normal layers and a broad reflection tint; it never needs physical simulation.
 
@@ -860,4 +878,6 @@ the intended reference is loud late-1990s arcade cabinet graphics.
 The owner also approves extending the decorations' dithered look into richer car
 and pavement materials. Add styled paint/surface detail and wear while retaining
 clear road edges, readable opponents, original assets and the established physics
-contract. This material pass joins the next visual revision.
+contract. The original paint/glass/chrome and dry-asphalt shaders implement this
+material revision; current evidence and remaining package boundaries are recorded
+in docs/STATUS.md.
