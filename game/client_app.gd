@@ -39,6 +39,8 @@ var guest_service := GuestIdentityService.new()
 var directory_client := DirectoryClient.new()
 var regions := RegionBook.new()
 var online_page: OnlinePage
+var iroh_rooms := IrohRooms.new()
+var iroh_page: IrohPage
 var online_status: Label
 var presentation := WorldPresentation.new()
 var mobile_runtime := MobileRuntime.new()
@@ -53,12 +55,18 @@ var loading_hint_started: int = 0
 var checkpoint: RaceCheckpoint
 var checkpoint_error: String = ""
 var school_progress_saved: bool = false
+var quitting: bool = false
 const LOADING_HINTS: Array[String] = ["loading.hint_brake","loading.hint_slide","loading.hint_recover","loading.hint_look"]
 
 
 func _ready() -> void:
 	get_tree().auto_accept_quit = false
 	Catalog.load_all()
+	add_child(iroh_rooms)
+	iroh_page = IrohPage.new(self)
+	add_child(iroh_page)
+	iroh_rooms.failed.connect(func(message: String) -> void:
+		if is_instance_valid(network) and not network.iroh_endpoint.is_empty(): show_connection_lost(message))
 	DrivingInput.register_defaults()
 	var folder := "user://"
 	touch_demo = "--touch" in OS.get_cmdline_user_args()
@@ -167,6 +175,10 @@ func open_start_screen() -> void:
 		if arg.begins_with("--connect="):
 			show_connection_form()
 			connect_address(arg.trim_prefix("--connect="))
+		elif arg=="--host-code": iroh_page.show_host()
+		elif arg.begins_with("--join-code="):
+			iroh_page.show_join()
+			iroh_page.join(arg.trim_prefix("--join-code="))
 	print("PACIFIC_RUSH_CLIENT_READY")
 
 
@@ -256,6 +268,11 @@ func dispose_drive(keep_network: bool = false) -> void:
 		network.leave_room()
 		network.queue_free()
 		network = null
+	if not keep_network:
+		iroh_rooms.close()
+		if is_instance_valid(iroh_page):
+			iroh_page.serial += 1
+			iroh_page.pending = false
 	if is_instance_valid(prepared_world):
 		prepared_world.queue_free()
 		prepared_world = null
@@ -692,6 +709,14 @@ func request_quit() -> void:
 		menu.confirm(I18n.t("data.quit_unsaved"),finish_quit)
 
 func finish_quit() -> void:
+	if quitting: return
+	quitting = true
+	if not iroh_rooms.code.is_empty():
+		var code := iroh_rooms.code
+		var token := iroh_rooms.revoke_token
+		iroh_rooms.code = ""
+		await iroh_rooms.rendezvous.revoke(code,token)
+	iroh_rooms.close()
 	process_mode = Node.PROCESS_MODE_DISABLED
 	get_tree().call_group("audio_transports","stop_audio")
 	# The driver retires stopped playback references over several buffers.
@@ -925,6 +950,7 @@ func show_connection_form() -> void:
 	else: address.call_deferred("grab_focus")
 
 func cancel_connection() -> void:
+	iroh_rooms.close()
 	if is_instance_valid(network):
 		network.leave_room()
 		network.queue_free()
@@ -934,7 +960,7 @@ func cancel_connection() -> void:
 func connection_pending() -> bool:
 	return is_instance_valid(network) and not network.deliberate_leave and (network.initial_deadline_ms>0 or network.connected or not network.reconnect_token.is_empty())
 
-func connect_address(value: String, code_value: String = "", admission_ticket: String = "") -> void:
+func connect_address(value: String, code_value: String = "", admission_ticket: String = "", iroh_endpoint: String = "") -> void:
 	if connection_pending(): return
 	var address := PeerAddress.parse(value)
 	if address.is_empty():
@@ -944,7 +970,8 @@ func connect_address(value: String, code_value: String = "", admission_ticket: S
 	if not checked_code.valid:
 		if is_instance_valid(connection_label): connection_label.text = I18n.t("online.code_error")
 		return
-	if not mobile_runtime.allow_online(connect_address.bind(value,code_value,admission_ticket)): return
+	if not iroh_endpoint.is_empty() and not IrohTransport.valid_endpoint(iroh_endpoint): return
+	if not mobile_runtime.allow_online(connect_address.bind(value,code_value,admission_ticket,iroh_endpoint)): return
 	if is_instance_valid(network):
 		network.leave_room()
 		network.queue_free()
@@ -982,9 +1009,10 @@ func connect_address(value: String, code_value: String = "", admission_ticket: S
 			connection_button.disabled = false
 			connection_button.grab_focus()
 		print("NETWORK_STATUS " + message))
-	network.connect_to(address.host, address.port, data.profile.display_name)
+	var error := network.connect_to(address.host,address.port,data.profile.display_name) if iroh_endpoint.is_empty() else network.connect_iroh(iroh_endpoint,data.profile.display_name)
+	if error!=OK and is_instance_valid(connection_label): connection_label.text = I18n.t("online.iroh_unavailable") if not iroh_endpoint.is_empty() else error_string(error)
 	if page=="connect" and is_instance_valid(connection_button):
-		connection_button.disabled = connection_pending()
+		connection_button.disabled = connection_pending() or iroh_page.pending
 		if connection_button.disabled and is_instance_valid(connection_back): connection_back.grab_focus()
 		if data.mobile and DisplayServer.has_feature(DisplayServer.FEATURE_VIRTUAL_KEYBOARD): DisplayServer.virtual_keyboard_hide()
 
@@ -1105,7 +1133,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(_dt: float) -> void:
 	if page=="connect" and is_instance_valid(connection_button):
-		connection_button.disabled = connection_pending()
+		connection_button.disabled = connection_pending() or iroh_page.pending
 		connection_button.text = I18n.t("button.retry" if is_instance_valid(network) and network.deliberate_leave else "online.connect")
 	if is_instance_valid(stage): stage.interactive = page=="garage"
 	var has_drive := is_instance_valid(drive)
@@ -1209,6 +1237,11 @@ func handle_background() -> void:
 	menu_repeat.clear_context()
 	mobile_runtime.refresh()
 	if not was_foreground: return
+	if data.mobile and is_instance_valid(iroh_rooms.authority):
+		iroh_rooms.close()
+		if is_instance_valid(network):
+			network.leave_room()
+			show_connection_lost(I18n.t("online.iroh_host_background"))
 	if data.mobile and is_instance_valid(network): network.set_suspended(true)
 	if not is_instance_valid(drive): return
 	drive.driver.set_focus(false)

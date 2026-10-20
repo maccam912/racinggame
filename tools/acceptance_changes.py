@@ -8,7 +8,7 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 AI_INPUTS = ['game/content/compatibility.json','tests/bot_tracks.gd','tools/bot_acceptance.py']
-SOAK_INPUTS = ['game/content/compatibility.json','game/net','game/server','tests/soak_network_client.gd',
+SOAK_INPUTS = ['game/content/compatibility.json','game/net','game/server','native/iroh','native/pacific_iroh.gdextension.in','tools/iroh_build.py','tests/soak_network_client.gd',
                'tests/lobby_network_client.gd','tools/soak_acceptance.py','tools/toolchain.lock','tools/acceptance_changes.py']
 
 

@@ -1,5 +1,12 @@
 # Current acceptance evidence index
 
+Iroh code multiplayer has separate [20 October evidence](evidence/iroh/):
+eight native clients complete two races/rematch with reconnect, relay-only raw
+channels pass, an installed Android APK agrees with seven native clients over
+two races, and Android-host background shutdown/revocation passes. This adds a
+foreground listen-host path; operated official regions and the existing broader
+Internet/hardware acceptance boundaries remain separate.
+
 This index maps the 32 required rows in DESIGN.md §30 to executable coverage and
 retained evidence. It is a review aid, not a declaration of launch readiness.
 The owner's emulator-only decision replaces the historical physical-device

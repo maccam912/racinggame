@@ -297,6 +297,32 @@ jobs:
             reports/audio-game-mix.wav
           if-no-files-found: error
 
+  iroh:
+    needs: [verify, packages]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: platform-adapter-linux
+          path: native/bin
+      - run: python -c "import sys; sys.path.insert(0,'tools'); from native_build import configure; configure()"
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Shared live discovery, eight Iroh clients, two races and reconnect
+        run: python tools/iroh_integration.py --reconnect
+      - name: App listen host, expiry, code replacement and mobile shutdown
+        run: python tools/godot.py --headless --max-fps 60 --script tests/iroh_ui_evidence.gd -- --profile=iroh_ci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: iroh-evidence
+          path: reports/iroh-*/
+          if-no-files-found: error
+
   native:
     needs: packages
     strategy:
@@ -532,6 +558,11 @@ jobs:
         run: python tools/save_acceptance.py
       - name: Exercise the real OS store with temporary test data
         run: python tools/native_store_ci.py --isolated
+      - name: Raw Iroh channels and cancellation
+        run: python tools/godot.py --headless --script tests/iroh_transport_tests.gd
+      - name: Raw Iroh channels with IP paths disabled
+        if: matrix.platform == 'linux'
+        run: python tools/godot.py --headless --script tests/iroh_transport_tests.gd -- --iroh-relay-only
       - uses: actions/upload-artifact@v4
         if: always()
         with:

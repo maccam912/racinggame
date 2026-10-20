@@ -55,6 +55,14 @@ Player and room names use portable [Unicode 16 grapheme rules](docs/UNICODE_NAME
 
 Handling and cars: `game/content/cars.json` and `game/core/vehicle_sim.gd`; course controls: `game/content/tracks.json`. Full-lock steering above 15 m/s starts a controlled slide; ease off or countersteer to catch it. The Slide button also starts a drift. Run `tests/steering_drift_tests.gd` for all-car slide/recovery/snapshot coverage. Rebuild canonical routes with `python3 tools/bake_tracks.py`; do not hand-edit bakes. After gameplay changes run `python3 tools/content_hash.py`. Strict JSON schemas live in `schemas/`. Tools are pinned in `tools/toolchain.lock`. Source assets and licenses are listed in `assets/manifest.json`. Touch layout is `game/platform/touch_driving.gd`. Offline menus now expose Quick Race, Trial, Cup, School and Garage; art remains developmental. Saves use independent components under Godot's Pacific Rush user-data folder. `--profile=left` selects an isolated diagnostic profile.
 
+**Online → Host by Code / Join by Code** now provides [Iroh multiplayer](docs/IROH.md)
+using the same four-character discovery service as Mega Chamomile. The host runs
+the existing eight-player authority inside its foreground game; no regional
+deployment is needed. Share the lobby code, choose Ready and race. Codes expire
+after ten minutes and can be replaced. Leaving or Android backgrounding closes a
+hosted room. Source builds require Rust 1.98.1; `tools/native_build.py host` builds
+the locked Iroh extension alongside the existing OS adapter.
+
 `local_race.py` launches a dedicated worker and two native clients. Direct Connect accepts `host:port`; the community worker opens a persistent lobby with Ready/Start, bot fill, car/track choices and rematches. The local Go directory allocates ticket-required workers; see `services/directory/README.md` and run `python3 tools/directory_integration.py` with Go 1.27.0 installed. The HTTPS client, full online menu path and native identity stores have integration gates; official hosted regions remain deployment work. Both official URLs in `game/content/regions.json` stay blank until deployment. An explicit `--directory-url=https://…` selects Test Region; `--directory-ca=/path/to/test-root.crt` trusts that CA for these requests only. Run `python3 tools/directory_client_integration.py` for the client/auth/allocator/private-code fixture with an isolated test CA; add `--menu` for the complete menu path or `--menu --visual` for native 150% screenshots. Fault fixtures use a real UDP proxy and keep resets separate from ordinary correction measurements.
 
 The [Linux server bundle](docs/SERVER_PACKAGE.md) includes the matching operator CLI, dependency licenses and runbooks. [OCI hosting](docs/CONTAINER_HOSTING.md) adds gated image/recovery checks and an operator region example. Managed workers report [tick percentiles, current native RSS and capacity headroom](docs/SERVER_PERFORMANCE.md) through authenticated private heartbeats. [Supervisor recovery and rollout](docs/SUPERVISOR_LIFECYCLE.md) retain active races, drain old pools and share bounded capacity. [Database backup and restore](docs/DIRECTORY_BACKUPS.md) preserve identities while clearing stale leases. `python3 tools/soak_acceptance.py --clear-road-spacing` runs the separate eight-client, ten-race impaired-network and 5–15 minute memory fixture.
@@ -65,7 +73,7 @@ artifacts. Package checksums, icons and Android signatures remain part of the
 build. These are development checkpoints, not completed launch releases.
 
 Run **Actions → Extra tests and soak → Run workflow** for source/content checks,
-the complete ten-course AI matrix, network integration, rendering/audio,
+the complete ten-course AI matrix, network and Iroh integration, rendering/audio,
 native package and save/store checks, directory/container recovery, and the
 ten-race impaired network/memory soak. This separate
 [`workflow_dispatch` workflow](.github/workflows/extra-tests.yml) runs only when

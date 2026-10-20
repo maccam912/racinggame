@@ -1,5 +1,35 @@
 # Implementation status
 
+## 20 October — Iroh code multiplayer implemented and checked locally
+
+**Host by Code / Join by Code** now uses the same live
+`iroh-rendezvous.maccam912.workers.dev` discovery service as Mega Chamomile.
+The foreground host runs the existing authority in an isolated physics viewport;
+eight seats, bot fill, race rules, prediction, results, rematches and guest
+reconnect reservations retain their contracts. Codes expire after ten minutes,
+can be regenerated and are revoked on close. Android backgrounding closes a
+hosted room. ENet Direct Connect and regional directory support remain available.
+
+All **106 final source commands pass**. The frozen-source native Iroh fixture
+passes **two races / 16 matching normal finishes**, five-second reconnect and
+rematch, with minimum **516 clear samples** and worst clear p95 **0.0275175 m**.
+All four raw channels also pass with both IP transports disabled, exercising
+real relay connectivity. The installed Android APK plus seven native clients
+passes **two races / 16 matching finishes**, two graphics loads and two committed
+result journals in the same process. A separate final-APK fixture proves Android
+hosting a native guest, actual Home shutdown and code revocation while suspended.
+Final in-place update preserves signer/UID and all **35 existing files**.
+Source-built universal macOS and Android ARM64 adapters pass; the exported macOS
+app also hosts a code room. [Exact reports, native frames, initial fixture failures
+and package boundaries](evidence/iroh/); [build and usage runbook](IROH.md).
+
+Content/protocol/save remain **10/6/1**. These are local implementation and
+development-export checks, not a new public release or remote CI result.
+Concurrent workflow reorganization is preserved, with Iroh acceptance in the
+manual Extra tests and soak workflow. Official region URLs remain unconfigured;
+code rooms do not depend on that regional service. Physical-device and managed
+relay operation remain separate owner follow-up.
+
 ## 20 October — distinct arcade courses implemented locally
 
 The six original layouts are rebuilt as coastal highway, angular downtown

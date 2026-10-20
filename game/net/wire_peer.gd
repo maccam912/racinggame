@@ -1,10 +1,10 @@
 class_name WirePeer
 extends RefCounted
-## Raw ENet channels. Fault injection is opt-in and only affects test traffic.
+## Application channels over ENet or Iroh. Fault injection is opt-in.
 
 const RECEIVE_BUDGET: int = 256
 
-var peer := ENetMultiplayerPeer.new()
+var peer: MultiplayerPeer = ENetMultiplayerPeer.new()
 var fragments := ReliableFragments.new()
 var accept_fragments: bool = false
 var pending: Array[Dictionary] = []
@@ -24,8 +24,24 @@ var discarded_packets: int = 0
 
 func _init() -> void:
 	random.seed = 94723
+	connect_signals()
+
+
+func connect_signals() -> void:
 	peer.peer_connected.connect(func(id: int) -> void: active_peers[id] = true)
 	peer.peer_disconnected.connect(func(id: int) -> void: active_peers.erase(id))
+
+
+func replace_peer(value: MultiplayerPeer) -> void:
+	close()
+	peer = value
+	connect_signals()
+
+
+func flush() -> void:
+	# QUIC owns its asynchronous send tasks; only ENet has a host to flush.
+	if peer is ENetMultiplayerPeer and peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
+		peer.get_host().flush()
 
 
 func send(target: int, channel: int, bytes: PackedByteArray, reliable: bool = false) -> void:
@@ -68,6 +84,8 @@ func poll() -> Array[Dictionary]:
 		var error := peer.put_packet(item.bytes)
 		if error == OK:
 			sent_bytes += item.bytes.size()
+		elif item.mode==MultiplayerPeer.TRANSFER_MODE_RELIABLE and error==ERR_BUSY:
+			remainder.append(item)
 	pending = remainder
 	var scanned := 0
 	while peer.get_available_packet_count() > 0 and scanned<RECEIVE_BUDGET:

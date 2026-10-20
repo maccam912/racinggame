@@ -12,6 +12,7 @@ import zipfile
 from contextlib import contextmanager, nullcontext
 from export_environment import temporary_configuration
 from native_build import ensure_export
+from iroh_build import ensure_export as ensure_iroh
 from content_hash import compute
 from asset_hash import compute as cosmetic_manifest
 from bootstrap import ROOT, LOCK, engine, templates
@@ -94,6 +95,7 @@ def build(target, number):
     if number < 1:
         raise ValueError('Build number must be positive')
     adapter = ensure_export(target)
+    iroh = ensure_iroh(target)
     templates()
     folder = ROOT/'build'/target
     folder.mkdir(parents=True, exist_ok=True)
@@ -101,6 +103,7 @@ def build(target, number):
     preset, name = TARGETS[target]
     data = metadata(target, number)
     data["native_adapter"] = adapter
+    data["iroh_adapter"] = iroh
     if target == "server":
         data["directory_service"] = build_directory(folder, data)
     if target.startswith('android'):

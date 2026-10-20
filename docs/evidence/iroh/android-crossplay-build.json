@@ -1,0 +1,45 @@
+{
+  "version": "0.0.119-dev",
+  "build_number": 119,
+  "working_tree_dirty": true,
+  "commit": "64d2996e931a7789ed30ec57b552795b0f410988",
+  "engine_version": "4.6.3-stable",
+  "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+  "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+  "protocol_version": 6,
+  "save_schema": 1,
+  "content_hash": "70dbe372a22ce7e59d5ceb68b94a7950e804ab3ce7d78430022782e7c0791f51",
+  "asset_hash": "ed9ac660454056c9fb8eabfdeffb84923f5bf6b58891b591c9437c86f05dd32f",
+  "target_platform": "android",
+  "distribution": "development",
+  "public_signing": "not configured",
+  "native_adapter": {
+    "platform": "android",
+    "architecture": "arm64",
+    "api_floor": "4.5",
+    "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+    "scons": "4.11.1",
+    "source_hash": "bb12ad6297015e90294ce414d08bb057374f822de6cda0c256af51c707ab9799",
+    "sha256": "454cc58b61467a74619871c2db148eb45e5449d8d40b1f6f4c56d60f521104a2"
+  },
+  "iroh_adapter": {
+    "platform": "android",
+    "targets": [
+      "aarch64-linux-android"
+    ],
+    "source_hash": "3bb322ef757e235e03789582f2105ca6ddced8b0d0bf19d901d33ad5c8b9bf8b",
+    "sha256": "ff93a67bb109663fdf5696f0901842226c68db7a94c4d0cab7b12627d4593731",
+    "iroh": "1.2.0",
+    "gdext": "0.5.5",
+    "upstream": "153979fc02f86b10802358ae38fb74204fbf179a"
+  },
+  "android_services": {
+    "source_hash": "6d85475bbffafa5189282c70259765610d47ba09b4559d20e9973635bceba646",
+    "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+    "android_api": 36,
+    "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+    "java_release": 17,
+    "compiler": "javac 17.0.20.1",
+    "sha256": "d99f0e6f66a23efa443d2faebd8f874705933a0264398d0f920ea37265bcee27"
+  }
+}

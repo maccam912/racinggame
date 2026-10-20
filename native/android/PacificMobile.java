@@ -25,6 +25,15 @@ public final class PacificMobile extends GodotPlugin {
 
     public PacificMobile(Godot godot) { super(godot); }
     @Override public String getPluginName() { return "PacificMobile"; }
+    private static native boolean initializeIrohNative(Context context);
+    @UsedByGodot public boolean initializeIroh() {
+        Activity activity = getActivity();
+        if (activity == null) return false;
+        try {
+            System.loadLibrary("pacific_iroh.android.arm64");
+            return initializeIrohNative(activity.getApplicationContext());
+        } catch (LinkageError | RuntimeException ignored) { return false; }
+    }
 
     private void requestFocus() {
         Activity activity = getActivity();

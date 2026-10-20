@@ -49,6 +49,7 @@ var input_provider: Callable
 var config: Dictionary = {}
 var host: String = "127.0.0.1"
 var port: int = 27020
+var iroh_endpoint: String = ""
 var retry_at: int = 0
 var retry_count: int = 0
 var disconnected_at: int = 0
@@ -78,8 +79,9 @@ func _init() -> void:
 func connect_to(address: String, udp_port: int, display_name: String = "Driver") -> Error:
 	host = address
 	port = udp_port
+	iroh_endpoint = ""
 	name_value = display_name
-	var error := wire.peer.create_client(host, port, 4)
+	var error := open_transport()
 	if error != OK:
 		status_changed.emit("Unable to connect")
 		return error
@@ -87,6 +89,28 @@ func connect_to(address: String, udp_port: int, display_name: String = "Driver")
 	initial_deadline_ms = last_received_ms+10000
 	status_changed.emit("Connecting")
 	return OK
+
+
+func connect_iroh(endpoint: String, display_name: String = "Driver") -> Error:
+	if not IrohTransport.valid_endpoint(endpoint) or not IrohTransport.available(): return ERR_UNAVAILABLE
+	iroh_endpoint = endpoint
+	name_value = display_name
+	var error := open_transport()
+	if error!=OK: return error
+	last_received_ms = Time.get_ticks_msec()
+	initial_deadline_ms = last_received_ms+20000
+	status_changed.emit("Connecting by code")
+	return OK
+
+
+func open_transport() -> Error:
+	if not iroh_endpoint.is_empty():
+		var transport := IrohTransport.client(iroh_endpoint)
+		if transport==null: return ERR_CANT_CONNECT
+		wire.replace_peer(transport)
+		return OK
+	if not wire.peer is ENetMultiplayerPeer: wire.replace_peer(ENetMultiplayerPeer.new())
+	return wire.peer.create_client(host,port,4)
 
 
 func _process(_dt: float) -> void:
@@ -122,7 +146,7 @@ func _process(_dt: float) -> void:
 		wire.peer.close()
 		wire.pending.clear()
 		hello_sent = false
-		wire.peer.create_client(host, port, 4)
+		open_transport()
 		retry_at = Time.get_ticks_msec() + [1000, 2000, 4000, 5000][mini(retry_count, 3)]
 		retry_count += 1
 
@@ -165,7 +189,7 @@ func set_suspended(value: bool) -> void:
 		if connected and wire.peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
 			wire.event(1,{"type":"away"})
 			wire.poll()
-			wire.peer.get_host().flush()
+			wire.flush()
 		wire.peer.close()
 		wire.pending.clear()
 		wire.active_peers.clear()
@@ -492,7 +516,7 @@ func leave_room() -> void:
 	command("leave")
 	wire.poll()
 	if wire.peer.get_connection_status()==MultiplayerPeer.CONNECTION_CONNECTED:
-		wire.peer.get_host().flush()
+		wire.flush()
 	connected = false
 	if is_inside_tree() and wire.peer.get_connection_status() != MultiplayerPeer.CONNECTION_DISCONNECTED:
 		departure_started = true

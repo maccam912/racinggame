@@ -58,6 +58,11 @@ func show_hub(refresh: bool = true) -> void:
 	region_choice(list)
 	status = app.menu.ui.paragraph(region_caption())
 	list.add_child(status)
+	for row: Array in [["online.iroh_host",app.iroh_page.show_host],["online.iroh_join",app.iroh_page.show_join]]:
+		var button: Button = app.menu.ui.button(I18n.t(row[0]),row[1])
+		button.disabled = not IrohTransport.available()
+		if button.disabled: app.menu.ui.help(button,I18n.t("online.iroh_unavailable"),true)
+		list.add_child(button)
 	hub_buttons.clear()
 	for row: Array in [["online.quick_join",func() -> void: begin_action("quick")],["online.browse",browse],["online.create",show_create],["online.join_code",show_code]]:
 		var button: Button = app.menu.ui.button(I18n.t(row[0]),row[1])
@@ -106,7 +111,7 @@ func region_caption() -> String:
 		return I18n.t("online.checking_regions")
 	var selected := regions.selected()
 	if selected.is_empty():
-		return I18n.t("online.unavailable")
+		return I18n.t("online.regions_unavailable")
 	return I18n.t(selected.name_key)+" • ~%d ms" % roundi(float(selected.ping_ms))
 
 func probe_regions() -> void:

@@ -5,6 +5,8 @@ var app: Node
 var shown_revision: int = -1
 var code_visible: bool = false
 var countdown: Label
+var iroh_code_caption: Label
+var iroh_copy: Button
 
 
 func _init(owner_app: Node) -> void:
@@ -25,7 +27,24 @@ func show_lobby() -> void:
 			if region.id==state.region: region_name = I18n.t(region.name_key)
 	var body := shell.reset(I18n.t("online.lobby"), state.name + " • " + region_name)
 	var list := shell.scroll_column(body)
+	iroh_code_caption = null
+	iroh_copy = null
 	app.append_unsaved_results(list)
+	if is_instance_valid(app.iroh_rooms.authority):
+		list.add_child(shell.ui.paragraph(I18n.t("online.iroh_host_help")))
+		var room := HFlowContainer.new()
+		var expired: bool = Time.get_unix_time_from_system()>=app.iroh_rooms.expires_at
+		iroh_code_caption = shell.ui.label(I18n.t("online.iroh_code_expired") if expired else I18n.t("online.iroh_share",[app.iroh_rooms.code]))
+		room.add_child(iroh_code_caption)
+		var copy := shell.ui.button(I18n.t("online.copy"),func() -> void: DisplayServer.clipboard_set(app.iroh_rooms.code))
+		iroh_copy = copy
+		copy.disabled = expired
+		room.add_child(copy)
+		var renew := shell.ui.button(I18n.t("online.iroh_new_code"),app.iroh_page.regenerate)
+		renew.name = "iroh_new_code"
+		renew.disabled = app.iroh_rooms.busy
+		room.add_child(renew)
+		list.add_child(room)
 	if app.network.official and is_instance_valid(app.guest_service.identity) and app.guest_service.identity.state=="session_only":
 		list.add_child(shell.ui.paragraph(I18n.t("online.session_only")))
 	var rules: Dictionary = state.rules
@@ -77,6 +96,10 @@ func show_lobby() -> void:
 
 
 func update_countdown() -> void:
+	if is_instance_valid(iroh_code_caption):
+		var expired: bool = Time.get_unix_time_from_system()>=app.iroh_rooms.expires_at
+		iroh_code_caption.text = I18n.t("online.iroh_code_expired") if expired else I18n.t("online.iroh_share",[app.iroh_rooms.code])
+		if is_instance_valid(iroh_copy): iroh_copy.disabled = expired
 	if is_instance_valid(countdown) and app.network:
 		var target := int(app.network.lobby.get("countdown_tick", -1))
 		countdown.text = "" if target < 0 else I18n.t("online.start_countdown", [maxi(0, ceili((target - app.network.server_tick) / 60))])

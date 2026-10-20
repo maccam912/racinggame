@@ -10,6 +10,7 @@
 # Preserve verbatim upstream license text, including its whitespace.
 assets/fonts/*-OFL.txt -whitespace
 services/directory/licenses/* -whitespace
+assets/licenses/* -whitespace
 *.png filter=lfs diff=lfs merge=lfs -text
 *.webp filter=lfs diff=lfs merge=lfs -text
 *.glb filter=lfs diff=lfs merge=lfs -text

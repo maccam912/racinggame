@@ -70,5 +70,12 @@
     "base": "ubuntu:22.04@sha256:0a9887931b0e38af2e3487ed39e29436b0535c4f3f52e57745baaf79d1898956",
     "linux_amd64_manifest": "sha256:98510ac07bb4545e389be502a8918b385c018bfe4ceeb5ac7e0375c782268b04",
     "architecture": "linux/amd64"
+  },
+  "iroh": {
+    "rust": "1.98.1",
+    "version": "1.2.0",
+    "godot_rust": "0.5.5",
+    "upstream_commit": "153979fc02f86b10802358ae38fb74204fbf179a",
+    "cargo_lock": "native/iroh/Cargo.lock"
   }
 }

@@ -30,6 +30,7 @@ var highest_gate_by_race: Dictionary = {}
 var minimum_ms: int = 0
 var requested_laps: int = 1
 var requested_tracks: Array[int] = [0,1]
+var iroh_code: String = ""
 
 
 func _initialize() -> void:
@@ -40,6 +41,10 @@ func run() -> void:
 	Catalog.load_all()
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--index="): index = int(arg.trim_prefix("--index="))
+		elif arg.begins_with("--iroh-code="): iroh_code = arg.trim_prefix("--iroh-code=")
+		elif arg.begins_with("--latency-ms="): link.wire.latency_ms = int(arg.trim_prefix("--latency-ms="))
+		elif arg.begins_with("--jitter-ms="): link.wire.jitter_ms = int(arg.trim_prefix("--jitter-ms="))
+		elif arg.begins_with("--loss="): link.wire.loss = float(arg.trim_prefix("--loss="))
 		elif arg.begins_with("--port="): port = int(arg.trim_prefix("--port="))
 		elif arg == "--reconnect": reconnect_test = true
 		elif arg == "--lobby-reconnect": lobby_reconnect_test = true
@@ -74,7 +79,14 @@ func run() -> void:
 		print("LOBBY_CLIENT_RACE_DONE index=%d race=%d" % [index, link.race_id])
 		link.command("return_lobby"))
 	link.status_changed.connect(func(message: String) -> void: print("LOBBY_CLIENT_STATUS ", message))
-	link.connect_to("127.0.0.1", port, "👨‍👩‍👧‍👦".repeat(3) + "a" + String.chr(97 + index))
+	var display_name := "👨‍👩‍👧‍👦".repeat(3) + "a" + String.chr(97 + index)
+	if iroh_code.is_empty(): link.connect_to("127.0.0.1",port,display_name)
+	else:
+		var service := IrohRendezvous.new()
+		scene.add_child(service)
+		var reply := await service.resolve(iroh_code)
+		assert(reply.ok,str(reply.get("message","")))
+		assert(link.connect_iroh(str(reply.payload.endpoint_id),display_name)==OK)
 	started_ms = Time.get_ticks_msec()
 	while results.size() < required_races and Time.get_ticks_msec() - started_ms < timeout_ms:
 		await physics_frame

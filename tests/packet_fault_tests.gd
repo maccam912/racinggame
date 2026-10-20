@@ -65,7 +65,7 @@ func text_vectors() -> void:
 func queued_burst() -> void:
 	var receiver := WirePeer.new()
 	assert(receiver.peer.create_server(0,2,4)==OK)
-	var port := receiver.peer.get_host().get_local_port()
+	var port := (receiver.peer as ENetMultiplayerPeer).get_host().get_local_port()
 	var sender := ENetMultiplayerPeer.new()
 	assert(sender.create_client("127.0.0.1",port,4)==OK)
 	var deadline := Time.get_ticks_msec()+5000

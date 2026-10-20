@@ -619,30 +619,42 @@ After 20 seconds, mark the human DNF; bot may finish visually but cannot earn th
 
 Mobile suspension intentionally sends a best-effort Away notice and immediately enables bot control; it does not rely on that packet arriving. The same 20-second reservation applies. Do not run online physics or keep audio playing in background to prolong the reservation. Details of mobile lifecycle are in section 26.
 
-### 19.5 Future candidate: iroh and the owner's rendezvous service
+### 19.5 Iroh code rooms and the shared rendezvous service
 
-Documentation-only owner request, 19 October 2026: consider iroh multiplayer and
-the existing discovery service after reviewing **mega-chamomile**. No transport
-migration or service integration is authorized by this note; ENet and the current
-authoritative architecture remain the implemented contract until a later decision.
+Owner-authorized implementation, 20 October 2026, superseding the earlier
+documentation-only note. Online adds **Host by Code / Join by Code** using the
+same `https://iroh-rendezvous.maccam912.workers.dev/v1/join-codes` service as
+Mega Chamomile. Regional directory rooms and ENet Direct Connect remain available.
 
-The inspected reference (`mega-chamomile`, source `a3f5f99`) keeps ENet/LAN and
-adds a separate godot-iroh **Host by Code / Join Code** path. Its
-`autoload/net.gd`, `scripts/iroh_bridge.gd` and `scripts/iroh_room_code.gd`
-provide the integration boundary, availability checks and normalized short codes.
-The companion **iroh-rendezvous** project supplies temporary code → endpoint-ID
-lookup, optional session IDs, expiry and host-held revocation tokens through
-`/v1/join-codes`. This is the owner's existing rendezvous/discovery service,
-separate from the game's LAN discovery and Pacific Rush's regional directory.
+A code host runs the existing RoomServer authority in an isolated, non-rendering
+physics viewport inside its foreground game. Its own predicted client connects
+through Iroh like every other racer. Eight human seats, bot fill, race rules,
+loading readiness, authority-owned results, rematches and the 20-second guest
+reconnect reservation keep their existing application contracts. The host must
+keep running; leaving, quitting or Android background suspension closes the room.
+Host migration is not provided for these listen-hosted rooms.
 
-For a future spike, inspect those projects' current code and vendored addon
-provenance, then validate Android plus desktop support and Pacific Rush's exact
-reliable/unreliable payload, channel, authority and reconnect contracts. The
-reference uses Godot's high-level multiplayer API; Pacific Rush's current raw
-ENet protocol needs its own reviewed adapter. Resolve codes through the existing
-service while retaining application-level admission and compatibility checks.
-This note neither deploys a service nor treats earlier reference-project QA as
-Pacific Rush acceptance.
+Iroh carries the existing raw application channels directly, without nesting
+ENet. Reliable events use QUIC streams; input, snapshots and telemetry use ordered
+datagrams. The native unreliable budget is 1,024 bytes (current eight-car
+snapshots are 727 bytes); reliable frames retain the 1,200-byte application bound.
+Large non-racing events retain the existing bounded fragmentation. The locked
+source-built extension covers Windows/Linux x86_64, universal macOS and Android
+ARM64. Its application ALPN is `pacific-rush/iroh/1`; normal protocol/content
+admission checks still apply. No gameplay or save format changes are required.
+
+The discovery service exchanges four-character codes for endpoint IDs. Codes
+expire after ten minutes, can be replaced with New Code, and are revoked when
+the room closes. Replacement revokes the previous mapping without disconnecting
+existing racers. The `session_id` binds discovery to `pacific-rush/<protocol>/<content-hash>`;
+other games and incompatible versions are rejected before dialing. Host-held
+revocation tokens remain in memory and never enter UI, saves or diagnostic logs.
+Codes are casual discovery, not account authentication. Abrupt process death
+leaves a mapping until its bounded expiry. Discovery does not allocate servers
+or relay race traffic; Iroh separately uses its N0 address lookup and relay preset.
+
+See [the implementation and validation runbook](docs/IROH.md) for the pinned
+upstream, Android JNI setup, build commands and exact acceptance boundaries.
 
 ## 20 Online service and abuse boundaries
 

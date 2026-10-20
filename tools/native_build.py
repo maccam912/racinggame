@@ -103,6 +103,8 @@ def ready(platform_name):
 
 def configure():
     shutil.copyfile(ROOT/'native/pacific_platform.gdextension.in',ROOT/'native/pacific_platform.gdextension')
+    from iroh_build import configure as configure_iroh
+    configure_iroh()
 
 
 def build(platform_name):
@@ -146,3 +148,5 @@ if __name__=='__main__':
     parser.add_argument('platform',choices=['host',*ARCH],default='host',nargs='?')
     args = parser.parse_args()
     print(build(HOST if args.platform=='host' else args.platform))
+    from iroh_build import build as build_iroh
+    print(build_iroh(HOST if args.platform=='host' else args.platform))

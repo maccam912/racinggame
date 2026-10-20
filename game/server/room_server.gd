@@ -2,6 +2,10 @@ class_name RoomServer
 extends Node3D
 ## Dedicated authority; no visuals, cameras, fonts, or client account secrets.
 
+signal stopped
+var embedded: bool = false
+var startup_error: String = ""
+
 var wire := WirePeer.new()
 var snapshot_events := SnapshotEvents.new()
 var lobby := LobbyState.new()
@@ -35,7 +39,7 @@ var retire_results_until_ms: int = -1
 func _ready() -> void:
 	set_process("--network-evidence" in OS.get_cmdline_user_args())
 	Catalog.load_all()
-	for arg: String in OS.get_cmdline_user_args():
+	for arg: String in ([] if embedded else OS.get_cmdline_user_args()):
 		if arg.begins_with("--port="): port = int(arg.trim_prefix("--port="))
 		elif arg.begins_with("--track="): lobby.rules.track = int(arg.trim_prefix("--track="))
 		elif arg.begins_with("--laps="): lobby.rules.laps = int(arg.trim_prefix("--laps="))
@@ -74,7 +78,7 @@ func _ready() -> void:
 		directory_link.leave_requested.connect(remove_guest)
 		directory_link.retire_requested.connect(func() -> void: retiring = true)
 		add_child(directory_link)
-	var error := wire.peer.create_server(port, 16, 4)
+	var error: Error = OK if embedded else wire.peer.create_server(port, 16, 4)
 	if error != OK:
 		fail_start("Cannot bind worker UDP port: " + error_string(error))
 		return
@@ -83,8 +87,17 @@ func _ready() -> void:
 
 
 func fail_start(message: String) -> void:
-	push_error(message)
-	get_tree().quit(2)
+	startup_error = message
+	if not embedded: push_error(message)
+	shutdown(2)
+
+
+func shutdown(code: int = 0) -> void:
+	if embedded:
+		set_physics_process(false)
+		wire.close()
+		stopped.emit()
+	else: get_tree().quit(code)
 
 
 func player_for_peer(peer_id: int) -> Dictionary:
@@ -110,7 +123,7 @@ func step_worker() -> void:
 	tick += 1
 	wire.racing = session != null and not result_sent and tick >= start_tick + 300
 	if retirement_due(Time.get_ticks_msec()):
-		get_tree().quit()
+		shutdown()
 		return
 	for packet: Dictionary in wire.poll():
 		receive(packet)
@@ -135,7 +148,7 @@ func step_worker() -> void:
 		"load": send_loading()
 		"start": start_race()
 		"lobby": reset_race()
-		"close": get_tree().quit()
+		"close": shutdown()
 	if lobby.revision != last_broadcast or tick % 300 == 0:
 		broadcast_lobby()
 	if session and tick > start_tick and not result_sent:
@@ -143,7 +156,7 @@ func step_worker() -> void:
 	var active := players.filter(func(player: Dictionary) -> bool: return player.connected).size()
 	empty_ticks = empty_ticks + 1 if active == 0 else 0
 	if empty_ticks >= 1800:
-		get_tree().quit()
+		shutdown()
 
 
 func retirement_due(now_ms: int) -> bool:
