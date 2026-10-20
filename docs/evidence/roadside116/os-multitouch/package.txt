@@ -1,0 +1,130 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        ad1e00d dev.pacificrush.game/com.godot.game.GodotAppLauncher filter 4ae8bc2
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.DEFAULT"
+          Category: "android.intent.category.LAUNCHER"
+
+Receiver Resolver Table:
+  Non-Data Actions:
+      androidx.profileinstaller.action.SAVE_PROFILE:
+        6f2cdd3 dev.pacificrush.game/androidx.profileinstaller.ProfileInstallReceiver filter fdda20e
+          Action: "androidx.profileinstaller.action.SAVE_PROFILE"
+      androidx.profileinstaller.action.INSTALL_PROFILE:
+        6f2cdd3 dev.pacificrush.game/androidx.profileinstaller.ProfileInstallReceiver filter 44a1d10
+          Action: "androidx.profileinstaller.action.INSTALL_PROFILE"
+      androidx.profileinstaller.action.SKIP_FILE:
+        6f2cdd3 dev.pacificrush.game/androidx.profileinstaller.ProfileInstallReceiver filter 2c97009
+          Action: "androidx.profileinstaller.action.SKIP_FILE"
+      androidx.profileinstaller.action.BENCHMARK_OPERATION:
+        6f2cdd3 dev.pacificrush.game/androidx.profileinstaller.ProfileInstallReceiver filter d92742f
+          Action: "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+
+Domain verification status:
+
+Registered ContentProviders:
+  dev.pacificrush.game/androidx.startup.InitializationProvider:
+    Provider{f3767a8 dev.pacificrush.game/androidx.startup.InitializationProvider}
+  dev.pacificrush.game/androidx.core.content.FileProvider:
+    Provider{1c82c1 dev.pacificrush.game/androidx.core.content.FileProvider}
+
+ContentProvider Authorities:
+  [dev.pacificrush.game.fileprovider]:
+    Provider{1c82c1 dev.pacificrush.game/androidx.core.content.FileProvider}
+      applicationInfo=ApplicationInfo{2f7a568 dev.pacificrush.game}
+  [dev.pacificrush.game.androidx-startup]:
+    Provider{f3767a8 dev.pacificrush.game/androidx.startup.InitializationProvider}
+      applicationInfo=ApplicationInfo{e474d81 dev.pacificrush.game}
+
+Key Set Manager:
+  [dev.pacificrush.game]
+      Signing KeySets: 59
+
+Packages:
+  Package [dev.pacificrush.game] (bf7e26):
+    appId=10207
+    pkg=Package{bad89fd dev.pacificrush.game}
+    codePath=/data/app/~~cZN0s1FoafuQjtCtbYXRjw==/dev.pacificrush.game-2xvkTcAbH6n3aRwbR4D0jg==
+    resourcePath=/data/app/~~cZN0s1FoafuQjtCtbYXRjw==/dev.pacificrush.game-2xvkTcAbH6n3aRwbR4D0jg==
+    legacyNativeLibraryDir=/data/app/~~cZN0s1FoafuQjtCtbYXRjw==/dev.pacificrush.game-2xvkTcAbH6n3aRwbR4D0jg==/lib
+    extractNativeLibs=false
+    primaryCpuAbi=arm64-v8a
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=116 minSdk=29 targetSdk=36
+    minExtensionVersions=[]
+    versionName=0.0.116-dev
+    hiddenApiEnforcementPolicy=2
+    usesNonSdkApi=false
+    splits=[base]
+    apkSigningVersion=2
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    scannedAsStoppedSystemApp=false
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-10-20 06:22:19
+    lastUpdateTime=2026-10-20 06:22:19
+    installerPackageName=null
+    installerPackageUid=-1
+    initiatingPackageName=com.android.shell
+    originatingPackageName=null
+    packageSource=1
+    appMetadataFilePath=null
+    appMetadataSource=0
+    signatures=PackageSignatures{f1b894a version:2, signatures:[bf7a680c], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ]
+    privatePkgFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    apexModuleName=null
+    requested permissions:
+      android.permission.INTERNET
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.VIBRATE
+    install permissions:
+      android.permission.INTERNET: granted=true
+      android.permission.ACCESS_NETWORK_STATE: granted=true
+      android.permission.VIBRATE: granted=true
+    User 0: ceDataInode=360851 deDataInode=57922 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=/data/user/0/dev.pacificrush.game
+      firstInstallTime=2026-10-18 20:33:12
+      uninstallReason=0
+      overlay paths:
+        /product/overlay/EmulationPixel7/EmulationPixel7Overlay.apk
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+      legacy overlay paths:
+        /product/overlay/EmulationPixel7/EmulationPixel7Overlay.apk
+        /product/overlay/NavigationBarModeGestural/NavigationBarModeGesturalOverlay.apk
+      gids=[3003]
+      runtime permissions:
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  queries via package name:
+  queries via component:
+    com.google.android.as:
+      dev.pacificrush.game
+    com.google.android.settings.intelligence:
+      dev.pacificrush.game
+  queryable via interaction:
+    User 0:
+      [com.android.keychain,com.android.settings,com.android.localtransport,com.android.dynsystem,com.android.server.telecom,com.android.location.fused,com.android.DeviceAsWebcam,com.android.providers.settings,com.android.emulator.multidisplay,com.android.inputdevices,android]:
+        dev.pacificrush.game
+      com.google.android.inputmethod.latin:
+        dev.pacificrush.game
+      dev.pacificrush.game:
+        com.android.externalstorage
+  queryable via uses-library:
+
+Dexopt state:
+  [dev.pacificrush.game]
+    path: /data/app/~~cZN0s1FoafuQjtCtbYXRjw==/dev.pacificrush.game-2xvkTcAbH6n3aRwbR4D0jg==/base.apk
+      arm64: [status=verify] [reason=install] [primary-abi]
+        [location is /data/app/~~cZN0s1FoafuQjtCtbYXRjw==/dev.pacificrush.game-2xvkTcAbH6n3aRwbR4D0jg==/oat/arm64/base.odex]
+
+Compiler stats:
+  [dev.pacificrush.game]
+     base.apk - 159

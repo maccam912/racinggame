@@ -1,5 +1,11 @@
 # Implementation status
 
+## 20 October — clean full ten-race pass and actual OS multi-touch
+
+Clean `9156350` passes **ten impaired three-lap races / 80 matching normal finishes** with all eight identities, original wire/memory/engine gates, minimum **2,793 clear samples** and worst clear p95 **0.0406286 m**. Worker comparable RSS peaks decline **0.225449%**, elapsed **1,947.933 s**, no cleanup issues. [Complete local run, eighty checkpoints and exact fixtures](evidence/ci115-ten-race-coverage/spacing-full-ten/). GitHub Build116 platform/native/graphics/audio/network jobs pass; the independent remote full soak and publication remain pending.
+
+The actual clean local Build116 APK also passes an [Android OS multi-contact smoke](evidence/roadside116/os-multitouch/): real kernel contacts give **2→1→2→1** raw/cooked pointers with independent steering/brake pressed states. Home with both held, release, return and resume leaves both controls neutral. Its own QA profile is archived after force-stop and all slots are released. This remains separate from ten human two-thumb races. The original pause screenshot retains a brief announcer GO caption overlapping Resume, queued for correction.
+
 ## 20 October — Build115 full-soak coverage failure; physical-gap fixture under acceptance
 
 Build115's ten impaired three-lap Palm/Citrus races have **80 matching finishes**, worst clear p95 **0.0479960 m** and **0.981889%** worker RSS growth, but **fail** unchanged per-race clear coverage: two drivers in Palm race 7 have only **442/460 clear samples**, with **2,694/2,708 contact observations**. All other required jobs pass and publication correctly skips; no Build115 release exists. [Original failed full report, exact source and workflow](evidence/ci115-ten-race-coverage/initial-failure/).

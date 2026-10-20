@@ -1,0 +1,51 @@
+{
+  "os_pointer_counts_raw_cooked": {
+    "correct-both-held": [
+      2,
+      2
+    ],
+    "steer-only": [
+      1,
+      1
+    ],
+    "brake-reapplied": [
+      2,
+      2
+    ],
+    "brake-only": [
+      1,
+      1
+    ],
+    "background-before": [
+      2,
+      2
+    ],
+    "background-home-held": [
+      2,
+      2
+    ],
+    "background-released": [
+      0,
+      0
+    ],
+    "background-returned": [
+      0,
+      0
+    ],
+    "background-resumed-neutral": [
+      0,
+      0
+    ],
+    "cleanup": [
+      0,
+      0
+    ]
+  },
+  "visual_review": "Both controls active; each contact can be lifted independently. Home with both down returns to pause after release. Resume with zero contacts displays centered steering and unpressed brake.",
+  "automated_racing": false,
+  "ten_race_human_touch_acceptance": false,
+  "profile_archive": "/data/local/tmp/pacific-rush-touch116_16378df024",
+  "cleanup": "Only the exact owned diagnostic profile was moved after force-stop; all injected slots released and zero cooked/raw pointers observed.",
+  "apk_sha256": "1c8253f4cd233fcb90808443b611dde96d08495535f407b137517f7616f2a02c",
+  "known_issue": "Initial pause at announcer GO briefly places its caption over Resume; original paused-after-release.png retained. No production fix in this run."
+}

@@ -1,0 +1,93 @@
+[
+  {
+    "action": "tap",
+    "x": 550,
+    "y": 940,
+    "target": "Continue on observed first-run welcome"
+  },
+  {
+    "action": "tap",
+    "x": 1200,
+    "y": 480,
+    "target": "Skip on observed optional Driving School page"
+  },
+  {
+    "action": "hold",
+    "duration_ms": 150,
+    "x": 1200,
+    "y": 480,
+    "target": "Skip"
+  },
+  {
+    "action": "kernel tap",
+    "point": [
+      900,
+      940
+    ],
+    "target": "Continue with observed Comet selection",
+    "down": [
+      [
+        3,
+        47,
+        0
+      ],
+      [
+        3,
+        57,
+        1160
+      ],
+      [
+        3,
+        53,
+        4248
+      ],
+      [
+        3,
+        54,
+        12288
+      ],
+      [
+        3,
+        58,
+        512
+      ],
+      [
+        1,
+        330,
+        1
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ],
+    "up": [
+      [
+        3,
+        47,
+        0
+      ],
+      [
+        3,
+        57,
+        -1
+      ],
+      [
+        3,
+        58,
+        0
+      ],
+      [
+        1,
+        330,
+        0
+      ],
+      [
+        0,
+        0,
+        0
+      ]
+    ]
+  }
+]
