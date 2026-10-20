@@ -7,6 +7,11 @@ acceptance. Publisher signing and macOS notarization are still open.
 
 ## Current public package checkpoint
 
+[Build 117](evidence/release117/) is the latest verified published checkpoint: all
+18 files and required CI/native package gates pass. Clean local117 phone/tablet
+updates and macOS execution have [their own evidence](evidence/caption117/packages117/).
+The exact downloaded public-binary execution below remains labeled Build116.
+
 [Build 116](evidence/release116/) publishes 18 verified desktop/Android/server files.
 Its actual downloaded APK updates public Build 112 on a separate Android 15
 emulator while preserving all 28 files, UID and signer. The actual public macOS

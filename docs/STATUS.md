@@ -1,5 +1,11 @@
 # Implementation status
 
+## 20 October — stopped at owner request after Build117 passes and publishes
+
+[Build117](https://github.com/maccam912/racinggame/releases/tag/v0.0.117-dev) publishes all **18 desktop/Android/server files** from clean `44fffaa`. All **32 required jobs pass**, including **102 source commands**, actual Linux graphics, platform/native checks, server, directory and containers. Two expected AI/full-soak skips reuse unchanged accepted baselines, with Build116’s full ten-race evidence retained. Tag, six clean metadata files and six GitHub stored payload digests match. The latest run of all three active workflows is successful. [Final publication and workflow audit](evidence/release117/).
+
+The current roadside **14-race / 112-finisher** native lifetime pass, clean local117 phone/tablet/macOS checks and actual public116 execution retain their separate evidence below. Every local running check is finished and its own test profile archived. Work stops here at the owner’s explicit request, with **90% weekly usage remaining** at the final check; the allowance reset earlier, and no usage reset was redeemed. No automatic continuation is scheduled. Human feel/minimum hardware and publisher inputs remain tracked; official regions and Iroh retain the owner’s existing decisions.
+
 ## 20 October — current roadside native lifetime passes; wrapping at owner request
 
 Clean `28d611c` with current game `f762fa68` / cosmetics `f6fadc28` passes **14 eight-car races / 112 finishers** across Palm/Citrus/Marina in **915.833 s**. Peak native RSS **716,013,568 bytes**, comparable growth **2.055018%**, actual racing p95/p99 **18.389/18.956 ms** over **49,492 intervals**. One 36.522 ms maximum remains; all original lifetime/memory and host percentile targets pass. The exact newly owned QA profile is archived. [Full raw run, fixtures, source identities and hardware boundaries](evidence/caption117/native-lifetime/). This is separate from the earlier heavy-course measurements and minimum-hardware acceptance.

@@ -1,0 +1,9 @@
+# Public Build117, final owner-requested stopping point
+
+[Release](https://github.com/maccam912/racinggame/releases/tag/v0.0.117-dev), [complete workflow](https://github.com/maccam912/racinggame/actions/runs/39424117390). Clean source **44fffaa6aa150ff784287d3ef1f8bba1331ab76f**, game **f762fa68**, cosmetics **f6fadc28**, content/protocol/save **9/5/1**. The caption correction keeps live race callouts clear of Pause and its settings pages, while preserving driving/Results captions.
+
+All **32 required jobs pass**, including all **102 source commands**, actual Linux graphics, platform/native exports, server, directory and container gates. The two AI/full-soak skips correctly reuse unchanged accepted populations; [Build116's full Linux soak](../release116/ten-race-soak/) retains 80 matching normal finishes and all original bounds. `latest-workflows.json` separately confirms the latest run of all three active workflows is successful; manual diagnostics retain their older source identities.
+
+All **18 published files**, exact tag, six clean package metadata files and six GitHub stored payload digests are verified. This final verification does not claim separate local execution of downloaded public117 payloads. [Clean local117 APK/macOS execution and phone/tablet updates](../caption117/packages117/), [actual public116 APK/macOS execution](../release116/), and the [current native three-course lifetime pass](../caption117/native-lifetime/) retain their exact identities and boundaries.
+
+The owner requested wrapping up and stopping. All local running checks finished, their owned test profiles are archived, and final work/evidence are committed and pushed. Official regions stay unconfigured; Iroh/discovery remains documentation only. Human handling and minimum-hardware acceptance remain open in the existing acceptance matrix. No additional feature work or scheduled continuation is started at this checkpoint.

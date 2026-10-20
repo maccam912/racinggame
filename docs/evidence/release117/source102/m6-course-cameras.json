@@ -1,0 +1,768 @@
+{
+	"boundary": "Six real standing-start Needle laps, ordinary Medium inputs, full static world/camera bounds and actual exported cosmetic terrain triangles. All three cameras with alternating four-second look-back phases, 60 Hz updates and 10 Hz clearance samples. No synthetic vehicle poses or saved records. Numeric camera/static-clearance coverage; not human preference, rendered occlusion, every off-road pose or live frame timing.",
+	"cases": [
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.28804707527161,
+					"max_distance_m": 5.17602396011353,
+					"min_terrain_clearance_m": 4.01883800274118,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.29638314247131,
+					"max_distance_m": 5.16625118255615,
+					"min_terrain_clearance_m": 4.12557544772441,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.95773124694824,
+					"max_distance_m": 8.74887275695801,
+					"min_terrain_clearance_m": 5.67355889072996,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.9608256816864,
+					"max_distance_m": 8.74887371063232,
+					"min_terrain_clearance_m": 5.8364858080732,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.58696413040161,
+					"max_distance_m": 2.09900999069214,
+					"min_terrain_clearance_m": 3.66004643480614,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.57643818855286,
+					"max_distance_m": 2.07127976417542,
+					"min_terrain_clearance_m": 3.59967582384388,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 74.9735794067383,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 47.9075924662277,
+			"track": "palm_bay"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.24120759963989,
+					"max_distance_m": 5.18720102310181,
+					"min_terrain_clearance_m": 4.04980501676619,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.2431583404541,
+					"max_distance_m": 5.18319749832153,
+					"min_terrain_clearance_m": 3.96710430097301,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.9054388999939,
+					"max_distance_m": 8.74886608123779,
+					"min_terrain_clearance_m": 5.85863000902827,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.91138434410095,
+					"max_distance_m": 8.74887466430664,
+					"min_terrain_clearance_m": 5.72654332860839,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.52958524227142,
+					"max_distance_m": 2.13114643096924,
+					"min_terrain_clearance_m": 3.4847798810697,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.53040194511414,
+					"max_distance_m": 2.11096906661987,
+					"min_terrain_clearance_m": 3.50988059825977,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 73.9797134399414,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 58.6225537052031,
+			"track": "citrus_pass"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.22079491615295,
+					"max_distance_m": 5.16625595092773,
+					"min_terrain_clearance_m": 4.14710344445484,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.17215371131897,
+					"max_distance_m": 5.16624736785889,
+					"min_terrain_clearance_m": 4.11411338922668,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.88847780227661,
+					"max_distance_m": 8.74891376495361,
+					"min_terrain_clearance_m": 5.9034725075835,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.83546710014343,
+					"max_distance_m": 8.74886798858643,
+					"min_terrain_clearance_m": 5.79092206267864,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.46301507949829,
+					"max_distance_m": 2.08028388023376,
+					"min_terrain_clearance_m": 3.62067540148564,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.50875413417816,
+					"max_distance_m": 2.03459286689758,
+					"min_terrain_clearance_m": 3.64707695270772,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 75.2941513061523,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 56.3750873389609,
+			"track": "marina_lights"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.25625085830688,
+					"max_distance_m": 5.1828293800354,
+					"min_terrain_clearance_m": 4.17423685891936,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.26255083084106,
+					"max_distance_m": 5.18764591217041,
+					"min_terrain_clearance_m": 4.13871835973623,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.91739201545715,
+					"max_distance_m": 8.74887275695801,
+					"min_terrain_clearance_m": 5.87411678064927,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.92573165893555,
+					"max_distance_m": 8.74888038635254,
+					"min_terrain_clearance_m": 5.85378934416849,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.55428969860077,
+					"max_distance_m": 2.11109042167664,
+					"min_terrain_clearance_m": 3.59189669945044,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.55081784725189,
+					"max_distance_m": 2.12942314147949,
+					"min_terrain_clearance_m": 3.58966876390696,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 73.9303283691406,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 58.4177137656129,
+			"track": "redwood_run"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.25475168228149,
+					"max_distance_m": 5.18772554397583,
+					"min_terrain_clearance_m": 4.18336540686505,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.28041386604309,
+					"max_distance_m": 5.18778848648071,
+					"min_terrain_clearance_m": 4.06905059814744,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.91780781745911,
+					"max_distance_m": 8.74889469146729,
+					"min_terrain_clearance_m": 5.84052844538019,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.94302582740784,
+					"max_distance_m": 8.74891948699951,
+					"min_terrain_clearance_m": 5.83197446967097,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.57345175743103,
+					"max_distance_m": 2.13034749031067,
+					"min_terrain_clearance_m": 3.5836215337622,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.54663598537445,
+					"max_distance_m": 2.05169010162354,
+					"min_terrain_clearance_m": 3.57304214891701,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 74.7405319213867,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 67.1114972125291,
+			"track": "sunstone_canyon"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.28158283233643,
+					"max_distance_m": 5.1806378364563,
+					"min_terrain_clearance_m": 4.00271641580184,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.2842333316803,
+					"max_distance_m": 5.18725252151489,
+					"min_terrain_clearance_m": 4.01235944093787,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.94447493553162,
+					"max_distance_m": 8.74888801574707,
+					"min_terrain_clearance_m": 5.72330145332671,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.94628071784973,
+					"max_distance_m": 8.74886989593506,
+					"min_terrain_clearance_m": 5.77811158604163,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.57803750038147,
+					"max_distance_m": 2.06552147865295,
+					"min_terrain_clearance_m": 3.47585605536733,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.57380354404449,
+					"max_distance_m": 2.1276421546936,
+					"min_terrain_clearance_m": 3.50843219357921,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 74.9465789794922,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 67.5758160560017,
+			"track": "pacific_summit"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.29601001739502,
+					"max_distance_m": 5.16625118255615,
+					"min_terrain_clearance_m": 18.3841176872749,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 797,
+					"terrain_clips": 0,
+					"terrain_samples": 797
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.29383492469788,
+					"max_distance_m": 5.16625452041626,
+					"min_terrain_clearance_m": 18.3772106044866,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 797,
+					"terrain_clips": 0,
+					"terrain_samples": 797
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.95810604095459,
+					"max_distance_m": 8.74886512756348,
+					"min_terrain_clearance_m": 20.1329966973292,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 797,
+					"terrain_clips": 0,
+					"terrain_samples": 797
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.95618677139282,
+					"max_distance_m": 8.74887752532959,
+					"min_terrain_clearance_m": 20.1210417311075,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 797,
+					"terrain_clips": 0,
+					"terrain_samples": 797
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.5879613161087,
+					"max_distance_m": 2.06022930145264,
+					"min_terrain_clearance_m": 17.880865526641,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 797,
+					"terrain_clips": 0,
+					"terrain_samples": 797
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.59076750278473,
+					"max_distance_m": 2.05041837692261,
+					"min_terrain_clearance_m": 17.8851393815753,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 797,
+					"terrain_clips": 0,
+					"terrain_samples": 797
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 75.3164596557617,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 77.6505372378386,
+			"track": "skyline_splice"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.29164934158325,
+					"max_distance_m": 5.16631603240967,
+					"min_terrain_clearance_m": 4.20883358063293,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 1174,
+					"terrain_clips": 0,
+					"terrain_samples": 1174
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.289222240448,
+					"max_distance_m": 5.16641044616699,
+					"min_terrain_clearance_m": 4.20789780741325,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 1174,
+					"terrain_clips": 0,
+					"terrain_samples": 1174
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.95560383796692,
+					"max_distance_m": 8.74894618988037,
+					"min_terrain_clearance_m": 5.96356646576896,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 1174,
+					"terrain_clips": 0,
+					"terrain_samples": 1174
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.95302414894104,
+					"max_distance_m": 8.74894618988037,
+					"min_terrain_clearance_m": 5.95076213787979,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 1174,
+					"terrain_clips": 0,
+					"terrain_samples": 1174
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.58052253723145,
+					"max_distance_m": 2.01890873908997,
+					"min_terrain_clearance_m": 3.68921067059273,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 1174,
+					"terrain_clips": 0,
+					"terrain_samples": 1174
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.58260595798492,
+					"max_distance_m": 2.02626514434814,
+					"min_terrain_clearance_m": 3.69043383206736,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 1174,
+					"terrain_clips": 0,
+					"terrain_samples": 1174
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 75.1558685302734,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 115.364552609664,
+			"track": "quarry_switchback"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.27948927879333,
+					"max_distance_m": 5.17229318618774,
+					"min_terrain_clearance_m": 64.3394184010278,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 1160,
+					"terrain_clips": 0,
+					"terrain_samples": 1160
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.28063821792603,
+					"max_distance_m": 5.17203426361084,
+					"min_terrain_clearance_m": 64.3114713726455,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 1160,
+					"terrain_clips": 0,
+					"terrain_samples": 1160
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.94372081756592,
+					"max_distance_m": 8.74887180328369,
+					"min_terrain_clearance_m": 66.0940712451123,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 1160,
+					"terrain_clips": 0,
+					"terrain_samples": 1160
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.94508624076843,
+					"max_distance_m": 8.74887943267822,
+					"min_terrain_clearance_m": 66.0463363388008,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 1160,
+					"terrain_clips": 0,
+					"terrain_samples": 1160
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.5707323551178,
+					"max_distance_m": 2.07708287239075,
+					"min_terrain_clearance_m": 63.8240158255998,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 1160,
+					"terrain_clips": 0,
+					"terrain_samples": 1160
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.56990504264832,
+					"max_distance_m": 2.07725262641907,
+					"min_terrain_clearance_m": 63.833982372892,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 1160,
+					"terrain_clips": 0,
+					"terrain_samples": 1160
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 74.6789932250977,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 113.95485095613,
+			"track": "spillway_sprint"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.29534268379211,
+					"max_distance_m": 5.1738429069519,
+					"min_terrain_clearance_m": 35.633012644294,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 1486,
+					"terrain_clips": 0,
+					"terrain_samples": 1486
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.29531860351562,
+					"max_distance_m": 5.17389392852783,
+					"min_terrain_clearance_m": 35.6933466005591,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 1486,
+					"terrain_clips": 0,
+					"terrain_samples": 1486
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.9581937789917,
+					"max_distance_m": 8.74898242950439,
+					"min_terrain_clearance_m": 37.3505963812361,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 1486,
+					"terrain_clips": 0,
+					"terrain_samples": 1486
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.95818424224854,
+					"max_distance_m": 8.74897480010986,
+					"min_terrain_clearance_m": 37.4472860103804,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 1486,
+					"terrain_clips": 0,
+					"terrain_samples": 1486
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.58831441402435,
+					"max_distance_m": 2.03496909141541,
+					"min_terrain_clearance_m": 35.1808551958305,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 1486,
+					"terrain_clips": 0,
+					"terrain_samples": 1486
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.58837521076202,
+					"max_distance_m": 2.03497934341431,
+					"min_terrain_clearance_m": 35.161700872586,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 1486,
+					"terrain_clips": 0,
+					"terrain_samples": 1486
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 75.298713684082,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 146.561359077515,
+			"track": "caldera_crosscut"
+		}
+	],
+	"content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+	"failures": [],
+	"passed": true
+}

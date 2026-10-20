@@ -1,0 +1,1368 @@
+{
+  "passed": true,
+  "base_commit": "44fffaa6aa150ff784287d3ef1f8bba1331ab76f",
+  "boundary": "Synthetic eight-driver finish exercises active-race retirement and real fragmented reliable ENet delivery. No profile, score, timing or genuine race finish acceptance.",
+  "clients": [
+    {
+      "acknowledged_sequence": 137,
+      "clear_corrections": {
+        "count": 22,
+        "max": 0.0180126577615738,
+        "p95": 0.0132503900676966
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 7,
+      "connected": true,
+      "contact_corrections": {
+        "count": 14,
+        "max": 0.61983859539032,
+        "p95": 0.61983859539032
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 7,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 35.9652442932129,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 23,
+        "levels": [
+          0,
+          23,
+          0
+        ],
+        "max_delivery_loss_percent": 4.08163265306122,
+        "max_rtt_ms": 185.0
+      },
+      "received_bytes": 123441,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 924,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 0.682379424571991,
+        "max_requested_seconds": 0.0367899079857011,
+        "samples": 49
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.654125793837,
+          "dnf": "",
+          "id": "bdf590d5-048c-4554-9828-5ccc02babdae",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5412450898439,
+          "dnf": "",
+          "id": "09812c7d-b54f-4c4a-b3ad-a29e16007c63",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        },
+        {
+          "best_lap": 3.02,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 37.2067984631285,
+          "dnf": "",
+          "id": "3813a4a3-aeef-41cf-86c1-a9a2e155ec78",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 0.0,
+          "slot": 2.0,
+          "time": 3.02
+        },
+        {
+          "best_lap": 3.03,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 35.914479569532,
+          "dnf": "",
+          "id": "9803a71e-c495-438f-9ae2-651d9f7685cc",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 0.0,
+          "slot": 3.0,
+          "time": 3.03
+        },
+        {
+          "best_lap": 3.04,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.6545631359331,
+          "dnf": "",
+          "id": "3bcc45cd-579e-41fb-b909-39c1731f9217",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 0.0,
+          "slot": 4.0,
+          "time": 3.04
+        },
+        {
+          "best_lap": 3.05,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5448027704842,
+          "dnf": "",
+          "id": "3356cedb-ee27-41d9-b9de-23116ad8d3e6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 0.0,
+          "slot": 5.0,
+          "time": 3.05
+        },
+        {
+          "best_lap": 3.06,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 34.7189243836328,
+          "dnf": "",
+          "id": "d850a2e4-20f9-4704-af00-e39f751ea33c",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 0.0,
+          "slot": 6.0,
+          "time": 3.06
+        },
+        {
+          "best_lap": 3.07,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.0869514066726,
+          "dnf": "",
+          "id": "ccf06738-0a78-47b3-b95f-0b861fb822d8",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 3.07
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 150.0,
+      "sent_bytes": 6297,
+      "sequence": 137,
+      "slot": 7,
+      "snapshots": 43,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    },
+    {
+      "acknowledged_sequence": 137,
+      "clear_corrections": {
+        "count": 28,
+        "max": 0.0275808069854975,
+        "p95": 0.0239781774580479
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 5,
+      "connected": true,
+      "contact_corrections": {
+        "count": 5,
+        "max": 0.49951758980751,
+        "p95": 0.49951758980751
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 0,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 36.135181427002,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 23,
+        "levels": [
+          0,
+          13,
+          10
+        ],
+        "max_delivery_loss_percent": 9.09090909090909,
+        "max_rtt_ms": 201.909090909091
+      },
+      "received_bytes": 126474,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 882,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 2.13345980644226,
+        "max_requested_seconds": 0.101423920233835,
+        "samples": 84
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.654125793837,
+          "dnf": "",
+          "id": "bdf590d5-048c-4554-9828-5ccc02babdae",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5412450898439,
+          "dnf": "",
+          "id": "09812c7d-b54f-4c4a-b3ad-a29e16007c63",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        },
+        {
+          "best_lap": 3.02,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 37.2067984631285,
+          "dnf": "",
+          "id": "3813a4a3-aeef-41cf-86c1-a9a2e155ec78",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 0.0,
+          "slot": 2.0,
+          "time": 3.02
+        },
+        {
+          "best_lap": 3.03,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 35.914479569532,
+          "dnf": "",
+          "id": "9803a71e-c495-438f-9ae2-651d9f7685cc",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 0.0,
+          "slot": 3.0,
+          "time": 3.03
+        },
+        {
+          "best_lap": 3.04,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.6545631359331,
+          "dnf": "",
+          "id": "3bcc45cd-579e-41fb-b909-39c1731f9217",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 0.0,
+          "slot": 4.0,
+          "time": 3.04
+        },
+        {
+          "best_lap": 3.05,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5448027704842,
+          "dnf": "",
+          "id": "3356cedb-ee27-41d9-b9de-23116ad8d3e6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 0.0,
+          "slot": 5.0,
+          "time": 3.05
+        },
+        {
+          "best_lap": 3.06,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 34.7189243836328,
+          "dnf": "",
+          "id": "d850a2e4-20f9-4704-af00-e39f751ea33c",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 0.0,
+          "slot": 6.0,
+          "time": 3.06
+        },
+        {
+          "best_lap": 3.07,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.0869514066726,
+          "dnf": "",
+          "id": "ccf06738-0a78-47b3-b95f-0b861fb822d8",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 3.07
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 234.0,
+      "sent_bytes": 6297,
+      "sequence": 137,
+      "slot": 0,
+      "snapshots": 38,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    },
+    {
+      "acknowledged_sequence": 138,
+      "clear_corrections": {
+        "count": 27,
+        "max": 0.0246040895581245,
+        "p95": 0.022214537486434
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 4,
+      "connected": true,
+      "contact_corrections": {
+        "count": 5,
+        "max": 0.495251893997192,
+        "p95": 0.495251893997192
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 36.613151550293,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 23,
+        "levels": [
+          0,
+          23,
+          0
+        ],
+        "max_delivery_loss_percent": 5.05050505050505,
+        "max_rtt_ms": 198.0
+      },
+      "received_bytes": 130976,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 938,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 1.52476263046265,
+        "max_requested_seconds": 0.0510808029916423,
+        "samples": 77
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.654125793837,
+          "dnf": "",
+          "id": "bdf590d5-048c-4554-9828-5ccc02babdae",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5412450898439,
+          "dnf": "",
+          "id": "09812c7d-b54f-4c4a-b3ad-a29e16007c63",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        },
+        {
+          "best_lap": 3.02,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 37.2067984631285,
+          "dnf": "",
+          "id": "3813a4a3-aeef-41cf-86c1-a9a2e155ec78",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 0.0,
+          "slot": 2.0,
+          "time": 3.02
+        },
+        {
+          "best_lap": 3.03,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 35.914479569532,
+          "dnf": "",
+          "id": "9803a71e-c495-438f-9ae2-651d9f7685cc",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 0.0,
+          "slot": 3.0,
+          "time": 3.03
+        },
+        {
+          "best_lap": 3.04,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.6545631359331,
+          "dnf": "",
+          "id": "3bcc45cd-579e-41fb-b909-39c1731f9217",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 0.0,
+          "slot": 4.0,
+          "time": 3.04
+        },
+        {
+          "best_lap": 3.05,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5448027704842,
+          "dnf": "",
+          "id": "3356cedb-ee27-41d9-b9de-23116ad8d3e6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 0.0,
+          "slot": 5.0,
+          "time": 3.05
+        },
+        {
+          "best_lap": 3.06,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 34.7189243836328,
+          "dnf": "",
+          "id": "d850a2e4-20f9-4704-af00-e39f751ea33c",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 0.0,
+          "slot": 6.0,
+          "time": 3.06
+        },
+        {
+          "best_lap": 3.07,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.0869514066726,
+          "dnf": "",
+          "id": "ccf06738-0a78-47b3-b95f-0b861fb822d8",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 3.07
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 167.0,
+      "sent_bytes": 6379,
+      "sequence": 138,
+      "slot": 1,
+      "snapshots": 39,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    },
+    {
+      "acknowledged_sequence": 137,
+      "clear_corrections": {
+        "count": 29,
+        "max": 0.0313115231692791,
+        "p95": 0.0217138528823853
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 7,
+      "connected": true,
+      "contact_corrections": {
+        "count": 4,
+        "max": 0.488976180553436,
+        "p95": 0.488976180553436
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 5,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 36.143440246582,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 22,
+        "levels": [
+          0,
+          22,
+          0
+        ],
+        "max_delivery_loss_percent": 6.06060606060606,
+        "max_rtt_ms": 178.6
+      },
+      "received_bytes": 122656,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 889,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 0.75006490945816,
+        "max_requested_seconds": 0.0401486912606003,
+        "samples": 35
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.654125793837,
+          "dnf": "",
+          "id": "bdf590d5-048c-4554-9828-5ccc02babdae",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5412450898439,
+          "dnf": "",
+          "id": "09812c7d-b54f-4c4a-b3ad-a29e16007c63",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        },
+        {
+          "best_lap": 3.02,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 37.2067984631285,
+          "dnf": "",
+          "id": "3813a4a3-aeef-41cf-86c1-a9a2e155ec78",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 0.0,
+          "slot": 2.0,
+          "time": 3.02
+        },
+        {
+          "best_lap": 3.03,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 35.914479569532,
+          "dnf": "",
+          "id": "9803a71e-c495-438f-9ae2-651d9f7685cc",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 0.0,
+          "slot": 3.0,
+          "time": 3.03
+        },
+        {
+          "best_lap": 3.04,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.6545631359331,
+          "dnf": "",
+          "id": "3bcc45cd-579e-41fb-b909-39c1731f9217",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 0.0,
+          "slot": 4.0,
+          "time": 3.04
+        },
+        {
+          "best_lap": 3.05,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5448027704842,
+          "dnf": "",
+          "id": "3356cedb-ee27-41d9-b9de-23116ad8d3e6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 0.0,
+          "slot": 5.0,
+          "time": 3.05
+        },
+        {
+          "best_lap": 3.06,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 34.7189243836328,
+          "dnf": "",
+          "id": "d850a2e4-20f9-4704-af00-e39f751ea33c",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 0.0,
+          "slot": 6.0,
+          "time": 3.06
+        },
+        {
+          "best_lap": 3.07,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.0869514066726,
+          "dnf": "",
+          "id": "ccf06738-0a78-47b3-b95f-0b861fb822d8",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 3.07
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 173.0,
+      "sent_bytes": 6343,
+      "sequence": 137,
+      "slot": 5,
+      "snapshots": 39,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    },
+    {
+      "acknowledged_sequence": 151,
+      "clear_corrections": {
+        "count": 22,
+        "max": 0.0169147737324238,
+        "p95": 0.0159858856350183
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 5,
+      "connected": true,
+      "contact_corrections": {
+        "count": 13,
+        "max": 0.583946228027344,
+        "p95": 0.583946228027344
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 2,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 39.8473243713379,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 24,
+        "levels": [
+          0,
+          24,
+          0
+        ],
+        "max_delivery_loss_percent": 4.04040404040404,
+        "max_rtt_ms": 193.8
+      },
+      "received_bytes": 134503,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 959,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 5.06538248062134,
+        "max_requested_seconds": 0.148985694937627,
+        "samples": 77
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.654125793837,
+          "dnf": "",
+          "id": "bdf590d5-048c-4554-9828-5ccc02babdae",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5412450898439,
+          "dnf": "",
+          "id": "09812c7d-b54f-4c4a-b3ad-a29e16007c63",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        },
+        {
+          "best_lap": 3.02,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 37.2067984631285,
+          "dnf": "",
+          "id": "3813a4a3-aeef-41cf-86c1-a9a2e155ec78",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 0.0,
+          "slot": 2.0,
+          "time": 3.02
+        },
+        {
+          "best_lap": 3.03,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 35.914479569532,
+          "dnf": "",
+          "id": "9803a71e-c495-438f-9ae2-651d9f7685cc",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 0.0,
+          "slot": 3.0,
+          "time": 3.03
+        },
+        {
+          "best_lap": 3.04,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.6545631359331,
+          "dnf": "",
+          "id": "3bcc45cd-579e-41fb-b909-39c1731f9217",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 0.0,
+          "slot": 4.0,
+          "time": 3.04
+        },
+        {
+          "best_lap": 3.05,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5448027704842,
+          "dnf": "",
+          "id": "3356cedb-ee27-41d9-b9de-23116ad8d3e6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 0.0,
+          "slot": 5.0,
+          "time": 3.05
+        },
+        {
+          "best_lap": 3.06,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 34.7189243836328,
+          "dnf": "",
+          "id": "d850a2e4-20f9-4704-af00-e39f751ea33c",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 0.0,
+          "slot": 6.0,
+          "time": 3.06
+        },
+        {
+          "best_lap": 3.07,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.0869514066726,
+          "dnf": "",
+          "id": "ccf06738-0a78-47b3-b95f-0b861fb822d8",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 3.07
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 184.0,
+      "sent_bytes": 6871,
+      "sequence": 151,
+      "slot": 2,
+      "snapshots": 42,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    },
+    {
+      "acknowledged_sequence": 137,
+      "clear_corrections": {
+        "count": 21,
+        "max": 0.0218170117586851,
+        "p95": 0.0211427956819534
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 7,
+      "connected": true,
+      "contact_corrections": {
+        "count": 13,
+        "max": 0.579819202423096,
+        "p95": 0.579819202423096
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 3,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 35.229736328125,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 23,
+        "levels": [
+          0,
+          23,
+          0
+        ],
+        "max_delivery_loss_percent": 3.0,
+        "max_rtt_ms": 178.1
+      },
+      "received_bytes": 129421,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 917,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 0.962991774082184,
+        "max_requested_seconds": 0.0432906294120831,
+        "samples": 14
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.654125793837,
+          "dnf": "",
+          "id": "bdf590d5-048c-4554-9828-5ccc02babdae",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5412450898439,
+          "dnf": "",
+          "id": "09812c7d-b54f-4c4a-b3ad-a29e16007c63",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        },
+        {
+          "best_lap": 3.02,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 37.2067984631285,
+          "dnf": "",
+          "id": "3813a4a3-aeef-41cf-86c1-a9a2e155ec78",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 0.0,
+          "slot": 2.0,
+          "time": 3.02
+        },
+        {
+          "best_lap": 3.03,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 35.914479569532,
+          "dnf": "",
+          "id": "9803a71e-c495-438f-9ae2-651d9f7685cc",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 0.0,
+          "slot": 3.0,
+          "time": 3.03
+        },
+        {
+          "best_lap": 3.04,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.6545631359331,
+          "dnf": "",
+          "id": "3bcc45cd-579e-41fb-b909-39c1731f9217",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 0.0,
+          "slot": 4.0,
+          "time": 3.04
+        },
+        {
+          "best_lap": 3.05,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5448027704842,
+          "dnf": "",
+          "id": "3356cedb-ee27-41d9-b9de-23116ad8d3e6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 0.0,
+          "slot": 5.0,
+          "time": 3.05
+        },
+        {
+          "best_lap": 3.06,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 34.7189243836328,
+          "dnf": "",
+          "id": "d850a2e4-20f9-4704-af00-e39f751ea33c",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 0.0,
+          "slot": 6.0,
+          "time": 3.06
+        },
+        {
+          "best_lap": 3.07,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.0869514066726,
+          "dnf": "",
+          "id": "ccf06738-0a78-47b3-b95f-0b861fb822d8",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 3.07
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 192.0,
+      "sent_bytes": 6297,
+      "sequence": 137,
+      "slot": 3,
+      "snapshots": 41,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    },
+    {
+      "acknowledged_sequence": 134,
+      "clear_corrections": {
+        "count": 20,
+        "max": 0.0282537713646889,
+        "p95": 0.0236464999616146
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 6,
+      "connected": true,
+      "contact_corrections": {
+        "count": 13,
+        "max": 0.610659778118134,
+        "p95": 0.610659778118134
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 6,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 33.9067649841309,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 22,
+        "levels": [
+          0,
+          22,
+          0
+        ],
+        "max_delivery_loss_percent": 3.03030303030303,
+        "max_rtt_ms": 192.888888888889
+      },
+      "received_bytes": 124605,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 938,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 0.428058415651321,
+        "max_requested_seconds": 0.0160021726605995,
+        "samples": 21
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.654125793837,
+          "dnf": "",
+          "id": "bdf590d5-048c-4554-9828-5ccc02babdae",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5412450898439,
+          "dnf": "",
+          "id": "09812c7d-b54f-4c4a-b3ad-a29e16007c63",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        },
+        {
+          "best_lap": 3.02,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 37.2067984631285,
+          "dnf": "",
+          "id": "3813a4a3-aeef-41cf-86c1-a9a2e155ec78",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 0.0,
+          "slot": 2.0,
+          "time": 3.02
+        },
+        {
+          "best_lap": 3.03,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 35.914479569532,
+          "dnf": "",
+          "id": "9803a71e-c495-438f-9ae2-651d9f7685cc",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 0.0,
+          "slot": 3.0,
+          "time": 3.03
+        },
+        {
+          "best_lap": 3.04,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.6545631359331,
+          "dnf": "",
+          "id": "3bcc45cd-579e-41fb-b909-39c1731f9217",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 0.0,
+          "slot": 4.0,
+          "time": 3.04
+        },
+        {
+          "best_lap": 3.05,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5448027704842,
+          "dnf": "",
+          "id": "3356cedb-ee27-41d9-b9de-23116ad8d3e6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 0.0,
+          "slot": 5.0,
+          "time": 3.05
+        },
+        {
+          "best_lap": 3.06,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 34.7189243836328,
+          "dnf": "",
+          "id": "d850a2e4-20f9-4704-af00-e39f751ea33c",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 0.0,
+          "slot": 6.0,
+          "time": 3.06
+        },
+        {
+          "best_lap": 3.07,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.0869514066726,
+          "dnf": "",
+          "id": "ccf06738-0a78-47b3-b95f-0b861fb822d8",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 3.07
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 250.0,
+      "sent_bytes": 6215,
+      "sequence": 134,
+      "slot": 6,
+      "snapshots": 42,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    },
+    {
+      "acknowledged_sequence": 136,
+      "clear_corrections": {
+        "count": 29,
+        "max": 0.0234310813248158,
+        "p95": 0.0223582051694393
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 5,
+      "connected": true,
+      "contact_corrections": {
+        "count": 5,
+        "max": 0.495187908411026,
+        "p95": 0.495187908411026
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 4,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 36.1426696777344,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 23,
+        "levels": [
+          0,
+          23,
+          0
+        ],
+        "max_delivery_loss_percent": 6.06060606060606,
+        "max_rtt_ms": 190.125
+      },
+      "received_bytes": 126461,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 917,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 0.0914234220981598,
+        "max_requested_seconds": 0.00516536454521012,
+        "samples": 49
+      },
+      "results": [
+        {
+          "best_lap": 3.0,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.654125793837,
+          "dnf": "",
+          "id": "bdf590d5-048c-4554-9828-5ccc02babdae",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ab",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 3.0
+        },
+        {
+          "best_lap": 3.01,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5412450898439,
+          "dnf": "",
+          "id": "09812c7d-b54f-4c4a-b3ad-a29e16007c63",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ac",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 3.01
+        },
+        {
+          "best_lap": 3.02,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 37.2067984631285,
+          "dnf": "",
+          "id": "3813a4a3-aeef-41cf-86c1-a9a2e155ec78",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ae",
+          "paint": 0.0,
+          "slot": 2.0,
+          "time": 3.02
+        },
+        {
+          "best_lap": 3.03,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 35.914479569532,
+          "dnf": "",
+          "id": "9803a71e-c495-438f-9ae2-651d9f7685cc",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66af",
+          "paint": 0.0,
+          "slot": 3.0,
+          "time": 3.03
+        },
+        {
+          "best_lap": 3.04,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.6545631359331,
+          "dnf": "",
+          "id": "3bcc45cd-579e-41fb-b909-39c1731f9217",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ah",
+          "paint": 0.0,
+          "slot": 4.0,
+          "time": 3.04
+        },
+        {
+          "best_lap": 3.05,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.5448027704842,
+          "dnf": "",
+          "id": "3356cedb-ee27-41d9-b9de-23116ad8d3e6",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ad",
+          "paint": 0.0,
+          "slot": 5.0,
+          "time": 3.05
+        },
+        {
+          "best_lap": 3.06,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 34.7189243836328,
+          "dnf": "",
+          "id": "d850a2e4-20f9-4704-af00-e39f751ea33c",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66ag",
+          "paint": 0.0,
+          "slot": 6.0,
+          "time": 3.06
+        },
+        {
+          "best_lap": 3.07,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 36.0869514066726,
+          "dnf": "",
+          "id": "ccf06738-0a78-47b3-b95f-0b861fb822d8",
+          "name": "\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66\ud83d\udc68\u200d\ud83d\udc69\u200d\ud83d\udc67\u200d\ud83d\udc66aa",
+          "paint": 0.0,
+          "slot": 7.0,
+          "time": 3.07
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 118.0,
+      "sent_bytes": 6297,
+      "sequence": 136,
+      "slot": 4,
+      "snapshots": 41,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    }
+  ],
+  "worker_exit": 0,
+  "wire": {
+    "upstream_bytes": 61536,
+    "downstream_bytes": 1070482,
+    "upstream_packets": 1066,
+    "downstream_packets": 1750,
+    "dropped_packets": 74,
+    "offered_upstream_bytes": 63480,
+    "offered_downstream_bytes": 1096043,
+    "offered_upstream_packets": 1098,
+    "offered_downstream_packets": 1792
+  },
+  "retired_during_active_race": true,
+  "advanced_before_finish": true,
+  "late_admission_rejected": true,
+  "races_started": 1,
+  "result_payload_bytes": 1951
+}

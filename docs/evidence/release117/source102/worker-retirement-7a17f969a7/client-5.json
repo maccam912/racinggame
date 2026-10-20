@@ -1,0 +1,168 @@
+{
+	"acknowledged_sequence": 137,
+	"clear_corrections": {
+		"count": 21,
+		"max": 0.0218170117586851,
+		"p95": 0.0211427956819534
+	},
+	"clock_rebase_count": 0,
+	"clock_restores": {
+		"count": 0,
+		"max": 0,
+		"p95": 0
+	},
+	"coalesced_snapshots": 7,
+	"connected": true,
+	"contact_corrections": {
+		"count": 13,
+		"max": 0.579819202423096,
+		"p95": 0.579819202423096
+	},
+	"dropped_packets": 0,
+	"finish_time": -1.0,
+	"hitch_done": false,
+	"initial_slot": 3,
+	"laps": 0,
+	"large_racing_events": 0,
+	"last_gate": 0,
+	"max_speed": 35.229736328125,
+	"permanent_error": "",
+	"quality_observations": {
+		"active_samples": 23,
+		"levels": [
+			0,
+			23,
+			0
+		],
+		"max_delivery_loss_percent": 3.0,
+		"max_rtt_ms": 178.1
+	},
+	"received_bytes": 129421,
+	"reconnect_done": false,
+	"reconnect_restores": {
+		"count": 0,
+		"max": 0,
+		"p95": 0
+	},
+	"recoveries": 0,
+	"remote_brake_off": 917,
+	"remote_brake_on": 0,
+	"remote_extrapolation": {
+		"capped_samples": 0,
+		"max_buffer_samples": 20,
+		"max_distance_m": 0.962991774082184,
+		"max_requested_seconds": 0.0432906294120831,
+		"samples": 14
+	},
+	"results": [
+		{
+			"best_lap": 3.0,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 36.654125793837,
+			"dnf": "",
+			"id": "bdf590d5-048c-4554-9828-5ccc02babdae",
+			"name": "👨‍👩‍👧‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦ab",
+			"paint": 0.0,
+			"slot": 0.0,
+			"time": 3.0
+		},
+		{
+			"best_lap": 3.01,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 36.5412450898439,
+			"dnf": "",
+			"id": "09812c7d-b54f-4c4a-b3ad-a29e16007c63",
+			"name": "👨‍👩‍👧‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦ac",
+			"paint": 0.0,
+			"slot": 1.0,
+			"time": 3.01
+		},
+		{
+			"best_lap": 3.02,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 37.2067984631285,
+			"dnf": "",
+			"id": "3813a4a3-aeef-41cf-86c1-a9a2e155ec78",
+			"name": "👨‍👩‍👧‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦ae",
+			"paint": 0.0,
+			"slot": 2.0,
+			"time": 3.02
+		},
+		{
+			"best_lap": 3.03,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 35.914479569532,
+			"dnf": "",
+			"id": "9803a71e-c495-438f-9ae2-651d9f7685cc",
+			"name": "👨‍👩‍👧‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦af",
+			"paint": 0.0,
+			"slot": 3.0,
+			"time": 3.03
+		},
+		{
+			"best_lap": 3.04,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 36.6545631359331,
+			"dnf": "",
+			"id": "3bcc45cd-579e-41fb-b909-39c1731f9217",
+			"name": "👨‍👩‍👧‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦ah",
+			"paint": 0.0,
+			"slot": 4.0,
+			"time": 3.04
+		},
+		{
+			"best_lap": 3.05,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 36.5448027704842,
+			"dnf": "",
+			"id": "3356cedb-ee27-41d9-b9de-23116ad8d3e6",
+			"name": "👨‍👩‍👧‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦ad",
+			"paint": 0.0,
+			"slot": 5.0,
+			"time": 3.05
+		},
+		{
+			"best_lap": 3.06,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 34.7189243836328,
+			"dnf": "",
+			"id": "d850a2e4-20f9-4704-af00-e39f751ea33c",
+			"name": "👨‍👩‍👧‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦ag",
+			"paint": 0.0,
+			"slot": 6.0,
+			"time": 3.06
+		},
+		{
+			"best_lap": 3.07,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 36.0869514066726,
+			"dnf": "",
+			"id": "ccf06738-0a78-47b3-b95f-0b861fb822d8",
+			"name": "👨‍👩‍👧‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦aa",
+			"paint": 0.0,
+			"slot": 7.0,
+			"time": 3.07
+		}
+	],
+	"resume_count": 0,
+	"rtt_ms": 192.0,
+	"sent_bytes": 6297,
+	"sequence": 137,
+	"slot": 3,
+	"snapshots": 41,
+	"terminal_corrections": {
+		"count": 0,
+		"max": 0,
+		"p95": 0
+	},
+	"track_id": "palm_bay",
+	"track_index": 0
+}
