@@ -1086,3 +1086,9 @@ require the full soak. [Detector](../tools/acceptance_changes.py).
 The owner extends this implementation session's stop boundary to **20% weekly
 remaining**, replacing 40%; finish the current chunk, commit/push and stop when
 that threshold is reached. Current visual follow-ups above remain authorized.
+
+
+Owner-requested **documentation-only** iroh follow-up is recorded in DESIGN §19.5
+after inspecting `mega-chamomile` (`a3f5f99`) and `iroh-rendezvous`. It identifies
+the existing code-lookup/endpoint flow and a future adapter investigation; no
+multiplayer code or service configuration is changed.

@@ -1,6 +1,6 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.7 — 19 October 2026
+Version 1.8 — 19 October 2026
 
 Owner decisions, 19 October 2026: implementation validation uses Android phone
 and tablet **emulators only**. Physical-device checks elsewhere in this document
@@ -534,6 +534,31 @@ An unexpected disconnect in Lobby reserves the same human seat and token for 20 
 After 20 seconds, mark the human DNF; bot may finish visually but cannot earn the human a finish or points. Rejoining that race is then denied; offer Return to Lobby after the current race. Host administration transfers after the host is disconnected for 3 seconds, but original host may rejoin as a normal racer. If the game server fails, the race is abandoned with “Server connection lost — race result not recorded.” Do not manufacture standings from partial client state.
 
 Mobile suspension intentionally sends a best-effort Away notice and immediately enables bot control; it does not rely on that packet arriving. The same 20-second reservation applies. Do not run online physics or keep audio playing in background to prolong the reservation. Details of mobile lifecycle are in section 26.
+
+### 19.5 Future candidate: iroh and the owner's rendezvous service
+
+Documentation-only owner request, 19 October 2026: consider iroh multiplayer and
+the existing discovery service after reviewing **mega-chamomile**. No transport
+migration or service integration is authorized by this note; ENet and the current
+authoritative architecture remain the implemented contract until a later decision.
+
+The inspected reference (`mega-chamomile`, source `a3f5f99`) keeps ENet/LAN and
+adds a separate godot-iroh **Host by Code / Join Code** path. Its
+`autoload/net.gd`, `scripts/iroh_bridge.gd` and `scripts/iroh_room_code.gd`
+provide the integration boundary, availability checks and normalized short codes.
+The companion **iroh-rendezvous** project supplies temporary code → endpoint-ID
+lookup, optional session IDs, expiry and host-held revocation tokens through
+`/v1/join-codes`. This is the owner's existing rendezvous/discovery service,
+separate from the game's LAN discovery and Pacific Rush's regional directory.
+
+For a future spike, inspect those projects' current code and vendored addon
+provenance, then validate Android plus desktop support and Pacific Rush's exact
+reliable/unreliable payload, channel, authority and reconnect contracts. The
+reference uses Godot's high-level multiplayer API; Pacific Rush's current raw
+ENet protocol needs its own reviewed adapter. Resolve codes through the existing
+service while retaining application-level admission and compatibility checks.
+This note neither deploys a service nor treats earlier reference-project QA as
+Pacific Rush acceptance.
 
 ## 20 Online service and abuse boundaries
 
