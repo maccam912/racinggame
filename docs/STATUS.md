@@ -1,5 +1,15 @@
 # Implementation status
 
+## 20 October — original beach, orchard and harbor roadside scenes
+
+Palm Bay gains **five surf huts and five striped umbrella/lounge/board-rack scenes**, Citrus **four produce-pallet/crate scenes**, and Marina **ten corrugated cargo stacks**. Four original paint variants, fitted doors/windows, extruded boards, braced crates, round faceted oranges, closed porch ceilings and two-sided cloth add detail between the existing landmarks. Every scene replaces an existing decoration site with the same **7 m** clearing, one shared-material surface, **fewer than 500 triangles** and no driving collision/frame work. Other road/terrain, landmark and foliage layouts remain unchanged.
+
+All **101 final source commands**, **eight native closeups** and **12 normal native course views** pass; the closeups and road views are visually reviewed. All ten native GPU-prepared worlds and Retry/Cancel/background/real-ENet Loaded ordering pass, retaining **61 maximum submissions / 15 s GPU deadline**. [Exact editable source, final fixed-source checks and native evidence](evidence/roadside116/) also preserve the diagnostic helper's initial parse error and pre-refinement views. Gameplay/protocol/save remain **9/5/1**, hash `f762fa68`; cosmetics **`f6fadc28`**. Clean local Android/macOS exports and subsequent publication remain pending. Earlier memory/frame evidence retains its exact `15a71230` asset identity.
+
+## 20 October — corrected long-course local network pass
+
+The revised two-lap fixture completes **all 16 normal finishes**, matching every authority/client row with the same eight identities. Minimum clear coverage is **4,068** samples per client/race, worst clear p95 **0.0345281 m**, final gates **74/88**, and largest finish spread **21.690871 s** inside normal 30-second grace. All original correction, coverage, packet/wire, engine and source-manifest gates pass; no cleanup issues, **595.698 s**. [Exact dirty-to-committed fixture identity, raw reports and launch populations](evidence/ci113-clear-coverage/corrected-two-lap/). The remote Build115 run remains pending; earlier one-lap coverage and old two-lap DNF failures remain rejected.
+
 ## 20 October — current car/waterworks native lifetime pass
 
 The clean-source native repeat with current cosmetics **`15a71230`** passes **seven eight-car races / 56 finishers** in **1,042.510 native seconds**. Peak RSS is **818,970,624 bytes** during warm-up; the later repeated-cycle peak is **773,095,424 bytes** (**5.601568% lower**), passing the unchanged lifetime guards. Actual racing draw intervals are **18.314/18.945 ms p95/p99**, maximum **31.590 ms**, with no interval over 33 ms across **59,258 samples**. [Exact source, current fixture, raw intervals/observations and owned-profile archive](evidence/waterworks112/native-lifetime/). Game/runtime/assets are unchanged throughout; the separate network fixture changes do not affect this graphical population. These are Apple M5 Pro host measurements, with emulators/headless fixtures active, and retain the minimum-hardware/GPU-memory/thermal boundaries.

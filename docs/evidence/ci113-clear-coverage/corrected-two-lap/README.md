@@ -1,0 +1,7 @@
+# Corrected two-lap network fixture
+
+**Pass:** all 16 normal finishes, identical full standings on all eight clients, same eight identities, final checkpoint gates 74/88, minimum **4,068 clear samples** per client/race, worst clear p95 **0.0345281 m**, all control/wire/engine/manifest checks and no cleanup issues. Elapsed **595.698 s**. Largest finish-time spread is **21.690871 s**, inside the unchanged 30-second grace.
+
+Command: `python3 tools/soak_acceptance.py --port 27510 --races 2 --laps 2 --seconds 840 --minimum-seconds 0 --tracks spillway_sprint,caldera_crosscut --trace-driving`. Eight independent real UDP proxies include ACKs with 50±20 ms per direction and 1% loss. Every client records the exact new multi-lap pace array `[1,.96,.985,.945,.97,.955,.97,.995]` and public-data-based brake-only launch holds of 0–7 seconds. All four production cars and shared Medium AI remain.
+
+The invocation begins on `7a6f77b` with the dirty fixture versions that are subsequently committed exactly as `1df1e2cb1d159611c460aa644c030ed62ccfd42c`. Embedded hashes and retained source match that commit. Production game/runtime/routes/physics/protocol/grace stay unchanged at gameplay hash `f762fa68`. Cosmetic roadside authoring occurs late in the separate checkout; these headless collision/prediction clients do not render it, and no cosmetic/performance identity is claimed for this network population. The original one-lap coverage failure and initial local/CI two-lap DNF remain preserved separately.

@@ -1,0 +1,9 @@
+# Original coastal/orchard roadside scenery
+
+Gameplay/protocol/save stay **9/5/1**, digest `f762fa68`; final cosmetic identity **`f6fadc284d30f1c29dc7d34fc9c90115f8c828ed59ec052eea12dace44107a81`**. All source geometry is original editable MIT code; no external mesh/bitmap input.
+
+Palm Bay adds five surf huts and five striped umbrella/lounge/board-rack scenes; Citrus adds four produce-pallet/crate scenes; Marina adds ten paired cargo stacks with corrugation, doors and lock rods. These replace selected existing boulder sites, retaining every site centre/radius and remaining rocks/logs. All named landmarks, roads/terrain and foliage clearances are unchanged. Each scene merges into its existing shared-material node, under **500 triangles**, one surface, a **7 m** circular footprint and bounded height, with no collision/frame callback/texture.
+
+Eight native diagnostic closeups cover every kind and two variants; second hut/umbrella views use a low camera to verify cloth/ceiling undersides. Twelve ordinary native Near-Chase views cover all three affected courses; they are posed reference captures, not earned laps. Native graphics preparation passes all ten courses, two-frame GPU readback, failed-readback Retry, Cancel/background and real ENet Loaded ordering. Maximum submissions / GPU deadline remain **61 / 15 s**.
+
+The initial closeups/source are retained before the fruit-roundness and umbrella/porch underside refinement. The diagnostic capture helper initially called a nonexistent metadata method; its parse failure/source is explicitly retained and corrected without a production-game repair. The fresh fixed-source **101-command matrix passes completely**, including finite normals and every new mesh envelope. Its dirty-source report remains labeled; later clean package exports retain their own exact commit/build provenance. Clean exports remain pending at this checkpoint.

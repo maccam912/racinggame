@@ -109,3 +109,14 @@ is introduced; complete meshes retain their 26 m footprint and 3,000-triangle
 fixture ceiling. Native inspection cameras under the current evidence checkpoint
 show both station and gantry details; those views override scenery culling only
 for inspection.
+
+## Original small roadside scenes
+
+`game/world/roadside_life.gd` is editable original MIT geometry for surf huts with
+closed porch ceilings and extruded board racks, striped two-sided umbrellas and
+loungers, braced produce crates with 20-face oranges, and corrugated harbor cargo
+stacks with doors/locking rods. `CourseDecor` selects existing Palm/Citrus/Marina
+roadside sites, preserving their circular seven-metre clearance and one shared
+material/surface per scene. Four paint variants, fewer than 500 triangles per
+scene and no collision or frame callback. No external mesh, texture or model
+input. Native details and ordinary course views remain separate visual evidence.

@@ -400,6 +400,17 @@ bounds prevent translucent sorting and edge-on disappearance. Palm spacing is
 9 m (orchard) beyond the pavement edge. Original route/driving collision stays
 separate from these cosmetic placements.
 
+Smaller original 3D roadside scenes distinguish the early courses between their
+major landmarks. Palm Bay alternates selected boulder sites with five surf huts
+and five umbrella/lounge/board-rack arrangements. Citrus Pass keeps its cut logs
+and adds four produce-pallet arrangements with braced crates and faceted oranges.
+Marina Lights gains ten paired corrugated cargo stacks with short-end doors and
+locking rods. Reuse the existing seven-metre circular clearances and shared
+vertex-color material; each scene is one surface under 500 triangles, has no
+collision, and faces the road. Four paint variants, closed porch ceilings and
+two-sided umbrella cloth remain readable from driving height. All other roads,
+terrain, landmark anchors and foliage clearances retain their original layout.
+
 Required deliverables: four car meshes with three LODs each; eight paint materials; ten track meshes/collision sets/minimaps/thumbnails; one common road kit (straight surface material, barrier, guardrail, signs, gantry, tunnel light); ten themed course arrangements with five named landmarks each; palm, orchard tree, redwood, shrub and grass assets; ten sky/lighting presets; tire smoke/dust/spark/skid materials; UI icons for all input actions, cars, tracks, settings tabs, connectivity, recovery, medals and trophies. Reuse shared assets deliberately, but every course must retain its five named landmarks and distinct silhouette/palette.
 
 All source meshes, editable textures, font licenses, music licenses, and import settings ship in the source handoff. Use original or explicitly redistribution-compatible assets. Maintain an asset manifest with creator, source URL if applicable, license, modifications, and attribution requirement. No asset may be “temporary” in a release build.

@@ -12,7 +12,13 @@ static func plan(world: TrackWorld) -> Array[Dictionary]:
 		if world.art.get("elevated",false): continue
 		if not world.clear_of_road(pose.origin,7) or RoadsidePosterArt.blocks_sightline(world.poster_sites,pose.origin): continue
 		var logs: bool = world.track.id in ["citrus_pass","redwood_run","pacific_summit","quarry_switchback"] and (s/145)%3==1
-		result.append({"kind":"Logs" if logs else "Rocks","pose":pose,"s":s,"radius":7.0})
+		var variant := int(s/145)
+		var kind := "Logs" if logs else "Rocks"
+		if world.track.id=="palm_bay" and variant%2==1: kind = "SurfHut" if variant%4==1 else "BeachUmbrellas"
+		elif world.track.id=="citrus_pass" and not logs and variant%4==0: kind = "PackingCrates"
+		elif world.track.id=="marina_lights" and variant%2==1: kind = "HarborCargo"
+		if kind in RoadsideLife.KINDS: pose.basis = pose.basis*Basis(Vector3.UP,-side*PI*.5)
+		result.append({"kind":kind,"pose":pose,"s":s,"radius":7.0})
 	if world.track.id in ["skyline_splice","quarry_switchback"]:
 		for s in range(40,int(world.track.length),80 if world.track.id=="skyline_splice" else 320):
 			for side: float in [-1.0,1.0]:
@@ -107,7 +113,9 @@ static func build(world: TrackWorld) -> void:
 		node.set_meta("kind",site.kind)
 		var tool := SurfaceTool.new()
 		tool.begin(Mesh.PRIMITIVE_TRIANGLES)
-		if site.kind=="Logs":
+		if site.kind in RoadsideLife.KINDS:
+			RoadsideLife.build(tool,site.kind,int(site.s/580))
+		elif site.kind=="Logs":
 			for index in range(5):
 				log_mesh(tool,Vector3((index%3-1)*1.25,.65+(index/3)*1.1,0),7.0-index*.37,.65)
 		elif site.kind=="Rocks":

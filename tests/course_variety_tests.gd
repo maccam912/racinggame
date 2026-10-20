@@ -18,7 +18,7 @@ func run() -> void:
 		root.add_child(world)
 		await physics_frame
 		await physics_frame
-		var counts := {"Rocks":0,"Logs":0,"Waterfall":0,"Tower":0,"Bluff":0}
+		var counts := {"Rocks":0,"Logs":0,"Waterfall":0,"Tower":0,"Bluff":0,"SurfHut":0,"BeachUmbrellas":0,"PackingCrates":0,"HarborCargo":0}
 		for site: Dictionary in world.decor_sites:
 			assert(world.clear_of_road(site.pose.origin,float(site.radius)))
 			assert(not RoadsidePosterArt.blocks_sightline(world.poster_sites,site.pose.origin))
@@ -29,10 +29,21 @@ func run() -> void:
 			decor_nodes += 1
 			assert(node.mesh.get_faces().size()/3<500 and node.find_children("*","CollisionObject3D",true,false).is_empty())
 			assert(node.is_in_group("scenery_distance") and node.get_aabb().size.length()<(300 if node.get_meta("kind")=="Tower" else 60))
+			if node.get_meta("kind") in RoadsideLife.KINDS:
+				assert(node.mesh.get_surface_count()==1,"roadside scenes retain one existing submission/material")
+				for point: Vector3 in node.mesh.get_faces():
+					assert(point.is_finite() and Vector2(point.x,point.z).length()<=7 and point.y>=-1.25 and point.y<=7,"every new detail stays inside the reserved roadside envelope")
+				var arrays: Array = node.mesh.surface_get_arrays(0)
+				var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+				for normal: Vector3 in normals:
+					assert(normal.is_finite() and absf(normal.length()-1)<.001,"all detailed scenery faces have finite, nondegenerate normals")
 			if node.get_meta("kind")=="Tower":
 				assert(node.material_override is ShaderMaterial and node.material_override.get_shader_parameter("city_facade")==true)
 		assert(decor_nodes==world.decor_sites.size(),"both roadside instances remain checked even when Godot auto-renames duplicate node names")
 		if not world.art.get("elevated",false): assert(counts.Rocks>=8)
+		if track.id=="palm_bay": assert(counts.SurfHut>=3 and counts.BeachUmbrellas>=3)
+		if track.id=="citrus_pass": assert(counts.PackingCrates>=3)
+		if track.id=="marina_lights": assert(counts.HarborCargo>=3)
 		if track.id in ["citrus_pass","redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Logs>=3)
 		if track.id in ["redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Waterfall==2)
 		if track.id=="skyline_splice":

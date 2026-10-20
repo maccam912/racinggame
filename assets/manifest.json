@@ -586,6 +586,21 @@
         "game/world/course_spectacles.gd",
         "game/world/waterworks_detail.gd"
       ]
+    },
+    {
+      "id": "roadside_life_scenes",
+      "source": "game/world/roadside_life.gd",
+      "runtime_source": [
+        "game/world/roadside_life.gd",
+        "game/world/course_decor.gd"
+      ],
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original batched surf huts with porches and fitted surfboard racks, striped beach umbrellas and loungers, produce pallets with braced packing crates and faceted oranges, and corrugated harbor cargo stacks with doors and locking rods. Four original paint variants. Selected existing roadside decoration sites retain their 7 m footprint, one mesh/material, fewer than 500 triangles and no driving collision. No external model or bitmap. Closed porch ceilings and two-sided umbrella cloth remain visible from road height; original 20-face round fruit replaces the initial pointed prototype.",
+      "exports": [
+        "game/world/roadside_life.gd"
+      ]
     }
   ]
 }
