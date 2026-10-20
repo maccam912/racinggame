@@ -1,0 +1,5 @@
+# Clean local Build 111 packages
+
+Both exports identify clean `32c2472177b216df3d0d9406f29376d77452b31b`, content/protocol/save 9/5/1, gameplay `f762fa68` and cosmetics `d817e671`. Exact metadata/payload sidecars and local digest verification are retained. Actual macOS package/executable hashes and the real Keychain adapter/headless driving startup are recorded in `native-macos-arm64.json`.
+
+Both rooted Android 15 emulators pass in-place update, retaining signer/UID and every preexisting file: **47 phone / 41 tablet**. Actual installed-APK ordinary seven-opponent captures pass Spillway at tick 1,800 (2400×1080) and Caldera at tick 3,600 (2560×1600). The actual exported macOS binary also passes ordinary Marina Hood at tick 1,800 and Caldera Near at tick 3,600, both 1920×1080. All four unretouched engine images were visually reviewed and retain packaged source, asset/settings and PNG digests. Invocation-owned profiles remain isolated. These are separate from physical devices, human handling, minimum hardware, other OS graphics and the later remote release.

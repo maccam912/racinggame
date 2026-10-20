@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "workflow_jobs": 43,
+  "commit": "95660b7013375212548f9bbae4aba708c72bd5c7",
+  "content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+  "asset_hash": "1fe44b97904705d8c33d4a6d531e12bccd243882b48dfa82e540f57d62a9bd1b",
+  "published_files": 18,
+  "payloads": [
+    {
+      "platform": "android",
+      "payload": "pacific-rush-00110-android.apk",
+      "sha256": "0fc147ba79e98d8859ed480dacfd72fc0f2e034d3f92dd3cf50d9ac36baa1dc5",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 172703698
+    },
+    {
+      "platform": "android_aab",
+      "payload": "pacific-rush-00110-android_aab.aab",
+      "sha256": "256901fa5a8d2e5d74c88781b977a1a76ed5af982e19afffa678806c29604576",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 121253819
+    },
+    {
+      "platform": "linux",
+      "payload": "pacific-rush-00110-linux.zip",
+      "sha256": "4f45c9a355aa317d914cdc794221ff25e5a0291c7aa91c612058865ddf22c7aa",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 122793263
+    },
+    {
+      "platform": "macos",
+      "payload": "pacific-rush-00110-macos.zip",
+      "sha256": "6c4900d7c996b197f0809fdfc8c9fbb001c5848951f6161b16f7d523b2a00164",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 157496903
+    },
+    {
+      "platform": "server",
+      "payload": "pacific-rush-00110-server.zip",
+      "sha256": "82aca54bc3907b258df181806add9e5b4b5642463e3db6ad0086fecd9fb79def",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 37825207
+    },
+    {
+      "platform": "windows",
+      "payload": "pacific-rush-00110-windows.zip",
+      "sha256": "bd7336fffadaa8e7cc2a567b94a7c004bde71b2434b40d1418dedebfc625b95a",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 131061196
+    }
+  ],
+  "boundary": "Tag and all published metadata verified; six payload sidecars match GitHub stored digests. No claim all published binaries were downloaded/executed locally."
+}
