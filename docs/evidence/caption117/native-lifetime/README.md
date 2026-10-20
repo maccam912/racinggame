@@ -1,0 +1,9 @@
+# Current roadside cosmetics native lifetime pass
+
+Clean source **28d611c62ee2e3f7438780c69256c00e2e319982**, game **f762fa68**, cosmetics **f6fadc28**, actual native 1920×1080 Medium/60 cap. This is a docs-only descendant of clean local/public-package source `44fffaa`; a direct Git diff confirms identical game/assets, project/export settings and lifetime fixtures. No game or asset changes occur during the run. The exact helper, fixture, native intervals, all RSS observations, launch provenance and owned QA-profile archive are retained.
+
+The explicit Palm/Citrus/Marina population exercises the newer surf huts, umbrellas, produce pallets and cargo stacks. All three worlds complete before the five-minute baseline. **Pass:** fourteen complete eight-car races / **112 finishers**, **915.833 wrapper seconds**, peak RSS **716,013,568 bytes**, five-to-fifteen-minute cycle growth **2.055018%**. All original lifetime, 2 GB peak and 5% growth limits pass; no engine/shutdown or cleanup error. Only this invocation's newly named profile is archived.
+
+Actual racing wall-clock draw intervals have **18.389 ms p95**, **18.956 ms p99**, mean **16.666 ms**, **49,492 samples**. One **36.522 ms** maximum remains in the distribution; this is not a zero-stutter assertion. Both host percentile targets pass. Other applications and three idle Android emulators remain open; no concurrent local source suite, export or graphical capture runs during this measurement. This is Apple M5 Pro host evidence, not minimum Windows/M1/Intel performance, GPU memory, physical thermal behavior or an all-ten-course lifetime result. The earlier heavy-course `15a71230` measurements retain their separate identities.
+
+Invocation: `python3 tools/render_soak.py --seconds 900 --tracks palm_bay,citrus_pass,marina_lights`.

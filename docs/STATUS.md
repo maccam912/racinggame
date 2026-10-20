@@ -1,5 +1,11 @@
 # Implementation status
 
+## 20 October — current roadside native lifetime passes; wrapping at owner request
+
+Clean `28d611c` with current game `f762fa68` / cosmetics `f6fadc28` passes **14 eight-car races / 112 finishers** across Palm/Citrus/Marina in **915.833 s**. Peak native RSS **716,013,568 bytes**, comparable growth **2.055018%**, actual racing p95/p99 **18.389/18.956 ms** over **49,492 intervals**. One 36.522 ms maximum remains; all original lifetime/memory and host percentile targets pass. The exact newly owned QA profile is archived. [Full raw run, fixtures, source identities and hardware boundaries](evidence/caption117/native-lifetime/). This is separate from the earlier heavy-course measurements and minimum-hardware acceptance.
+
+The owner requested a wrap-up and stop. Feature work is complete for this checkpoint; the current Build117 workflow has 30 passing jobs and only the exported Linux server gate still running. Public Build116 remains fully verified. Final remote status will be recorded before stopping.
+
 ## 20 October — Build116 published and public APK/macOS executed
 
 [Build116](https://github.com/maccam912/racinggame/releases/tag/v0.0.116-dev) publishes all **18 files** from clean `9156350`, game `f762fa68`, cosmetics `f6fadc28`. All **33 required jobs pass**, with one correct unchanged-gameplay AI skip, including all **102 source commands** and the independent Linux ten-race soak: **80 matching normal finishes**, minimum **2,790 clear samples**, worst clear p95 **0.0377590 m**, worker RSS growth **0.136296%**, **1,950.907 s**, no cleanup issues. [Tag, six metadata files, six stored/downloaded payload digests, exact source and full soak](evidence/release116/).

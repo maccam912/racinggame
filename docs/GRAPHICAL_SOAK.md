@@ -100,3 +100,16 @@ identities over **1,193.122 s**. Explicit memory checks pass at a **434,458,624-
 process peak and **2.246021%** comparable cycle growth. Gameplay/asset identities
 are `f762fa68` / `15a71230`. These are Android process VmRSS measurements; the
 native desktop lifetime figures above retain their separate source/asset labels.
+
+## Current roadside cosmetics
+
+The clean-source [Palm/Citrus/Marina repeat](evidence/caption117/native-lifetime/)
+measures current cosmetics **`f6fadc28`** with the added huts, umbrellas, produce
+pallets and harbor cargo. Fourteen eight-car races / **112 finishers** pass in
+**915.833 wrapper seconds**. Peak RSS is **716,013,568 bytes**, comparable cycle
+growth **2.055018%**. Actual racing p95/p99 are **18.389/18.956 ms** over
+**49,492 intervals**, with one **36.522 ms** maximum retained. All three worlds
+finish before the five-minute baseline; both host percentile targets and all
+unchanged lifetime/memory limits pass. Exact source, fixtures, intervals, every
+loading peak and owned-profile archive remain. This is a separate Apple M5 Pro
+three-course population, with the same minimum-hardware/GPU/thermal boundaries.

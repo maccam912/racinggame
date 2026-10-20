@@ -1,0 +1,1853 @@
+{
+	"asset_hash": "f6fadc284d30f1c29dc7d34fc9c90115f8c828ed59ec052eea12dace44107a81",
+	"boundary": "Live source client, normally paced eight-car races on the recorded courses, production loading/HUD/render-scale path, ordinary diagnostic AI inputs. Repeated scene lifetime exercise on this host; not exported-template, minimum-hardware, human driving, physical Android or thermal acceptance.",
+	"content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+	"elapsed_seconds": 913.251878,
+	"final": true,
+	"frame_timing": "Wall-clock microseconds between RenderingServer.frame_post_draw callbacks, including OS scheduling; excludes loading/menu/countdown. No engine simulation-delta or fixed-fps movie timing.",
+	"gpu": "Apple M5 Pro",
+	"last_60_seconds": {
+		"runtime": {
+			"adaptive_changes": 0,
+			"adaptive_enabled": false,
+			"current_scale": 100,
+			"keep_awake": true,
+			"memory_warnings": 0,
+			"presentation_interval_ms": 16.804,
+			"render_gpu_ms": 0.0,
+			"render_work_ms": 0.0,
+			"selected_scale": 100,
+			"world_height": 1080,
+			"world_width": 1920
+		},
+		"seconds": [
+			{
+				"age_seconds": 59,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 238,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6660055555555,
+				"frames": 60,
+				"memory_bytes_max": 126020577,
+				"physics_ms_max": 3.011,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 58,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 223,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126022985,
+				"physics_ms_max": 2.445,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 57,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 221,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6662555555555,
+				"frames": 60,
+				"memory_bytes_max": 126025177,
+				"physics_ms_max": 2.14,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 56,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 227,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6647111111111,
+				"frames": 60,
+				"memory_bytes_max": 126026991,
+				"physics_ms_max": 2.082,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 55,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 256,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6653666666667,
+				"frames": 60,
+				"memory_bytes_max": 126028479,
+				"physics_ms_max": 2.082,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 54,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 281,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6662277777778,
+				"frames": 60,
+				"memory_bytes_max": 126032463,
+				"physics_ms_max": 1.972,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 53,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 281,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126033791,
+				"physics_ms_max": 2.065,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 52,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 263,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6658333333333,
+				"frames": 60,
+				"memory_bytes_max": 126034787,
+				"physics_ms_max": 2.202,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 51,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 249,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6656944444444,
+				"frames": 60,
+				"memory_bytes_max": 126126939,
+				"physics_ms_max": 2.202,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 50,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 239,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6662166666667,
+				"frames": 60,
+				"memory_bytes_max": 126121579,
+				"physics_ms_max": 2.534,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 49,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 242,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126136635,
+				"physics_ms_max": 2.76,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 48,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 240,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6654222222222,
+				"frames": 60,
+				"memory_bytes_max": 126135311,
+				"physics_ms_max": 2.76,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 47,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 234,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6664333333333,
+				"frames": 60,
+				"memory_bytes_max": 126138495,
+				"physics_ms_max": 2.666,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 46,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 239,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126136471,
+				"physics_ms_max": 2.775,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 45,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 240,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6648055555555,
+				"frames": 60,
+				"memory_bytes_max": 126099551,
+				"physics_ms_max": 3.875,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 44,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 232,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6656888888889,
+				"frames": 60,
+				"memory_bytes_max": 126082235,
+				"physics_ms_max": 4.777,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 43,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 212,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126083867,
+				"physics_ms_max": 4.777,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 42,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 186,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126084063,
+				"physics_ms_max": 4.64,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 41,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 190,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6653611111111,
+				"frames": 60,
+				"memory_bytes_max": 126081399,
+				"physics_ms_max": 3.842,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 40,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 207,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6664666666667,
+				"frames": 60,
+				"memory_bytes_max": 126087311,
+				"physics_ms_max": 2.754,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 39,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 231,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6657222222222,
+				"frames": 60,
+				"memory_bytes_max": 126135005,
+				"physics_ms_max": 2.798,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 38,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 269,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6662055555555,
+				"frames": 60,
+				"memory_bytes_max": 126134947,
+				"physics_ms_max": 2.893,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 37,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 268,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6665611111111,
+				"frames": 60,
+				"memory_bytes_max": 126191179,
+				"physics_ms_max": 3.673,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 36,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 266,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6655444444444,
+				"frames": 60,
+				"memory_bytes_max": 126186815,
+				"physics_ms_max": 4.193,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 35,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 293,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126114911,
+				"physics_ms_max": 4.934,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 34,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 292,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6650777777778,
+				"frames": 60,
+				"memory_bytes_max": 126113525,
+				"physics_ms_max": 5.986,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 33,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 227,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6664444444444,
+				"frames": 60,
+				"memory_bytes_max": 126094433,
+				"physics_ms_max": 5.986,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 32,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 201,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6647944444444,
+				"frames": 60,
+				"memory_bytes_max": 126095097,
+				"physics_ms_max": 4.714,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 31,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 195,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.666262295082,
+				"frames": 61,
+				"memory_bytes_max": 126096599,
+				"physics_ms_max": 3.798,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 30,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 195,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6663389830508,
+				"frames": 59,
+				"memory_bytes_max": 126097309,
+				"physics_ms_max": 2.529,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 29,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 192,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6665166666667,
+				"frames": 60,
+				"memory_bytes_max": 126097973,
+				"physics_ms_max": 2.529,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 28,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 187,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 61,
+				"memory_bytes_max": 126098305,
+				"physics_ms_max": 2.143,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 27,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 194,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6647,
+				"frames": 60,
+				"memory_bytes_max": 126098637,
+				"physics_ms_max": 2.016,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 26,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 196,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6657344632768,
+				"frames": 59,
+				"memory_bytes_max": 126098313,
+				"physics_ms_max": 2.04,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 25,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 207,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 61,
+				"memory_bytes_max": 126098313,
+				"physics_ms_max": 2.063,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 24,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 221,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6649777777778,
+				"frames": 60,
+				"memory_bytes_max": 126098977,
+				"physics_ms_max": 2.164,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 23,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 219,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6665197740113,
+				"frames": 59,
+				"memory_bytes_max": 126062561,
+				"physics_ms_max": 3.003,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 22,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 210,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666055555555,
+				"frames": 60,
+				"memory_bytes_max": 126058373,
+				"physics_ms_max": 3.003,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 21,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 228,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126004795,
+				"physics_ms_max": 3.136,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 20,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 237,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6643111111111,
+				"frames": 60,
+				"memory_bytes_max": 126005459,
+				"physics_ms_max": 3.136,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 19,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 243,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 61,
+				"memory_bytes_max": 126009239,
+				"physics_ms_max": 3.009,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 18,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 240,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 59,
+				"memory_bytes_max": 126014835,
+				"physics_ms_max": 2.169,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 17,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 241,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6651833333333,
+				"frames": 60,
+				"memory_bytes_max": 126011339,
+				"physics_ms_max": 2.563,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 16,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 242,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126011671,
+				"physics_ms_max": 2.934,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 15,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 246,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6662888888889,
+				"frames": 60,
+				"memory_bytes_max": 126013907,
+				"physics_ms_max": 3.7,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 14,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 247,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6649277777778,
+				"frames": 60,
+				"memory_bytes_max": 126018731,
+				"physics_ms_max": 5.119,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 13,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 239,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6656557377049,
+				"frames": 61,
+				"memory_bytes_max": 126015339,
+				"physics_ms_max": 5.682,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 12,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 238,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.666197740113,
+				"frames": 59,
+				"memory_bytes_max": 126020163,
+				"physics_ms_max": 5.682,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 11,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 244,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6657704918033,
+				"frames": 61,
+				"memory_bytes_max": 126015671,
+				"physics_ms_max": 4.894,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 10,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 243,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6661777777778,
+				"frames": 60,
+				"memory_bytes_max": 126059240,
+				"physics_ms_max": 3.252,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 9,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 223,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6660277777778,
+				"frames": 60,
+				"memory_bytes_max": 126203986,
+				"physics_ms_max": 2.236,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 8,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 227,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126212572,
+				"physics_ms_max": 2.186,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 7,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 264,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6656166666667,
+				"frames": 60,
+				"memory_bytes_max": 126186752,
+				"physics_ms_max": 2.487,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 6,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 291,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6650722222222,
+				"frames": 60,
+				"memory_bytes_max": 126195654,
+				"physics_ms_max": 2.487,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 5,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 306,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6664111111111,
+				"frames": 60,
+				"memory_bytes_max": 126195438,
+				"physics_ms_max": 2.412,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 4,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 351,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6657666666667,
+				"frames": 60,
+				"memory_bytes_max": 126186590,
+				"physics_ms_max": 2.412,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 3,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 354,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6658,
+				"frames": 60,
+				"memory_bytes_max": 126210984,
+				"physics_ms_max": 2.307,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 2,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 218,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126197456,
+				"physics_ms_max": 2.376,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 1,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 223,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 60,
+				"memory_bytes_max": 126197384,
+				"physics_ms_max": 2.376,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			},
+			{
+				"age_seconds": 0,
+				"delivery_loss_percent_max": 0.0,
+				"draw_calls_max": 227,
+				"frame_ms_max": 16.6666666666667,
+				"frame_ms_mean": 16.6666666666667,
+				"frames": 28,
+				"memory_bytes_max": 126197384,
+				"physics_ms_max": 1.489,
+				"physics_steps_max": 1,
+				"received_bytes": 0,
+				"rtt_ms_max": 0.0,
+				"sent_bytes": 0
+			}
+		],
+		"window_seconds": 60
+	},
+	"passed": true,
+	"planned_tracks": [
+		"palm_bay",
+		"citrus_pass",
+		"marina_lights"
+	],
+	"platform": {
+		"mobile": false,
+		"native_save_dialog": true,
+		"os": "macOS",
+		"processor_count": 18,
+		"renderer": "gl_compatibility",
+		"viewport_height": 720,
+		"viewport_width": 1280,
+		"window_pixel_height": 1080,
+		"window_pixel_width": 1920
+	},
+	"races": [
+		{
+			"finished_at_seconds": 61.188401,
+			"rows": [
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 49.6980396799714
+				},
+				{
+					"car": "comet",
+					"slot": 4,
+					"time": 49.867985782249
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 49.9714107527468
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 50.3056748364748
+				},
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 50.6629745146183
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 50.8520778493228
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 50.9556982260291
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 52.1637960477678
+				}
+			],
+			"track": "palm_bay"
+		},
+		{
+			"finished_at_seconds": 129.801316,
+			"rows": [
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 57.7761220156107
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 57.954224794356
+				},
+				{
+					"car": "needle",
+					"slot": 4,
+					"time": 58.8733197654273
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 59.2611838991248
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 59.5497584231719
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 59.6330517972582
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 60.0896235304117
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 60.3036877467437
+				}
+			],
+			"track": "citrus_pass"
+		},
+		{
+			"finished_at_seconds": 196.017541,
+			"rows": [
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 55.0061207617684
+				},
+				{
+					"car": "switch",
+					"slot": 4,
+					"time": 55.2588198448946
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 55.4452318690892
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 56.2042403839536
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 56.2598984504741
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 57.1279623246841
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 57.778721328979
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 57.9091793982814
+				}
+			],
+			"track": "marina_lights"
+		},
+		{
+			"finished_at_seconds": 256.370904,
+			"rows": [
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 49.3362184224581
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 49.3632724883739
+				},
+				{
+					"car": "sunset",
+					"slot": 4,
+					"time": 49.5728019669088
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 49.9970036718019
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 50.1371366258826
+				},
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 50.2330740460409
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 50.614057102031
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 52.1430802937835
+				}
+			],
+			"track": "palm_bay"
+		},
+		{
+			"finished_at_seconds": 326.274245,
+			"rows": [
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 57.7615704688219
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 57.9535417105956
+				},
+				{
+					"car": "comet",
+					"slot": 4,
+					"time": 58.2804022449547
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 58.9663422124481
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 59.4179877329043
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 59.9200164116096
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 60.1136389391252
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 61.6590575659508
+				}
+			],
+			"track": "citrus_pass"
+		},
+		{
+			"finished_at_seconds": 392.421334,
+			"rows": [
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 55.0061207617684
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 55.612529109912
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 56.5703182481118
+				},
+				{
+					"car": "needle",
+					"slot": 4,
+					"time": 56.7079031754673
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 57.1308743194573
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 57.2859797494174
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 57.7618951525867
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 57.8682766962367
+				}
+			],
+			"track": "marina_lights"
+		},
+		{
+			"finished_at_seconds": 452.820766,
+			"rows": [
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 49.5976169845646
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 49.7470120968238
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 49.983522091286
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 50.3583053192613
+				},
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 50.5464763020153
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 50.779067535438
+				},
+				{
+					"car": "switch",
+					"slot": 4,
+					"time": 51.1863598815319
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 52.1677360298767
+				}
+			],
+			"track": "palm_bay"
+		},
+		{
+			"finished_at_seconds": 521.31297,
+			"rows": [
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 57.6135897749064
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 58.230346439884
+				},
+				{
+					"car": "sunset",
+					"slot": 4,
+					"time": 58.4997946815358
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 59.0233954406438
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 59.120816398793
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 59.5496585844753
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 60.0476216814159
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 60.2463711367916
+				}
+			],
+			"track": "citrus_pass"
+		},
+		{
+			"finished_at_seconds": 587.40005,
+			"rows": [
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 55.0061207617684
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 55.612529109912
+				},
+				{
+					"car": "comet",
+					"slot": 4,
+					"time": 55.8641950640755
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 56.3912051901898
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 56.4394083184323
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 57.1667153047715
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 57.7283142330064
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 57.8020121736827
+				}
+			],
+			"track": "marina_lights"
+		},
+		{
+			"finished_at_seconds": 647.777869,
+			"rows": [
+				{
+					"car": "needle",
+					"slot": 4,
+					"time": 48.4152289600488
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 49.1303690893185
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 49.5943004622642
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 49.690389079228
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 50.0580033474574
+				},
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 50.6038970827764
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 50.7196870145039
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 52.1572957839352
+				}
+			],
+			"track": "palm_bay"
+		},
+		{
+			"finished_at_seconds": 718.193382,
+			"rows": [
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 57.7761348238482
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 57.9541216109653
+				},
+				{
+					"car": "switch",
+					"slot": 4,
+					"time": 57.9985914909977
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 58.9628011255516
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 59.3199544840309
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 59.6012551289172
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 60.0372072214674
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 62.1683031377466
+				}
+			],
+			"track": "citrus_pass"
+		},
+		{
+			"finished_at_seconds": 784.322893,
+			"rows": [
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 55.0061207617684
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 55.612529109912
+				},
+				{
+					"car": "sunset",
+					"slot": 4,
+					"time": 56.1473135402725
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 56.3227130085271
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 56.7233069875917
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 57.1982581961322
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 57.7825333148299
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 57.8523249508661
+				}
+			],
+			"track": "marina_lights"
+		},
+		{
+			"finished_at_seconds": 844.70474,
+			"rows": [
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 49.6980396799714
+				},
+				{
+					"car": "comet",
+					"slot": 4,
+					"time": 49.867985782249
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 49.9714107527468
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 50.3056748364748
+				},
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 50.6629745146183
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 50.8520778493228
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 50.9556982260291
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 52.1637960477678
+				}
+			],
+			"track": "palm_bay"
+		},
+		{
+			"finished_at_seconds": 913.251467,
+			"rows": [
+				{
+					"car": "switch",
+					"slot": 1,
+					"time": 57.7761220156107
+				},
+				{
+					"car": "comet",
+					"slot": 0,
+					"time": 57.954224794356
+				},
+				{
+					"car": "needle",
+					"slot": 4,
+					"time": 58.8733197654273
+				},
+				{
+					"car": "sunset",
+					"slot": 3,
+					"time": 59.2611838991248
+				},
+				{
+					"car": "needle",
+					"slot": 2,
+					"time": 59.5497584231719
+				},
+				{
+					"car": "switch",
+					"slot": 5,
+					"time": 59.6330517972582
+				},
+				{
+					"car": "needle",
+					"slot": 6,
+					"time": 60.0896235304117
+				},
+				{
+					"car": "sunset",
+					"slot": 7,
+					"time": 60.3036877467437
+				}
+			],
+			"track": "citrus_pass"
+		}
+	],
+	"racing_frame_times": {
+		"max_ms": 36.522,
+		"mean_ms": 16.6660593025136,
+		"over_33ms": 1,
+		"p95_ms": 18.389,
+		"p99_ms": 18.956,
+		"samples": 49492
+	},
+	"racing_frames": 49492,
+	"renderer": "gl_compatibility",
+	"requested_seconds": 900,
+	"settings": {
+		"adaptive_resolution": true,
+		"anisotropic": 4,
+		"announcer": 60.0,
+		"auto_accelerate": false,
+		"background_audio": false,
+		"base_fov": 65.0,
+		"bindings": {
+			"gamepad": {
+				"accelerate": [
+					{
+						"axis": 5,
+						"direction": 1,
+						"kind": "axis"
+					},
+					null
+				],
+				"brake": [
+					{
+						"axis": 4,
+						"direction": 1,
+						"kind": "axis"
+					},
+					null
+				],
+				"camera": [
+					{
+						"button": 1,
+						"kind": "button"
+					},
+					null
+				],
+				"handbrake": [
+					{
+						"button": 0,
+						"kind": "button"
+					},
+					null
+				],
+				"look_back": [
+					{
+						"button": 8,
+						"kind": "button"
+					},
+					null
+				],
+				"pause": [
+					{
+						"button": 6,
+						"kind": "button"
+					},
+					null
+				],
+				"recover": [
+					{
+						"button": 3,
+						"kind": "button"
+					},
+					null
+				],
+				"steer_left": [
+					{
+						"axis": 0,
+						"direction": -1,
+						"kind": "axis"
+					},
+					null
+				],
+				"steer_right": [
+					{
+						"axis": 0,
+						"direction": 1,
+						"kind": "axis"
+					},
+					null
+				],
+				"ui_accept": [
+					{
+						"button": 0,
+						"kind": "button"
+					},
+					null
+				],
+				"ui_cancel": [
+					{
+						"button": 1,
+						"kind": "button"
+					},
+					null
+				],
+				"ui_down": [
+					{
+						"button": 12,
+						"kind": "button"
+					},
+					{
+						"axis": 1,
+						"direction": 1,
+						"kind": "axis"
+					}
+				],
+				"ui_left": [
+					{
+						"button": 13,
+						"kind": "button"
+					},
+					{
+						"axis": 0,
+						"direction": -1,
+						"kind": "axis"
+					}
+				],
+				"ui_right": [
+					{
+						"button": 14,
+						"kind": "button"
+					},
+					{
+						"axis": 0,
+						"direction": 1,
+						"kind": "axis"
+					}
+				],
+				"ui_up": [
+					{
+						"button": 11,
+						"kind": "button"
+					},
+					{
+						"axis": 1,
+						"direction": -1,
+						"kind": "axis"
+					}
+				]
+			},
+			"keyboard": {
+				"accelerate": [
+					{
+						"code": 87,
+						"kind": "key"
+					},
+					{
+						"code": 4194320,
+						"kind": "key"
+					}
+				],
+				"brake": [
+					{
+						"code": 83,
+						"kind": "key"
+					},
+					{
+						"code": 4194322,
+						"kind": "key"
+					}
+				],
+				"camera": [
+					{
+						"code": 67,
+						"kind": "key"
+					},
+					null
+				],
+				"handbrake": [
+					{
+						"code": 32,
+						"kind": "key"
+					},
+					null
+				],
+				"look_back": [
+					{
+						"code": 86,
+						"kind": "key"
+					},
+					null
+				],
+				"pause": [
+					{
+						"code": 4194305,
+						"kind": "key"
+					},
+					null
+				],
+				"recover": [
+					{
+						"code": 82,
+						"kind": "key"
+					},
+					null
+				],
+				"steer_left": [
+					{
+						"code": 65,
+						"kind": "key"
+					},
+					{
+						"code": 4194319,
+						"kind": "key"
+					}
+				],
+				"steer_right": [
+					{
+						"code": 68,
+						"kind": "key"
+					},
+					{
+						"code": 4194321,
+						"kind": "key"
+					}
+				],
+				"ui_accept": [
+					{
+						"code": 4194309,
+						"kind": "key"
+					},
+					null
+				],
+				"ui_cancel": [
+					{
+						"code": 4194305,
+						"kind": "key"
+					},
+					null
+				],
+				"ui_down": [
+					{
+						"code": 4194322,
+						"kind": "key"
+					},
+					{
+						"code": 83,
+						"kind": "key"
+					}
+				],
+				"ui_left": [
+					{
+						"code": 4194319,
+						"kind": "key"
+					},
+					{
+						"code": 65,
+						"kind": "key"
+					}
+				],
+				"ui_right": [
+					{
+						"code": 4194321,
+						"kind": "key"
+					},
+					{
+						"code": 68,
+						"kind": "key"
+					}
+				],
+				"ui_up": [
+					{
+						"code": 4194320,
+						"kind": "key"
+					},
+					{
+						"code": 87,
+						"kind": "key"
+					}
+				]
+			}
+		},
+		"brightness": 1.0,
+		"button_size": 100.0,
+		"camera": "near",
+		"captions": true,
+		"collision_shake": 50.0,
+		"deadzone": 0.15,
+		"draw_distance": 700,
+		"driving_hints": true,
+		"dynamic_fov": true,
+		"dynamic_range": "standard",
+		"effects": "full",
+		"effects_volume": 80.0,
+		"engine": 80.0,
+		"frame_cap": 60,
+		"haptics": false,
+		"high_contrast": false,
+		"hold_assistance": false,
+		"left_handed": false,
+		"master": 80.0,
+		"monitor": 0,
+		"msaa": 4,
+		"music": 60.0,
+		"nameplates": true,
+		"opacity": 60.0,
+		"palette": "standard",
+		"preset": "medium",
+		"prompts": "auto",
+		"reduce_motion": false,
+		"render_scale": 100,
+		"resolution": "native",
+		"retro": false,
+		"sensitivity": 1.0,
+		"shadows": "low",
+		"steering_style": "slider",
+		"touch_auto_accelerate": true,
+		"touch_layouts": {
+
+		},
+		"trial_ghost": true,
+		"ui_scale": 100.0,
+		"units": "mph",
+		"vibration": 50.0,
+		"vsync": false,
+		"window_mode": "borderless"
+	}
+}
