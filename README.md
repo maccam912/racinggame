@@ -106,3 +106,15 @@ The four original car meshes have explicit 35/90 m LODs, a shared 1024² atlas, 
 Touch layout editing is under Settings → Touch → Edit Layout on Android. Drag the outlines, or focus one and press Confirm to move it with keyboard/controller directions; Back stops moving it. Save validates target sizes, safe margins and overlap. Preview runs a separate 30-second practice drive and returns to the draft. Cancel preserves saved positions, and Restore Layout resets only the current device/orientation/control profile. Layout geometry cannot be changed during an online race.
 
 The optional native platform extension supplies macOS Keychain, Windows DPAPI and Linux Secret Service primitives. Run `python3 tools/native_store_ci.py` to test a new random test entry and delete it afterward. Hosted CI isolates its macOS keychain and Linux D-Bus session. Android uses non-exportable AES/GCM keys and atomic ciphertext files excluded from backup. Guest identity storage, its worker service and online directory menus are implemented; official region operation remains unconfigured. No plaintext identity fallback is provided.
+
+### Binary assets and Git LFS
+
+Install Git LFS before cloning, then run `git lfs install` and `git lfs pull`.
+All binary asset types (including historical screenshots, videos, Blender/glTF,
+audio, fonts, icons and replay fixtures) are stored in LFS. CI checkouts fetch
+LFS content. Text sources, SVGs and JSON remain ordinary Git files.
+
+The October 20, 2026 migration rewrites main and release-tag history. Existing
+clones should save local work and re-clone; do not merge the old history back
+into main. Release download artifacts are unchanged. For old tag builds, run
+`git lfs pull` after checkout because historical workflows predate LFS setup.

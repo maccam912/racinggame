@@ -613,6 +613,19 @@
         "assets/exported/shaders/dirt.gdshader",
         "assets/exported/shaders/orbital_sky.gdshader"
       ]
+    },
+    {
+      "id": "arcade_sprite_variety",
+      "source": "assets/source/billboards/arcade-generation.json",
+      "creator": "OpenAI image generation directed by the Pacific Rush project",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Unmodified generated atlases with per-cell alpha bounds; six trees, six roadside props and painted panorama with runtime wrap blending.",
+      "exports": [
+        "assets/exported/billboards/arcade-trees-v1.png",
+        "assets/exported/billboards/arcade-scenery-v1.png",
+        "assets/exported/billboards/arcade-sky-v1.png"
+      ]
     }
   ]
 }

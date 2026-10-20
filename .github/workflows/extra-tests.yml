@@ -17,6 +17,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -55,6 +57,8 @@ jobs:
         track: [palm_bay, citrus_pass, marina_lights, redwood_run, sunstone_canyon, pacific_summit, skyline_splice, quarry_switchback, spillway_sprint, caldera_crosscut]
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -94,6 +98,8 @@ jobs:
         scenario: [race-reconnect, race-expiry, contacts, degraded, skyline, quarry, bonus-field, new-courses]
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -146,6 +152,8 @@ jobs:
         shell: bash
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -277,6 +285,8 @@ jobs:
     timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -303,6 +313,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -343,6 +355,8 @@ jobs:
     timeout-minutes: ${{ matrix.target == 'server' && 20 || 10 }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -382,6 +396,8 @@ jobs:
         scenario: [rematch, lobby-reconnect]
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -411,6 +427,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-go@v6
         with:
           go-version: '1.27.0'
@@ -465,6 +483,8 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -493,6 +513,8 @@ jobs:
     timeout-minutes: 12
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-go@v6
         with:
           go-version: '1.27.0'
@@ -538,6 +560,8 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
@@ -576,6 +600,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          lfs: true
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'

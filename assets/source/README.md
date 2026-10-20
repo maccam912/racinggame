@@ -120,3 +120,13 @@ roadside sites, preserving their circular seven-metre clearance and one shared
 material/surface per scene. Four paint variants, fewer than 500 triangles per
 scene and no collision or frame callback. No external mesh, texture or model
 input. Native details and ordinary course views remain separate visual evidence.
+
+The `billboards/arcade-*-v1.png` files are original, unmodified built-in
+image_gen outputs: six tree variants, six roadside scenery props, and a painted
+90s arcade panorama. Exact prompts and checksums live in
+`billboards/arcade-generation.json`. The exported billboard catalog selects
+alpha-bounded atlas cells without altering source pixels. Runtime dimensions
+preserve each silhouette's aspect ratio. `ArcadeSpriteVariety` mixes species by
+course and lap sector and places props beyond road and poster clearances.
+`painted_sky.gdshader` blends the panorama wrap and poles, with a night tint for
+city courses; the orbital course keeps its dedicated sky.

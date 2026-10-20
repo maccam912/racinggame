@@ -1,0 +1,43 @@
+{
+  "images": [
+    {
+      "kind": "trees",
+      "source": "assets/source/billboards/arcade-trees-v1.png",
+      "export": "assets/exported/billboards/arcade-trees-v1.png",
+      "sha256": "8f0da5f93b4896183e969bc56bf4e3c4a15e73f671e8c26fb172ad205d8eaf8c",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "tool": "built-in image_gen",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Asset type: transparent game sprite atlas for Pacific Rush, an original 1990s arcade racing game. Create one 1536x1024 atlas in a strict 3 columns by 2 rows grid of equal cells. Six separate full trees, one per cell, in reading order: curved coconut palm, broad fan palm, windswept coastal cypress, orange autumn maple, narrow alpine fir, snow-dusted pine. Front-facing billboard sprites, roots on each cell's bottom baseline with margin, entire canopy inside its own cell, generous transparent gutters, no overlap. Chunky hand-painted pixel clusters, saturated Sega-era arcade palette, simple readable shapes, baked lighting from upper left, no ground plane, no shadow, no text or frames. Genuine transparent background."
+    },
+    {
+      "kind": "scenery",
+      "source": "assets/source/billboards/arcade-scenery-v1.png",
+      "export": "assets/exported/billboards/arcade-scenery-v1.png",
+      "sha256": "7cd36cbdaafb5b7142e9ddcadd36e3c90bd8a292e2d2a18e0e95419ab8aa8afc",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "tool": "built-in image_gen",
+      "transparent_background": true,
+      "prompt": "Use case: stylized-concept. Asset type: transparent roadside scenery atlas for an original 1990s arcade racing game. 1536x1024 canvas, strict three columns by two rows of equal cells. Six isolated front-facing scenery sprites in reading order: red-and-cream beach lifeguard tower, pastel striped beach cabana, cluster of sun-bleached sandstone hoodoos, flowering prickly pear cactus cluster, little red wooden alpine trail cabin, stacked weathered wooden orchard fruit crates with red apples. Each complete object fits wholly within its cell with generous transparent gutters, base at bottom with small margin. Chunky hand-painted pixel clusters, cheerful saturated 90s arcade colors, crisp readable silhouettes, baked upper-left lighting. No people, no text, no ground plane or cast shadows, no labels or grid lines. Genuine alpha transparency."
+    },
+    {
+      "kind": "sky",
+      "source": "assets/source/billboards/arcade-sky-v1.png",
+      "export": "assets/exported/billboards/arcade-sky-v1.png",
+      "sha256": "5dafcb2e15cbc74e21b803db59d2f56378d48619f871f6cc29b20e955844ceb8",
+      "pixels": [
+        1774,
+        887
+      ],
+      "tool": "built-in image_gen",
+      "transparent_background": false,
+      "prompt": "Use case: stylized-concept. Asset type: seamless equirectangular skybox texture for an original 1990s arcade racing game. Create a 2048x1024 2:1 panorama: brilliant cobalt zenith grading to cyan then pale warm cream at horizon, stylized chunky white cumulus cloud banks around the horizon, tiny distant lavender-blue coastal mountain silhouettes right at horizon. Horizon exactly halfway down image; lower hemisphere a simple muted blue-gray gradient, uppermost quarter clear blue to prevent polar distortion. Left and right edges must seamlessly meet with matching blue and horizon heights. Hand-painted early 90s arcade racing backdrop, restrained pixel-like color bands and dithered shading, cheerful sunny coastal afternoon. No sun disk, no road, no trees or foreground objects, no lettering, no borders, no watermark. Full opaque image."
+    }
+  ]
+}

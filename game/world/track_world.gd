@@ -89,11 +89,12 @@ func build_environment() -> void:
 			orbital.shader = load("res://assets/exported/shaders/orbital_sky.gdshader")
 			shared_sky.sky_material = orbital
 		else:
-			var sky_material := ProceduralSkyMaterial.new()
-			sky_material.sky_top_color = Color.html(art.sky_top)
-			sky_material.sky_horizon_color = Color.html(art.horizon)
-			sky_material.ground_horizon_color = Color.html(art.horizon)
-			sky_material.ground_bottom_color = Color.html(art.ground)
+			var sky_material := ShaderMaterial.new()
+			sky_material.shader = load("res://assets/exported/shaders/painted_sky.gdshader")
+			sky_material.set_shader_parameter("panorama",load("res://assets/exported/billboards/arcade-sky-v1.png"))
+			var tint := Color(1,1,1)
+			if float(art.get("emission",0))>0: tint = Color(.34,.28,.52)
+			sky_material.set_shader_parameter("tint",tint)
 			shared_sky.sky_material = sky_material
 		skies[track.id] = shared_sky
 	settings.sky = skies[track.id]
@@ -256,8 +257,9 @@ func build_scenery_batch(first: int, last: int) -> void:
 			if RoadsidePosterArt.blocks_sightline(poster_sites,pose.origin): continue
 			pose.basis = pose.basis.rotated(Vector3.UP,sin(s*.071+lateral)*PI)
 			pose.basis = pose.basis.scaled(Vector3.ONE*(1+.12*sin(s*.11+lateral)))
-			if not batches.has(species): batches[species] = [] as Array[Transform3D]
-			batches[species].append(pose)
+			var variant := ArcadeSpriteVariety.tree(track.id,species,s,lateral,track.length)
+			if not batches.has(variant): batches[variant] = [] as Array[Transform3D]
+			batches[variant].append(pose)
 	for s in range(first,last,16):
 		for side: float in [-1.0,1.0]:
 			var lateral := side*(float(track.bake.samples[track.sample_index(s)][8])/2+8)
@@ -285,6 +287,8 @@ func build_scenery_batch(first: int, last: int) -> void:
 	if track.id=="pacific_summit":
 		var pose := scenery_pose(first+20,-48)
 		if not RoadsidePosterArt.blocks_sightline(poster_sites,pose.origin): batches.redwood = [pose] as Array[Transform3D]
+	BillboardArt.load_catalog()
+	ArcadeSpriteVariety.props(self,first,last,batches)
 	for id: String in batches:
 		var retained: Array[Transform3D] = []
 		for pose: Transform3D in batches[id]:

@@ -25,7 +25,7 @@ static func supports(id: String) -> bool:
 
 static func card(id: String) -> QuadMesh:
 	if cards.has(id): return cards[id]
-	var dimensions: Array = CourseArt.library[id].size_m
+	var dimensions: Array = rows[id].size_m if rows[id].has("size_m") else CourseArt.library[id].size_m
 	var mesh := QuadMesh.new()
 	mesh.size = Vector2(float(dimensions[0]),float(dimensions[2]))
 	mesh.center_offset = Vector3(0,mesh.size.y*.5,0)

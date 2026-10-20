@@ -70,6 +70,24 @@ def validate():
     validate_icons()
     validate_posters()
     validate_decorations()
+    validate_arcade_sprites()
+
+
+def validate_arcade_sprites():
+    provenance=json.loads((ROOT/'assets/source/billboards/arcade-generation.json').read_text())
+    for row in provenance['images']:
+        source=ROOT/row['source']; path=ROOT/row['export']
+        assert digest(source)==digest(path)==row['sha256']
+        assert struct.unpack_from('>II',path.read_bytes(),16)==tuple(row['pixels'])
+        assert row['prompt'] and row['tool']=='built-in image_gen'
+        assert 'mipmaps/generate=true' in path.with_suffix('.png.import').read_text()
+    catalog=json.loads((ROOT/'assets/exported/billboards/catalog.json').read_text())
+    for row in catalog['assets']:
+        x,y,w,h=row['uv_bounds_pixels']
+        assert x>=0 and y>=0 and w>0 and h>0
+        assert x+w<=row['pixels'][0] and y+h<=row['pixels'][1]
+        assert digest(ROOT/row['path'])==row['sha256']
+    print('Validated arcade sprite and sky provenance, atlas regions, hashes and mipmaps')
 
 
 def validate_decorations():

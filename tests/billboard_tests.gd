@@ -6,7 +6,7 @@ func run() -> void:
 	Catalog.load_all()
 	CourseArt.load_catalog()
 	BillboardArt.load_catalog()
-	assert(BillboardArt.rows.size()==5)
+	assert(BillboardArt.rows.size()==17)
 	var report := {"passed":false,"backend":DisplayServer.get_name(),"cases":[]}
 	var folder := "res://reports/billboards"
 	DirAccess.make_dir_recursive_absolute(folder)
