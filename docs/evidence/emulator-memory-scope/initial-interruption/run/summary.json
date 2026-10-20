@@ -1,0 +1,254 @@
+{
+  "passed": false,
+  "build": {
+    "version": "0.0.112-dev",
+    "build_number": 112,
+    "working_tree_dirty": false,
+    "commit": "8b9fe9a62fd45d29d66a63d8efbf31cb5d1cff2c",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+    "asset_hash": "15a71230152d5d5b0847d97a6fd4e96e57a19fe47d03d9fabf7a442f0b3c1bf9",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e",
+      "sha256": "454cc58b61467a74619871c2db148eb45e5449d8d40b1f6f4c56d60f521104a2"
+    },
+    "android_services": {
+      "source_hash": "d3b152de525fa6fc6804c9afc2dc1141871399d0bbfcf2b2668180c575523a77",
+      "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+      "android_api": 36,
+      "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+      "java_release": 17,
+      "compiler": "javac 17.0.20.1",
+      "sha256": "98e0e48ee687e68962f3e2a7bf89958df293f3c0b3e0f6b65106ad8a70e72de4"
+    }
+  },
+  "base_commit": "8b9fe9a62fd45d29d66a63d8efbf31cb5d1cff2c",
+  "working_tree_dirty": false,
+  "fixture_sha256": "61addb9894c44f9272d2fd1e2da378ea26f0dd740253f161668712643ae906b4",
+  "apk_sha256": "77d8260e001b71654d02d549dee4bc46a8bbdd4b06001777c74e314cb09839cf",
+  "serial": "emulator-5580",
+  "model": "sdk_gphone64_arm64",
+  "android_release": "15",
+  "profile": "m5_mixed_0c19b9257ba4",
+  "ui_scale": 100,
+  "races_requested": 6,
+  "laps": 1,
+  "transport": "Eight independent real UDP proxies; Android emulator host gateway and native loopback",
+  "one_way_latency_ms": 50,
+  "one_way_jitter_ms": 20,
+  "independent_datagram_loss": 0.01,
+  "boundary": "Installed release APK with diagnostic autodrive and seven native shared-controller clients. Normal lobby/results timers, original graphics/HUD and actual authority. Native-client corrections are separate from Android result agreement. Android process RSS excludes separate GPU/emulator allocations. No physical touch, cellular, thermal, minimum-hardware or human handling claim.",
+  "android_startup_pid": "13550",
+  "failure": "KeyboardInterrupt: ",
+  "wire_totals": [
+    {
+      "upstream_bytes": 264295,
+      "downstream_bytes": 1465064,
+      "upstream_packets": 3404,
+      "downstream_packets": 2597,
+      "dropped_packets": 66,
+      "offered_upstream_bytes": 267016,
+      "offered_downstream_bytes": 1481144,
+      "offered_upstream_packets": 3443,
+      "offered_downstream_packets": 2629
+    },
+    {
+      "upstream_bytes": 262481,
+      "downstream_bytes": 1461821,
+      "upstream_packets": 3369,
+      "downstream_packets": 2582,
+      "dropped_packets": 60,
+      "offered_upstream_bytes": 265393,
+      "offered_downstream_bytes": 1478847,
+      "offered_upstream_packets": 3405,
+      "offered_downstream_packets": 2608
+    },
+    {
+      "upstream_bytes": 263469,
+      "downstream_bytes": 1470893,
+      "upstream_packets": 3390,
+      "downstream_packets": 2598,
+      "dropped_packets": 53,
+      "offered_upstream_bytes": 265738,
+      "offered_downstream_bytes": 1485595,
+      "offered_upstream_packets": 3419,
+      "offered_downstream_packets": 2623
+    },
+    {
+      "upstream_bytes": 263455,
+      "downstream_bytes": 1469471,
+      "upstream_packets": 3388,
+      "downstream_packets": 2600,
+      "dropped_packets": 56,
+      "offered_upstream_bytes": 266023,
+      "offered_downstream_bytes": 1485078,
+      "offered_upstream_packets": 3421,
+      "offered_downstream_packets": 2625
+    },
+    {
+      "upstream_bytes": 263864,
+      "downstream_bytes": 1459551,
+      "upstream_packets": 3379,
+      "downstream_packets": 2583,
+      "dropped_packets": 65,
+      "offered_upstream_bytes": 266459,
+      "offered_downstream_bytes": 1478097,
+      "offered_upstream_packets": 3413,
+      "offered_downstream_packets": 2616
+    },
+    {
+      "upstream_bytes": 262818,
+      "downstream_bytes": 1462608,
+      "upstream_packets": 3379,
+      "downstream_packets": 2586,
+      "dropped_packets": 67,
+      "offered_upstream_bytes": 266025,
+      "offered_downstream_bytes": 1479651,
+      "offered_upstream_packets": 3419,
+      "offered_downstream_packets": 2614
+    },
+    {
+      "upstream_bytes": 263483,
+      "downstream_bytes": 1461767,
+      "upstream_packets": 3389,
+      "downstream_packets": 2591,
+      "dropped_packets": 68,
+      "offered_upstream_bytes": 266431,
+      "offered_downstream_bytes": 1483671,
+      "offered_upstream_packets": 3427,
+      "offered_downstream_packets": 2623
+    },
+    {
+      "upstream_bytes": 262335,
+      "downstream_bytes": 1427397,
+      "upstream_packets": 3351,
+      "downstream_packets": 2516,
+      "dropped_packets": 59,
+      "offered_upstream_bytes": 264356,
+      "offered_downstream_bytes": 1448457,
+      "offered_upstream_packets": 3377,
+      "offered_downstream_packets": 2549
+    }
+  ],
+  "archived_profile": "/data/local/tmp/pacific-rush-m5_mixed_0c19b9257ba4",
+  "cleanup_issues": [],
+  "elapsed_seconds": 128.55210354202427,
+  "android_memory": {
+    "observations": [
+      {
+        "elapsed": 2.703387707937509,
+        "rss_bytes": 179961856
+      },
+      {
+        "elapsed": 7.805128874955699,
+        "rss_bytes": 320499712
+      },
+      {
+        "elapsed": 12.909560542088002,
+        "rss_bytes": 311463936
+      },
+      {
+        "elapsed": 18.024277542019263,
+        "rss_bytes": 310050816
+      },
+      {
+        "elapsed": 23.12394395796582,
+        "rss_bytes": 310050816
+      },
+      {
+        "elapsed": 28.24063791707158,
+        "rss_bytes": 313184256
+      },
+      {
+        "elapsed": 33.982454207958654,
+        "rss_bytes": 404508672
+      },
+      {
+        "elapsed": 39.0765150829684,
+        "rss_bytes": 406429696
+      },
+      {
+        "elapsed": 44.184654500102624,
+        "rss_bytes": 407085056
+      },
+      {
+        "elapsed": 49.271360707934946,
+        "rss_bytes": 407085056
+      },
+      {
+        "elapsed": 54.37339591700584,
+        "rss_bytes": 407347200
+      },
+      {
+        "elapsed": 59.481029541930184,
+        "rss_bytes": 407478272
+      },
+      {
+        "elapsed": 64.59477595798671,
+        "rss_bytes": 407871488
+      },
+      {
+        "elapsed": 69.69372583297081,
+        "rss_bytes": 408002560
+      },
+      {
+        "elapsed": 74.7898562499322,
+        "rss_bytes": 408403968
+      },
+      {
+        "elapsed": 79.88914566696621,
+        "rss_bytes": 408535040
+      },
+      {
+        "elapsed": 84.9897163331043,
+        "rss_bytes": 408797184
+      },
+      {
+        "elapsed": 90.08622837509029,
+        "rss_bytes": 409059328
+      },
+      {
+        "elapsed": 95.19848637492396,
+        "rss_bytes": 409190400
+      },
+      {
+        "elapsed": 100.30866345809773,
+        "rss_bytes": 409190400
+      },
+      {
+        "elapsed": 105.40158762503415,
+        "rss_bytes": 409321472
+      },
+      {
+        "elapsed": 110.49902891693637,
+        "rss_bytes": 409423872
+      },
+      {
+        "elapsed": 115.59211650001816,
+        "rss_bytes": 409554944
+      },
+      {
+        "elapsed": 120.69079941697419,
+        "rss_bytes": 409554944
+      },
+      {
+        "elapsed": 125.78967312490568,
+        "rss_bytes": 409554944
+      }
+    ],
+    "measured_5_to_15_minutes": false,
+    "peak_rss_bytes": 409554944
+  }
+}

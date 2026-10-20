@@ -1,0 +1,51 @@
+{
+  "build": {
+    "asset_hash": "15a71230152d5d5b0847d97a6fd4e96e57a19fe47d03d9fabf7a442f0b3c1bf9",
+    "build_number": 112.0,
+    "commit": "8b9fe9a62fd45d29d66a63d8efbf31cb5d1cff2c",
+    "content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+    "distribution": "development",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "engine_version": "4.6.3-stable",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "native_adapter": {
+      "api_floor": "4.5",
+      "architecture": "universal",
+      "platform": "macos",
+      "scons": "4.11.1",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "sha256": "3f114e0879af03e00644f5f5dd4c50278be5412e11e397a8064e6784e0404a3b",
+      "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e"
+    },
+    "protocol_version": 5.0,
+    "public_signing": "not configured",
+    "save_schema": 1.0,
+    "target_platform": "macos",
+    "version": "0.0.112-dev",
+    "working_tree_dirty": false
+  },
+  "raw_avi_sha256": "e4ac7715ba51d1e2ec27388de633f2c2a273a9c9e5552301106362bf508beb4b",
+  "encoded_mp4_sha256": "a5da4ef2b14927efd6a86297534a19ce3abd378561bd73541477cfef40ed8bdc",
+  "encoder": "ffmpeg version 9.0.1 Copyright (c) 2000-2026 the FFmpeg developers",
+  "encoding": [
+    "ffmpeg",
+    "-i",
+    "build/waterworks112-footage/spillway.avi",
+    "-c:v",
+    "libx264",
+    "-preset",
+    "medium",
+    "-crf",
+    "22",
+    "-pix_fmt",
+    "yuv420p",
+    "-c:a",
+    "aac",
+    "-b:a",
+    "160k",
+    "-movflags",
+    "+faststart",
+    "reports/waterworks112-footage/spillway-gameplay.mp4"
+  ],
+  "boundary": "Actual clean exported macOS Build112, ordinary AI input and seven opponents. Full loading/countdown and 30 racing seconds, fixed60Hz MovieMaker output, encoded H264/AAC without artistic edits. Presentation reference, not host FPS or human handling; only invocation-owned profile archived."
+}

@@ -1,0 +1,11 @@
+{"android_drives": 0, "android_results": 0, "report": "/Users/maccam912/dev/racinggame/reports/mixed-android-112-548858c1"}
+{"android_drives": 1, "android_results": 0, "report": "/Users/maccam912/dev/racinggame/reports/mixed-android-112-548858c1"}
+{"passed": false, "report": "/Users/maccam912/dev/racinggame/reports/mixed-android-112-548858c1/summary.json"}
+Traceback (most recent call last):
+  File "/Users/maccam912/dev/racinggame/tools/mixed_android_acceptance.py", line 296, in <module>
+    main()
+    ~~~~^^
+  File "/Users/maccam912/dev/racinggame/tools/mixed_android_acceptance.py", line 194, in main
+    time.sleep(.5)
+    ~~~~~~~~~~^^^^
+KeyboardInterrupt

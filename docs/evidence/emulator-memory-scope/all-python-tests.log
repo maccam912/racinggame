@@ -1,0 +1,28 @@
+test_failed_push_then_cosmetic_push_still_requires_the_soak (test_acceptance_changes.AcceptanceChanges.test_failed_push_then_cosmetic_push_still_requires_the_soak) ... ok
+test_actual_routes_laps_and_exact_five_percent_boundary (test_android_memory_report.AndroidMemoryReport.test_actual_routes_laps_and_exact_five_percent_boundary) ... ok
+test_missing_window_and_unobserved_warmup_fail_required_acceptance (test_android_memory_report.AndroidMemoryReport.test_missing_window_and_unobserved_warmup_fail_required_acceptance) ... ok
+test_peak_cap_covers_samples_after_the_growth_window_and_stays_optional (test_android_memory_report.AndroidMemoryReport.test_peak_cap_covers_samples_after_the_growth_window_and_stays_optional) ... ok
+test_peak_growth_cannot_be_hidden_by_a_lower_endpoint (test_android_memory_report.AndroidMemoryReport.test_peak_growth_cannot_be_hidden_by_a_lower_endpoint) ... ok
+test_restart_keeps_wrapper_alive_and_shutdown_waits_for_child (test_container_host.ContainerHostTests.test_restart_keeps_wrapper_alive_and_shutdown_waits_for_child) ... ok
+test_physics_adapters_participate_in_compatibility (test_content_hash.GameplayHashTests.test_physics_adapters_participate_in_compatibility) ... ok
+test_invalid_shared_parameters (test_content_schema.SchemaTests.test_invalid_shared_parameters) ... ok
+test_missing_and_unknown_fields (test_content_schema.SchemaTests.test_missing_and_unknown_fields) ... ok
+test_surface_intervals_reject_invalid_schema (test_content_schema.SchemaTests.test_surface_intervals_reject_invalid_schema) ... ok
+test_valid_content (test_content_schema.SchemaTests.test_valid_content) ... ok
+test_failed_export_restores_only_owned_keys_and_environment (test_export_environment.ExportEnvironmentTests.test_failed_export_restores_only_owned_keys_and_environment) ... ok
+test_missing_file_and_environment_do_not_leave_overrides (test_export_environment.ExportEnvironmentTests.test_missing_file_and_environment_do_not_leave_overrides) ... ok
+test_subresources_crlf_and_literal_path_characters (test_export_environment.ExportEnvironmentTests.test_subresources_crlf_and_literal_path_characters) ... ok
+test_partial_client_json_is_preserved_without_hiding_original_error (test_network_reports.NetworkReports.test_partial_client_json_is_preserved_without_hiding_original_error) ... ok
+test_stale_gameplay_identity_is_reported_before_launch (test_network_reports.NetworkReports.test_stale_gameplay_identity_is_reported_before_launch) ... ok
+test_startup_failures_keep_independent_immutable_reports (test_network_reports.NetworkReports.test_startup_failures_keep_independent_immutable_reports) ... ok
+test_timeout_stops_only_spawned_processes_and_records_failure (test_network_reports.NetworkReports.test_timeout_stops_only_spawned_processes_and_records_failure) ... ok
+test_failed_process_keeps_full_merged_original_bytes (test_source_reports.SourceReports.test_failed_process_keeps_full_merged_original_bytes) ... ok
+test_interrupt_keeps_row_and_stops_its_process (test_source_reports.SourceReports.test_interrupt_keeps_row_and_stops_its_process) ... ok
+test_launch_failure_is_saved (test_source_reports.SourceReports.test_launch_failure_is_saved) ... ok
+test_partial_report_is_not_green_and_repeat_keeps_old_failure (test_source_reports.SourceReports.test_partial_report_is_not_green_and_repeat_keeps_old_failure) ... ok
+test_timeout_kills_an_owned_descendant_that_ignores_term (test_source_reports.SourceReports.test_timeout_kills_an_owned_descendant_that_ignores_term) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 7.494s
+
+OK

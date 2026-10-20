@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/Users/maccam912/dev/racinggame/build/native-smoke/macos/Pacific Rush.app/Contents/MacOS/Pacific Rush",
+    "--resolution",
+    "1280x720",
+    "--disable-vsync",
+    "--audio-driver",
+    "Dummy",
+    "--write-movie",
+    "/Users/maccam912/dev/racinggame/build/waterworks112-footage/spillway.avi",
+    "--fixed-fps",
+    "60",
+    "--",
+    "--profile=movie_spillway112_cce68d3c0d",
+    "--capture=/Users/maccam912/dev/racinggame/reports/waterworks112-footage/spillway.png",
+    "--capture-track=spillway_sprint",
+    "--capture-race-tick=1800",
+    "--autodrive"
+  ],
+  "profile": "movie_spillway112_cce68d3c0d",
+  "boundary": "Actual clean local exported Build 112, ordinary AI inputs and seven opponents. Fixed 60 Hz Movie Maker output demonstrates presentation/motion, not host FPS or human handling."
+}

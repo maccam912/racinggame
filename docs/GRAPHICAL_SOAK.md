@@ -69,3 +69,16 @@ cosmetic hash `1fe44b97`; later cosmetic work does not change that pairing.
 Other fixture processes were active during warm-up. Full loading peaks and
 all draw intervals remain, including one 34.713 ms maximum. This is a
 course-specific host lifetime result, with the same hardware boundaries above.
+
+
+## Explicit emulator process-memory acceptance
+
+The installed-APK mixed-client helper accepts `--check-memory` for an explicitly
+selected route/lap population. The existing ten-race/three-lap procedure still
+enforces it automatically. Reports identify the actual selected canonical course
+IDs and lap count; the limits remain **1 GB process VmRSS** and **at most 5%**
+repeated-cycle peak growth across minutes 5–15, including observed loading peaks.
+Complete warm-up/window coverage is required, and whole-run RSS cap checks also
+include samples after minute 15. Separate GPU/emulator-host allocations are
+unmeasured; these are independent from the native desktop figures above.
+[Exact helper regressions and preserved initial interruption](evidence/emulator-memory-scope/).

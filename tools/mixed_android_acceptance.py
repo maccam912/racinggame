@@ -20,6 +20,27 @@ from content_hash import compute as gameplay_manifest
 from udp_proxy import UDPProxy
 
 
+def android_memory_summary(observations, tracks, laps, required=False):
+    """Keep observed peaks, actual fixture identity, and optional memory gates."""
+    stats = {'observations':observations,'measured_5_to_15_minutes':False,
+             'peak_rss_bytes':max((row['rss_bytes'] for row in observations),default=0)}
+    if observations and observations[0]['elapsed']<300 and observations[-1]['elapsed']>=900:
+        first = next(row for row in observations if row['elapsed']>=300)
+        last = next(row for row in observations if row['elapsed']>=900)
+        warmup = max(row['rss_bytes'] for row in observations if row['elapsed']<=first['elapsed'])
+        peak = max(row['rss_bytes'] for row in observations if first['elapsed']<=row['elapsed']<=last['elapsed'])
+        stats.update(measured_5_to_15_minutes=True,warmup_peak_rss_bytes=warmup,
+            repeated_cycle_peak_rss_bytes=peak,peak_growth_fraction=peak/warmup-1,
+            boundary=f'Comparable {", ".join(tracks)} {laps}-lap loading/racing cycles. Actual Android process VmRSS on this emulator; separate GPU/emulator-host allocations are unmeasured, no minimum-device or thermal claim.')
+    checks = None
+    if required:
+        # Byte arithmetic preserves the inclusive 5% rule at its exact boundary.
+        checks = {'measured_5_to_15_minutes':stats['measured_5_to_15_minutes'],
+                  'rss_peak_under_1GB':0<stats['peak_rss_bytes']<=1000000000,
+                  'cycle_peak_growth_at_most_5_percent':stats.get('repeated_cycle_peak_rss_bytes',1)*100<=stats.get('warmup_peak_rss_bytes',0)*105}
+    return stats,checks
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--serial', required=True)
@@ -29,6 +50,7 @@ def main():
     parser.add_argument('--laps', type=int, choices=[1,2,3], default=1)
     parser.add_argument('--seconds', type=int, default=350)
     parser.add_argument('--impaired', action='store_true', help='Eight independent UDP proxies: 50±20 ms each direction and 1%% loss, including ENet ACKs')
+    parser.add_argument('--check-memory', action='store_true', help='Require the existing 1 GB VmRSS and 5%% cycle-growth limits, with complete 5–15 minute samples')
     parser.add_argument('--adb', default=str(Path.home()/'Library/Android/sdk/platform-tools/adb'))
     parser.add_argument("--tracks", default="palm_bay,citrus_pass", help="Comma-separated catalog IDs; native host selects this sequence")
     args = parser.parse_args()
@@ -38,6 +60,7 @@ def main():
     track_indices=[catalog.index(value) for value in selected]
     expected_tracks=[track_indices[index%len(track_indices)] for index in range(args.races)]
     assert 120 <= args.seconds <= 2400
+    assert not args.check_memory or args.seconds>=900, 'Explicit memory acceptance needs at least a 15-minute allowance'
     adb = [args.adb, '-s', args.serial]
 
     def device(*arguments):
@@ -73,6 +96,7 @@ def main():
               'serial': args.serial, 'model': device('shell', 'getprop', 'ro.product.model').decode().strip(),
               'android_release': device('shell', 'getprop', 'ro.build.version.release').decode().strip(),
               'profile': profile, 'ui_scale': args.ui_scale, 'races_requested':args.races, 'laps':args.laps,
+              'memory_required':args.check_memory or (args.races==10 and args.laps==3),
               'transport': 'Eight independent real UDP proxies; Android emulator host gateway and native loopback',
               'one_way_latency_ms':50 if args.impaired else 0, 'one_way_jitter_ms':20 if args.impaired else 0,
               'independent_datagram_loss':.01 if args.impaired else 0,
@@ -270,22 +294,11 @@ def main():
             cleanup_issues.append('QA profile archive unavailable')
         report['cleanup_issues'] = cleanup_issues
         report['elapsed_seconds'] = time.monotonic()-began
-        report['android_memory'] = {'observations':memory,'measured_5_to_15_minutes':False,
-                                   'peak_rss_bytes':max((row['rss_bytes'] for row in memory),default=0)}
-        if memory and memory[-1]['elapsed']>=900:
-            first = next(row for row in memory if row['elapsed']>=300)
-            last = next(row for row in memory if row['elapsed']>=900)
-            warmup = max(row['rss_bytes'] for row in memory if row['elapsed']<=first['elapsed'])
-            peak = max(row['rss_bytes'] for row in memory if first['elapsed']<=row['elapsed']<=last['elapsed'])
-            report['android_memory'].update(measured_5_to_15_minutes=True,warmup_peak_rss_bytes=warmup,
-                repeated_cycle_peak_rss_bytes=peak,peak_growth_fraction=peak/warmup-1,
-                boundary='Comparable Palm Bay/Citrus three-lap loading/racing cycles. Actual Android process VmRSS on this emulator; excludes GPU and emulator host memory, no minimum-device or thermal claim.')
-        if args.races==10 and args.laps==3:
-            stats = report['android_memory']
-            report['emulator_memory_checks'] = {'measured_5_to_15_minutes':stats['measured_5_to_15_minutes'],
-                'rss_peak_under_1GB':0<stats['peak_rss_bytes']<=1000000000,
-                'cycle_peak_growth_at_most_5_percent':stats.get('peak_growth_fraction',float('inf'))<=.05}
-            if not all(report['emulator_memory_checks'].values()): report['passed'] = False
+        stats,checks = android_memory_summary(memory,selected,args.laps,report['memory_required'])
+        report['android_memory'] = stats
+        if checks is not None:
+            report['emulator_memory_checks'] = checks
+            if not all(checks.values()): report['passed'] = False
         if cleanup_issues: report['passed'] = False
         (folder/'summary.json').write_text(json.dumps(report, indent=2)+'\n')
         print(json.dumps({'passed': report['passed'], 'report': str(folder/'summary.json')}), flush=True)
