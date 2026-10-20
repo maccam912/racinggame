@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Six ordinary races from an exported desktop game or owned rooted Android emulator."""
+"""Ordinary catalog races from an exported desktop game or owned rooted Android emulator."""
 import argparse
 import hashlib
 import json
@@ -42,7 +42,7 @@ def main():
     parser.add_argument('--camera', choices=['near','far','hood'], default='near')
     parser.add_argument('--expected-resolution', nargs=2, type=int, metavar=('WIDTH', 'HEIGHT'),
                         help='Explicit capture size, including an owned tablet emulator; defaults to phone/desktop baselines')
-    parser.add_argument('--track', action='append', help='Default: all six, in catalog order')
+    parser.add_argument('--track', action='append', help='Default: all courses, in catalog order')
     args = parser.parse_args()
     args.out = args.out.resolve()
     args.out.mkdir(parents=True, exist_ok=True)
@@ -67,7 +67,7 @@ def main():
         summary['binary_sha256'] = hashlib.sha256(args.desktop_binary.read_bytes()).hexdigest()
     try:
         for track in tracks:
-            # GhostCodec IDs cap at 32 bytes; the longest course ID is 15.
+            # GhostCodec IDs cap at 32 bytes; the longest course ID is 17.
             profile = 'cap_' + run + '_' + str(catalog.index(track))
             output = args.out/(track+'.png')
             assert not output.exists(), 'Refuse to replace a previous capture'

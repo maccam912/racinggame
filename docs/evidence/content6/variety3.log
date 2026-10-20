@@ -1,0 +1,8 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+CROSSING_PROBE s=0.0 state=(0.0, 20.35, 0.0) ground={ "supported": true, "height": 20.0001077651978, "normal": (-0.000012, 1.0, 0.000017), "surface": "asphalt", "lateral": 0.00000002450088, "s": 4827.67116060729 }
+CROSSING_PROBE s=2413.993834 state=(-0.088657, 201.55, -0.131163) ground={ "supported": true, "height": 201.135459899902, "normal": (0.024705, 0.999025, 0.036594), "surface": "asphalt", "lateral": 0.0, "s": 2413.993834 }
+SCRIPT ERROR: Assertion failed: ground probes hit the correct crossing level
+          at: run (res://tests/course_variety_tests.gd:47)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/course_variety_tests.gd:47)

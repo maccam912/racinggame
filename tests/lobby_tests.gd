@@ -19,7 +19,7 @@ func _initialize() -> void:
 	assert(lobby.countdown_tick == 1250)
 	assert(not lobby.set_rules("a", lobby.rules))
 	var rules := lobby.rules.duplicate()
-	rules.track = 5
+	rules.track = 7
 	assert(lobby.set_rules("z", rules))
 	assert(lobby.members.all(func(row: Dictionary) -> bool: return not row.ready))
 	assert(lobby.kick("z", "b", 60))

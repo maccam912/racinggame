@@ -19,7 +19,7 @@ func run() -> void:
 		app.events.mode = mode
 		app.events.show_event()
 		await process_frame
-		assert(app.events.buttons.size() == 6)
+		assert(app.events.buttons.size() == Catalog.tracks.size())
 	for tab in ["display", "graphics", "audio", "controls", "accessibility", "gameplay", "data"]:
 		app.settings_page.show_tab(tab, app.show_menu)
 		await process_frame
@@ -44,6 +44,6 @@ func run() -> void:
 	await process_frame
 	app.queue_free()
 	await process_frame
-	print("Menu flow: all pages, six routes, eight-car race, settings tabs, pause and resume pass")
+	print("Menu flow: all pages, eight routes, eight-car race, settings tabs, pause and resume pass")
 	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()

@@ -49,7 +49,7 @@ func run() -> void:
 	await process_frame
 	app.data = AppData.new(folder,false)
 	app.data.profile.first_run_complete = true
-	for index in range(6):
+	for index in range(Catalog.tracks.size()):
 		print("SHADER_FIXTURE_COURSE_BEGIN "+Catalog.tracks[index].id)
 		app.data.settings.msaa = [4,2,0][index%3]
 		var started := Time.get_ticks_msec()
@@ -139,5 +139,5 @@ func run() -> void:
 	app.queue_free()
 	await create_timer(.5).timeout
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
-	print("NATIVE_ALL_SIX_TRACKS_SHADER_READBACK_BEFORE_GRID_REAL_ENET_LOADED_FAILURE_RETRY_CANCEL_BACKGROUND_NO_STATS_PASS")
+	print("NATIVE_ALL_EIGHT_TRACKS_SHADER_READBACK_BEFORE_GRID_REAL_ENET_LOADED_FAILURE_RETRY_CANCEL_BACKGROUND_NO_STATS_PASS")
 	quit()

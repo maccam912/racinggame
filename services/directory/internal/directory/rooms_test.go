@@ -318,7 +318,7 @@ func TestMigrationAndFutureSchemaPreservation(t *testing.T) {
 	}
 }
 func TestRulesRejectMissingUnknownOrWrongTypes(t *testing.T) {
-	for _, value := range []string{`{}`, `{"track":0,"laps":2,"bot_fill":true,"difficulty":1,"contact":true,"path":"evil"}`, `{"track":0,"laps":2,"bot_fill":1,"difficulty":1,"contact":true}`, `{"track":6,"laps":2,"bot_fill":true,"difficulty":1,"contact":true}`} {
+	for _, value := range []string{`{}`, `{"track":0,"laps":2,"bot_fill":true,"difficulty":1,"contact":true,"path":"evil"}`, `{"track":0,"laps":2,"bot_fill":1,"difficulty":1,"contact":true}`, `{"track":8,"laps":2,"bot_fill":true,"difficulty":1,"contact":true}`} {
 		var rules Rules
 		if json.Unmarshal([]byte(value), &rules) == nil {
 			t.Fatal("invalid rules accepted", value)
@@ -393,5 +393,18 @@ func TestRejoinWaitsForLeaveAcknowledgement(t *testing.T) {
 	expectCode(t, s.Consume(ctx, allocation.ID, allocation.Token, guest.Guest, old.Nonce), "admission_expired")
 	if err = s.Consume(ctx, allocation.ID, allocation.Token, guest.Guest, fresh.Nonce); err != nil {
 		t.Fatal("fresh consume", err)
+	}
+}
+
+func TestBonusTrackRuleBounds(t *testing.T) {
+	for _, track := range []int{0, 5, 6, 7} {
+		if !(Rules{Track: track, Laps: 2, BotFill: true, Difficulty: 1, Contact: true}).valid() {
+			t.Fatalf("valid track %d rejected", track)
+		}
+	}
+	for _, track := range []int{-1, 8, 99} {
+		if (Rules{Track: track, Laps: 2, Difficulty: 1}).valid() {
+			t.Fatalf("invalid track %d accepted", track)
+		}
 	}
 }

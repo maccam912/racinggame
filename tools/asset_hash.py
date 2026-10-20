@@ -69,12 +69,24 @@ def validate():
     validate_audio()
     validate_icons()
     validate_posters()
+    validate_decorations()
+
+
+def validate_decorations():
+    provenance=json.loads((ROOT/'assets/source/decorations/generation.json').read_text())
+    for row in provenance['images']:
+        source=ROOT/row['source'];path=ROOT/row['export']
+        assert digest(source)==digest(path)==row['sha256']
+        assert struct.unpack_from('>II',path.read_bytes(),16)==tuple(row['pixels'])
+        assert row['transparent_background'] and row['prompt'] and row['tool']=='built-in image_gen'
+        assert 'mipmaps/generate=true' in path.with_suffix('.png.import').read_text()
+    print('Validated original unmodified transparent waterfall artwork, provenance and mipmaps')
 
 
 def validate_posters():
     catalog=json.loads((ROOT/'assets/exported/posters/catalog.json').read_text())
     provenance=json.loads((ROOT/catalog['source']).read_text())
-    assert catalog['license']=='MIT' and len(catalog['assets'])==6
+    assert catalog['license']=='MIT' and len(catalog['assets'])==8
     assert {row['id'] for row in catalog['assets']}=={row['id'] for row in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']}
     for row in catalog['assets']:
         source=ROOT/row['source']; path=ROOT/row['path']
@@ -84,7 +96,7 @@ def validate_posters():
         assert 'mipmaps/generate=true' in path.with_suffix('.png.import').read_text()
         original=next(item for item in provenance['images'] if item['id']==row['id'])
         assert original['source']==row['source'] and original['prompt'] and not original['transparent_background']
-    print('Validated six unmodified original painted course posters, provenance, hashes and mipmaps')
+    print('Validated eight unmodified original painted course posters, provenance, hashes and mipmaps')
 
 
 def validate_icons():
@@ -92,8 +104,8 @@ def validate_icons():
     value=json.loads((ROOT/'assets/exported/icons/catalog.json').read_text())
     rows=value['assets']
     assert value['license']=='MIT' and (ROOT/value['source']).is_file()
-    assert len(rows)==60 and len({r['id'] for r in rows})==60
-    assert [sum(row['category']==kind for row in rows) for kind in ['action','tab','menu','connection','car','track','medal','trophy','paint']]==[15,8,9,3,4,6,4,3,8]
+    assert len(rows)==62 and len({r['id'] for r in rows})==62
+    assert [sum(row['category']==kind for row in rows) for kind in ['action','tab','menu','connection','car','track','medal','trophy','paint']]==[15,8,9,3,4,8,4,3,8]
     actions=['steer_left','steer_right','accelerate','brake','handbrake','recover','camera','look_back','pause','ui_up','ui_down','ui_left','ui_right','ui_accept','ui_cancel']
     assert {row['id'] for row in rows if row['category']=='action'}=={'action_'+a for a in actions}
     for row in rows:
@@ -109,7 +121,7 @@ def validate_icons():
         if row['category']=='paint':
             paints=json.loads((ROOT/'game/content/cars.json').read_text())['paints']
             assert row['color']==paints[int(row['id'].removeprefix('paint_'))]
-    print('Validated 60 original editable SVG interface icons, canonical course outlines, paint swatches and mipmaps')
+    print('Validated 62 original editable SVG interface icons, canonical course outlines, paint swatches and mipmaps')
 
 
 def validate_audio():
@@ -175,7 +187,7 @@ def validate_scenery():
     courses=json.loads((ROOT/'assets/exported/scenery/courses.json').read_text())
     assert courses==json.loads((ROOT/'assets/source/course_specs.json').read_text())
     terrain=json.loads((ROOT/'assets/exported/scenery/terrain.json').read_text())
-    assert len(courses['courses'])==len(terrain['courses'])==6
+    assert {r['id'] for r in courses['courses']}=={r['id'] for r in terrain['courses']}=={r['id'] for r in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']}
     by_id={row['id']:row for row in assets}
     for row in courses['courses']:
         assert len(row['landmarks'])==5
@@ -186,7 +198,7 @@ def validate_scenery():
         assert digest(ROOT/row['path'])==row['sha256']
         bake=json.loads((ROOT/f'game/content/baked/{row["id"]}.json').read_text())
         assert row['route_hash']==bake['content_hash'],'Cosmetic terrain must follow the current canonical bake'
-    print('Validated 30 landmarks, five vegetation models, seven props, six cosmetic terrains and shared atlases')
+    print('Validated 30 landmarks, five vegetation models, seven props, eight cosmetic terrains and shared atlases')
 
 
 if __name__=='__main__':

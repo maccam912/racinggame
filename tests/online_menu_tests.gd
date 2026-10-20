@@ -33,11 +33,11 @@ func run_tests() -> void:
 	name_edit.text_changed.emit(name_edit.text)
 	app.online_page.create_room()
 	assert(app.online_page.status.text==I18n.t("online.room_name_error"))
-	app.online_page.draft.rules.track = 5
+	app.online_page.draft.rules.track = 7
 	app.online_page.draft.rules.laps = 3
 	app.online_page.show_create()
 	await settle()
-	assert(app.online_page.draft.rules.track==5 and app.online_page.draft.rules.laps==3)
+	assert(app.online_page.draft.rules.track==7 and app.online_page.draft.rules.laps==3)
 	app.online_page.show_code()
 	await settle()
 	var code: LineEdit = app.menu.root.find_child("room_code",true,false)

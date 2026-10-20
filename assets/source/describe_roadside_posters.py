@@ -28,7 +28,7 @@ def main():
     value = {'schema_version':1, 'license':'MIT', 'source':SOURCE.relative_to(ROOT).as_posix(),
              'generator':'assets/source/describe_roadside_posters.py', 'assets':rows}
     (OUT/'catalog.json').write_text(json.dumps(value, indent=2)+'\n')
-    print('SIX_UNMODIFIED_ORIGINAL_POSTER_PNGS_CATALOGUED')
+    print('UNMODIFIED_ORIGINAL_POSTER_PNGS_CATALOGUED count='+str(len(rows)))
 
 
 if __name__ == '__main__':

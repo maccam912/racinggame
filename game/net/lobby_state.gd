@@ -81,7 +81,7 @@ static func normalize_rules(values: Dictionary) -> Dictionary:
 
 
 static func valid_rules(values: Dictionary) -> bool:
-	return values.size() == 5 and NetEvents.integer(values.get("track"), 0, 5) and NetEvents.integer(values.get("laps"), 1, 3) and values.get("bot_fill") is bool and NetEvents.integer(values.get("difficulty"), 0, 2) and values.get("contact") is bool
+	return values.size() == 5 and NetEvents.integer(values.get("track"), 0, Catalog.track_count()-1) and NetEvents.integer(values.get("laps"), 1, 3) and values.get("bot_fill") is bool and NetEvents.integer(values.get("difficulty"), 0, 2) and values.get("contact") is bool
 
 
 func leave(id: String) -> bool:

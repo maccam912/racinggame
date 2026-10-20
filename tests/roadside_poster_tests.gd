@@ -7,7 +7,7 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
 	RoadsidePosterArt.load_catalog()
-	assert(RoadsidePosterArt.rows.size()==6)
+	assert(RoadsidePosterArt.rows.size()==Catalog.tracks.size())
 	root.size = Vector2i(1280,720)
 	root.msaa_3d = Viewport.MSAA_4X
 	DirAccess.make_dir_recursive_absolute("res://reports/posters")
@@ -70,5 +70,5 @@ func run() -> void:
 	var file := FileAccess.open("res://reports/posters/"+("headless" if DisplayServer.get_name()=="headless" else "native")+".json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":true,"content_hash":content_before,"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"backend":DisplayServer.get_name(),"boundary":"Static posed native views and asset/placement checks, not human readability or device performance","cases":records},"\t")+"\n")
 	file.close()
-	print("SIX_ORIGINAL_POSTERS_18_CLEAR_STATIC_FRAMES_MIPMAPS_HASHES_ACTIVE_TEXTURES_NO_COLLISION_PASS")
+	print("EIGHT_ORIGINAL_POSTERS_24_CLEAR_STATIC_FRAMES_MIPMAPS_HASHES_ACTIVE_TEXTURES_NO_COLLISION_PASS")
 	quit()

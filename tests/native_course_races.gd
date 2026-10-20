@@ -16,7 +16,7 @@ func run() -> void:
 	data.settings.frame_cap = 0
 	data.settings.vsync = false
 	var reports: Array[Dictionary] = []
-	for index in range(6):
+	for index in range(Catalog.tracks.size()):
 		var selected := ""
 		for argument: String in OS.get_cmdline_user_args():
 			if argument.begins_with("--track="): selected = argument.trim_prefix("--track=")
@@ -50,7 +50,7 @@ func run() -> void:
 		drive.queue_free()
 		for frame in range(8): await process_frame
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
-	var suffix := "" if reports.size()==6 else "-"+str(reports[0].track)
+	var suffix := "" if reports.size()==Catalog.tracks.size() else "-"+str(reports[0].track)
 	var file := FileAccess.open("res://reports/m4-native-course-races"+suffix+".json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":true,"renderer":RenderingServer.get_current_rendering_method(),"resolution":[1920,1080],"content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"boundary":"Scripted rendered sessions with fixed 60 Hz simulation; not human input, real-time performance, or physical-device acceptance","races":reports},"\t")+"\n")
 	file.close()

@@ -49,9 +49,10 @@ def interpolate(points, distances, s):
 
 def bake(track):
     controls = track['ordered_control_points']
-    assert len(controls) == 16, f"{track['id']}: expected 16 route points"
-    points = [catmull(controls[(i-1)%16], controls[i], controls[(i+1)%16], controls[(i+2)%16], j/256)
-              for i in range(16) for j in range(256)]
+    count = len(controls)
+    assert 16 <= count <= 32, f"{track['id']}: expected 16 to 32 route points"
+    points = [catmull(controls[(i-1)%count], controls[i], controls[(i+1)%count], controls[(i+2)%count], j/256)
+              for i in range(count) for j in range(256)]
     points.append(points[0])
     distances = [0.0]
     for a, b in zip(points, points[1:]):

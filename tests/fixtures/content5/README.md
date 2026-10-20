@@ -12,3 +12,7 @@ not regenerate fixtures to satisfy a newer implementation. The one-time capture
 script and original log are archived as text; it refuses an existing manifest
 and requires the original content-5 hash. Complete prior bakes/controller source
 remain available in the cited Git commit and frozen compatibility manifest.
+
+## Valid-profile second capture
+
+The first capture remains byte-for-byte archived in `profile/`. Its authoring script used a 20-character name, exceeding the 16-character player-name limit: a successful write did not establish that the profile could be loaded. Do not use it as valid-profile migration proof. `profile_valid_v2/` was separately captured from untouched content-5 commit bdfcdc9 with the valid name `Archive Five`, an explicit profile validator and a read-back assertion before the actual 600-tick race. Its synthetic record and ghost still make no earned-result claim. Both manifests are frozen. The content-5-to-6 test uses the second capture.

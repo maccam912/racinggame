@@ -295,7 +295,9 @@
         "assets/exported/scenery/marina_lights_terrain.glb",
         "assets/exported/scenery/redwood_run_terrain.glb",
         "assets/exported/scenery/sunstone_canyon_terrain.glb",
-        "assets/exported/scenery/pacific_summit_terrain.glb"
+        "assets/exported/scenery/pacific_summit_terrain.glb",
+        "assets/exported/scenery/skyline_splice_terrain.glb",
+        "assets/exported/scenery/quarry_switchback_terrain.glb"
       ],
       "runtime_source": [
         "game/world/course_road_mesh.gd",
@@ -304,7 +306,7 @@
       "source_url": null,
       "license": "MIT",
       "attribution": "LICENSE",
-      "modifications": "Cosmetic terrain follows the current canonical road bakes, including the content-5 elevation revision; original visual barrier extrusion, guidance, gantry lamps, tunnel panels and jump markings. Separate camera collision. Repeated props meet the upper terrain/verge triangle."
+      "modifications": "Cosmetic terrain follows the current canonical road bakes, including the content-5 elevation revision; original visual barrier extrusion, guidance, gantry lamps, tunnel panels and jump markings. Separate camera collision. Repeated props meet the upper terrain/verge triangle. Content 6 adds flat ground under the layered Skyline crossing, a cosmetic deck and clear bridge pylons."
     },
     {
       "id": "course_postcards",
@@ -316,7 +318,9 @@
         "assets/exported/thumbnails/pacific_summit.png",
         "assets/exported/thumbnails/palm_bay.png",
         "assets/exported/thumbnails/redwood_run.png",
-        "assets/exported/thumbnails/sunstone_canyon.png"
+        "assets/exported/thumbnails/sunstone_canyon.png",
+        "assets/exported/thumbnails/skyline_splice.png",
+        "assets/exported/thumbnails/quarry_switchback.png"
       ],
       "source_url": null,
       "license": "MIT",
@@ -421,7 +425,7 @@
       "source_url": null,
       "license": "MIT",
       "attribution": "LICENSE",
-      "modifications": "60 original editable SVG icons: actions, settings, modes, four car silhouettes, six canonical course outlines, connectivity, medals, trophies and eight labeled paint swatches; no external icon library"
+      "modifications": "62 original editable SVG icons: actions, settings, modes, four car silhouettes, eight canonical course outlines, connectivity, medals, trophies and eight labeled paint swatches; no external icon library"
     },
     {
       "id": "illustrated_billboard_foliage_v1",
@@ -445,7 +449,7 @@
       "creator": "Pacific Rush contributors",
       "license": "MIT",
       "attribution": "LICENSE",
-      "modifications": "Original procedural 3D Sunburst Crest, Packing Skyway, Harbor Cranes, Timber Crest, Canyon Ribs and Summit Flight frames; batched vertex-colored geometry with no driving collision."
+      "modifications": "Original procedural 3D Sunburst Crest, Packing Skyway, Harbor Cranes, Timber Crest, Canyon Ribs Summit Flight, Skyline Portal and Quarry Cut frames; batched vertex-colored geometry with no driving collision."
     },
     {
       "id": "route_conformed_bridges",
@@ -462,7 +466,7 @@
       "creator": "Pacific Rush project artwork using built-in image generation",
       "license": "MIT",
       "attribution": "LICENSE; assets/source/roadside-posters/generation.json records the complete prompts and original output provenance",
-      "modifications": "Six selected opaque generated PNGs copied byte-for-byte; static 3D sign frames and texture placement are authored in game/world/roadside_poster_art.gd. These illustrations are scenery, not gameplay screenshots.",
+      "modifications": "Eight selected opaque generated PNGs copied byte-for-byte; static 3D sign frames and texture placement are authored in game/world/roadside_poster_art.gd. These illustrations are scenery, not gameplay screenshots.",
       "exports": [
         "assets/exported/posters/catalog.json",
         "assets/exported/posters/palm-bay-v1.png",
@@ -470,7 +474,9 @@
         "assets/exported/posters/marina-lights-v1.png",
         "assets/exported/posters/redwood-run-v1.png",
         "assets/exported/posters/sunstone-canyon-v1.png",
-        "assets/exported/posters/pacific-summit-v1.png"
+        "assets/exported/posters/pacific-summit-v1.png",
+        "assets/exported/posters/skyline-splice-v1.png",
+        "assets/exported/posters/quarry-switchback-v1.png"
       ]
     },
     {
@@ -523,6 +529,29 @@
       "modifications": "Original code-native dry asphalt aggregate, weathering and route-aligned tire wear, with derivative-based distance filtering. Render-only UVs preserve original collision vertices and gameplay identity.",
       "exports": [
         "assets/exported/shaders/asphalt.gdshader"
+      ]
+    },
+    {
+      "id": "roadside_rocks_logs_waterfalls",
+      "source": "game/world/course_decor.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original bounded five-sided boulders, eight-sided bark and cut-end log piles, grey quarry bluffs and window-striped city towers. Independently culled procedural meshes with road and sightline clearances. Illustrated waterfalls use the separately documented original cutout over 3D foot rocks and an animated pool. No driving collision.",
+      "exports": [
+        "game/world/course_decor.gd",
+        "assets/exported/shaders/water.gdshader"
+      ]
+    },
+    {
+      "id": "illustrated_waterfall_v1",
+      "source": "assets/source/decorations/generation.json",
+      "creator": "Pacific Rush project using built-in image generation",
+      "license": "MIT",
+      "attribution": "LICENSE; complete prompt and original output provenance in assets/source/decorations/generation.json",
+      "modifications": "Unmodified 1254-square transparent generated PNG copied exactly. Runtime alpha scissor and cylindrical billboarding, with original 3D base rocks and animated pool.",
+      "exports": [
+        "assets/exported/decorations/waterfall-v1.png"
       ]
     }
   ]

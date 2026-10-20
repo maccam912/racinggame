@@ -33,9 +33,9 @@ static func server_event(event: Dictionary) -> bool:
 		"lobby":
 			return integer(event.get("revision"), 0, 0xffffffff) and integer(event.get("tick"), 0, 0xffffffff) and integer(event.get("phase"), 0, 4) and integer(event.get("countdown_tick"), -1, 0xffffffff) and event.get("host") is String and event.host.length() <= 64 and roster_valid(event.get("members"), true, true) and event.get("rules") is Dictionary and LobbyState.valid_rules(event.rules) and event.get("name") is String and PlayerName.validate(event.name, 24).valid and event.get("region") is String and event.region.length() <= 40 and event.get("private") is bool and event.get("code") is String and event.code.length() <= 32
 		"loading":
-			return integer(event.get("race"), 1, 0xffffffff) and integer(event.get("track"), 0, 5) and integer(event.get("laps"), 1, 3) and roster_valid(event.get("roster")) and event.get("contact") is bool
+			return integer(event.get("race"), 1, 0xffffffff) and integer(event.get("track"), 0, Catalog.track_count()-1) and integer(event.get("laps"), 1, 3) and roster_valid(event.get("roster")) and event.get("contact") is bool
 		"start":
-			return integer(event.get("race"), 1, 0xffffffff) and event.get("race_uuid") is String and event.race_uuid.length() == 36 and integer(event.get("slot"), 0, 7) and integer(event.get("start_tick"), 0, 0xffffffff) and integer(event.get("control_tick"), 0, 0xffffffff) and integer(event.get("count"), 1, 8) and integer(event.get("track"), 0, 5) and integer(event.get("laps"), 1, 3) and roster_valid(event.get("roster")) and event.roster.size() == int(event.count) and int(event.slot) < int(event.count) and event.get("contact") is bool
+			return integer(event.get("race"), 1, 0xffffffff) and event.get("race_uuid") is String and event.race_uuid.length() == 36 and integer(event.get("slot"), 0, 7) and integer(event.get("start_tick"), 0, 0xffffffff) and integer(event.get("control_tick"), 0, 0xffffffff) and integer(event.get("count"), 1, 8) and integer(event.get("track"), 0, Catalog.track_count()-1) and integer(event.get("laps"), 1, 3) and roster_valid(event.get("roster")) and event.roster.size() == int(event.count) and int(event.slot) < int(event.count) and event.get("contact") is bool
 		"presence":
 			if not integer(event.get("race"), 1, 0xffffffff) or not integer(event.get("revision"), 0, 0xffffffff) or not integer(event.get("tick"), 0, 0xffffffff) or not integer(event.get("host_slot"), -1, 7) or not event.get("members") is Array or event.members.size() > 8:
 				return false
@@ -46,7 +46,7 @@ static func server_event(event: Dictionary) -> bool:
 				slots[int(row[0])] = true
 			return int(event.host_slot) == -1 or slots.has(int(event.host_slot))
 		"resume":
-			if not integer(event.get("race"), 1, 0xffffffff) or not event.get("race_uuid") is String or event.race_uuid.length() != 36 or not integer(event.get("slot"), 0, 7) or not integer(event.get("start_tick"), 0, 0xffffffff) or not integer(event.get("control_tick"), 0, 0xffffffff) or not integer(event.get("count"), 1, 8) or not integer(event.get("track"), 0, 5) or not integer(event.get("laps"), 1, 3) or not event.get("contact") is bool or not event.get("cars") is Array or event.cars.size() != int(event.count) or int(event.slot) >= int(event.count):
+			if not integer(event.get("race"), 1, 0xffffffff) or not event.get("race_uuid") is String or event.race_uuid.length() != 36 or not integer(event.get("slot"), 0, 7) or not integer(event.get("start_tick"), 0, 0xffffffff) or not integer(event.get("control_tick"), 0, 0xffffffff) or not integer(event.get("count"), 1, 8) or not integer(event.get("track"), 0, Catalog.track_count()-1) or not integer(event.get("laps"), 1, 3) or not event.get("contact") is bool or not event.get("cars") is Array or event.cars.size() != int(event.count) or int(event.slot) >= int(event.count):
 				return false
 			var ids: Dictionary = {}
 			for row: Variant in event.cars:

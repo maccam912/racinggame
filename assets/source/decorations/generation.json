@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "license": "MIT",
+  "creator": "Pacific Rush project using built-in image generation",
+  "images": [
+    {
+      "id": "waterfall_v1",
+      "source": "assets/source/decorations/waterfall-v1.png",
+      "export": "assets/exported/decorations/waterfall-v1.png",
+      "tool": "built-in image_gen",
+      "mode": "generate",
+      "transparent_background": true,
+      "pixels": [
+        1254,
+        1254
+      ],
+      "sha256": "faa26c9dc3312a0cb14dda3646f52156e30a75e66e2260869c8c671185b3d7c3",
+      "original_output": "/Users/maccam912/.codex/generated_images/01a151a0-7c88-7ac0-a89f-6d1e90c4d56b/exec-d02e8434-d887-4203-abdb-6af06d3a006d.png",
+      "prompt": "Use case: stylized-concept. Asset type: a single original transparent-background roadside sprite for Pacific Rush, a colorful late-1990s 3D arcade racing game. Subject: a spectacular broad stepped waterfall pouring down a rugged gray-green rock outcrop into a small turquoise pool, moss and a few ferns at its foot. Tall rounded chunky rock masses with irregular cracked cliffs, three connected cascades, white foaming water and bright aqua highlights. Style: hand-painted arcade texture artwork, strong ordered dithering and limited-color pixel-grain shading like a 1997 arcade scenic billboard sprite, detailed but readable silhouette, sunny soft light. Composition: entire isolated rock-and-waterfall formation visible from its base to top, centered, nearly frontal with slight three-quarter depth, occupies most of a square canvas; rocks wider at base, water forms a coherent flowing center from top to pool. Designed to look approximately 26 metres tall and 27 metres wide in game. Preserve a clean fully transparent alpha background all around the complete subject. No landscape backdrop, no sky, no horizon, no ground rectangle, no text, no border, no UI, no logo or watermark. No isolated floating water sheets, no squared architectural slabs, no buildings. Original artwork, no borrowed game assets.",
+      "modifications": "None. Exact generated RGBA bytes; runtime alpha scissor and cylindrical billboarding."
+    }
+  ]
+}

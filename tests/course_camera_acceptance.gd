@@ -90,6 +90,6 @@ func run() -> void:
 	file.store_string(JSON.stringify({"passed":passed,"content_hash":Compatibility.content_hash(),"cases":cases,"failures":failures,
 		"boundary":"Six real standing-start Needle laps, ordinary Medium inputs, full static world/camera bounds and actual exported cosmetic terrain triangles. All three cameras with alternating four-second look-back phases, 60 Hz updates and 10 Hz clearance samples. No synthetic vehicle poses or saved records. Numeric camera/static-clearance coverage; not human preference, rendered occlusion, every off-road pose or live frame timing."},"\t")+"\n")
 	file.close()
-	if passed: print("ALL_SIX_FAST_COURSES_NEAR_FAR_HOOD_LOOKBACK_STATIC_TERRAIN_CLEAR_PASS")
+	if passed: print("ALL_EIGHT_FAST_COURSES_NEAR_FAR_HOOD_LOOKBACK_STATIC_TERRAIN_CLEAR_PASS")
 	else: print("TEST FAIL: course-camera clearance; inspect raw report")
 	quit(0 if passed else 1)

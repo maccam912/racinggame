@@ -36,5 +36,5 @@ func run() -> void:
 	job.cancel()
 	job.free()
 	await process_frame
-	print("SHADER_WARM_ALL_SIX_TRACKS_ALL_SHIPPED_SHADERS_FOUR_CAR_RESOURCES_INSTANCING_NO_PHYSICS_CANCEL_HEADLESS_BOUNDARY_PASS shaders="+str(shaders.size())+" max_submissions="+str(maximum))
+	print("SHADER_WARM_ALL_EIGHT_TRACKS_ALL_SHIPPED_SHADERS_FOUR_CAR_RESOURCES_INSTANCING_NO_PHYSICS_CANCEL_HEADLESS_BOUNDARY_PASS shaders="+str(shaders.size())+" max_submissions="+str(maximum))
 	quit()

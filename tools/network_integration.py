@@ -11,7 +11,9 @@ from content_hash import compute as gameplay_manifest
 from udp_proxy import UDPProxy
 
 
-def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False, client_hitch=False, laps=2, degraded=False):
+def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False, client_hitch=False, laps=2, degraded=False, track="palm_bay"):
+    tracks=json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']
+    track_index=next(index for index,row in enumerate(tracks) if row['id']==track)
     folder = ROOT/'reports'/f'network-udp-{latency}-{jitter}-{loss}-{port}-{uuid.uuid4().hex[:10]}'
     folder.mkdir(parents=True)
     command = [str(engine()), '--headless', '--path', str(ROOT)]
@@ -21,7 +23,7 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
     began = time.monotonic()
     manifest = gameplay_manifest()
     report = {'passed':False, 'content_hash':manifest['content_hash'],
-              'laps':3 if contacts else laps, 'seconds':seconds,
+              'laps':3 if contacts else laps, 'seconds':seconds, 'track':track, 'track_index':track_index,
               'one_way_latency_ms':latency, 'jitter_ms':jitter, 'loss':loss,
               'contacts':contacts, 'degraded_tier':degraded, 'away_seconds':away_seconds if reconnect else 0,
               'client_hitch_seconds':1.5 if client_hitch else 0,
@@ -36,7 +38,7 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
             proxy.start()
         log = (folder/'server.log').open('w')
         files.append(log)
-        server = subprocess.Popen([*command, '--', '--server', '--auto-start', '--no-bot-fill', f'--laps={3 if contacts else laps}', f'--port={worker_port}', *(['--contact-fixture'] if contacts else [])], stdout=log, stderr=subprocess.STDOUT)
+        server = subprocess.Popen([*command, '--', '--server', '--auto-start', '--no-bot-fill', f'--track={track_index}', f'--laps={3 if contacts else laps}', f'--port={worker_port}', *(['--contact-fixture'] if contacts else [])], stdout=log, stderr=subprocess.STDOUT)
         processes.append(server)
         deadline = time.monotonic()+15
         while 'PACIFIC_RUSH_SERVER_READY' not in (folder/'server.log').read_text():
@@ -46,7 +48,7 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
         for index in ([1,0] if reverse_start else [0,1]):
             log = (folder/f'client{index}.log').open('w')
             files.append(log)
-            args = [*command, '--script', 'tests/network_bot_client.gd', '--', f'--port={port}', f'--name=Driver{index}', f'--report={folder / f"client{index}.json"}', f'--seconds={seconds}']
+            args = [*command, '--script', 'tests/network_bot_client.gd', '--', f'--port={port}', f'--track={track_index}', f'--name=Driver{index}', f'--report={folder / f"client{index}.json"}', f'--seconds={seconds}']
             if reconnect and index == 0:
                 args += ['--reconnect-at=15', f'--away-seconds={away_seconds}']
             if trace:
@@ -73,6 +75,7 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
         values = [json.loads((folder/f'client{i}.json').read_text()) for i in range(2)]
         assert {v['slot'] for v in values} == {0, 1}, 'Stable unique slots'
         for index, value in enumerate(values):
+            assert value["track_id"]==track and value["track_index"]==track_index, "Client must drive the selected server course"
             assert value["large_racing_events"] == 0, "Large roster message arrived during racing"
             expired = reconnect and away_seconds > 20 and index == 0
             assert value['snapshots'] >= (150 if expired else 1000 if seconds >= 65 else 20), 'Insufficient snapshot samples'
@@ -172,6 +175,7 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
+    parser.add_argument('--track', default='palm_bay', choices=[row['id'] for row in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']])
     parser.add_argument('--seconds', type=float, default=160)
     parser.add_argument('--latency', type=int, default=0)
     parser.add_argument('--jitter', type=int, default=0)

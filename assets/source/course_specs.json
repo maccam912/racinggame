@@ -297,6 +297,103 @@
           "lateral": 85
         }
       ]
+    },
+    {
+      "id": "skyline_splice",
+      "ground": "8E9B92",
+      "sky_top": "428FD2",
+      "horizon": "F6C88B",
+      "sun": "FFE4AE",
+      "sun_energy": 0.7,
+      "ambient": 0.45,
+      "sun_rotation": [
+        -36,
+        -42,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.18,
+        0.48
+      ],
+      "vegetation": "palm",
+      "emission": 0.35,
+      "landmarks": [
+        {
+          "id": "marina_wheel",
+          "u": 0.15,
+          "lateral": 68
+        },
+        {
+          "id": "arcade",
+          "u": 0.32,
+          "lateral": -55
+        },
+        {
+          "id": "sailboats",
+          "u": 0.62,
+          "lateral": 64
+        },
+        {
+          "id": "lighthouse",
+          "u": 0.78,
+          "lateral": 70
+        },
+        {
+          "id": "seafood_diner",
+          "u": 0.89,
+          "lateral": -48
+        }
+      ],
+      "terrain_mode": "flat",
+      "terrain_height": 3.0,
+      "sea_level": 0.0,
+      "elevated": true
+    },
+    {
+      "id": "quarry_switchback",
+      "ground": "86918A",
+      "sky_top": "73ADD1",
+      "horizon": "C3D7D6",
+      "sun": "FFE4B2",
+      "sun_energy": 0.65,
+      "ambient": 0.45,
+      "sun_rotation": [
+        -40,
+        -24,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "shrub",
+      "landmarks": [
+        {
+          "id": "rail_trestle",
+          "u": 0.15,
+          "lateral": -60
+        },
+        {
+          "id": "water_tower",
+          "u": 0.32,
+          "lateral": 45
+        },
+        {
+          "id": "packing_shed",
+          "u": 0.5,
+          "lateral": -50
+        },
+        {
+          "id": "dinosaur",
+          "u": 0.69,
+          "lateral": 58
+        },
+        {
+          "id": "motel_sign",
+          "u": 0.85,
+          "lateral": 35
+        }
+      ],
+      "verge_extent": 18
     }
   ]
 }

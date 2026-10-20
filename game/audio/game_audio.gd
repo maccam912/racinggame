@@ -51,7 +51,7 @@ func _process(_dt: float) -> void:
 	if suspended: return
 	if app.page=="installation_error": return
 	var active := is_instance_valid(app.drive)
-	var id: String = "music_"+app.drive.track.id if active and app.page!="results" else "music_menu"
+	var id: String = "music_"+str(app.drive.track.definition.environment_id) if active and app.page!="results" else "music_menu"
 	set_music(id)
 	if app.page=="results" and app.result_receipt!=null:
 		var race_id: String = app.result_receipt.session.race_uuid

@@ -36,7 +36,7 @@ func show_event() -> void:
 	list.add_child(grid)
 	buttons.clear()
 	medal_icons.clear()
-	for index in range(6):
+	for index in range(Catalog.tracks.size()):
 		var track: TrackDefinition = Catalog.tracks[index]
 		var card := VBoxContainer.new()
 		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -49,7 +49,7 @@ func show_event() -> void:
 		card.add_child(postcard)
 		var name_value := I18n.t("track." + track.id)
 		var distance: float = track.length / (1609.344 if app.data.settings.units == "mph" else 1000)
-		var description := "%s • %.2f %s" % [I18n.t("difficulty." + ["easy", "easy", "medium", "medium", "hard", "hard"][index]), distance, "mi" if app.data.settings.units == "mph" else "km"]
+		var description := "%s • %.2f %s" % [I18n.t("difficulty."+str(track.definition.difficulty).to_lower()), distance, "mi" if app.data.settings.units == "mph" else "km"]
 		var button := shell.ui.button(name_value + "\n" + description, func() -> void: select_track(index), 180 if app.data.mobile else 230)
 		button.focus_entered.connect(func() -> void:
 			select_track(index)

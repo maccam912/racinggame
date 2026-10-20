@@ -19,3 +19,8 @@ static func load_all() -> void:
 	for data: Dictionary in track_data.tracks:
 		tracks.append(TrackDefinition.from_data(data))
 	rules = JSON.parse_string(FileAccess.get_file_as_string("res://game/content/rules.json"))
+
+
+static func track_count() -> int:
+	load_all()
+	return tracks.size()

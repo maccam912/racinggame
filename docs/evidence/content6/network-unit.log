@@ -1,0 +1,77 @@
+EEEE
+======================================================================
+ERROR: test_partial_client_json_is_preserved_without_hiding_original_error (tests.test_network_reports.NetworkReports.test_partial_client_json_is_preserved_without_hiding_original_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/maccam912/dev/racinggame/tests/test_network_reports.py", line 84, in test_partial_client_json_is_preserved_without_hiding_original_error
+    with self.assertRaises(json.JSONDecodeError): fixture.run(seconds=1)
+                                                  ~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/maccam912/dev/racinggame/tools/network_integration.py", line 15, in run
+    tracks=json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/var/folders/m0/wp67y1md4835y01tzkxy20pc0000gn/T/tmpppz3sujq/game/content/tracks.json'
+
+======================================================================
+ERROR: test_stale_gameplay_identity_is_reported_before_launch (tests.test_network_reports.NetworkReports.test_stale_gameplay_identity_is_reported_before_launch)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/maccam912/dev/racinggame/tests/test_network_reports.py", line 54, in test_stale_gameplay_identity_is_reported_before_launch
+    with self.assertRaisesRegex(AssertionError,'manifest must be current'): fixture.run(seconds=1)
+                                                                            ~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/maccam912/dev/racinggame/tools/network_integration.py", line 15, in run
+    tracks=json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/var/folders/m0/wp67y1md4835y01tzkxy20pc0000gn/T/tmp_glyh2wm/game/content/tracks.json'
+
+======================================================================
+ERROR: test_startup_failures_keep_independent_immutable_reports (tests.test_network_reports.NetworkReports.test_startup_failures_keep_independent_immutable_reports)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/maccam912/dev/racinggame/tests/test_network_reports.py", line 40, in test_startup_failures_keep_independent_immutable_reports
+    with self.assertRaisesRegex(RuntimeError,'Worker failed to start'): fixture.run(seconds=1)
+                                                                        ~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/maccam912/dev/racinggame/tools/network_integration.py", line 15, in run
+    tracks=json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/var/folders/m0/wp67y1md4835y01tzkxy20pc0000gn/T/tmp1r5sriwm/game/content/tracks.json'
+
+======================================================================
+ERROR: test_timeout_stops_only_spawned_processes_and_records_failure (tests.test_network_reports.NetworkReports.test_timeout_stops_only_spawned_processes_and_records_failure)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/maccam912/dev/racinggame/tests/test_network_reports.py", line 67, in test_timeout_stops_only_spawned_processes_and_records_failure
+    with self.assertRaisesRegex(RuntimeError,'Network integration timeout'): fixture.run(seconds=1)
+                                                                             ~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/maccam912/dev/racinggame/tools/network_integration.py", line 15, in run
+    tracks=json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 787, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+         ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/pathlib/__init__.py", line 771, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/var/folders/m0/wp67y1md4835y01tzkxy20pc0000gn/T/tmpyh7c3elo/game/content/tracks.json'
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.005s
+
+FAILED (errors=4)

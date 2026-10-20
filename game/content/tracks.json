@@ -655,6 +655,256 @@
           "surface": "sand"
         }
       ]
+    },
+    {
+      "id": "skyline_splice",
+      "name": "Skyline Splice",
+      "display_name_key": "track.skyline_splice",
+      "ordered_control_points": [
+        [
+          0.0,
+          20.0,
+          -0.0
+        ],
+        [
+          229.61,
+          26.851,
+          -339.411
+        ],
+        [
+          424.264,
+          46.36,
+          -480.0
+        ],
+        [
+          554.328,
+          75.558,
+          -339.411
+        ],
+        [
+          600.0,
+          110.0,
+          -0.0
+        ],
+        [
+          554.328,
+          144.442,
+          339.411
+        ],
+        [
+          424.264,
+          173.64,
+          480.0
+        ],
+        [
+          229.61,
+          193.149,
+          339.411
+        ],
+        [
+          0.0,
+          200.0,
+          0.0
+        ],
+        [
+          -229.61,
+          193.149,
+          -339.411
+        ],
+        [
+          -424.264,
+          173.64,
+          -480.0
+        ],
+        [
+          -554.328,
+          144.442,
+          -339.411
+        ],
+        [
+          -600.0,
+          110.0,
+          -0.0
+        ],
+        [
+          -554.328,
+          75.558,
+          339.411
+        ],
+        [
+          -424.264,
+          46.36,
+          480.0
+        ],
+        [
+          -229.61,
+          26.851,
+          339.411
+        ]
+      ],
+      "width": 16,
+      "shoulder": 3,
+      "surface": "asphalt",
+      "difficulty": "Hard",
+      "width_intervals": [
+        [
+          0.485,
+          0.545,
+          24
+        ]
+      ],
+      "bank_intervals": [],
+      "ramp_markers": [
+        0.5
+      ],
+      "environment_id": "marina_lights",
+      "baked_route_id": "res://game/content/baked/skyline_splice.json",
+      "collision_id": "skyline_splice_road",
+      "thumbnail_id": "skyline_splice_thumbnail",
+      "minimap_id": "skyline_splice_minimap",
+      "landmark_specs": [],
+      "surface_intervals": []
+    },
+    {
+      "id": "quarry_switchback",
+      "name": "Quarry Switchback",
+      "display_name_key": "track.quarry_switchback",
+      "ordered_control_points": [
+        [
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          12,
+          -200
+        ],
+        [
+          0,
+          12,
+          -400
+        ],
+        [
+          0,
+          12,
+          -600
+        ],
+        [
+          150,
+          16.22151654498641,
+          -760
+        ],
+        [
+          320,
+          28.376888981671538,
+          -600
+        ],
+        [
+          320,
+          46.99999999999999,
+          -380
+        ],
+        [
+          460,
+          69.84462756331487,
+          -200
+        ],
+        [
+          620,
+          94.15537243668513,
+          -380
+        ],
+        [
+          620,
+          116.99999999999999,
+          -600
+        ],
+        [
+          770,
+          135.62311101832847,
+          -760
+        ],
+        [
+          940,
+          147.7784834550136,
+          -600
+        ],
+        [
+          940,
+          152.0,
+          -380
+        ],
+        [
+          1080,
+          147.7784834550136,
+          -200
+        ],
+        [
+          1240,
+          135.62311101832847,
+          -380
+        ],
+        [
+          1240,
+          117.00000000000003,
+          -600
+        ],
+        [
+          1390,
+          94.15537243668513,
+          -760
+        ],
+        [
+          1560,
+          69.8446275633149,
+          -600
+        ],
+        [
+          1580,
+          46.99999999999999,
+          -240
+        ],
+        [
+          1500,
+          28.376888981671556,
+          80
+        ],
+        [
+          1230,
+          16.221516544986432,
+          330
+        ],
+        [
+          800,
+          12.0,
+          450
+        ],
+        [
+          300,
+          12,
+          340
+        ],
+        [
+          40,
+          12,
+          170
+        ]
+      ],
+      "width": 16,
+      "shoulder": 3,
+      "surface": "sand",
+      "difficulty": "Hard",
+      "width_intervals": [],
+      "bank_intervals": [],
+      "ramp_markers": [],
+      "environment_id": "sunstone_canyon",
+      "baked_route_id": "res://game/content/baked/quarry_switchback.json",
+      "collision_id": "quarry_switchback_road",
+      "thumbnail_id": "quarry_switchback_thumbnail",
+      "minimap_id": "quarry_switchback_minimap",
+      "landmark_specs": [],
+      "surface_intervals": []
     }
   ]
 }

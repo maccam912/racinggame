@@ -33,3 +33,5 @@ for Citrus only, restores the original cap before GPU readiness, and asserts
 that construction exceeds the old 15-second limit. Its report records the actual
 cap and elapsed construction time. An earlier `--max-fps 3` launch-only run was
 reset to 60 by client settings; its historical filename is not slow-render proof.
+
+The complete Build 103 workflow now succeeds and publishes v0.0.103-dev on bdfcdc9. `full-run.json` records all job conclusions; `release103.json` records the 18 downloadable files and OCI digest. `full-linux-render/` retains strict full-job shader readbacks and the complete render log, separate from the earlier focused diagnostic. Historical failed runs remain failures.

@@ -6,7 +6,9 @@ const EXPECTED: Array = [
 	[["arcade",.12,-22],["marina_wheel",.31,65],["underpass",.46,0],["sailboats",.64,48],["seafood_diner",.81,-24]],
 	[["ranger_kiosk",.13,-24],["giant_tree",.30,28],["timber_bridge",.47,0],["visitor_center",.63,-40],["tree_display",.82,25]],
 	[["dinosaur",.16,-30],["twin_mesas",.33,165],["rail_trestle",.48,-60],["tunnel_portal",.60,0],["motel_sign",.79,30]],
-	[["observatory",.14,-65],["overlook",.33,35],["mountain_lodge",.50,-45],["viaduct",.69,0],["balloons",.84,85]]]
+	[["observatory",.14,-65],["overlook",.33,35],["mountain_lodge",.50,-45],["viaduct",.69,0],["balloons",.84,85]],
+	[["marina_wheel",.15,68],["arcade",.32,-55],["sailboats",.62,64],["lighthouse",.78,70],["seafood_diner",.89,-48]],
+	[["rail_trestle",.15,-60],["water_tower",.32,45],["packing_shed",.50,-50],["dinosaur",.69,58],["motel_sign",.85,35]]]
 
 
 func _initialize() -> void: call_deferred("run")
@@ -15,7 +17,7 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
 	CourseArt.load_catalog()
-	assert(CourseArt.library.size()==47 and CourseArt.courses.size()==6)
+	assert(CourseArt.library.size()==47 and CourseArt.courses.size()==Catalog.tracks.size())
 	for id: String in CourseArt.library:
 		var row: Dictionary = CourseArt.library[id]
 		for level in range(3):

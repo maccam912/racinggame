@@ -14,7 +14,8 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(output)
 	var records: Array[Dictionary] = []
 	var structures := "--crest-structures" in OS.get_cmdline_user_args()
-	var prefix := "content5-set-piece" if structures else "m4-course"
+	var decorations := "--decorations" in OS.get_cmdline_user_args()
+	var prefix := "content6-decor" if decorations else "content6-set-piece" if structures else "m4-course"
 	for track: TrackDefinition in Catalog.tracks:
 		var world := TrackWorld.new()
 		world.build(track)
@@ -36,6 +37,7 @@ func run() -> void:
 			light.shadow_enabled = true
 			light.directional_shadow_max_distance = 80
 		var anchors: Array = [float(CourseSetPieces.SPECS[track.id].u)-.02] if structures else [.10,.35,.60,.85]
+		if decorations: anchors = [.22,.72] if track.id in ["redwood_run","pacific_summit","quarry_switchback"] else [.12,.35]
 		for u: float in anchors:
 			var s := CourseArt.original_s(track,u)
 			var pose := track.pose(s)
@@ -52,7 +54,7 @@ func run() -> void:
 			assert(root.get_texture().get_image().save_png(output+"/"+filename)==OK)
 			records.append({"track":track.id,"u":u,"s":s,"image":filename,"sha256":FileAccess.get_sha256(output+"/"+filename),"route_hash":track.content_hash})
 		if "--write-thumbnails" in OS.get_cmdline_user_args():
-			var anchor: Dictionary = CourseArt.spec(track.id).landmarks[[1,3,1,1,1,1][Catalog.tracks.find(track)]]
+			var anchor: Dictionary = CourseArt.spec(track.id).landmarks[[1,3,1,1,1,1,0,2][Catalog.tracks.find(track)]]
 			var s := CourseArt.original_s(track,float(anchor.u))-75
 			var pose := track.pose(s)
 			var state := VehicleState.new()
@@ -73,5 +75,5 @@ func run() -> void:
 	var file := FileAccess.open(output+"/"+prefix+"-references.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"resolution":[1920,1080],"camera":"Near Chase","fov":65,"hud":false,"preset":"Medium: 100%, 4x MSAA, Low shadows 80 m, 700 m scenery, 4x anisotropic","exposure":"Authored fixed course lighting; brightness/exposure 1.0","content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"renderer":RenderingServer.get_current_rendering_method(),"physical_device":false,"records":records},"\t")+"\n")
 	file.close()
-	print("SIX_COURSE_NATIVE_REFERENCE_VIEWS_PASS count=",records.size())
+	print("EIGHT_COURSE_NATIVE_REFERENCE_VIEWS_PASS count=",records.size())
 	quit()

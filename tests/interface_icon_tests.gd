@@ -2,7 +2,7 @@ extends SceneTree
 func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
-	assert(UIIcons.entries().size()==60)
+	assert(UIIcons.entries().size()==62)
 	for row: Dictionary in UIIcons.entries().values():
 		var texture := UIIcons.texture(row.id)
 		assert(texture.get_size()==Vector2(64,64) and texture.get_image().has_mipmaps(),row.id)

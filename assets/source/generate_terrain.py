@@ -29,7 +29,7 @@ def main():
         high_x=math.ceil((max(r[0] for r in rows)+320)/160)*160
         low_z=math.floor((min(r[2] for r in rows)-320)/160)*160
         high_z=math.ceil((max(r[2] for r in rows)+320)/160)*160
-        sea_level=min(row[1] for row in rows)-3.5
+        sea_level=float(spec.get('sea_level',min(row[1] for row in rows)-3.5))
         root=bpy.data.objects.new(spec['id']+'_Terrain',None)
         bpy.context.collection.objects.link(root)
         chunks=[]
@@ -44,6 +44,7 @@ def main():
                         signed=(x-row[0])*-row[5]+(z-row[2])*row[3]
                         wave=math.sin(x*.009+z*.006)*.55+math.cos(z*.013-x*.003)*.45
                         height=row[1]-2.8+smooth(62,180,distance)*(8+wave*(21 if spec['id']=='sunstone_canyon' else 12))
+                        if spec.get('terrain_mode')=='flat': height=float(spec['terrain_height'])+wave*.6
                         coast=spec['coast_interval']
                         if coast and coast[0]<=row[7]<=coast[1] and signed>24:
                             weight=smooth(24,60,signed)

@@ -44,7 +44,7 @@ func report(passed: bool, final: bool = false) -> void:
 		"content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,
 		"renderer":RenderingServer.get_current_rendering_method(),"gpu":RenderingServer.get_video_adapter_name(),
 		"platform":snapshot["platform.json"],"settings":snapshot["settings.json"],"last_60_seconds":snapshot["performance.json"],
-		"boundary":"Live source client, normally paced eight-car races across six courses, production loading/HUD/render-scale path, ordinary diagnostic AI inputs. Repeated scene lifetime exercise on this host; not exported-template, minimum-hardware, continuous worst-track, human driving, physical Android or thermal acceptance."}
+		"boundary":"Live source client, normally paced eight-car races across eight courses, production loading/HUD/render-scale path, ordinary diagnostic AI inputs. Repeated scene lifetime exercise on this host; not exported-template, minimum-hardware, continuous worst-track, human driving, physical Android or thermal acceptance."}
 	if final: value["racing_frame_times"] = stats()
 	var file := FileAccess.open(output,FileAccess.WRITE)
 	assert(file!=null)
@@ -53,7 +53,7 @@ func report(passed: bool, final: bool = false) -> void:
 
 
 func start_next() -> void:
-	var track := serial%6
+	var track := serial%Catalog.tracks.size()
 	app.request_drive({"mode":"quick","track":track,"car":serial%4,"paint":serial%8,
 		"opponents":7,"laps":1,"difficulty":1,"contact":true,"seed":0x534f4100+serial},app.show_menu)
 	serial += 1

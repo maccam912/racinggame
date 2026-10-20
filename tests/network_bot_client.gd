@@ -1,4 +1,5 @@
 extends SceneTree
+var selected_track: int = 0
 
 var link := NetworkClient.new()
 var scene := Node3D.new()
@@ -37,6 +38,9 @@ func run() -> void:
 	var port := 27021
 	var name_value := "TestDriver"
 	for arg: String in OS.get_cmdline_user_args():
+		if arg.begins_with("--track="): selected_track = int(arg.trim_prefix("--track="))
+	assert(selected_track>=0 and selected_track<Catalog.tracks.size())
+	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--port="):
 			port = int(arg.trim_prefix("--port="))
 		elif arg.begins_with("--name="):
@@ -63,7 +67,7 @@ func run() -> void:
 			hitch_seconds = float(arg.trim_prefix("--hitch-seconds="))
 	root.add_child(scene)
 	scene.add_child(collision)
-	collision.build(Catalog.tracks[0])
+	collision.build(Catalog.tracks[selected_track])
 	scene.add_child(link)
 	link.race_started.connect(start_race)
 	link.loading_requested.connect(func(config: Dictionary) -> void: link.mark_loaded(int(config.race)))
@@ -132,6 +136,8 @@ func run() -> void:
 		if not result.is_empty() or permanent_error != "":
 			break
 	var data: Dictionary = {"slot":link.slot, "results":result, "max_speed":maximum_speed, "rtt_ms":link.rtt_ms, "sent_bytes":link.wire.sent_bytes, "received_bytes":link.wire.received_bytes, "dropped_packets":link.wire.dropped_packets, "reconnect_done":reconnect_done, "connected":link.connected, "sequence":link.sequence}
+	data.track_id = Catalog.tracks[selected_track].id
+	data.track_index = selected_track
 	data.large_racing_events = link.large_racing_events
 	data.remote_brake_on = remote_brake_on
 	data.remote_brake_off = remote_brake_off
@@ -183,7 +189,8 @@ func start_race(config: Dictionary) -> void:
 	var cars: Array[int] = []
 	for row: Dictionary in config.roster:
 		cars.append(int(row.car))
-	setup_session.setup(Catalog.tracks[0], cars, scene.get_world_3d(), int(config.laps))
+	assert(int(config.track)==selected_track,"authoritative start must name the expected route")
+	setup_session.setup(Catalog.tracks[selected_track], cars, scene.get_world_3d(), int(config.laps))
 	link.attach_prediction(setup_session.states[link.slot], setup_session.cars[link.slot], setup_session.queries[link.slot], setup_session.track, int(config.laps))
 	link.prediction.trace_enabled = "--trace-network" in OS.get_cmdline_user_args()
 	link.input_provider = func() -> InputFrame:

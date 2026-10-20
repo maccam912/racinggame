@@ -29,6 +29,7 @@ class NetworkReports(unittest.TestCase):
         content=self.root/'game/content';content.mkdir(parents=True)
         self.manifest={'schema_version':1,'content_hash':'a'*64,'files':{}}
         (content/'compatibility.json').write_text(json.dumps(self.manifest))
+        (content/'tracks.json').write_text(json.dumps({'tracks':[{'id':'palm_bay'}]}))
         (content/'rules.json').write_text(json.dumps({'protocol_version':5}))
         for name,value in [('ROOT',self.root),('engine',lambda:Path('/unused-engine')),('gameplay_manifest',lambda:self.manifest)]:
             patcher=patch.object(fixture,name,value);patcher.start();self.addCleanup(patcher.stop)

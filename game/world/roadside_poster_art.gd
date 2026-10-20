@@ -40,7 +40,7 @@ static func plan(world: TrackWorld) -> Array[Dictionary]:
 		var selected := Transform3D.IDENTITY
 		var found := false
 		for lateral: float in [side*(edge+17),-side*(edge+17),side*(edge+28),-side*(edge+28)]:
-			var candidate := world.scenery_pose(s,lateral)
+			var candidate := world.ground_pose(s,lateral) if world.art.get("elevated",false) else world.scenery_pose(s,lateral)
 			if not world.clear_of_road(candidate.origin,7): continue
 			selected = candidate
 			side = signf(lateral)

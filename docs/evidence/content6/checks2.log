@@ -1,0 +1,539 @@
+PASS tools/validate_content.py
+Validated cars: strict schema and references
+Validated tracks: strict schema and references
+Validated rules: strict schema and references
+Validated regions: strict schema and references
+PASS tools/bake_tracks.py --check
+palm_bay: 3108.0 m, minimum radius 43.9 m, start 4, 32 gates
+citrus_pass: 3260.7 m, minimum radius 32.8 m, start 21, 33 gates
+marina_lights: 3067.5 m, minimum radius 35.9 m, start 0, 31 gates
+redwood_run: 3293.8 m, minimum radius 44.5 m, start 0, 33 gates
+sunstone_canyon: 3746.4 m, minimum radius 39.4 m, start 0, 38 gates
+pacific_summit: 3970.3 m, minimum radius 45.3 m, start 0, 40 gates
+skyline_splice: 4827.7 m, minimum radius 73.2 m, start 0, 49 gates
+quarry_switchback: 6409.1 m, minimum radius 34.5 m, start 23, 65 gates
+PASS tools/generate_graphemes.py --check
+{"unicode": "16.0.0", "official_cases": 1093, "gcb_ranges": 578, "incb_ranges": 403}
+PASS tools/content_hash.py --check
+5b8a15d304156b5c5d4e10a9549f2c3c37eb8babebecdbc2018bacd575e2560c
+PASS tools/asset_hash.py --check
+Validated four original cars, twelve explicit LODs, shared 1024 atlas and editable source
+Validated 30 landmarks, five vegetation models, seven props, eight cosmetic terrains and shared atlases
+Validated 48 original Vorbis streams, six race compositions, four engine profiles and eight fixed prompts
+Validated 62 original editable SVG interface icons, canonical course outlines, paint swatches and mipmaps
+Validated eight unmodified original painted course posters, provenance, hashes and mipmaps
+Validated original unmodified transparent waterfall artwork, provenance and mipmaps
+4bc79519f1e027065203b509aaaf5f6f25992bdae242ee190e838d87dad8e4a7
+PASS tools/app_icons.py --check
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+APP_ICON_ADAPTIVE_SAFE_DISK_MINIMUM_SIZE_MONO_ALPHA_OPAQUE_STORE_DESKTOP_SIZES_PASS [{"bounds":[103,90,226,194],"covered_pixels":32564,"maximum_radius_pixels":130.339935302734},{"bounds":[103,90,226,194],"covered_pixels":25437,"maximum_radius_pixels":130.339935302734}]
+APP_ICON_SOURCE_HASH_PNG_WINDOWS_7_SIZES_MACOS_RETINA_CONTAINERS_PASS
+PASS -m unittest discover -s tests -p test_*.py
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 7.469s
+
+OK
+PASS tools/godot.py --headless --editor --import --quit
+ [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+[  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+[  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+[  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+[92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+[   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+[  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+[  33% ] [90m[1mloading_editor_layout[22m | Reopening scenes...[39m[0m
+[  50% ] [90m[1mloading_editor_layout[22m | Loading central editor layout...[39m[0m
+[  66% ] [90m[1mloading_editor_layout[22m | Loading plugin window layout...[39m[0m
+[  83% ] [90m[1mloading_editor_layout[22m | Editor layout ready.[39m[0m
+[92m[ DONE ][39m [1mloading_editor_layout[22m
+[0m
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/source_script_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+ALL_SHIPPED_OPTIONAL_AND_MAIN_GDSCRIPTS_COMPILE_PASS count=113
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/content_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+TEST PASS: 4 cars, 8 routes, 8 paints, grid/start/recovery contracts
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/driving_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Driving fixtures: 0–100 1.650 s; stop 20.806 m; failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/world_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+World fixtures: wall contacts 109; initial 37.058 m/s; final tangent 33.458 m/s; x 9.0479; failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/progress_touch_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Progress/touch fixtures: failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests
+=switch valid=true seconds=67.630860 gold=99.4 recoveries=0
+TRIAL_GOLD track=pacific_summit car=sunset valid=true seconds=69.524130 gold=99.4 recoveries=0
+TRIAL_GOLD track=skyline_splice car=comet valid=true seconds=79.355449 gold=119.3 recoveries=0
+TRIAL_GOLD track=skyline_splice car=needle valid=true seconds=77.650537 gold=119.3 recoveries=0
+TRIAL_GOLD track=skyline_splice car=switch valid=true seconds=80.450072 gold=119.3 recoveries=0
+TRIAL_GOLD track=skyline_splice car=sunset valid=true seconds=78.777979 gold=119.3 recoveries=0
+TRIAL_GOLD track=quarry_switchback car=comet valid=true seconds=115.548249 gold=156.1 recoveries=0
+TRIAL_GOLD track=quarry_switchback car=needle valid=true seconds=115.364553 gold=156.1 recoveries=0
+TRIAL_GOLD track=quarry_switchback car=switch valid=true seconds=114.734843 gold=156.1 recoveries=0
+TRIAL_GOLD track=quarry_switchback car=sunset valid=true seconds=115.606577 gold=156.1 recoveries=0
+ALL_CAR_COURSE_VALID_STANDING_START_GOLD_TARGETS_PASS cases=32
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+COURSE_CAMERAS palm_bay passed=true samples=499
+COURSE_CAMERAS citrus_pass passed=true samples=606
+COURSE_CAMERAS marina_lights passed=true samples=584
+COURSE_CAMERAS redwood_run passed=true samples=604
+COURSE_CAMERAS sunstone_canyon passed=true samples=691
+COURSE_CAMERAS pacific_summit passed=true samples=696
+COURSE_CAMERAS skyline_splice passed=true samples=797
+COURSE_CAMERAS quarry_switchback passed=true samples=1174
+ALL_SIX_FAST_COURSES_NEAR_FAR_HOOD_LOOKBACK_STATIC_TERRAIN_CLEAR_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/slice_smoke.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_DRIVING_READY
+Driving scene smoke: failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/network_contract_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Network contract fixtures: eight-car snapshot 727 bytes; input batch 82 bytes; failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/race_contact_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Race/contact fixtures: 20 bounded bumps, countdown, precise finishes and hard cap; failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/jump_track_tests.gd -- --profile=ci_tests
+.567 s airborne
+Jump fixture 45 m/s grade -0.15: 1 launch, 1 landing, 0.650 s airborne
+Jump fixture 60 m/s grade -0.15: 1 launch, 1 landing, 0.700 s airborne
+Jump fixture 80 m/s grade -0.15: 1 launch, 1 landing, 0.717 s airborne
+Jump fixture 95 m/s grade -0.15: 1 launch, 1 landing, 0.717 s airborne
+Jump fixture 30 m/s grade 0.00: 1 launch, 1 landing, 0.600 s airborne
+Jump fixture 45 m/s grade 0.00: 1 launch, 1 landing, 0.667 s airborne
+Jump fixture 60 m/s grade 0.00: 1 launch, 1 landing, 0.717 s airborne
+Jump fixture 80 m/s grade 0.00: 1 launch, 1 landing, 0.733 s airborne
+Jump fixture 95 m/s grade 0.00: 1 launch, 1 landing, 0.733 s airborne
+Jump fixture 30 m/s grade 0.15: 1 launch, 1 landing, 0.583 s airborne
+Jump fixture 45 m/s grade 0.15: 1 launch, 1 landing, 0.667 s airborne
+Jump fixture 60 m/s grade 0.15: 1 launch, 1 landing, 0.700 s airborne
+Jump fixture 80 m/s grade 0.15: 1 launch, 1 landing, 0.717 s airborne
+Jump fixture 95 m/s grade 0.15: 1 launch, 1 landing, 0.717 s airborne
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/summit_landing_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+SUMMIT_60_REAL_COURSE_LEFT_CENTER_RIGHT_ALL_CARS_30_TO_95_APPROACH_BANDS_SAFE_LANDINGS_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/billboard_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+BILLBOARD_ALPHA_HASH_MIPMAPS_INSTANCING_FOUR_APPROACH_DIRECTIONS_COLLISION_FREE_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/roadside_poster_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+EIGHT_ORIGINAL_POSTERS_24_CLEAR_STATIC_FRAMES_MIPMAPS_HASHES_ACTIVE_TEXTURES_NO_COLLISION_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/save_cup_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Persistence/cup fixtures: corruption, interrupted writes, future schema, points and grids; failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/ghost_medal_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Ghost/medal fixtures: exact final time, interpolation, corruption and thresholds; failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/app_data_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Reload stats=3.0 best=0.123456 notices=[]
+App data fixtures: platform settings, tab restore, records/ghosts and idempotent stats; failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/name_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Player names: NFC, Hangul, grapheme bounds, byte cap and control/markup rejection pass
+PASS tools/godot.py --headless --max-fps 60 --script tests/menu_flow_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+Menu flow: all pages, eight routes, eight-car race, settings tabs, pause and resume pass
+PASS tools/godot.py --headless --max-fps 60 --script tests/mode_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_DRIVING_READY
+Real saved ghost equal-progress delta worst seconds 0.00110223568807
+Trial real finish 49.618228446, samples 994, medal 0
+Mode fixtures: standing-start trial/ghost commit, five school objectives, exact cap; failures 0
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/lobby_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Lobby contracts: ready timers, host, car/rules reset, bans, loading timeout, rematch and bounded/source-isolated fragments pass
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/compact_control_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Compact race control: eight Unicode names, cached reconnect, presence, packet guard and malformed rows pass
+PASS tools/godot.py --headless --max-fps 60 --script tests/input_ownership_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_DRIVING_READY
+Driving ownership/layout fixtures: 0 failures
+PASS tools/godot.py --headless --max-fps 60 --script tests/display_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+Display transaction fixtures: 0 failures
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/ghost_transaction_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Ghost transactions: corrupt primary, verified backup, interrupted record commit and retry preserve matched pairs
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/binding_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Binding contracts: conflicts, swap/replace, essential keyboard paths, contexts, corruption and cold-loaded physical input pass
+PASS tools/godot.py --headless --max-fps 60 --script tests/binding_ui_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+Binding UI: opening-input guard, device filter, capture, conflict, timeout, cancel, failed save and essential-path protection pass
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/menu_repeat_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Menu repeat: initial step, exact 350/90 ms, OS echo suppression, context holds, keyboard, pad, stick, popup and native text editing pass
+PASS tools/godot.py --headless --max-fps 60 --script tests/result_receipt_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+Result receipts: failed Cup gates, explicit dismissal, frozen rows, exact retry, online scene disposal and idempotent journals pass
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/touch_layout_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Touch layouts: normalized cold reload, independent variants, clamping, malformed/overlapping centers, minimum targets and one-time reset notice pass
+PASS tools/godot.py --headless --max-fps 60 --script tests/touch_editor_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+Touch editor: real pointer drag/cancel, keyboard move, transactional Save/Cancel/Restore, isolated 30-second practice, paused-race preservation and online lock pass
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/choice_picker_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+Mobile choice sheet: opening guard, safe bounds, actual touch drag without selection, last-row tap, controller, Back/cancel and teardown pass
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/guest_identity_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+GUEST_IDENTITY_TRANSACTION_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/guest_service_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+GUEST_SERVICE_ASYNC_CANCEL_RETRY_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/directory_client_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+DIRECTORY_SCHEMA_HMAC_BOUNDARIES_CANCEL_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/region_book_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+REGION_BOOK_MEDIAN_AUTO_UNAVAILABLE_CANCEL_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/online_menu_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+ONLINE_MENU_UNAVAILABLE_CREATE_CODE_BROWSER_FILTER_CANCEL_TIMEOUT_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/identity_reset_ui_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+IDENTITY_RESET_UI_FAILURE_PRESERVES_DATA_RETRY_ERASES_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/keyboard_layout_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+MOBILE_IME_FIELD_FOOTER_MINIMUM_PRESS_RESTORE_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/menu_scroll_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+MENU_TOUCH_SCROLL_TAP_FIELD_TOGGLE_MODAL_CANCEL_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/retry_flow_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+QUICK_FRESH_SEED_RETRY_GRID_TRIAL_WORLD_COUNTDOWN_PASS ready_ms=5.590
+PASS tools/godot.py --headless --max-fps 60 --script tests/world_presentation_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+WORLD_NATIVE_HUD_RETRO_SCALE_CAMERA_SCENERY_SETTINGS_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/loading_flow_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+LOADING_PROGRESS_CANCEL_EVERY_STAGE_REPLACEMENT_TRACK_SELECTION_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/audio_mix_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+AUDIO_CHANNEL_MUTE_DUCK_RESTORE_FOCUS_NIGHT_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/recovery_assist_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_DRIVING_READY
+RECOVERY_TWO_PRESS_CANCEL_DEVICE_TOUCH_SHARED_30_TICK_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/diagnostics_export_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+DIAGNOSTICS_ZIP_WHITELIST_PRIVACY_ATOMIC_COPY_BOUNDED_LOG_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/network_quality_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+NETWORK_FIVE_SECOND_THRESHOLDS_DELIVERY_COALESCING_FOCUS_ONLY_STATUS_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/accessibility_settings_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+ACCESSIBILITY_HUD_SCALE_CONTRAST_NUMBERED_PALETTES_GHOST_ENTRY_PAUSE_RETRY_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/bot_contract_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+BOT_PASSING_ROOM_TIES_CLEARANCE_CONTENT3_ARCHIVE_CUP_PRESERVATION_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/car_asset_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+ALL_FOUR_CARS_THREE_LODS_240_LAMP_BODY_ATTACHMENT_RAYS_PASS
+FOUR_ORIGINAL_CARS_GLTF_TRIANGLE_BUDGETS_ROLE_MASKS_LODS_WHEELS_PAINT_GHOST_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/scenery_contract_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+SCENERY_47_ASSETS_30_ORIGINAL_U_ANCHORS_LODS_ATLAS_ALPHA_COLLISION_IMMUTABILITY_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/surface_version_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+CONTENT4_ORIGINAL_COORDINATE_SAND_GRASS_ASPHALT_BOTH_SHOULDERS_COLLISION_UNCHANGED_CONTENT3_ARCHIVES_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/content_transition_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+FROZEN_CONTENT4_PROFILE_RECORD_GHOST_CUP_ACTIVE_RACE_BYTES_PRESERVED_CONTENT6_CONTINUATION_DISABLED_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/content5_transition_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+FROZEN_CONTENT5_PROFILE_RECORD_GHOST_CUP_ACTIVE_RACE_BYTES_PRESERVED_CONTENT6_CONTINUATION_DISABLED_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/course_variety_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+EIGHT_ROUTES_CLASSIC_BYTES_LAYERED_CROSSING_DECK_SUPPORTS_ROCKS_LOGS_WATERFALLS_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/terrain_grounding_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+EIGHT_COURSE_SCENERY_ROOTS_MATCH_EXPORTED_TERRAIN_TRIANGLES_NO_COLLISION_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/hill_presentation_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+CHASE_CAR_WHEELS_24_PERCENT_CLIMBS_DROPS_190_MPH_30_60_120_FPS_NO_BOOM_COLLAPSE_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/route_landmark_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+TIMBER_VIADUCT_ALL_LODS_FOLLOW_BANKED_RAMPED_STEEP_ROAD_CLEAR_DRIVING_VIEW_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/durable_save_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+DURABLE_SAVE_NATIVE_OR_SOURCE_BARRIERS_FUTURE_ENVELOPE_DELETION_TOMBSTONE_PROFILE_CONFINEMENT_EXACT_16_MIB_UTF8_BOUND_PASS backend=owned
+PASS tools/godot.py --headless --max-fps 60 --script tests/race_archive_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+FULL_PRECISION_EIGHT_CAR_BOT_PLAN_120_TICK_CONTINUATION_MAX_M=0.000000000_INCOMPATIBLE_PRESERVED_TRIAL_RESTART_SCHOOL_NO_STATS_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/checkpoint_ui_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_CLIENT_READY
+BACKGROUND_ATOMIC_PAUSE_TOUCH_CANCEL_DEDUP_COLD_REAL_MENU_RESUME_180_TICKS_EXACT_ID_TRIAL_RESTART_EXPLICIT_DISCARD_NO_STATS_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/results_visibility_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+RESULTS_LOCAL_ROW_VISIBLE_18_LAYOUT_SCALE_RANK_CASES_SAVE_RETRY_PRIORITY_STALE_PAGE_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/race_audio_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+ORIGINAL_AUDIO_IMPORT_ENGINE_GEARS_GHOST_COOLDOWNS_CAPTIONS_PAUSE_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/feedback_event_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PRESENTATION_EVENTS_THREE_TICK_LATCH_COALESCE_DEDUP_BOUNDS_NO_SIMULATION_WRITES_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/race_feedback_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+BOUNDED_PARTICLES_SKID_DISTANCE_LIFETIME_OFF_REDUCED_MOTOR_CAPS_FOCUS_CANCELLATION_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/recovery_presentation_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+CAR_CONTACT_OPACITY_FROZEN_RECOVERY_FADE_CAMERA_LOOKBACK_BOOM_SHAKE_CAPS_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/interface_icon_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+ORIGINAL_ICON_IMPORT_STAT_VALUES_REAL_SHOULDER_WRAP_SCOPED_PREVIEW_AND_CAR_SPECIFIC_MEDALS_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/race_hud_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_DRIVING_READY
+HUD_AUTHORITATIVE_LAP_CLOCK_BANNERS_RECORDED_PROGRESS_DELTA_FOUR_NEAREST_ENVIRONMENT_OCCLUSION_PASS
+PASS tools/godot.py --headless --fixed-fps 60 --script tests/menu_style_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+MENU_FOCUS_HALF_SECOND_DISABLED_KEYBOARD_NO_ACTIVATION_SELECTED_ACCENT_POINT_ONE_FOCUS_POINT_EIGHTEEN_SLIDE_REDUCE_MOTION_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/school_presentation_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+PACIFIC_RUSH_DRIVING_READY
+SCHOOL_INPUT_SEQUENCE_REMAP_HOLD_ASSIST_STATIC_MOTION_PAUSE_REAL_RETRY_CLICK_SKIP_NO_UNLOCK_WRITES_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/leave_delivery_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_SERVER_READY port=61073 protocol=5 mode=direct_guest
+ENET_EXPLICIT_LEAVE_BEFORE_DISPOSAL_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/lobby_reconnect_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_SERVER_READY port=56372 protocol=5 mode=direct_guest
+PACIFIC_RUSH_PEER_DROPPED phase=0 slot=0 tick=18 last_seen_age=9 reason=transport
+LOBBY_RECONNECT_PASS: real ENet identity reservation, host transfer, rejoin, explicit leave and expiry
+PASS tools/godot.py --headless --max-fps 60 --script tests/online_lifecycle_tests.gd -- --profile=ci_tests
+_PEER_DROPPED phase=2 slot=0 tick=450 last_seen_age=4 reason=transport
+NETWORK_STATUS Community server — waiting for racers
+NETWORK_STATUS Community server — race connected
+NETWORK_STATUS Reconnecting
+PACIFIC_RUSH_PEER_DROPPED phase=2 slot=0 tick=457 last_seen_age=3 reason=transport
+PACIFIC_RUSH_CONTACT_EVENT tick=474
+PACIFIC_RUSH_CONTACT_EVENT tick=497
+PACIFIC_RUSH_CONTACT_EVENT tick=527
+PACIFIC_RUSH_CONTACT_EVENT tick=969
+PACIFIC_RUSH_CONTACT_EVENT tick=1099
+PACIFIC_RUSH_CONTACT_EVENT tick=1184
+PACIFIC_RUSH_CONTACT_EVENT tick=1231
+PACIFIC_RUSH_CONTACT_EVENT tick=1299
+PACIFIC_RUSH_CONTACT_EVENT tick=1408
+PACIFIC_RUSH_CONTACT_EVENT tick=1421
+PACIFIC_RUSH_CONTACT_EVENT tick=1441
+PACIFIC_RUSH_CONTACT_EVENT tick=1495
+PACIFIC_RUSH_CONTACT_EVENT tick=1508
+PACIFIC_RUSH_CONTACT_EVENT tick=1618
+PACIFIC_RUSH_CONTACT_EVENT tick=1625
+NETWORK_STATUS Reconnect expired — return to lobby
+REAL_ENET_MOBILE_AWAY_IMMEDIATE_BOT_NO_BACKGROUND_TRAFFIC_SAME_ID_SNAPSHOT_RESUME_EXPIRED_DNF_NO_LOCAL_STATS_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/mobile_runtime_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+MOBILE_KEEP_AWAKE_FOREGROUND_LOADING_PLAY_ONLY_ADAPTIVE_2_10_SECONDS_60_FLOOR_NATIVE_HUD_MEMORY_ACTIVE_COLLISION_PRESERVED_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/mobile_services_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+PACIFIC_RUSH_DRIVING_READY
+MOBILE_AUDIO_FOCUS_TOUCH_CHECKPOINT_MUSIC_PAUSE_NO_AUTO_DRIVE_EXPLICIT_RETRY_WINDOW_GUARD_CELLULAR_CANCEL_CONTINUE_COLD_CONSENT_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/direct_connect_tests.gd -- --profile=ci_tests
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_SERVER_READY port=55480 protocol=5 mode=direct_guest
+PACIFIC_RUSH_CLIENT_READY
+NETWORK_STATUS Connecting
+PACIFIC_RUSH_SERVER_READY port=60919 protocol=5 mode=direct_guest
+NETWORK_STATUS Connecting
+NETWORK_STATUS Community server — waiting for racers
+PACIFIC_RUSH_SERVER_READY port=51370 protocol=5 mode=direct_guest
+NETWORK_STATUS Connecting
+NETWORK_STATUS Connection interrupted — Retry or Back
+NETWORK_STATUS Connecting
+NETWORK_STATUS Connection timed out — Retry or Back
+NETWORK_STATUS Connecting
+REAL_ENET_DIRECT_CONNECT_SINGLE_ADMISSION_BACK_BACKGROUND_BEFORE_WELCOME_LEAVE_10S_SILENT_TIMEOUT_RETRY_STALE_CALLBACK_BATCH_PASS
+PASS tools/godot.py --headless --script tests/shader_warmup_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+SHADER_WARM_ALL_EIGHT_TRACKS_ALL_SHIPPED_SHADERS_FOUR_CAR_RESOURCES_INSTANCING_NO_PHYSICS_CANCEL_HEADLESS_BOUNDARY_PASS shaders=9 max_submissions=61
+PASS tools/godot.py --headless --max-fps 60 --script tests/packet_fault_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_SERVER_READY port=49459 protocol=5 mode=direct_guest
+PACIFIC_RUSH_RACE_STARTED racers=8 tick=14 race=1
+PACIFIC_RUSH_PEER_DROPPED phase=2 slot=1 tick=439 last_seen_age=6 reason=protocol
+PACIFIC_RUSH_CONTACT_EVENT tick=495
+PACIFIC_RUSH_CONTACT_EVENT tick=543
+PACIFIC_RUSH_CONTACT_EVENT tick=581
+PACIFIC_RUSH_CONTACT_EVENT tick=597
+PACIFIC_RUSH_CONTACT_EVENT tick=619
+PACIFIC_RUSH_PEER_DROPPED phase=2 slot=1 tick=622 last_seen_age=180 reason=liveness
+REAL_ENET_512_PACKET_BURST_UTF8_5S_OFFENDER_3S_MALFORMED_LIVENESS_HEALTHY_EIGHT_CAR_WORKER_PASS
+PASS tools/godot.py --headless --script tests/grapheme_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+UNICODE_16_ALL_1093_OFFICIAL_BOUNDARIES_EMOJI_INDIC_FLAG_NFC_TEXT_BACKEND_INDEPENDENT_NAMES_PASS
+PASS tools/godot.py --headless --script tests/worker_performance_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+WORKER_PERFORMANCE_PASS window=30s samples=1800 misses=90 ring=3600
+PASS tools/godot.py --headless --script tests/font_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+ORIGINAL_ARCADE_ASCII_SHIPPED_EMOJI_NOTO_CBDT_SHA_ASCII_METRICS_NO_SYSTEM_GLYPHS_FULL_SEQUENCE_SHAPING_PASS
+PASS tools/godot.py --headless --script tests/font_input_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+TEXT_INPUT_FAMILY_SKIN_FLAG_COMBINING_ONE_BACKSPACE_COMPLETE_GRAPHEME_PASS
+PASS tools/godot.py --headless --script tests/retirement_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+WORKER_RETIREMENT_ACTIVE_10_MINUTE_BOUND_RESULTS_5_SECOND_STABLE_DEADLINE_IDLE_PASS
+PASS tools/godot.py --headless --max-fps 60 --script tests/worker_directory_tests.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+WORKER_PRIVATE_LINK_REAL_15_SECONDS_LOST_RETIRES_ONCE_DENIAL_DRAIN_LATE_HEARTBEAT_PASS elapsed_ms=15006
+PASS tools/retirement_integration.py
+{"passed": true, "report": "/Users/maccam912/dev/racinggame/reports/worker-retirement-ceae071c7f/summary.json"}
+PASS tools/godot.py --headless --script tests/audio_dsp_evidence.gd
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+AUDIO_ACTUAL_DSP_GAIN_NIGHT_MUTE_PASS {"boundary":"Synthetic gain/Night fixture; actual decoded eight-engine/music/impact/voice output is separately validated by tools/audio_acceptance.py","driver":"Dummy","full":{"frames":4096,"peak":0.399995714426041,"rms":0.283047596059914},"half":{"frames":4096,"peak":0.200003057718277,"rms":0.141308027868935},"loud_reference":{"frames":4096,"peak":0.562342524528503,"rms":0.397077434979344},"muted":{"frames":4096,"peak":0.0,"rms":0.0},"night":{"frames":4096,"peak":0.303823858499527,"rms":0.214884231540113},"sample_rate":44100.0,"summed_limited":{"frames":4096,"peak":0.562347710132599,"rms":0.397930210040626}}

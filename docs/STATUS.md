@@ -1,5 +1,19 @@
 # Implementation status
 
+## 19 October — eight-course scenery expansion, content 6
+
+Skyline Splice adds a 4.828 km harbor figure eight with a 180 m vertical crossing gap, bridge decks, clear pylons and roadside towers. Quarry Switchback adds a 6.409 km chain of hairpins and climbs with 24 control points. Both are available in Quick Race, Time Trial and Community rooms; the classic six-event Cup remains unchanged. Original six route definitions and bakes are byte-identical. Course choices, network validation, directory bounds, minimaps, thumbnails and localization cover eight routes. Race music deliberately reuses Marina/Canyon themes.
+
+Original 3D boulder clusters, cut-log piles, quarry bluffs and city towers provide decoration variety. Illustrated waterfalls with 3D base rocks and animated pools appear on Redwood, Summit and Quarry. Two original travel posters extend the painted billboard set. [Complete prompts and provenance](../assets/source/decorations/generation.json) and [poster provenance](../assets/source/roadside-posters/generation.json) retain unmodified source/export PNG bytes. Quarry's narrow cosmetic verges remove overlapping ground plates; Skyline ground scenery remains below its bridge decks.
+
+Content/protocol/save are **6/5/1**, gameplay `5b8a15d3`, asset `bd9bd532`. Frozen content-4 and content-5 records/ghosts/Cups/checkpoints remain preserved; incompatible continuation is disabled. The first content-5 capture had an invalid overlong profile name and remains archived; a separate valid-name capture from untouched content-5 code supplies migration proof.
+
+All **94 source commands pass**, plus final focused catalog, decoration, winding, scenery, grounding and camera checks. All **32 car/course Gold trials**, **120 new-course AI races / 960 finishers**, **48 complete-lap camera paths** and two impaired real ENet races pass. Both bonus courses also finish real native eight-car races. GPU preparation covers all eight worlds and nine shipped shaders before Grid, including actual readbacks, Retry/Cancel/background and ENet readiness. [Evidence and boundaries](evidence/content6/). Expanded-track selection is visually checked at 150%; Android export/emulator and the new-content GitHub release remain pending at this commit. Human handling/balance, minimum hardware, physical controls and thermal behavior remain separate owner follow-up. Official region URLs remain unconfigured; Iroh remains documentation only.
+
+## 19 October — Build 103 published after the full workflow passes
+
+[Build 103](https://github.com/maccam912/racinggame/releases/tag/v0.0.103-dev) publishes desktop packages, Android APK/AAB and the Linux worker with matching metadata/checksums, plus the tested OCI runtime. The [complete workflow](https://github.com/maccam912/racinggame/actions/runs/39362806107) passes strict Linux native graphics, all platform/native checks, network/directory/lobby gates and the actual ten-race eight-client soak. It contains the original arcade UI and richer vehicle/pavement materials on content 5; the eight-track expansion is a later checkpoint. [Remote proof](evidence/graphics103/full-run.json).
+
 ## 19 October — corrected Linux GPU-preparation diagnostic passes
 
 The [focused GitHub Linux diagnostic](https://github.com/maccam912/racinggame/actions/runs/39362822659)

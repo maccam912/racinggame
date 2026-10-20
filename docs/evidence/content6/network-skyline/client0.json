@@ -1,0 +1,96 @@
+{
+	"acknowledged_sequence": 4765,
+	"clear_corrections": {
+		"count": 1284,
+		"max": 0.0256803203374147,
+		"p95": 0.0136891417205334
+	},
+	"clock_rebase_count": 0,
+	"clock_restores": {
+		"count": 0,
+		"max": 0,
+		"p95": 0
+	},
+	"coalesced_snapshots": 0,
+	"connected": true,
+	"contact_corrections": {
+		"count": 29,
+		"max": 0.81139087677002,
+		"p95": 0.201274156570435
+	},
+	"dropped_packets": 0,
+	"finish_time": 82.0379104614258,
+	"hitch_done": false,
+	"initial_slot": 0,
+	"laps": 1,
+	"large_racing_events": 0,
+	"last_gate": 0,
+	"max_speed": 70.3172149658203,
+	"permanent_error": "",
+	"quality_observations": {
+		"active_samples": 784,
+		"levels": [
+			380,
+			242,
+			162
+		],
+		"max_delivery_loss_percent": 100.0,
+		"max_rtt_ms": 142.3
+	},
+	"received_bytes": 375086,
+	"reconnect_done": false,
+	"reconnect_restores": {
+		"count": 0,
+		"max": 0,
+		"p95": 0
+	},
+	"recoveries": 0,
+	"remote_brake_off": 1213,
+	"remote_brake_on": 243,
+	"remote_extrapolation": {
+		"capped_samples": 145,
+		"max_buffer_samples": 20,
+		"max_distance_m": 8.21932888031006,
+		"max_requested_seconds": 15.8727794727123,
+		"samples": 193
+	},
+	"results": [
+		{
+			"best_lap": 82.0379081224657,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 4864.59773391765,
+			"dnf": "",
+			"id": "b54d9308-5681-4984-a17d-7c6f4ce85a21",
+			"name": "Driver0",
+			"paint": 0.0,
+			"slot": 0.0,
+			"time": 82.0379081224657
+		},
+		{
+			"best_lap": 83.3340712580898,
+			"bot": false,
+			"car": 0.0,
+			"distance_m": 4864.37667312333,
+			"dnf": "",
+			"id": "afffa354-7508-4198-94cd-4dab4a241971",
+			"name": "Driver1",
+			"paint": 0.0,
+			"slot": 1.0,
+			"time": 83.3340712580898
+		}
+	],
+	"resume_count": 0,
+	"rtt_ms": 137.0,
+	"sent_bytes": 201298,
+	"sequence": 4766,
+	"slot": 0,
+	"snapshots": 1356,
+	"terminal_corrections": {
+		"count": 37,
+		"max": 48.4305419921875,
+		"p95": 4.22614669799805
+	},
+	"track_id": "skyline_splice",
+	"track_index": 6
+}

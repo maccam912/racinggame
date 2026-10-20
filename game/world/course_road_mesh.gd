@@ -118,3 +118,63 @@ static func cover(track: TrackDefinition, interval: Array, clearance: float) -> 
 		quad(tool,a,a+Vector3.UP*clearance,d+Vector3.UP*clearance,d)
 		quad(tool,b,c,c+Vector3.UP*clearance,b+Vector3.UP*clearance)
 	return tool.commit()
+
+
+static func elevated_deck(track: TrackDefinition) -> ArrayMesh:
+	var tool := SurfaceTool.new()
+	tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for index in range(track.points.size()):
+		var next := (index+1)%track.points.size()
+		var wa := float(track.bake.samples[index][8])*.5+3
+		var wb := float(track.bake.samples[next][8])*.5+3
+		var a := RouteGeometry.point(track,index,-wa)-Vector3.UP*.08
+		var b := RouteGeometry.point(track,index,wa)-Vector3.UP*.08
+		var c := RouteGeometry.point(track,next,wb)-Vector3.UP*.08
+		var d := RouteGeometry.point(track,next,-wb)-Vector3.UP*.08
+		quad(tool,a-Vector3.UP*1.2,d-Vector3.UP*1.2,d,a)
+		quad(tool,c-Vector3.UP*1.2,b-Vector3.UP*1.2,b,c)
+		quad(tool,a-Vector3.UP*1.2,b-Vector3.UP*1.2,c-Vector3.UP*1.2,d-Vector3.UP*1.2)
+	return tool.commit()
+
+
+static func verges(track: TrackDefinition, extent: float) -> ArrayMesh:
+	var tool := SurfaceTool.new()
+	tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for index in range(track.points.size()):
+		var next := (index+1)%track.points.size()
+		for side: float in [-1.0,1.0]:
+			var wa := float(track.bake.samples[index][8])*.5
+			var wb := float(track.bake.samples[next][8])*.5
+			var a := RouteGeometry.point(track,index,side*(wa+3))
+			var b := RouteGeometry.point(track,next,side*(wb+3))
+			var c := RouteGeometry.point(track,next,side*(wb+extent))-Vector3.UP*2.5
+			var d := RouteGeometry.point(track,index,side*(wa+extent))-Vector3.UP*2.5
+			if side<0: quad(tool,a,b,c,d)
+			else: quad(tool,d,c,b,a)
+	return tool.commit()
+
+
+static func elevated_supports(world: TrackWorld) -> void:
+	for s in range(0,int(world.track.length),48):
+		var half := float(world.track.bake.samples[world.track.sample_index(s)][8])*.5+1
+		for side: float in [-1.0,1.0]:
+			var pose := world.track.pose(s,side*half)
+			var blocked := false
+			for index in range(0,world.track.points.size(),4):
+				var delta := absf(world.track.distances[index]-s)
+				if minf(delta,world.track.length-delta)<80: continue
+				var other := world.track.points[index]
+				if other.y>pose.origin.y+2: continue
+				if Vector2(other.x-pose.origin.x,other.z-pose.origin.z).length()<float(world.track.bake.samples[index][8])*.5+9:
+					blocked = true
+					break
+			if blocked: continue
+			var ground := CourseArt.height_from_grid(world.terrain_grid,pose.origin,3)
+			var height := pose.origin.y-1.4-ground
+			if height<2: continue
+			var column := world.box(Vector3(pose.origin.x,ground+height*.5,pose.origin.z),Vector3(2.2,height,2.2),Color("849B9E"))
+			column.name = "BridgePylon_"+str(s)+"_"+str(int(side))
+			column.set_meta("route_s",s)
+			column.set_meta("footprint_radius_m",1.6)
+			column.add_to_group("scenery_distance")
+			column.visibility_range_end = 700

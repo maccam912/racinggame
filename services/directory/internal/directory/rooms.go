@@ -21,7 +21,7 @@ type Rules struct {
 }
 
 func (r Rules) valid() bool {
-	return r.Track >= 0 && r.Track < 6 && r.Laps >= 1 && r.Laps <= 3 && r.Difficulty >= 0 && r.Difficulty < 3
+	return r.Track >= 0 && r.Track < 8 && r.Laps >= 1 && r.Laps <= 3 && r.Difficulty >= 0 && r.Difficulty < 3
 }
 func (r *Rules) UnmarshalJSON(data []byte) error {
 	var value struct {

@@ -1,6 +1,6 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.10 — 19 October 2026
+Version 1.11 — 19 October 2026
 
 Owner decisions, 19 October 2026: implementation validation uses Android phone
 and tablet **emulators only**. Physical-device checks elsewhere in this document
@@ -46,7 +46,7 @@ First-session usability target: at least four of five new testers can start an o
 | --- | --- |
 | Players | One local player per client; 1–8 humans per online race; bots fill remaining seats to eight by default |
 | Cars | Four mechanically distinct original cars; eight shared paint colors; all available immediately |
-| Tracks | Six forward circuits; fixed weather/time of day per track; no reverse variants |
+| Tracks | Eight forward circuits (six classic Cup routes plus two bonus routes); fixed weather/time of day per track; no reverse variants |
 | Offline modes | Driving School, Quick Race, Time Trial, Coast Cup |
 | Online modes | Public Quick Join, public/private rooms, single races, persistent lobby and rematches |
 | Input | Keyboard, Xbox-style and PlayStation-style gamepads, mobile multitouch; remapping/layout adjustment; mixed-device menu use |
@@ -230,7 +230,7 @@ No full-screen speed lines, radial blur, chromatic aberration, film grain, head 
 
 ## 10 Track construction contract
 
-Six closed circuits share a canonical route generator, ensuring independently built versions have the same layout. Points in section 11 are (X,Y,Z) in meters and are traversed in listed order, looping to point 0. Generate a uniform closed Catmull–Rom curve with standard 0.5 tension: `C(t)=0.5*((2*P1)+(-P0+P2)*t+(2*P0-5*P1+4*P2-P3)*t²+(-P0+3*P1-3*P2+P3)*t³)` for each P1→P2 span. Sample each span at 256 equal t intervals, make an arc-length lookup, then resample at 2 m intervals. Final closing sample joins the first exactly. Track length L is the measured 3D arc length; use the same baked route resource on client/server. Do not hand-adjust route points or use a different spline.
+Eight closed circuits share a canonical route generator, ensuring independently built versions have the same layout. Points in section 11 are (X,Y,Z) in meters and are traversed in listed order, looping to point 0. Generate a uniform closed Catmull–Rom curve with standard 0.5 tension: `C(t)=0.5*((2*P1)+(-P0+P2)*t+(2*P0-5*P1+4*P2-P3)*t²+(-P0+3*P1-3*P2+P3)*t³)` for each P1→P2 span. Sample each span at 256 equal t intervals, make an arc-length lookup, then resample at 2 m intervals. Final closing sample joins the first exactly. Track length L is the measured 3D arc length; use the same baked route resource on client/server. Do not hand-adjust route points or use a different spline.
 
 Road cross section is centered on the route. Default paved width 16 m, shoulder 3 m each side. Cross-slope is flat; bank only intervals explicitly listed, with 20 m smoothstep ramps. Right vector = normalized forward cross world-up, using the forward direction of traversal; verify its sign against car-local +X. Mesh quads every 2 m longitudinally, subdivide cross-section at center and pavement/shoulder boundaries. Collision surface uses the same sampled geometry. Decorative asphalt meshes must not create seams or extra colliders.
 
@@ -246,7 +246,7 @@ Authoring checks for these coordinates measured the following base-route lengths
 
 ## 11 Track roster and exact route seeds
 
-Each route has sixteen control points. Index 0 is an authoring origin, not necessarily the race start. Coordinates are part of the content contract. Roadside landmark placement is at the listed original u, with lateral offsets measured from road center, positive on the right. Position tolerances for major landmarks are ±5 m longitudinally and ±2 m laterally. Decorative filler may vary within section 12's density rules.
+The classic six and Skyline Splice have sixteen control points; Quarry Switchback has twenty-four. The generator accepts 16–32 points. Index 0 is an authoring origin, not necessarily the race start. Coordinates are part of the content contract. Roadside landmark placement is at the listed original u, with lateral offsets measured from road center, positive on the right. Position tolerances for major landmarks are ±5 m longitudinally and ±2 m laterally. Decorative filler may vary within section 12's density rules.
 
 ### 11.1 Palm Bay
 
@@ -302,9 +302,19 @@ Jump marker at original u=.68, with a 24 m paved corridor over u=.665–.725: pl
 
 One start gantry per track, 6 m tall and 22 m wide, with checker band, track name, and three countdown lamps. Timing gates after the start are invisible; do not place giant glowing rings. At least one landmark visible from each third of a lap. Add original batched 3D structure sequences at the main crests: Sunburst Crest, Packing Skyway, Harbor Cranes, Timber Crest, Canyon Ribs and Summit Flight. These frame climbs and drops without adding driving collision; keep the driving/flight corridor clear. Timber Bridge and Viaduct artwork must follow the actual banked, ramped road in every detail level. Road center marking: cream broken stripes, 4 m painted / 8 m gap, 0.18 m wide. Edge marking 0.25 m cream. Use arrow boards at radius <80 m and advance warning at radius <45 m. Route direction is unambiguous at every decorative intersection, which must be blocked with visible barriers.
 
-Each course also has three original painted travel signs on static 3D frames, outside the driving corridor. The six illustrated panels use the canonical course names, mipmapped textures and no driving collision. Small vegetation sightlines keep the signs visible on approach. These are scenery; route guidance remains the existing chevrons and warning boards.
+Each course also has three original painted travel signs on static 3D frames, outside the driving corridor. The eight illustrated panels use the canonical course names, mipmapped textures and no driving collision. Small vegetation sightlines keep the signs visible on approach. These are scenery; route guidance remains the existing chevrons and warning boards.
 
 No alternate routes or shortcuts at launch. Visible inaccessible roads may exist beyond barriers, but must not look like missed race branches. Minimap depicts only the actual circuit. Track selection shows difficulty in words: Palm Bay Easy; Citrus Pass Easy; Marina Lights Medium; Redwood Run Medium; Sunstone Canyon Hard; Pacific Summit Hard.
+
+### 11.7 Skyline Splice — bonus circuit
+
+A layered harbor-city figure eight, 4,827.683369 m long, with a 180 m elevation difference at its crossing. The two branches remain ordinary shared collision surfaces; road hints, gates, recovery and checkpoint restoration keep the correct branch. Minimum horizontal radius 73.202 m; maximum base grade 16.156%. Asphalt shoulders, no banking, a ramp at original u=.50 and 24 m pavement through u=.485–.545. The bridge has cosmetic deck sides, underside and pylons; supports cannot intrude into the lower branch. Ground scenery stays on low terrain; deck lights and travel signs stay beside the road. Original chunky tower blocks rise through road height. Five landmarks: marina wheel (.15,+68), arcade (.32,−55), sailboats (.62,+64), lighthouse (.78,+70), seafood diner (.89,−48). Reuses the Marina music theme.
+
+### 11.8 Quarry Switchback — bonus circuit
+
+A 6,409.125648 m chain of climbs, reversals and linked switchbacks with twenty-four control points, rather than a second figure eight. Minimum radius 34.490 m; maximum base grade 15.631%; approximately 135 m of height variation. Asphalt road with sand shoulders, no bank or marked jump. Cosmetic verges narrow to 18 m beyond the pavement edge so they cannot form floating plates across nearby switchbacks. Grey-green faceted bluffs, close boulders, cut-log piles and two illustrated stepped waterfalls with animated pools distinguish the route. Five landmarks: rail trestle (.15,−60), water tower (.32,+45), packing shed (.50,−50), dinosaur (.69,+58), motel sign (.85,+35). Reuses the Canyon music theme.
+
+For both bonus courses, exact coordinates and starting sample are normative in `game/content/tracks.json` and the checked-in canonical bakes. Existing six course definitions/bakes remain unchanged. All eight courses are immediately available in Quick Race, Time Trial and Community rooms; the six-event Coast Cup remains its existing ordered roster. This expansion is content version 6, protocol 5, save schema 1: older records/ghosts/Cups/checkpoints remain preserved but cannot continue under the new catalog hash. Frozen content-4 and content-5 fixtures must not be rewritten.
 
 ## 12 Art direction and asset specification
 
@@ -362,7 +372,7 @@ bounds prevent translucent sorting and edge-on disappearance. Palm spacing is
 9 m (orchard) beyond the pavement edge. Original route/driving collision stays
 separate from these cosmetic placements.
 
-Required deliverables: four car meshes with three LODs each; eight paint materials; six track meshes/collision sets/minimaps/thumbnails; one common road kit (straight surface material, barrier, guardrail, signs, gantry, tunnel light); six themed scenery kits with at least five named landmarks each; palm, orchard tree, redwood, shrub and grass assets; six sky/lighting presets; tire smoke/dust/spark/skid materials; UI icons for all input actions, cars, tracks, settings tabs, connectivity, recovery, medals and trophies. Reuse shared assets deliberately, but every course must retain its five named landmarks and distinct silhouette/palette.
+Required deliverables: four car meshes with three LODs each; eight paint materials; eight track meshes/collision sets/minimaps/thumbnails; one common road kit (straight surface material, barrier, guardrail, signs, gantry, tunnel light); eight themed course arrangements with five named landmarks each; palm, orchard tree, redwood, shrub and grass assets; eight sky/lighting presets; tire smoke/dust/spark/skid materials; UI icons for all input actions, cars, tracks, settings tabs, connectivity, recovery, medals and trophies. Reuse shared assets deliberately, but every course must retain its five named landmarks and distinct silhouette/palette.
 
 All source meshes, editable textures, font licenses, music licenses, and import settings ship in the source handoff. Use original or explicitly redistribution-compatible assets. Maintain an asset manifest with creator, source URL if applicable, license, modifications, and attribution requirement. No asset may be “temporary” in a release build.
 
@@ -701,7 +711,7 @@ Release package includes checksums, changelog, known issues, source revision, au
 
 ## 26 Android support and touch controls
 
-Android mobile support is a first-release requirement, with the same four cars, six tracks, race modes, physics, bots, records, and online rooms as desktop. No separate simplified mobile courses or altered grip. Android players may race desktop players in the same room. Input method is not a matchmaking filter because launch has no ranked mode. Offline modes work after installation in airplane mode. No ads, in-app purchases, energy timers, or mandatory mobile account SDKs.
+Android mobile support is a first-release requirement, with the same four cars, eight tracks, race modes, physics, bots, records, and online rooms as desktop. No separate simplified mobile courses or altered grip. Android players may race desktop players in the same room. Input method is not a matchmaking filter because launch has no ranked mode. Offline modes work after installation in airplane mode. No ads, in-app purchases, energy timers, or mandatory mobile account SDKs.
 
 ### 26.1 Orientation and responsive layout
 
@@ -791,7 +801,7 @@ Do not use an AI-generated concept image as a measurable track collision/layout 
 
 Create a test-only flat 1000 m asphalt lane, a flat 80 m-radius circle, a 45 m-radius circle, a 5-degree slope, a static wall at 15-degree approach angle, a full-width jump fixture matching Pacific Summit, and a two-car contact lane. These are developer fixtures, not extra player-visible tracks. Every driving fixture uses explicit state/input arrays at 60 Hz and records distance, speed, yaw, slip, gate changes, and recovery events.
 
-Automated content checks: required IDs unique; all references resolve; four car records and six track records exist; route constraints pass; every gate has a safe recovery point; no spawn overlap; start line fits eight-car grid; road mesh/collision match; server exports retain collision/bakes; no required textures missing at any import preset; UI localization keys resolve; all asset licenses present; packets fit 1200 bytes; JSON schemas reject invalid values; no secrets in artifacts. Each check fails with the offending resource/field and a nonzero exit code.
+Automated content checks: required IDs unique; all references resolve; four car records and eight track records exist; route constraints pass; every gate has a safe recovery point; no spawn overlap; start line fits eight-car grid; road mesh/collision match; server exports retain collision/bakes; no required textures missing at any import preset; UI localization keys resolve; all asset licenses present; packets fit 1200 bytes; JSON schemas reject invalid values; no secrets in artifacts. Each check fails with the offending resource/field and a nonzero exit code.
 
 Golden numeric tests use epsilon, not pixel identity or cross-platform bit identity. Reference runs on the same pinned build/platform must match final position within 0.02 m and finish time within one tick. Cross-platform offline runs of the same inputs must remain within 0.5 m after 60 seconds in static fixtures; if divergence exceeds that, investigate stability before relying on online correction. Online end results must agree exactly because they come from one server.
 
@@ -881,3 +891,5 @@ clear road edges, readable opponents, original assets and the established physic
 contract. The original paint/glass/chrome and dry-asphalt shaders implement this
 material revision; current evidence and remaining package boundaries are recorded
 in docs/STATUS.md.
+
+The content-6 scenery pass adds original procedural boulder clusters on ground courses, log piles on orchard/forest/mountain/quarry routes, waterfalls on Redwood/Summit/Quarry, and larger quarry bluffs. Sites clear the road and poster approach sightlines, reserve foliage clearings, and use independent spatial bounds and view-distance limits. These meshes have no driving collision. Skyline towers, bridge deck and pylons provide a distinct elevated city silhouette.

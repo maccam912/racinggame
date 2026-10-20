@@ -15,6 +15,7 @@ var shader_warmup: Dictionary = {}
 var terrain_grid: Dictionary = {}
 var poster_sites: Array[Dictionary] = []
 var scenery_clearings: Array[Dictionary] = []
+var decor_sites: Array[Dictionary] = []
 static var skies: Dictionary = {}
 
 
@@ -65,6 +66,8 @@ func advance_build() -> bool:
 				build_covers()
 				build_jump_markings()
 				CourseSetPieces.build(self)
+				CourseDecor.build(self)
+				if art.get("elevated",false): CourseRoadMesh.elevated_supports(self)
 				RoadsidePosterArt.build(self)
 				build_stage += 1
 				return true
@@ -100,6 +103,7 @@ func build_environment() -> void:
 	add_child(CourseArt.terrain(track.id))
 	terrain_grid = CourseArt.terrain_heights[track.id]
 	poster_sites = RoadsidePosterArt.plan(self)
+	decor_sites = CourseDecor.plan(self)
 	if art.water:
 		var water := MeshInstance3D.new()
 		var plane := PlaneMesh.new()
@@ -119,9 +123,11 @@ func build_road() -> void:
 	var sand := material(Color.html(art.ground))
 	for key: String in geometry:
 		if key in ["walls","shoulder"]: continue
+		if key=="verges" and art.get("elevated",false): continue
 		var instance := MeshInstance3D.new()
 		instance.name = "Road_"+key
 		instance.mesh = CourseRoadMesh.front_faces(geometry[key],track if key=="asphalt" else null)
+		if key=="verges" and art.has("verge_extent"): instance.mesh = CourseRoadMesh.verges(track,float(art.verge_extent))
 		if key=="asphalt":
 			instance.material_override = paving_material()
 		else:
@@ -142,6 +148,12 @@ func build_road() -> void:
 	barrier.mesh = CourseRoadMesh.barriers(track,art)
 	barrier.material_override = material(Color.html("F3E4C4"))
 	add_child(barrier)
+	if art.get("elevated",false):
+		var deck := MeshInstance3D.new()
+		deck.name = "ElevatedDeck"
+		deck.mesh = CourseRoadMesh.elevated_deck(track)
+		deck.material_override = material(Color("677C8A"))
+		add_child(deck)
 
 
 func paving_material(shoulder: bool = false) -> ShaderMaterial:
@@ -179,7 +191,7 @@ func ground_pose(s: float, lateral: float) -> Transform3D:
 	var next := (index+1)%track.points.size()
 	var end := track.distances[next] if next>0 else track.length
 	var weight := (fposmod(s,track.length)-track.distances[index])/(end-track.distances[index])
-	pose.origin.y = lerpf(RouteGeometry.point(track,index,lateral).y,RouteGeometry.point(track,next,lateral).y,weight)-2.5*clampf((absf(lateral)-float(track.bake.samples[index][8])/2-3)/62,0,1)
+	pose.origin.y = lerpf(RouteGeometry.point(track,index,lateral).y,RouteGeometry.point(track,next,lateral).y,weight)-2.5*clampf((absf(lateral)-float(track.bake.samples[index][8])/2-3)/(float(art.get("verge_extent",65))-3),0,1)
 	pose.basis = Basis(Vector3.UP,pose.basis.get_euler().y)
 	return pose
 
@@ -193,16 +205,18 @@ func scenery_pose(s: float, lateral: float) -> Transform3D:
 
 
 func verge_height(s: float, lateral: float, point: Vector3) -> float:
+	if art.get("elevated",false): return -INF
 	var i := track.sample_index(s)
 	var j := (i+1)%track.points.size()
 	var side := signf(lateral)
 	var wa := float(track.bake.samples[i][8])*.5
 	var wb := float(track.bake.samples[j][8])*.5
-	if absf(lateral)<wa+3 or absf(lateral)>maxf(wa,wb)+65: return -INF
+	var extent := float(art.get("verge_extent",65))
+	if absf(lateral)<wa+3 or absf(lateral)>maxf(wa,wb)+extent: return -INF
 	var a := RouteGeometry.point(track,i,side*(wa+3))
 	var b := RouteGeometry.point(track,j,side*(wb+3))
-	var c := RouteGeometry.point(track,j,side*(wb+65))-Vector3.UP*2.5
-	var d := RouteGeometry.point(track,i,side*(wa+65))-Vector3.UP*2.5
+	var c := RouteGeometry.point(track,j,side*(wb+extent))-Vector3.UP*2.5
+	var d := RouteGeometry.point(track,i,side*(wa+extent))-Vector3.UP*2.5
 	var above := Vector3(point.x,10000,point.z)
 	var below := Vector3(point.x,-10000,point.z)
 	var hit: Variant = Geometry3D.segment_intersects_triangle(above,below,a,b,c)
@@ -232,14 +246,14 @@ func build_scenery_batch(first: int, last: int) -> void:
 			pose.basis = pose.basis.rotated(Vector3.UP,s*.3)
 			if not batches.has("grass"): batches.grass = [] as Array[Transform3D]
 			batches.grass.append(pose)
-	if track.id in ["palm_bay","marina_lights"]:
+	if track.id in ["palm_bay","marina_lights","skyline_splice"]:
 		for s in range(first,last,40):
-			var id := "streetlight" if track.id=="marina_lights" else "umbrella" if s%80==0 else "bench"
+			var id := "streetlight" if track.id!="palm_bay" else "umbrella" if s%80==0 else "bench"
 			if not batches.has(id): batches[id] = [] as Array[Transform3D]
-			batches[id].append(scenery_pose(s,-18))
-	if track.id=="marina_lights" or track.id=="palm_bay" and first%160==0:
-		var id := ("marina_shops" if first%160==0 else "marina_hotel") if track.id=="marina_lights" else "coastal_home"
-		var pose := scenery_pose(first+40,-36 if track.id=="marina_lights" else -65)
+			batches[id].append(ground_pose(s,-18) if art.get("elevated",false) else scenery_pose(s,-18))
+	if track.id in ["marina_lights","skyline_splice"] or track.id=="palm_bay" and first%160==0:
+		var id := ("marina_shops" if first%160==0 else "marina_hotel") if track.id!="palm_bay" else "coastal_home"
+		var pose := scenery_pose(first+40,-48 if track.id!="palm_bay" else -65)
 		pose.basis = pose.basis.rotated(Vector3.UP,PI/2)
 		batches[id] = [pose] as Array[Transform3D]
 	if first%160==0 and track.id in ["sunstone_canyon","pacific_summit"]:
@@ -276,7 +290,7 @@ func place_landmark(description: Dictionary) -> void:
 	var result := CourseArt.model(description.id,float(art.get("emission",0)))
 	var s := CourseArt.original_s(track,float(description.u))
 	var lateral := float(description.lateral)
-	var pose := ground_pose(s,lateral)
+	var pose := scenery_pose(s,lateral) if art.get("elevated",false) else ground_pose(s,lateral)
 	if description.get("align", "roadside")=="roadside": pose.basis = pose.basis.rotated(Vector3.UP,-signf(lateral)*PI/2)
 	pose.origin.y += float(description.get("height_offset",0))
 	result.transform = pose
@@ -385,7 +399,7 @@ func build_covers() -> void:
 
 
 func build_jump_markings() -> void:
-	if track.id!="pacific_summit": return
+	if track.definition.ramp_markers.is_empty(): return
 	var crest := CourseArt.original_s(track,float(track.definition.ramp_markers[0]))
 	for distance: float in [-10.0,-7.0,-4.0,50.0]:
 		var tool := SurfaceTool.new()

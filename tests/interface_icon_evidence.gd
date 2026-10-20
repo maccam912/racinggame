@@ -33,7 +33,7 @@ func run() -> void:
 	var entries := UIIcons.entries().values()
 	for index in range(entries.size()):
 		var row: Dictionary = entries[index]
-		var at := Vector2(60+(index%10)*180,130+(index/10)*140)
+		var at := Vector2(60+(index%11)*165,130+(index/11)*140)
 		var icon := TextureRect.new()
 		icon.texture = UIIcons.texture(row.id)
 		icon.position = at+Vector2(48,0)
@@ -78,6 +78,12 @@ func run() -> void:
 	app.menu.settings = app.data.settings
 	app.events.show_event()
 	await capture("track-150")
+	app.events.select_track(6)
+	app.events.buttons[6].grab_focus()
+	await capture("skyline-details-150")
+	app.events.select_track(7)
+	app.events.buttons[7].grab_focus()
+	await capture("quarry-details-150")
 	app.settings_page.show_tab("graphics",app.show_menu)
 	await capture("settings-150")
 	app.bindings_page.show_page(app.show_menu)
