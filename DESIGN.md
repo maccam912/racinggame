@@ -908,3 +908,10 @@ Acceptance now includes all 321 authored checkpoints in snapshot round-trips, fi
 A deterministic Skyline crossing regression showed the content-7 planner choosing a passing offset for a car 180 m above it. Both lead selection and passing-side blockers now use the 2.5 m road-plane separation rule in §18. The road plane comes from shared collision geometry, including bank and ramp offsets; tests retain cars 4.8 m higher/lower along a 24% climb/descent and banked roads. Input planning cadence, lane clearance, stable slot tie breaks, following speed, car physics, route bakes, contact and recovery rules remain unchanged.
 
 This is content version 8 / protocol 5 / save schema 1. Frozen content-4/5/6/7 components retain exact bytes; incompatible records, ghosts, Cups and in-progress races remain archived with continuation disabled. The content-7 fixture was captured from clean commit `7906385` before changing traffic logic, with a validated profile, synthetic record/ghost, fresh Cup and actual 600-tick eight-car Quarry checkpoint. Complete field races and remote release gates remain separate from the focused planner proof.
+
+
+## Presentation follow-up — 20 October 2026
+
+Skyline tower walls use original procedural window grids and static glass reflections, aligned in facade metres with floor bands; roof equipment and trim remain opaque solids. Ordered dither and derivative filtering keep distance detail stable. Opponent labels share the original arcade chrome/display-number face while retaining nickname/emoji support, color-palette identity, clipping, four-label limit, occlusion and High Contrast.
+
+Graphics acceptance separates construction from GPU readiness. Its construction fixture allows max(60 seconds, (actual authored build steps + four frame allowance) × one second), recording each world's unit count, cap and measured duration. The independent 15-second two-frame/readback GPU deadline, Retry/Cancel/background and real ENet Loaded ordering remain. Reports retain partial course results and failure state; only full completion is successful. These construction fixture bounds do not change production loading or the performance budgets.

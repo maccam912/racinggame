@@ -75,10 +75,30 @@ static func log_mesh(tool: SurfaceTool, center: Vector3, length: float, radius: 
 		colored_triangle(tool,center+Vector3.BACK*length*.5,c,d,Color("C39A66"))
 
 
+static func facade_box(tool: SurfaceTool, pose: Transform3D, size: Vector3, color: Color, height: float, windows: bool) -> void:
+	# Keep the existing box geometry; metre UVs align glass with the floor bands.
+	# Alpha marks window-bearing walls in an opaque shader, rather than blending.
+	var box := BoxMesh.new()
+	box.size = size
+	var arrays := box.surface_get_arrays(0)
+	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+	for index: int in arrays[Mesh.ARRAY_INDEX]:
+		var at := pose*vertices[index]
+		var normal := pose.basis*normals[index]
+		var ink := color*(.86+.14*maxf(0,normal.y))
+		ink.a = 1.0 if windows else 0.0
+		tool.set_normal(normal)
+		tool.set_color(ink)
+		tool.set_uv(Vector2(at.z if absf(normal.x)>.5 else at.x,at.y-height+3.6))
+		tool.add_vertex(at)
+
+
 static func build(world: TrackWorld) -> void:
 	var surface := StandardMaterial3D.new()
 	surface.vertex_color_use_as_albedo = true
 	surface.roughness = .95
+	var city_surface: ShaderMaterial
 	for site: Dictionary in world.decor_sites:
 		var node := MeshInstance3D.new()
 		node.name = "Decor"+site.kind+"_"+str(site.s)
@@ -95,14 +115,19 @@ static func build(world: TrackWorld) -> void:
 			for index in range(4):
 				stone(tool,Vector3((index%2)*3-1.5,-.3,(index/2)*3-1.5),Vector3(2.1,2.3+index*.65,2.0),color,index+int(site.s))
 		elif site.kind=="Tower":
+			if city_surface==null:
+				city_surface = ShaderMaterial.new()
+				city_surface.shader = load("res://assets/exported/shaders/scenery.gdshader")
+				city_surface.set_shader_parameter("city_facade",true)
+				city_surface.set_shader_parameter("window_glow",float(world.art.get("emission",0)))
 			var height: float = site.height
 			var color := Color("597D98") if int(site.s/80)%3==0 else Color("A4AEA9") if int(site.s/80)%3==1 else Color("72748E")
-			CourseSetPieces.cuboid(tool,Transform3D(Basis.IDENTITY,Vector3(0,height*.5,0)),Vector3(18,height,17),color)
+			facade_box(tool,Transform3D(Basis.IDENTITY,Vector3(0,height*.5,0)),Vector3(18,height,17),color,height,true)
 			for floor_index in range(10):
 				var y := height-3-floor_index*3.7
 				if y<4: break
-				CourseSetPieces.cuboid(tool,Transform3D(Basis.IDENTITY,Vector3(0,y,0)),Vector3(18.15,1.2,17.15),Color("C9DCD5") if floor_index%3 else Color("F0CB82"))
-			CourseSetPieces.cuboid(tool,Transform3D(Basis.IDENTITY,Vector3(0,height+1.5,0)),Vector3(8,3,9),color.darkened(.2))
+				facade_box(tool,Transform3D(Basis.IDENTITY,Vector3(0,y,0)),Vector3(18.15,1.2,17.15),Color("C9DCD5") if floor_index%3 else Color("F0CB82"),height,false)
+			facade_box(tool,Transform3D(Basis.IDENTITY,Vector3(0,height+1.5,0)),Vector3(8,3,9),color.darkened(.2),height,false)
 		elif site.kind=="Bluff":
 			for index in range(3):
 				stone(tool,Vector3((index-1)*6,-1,index%2*2),Vector3(7,24+index*5,7),Color("7E8E89"),index+int(site.s))
@@ -111,7 +136,7 @@ static func build(world: TrackWorld) -> void:
 				stone(tool,Vector3((index-1)*8,-.3,0),Vector3(2.0,2.4,2.1),Color("6D817C"),index)
 			waterfall(world,node)
 		node.mesh = tool.commit()
-		node.material_override = surface
+		node.material_override = city_surface if site.kind=="Tower" else surface
 		node.add_to_group("scenery_distance")
 		var limit := 700.0 if site.kind in ["Waterfall","Tower","Bluff"] else 160.0
 		node.set_meta("lod_limit",limit)

@@ -1,0 +1,251 @@
+{
+  "asset_hash": "f84503f54c7eaa8e6178c76689a30f931d17f1af33aa123570bc5ae05e349a6c",
+  "background_waits": true,
+  "boundary": "Actual native Compatibility material/mesh/instanced submissions, two drawn frames, GPU readback and loading UI. Construction allowance scales with authored unit count; GPU deadline stays 15 seconds. Not a universal hardware no-stutter guarantee or physical thermal test.",
+  "cancel_during_graphics": true,
+  "construction_frame_allowance": 4,
+  "construction_ms_per_step": 1000,
+  "content_hash": "dfb78c447e094d7e0200a2538fec45cae44c848a4e3c65334f642fb970b415f7",
+  "failed_readback_retry": true,
+  "fixture_sha256": "0e6827b401e583f41ab27ecb2415673bedaaf83d5a1c9143c24bb1d594e87460",
+  "gpu_timeout_ms": 15000,
+  "minimum_construction_timeout_ms": 60000,
+  "no_stats": true,
+  "passed": true,
+  "real_enet_loaded_after_gpu": true,
+  "renderer": "gl_compatibility",
+  "run_id": "7cd811c2-ea34-47ca-af58-76056d256ab6",
+  "status": "complete",
+  "tracks": [
+    {
+      "construction_frame_cap": 60,
+      "construction_ms": 1966,
+      "construction_steps": 48,
+      "construction_timeout_ms": 60000,
+      "draw_calls": 103,
+      "gpu_warmed": true,
+      "image_size": [
+        256,
+        256
+      ],
+      "load_ms": 2221,
+      "msaa": 4,
+      "rendered_frames": 2,
+      "shader_paths": [
+        "res://assets/exported/shaders/water.gdshader",
+        "res://assets/exported/shaders/asphalt.gdshader",
+        "res://assets/exported/shaders/scenery.gdshader",
+        "res://assets/exported/shaders/blob_shadow.gdshader",
+        "res://assets/exported/shaders/car.gdshader",
+        "res://assets/exported/shaders/car_fade.gdshader",
+        "res://assets/exported/shaders/car_ghost.gdshader",
+        "res://assets/exported/shaders/feedback_particle.gdshader",
+        "res://assets/exported/shaders/feedback_skid.gdshader"
+      ],
+      "submissions": 50,
+      "track": "palm_bay",
+      "visible_objects": 111
+    },
+    {
+      "construction_frame_cap": 60,
+      "construction_ms": 1134,
+      "construction_steps": 50,
+      "construction_timeout_ms": 60000,
+      "draw_calls": 92,
+      "gpu_warmed": true,
+      "image_size": [
+        256,
+        256
+      ],
+      "load_ms": 1165,
+      "msaa": 2,
+      "rendered_frames": 2,
+      "shader_paths": [
+        "res://assets/exported/shaders/asphalt.gdshader",
+        "res://assets/exported/shaders/scenery.gdshader",
+        "res://assets/exported/shaders/blob_shadow.gdshader",
+        "res://assets/exported/shaders/car.gdshader",
+        "res://assets/exported/shaders/car_fade.gdshader",
+        "res://assets/exported/shaders/car_ghost.gdshader",
+        "res://assets/exported/shaders/feedback_particle.gdshader",
+        "res://assets/exported/shaders/feedback_skid.gdshader"
+      ],
+      "submissions": 46,
+      "track": "citrus_pass",
+      "visible_objects": 100
+    },
+    {
+      "construction_frame_cap": 60,
+      "construction_ms": 1065,
+      "construction_steps": 48,
+      "construction_timeout_ms": 60000,
+      "draw_calls": 109,
+      "gpu_warmed": true,
+      "image_size": [
+        256,
+        256
+      ],
+      "load_ms": 1098,
+      "msaa": 0,
+      "rendered_frames": 2,
+      "shader_paths": [
+        "res://assets/exported/shaders/water.gdshader",
+        "res://assets/exported/shaders/asphalt.gdshader",
+        "res://assets/exported/shaders/scenery.gdshader",
+        "res://assets/exported/shaders/blob_shadow.gdshader",
+        "res://assets/exported/shaders/car.gdshader",
+        "res://assets/exported/shaders/car_fade.gdshader",
+        "res://assets/exported/shaders/car_ghost.gdshader",
+        "res://assets/exported/shaders/feedback_particle.gdshader",
+        "res://assets/exported/shaders/feedback_skid.gdshader"
+      ],
+      "submissions": 54,
+      "track": "marina_lights",
+      "visible_objects": 117
+    },
+    {
+      "construction_frame_cap": 60,
+      "construction_ms": 1218,
+      "construction_steps": 51,
+      "construction_timeout_ms": 60000,
+      "draw_calls": 105,
+      "gpu_warmed": true,
+      "image_size": [
+        256,
+        256
+      ],
+      "load_ms": 1252,
+      "msaa": 4,
+      "rendered_frames": 2,
+      "shader_paths": [
+        "res://assets/exported/shaders/asphalt.gdshader",
+        "res://assets/exported/shaders/scenery.gdshader",
+        "res://assets/exported/shaders/water.gdshader",
+        "res://assets/exported/shaders/blob_shadow.gdshader",
+        "res://assets/exported/shaders/car.gdshader",
+        "res://assets/exported/shaders/car_fade.gdshader",
+        "res://assets/exported/shaders/car_ghost.gdshader",
+        "res://assets/exported/shaders/feedback_particle.gdshader",
+        "res://assets/exported/shaders/feedback_skid.gdshader"
+      ],
+      "submissions": 53,
+      "track": "redwood_run",
+      "visible_objects": 113
+    },
+    {
+      "construction_frame_cap": 60,
+      "construction_ms": 1219,
+      "construction_steps": 56,
+      "construction_timeout_ms": 60000,
+      "draw_calls": 100,
+      "gpu_warmed": true,
+      "image_size": [
+        256,
+        256
+      ],
+      "load_ms": 1254,
+      "msaa": 2,
+      "rendered_frames": 2,
+      "shader_paths": [
+        "res://assets/exported/shaders/asphalt.gdshader",
+        "res://assets/exported/shaders/scenery.gdshader",
+        "res://assets/exported/shaders/blob_shadow.gdshader",
+        "res://assets/exported/shaders/car.gdshader",
+        "res://assets/exported/shaders/car_fade.gdshader",
+        "res://assets/exported/shaders/car_ghost.gdshader",
+        "res://assets/exported/shaders/feedback_particle.gdshader",
+        "res://assets/exported/shaders/feedback_skid.gdshader"
+      ],
+      "submissions": 51,
+      "track": "sunstone_canyon",
+      "visible_objects": 108
+    },
+    {
+      "construction_frame_cap": 60,
+      "construction_ms": 1356,
+      "construction_steps": 59,
+      "construction_timeout_ms": 63000,
+      "draw_calls": 121,
+      "gpu_warmed": true,
+      "image_size": [
+        256,
+        256
+      ],
+      "load_ms": 1388,
+      "msaa": 0,
+      "rendered_frames": 2,
+      "shader_paths": [
+        "res://assets/exported/shaders/water.gdshader",
+        "res://assets/exported/shaders/asphalt.gdshader",
+        "res://assets/exported/shaders/scenery.gdshader",
+        "res://assets/exported/shaders/blob_shadow.gdshader",
+        "res://assets/exported/shaders/car.gdshader",
+        "res://assets/exported/shaders/car_fade.gdshader",
+        "res://assets/exported/shaders/car_ghost.gdshader",
+        "res://assets/exported/shaders/feedback_particle.gdshader",
+        "res://assets/exported/shaders/feedback_skid.gdshader"
+      ],
+      "submissions": 61,
+      "track": "pacific_summit",
+      "visible_objects": 129
+    },
+    {
+      "construction_frame_cap": 60,
+      "construction_ms": 1541,
+      "construction_steps": 70,
+      "construction_timeout_ms": 74000,
+      "draw_calls": 117,
+      "gpu_warmed": true,
+      "image_size": [
+        256,
+        256
+      ],
+      "load_ms": 1573,
+      "msaa": 4,
+      "rendered_frames": 2,
+      "shader_paths": [
+        "res://assets/exported/shaders/water.gdshader",
+        "res://assets/exported/shaders/asphalt.gdshader",
+        "res://assets/exported/shaders/scenery.gdshader",
+        "res://assets/exported/shaders/blob_shadow.gdshader",
+        "res://assets/exported/shaders/car.gdshader",
+        "res://assets/exported/shaders/car_fade.gdshader",
+        "res://assets/exported/shaders/car_ghost.gdshader",
+        "res://assets/exported/shaders/feedback_particle.gdshader",
+        "res://assets/exported/shaders/feedback_skid.gdshader"
+      ],
+      "submissions": 55,
+      "track": "skyline_splice",
+      "visible_objects": 125
+    },
+    {
+      "construction_frame_cap": 60,
+      "construction_ms": 1989,
+      "construction_steps": 90,
+      "construction_timeout_ms": 94000,
+      "draw_calls": 99,
+      "gpu_warmed": true,
+      "image_size": [
+        256,
+        256
+      ],
+      "load_ms": 2021,
+      "msaa": 2,
+      "rendered_frames": 2,
+      "shader_paths": [
+        "res://assets/exported/shaders/asphalt.gdshader",
+        "res://assets/exported/shaders/scenery.gdshader",
+        "res://assets/exported/shaders/water.gdshader",
+        "res://assets/exported/shaders/blob_shadow.gdshader",
+        "res://assets/exported/shaders/car.gdshader",
+        "res://assets/exported/shaders/car_fade.gdshader",
+        "res://assets/exported/shaders/car_ghost.gdshader",
+        "res://assets/exported/shaders/feedback_particle.gdshader",
+        "res://assets/exported/shaders/feedback_skid.gdshader"
+      ],
+      "submissions": 52,
+      "track": "quarry_switchback",
+      "visible_objects": 107
+    }
+  ]
+}

@@ -30,6 +30,7 @@ def main():
               'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True)),
               'platform':platform.platform(),'requested_seconds':args.seconds,'profile':profile,
               'content_hash':manifest['content_hash'],'asset_hash':cosmetics['asset_hash'],
+              'audio_driver':'Dummy',
               'fixture_sha256':hashlib.sha256(script.read_bytes()).hexdigest(),
               'boundary':'Live native source rendering at 1920x1080 Medium/60 cap, eight-course repeated eight-car races. RSS includes renderer/audio/scene resources. This host can have other applications/emulators active; no minimum-device, physical thermal or standalone worst-track budget claim.'}
     process = None
@@ -37,7 +38,7 @@ def main():
     began = time.monotonic()
     try:
         with (folder/'native.log').open('w') as log:
-            command = [str(engine()),'--path',str(ROOT),'--resolution','1920x1080',
+            command = [str(engine()),'--path',str(ROOT),'--audio-driver','Dummy','--resolution','1920x1080',
                        '--script',str(script),'--','--autodrive','--profile='+profile,
                        '--capture-frame=1000000000','--capture='+str(folder/'unused.png'),
                        '--seconds='+str(args.seconds),'--report='+str(folder/'native.json')]

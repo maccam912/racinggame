@@ -2,10 +2,24 @@ extends SceneTree
 var app: Node
 var rows: Array[Dictionary] = []
 var folder: String
+var run_id: String
+var fixture_sha256: String
 const CONSTRUCTION_TIMEOUT_MS: int = 60000
+const CONSTRUCTION_MS_PER_STEP: int = 1000
+const CONSTRUCTION_FRAME_ALLOWANCE: int = 4
 const GPU_TIMEOUT_MS: int = 15000
 var slow_construction_probe: bool = "--slow-construction-probe" in OS.get_cmdline_user_args()
+var slow_long_construction_probe: bool = "--slow-long-construction-probe" in OS.get_cmdline_user_args()
 func _initialize() -> void: call_deferred("run")
+func construction_timeout(world: TrackWorld) -> int:
+	return maxi(CONSTRUCTION_TIMEOUT_MS,(world.build_steps()+CONSTRUCTION_FRAME_ALLOWANCE)*CONSTRUCTION_MS_PER_STEP)
+func save_report(passed: bool = false, failure: Dictionary = {}) -> void:
+	var result := {"passed":passed,"status":"complete" if passed else "failed" if not failure.is_empty() else "running","run_id":run_id,"fixture_sha256":fixture_sha256,"content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"minimum_construction_timeout_ms":CONSTRUCTION_TIMEOUT_MS,"construction_ms_per_step":CONSTRUCTION_MS_PER_STEP,"construction_frame_allowance":CONSTRUCTION_FRAME_ALLOWANCE,"gpu_timeout_ms":GPU_TIMEOUT_MS,"renderer":RenderingServer.get_current_rendering_method(),"tracks":rows,"boundary":"Actual native Compatibility material/mesh/instanced submissions, two drawn frames, GPU readback and loading UI. Construction allowance scales with authored unit count; GPU deadline stays 15 seconds. Not a universal hardware no-stutter guarantee or physical thermal test."}
+	if passed: result.merge({"failed_readback_retry":true,"cancel_during_graphics":true,"background_waits":true,"real_enet_loaded_after_gpu":true,"no_stats":true})
+	if not failure.is_empty(): result["failure"] = failure
+	var file := FileAccess.open("res://reports/m5-shader-warmup.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify(result,"  "))
+	file.close()
 func hold_graphics(child: Node) -> void:
 	if child is TrackLoader:
 		# frame_post_draw may complete the two submissions between SceneTree
@@ -15,7 +29,9 @@ func hold_graphics(child: Node) -> void:
 		child.active = func() -> bool: return false
 		child.set_meta("fixture_frame_cap",Engine.max_fps)
 		if slow_construction_probe and child.world.track.id=="citrus_pass": Engine.max_fps = 3
+		if slow_long_construction_probe and child.world.track.id=="quarry_switchback": Engine.max_fps = 1
 		child.set_meta("construction_frame_cap",Engine.max_fps)
+		child.set_meta("construction_timeout_ms",construction_timeout(child.world))
 		print("SHADER_FIXTURE_HOLD id="+str(child.get_instance_id())+" valid="+str(child.active.is_valid())+" allowed="+str(child.active.call()))
 func release_graphics(job: TrackLoader) -> void:
 	print("SHADER_FIXTURE_RELEASE "+JSON.stringify(loader_state()))
@@ -27,16 +43,23 @@ func loader_state() -> Dictionary:
 	if not is_instance_valid(app.track_loader): return result
 	var job: TrackLoader = app.track_loader
 	result.merge({"id":job.get_instance_id(),"warming":job.warming,"done":job.done,"graphics_error":job.graphics_error,"guard_saved":job.has_meta("fixture_foreground"),"active_valid":job.active.is_valid(),"active":bool(job.active.call()) if job.active.is_valid() else null,"world_stage":job.world.build_stage if is_instance_valid(job.world) else -1})
+	if is_instance_valid(job.world): result.merge({"construction_steps":job.world.build_steps(),"construction_timeout_ms":construction_timeout(job.world)})
 	if is_instance_valid(job.warmer): result["warmer"] = {"allowed":job.warmer.allowed(),"frames":job.warmer.rendered_frames,"submissions":job.warmer.submissions,"draws":job.warmer.draw_calls,"finished":job.warmer.finished,"update_mode":job.warmer.viewport.render_target_update_mode}
 	return result
 func until(condition: Callable, label: String = "", timeout_ms: int = GPU_TIMEOUT_MS) -> bool:
 	var deadline := Time.get_ticks_msec()+timeout_ms
 	while not condition.call() and Time.get_ticks_msec()<deadline: await process_frame
-	if not condition.call(): print("SHADER_FIXTURE_TIMEOUT "+label+" "+JSON.stringify(loader_state()))
+	if not condition.call():
+		var state := loader_state()
+		print("SHADER_FIXTURE_TIMEOUT "+label+" "+JSON.stringify(state))
+		save_report(false,{"stage":label,"timeout_ms":timeout_ms,"loader":state})
 	return condition.call()
 func run() -> void:
 	assert(DisplayServer.get_name()!="headless")
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://reports"))
+	run_id = RaceSetup.uuid()
+	fixture_sha256 = FileAccess.get_sha256("res://tests/shader_warmup_evidence.gd")
+	save_report()
 	root.size = Vector2i(1920,1080)
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
 	root.content_scale_size = Vector2i(1280,720)
@@ -55,10 +78,13 @@ func run() -> void:
 		var started := Time.get_ticks_msec()
 		app.request_drive({"mode":"quick","track":index,"opponents":7,"car":index%4},app.show_menu)
 		var job: TrackLoader = app.track_loader
-		assert(await until(func() -> bool: return job.warming,"course_"+str(index)+"_warming",CONSTRUCTION_TIMEOUT_MS),"fixture stage completed within its documented bound")
+		var construction_steps := job.world.build_steps()
+		var construction_budget := construction_timeout(job.world)
+		assert(await until(func() -> bool: return job.warming,"course_"+str(index)+"_warming",construction_budget),"fixture stage completed within its documented bound")
 		var construction_ms := Time.get_ticks_msec()-started
 		var construction_cap := int(job.get_meta("construction_frame_cap"))
 		if slow_construction_probe and index==1: assert(construction_cap==3 and construction_ms>15000,"actual 3 fps construction exceeds the old shared deadline")
+		if slow_long_construction_probe and job.world.track.id=="quarry_switchback": assert(construction_cap==1 and construction_ms>60000,"actual 1 fps long-course construction exceeds the old fixed deadline")
 		assert(not job.done and job.world.get_parent()==null and app.loading_bar.value<1)
 		assert(job.warmer.viewport.find_world_3d()!=app.get_world_3d())
 		if index==0:
@@ -80,12 +106,15 @@ func run() -> void:
 		evidence["load_ms"] = Time.get_ticks_msec()-started
 		evidence["construction_ms"] = construction_ms
 		evidence["construction_frame_cap"] = construction_cap
+		evidence["construction_steps"] = construction_steps
+		evidence["construction_timeout_ms"] = construction_budget
 		rows.append(evidence)
+		save_report()
 		app.show_menu()
 		await process_frame
 	app.request_drive({"mode":"quick","track":0,"opponents":0},app.show_menu)
 	var failing: TrackLoader = app.track_loader
-	assert(await until(func() -> bool: return failing.warming,"construction",CONSTRUCTION_TIMEOUT_MS),"fixture stage completed within its documented bound")
+	assert(await until(func() -> bool: return failing.warming,"construction",construction_timeout(failing.world)),"fixture stage completed within its documented bound")
 	failing.warmer.force_failure = true
 	release_graphics(failing)
 	assert(await until(func() -> bool: return failing.graphics_error),"fixture stage completed within its documented bound")
@@ -103,7 +132,7 @@ func run() -> void:
 	app.show_menu()
 	app.request_drive({"mode":"quick","track":2,"opponents":0},app.show_menu)
 	var cancelling: TrackLoader = app.track_loader
-	assert(await until(func() -> bool: return cancelling.warming,"construction",CONSTRUCTION_TIMEOUT_MS),"fixture stage completed within its documented bound")
+	assert(await until(func() -> bool: return cancelling.warming,"construction",construction_timeout(cancelling.world)),"fixture stage completed within its documented bound")
 	app.back_action.call()
 	for frame in range(5): await process_frame
 	assert(app.page=="main" and app.drive==null and app.track_loader==null and app.data.profile.races_completed==0)
@@ -133,9 +162,7 @@ func run() -> void:
 	assert(app.drive.world.shader_warmup.gpu_warmed and server.players[0].loaded and client.guest_id==identity)
 	app.show_menu()
 	server.queue_free()
-	var file := FileAccess.open("res://reports/m5-shader-warmup.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":true,"construction_timeout_ms":CONSTRUCTION_TIMEOUT_MS,"gpu_timeout_ms":GPU_TIMEOUT_MS,"renderer":RenderingServer.get_current_rendering_method(),"tracks":rows,"failed_readback_retry":true,"cancel_during_graphics":true,"background_waits":true,"real_enet_loaded_after_gpu":true,"no_stats":true,"boundary":"Actual native Compatibility material/mesh/instanced submissions, two drawn frames, GPU readback and loading UI. Not a universal hardware no-stutter guarantee or physical thermal test."},"  "))
-	file.close()
+	save_report(true)
 	app.queue_free()
 	await create_timer(.5).timeout
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)

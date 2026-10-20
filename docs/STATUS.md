@@ -1,5 +1,21 @@
 # Implementation status
 
+## 20 October — city facades, arcade opponent labels and long-course graphics fixture
+
+Skyline towers now have original procedural windows, glass sweeps, warm rooms, ordered dither and distance filtering aligned with their floor bands. Existing geometry stays intact. Opponent labels use original chrome and display-number badges, retaining readable names/emoji, palette identity, clipping, occlusion and High Contrast. All **98 source commands**, **15 posed HUD/touch references**, **32 native course views**, eight poster views and all nine-shader/eight-world GPU preparation cases pass. [Current art and source proof](evidence/city108/). Gameplay remains content/protocol/save **8/5/1**, hash `dfb78c44`; cosmetics `f84503f5`.
+
+Build 107's strict Linux graphics job fails while Quarry is still constructing at stage **81/90**, after its old 60-second fixture bound. The fixture now scales to **max(60 s, (construction steps + 4) × 1 s)**, retaining the independent **15-second GPU/readback deadline**. Native slow probes pass: Citrus **16.984 s at 3 fps**, Quarry **90.985 s at 1 fps** within its 94-second bound, then actual GPU completion. Incremental reports preserve completed worlds and timeout state, clear stale success at startup and mark success only after all cases finish. [Original failure and corrected native evidence](evidence/graphics108/). Linux confirmation remains pending; Build 106 is the latest fully passed public release.
+
+Clean matching exports, emulator presentation and a quiet native scene-lifetime repeat remain pending at this local checkpoint. The lifetime tool now uses Dummy audio output while preserving the production mixer/resource path.
+
+
+## 20 October — Build 106 published with all workflow jobs passing
+
+[Build 106](https://github.com/maccam912/racinggame/releases/tag/v0.0.106-dev) publishes all **18 desktop/Android/server files** from clean commit `d326e37`. All **40 GitHub jobs pass**, including strict Linux graphics, every platform/native check, eight AI matrices, network/directory/lobby scenarios, containers and the full ten-race soak. Published metadata/tag match that exact source; all six payload checksums match GitHub's stored asset digests. [Full remote proof and metadata](evidence/release106/).
+
+The ten-race Palm/Citrus run records **80 matching finishes**, minimum **1,104 clear samples**, worst clear p95 **0.0351754 m**, and **0.0216772%** post-warm-up peak RSS growth. It uses the older launch fixture; Build 105's original coverage failure remains preserved. Content/protocol/save remain **7/5/1**, gameplay `0e06e18b`, assets `1ece6157`. The later content-8 AI/staged-fixture correction is independently gated in Build 107; the current city-window and opponent-label polish is still local work.
+
+
 ## 20 October — content 8 keeps traffic on its road level
 
 The actual Skyline crossing regression reproduced a passing manoeuvre for a rival 180 m above. Both lead selection and passing-side blockers now use perpendicular distance from the collision-surface plane, including grade/bank/ramp offsets. Real cars 4.8 m higher/lower on a 24% road remain traffic. Lane rules, target speeds, physics, route bakes, recovery and packet format remain unchanged. Content/protocol/save are **8/5/1**, gameplay `dfb78c44`, assets `1ece6157`. Frozen content-4/5/6/7 saves retain their exact archived bytes with incompatible continuation disabled.
@@ -8,7 +24,7 @@ All **98 final source commands**, **32 Gold trials**, **48 full camera paths** a
 
 GitHub **Build 105 is not published**: all other jobs passed, while its ten-race soak finished all 80 matching results but missed the required 500 clear samples for two cars in one race (257/300). Worst clear p95, wire and memory limits passed; those values do not replace coverage. [Original failed run](evidence/ci105-ten-race/).
 
-The test-only staged start now uses public baked speeds for a fastest-first one-second release order, verified independently by all eight clients, preserving all numeric gates and normal finish grace. Local classic three-lap and bonus one-lap pairs pass **32 matching finishes**, minimum clear counts **1,307 / 1,209**, worst clear p95 **0.031437 / 0.028114 m**, and finish spreads under 30 s. Matching exports/Android and the required remote full-soak repeat remain pending. Build 106's separate content-7 workflow is still running at this checkpoint.
+The test-only staged start now uses public baked speeds for a fastest-first one-second release order, verified independently by all eight clients, preserving all numeric gates and normal finish grace. Local classic three-lap and bonus one-lap pairs pass **32 matching finishes**, minimum clear counts **1,307 / 1,209**, worst clear p95 **0.031437 / 0.028114 m**, and finish spreads under 30 s. Clean local Build 107 exports from `3e5c6c9` pass both in-place emulator updates (45/39 files preserved), macOS adapter/headless startup and two actual installed-APK plus seven-native-client impaired bonus-course races: 16 matching finishes, two GPU loads and committed Android journals, same PID, no cleanup issues, clean source at launch. [Package evidence](evidence/content8/packages107/). Required remote full-soak/publication remains pending; Build 106's separate content-7 workflow is still running at this checkpoint.
 
 
 

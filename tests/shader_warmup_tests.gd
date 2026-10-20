@@ -19,6 +19,11 @@ func run() -> void:
 		for resource: Resource in warm.retained_resources:
 			if resource is PackedScene: models += 1
 		assert(models==4,"all car model resources remain owned through the race")
+		if track.id=="skyline_splice":
+			var facade := false
+			for resource: Resource in warm.retained_resources:
+				if resource is ShaderMaterial and resource.shader!=null and resource.shader.resource_path=="res://assets/exported/shaders/scenery.gdshader" and resource.get_shader_parameter("city_facade")==true: facade = true
+			assert(facade,"the procedural city material must be submitted before Grid")
 		for path: String in warm.shader_paths: shaders[path] = true
 		maximum = maxi(maximum,warm.submissions)
 		warm.cancel()

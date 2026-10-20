@@ -56,6 +56,19 @@ func run() -> void:
 	drive.hud.ui_scale = 1.5
 	drive.hud.queue_redraw()
 	await capture("race-150")
+	var saved_roster := drive.session.roster.duplicate(true)
+	var decorated_names := ["👨‍👩‍👧‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦aa","👍🏽 Coast Driver","🏁 Pacific Crew","Zoë and André"]
+	for index in range(1,5): drive.session.roster[index].name = decorated_names[index-1]
+	drive.nameplates.cooldown = 0
+	await capture("nameplates-emoji-150")
+	drive.session.roster[1].name = "🏁".repeat(16)
+	drive.session.roster[1].bot = false
+	await capture("nameplates-ellipsis-150")
+	drive.hud.high_contrast = true
+	drive.hud.queue_redraw()
+	await capture("nameplates-contrast-150")
+	drive.hud.high_contrast = false
+	drive.session.roster = saved_roster
 	drive.hud.ui_scale = 1
 	drive.hud.network_level = 2
 	drive.hud.queue_redraw()

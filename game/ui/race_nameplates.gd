@@ -6,6 +6,10 @@ var drive: Node
 var enabled: bool = true
 var plates: Array[PanelContainer] = []
 var captions: Array[Label] = []
+var badges: Array[Label] = []
+var rows: Array[HBoxContainer] = []
+var plate_styles: Dictionary = {}
+var style_context: String = ""
 var visible_slots: Array[int] = []
 var cooldown: float = 0
 
@@ -16,15 +20,50 @@ func _ready() -> void:
 	for index in range(4):
 		var panel := PanelContainer.new()
 		panel.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		var row := HBoxContainer.new()
+		row.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		panel.add_child(row)
+		var badge := Label.new()
+		badge.mouse_filter = Control.MOUSE_FILTER_IGNORE
+		badge.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		badge.add_theme_font_override("font",RaceHUD.DISPLAY_FONT)
+		badge.add_theme_color_override("font_outline_color",Color("101333"))
+		badge.add_theme_constant_override("outline_size",1)
+		row.add_child(badge)
 		var label := Label.new()
 		label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 		label.clip_text = true
 		label.text_overrun_behavior = TextServer.OVERRUN_TRIM_ELLIPSIS
 		label.add_theme_font_override("font",RaceHUD.HUD_FONT)
-		panel.add_child(label)
+		label.add_theme_color_override("font_outline_color",Color("101333"))
+		label.add_theme_constant_override("outline_size",1)
+		label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+		label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		row.add_child(label)
 		add_child(panel)
 		plates.append(panel)
 		captions.append(label)
+		badges.append(badge)
+		rows.append(row)
+
+
+func plate_style(slot: int, factor: float) -> StyleBox:
+	var context := str([factor,drive.hud.high_contrast,drive.hud.palette])
+	if context!=style_context:
+		plate_styles.clear()
+		style_context = context
+	var key := str(slot) if drive.hud.high_contrast else "chrome"
+	if not plate_styles.has(key):
+		var style: StyleBox = drive.hud.panel() if drive.hud.high_contrast else UIFactory.chrome_box("panel",factor)
+		if style is StyleBoxFlat:
+			style.border_color = drive.hud.rival_color(slot)
+			style.set_border_width_all(2)
+		style.content_margin_left = 12*factor
+		style.content_margin_right = 10*factor
+		style.content_margin_top = 3*factor
+		style.content_margin_bottom = 3*factor
+		plate_styles[key] = style
+	return plate_styles[key]
 
 func project(camera: Camera3D, point: Vector3, presentation: WorldPresentation = null) -> Variant:
 	if camera.is_position_behind(point): return null
@@ -88,20 +127,18 @@ func _process(dt: float) -> void:
 		var factor: float = drive.hud.ui_scale
 		var label := captions[index]
 		var record: Dictionary = drive.session.roster[slot]
-		label.text = "%d  %s%s" % [slot+1,record.name,"  BOT" if record.get("bot",false) else ""]
+		label.text = "%s%s" % [record.name,"  BOT" if record.get("bot",false) else ""]
 		label.add_theme_font_size_override("font_size",maxi(16,roundi(16*factor)))
 		label.add_theme_color_override("font_color",UIFactory.CREAM)
-		var style: StyleBoxFlat = drive.hud.panel()
-		style.border_color = drive.hud.rival_color(slot)
-		style.set_border_width_all(2)
-		style.content_margin_left = 8*factor
-		style.content_margin_right = 8*factor
-		style.content_margin_top = 3*factor
-		style.content_margin_bottom = 3*factor
+		badges[index].text = str(slot+1)
+		badges[index].add_theme_font_size_override("font_size",label.get_theme_font_size("font_size"))
+		badges[index].add_theme_color_override("font_color",drive.hud.rival_color(slot))
+		rows[index].add_theme_constant_override("separation",roundi(6*factor))
 		var panel := plates[index]
-		panel.add_theme_stylebox_override("panel",style)
+		panel.add_theme_stylebox_override("panel",plate_style(slot,factor))
 		var text_width := RaceHUD.HUD_FONT.get_string_size(label.text,HORIZONTAL_ALIGNMENT_LEFT,-1,label.get_theme_font_size("font_size")).x
-		panel.size = Vector2(minf(260*factor,maxf(110*factor,text_width+16*factor)),30*factor)
+		var badge_width := RaceHUD.DISPLAY_FONT.get_string_size(badges[index].text,HORIZONTAL_ALIGNMENT_LEFT,-1,label.get_theme_font_size("font_size")).x
+		panel.size = Vector2(minf(260*factor,maxf(110*factor,text_width+badge_width+28*factor)),30*factor)
 		panel.position = Vector2(at)-Vector2(panel.size.x/2,panel.size.y)
 		panel.position.x = clampf(panel.position.x,20,size.x-panel.size.x-20)
 		for attempt in range(4):

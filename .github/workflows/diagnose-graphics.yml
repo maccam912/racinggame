@@ -6,7 +6,9 @@ permissions:
 jobs:
   graphics:
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    # Eight course constructions plus readback/error/ENet stages have their
+    # own bounded timers; leave room for that complete software-render matrix.
+    timeout-minutes: 20
     defaults:
       run:
         shell: bash

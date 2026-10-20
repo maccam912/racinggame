@@ -341,7 +341,12 @@
       "source_url": null,
       "license": "MIT",
       "attribution": "LICENSE",
-      "modifications": "Original 1024 neighborhood atlas, 512 foliage/silhouettes and prop atlases, facade glow and two-layer scrolling water shading"
+      "modifications": "Original 1024 neighborhood atlas, 512 foliage/silhouettes and prop atlases, facade glow and two-layer scrolling water shading. Skyline tower facades add original procedural metre-aligned windows, static glass sweeps, opaque vertex-alpha wall masks, ordered dither and derivative-filtered distance detail. Existing tower geometry and non-city atlas shading are unchanged.",
+      "runtime_source": [
+        "game/world/course_decor.gd",
+        "assets/exported/shaders/scenery.gdshader",
+        "assets/exported/shaders/water.gdshader"
+      ]
     },
     {
       "id": "original_audio",
@@ -496,10 +501,11 @@
       "exports": [
         "assets/exported/arcade_ui"
       ],
-      "modifications": "Original editable vector chrome, bevels, static gloss and perspective-grid backdrop. No external bitmap or artwork. Mobile touch controls reuse the scalable plates, original display font, static tick rail and diamond thumb indicator; hit rectangles and input semantics are unchanged. High Contrast retains flat controls.",
+      "modifications": "Original editable vector chrome, bevels, static gloss and perspective-grid backdrop. No external bitmap or artwork. Mobile touch controls reuse the scalable plates, original display font, static tick rail and diamond thumb indicator; hit rectangles and input semantics are unchanged. High Contrast retains flat controls. Opponent labels use the compact chrome plate and original display-number badge; names retain body/emoji support, palette color identity, occlusion, ellipsis and High Contrast.",
       "runtime_source": [
         "game/ui/ui_factory.gd",
-        "game/platform/touch_driving.gd"
+        "game/platform/touch_driving.gd",
+        "game/ui/race_nameplates.gd"
       ]
     },
     {

@@ -1,0 +1,11 @@
+# Skyline facade detail and arcade opponent labels
+
+Skyline's existing tower geometry now uses metre-aligned procedural window panes, static glass sweeps, selected warm rooms, ordered dither and derivative-filtered distance detail. Opaque vertex alpha identifies the main walls; trim and roof equipment retain solid materials. One shared city ShaderMaterial per world keeps the material/submission budget stable. Existing atlas shading remains the default for other scenery. The nine shipped shader paths and maximum 61 warm submissions remain unchanged; the actual city material is explicitly checked in pre-Grid submissions.
+
+Opponent labels use compact original chrome frames and the original display-number face. Nicknames retain body/emoji fallback and clipping; numbers retain palette identity. High Contrast keeps flat plates. Range, four-label limit, world occlusion, overlap avoidance and input transparency are unchanged. Native 150% references include joined-family emoji, sixteen-flag ellipsis and High Contrast.
+
+All 98 source commands pass, plus final native GPU fixture verification. Fifteen posed HUD/touch references, all 32 native course views, all eight poster views and nine-shader preparation across all eight worlds pass. The broad decoration contract now selects roots by semantic metadata, so both roadside instances are checked even when Godot auto-renames duplicate names. Source and evidence are retained. These are source/native graphics checks, not human driving or physical hardware acceptance.
+
+Content/protocol/save remain 8/5/1, gameplay `dfb78c447e094d7e0200a2538fec45cae44c848a4e3c65334f642fb970b415f7`; cosmetics `f84503f54c7eaa8e6178c76689a30f931d17f1af33aa123570bc5ae05e349a6c`. No new generated bitmap assets were needed. Clean exports, emulator follow-up and a quiet native scene-lifetime repeat are separate pending follow-ups at this checkpoint.
+
+The long-course graphics fixture failure and corrected per-unit deadline are documented in ../graphics108. The preserved slow probes measure Citrus at 3 fps / 16.984 seconds and Quarry at 1 fps / 90.985 seconds, followed by real two-frame/readback GPU completion. They are deliberately paced construction tests, not normal loading performance measurements.

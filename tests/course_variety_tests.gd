@@ -23,9 +23,15 @@ func run() -> void:
 			assert(world.clear_of_road(site.pose.origin,float(site.radius)))
 			assert(not RoadsidePosterArt.blocks_sightline(world.poster_sites,site.pose.origin))
 			counts[site.kind] += 1
-		for node: MeshInstance3D in world.find_children("Decor*","MeshInstance3D",false,false):
+		var decor_nodes := 0
+		for node: MeshInstance3D in world.find_children("*","MeshInstance3D",false,false):
+			if not node.has_meta("kind"): continue
+			decor_nodes += 1
 			assert(node.mesh.get_faces().size()/3<500 and node.find_children("*","CollisionObject3D",true,false).is_empty())
 			assert(node.is_in_group("scenery_distance") and node.get_aabb().size.length()<(300 if node.get_meta("kind")=="Tower" else 60))
+			if node.get_meta("kind")=="Tower":
+				assert(node.material_override is ShaderMaterial and node.material_override.get_shader_parameter("city_facade")==true)
+		assert(decor_nodes==world.decor_sites.size(),"both roadside instances remain checked even when Godot auto-renames duplicate node names")
 		if track.id!="skyline_splice": assert(counts.Rocks>=8)
 		if track.id in ["citrus_pass","redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Logs>=3)
 		if track.id in ["redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Waterfall==2)
