@@ -1,0 +1,78 @@
+{
+	"asset_hash": "15a71230152d5d5b0847d97a6fd4e96e57a19fe47d03d9fabf7a442f0b3c1bf9",
+	"boundary": "Static diagnostic overview/detail cameras on actual native course geometry. Near-detail scenery is deliberately retained beyond production draw distance and farther LOD variants are hidden for inspection. No driving, minimum-device or performance claim.",
+	"content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+	"gpu": "Apple M5 Pro",
+	"passed": true,
+	"renderer": "gl_compatibility",
+	"resolution": [
+		1920,
+		1080
+	],
+	"rows": [
+		{
+			"eye": [
+				1150.0,
+				950.0,
+				1350.0
+			],
+			"image": "spillway_sprint-overview.png",
+			"sha256": "380632c31bbb61a441d5a4de6a791e3f205ad00f0ce7d4f934877700019ef0e8",
+			"target": [
+				0.0,
+				100.0,
+				0.0
+			],
+			"track": "spillway_sprint",
+			"view": "overview"
+		},
+		{
+			"eye": [
+				952.152465820312,
+				174.955093383789,
+				193.910339355469
+			],
+			"image": "spillway_sprint-cascade.png",
+			"sha256": "e8f5d3ac0114284e7336e863df334a7b89e8cb07c7462068f4377307d25dc8d8",
+			"target": [
+				842.152465820312,
+				88.3005294799805,
+				73.9103317260742
+			],
+			"track": "spillway_sprint",
+			"view": "cascade"
+		},
+		{
+			"eye": [
+				795.345031738281,
+				120.955085754395,
+				37.2351913452148
+			],
+			"image": "spillway_sprint-station.png",
+			"sha256": "a931e5c5953e31e213967f0464aaa3a8aa5d18be703f9ee128d2dc55f3efead5",
+			"target": [
+				823.688720703125,
+				102.955085754395,
+				68.2454299926758
+			],
+			"track": "spillway_sprint",
+			"view": "station"
+		},
+		{
+			"eye": [
+				837.398986816406,
+				158.955093383789,
+				9.08437347412109
+			],
+			"image": "spillway_sprint-gantry.png",
+			"sha256": "f020e3980bbee86190b0e415da1dd630a11f25befd4c6f523ba97bcc238e4990",
+			"target": [
+				842.152465820312,
+				147.955093383789,
+				73.9103317260742
+			],
+			"track": "spillway_sprint",
+			"view": "gantry"
+		}
+	]
+}

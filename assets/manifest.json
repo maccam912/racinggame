@@ -581,7 +581,11 @@
       "exports": [
         "assets/exported/shaders/landscape.gdshader"
       ],
-      "modifications": "Original batched concrete dam arches, scaled original illustrated cascades and pools, multi-ring basalt crater with distant animated lava and tall faceted spires. Layered dither material, bounded road/sightline clearances and no driving collision. Source geometry and shader authored for this project. Sixteen distant cliff/ridge silhouettes per new course frame the complete layout; preserve waterfall billboard scale under tall dam openings. Shared cascade/pool materials retain the existing 61 maximum warm-up submissions. Expanded exported ground and embedded bases prevent floating distant cliffs; one two-triangle floor below the authored terrain remains visible after detailed chunks cull."
+      "modifications": "Original batched concrete dam arches, scaled original illustrated cascades and pools, multi-ring basalt crater with distant animated lava and tall faceted spires. Layered dither material, bounded road/sightline clearances and no driving collision. Source geometry and shader authored for this project. Sixteen distant cliff/ridge silhouettes per new course frame the complete layout; preserve waterfall billboard scale under tall dam openings. Shared cascade/pool materials retain the existing 61 maximum warm-up submissions. Expanded exported ground and embedded bases prevent floating distant cliffs; one two-triangle floor below the authored terrain remains visible after detailed chunks cull. Three irregular exterior lava channels remain inside the crater clearing. Waterworks piers carry three paint variants of original projecting control houses, front/side glazing, supported platforms, clamped pipes, maintenance ladders, shaft-mounted sluice wheels and static truss cranes/hoists. All details merge into the existing pier mesh/material and stay inside its reserved 26 m footprint.",
+      "runtime_source": [
+        "game/world/course_spectacles.gd",
+        "game/world/waterworks_detail.gd"
+      ]
     }
   ]
 }

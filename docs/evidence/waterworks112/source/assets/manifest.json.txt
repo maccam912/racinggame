@@ -1,0 +1,591 @@
+{
+  "schema_version": 1,
+  "assets": [
+    {
+      "id": "app_icon",
+      "source": "assets/source/generate_app_icons.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original editable coupe/sunrise vectors using the canonical palette; pinned-engine raster outputs, seven Windows icon sizes, macOS Retina iconset and native iconutil container, 108 dp adaptive/themed layers inside the 66 dp safe disk. No third-party artwork.",
+      "exports": [
+        "assets/exported/icon.svg",
+        "assets/exported/branding/catalog.json",
+        "assets/exported/branding/app.ico",
+        "assets/exported/branding/app.icns",
+        "assets/exported/branding/adaptive-foreground.png",
+        "assets/exported/branding/adaptive-background.png",
+        "assets/exported/branding/adaptive-monochrome.png",
+        "assets/exported/branding/store-512.png"
+      ]
+    },
+    {
+      "id": "godot_runtime",
+      "source": "https://github.com/godotengine/godot/tree/4.6.3-stable",
+      "creator": "Godot Engine contributors",
+      "license": "MIT and bundled third-party notices",
+      "attribution": "assets/licenses/Godot-LICENSE.txt and assets/licenses/Godot-COPYRIGHT.txt",
+      "modifications": "Unmodified pinned runtime/export templates"
+    },
+    {
+      "id": "barlow_font",
+      "source": "https://github.com/google/fonts/tree/main/ofl/barlow",
+      "creator": "Jeremy Tribby and Barlow contributors",
+      "license": "SIL Open Font License 1.1",
+      "attribution": "assets/fonts/barlow-OFL.txt",
+      "modifications": "Unmodified font file Barlow-SemiBold.ttf"
+    },
+    {
+      "id": "barlowcondensed_font",
+      "source": "https://github.com/google/fonts/tree/main/ofl/barlowcondensed",
+      "creator": "Jeremy Tribby and Barlow contributors",
+      "license": "SIL Open Font License 1.1",
+      "attribution": "assets/fonts/barlowcondensed-OFL.txt",
+      "modifications": "Unmodified font file BarlowCondensed-Bold.ttf"
+    },
+    {
+      "id": "noto_color_emoji_font",
+      "source": "https://github.com/googlefonts/noto-emoji/tree/f3ae03f5e9b3b8516fa151f7168159ca1a3e7515",
+      "creator": "Google Inc. and Noto Emoji contributors",
+      "license": "SIL Open Font License 1.1",
+      "attribution": "assets/fonts/notoemoji-OFL.txt",
+      "exports": [
+        "assets/fonts/NotoColorEmoji.ttf",
+        "assets/fonts/body.tres",
+        "assets/fonts/heading.tres"
+      ],
+      "modifications": "Unmodified v2.051 CBDT/CBLC font, SHA-256 72a635cb3d2f3524c51620cdde406b217204e8a6a06c6a096ff8ed4b5fd6e27b; original shared FontVariation fallback resources. Bundled because the tested Android 15 system emoji font uses unsupported COLR tables."
+    },
+    {
+      "id": "unicode_normalization",
+      "source": "Python unicodedata 16.0.0 / Unicode Character Database",
+      "creator": "Unicode, Inc.",
+      "license": "Unicode License",
+      "attribution": "assets/licenses/Unicode-LICENSE.txt",
+      "modifications": "Generated canonical normalization subset"
+    },
+    {
+      "id": "unicode_graphemes",
+      "source": "https://www.unicode.org/Public/16.0.0/ucd/",
+      "creator": "Unicode, Inc.",
+      "license": "Unicode License",
+      "attribution": "assets/licenses/Unicode-LICENSE.txt",
+      "modifications": "Generated Unicode 16 extended-grapheme range tables; official boundary vectors retained for conformance testing"
+    },
+    {
+      "id": "godot_cpp_bindings",
+      "source": "https://github.com/godotengine/godot-cpp/tree/e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "creator": "Godot Engine contributors",
+      "license": "MIT",
+      "attribution": "assets/licenses/godot-cpp-LICENSE.txt",
+      "modifications": "Unmodified pinned bindings; trimmed RefCounted/OS build profile for the original native platform adapter. Engine runtime remains 4.6.3."
+    },
+    {
+      "id": "car_comet",
+      "source": "assets/source/pacific_cars.blend",
+      "generator": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/cars/comet.glb"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original model, three explicit LODs, atlas UVs and shader role masks; no external vehicle model"
+    },
+    {
+      "id": "car_needle",
+      "source": "assets/source/pacific_cars.blend",
+      "generator": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/cars/needle.glb"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original model, three explicit LODs, atlas UVs and shader role masks; no external vehicle model"
+    },
+    {
+      "id": "car_switch",
+      "source": "assets/source/pacific_cars.blend",
+      "generator": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/cars/switch.glb"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original model, three explicit LODs, atlas UVs and shader role masks; no external vehicle model"
+    },
+    {
+      "id": "car_sunset",
+      "source": "assets/source/pacific_cars.blend",
+      "generator": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/cars/sunset.glb"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original model, three explicit LODs, atlas UVs and shader role masks; no external vehicle model"
+    },
+    {
+      "id": "car_materials",
+      "source": "assets/source/generate_cars.py",
+      "exports": [
+        "assets/exported/textures/cars_atlas.png",
+        "assets/exported/shaders/car.gdshader",
+        "assets/exported/shaders/car_ghost.gdshader",
+        "assets/exported/shaders/car_surface.gdshaderinc",
+        "assets/exported/shaders/blob_shadow.gdshader"
+      ],
+      "creator": "Pacific Rush contributors",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original procedural panel atlas, paint/trim/brake role shader, stable object-space dither/metal flakes, stylized sky/horizon coating and glass sweeps, translucent ghost and soft blob shadow. No external bitmap or vehicle texture."
+    },
+    {
+      "id": "palm_bay_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/surf_shop.glb",
+        "assets/exported/scenery/lighthouse.glb",
+        "assets/exported/scenery/pier.glb",
+        "assets/exported/scenery/beach_hotel.glb",
+        "assets/exported/scenery/sun_sign.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "citrus_pass_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/fruit_stand.glb",
+        "assets/exported/scenery/water_tower.glb",
+        "assets/exported/scenery/packing_shed.glb",
+        "assets/exported/scenery/orange_arch.glb",
+        "assets/exported/scenery/windmill.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "marina_lights_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/arcade.glb",
+        "assets/exported/scenery/marina_wheel.glb",
+        "assets/exported/scenery/underpass.glb",
+        "assets/exported/scenery/sailboats.glb",
+        "assets/exported/scenery/seafood_diner.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "redwood_run_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/ranger_kiosk.glb",
+        "assets/exported/scenery/giant_tree.glb",
+        "assets/exported/scenery/timber_bridge.glb",
+        "assets/exported/scenery/visitor_center.glb",
+        "assets/exported/scenery/tree_display.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "sunstone_canyon_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/dinosaur.glb",
+        "assets/exported/scenery/twin_mesas.glb",
+        "assets/exported/scenery/rail_trestle.glb",
+        "assets/exported/scenery/tunnel_portal.glb",
+        "assets/exported/scenery/motel_sign.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "pacific_summit_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "placement_source": "assets/source/course_specs.json",
+      "exports": [
+        "assets/exported/scenery/observatory.glb",
+        "assets/exported/scenery/overlook.glb",
+        "assets/exported/scenery/mountain_lodge.glb",
+        "assets/exported/scenery/viaduct.glb",
+        "assets/exported/scenery/balloons.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE; font glyph geometry uses bundled Barlow Condensed under OFL 1.1",
+      "modifications": "Original five-landmark kit with three explicit structural LODs and shared original 1024 atlas"
+    },
+    {
+      "id": "shared_scenery",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/pacific_scenery.blend",
+      "generator": "assets/source/generate_scenery.py",
+      "exports": [
+        "assets/exported/scenery/palm.glb",
+        "assets/exported/scenery/orchard.glb",
+        "assets/exported/scenery/redwood.glb",
+        "assets/exported/scenery/shrub.glb",
+        "assets/exported/scenery/grass.glb",
+        "assets/exported/scenery/chevron.glb",
+        "assets/exported/scenery/warning.glb",
+        "assets/exported/scenery/streetlight.glb",
+        "assets/exported/scenery/bench.glb",
+        "assets/exported/scenery/umbrella.glb",
+        "assets/exported/scenery/cone.glb",
+        "assets/exported/scenery/crate.glb",
+        "assets/exported/scenery/coastal_home.glb",
+        "assets/exported/scenery/marina_shops.glb",
+        "assets/exported/scenery/marina_hotel.glb",
+        "assets/exported/scenery/sandstone_rock.glb",
+        "assets/exported/scenery/summit_peak.glb"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original palm/orchard/redwood/shrub/grass geometry and silhouette atlas, roadside props, neighborhood buildings and landscape forms"
+    },
+    {
+      "id": "course_terrain_and_road_kit",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/generate_terrain.py",
+      "exports": [
+        "assets/exported/scenery/palm_bay_terrain.glb",
+        "assets/exported/scenery/citrus_pass_terrain.glb",
+        "assets/exported/scenery/marina_lights_terrain.glb",
+        "assets/exported/scenery/redwood_run_terrain.glb",
+        "assets/exported/scenery/sunstone_canyon_terrain.glb",
+        "assets/exported/scenery/pacific_summit_terrain.glb",
+        "assets/exported/scenery/skyline_splice_terrain.glb",
+        "assets/exported/scenery/quarry_switchback_terrain.glb",
+        "assets/exported/scenery/spillway_sprint_terrain.glb",
+        "assets/exported/scenery/caldera_crosscut_terrain.glb"
+      ],
+      "runtime_source": [
+        "game/world/course_road_mesh.gd",
+        "game/world/track_world.gd"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Cosmetic terrain follows the current canonical road bakes, including the content-5 elevation revision; original visual barrier extrusion, guidance, gantry lamps, tunnel panels and jump markings. Separate camera collision. Repeated props meet the upper terrain/verge triangle. Content 6 adds flat ground under the layered Skyline crossing, a cosmetic deck and clear bridge pylons. Skyline streetlight roots sit on the paved shoulder, with no floating verge support. Content 9 adds independent flat waterworks and volcanic terrains beneath layered bridge networks; existing eight terrain bytes are preserved."
+    },
+    {
+      "id": "course_postcards",
+      "creator": "Pacific Rush contributors",
+      "source": "tests/course_reference_evidence.gd",
+      "exports": [
+        "assets/exported/thumbnails/citrus_pass.png",
+        "assets/exported/thumbnails/marina_lights.png",
+        "assets/exported/thumbnails/pacific_summit.png",
+        "assets/exported/thumbnails/palm_bay.png",
+        "assets/exported/thumbnails/redwood_run.png",
+        "assets/exported/thumbnails/sunstone_canyon.png",
+        "assets/exported/thumbnails/skyline_splice.png",
+        "assets/exported/thumbnails/quarry_switchback.png",
+        "assets/exported/thumbnails/spillway_sprint.png",
+        "assets/exported/thumbnails/caldera_crosscut.png"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "512x288 native renders of original course scenes, no external images"
+    },
+    {
+      "id": "scenery_materials",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/generate_scenery.py",
+      "exports": [
+        "assets/exported/textures/scenery_atlas.png",
+        "assets/exported/textures/foliage_atlas.png",
+        "assets/exported/textures/props_atlas.png",
+        "assets/exported/shaders/scenery.gdshader",
+        "assets/exported/shaders/water.gdshader"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original 1024 neighborhood atlas, 512 foliage/silhouettes and prop atlases, facade glow and two-layer scrolling water shading. Skyline tower facades add original procedural metre-aligned windows, static glass sweeps, opaque vertex-alpha wall masks, ordered dither and derivative-filtered distance detail. Existing tower geometry and non-city atlas shading are unchanged.",
+      "runtime_source": [
+        "game/world/course_decor.gd",
+        "assets/exported/shaders/scenery.gdshader",
+        "assets/exported/shaders/water.gdshader"
+      ]
+    },
+    {
+      "id": "original_audio",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/generate_audio.py",
+      "catalog": "assets/exported/audio/catalog.json",
+      "exports": [
+        "assets/exported/audio/effect_asphalt_squeal.ogg",
+        "assets/exported/audio/effect_bump.ogg",
+        "assets/exported/audio/effect_countdown.ogg",
+        "assets/exported/audio/effect_finish.ogg",
+        "assets/exported/audio/effect_go.ogg",
+        "assets/exported/audio/effect_grass_rumble.ogg",
+        "assets/exported/audio/effect_landing.ogg",
+        "assets/exported/audio/effect_lap.ogg",
+        "assets/exported/audio/effect_recovery.ogg",
+        "assets/exported/audio/effect_results.ogg",
+        "assets/exported/audio/effect_sand_rumble.ogg",
+        "assets/exported/audio/effect_ui_back.ogg",
+        "assets/exported/audio/effect_ui_confirm.ogg",
+        "assets/exported/audio/effect_ui_error.ogg",
+        "assets/exported/audio/effect_ui_move.ogg",
+        "assets/exported/audio/effect_wall_heavy.ogg",
+        "assets/exported/audio/effect_wall_light.ogg",
+        "assets/exported/audio/engine_comet_coast.ogg",
+        "assets/exported/audio/engine_comet_high.ogg",
+        "assets/exported/audio/engine_comet_idle.ogg",
+        "assets/exported/audio/engine_comet_low.ogg",
+        "assets/exported/audio/engine_needle_coast.ogg",
+        "assets/exported/audio/engine_needle_high.ogg",
+        "assets/exported/audio/engine_needle_idle.ogg",
+        "assets/exported/audio/engine_needle_low.ogg",
+        "assets/exported/audio/engine_sunset_coast.ogg",
+        "assets/exported/audio/engine_sunset_high.ogg",
+        "assets/exported/audio/engine_sunset_idle.ogg",
+        "assets/exported/audio/engine_sunset_low.ogg",
+        "assets/exported/audio/engine_switch_coast.ogg",
+        "assets/exported/audio/engine_switch_high.ogg",
+        "assets/exported/audio/engine_switch_idle.ogg",
+        "assets/exported/audio/engine_switch_low.ogg",
+        "assets/exported/audio/music_citrus_pass.ogg",
+        "assets/exported/audio/music_marina_lights.ogg",
+        "assets/exported/audio/music_menu.ogg",
+        "assets/exported/audio/music_pacific_summit.ogg",
+        "assets/exported/audio/music_palm_bay.ogg",
+        "assets/exported/audio/music_redwood_run.ogg",
+        "assets/exported/audio/music_sunstone_canyon.ogg",
+        "assets/exported/audio/voice_final_lap.ogg",
+        "assets/exported/audio/voice_finish.ogg",
+        "assets/exported/audio/voice_go.ogg",
+        "assets/exported/audio/voice_new_best_time.ogg",
+        "assets/exported/audio/voice_one.ogg",
+        "assets/exported/audio/voice_three.ogg",
+        "assets/exported/audio/voice_two.ogg",
+        "assets/exported/audio/voice_wrong_way.ogg"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original compositions, additive/FM instruments, synthetic percussion, engine harmonic profiles, effects and eight fixed formant/noise prompts; no recordings, sample banks or voice models"
+    },
+    {
+      "id": "driving_feedback_materials",
+      "creator": "Pacific Rush contributors",
+      "source": "game/world/race_feedback.gd",
+      "exports": [
+        "assets/exported/shaders/feedback_particle.gdshader",
+        "assets/exported/shaders/feedback_skid.gdshader",
+        "assets/exported/shaders/car_fade.gdshader"
+      ],
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original code-native soft smoke/dust, sparks, skid-strip and matching car fade materials; no external bitmap or effect sample"
+    },
+    {
+      "id": "original_interface_icons",
+      "creator": "Pacific Rush contributors",
+      "source": "assets/source/generate_icons.py",
+      "catalog": "assets/exported/icons/catalog.json",
+      "source_url": null,
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "64 original editable SVG icons: actions, settings, modes, four car silhouettes, ten canonical course outlines, connectivity, medals, trophies and eight labeled paint swatches; no external icon library"
+    },
+    {
+      "id": "illustrated_billboard_foliage_v1",
+      "source": "assets/source/billboards/generation.json",
+      "creator": "OpenAI image generation directed by the Pacific Rush project",
+      "license": "MIT",
+      "attribution": "LICENSE; assets/source/billboards/generation.json records generated-art provenance",
+      "modifications": "Five unmodified transparent generated PNGs. Runtime alpha-scissor UV bounds and cylindrical billboard materials preserve their bytes; original 3D structures and landmarks retained.",
+      "exports": [
+        "assets/exported/billboards/catalog.json",
+        "assets/exported/billboards/palm-v1.png",
+        "assets/exported/billboards/orchard-v1.png",
+        "assets/exported/billboards/redwood-v1.png",
+        "assets/exported/billboards/shrub-v1.png",
+        "assets/exported/billboards/grass-v1.png"
+      ]
+    },
+    {
+      "id": "course_crest_structures",
+      "source": "game/world/course_set_pieces.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original procedural 3D Sunburst Crest, Packing Skyway, Harbor Cranes, Timber Crest, Canyon Ribs Summit Flight, Skyline Portal Quarry Cut, Reservoir Ribs and Geothermal Gate frames; batched vertex-colored geometry with no driving collision."
+    },
+    {
+      "id": "route_conformed_bridges",
+      "source": "game/world/route_landmark.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original triangle subdivision/road deformation for all three LODs of the project-authored Timber Bridge and Viaduct, retaining original atlas UVs and source GLBs."
+    },
+    {
+      "id": "painted_course_posters_v1",
+      "source": "assets/source/roadside-posters/generation.json",
+      "generator": "assets/source/describe_roadside_posters.py",
+      "creator": "Pacific Rush project artwork using built-in image generation",
+      "license": "MIT",
+      "attribution": "LICENSE; assets/source/roadside-posters/generation.json records the complete prompts and original output provenance",
+      "modifications": "Ten selected opaque generated PNGs copied byte-for-byte; static 3D sign frames and texture placement are authored in game/world/roadside_poster_art.gd. These illustrations are scenery, not gameplay screenshots. Elevated-course signs attach to the deck with original below-road cantilever brackets.",
+      "exports": [
+        "assets/exported/posters/catalog.json",
+        "assets/exported/posters/palm-bay-v1.png",
+        "assets/exported/posters/citrus-pass-v1.png",
+        "assets/exported/posters/marina-lights-v1.png",
+        "assets/exported/posters/redwood-run-v1.png",
+        "assets/exported/posters/sunstone-canyon-v1.png",
+        "assets/exported/posters/pacific-summit-v1.png",
+        "assets/exported/posters/skyline-splice-v1.png",
+        "assets/exported/posters/quarry-switchback-v1.png",
+        "assets/exported/posters/spillway-sprint-v1.png",
+        "assets/exported/posters/caldera-crosscut-v1.png"
+      ]
+    },
+    {
+      "id": "rajdhani_font",
+      "source": "https://github.com/google/fonts/tree/47d54ca1ebb14fd864695f1d39dc734f39017c33/ofl/rajdhani",
+      "creator": "Indian Type Foundry and Rajdhani contributors",
+      "license": "SIL Open Font License 1.1",
+      "attribution": "assets/fonts/rajdhani-OFL.txt",
+      "modifications": "Unmodified font bytes; exact source revision and checksums in assets/source/arcade-ui/fonts.json"
+    },
+    {
+      "id": "arcade_ui_chrome",
+      "source": "assets/source/arcade-ui/author_chrome.py",
+      "creator": "Pacific Rush original procedural artwork",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "exports": [
+        "assets/exported/arcade_ui"
+      ],
+      "modifications": "Original editable vector chrome, bevels, static gloss and perspective-grid backdrop. No external bitmap or artwork. Mobile touch controls reuse the scalable plates, original display font, static tick rail and diamond thumb indicator; hit rectangles and input semantics are unchanged. High Contrast retains flat controls. Opponent labels use the compact chrome plate and original display-number badge; names retain body/emoji support, palette color identity, occlusion, ellipsis and High Contrast. Event selection measures card/detail widths and reflows columns within the shared safe frame at larger text scales and narrower aspect ratios. Large mobile course names and option labels wrap, and menu headings wrap within the safe frame while retaining the selected font size.",
+      "runtime_source": [
+        "game/ui/ui_factory.gd",
+        "game/platform/touch_driving.gd",
+        "game/ui/race_nameplates.gd",
+        "game/ui/event_menu.gd",
+        "game/ui/menu_shell.gd"
+      ]
+    },
+    {
+      "id": "pacific_rush_display_font",
+      "source": "assets/source/arcade-ui/author_font.py",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original seven-row letterform outlines, traced, chamfered and sheared into a TrueType display face. No third-party outlines. Rebuild with uv run assets/source/arcade-ui/author_font.py.",
+      "exports": [
+        "assets/fonts/PacificRushDisplay.ttf"
+      ]
+    },
+    {
+      "id": "arcade_wordmark",
+      "source": "assets/source/arcade-ui/generation.json",
+      "creator": "Pacific Rush contributors using built-in image_gen.imagegen",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original generated transparent title wordmark copied byte-for-byte with alpha. Exact prompt and original output filename recorded in source provenance.",
+      "exports": [
+        "assets/exported/arcade_ui/pacific-rush-wordmark-v1.png"
+      ]
+    },
+    {
+      "id": "pavement_material",
+      "source": "assets/exported/shaders/asphalt.gdshader",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original code-native dry asphalt aggregate, weathering and route-aligned tire wear, with derivative-based distance filtering. Render-only UVs preserve original collision vertices and gameplay identity.",
+      "exports": [
+        "assets/exported/shaders/asphalt.gdshader"
+      ]
+    },
+    {
+      "id": "roadside_rocks_logs_waterfalls",
+      "source": "game/world/course_decor.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original bounded five-sided boulders, eight-sided bark and cut-end log piles, grey quarry bluffs and window-striped city towers. Independently culled procedural meshes with road and sightline clearances. Illustrated waterfalls use the separately documented original cutout over 3D foot rocks and an animated pool. No driving collision.",
+      "exports": [
+        "game/world/course_decor.gd",
+        "assets/exported/shaders/water.gdshader"
+      ]
+    },
+    {
+      "id": "illustrated_waterfall_v1",
+      "source": "assets/source/decorations/generation.json",
+      "creator": "Pacific Rush project using built-in image generation",
+      "license": "MIT",
+      "attribution": "LICENSE; complete prompt and original output provenance in assets/source/decorations/generation.json",
+      "modifications": "Unmodified 1254-square transparent generated PNG copied exactly. Runtime alpha scissor and cylindrical billboarding, with original 3D base rocks and animated pool.",
+      "exports": [
+        "assets/exported/decorations/waterfall-v1.png"
+      ]
+    },
+    {
+      "id": "waterworks_and_caldera_spectacles",
+      "source": "game/world/course_spectacles.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "exports": [
+        "assets/exported/shaders/landscape.gdshader"
+      ],
+      "modifications": "Original batched concrete dam arches, scaled original illustrated cascades and pools, multi-ring basalt crater with distant animated lava and tall faceted spires. Layered dither material, bounded road/sightline clearances and no driving collision. Source geometry and shader authored for this project. Sixteen distant cliff/ridge silhouettes per new course frame the complete layout; preserve waterfall billboard scale under tall dam openings. Shared cascade/pool materials retain the existing 61 maximum warm-up submissions. Expanded exported ground and embedded bases prevent floating distant cliffs; one two-triangle floor below the authored terrain remains visible after detailed chunks cull. Three irregular exterior lava channels remain inside the crater clearing. Waterworks piers carry three paint variants of original projecting control houses, front/side glazing, supported platforms, clamped pipes, maintenance ladders, shaft-mounted sluice wheels and static truss cranes/hoists. All details merge into the existing pier mesh/material and stay inside its reserved 26 m footprint.",
+      "runtime_source": [
+        "game/world/course_spectacles.gd",
+        "game/world/waterworks_detail.gd"
+      ]
+    }
+  ]
+}

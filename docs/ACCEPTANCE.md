@@ -7,7 +7,7 @@ requirement; human handling/usability and operated public regions remain open.
 
 Current gameplay is **content 9 / protocol 5 / save schema 1**, digest
 `f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f`, with ten playable courses.
-The [101-command source report](evidence/car-crater111/source101-final/summary.json)
+The [101-command source report](evidence/waterworks112/source101/summary.json)
 contains the final source matrix after the richer car geometry and near-plane
 hood correction. [Current cosmetic evidence](evidence/car-crater111/) retains
 all 40 corrected native framing cases and both original failed reports.
@@ -18,8 +18,10 @@ fixture; screenshots alone do not establish a numeric pass.
 
 Historical platform evidence keeps its original build and compatibility label.
 [Build 108](evidence/release108/) passes all 40 remote jobs and publishes all 18
-files. Build 109 passes its unchanged-gameplay workflow; the ten-course Build
-110 release remains pending at this checkpoint. The [Linux render audit](evidence/render-gate98/)
+files. Build 110 passes all 43 jobs and publishes the ten-course game.
+[Build 111](evidence/release111/) passes 32 required jobs with two correct
+unchanged-gameplay skips, publishes all 18 files and has actual public APK/macOS
+execution evidence; the current waterworks source pass is a later cosmetic revision. The [Linux render audit](evidence/render-gate98/)
 remains historical failed evidence, with corrected actual Linux GPU/readiness
 execution in [Build 108's diagnostic](evidence/graphics108/linux-diagnostic/).
 
@@ -39,10 +41,10 @@ a remaining procedure or platform boundary. Neither substitutes for human feel.
 | RACE-02 | Automated | [Sub-tick ordering/ties](../tests/race_contact_tests.gd), [eight-player APK rematch](evidence/content5/android91-crossplay.json): authoritative order and exact result agreement. |
 | RACE-03 | Automated | [Mode/session rules](../tests/mode_tests.gd): finish grace, hard cap and DNF behavior. |
 | RACE-04 | Automated | [Recovery fixtures](../tests/progress_touch_tests.gd), [world safety](../tests/world_tests.gd), [hold assistance](../tests/recovery_assist_tests.gd). |
-| AI-01 | Automated | Current [macOS ten-course matrix](evidence/content9/ai600/summary.json): 600 races / 4,800 finishers, zero recoveries, plus 12 single-car ordering cases. [Build 108](evidence/release108/) independently passes all eight preceding course matrices on Linux; the new ten-course remote matrix remains pending. |
+| AI-01 | Automated | Current [macOS ten-course matrix](evidence/content9/ai600/summary.json): 600 races / 4,800 finishers, zero recoveries, plus 12 single-car ordering cases. [Build 110](evidence/release110/) independently passes all ten course matrices on Linux; Build 111 correctly reuses that unchanged-gameplay baseline. |
 | TRIAL-01 | Automated | [Medal/ghost rules](../tests/ghost_medal_tests.gd), [atomic matched pairs](../tests/ghost_transaction_tests.gd), [content transition](../tests/content_transition_tests.gd), [40 valid standing-start Gold laps](evidence/content9/gold40.json) with every car/course through ordinary shared-controller inputs and zero recoveries. Human skill/difficulty confirmation remains open. |
 | CUP-01 | Automated | [Cup/save/tie rules](../tests/save_cup_tests.gd), [frozen old-content preservation](../tests/content_transition_tests.gd). |
-| NET-01 | Automated Mac/Linux matrix | [Build 108 Linux ten-race soak](evidence/release108/ten-race-soak/): 80 matching finishes, worst clear p95 .041917 m, minimum 945 clear samples, 2.514% RSS growth. Current [content-9 two-course/eight-client check](evidence/content9/eight-client-new-courses/summary.json): 16 matching finishes, minimum 2,179 clear samples and final checkpoint 74/88 on every client. Ten-race acceptance for content 9 remains pending remotely; operated regions and the specified server-host hardware benchmark remain separate. |
+| NET-01 | Automated Mac/Linux matrix | [Build 108 Linux ten-race soak](evidence/release108/ten-race-soak/): 80 matching finishes, worst clear p95 .041917 m, minimum 945 clear samples, 2.514% RSS growth. Current [content-9 two-course/eight-client check](evidence/content9/eight-client-new-courses/summary.json): 16 matching finishes, minimum 2,179 clear samples and final checkpoint 74/88 on every client. [Content-9 Build 110](evidence/release110/ten-race-soak/) also passes 80 matching finishes, minimum 1,671 clear samples, worst p95 .0345315 m and .210478% RSS growth; operated regions and the specified server-host hardware benchmark remain separate. |
 | NET-02 | Automated local matrix | [420-second real UDP contact run](evidence/content5/macos-contact420.json): 104 episodes, 1,576/1,204 samples, p95 .5993/.6859 m. Synthetic contact/reset transitions are explicitly excluded from ordinary-driving claims. |
 | NET-03 | Automated local matrix | [Actual 250 ms added RTT / 8% real-loss run](evidence/network-degraded-content5.json), [quality thresholds/UI](../tests/network_quality_tests.gd) and [remote bounds](../tests/network_contract_tests.gd). Both clients finish three laps, show poor-tier observations and exercise the 150 ms extrapolation cap. One initial transport timeout resumes the same slot before GO. Human degraded-tier handling remains unmeasured. |
 | NET-04 | Automated | Required CI real UDP reconnect/expiry scenarios and [real lobby lifecycle](../tests/lobby_reconnect_tests.gd), [mobile online lifecycle](../tests/online_lifecycle_tests.gd). Five-/25-second cases preserve identity or DNF without invented results. |

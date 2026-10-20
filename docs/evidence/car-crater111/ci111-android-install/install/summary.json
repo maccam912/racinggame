@@ -1,0 +1,108 @@
+{
+  "passed": true,
+  "serial": "emulator-5586",
+  "avd": "pacific_rush_install_111_074223",
+  "apk_sha256": "dbf1a78d1fec03a623d8f2fa794820c98efc449db1099d4702447e498a73f2c9",
+  "scope": "test:d3327f41-69e2-43f5-8302-8e7da616ca3e",
+  "steps": {
+    "offline_route": {
+      "passed": true,
+      "observed_seconds": 1.7446035828907043,
+      "client_ready_seconds": null
+    },
+    "first_install_preferences": {
+      "passed": true,
+      "observed_seconds": 1.787248375127092,
+      "client_ready_seconds": 1.786979875061661,
+      "png_sha256": "52d4148d7580776912fb58f793a68317f06afc16e726bdb2505d06ce922f783a"
+    },
+    "key_initially_absent": {
+      "passed": true,
+      "observed_seconds": 1.1713993749581277,
+      "client_ready_seconds": null
+    },
+    "key_write": {
+      "passed": true,
+      "observed_seconds": 1.1870495001785457,
+      "client_ready_seconds": null
+    },
+    "key_cold_read": {
+      "passed": true,
+      "observed_seconds": 1.180954083101824,
+      "client_ready_seconds": null
+    },
+    "save_write": {
+      "passed": true,
+      "observed_seconds": 1.1909802078735083,
+      "client_ready_seconds": null
+    },
+    "save_cold_read": {
+      "passed": true,
+      "observed_seconds": 1.203058582963422,
+      "client_ready_seconds": null
+    },
+    "old_key_absent_after_reinstall": {
+      "passed": true,
+      "observed_seconds": 1.3947911248542368,
+      "client_ready_seconds": null
+    },
+    "old_save_absent_after_reinstall": {
+      "passed": true,
+      "observed_seconds": 1.1689237498212606,
+      "client_ready_seconds": null
+    },
+    "reinstalled_preferences": {
+      "passed": true,
+      "observed_seconds": 1.4988485418725759,
+      "client_ready_seconds": 1.4985268330201507,
+      "png_sha256": "814035ade2f01750e2e30ea0d5e5b3b5e28094c06d15dd16bd6d6ac82fdc1f98"
+    }
+  },
+  "boundary": "New disposable emulator, actual release APK, offline first-run renders, native save and non-exportable test-key probes, owned uninstall/reinstall. No player data, real online guest registration, physical hardware or storefront acceptance. Startup observations include host polling and are not minimum-hardware first-frame benchmarks.",
+  "build": {
+    "version": "0.0.111-dev",
+    "build_number": 111,
+    "working_tree_dirty": false,
+    "commit": "32c2472177b216df3d0d9406f29376d77452b31b",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "d0bc2113065e481c9c2c2b2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+    "asset_hash": "d817e6717c7a87d4513b55d029bed7f32825c1f190d1384a79aa53c93d5df75f",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e",
+      "sha256": "9a52ed2826bc86ece6013f53aa357dac61b27e08484b74676b34cf9137ec4b63"
+    },
+    "android_services": {
+      "source_hash": "d3b152de525fa6fc6804c9afc2dc1141871399d0bbfcf2b2668180c575523a77",
+      "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+      "android_api": 36,
+      "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+      "java_release": 17,
+      "compiler": "javac 17.0.20.1",
+      "sha256": "98e0e48ee687e68962f3e2a7bf89958df293f3c0b3e0f6b65106ad8a70e72de4"
+    }
+  },
+  "initially_absent": true,
+  "model": "sdk_gphone64_arm64",
+  "android_release": "15",
+  "first_install_output": "Performing Streamed Install\nSuccess",
+  "offline_route": {
+    "focus": 1,
+    "route_available": false,
+    "route_kind": "none"
+  },
+  "uninstall_output": "Success",
+  "owned_app_data_removed": true,
+  "reinstall_output": "Performing Streamed Install\nSuccess"
+}

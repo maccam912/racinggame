@@ -1,5 +1,15 @@
 # Implementation status
 
+## 20 October — original waterworks machinery pass
+
+Spillway piers gain projecting control houses in three paint/side variants, front/side glazing, supported platforms, clamped pipes, maintenance ladders, shaft-mounted valve wheels and static truss cranes/hoists. They merge into each existing mesh/material, stay inside its **26 m** footprint, retain the **3,000-triangle** guard and add no driving collision, texture, material or per-frame work. All **101 source commands**, **four updated native Spillway views** and all ten GPU-prepared worlds pass; maximum submissions / GPU deadline remain **61 / 15 s**. Station/gantry and full-layout views were visually reviewed. [Original geometry, exact sources and native proof](evidence/waterworks112/). Gameplay/protocol/save remain **9/5/1**, hash `f762fa68`; cosmetics `15a71230`. Clean packages and the next public release remain pending at this source checkpoint.
+
+## 20 October — Build 111 published; actual public APK and macOS binaries tested
+
+[Build 111](https://github.com/maccam912/racinggame/releases/tag/v0.0.111-dev) publishes all **18 files** from clean `32c2472`, with all **32 required jobs passing** and two correct unchanged-gameplay AI/soak skips. Tag, all six metadata files and all six GitHub payload digests match. [Full remote proof](evidence/release111/).
+
+The exact public APK matches the actual tested CI artifact: a fresh rooted Android 15 / Pixel 7 emulator passes all ten offline install, cold key/save, owned uninstall and reinstall checks, followed by ordinary Caldera/Spillway graphics. The downloaded public macOS ZIP separately passes digest verification, actual Keychain/headless startup and ordinary Caldera graphical execution. Local Build 111 update/graphics evidence remains separate. Build 111 contains the richer cars and corrected hood/exterior lava work with asset hash `d817e671`; the later waterworks detail above has its own identity. All other payloads retain their CI native validation rather than a claim of local graphical execution.
+
 ## 20 October — richer car detail, exterior Caldera lava and clipped-contour camera correction
 
 The four original cars now have fitted window pillars/seals, paired wipers, rear defroster lines, lamp trim and plate/fascia details. Needle gains deck vents; Sunset has a chrome bumper. Silhouettes, authoring dimensions, the atlas, five mesh parts and distant LODs remain unchanged. The actual before/prototype native comparison and all four integrated models are reviewed; **240 lamp-attachment rays** and explicit LOD/role/animation budgets pass.

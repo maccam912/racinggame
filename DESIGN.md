@@ -326,6 +326,12 @@ A 7,457.229632 m interwoven trefoil road network through fictional reservoir wat
 
 Original pale concrete arches rise above the driver's horizon beside the road. The existing original painted waterfall cutout extends through their openings with preserved scale, shared materials, animated floor pools and 3D base rocks. Turquoise reservoir water and distant faceted cliff silhouettes frame the layered bridges. Five existing original landmarks are arranged at water tower (.13,+80), windmill (.29,−85), rail trestle (.47,+78), lighthouse (.65,−90) and overlook (.83,+75). Reservoir Ribs frames the .30 crest. All structural footprints and supports stay clear of every crossing branch; scenery introduces no driving collision or water hazards.
 
+Waterworks piers also carry projecting control houses in three paint variants,
+front/side glazing, supported platforms, clamped pipes, maintenance ladders,
+shaft-mounted sluice wheels and static truss cranes/hoists. These merge into
+the existing pier mesh/material and remain inside its reserved 26 m disk;
+they add no driving collision or interactive machinery.
+
 ### 11.11 Caldera Crosscut — bonus circuit
 
 An 8,869.065398 m seven-point crosscut through a fictional volcanic landscape. Seven separated crossings connect long straights and tight turns; the 28 control points have traversal vertex heights 40, 40, 260, 210, 260, 150 and 40 m. Minimum horizontal radius 30.756 m and maximum base grade 18.038%. Continuous 16 m asphalt, 3 m asphalt shoulders, no banking or marked jump. Exact coordinates and starting sample 64 are normative in the content definition and bake. Reuses the Canyon race composition.

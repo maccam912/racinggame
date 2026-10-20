@@ -73,6 +73,7 @@ static func spillway(world: TrackWorld) -> void:
 			var a := PI*part/10
 			var b := PI*(part+1)/10
 			CourseSetPieces.beam(tool,Vector3(cos(a)*18,height-12+sin(a)*12,0),Vector3(cos(b)*18,height-12+sin(b)*12,0),3.5,Color("D9D7BD"))
+		WaterworksDetail.add(tool,height,int(s/280))
 		var dam := finish(world,"Spillway_"+str(s),tool,concrete,pose,26)
 		var waterfall := Node3D.new()
 		waterfall.name = "SpillwayCascade"

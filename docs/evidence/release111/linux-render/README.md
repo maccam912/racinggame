@@ -1,0 +1,3 @@
+# Actual Build 111 Linux graphics metadata
+
+Artifact **12254824786** from workflow **39398577112**, source `32c2472`, cosmetics `d817e671`. All JSON/log entries are retained. All ten worlds pass actual two-frame GPU readback, maximum 61 submissions and the unchanged 15-second GPU deadline, plus Retry/Cancel/background/real-ENet Loaded cases. All **40 native hood cases measure 10%** after the correction; **80 actual X11 layout cases** and **40 course views** pass. The previously missing course-reference JSON is now included by the corrected artifact path. Original PNGs remain in the full GitHub artifact and local source/actual-package images are separately archived.

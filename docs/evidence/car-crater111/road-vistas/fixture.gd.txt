@@ -1,0 +1,92 @@
+extends SceneTree
+
+func _initialize() -> void: call_deferred("run")
+
+func ink(color: Color, both_sides: bool = false) -> StandardMaterial3D:
+	var material := StandardMaterial3D.new()
+	material.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material.albedo_color = color
+	if both_sides: material.cull_mode = BaseMaterial3D.CULL_DISABLED
+	return material
+
+func run() -> void:
+	Catalog.load_all()
+	root.size = Vector2i(1920,1080)
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	var world := TrackWorld.new()
+	var track: TrackDefinition = Catalog.tracks[9]
+	assert(track.id=="caldera_crosscut")
+	world.build(track)
+	root.add_child(world)
+	await physics_frame
+	await physics_frame
+	var canvas := Control.new()
+	root.add_child(canvas)
+	var views: Array[SubViewport] = []
+	var rows: Array[Dictionary] = []
+	for index in range(16):
+		var viewport := SubViewport.new()
+		viewport.size = Vector2i(480,270)
+		viewport.world_3d = world.get_world_3d()
+		viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
+		viewport.msaa_3d = Viewport.MSAA_4X
+		canvas.add_child(viewport)
+		views.append(viewport)
+		var camera := ChaseCamera.new()
+		viewport.add_child(camera)
+		camera.current = true
+		camera.base_fov = 83
+		camera.dynamic_fov = false
+		camera.far = 3000
+		var s := track.length*(index+.25)/16.0
+		var pose := track.pose(s)
+		var state := VehicleState.new()
+		state.position = world.ground_pose(s,0).origin+Vector3.UP*.35
+		state.yaw = atan2(-pose.basis.z.x,pose.basis.z.z)
+		var query := WorldQuery.new(world.get_world_3d(),track,s)
+		state.ground_normal = query.ground(state).normal
+		query = null
+		state.velocity = state.forward()*76
+		camera.follow(state,1.0/60)
+		var rect := TextureRect.new()
+		rect.texture = viewport.get_texture()
+		rect.position = Vector2((index%4)*480,(index/4)*270)
+		rect.size = Vector2(480,270)
+		canvas.add_child(rect)
+		var title := Label.new()
+		title.text = "s %.0fm / road %.0fm"%[s,state.position.y]
+		title.position = rect.position+Vector2(8,6)
+		title.add_theme_font_size_override("font_size",18)
+		canvas.add_child(title)
+		rows.append({"panel":index,"route_s":s,"height":state.position.y,"camera_eye":[camera.position.x,camera.position.y,camera.position.z],"fov":camera.fov})
+	for frame in range(12): await process_frame
+	await RenderingServer.frame_post_draw
+	var folder := "res://reports/caldera-vistas-111"
+	DirAccess.make_dir_recursive_absolute(folder)
+	assert(root.get_texture().get_image().save_png(folder+"/ordinary-materials.png")==OK)
+	var black := ink(Color.BLACK,true)
+	for node: GeometryInstance3D in world.find_children("*","GeometryInstance3D",true,false): node.material_override = black
+	(world.get_node("CalderaCrater") as MeshInstance3D).material_override = ink(Color.RED)
+	for name in ["CraterLava","CraterStreams"]:
+		(world.get_node(name) as MeshInstance3D).material_override = ink(Color.GREEN)
+	for frame in range(8): await process_frame
+	await RenderingServer.frame_post_draw
+	assert(root.get_texture().get_image().save_png(folder+"/opaque-visibility-mask.png")==OK)
+	for index in range(views.size()):
+		var image := views[index].get_texture().get_image()
+		var red := 0
+		var green := 0
+		for y in range(image.get_height()):
+			for x in range(image.get_width()):
+				var pixel := image.get_pixel(x,y)
+				if pixel.r>.8 and pixel.g<.2 and pixel.b<.2: red += 1
+				if pixel.g>.8 and pixel.r<.2 and pixel.b<.2: green += 1
+		rows[index]["visible_cone_pixels"] = red
+		rows[index]["visible_lava_pixels"] = green
+	var file := FileAccess.open(folder+"/summary.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify({"content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"rows":rows,"boundary":"Sixteen static diagnostic Near-chase road poses, high-speed-equivalent 83 degree FOV, no car/HUD. Original geometry and normal distance culling. Opaque black occluder proxies with cone red/lava green provide a conservative diagnostic mask; texture alpha and lighting are not part of that mask. No earned driving, UI or performance claim."},"\t")+"\n")
+	canvas.queue_free()
+	world.queue_free()
+	for frame in range(8): await process_frame
+	print("CALDERA_NATIVE_SIXTEEN_ROAD_VIEWS_AND_DIAGNOSTIC_VISIBILITY_MASK_COMPLETE")
+	quit()

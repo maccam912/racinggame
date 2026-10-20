@@ -1,0 +1,35 @@
+from pathlib import Path
+import hashlib,json,subprocess,sys
+number,run_id,commit,asset,success,skipped=sys.argv[1:]
+number,success,skipped=int(number),int(success),int(skipped)
+folder=Path('docs/evidence')/f'release{number}'
+assert not folder.exists(), 'Keep previous verification attempts intact'
+folder.mkdir(parents=True);metadata=folder/'published-metadata';metadata.mkdir()
+def fetch(arguments,destination):
+ result=subprocess.run(arguments,capture_output=True,text=True,check=True)
+ (folder/destination).write_text(result.stdout)
+ return json.loads(result.stdout)
+run=fetch(['gh','run','view',run_id,'--json','status,conclusion,jobs,headSha,url,createdAt,updatedAt'],f'ci{number}-run.json')
+tag_name=f'v0.0.{number}-dev'
+release=fetch(['gh','api',f'repos/maccam912/racinggame/releases/tags/{tag_name}'],f'ci{number}-rest-release.json')
+tag=fetch(['gh','api',f'repos/maccam912/racinggame/git/ref/tags/{tag_name}'],f'ci{number}-tag.json')
+assert run['headSha']==commit and run['status']=='completed' and run['conclusion']=='success'
+assert sum(j['conclusion']=='success' for j in run['jobs'])==success and sum(j['conclusion']=='skipped' for j in run['jobs'])==skipped
+assert len(run['jobs'])==success+skipped
+assert tag['object']['type']=='commit' and tag['object']['sha']==commit
+assert release['tag_name']==tag_name and release['prerelease'] and not release['draft'] and len(release['assets'])==18
+subprocess.run(['gh','release','download',tag_name,'--pattern','*-build.json','--pattern','*.sha256','--dir',str(metadata)],check=True)
+assets={row['name']:row for row in release['assets']};rows=[]
+gameplay='f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f'
+for platform,extension in [('android','.apk'),('android_aab','.aab'),('linux','.zip'),('macos','.zip'),('server','.zip'),('windows','.zip')]:
+ stem=f'pacific-rush-{number:05d}-'+platform
+ data=json.loads((metadata/(stem+'-build.json')).read_text())
+ assert data['build_number']==number and data['version']==f'0.0.{number}-dev' and data['commit']==commit and data['working_tree_dirty'] is False
+ assert data['content_hash']==gameplay and data['asset_hash']==asset and data['target_platform']==platform
+ assert data['protocol_version']==5 and data['save_schema']==1 and data['engine_version']=='4.6.3-stable'
+ side=(metadata/(stem+'.sha256')).read_text().strip().split();name=stem+extension
+ assert side[-1].lstrip('*')==name and assets[name]['digest']=='sha256:'+side[0]
+ rows.append({'platform':platform,'payload':name,'sha256':side[0],'github_digest_matches':True,'clean_source':True,'bytes':assets[name]['size']})
+report={'passed':True,'successful_jobs':success,'expected_skipped_jobs':skipped,'commit':commit,'content_hash':gameplay,'asset_hash':asset,'published_files':18,'payloads':rows,'boundary':'Tag and all six published metadata files verified; six payload sidecars match GitHub stored digests. Separate explicit evidence is required for downloaded-binary execution.'}
+(folder/'publication-verification.json').write_text(json.dumps(report,indent=2)+'\n')
+print(json.dumps({'passed':True,'tag':tag_name,'files':18,'folder':str(folder)}))

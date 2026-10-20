@@ -1,0 +1,476 @@
+{
+	"boundary": "Actual native raster silhouette at the screen centre, four unmodified LOD0 car models, five FOVs and both settled view directions. Flat stationary geometry isolates hood framing. Course pictures use a labelled synthetic static Palm Bay pose, not ordinary driving telemetry or performance evidence.",
+	"captures": [
+		{
+			"car": "comet",
+			"fov": 65.0,
+			"png": "comet-fov65.png",
+			"sha256": "1c8dd9c31fcc4bf19ba3a95343e755c63e30ced049bb35a4b1f97369182636fa",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "comet",
+			"fov": 83.0,
+			"png": "comet-fov83.png",
+			"sha256": "4fbf1918d79017d243291e5698fc6af40ee542de12faf5d5770cb2ff214ed531",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "comet",
+			"fov": 95.0,
+			"png": "comet-fov95.png",
+			"sha256": "6f487a5996bd8954d7db6dc2cd5c74dfc0f40077d7aa5a79a76020cea4115b14",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "needle",
+			"fov": 65.0,
+			"png": "needle-fov65.png",
+			"sha256": "2675c10c270b6252c5598bee214416db6f6cae733e445e2bba44b727aab08b61",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "needle",
+			"fov": 83.0,
+			"png": "needle-fov83.png",
+			"sha256": "9f2bca507f9fe28f0e32a288d891292dc2a56de4527bd02271e6dca5eb71dcc2",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "needle",
+			"fov": 95.0,
+			"png": "needle-fov95.png",
+			"sha256": "d3978a87b0380bd8a55e71acf4cea5000bedec394b0b7371f5142f3140b1bc74",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "switch",
+			"fov": 65.0,
+			"png": "switch-fov65.png",
+			"sha256": "bcdbc4ed8d973e5c9697b7cb49c2bcdd4d499377625855ab63844f3b0ae81914",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "switch",
+			"fov": 83.0,
+			"png": "switch-fov83.png",
+			"sha256": "90d074e7051304b3cc29a3921b9bf12139fc22d2d34bbab2d1d7261f49be75fb",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "switch",
+			"fov": 95.0,
+			"png": "switch-fov95.png",
+			"sha256": "6e6daaca1096618c68407841962a08b841fbd54d89a5eaf5380822144ddb5e17",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "sunset",
+			"fov": 65.0,
+			"png": "sunset-fov65.png",
+			"sha256": "405e2957acf73130cfc4c59a773dbe4563d4eaf45f030f46bd90387e2a234db9",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "sunset",
+			"fov": 83.0,
+			"png": "sunset-fov83.png",
+			"sha256": "0554986c79478d2eb0733f8917f7d2a6624c2b398d7b5b3471b2ac29d66e1011",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		},
+		{
+			"car": "sunset",
+			"fov": 95.0,
+			"png": "sunset-fov95.png",
+			"sha256": "7307725df0339eec173ecf26b3e347838d4f03d8c34a145d1a581708c924b0b3",
+			"synthetic_pose": true,
+			"track": "palm_bay",
+			"u": 0.1
+		}
+	],
+	"cases": [
+		{
+			"car": "comet",
+			"envelope_points": 28,
+			"eye_forward_m": 1.22386801242828,
+			"fov": 55.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "comet",
+			"envelope_points": 28,
+			"eye_forward_m": 1.33402764797211,
+			"fov": 65.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "comet",
+			"envelope_points": 28,
+			"eye_forward_m": 1.4175843000412,
+			"fov": 75.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "comet",
+			"envelope_points": 28,
+			"eye_forward_m": 1.49870407581329,
+			"fov": 85.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "comet",
+			"envelope_points": 28,
+			"eye_forward_m": 1.57106363773346,
+			"fov": 95.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "comet",
+			"envelope_points": 30,
+			"eye_forward_m": 1.43684160709381,
+			"fov": 55.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "comet",
+			"envelope_points": 30,
+			"eye_forward_m": 1.50805401802063,
+			"fov": 65.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "comet",
+			"envelope_points": 30,
+			"eye_forward_m": 1.57436966896057,
+			"fov": 75.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "comet",
+			"envelope_points": 30,
+			"eye_forward_m": 1.63545072078705,
+			"fov": 85.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "comet",
+			"envelope_points": 30,
+			"eye_forward_m": 1.69450855255127,
+			"fov": 95.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 19,
+			"eye_forward_m": 0.825262546539307,
+			"fov": 55.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 19,
+			"eye_forward_m": 1.07106232643127,
+			"fov": 65.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 19,
+			"eye_forward_m": 1.25750267505646,
+			"fov": 75.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 19,
+			"eye_forward_m": 1.40579068660736,
+			"fov": 85.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 19,
+			"eye_forward_m": 1.52826952934265,
+			"fov": 95.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 15,
+			"eye_forward_m": 1.54550898075104,
+			"fov": 55.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 15,
+			"eye_forward_m": 1.65959191322327,
+			"fov": 65.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 15,
+			"eye_forward_m": 1.7461245059967,
+			"fov": 75.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 15,
+			"eye_forward_m": 1.81499254703522,
+			"fov": 85.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "needle",
+			"envelope_points": 15,
+			"eye_forward_m": 1.87185978889465,
+			"fov": 95.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 15,
+			"eye_forward_m": 0.956656157970428,
+			"fov": 55.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 15,
+			"eye_forward_m": 1.07960999011993,
+			"fov": 65.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 15,
+			"eye_forward_m": 1.17462456226349,
+			"fov": 75.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 15,
+			"eye_forward_m": 1.27708065509796,
+			"fov": 85.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 15,
+			"eye_forward_m": 1.36167764663696,
+			"fov": 95.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 16,
+			"eye_forward_m": 1.28131675720215,
+			"fov": 55.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 16,
+			"eye_forward_m": 1.37694084644318,
+			"fov": 65.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 16,
+			"eye_forward_m": 1.44947230815887,
+			"fov": 75.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 16,
+			"eye_forward_m": 1.50724792480469,
+			"fov": 85.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "switch",
+			"envelope_points": 16,
+			"eye_forward_m": 1.55531644821167,
+			"fov": 95.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.41266906261444,
+			"fov": 55.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.53123164176941,
+			"fov": 65.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.62207543849945,
+			"fov": 75.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.72982585430145,
+			"fov": 85.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.8187940120697,
+			"fov": 95.0,
+			"hood_fraction": 0.1,
+			"look_back": false,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.62877881526947,
+			"fov": 55.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.72066688537598,
+			"fov": 65.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.81636416912079,
+			"fov": 75.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.89247262477875,
+			"fov": 85.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		},
+		{
+			"car": "sunset",
+			"envelope_points": 15,
+			"eye_forward_m": 1.95549893379211,
+			"fov": 95.0,
+			"hood_fraction": 0.1,
+			"look_back": true,
+			"passed": true
+		}
+	],
+	"passed": true
+}

@@ -99,3 +99,13 @@ but uses five frozen, original image-generation PNGs for repeated palm/orchard/
 redwood/shrub/grass cards. `billboards/generation.json` records provenance and prompts;
 `describe_billboards.gd` copies exact bytes and authors alpha-derived UV bounds.
 See `docs/BILLBOARD_ART.md` for material, mipmap, visibility and native-render gates.
+
+`game/world/waterworks_detail.gd` is the editable original waterworks machinery
+kit. It adds control houses, glazing, supported platforms, pipes/clamps, bounded
+ladder rungs, shaft-mounted valve wheels and truss cranes/hoists directly to the
+existing dam `SurfaceTool`. Three paint/side/hoist variations use the current
+landscape material. No extra texture, material, collision body or per-frame work
+is introduced; complete meshes retain their 26 m footprint and 3,000-triangle
+fixture ceiling. Native inspection cameras under the current evidence checkpoint
+show both station and gantry details; those views override scenery culling only
+for inspection.
