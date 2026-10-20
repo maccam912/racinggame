@@ -9,8 +9,9 @@ Current gameplay is **content 9 / protocol 5 / save schema 1**, digest
 `f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f`, with ten playable courses.
 The [101-command source report](evidence/waterworks112/source101/summary.json)
 contains the final source matrix after the richer car geometry and near-plane
-hood correction. [Current cosmetic evidence](evidence/car-crater111/) retains
-all 40 corrected native framing cases and both original failed reports.
+hood correction. [Car/camera evidence](evidence/car-crater111/) retains
+all 40 corrected native framing cases and both original failed reports; the
+[later waterworks detail](evidence/waterworks112/) has its own native/source proof.
 [Content-9 evidence](evidence/content9/) also
 retains 600 field races, 40 Gold trials, 60 camera paths and the 80-case actual
 native scale/layout matrix. Each source-test link below points to its executable
@@ -21,7 +22,11 @@ Historical platform evidence keeps its original build and compatibility label.
 files. Build 110 passes all 43 jobs and publishes the ten-course game.
 [Build 111](evidence/release111/) passes 32 required jobs with two correct
 unchanged-gameplay skips, publishes all 18 files and has actual public APK/macOS
-execution evidence; the current waterworks source pass is a later cosmetic revision. The [Linux render audit](evidence/render-gate98/)
+execution evidence. [Build 112](evidence/release112/) separately passes all 32
+required jobs, publishes all 18 waterworks files and has actual public 111-to-112
+APK update and gameplay evidence. Build 113's new-course network fixture fails
+clear-sample coverage and is retained as [failed evidence](evidence/ci113-clear-coverage/initial-failure/).
+The [Linux render audit](evidence/render-gate98/)
 remains historical failed evidence, with corrected actual Linux GPU/readiness
 execution in [Build 108's diagnostic](evidence/graphics108/linux-diagnostic/).
 

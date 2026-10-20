@@ -101,7 +101,7 @@ jobs:
   network:
     needs: verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: ${{ matrix.scenario == 'new-courses' && 20 || 15 }}
     strategy:
       fail-fast: false
       matrix:
@@ -137,9 +137,11 @@ jobs:
       - name: Eight real clients through both bonus courses and their final checkpoints
         if: matrix.scenario == 'bonus-field'
         run: python tools/soak_acceptance.py --races 2 --laps 1 --seconds 360 --minimum-seconds 0 --tracks skyline_splice,quarry_switchback
-      - name: Eight clients retain late snapshots through Spillway and Caldera
+      # One lap can leave two closely paced cars together for most of Spillway.
+      # Keep the 500 clear samples per client/race requirement and drive two laps.
+      - name: Eight clients retain late snapshots and clear-road coverage through Spillway and Caldera
         if: matrix.scenario == 'new-courses'
-        run: python tools/soak_acceptance.py --port 27510 --races 2 --laps 1 --seconds 480 --minimum-seconds 0 --tracks spillway_sprint,caldera_crosscut
+        run: python tools/soak_acceptance.py --port 27510 --races 2 --laps 2 --seconds 840 --minimum-seconds 0 --tracks spillway_sprint,caldera_crosscut
       - uses: actions/upload-artifact@v4
         if: always()
         with:

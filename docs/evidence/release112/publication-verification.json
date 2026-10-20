@@ -1,0 +1,60 @@
+{
+  "passed": true,
+  "successful_jobs": 32,
+  "expected_skipped_jobs": 2,
+  "commit": "8b9fe9a62fd45d29d66a63d8efbf31cb5d1cff2c",
+  "content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+  "asset_hash": "15a71230152d5d5b0847d97a6fd4e96e57a19fe47d03d9fabf7a442f0b3c1bf9",
+  "published_files": 18,
+  "payloads": [
+    {
+      "platform": "android",
+      "payload": "pacific-rush-00112-android.apk",
+      "sha256": "5c13e29e42e36c46aaf7878dcbb6fbbc456717d6f157598a6e225f2bd143938c",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 172868213
+    },
+    {
+      "platform": "android_aab",
+      "payload": "pacific-rush-00112-android_aab.aab",
+      "sha256": "6e21d5258619311edba5e3bce2572476e7bf7dea3dff1481187df9d5d192e2b1",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 121418614
+    },
+    {
+      "platform": "linux",
+      "payload": "pacific-rush-00112-linux.zip",
+      "sha256": "d6031600eb6de26dd8d8eb9c0529559f6b9662bca5dc3b4e28da0194fb4af82e",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 122957137
+    },
+    {
+      "platform": "macos",
+      "payload": "pacific-rush-00112-macos.zip",
+      "sha256": "eed2c2a0e77f2a44e70a87c5bf0838d16945e278f00b515dcadbac03d0ad3178",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 157658955
+    },
+    {
+      "platform": "server",
+      "payload": "pacific-rush-00112-server.zip",
+      "sha256": "faa4ffd9f293988633790fca6b0bdea1bd64dacf18ded8a5b6ea0dfe65d8818e",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 37825822
+    },
+    {
+      "platform": "windows",
+      "payload": "pacific-rush-00112-windows.zip",
+      "sha256": "3c9bbc0e2e99438ca87db1cb3331f24d54ba6f9366c2875b30fb0e71f2e12716",
+      "github_digest_matches": true,
+      "clean_source": true,
+      "bytes": 131219938
+    }
+  ],
+  "boundary": "Tag and all six published metadata files verified; six payload sidecars match GitHub stored digests. Separate explicit evidence is required for downloaded-binary execution."
+}

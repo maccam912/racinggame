@@ -1,0 +1,1731 @@
+﻿2026-10-20T10:18:04.2527769Z Current runner version: '2.337.0'
+2026-10-20T10:18:04.2552332Z ##[group]Runner Image Provisioner
+2026-10-20T10:18:04.2554116Z Hosted Compute Agent
+2026-10-20T10:18:04.2555072Z Version: 20261012.601
+2026-10-20T10:18:04.2555872Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-20T10:18:04.2556601Z Build Date: 2026-10-12T17:48:21Z
+2026-10-20T10:18:04.2557351Z Worker ID: {f26ec98c-50dd-463b-8f21-0ae0a76c8540}
+2026-10-20T10:18:04.2558104Z Region: centralus
+2026-10-20T10:18:04.2558658Z Cloud: Azure
+2026-10-20T10:18:04.2559235Z ##[endgroup]
+2026-10-20T10:18:04.2561421Z ##[group]Operating System
+2026-10-20T10:18:04.2562478Z Ubuntu
+2026-10-20T10:18:04.2563122Z 24.04.5
+2026-10-20T10:18:04.2563731Z LTS
+2026-10-20T10:18:04.2564296Z ##[endgroup]
+2026-10-20T10:18:04.2565163Z ##[group]Runner Image
+2026-10-20T10:18:04.2566273Z Image: ubuntu-24.04
+2026-10-20T10:18:04.2567471Z Version: 20261012.334.1
+2026-10-20T10:18:04.2569754Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-20T10:18:04.2572762Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-20T10:18:04.2574593Z ##[endgroup]
+2026-10-20T10:18:04.2577115Z ##[group]GITHUB_TOKEN Permissions
+2026-10-20T10:18:04.2580189Z Contents: read
+2026-10-20T10:18:04.2581421Z Metadata: read
+2026-10-20T10:18:04.2582457Z ##[endgroup]
+2026-10-20T10:18:04.2587112Z Secret source: Actions
+2026-10-20T10:18:04.2588830Z Cache mode: write
+2026-10-20T10:18:04.2590464Z Prepare workflow directory
+2026-10-20T10:18:04.2975274Z Prepare all required actions
+2026-10-20T10:18:04.3030941Z Getting action download info
+2026-10-20T10:18:04.6178433Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-20T10:18:04.7354288Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-10-20T10:18:04.8148388Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-10-20T10:18:04.9073748Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-10-20T10:18:05.1308586Z Complete job name: network (new-courses)
+2026-10-20T10:18:05.2129422Z ##[group]Run actions/checkout@v4
+2026-10-20T10:18:05.2130448Z with:
+2026-10-20T10:18:05.2130926Z   repository: maccam912/racinggame
+2026-10-20T10:18:05.2134981Z   token: ***
+2026-10-20T10:18:05.2135488Z   ssh-strict: true
+2026-10-20T10:18:05.2135936Z   ssh-user: git
+2026-10-20T10:18:05.2136379Z   persist-credentials: true
+2026-10-20T10:18:05.2136871Z   clean: true
+2026-10-20T10:18:05.2137310Z   sparse-checkout-cone-mode: true
+2026-10-20T10:18:05.2137819Z   fetch-depth: 1
+2026-10-20T10:18:05.2138236Z   fetch-tags: false
+2026-10-20T10:18:05.2138688Z   show-progress: true
+2026-10-20T10:18:05.2139123Z   lfs: false
+2026-10-20T10:18:05.2139523Z   submodules: false
+2026-10-20T10:18:05.2139962Z   set-safe-directory: true
+2026-10-20T10:18:05.2140456Z   allow-unsafe-pr-checkout: false
+2026-10-20T10:18:05.2141326Z ##[endgroup]
+2026-10-20T10:18:05.3382348Z Syncing repository: maccam912/racinggame
+2026-10-20T10:18:05.3384379Z ##[group]Getting Git version info
+2026-10-20T10:18:05.3385779Z Working directory is '/home/runner/work/racinggame/racinggame'
+2026-10-20T10:18:05.3386837Z [command]/usr/bin/git version
+2026-10-20T10:18:05.3537383Z git version 2.55.0
+2026-10-20T10:18:05.3558432Z ##[endgroup]
+2026-10-20T10:18:05.3600669Z Temporarily overriding HOME='/home/runner/work/_temp/65b93cc0-985e-4755-bb1a-031cc1796651' before making global git config changes
+2026-10-20T10:18:05.3603642Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T10:18:05.3607628Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/racinggame/racinggame
+2026-10-20T10:18:05.3662512Z Deleting the contents of '/home/runner/work/racinggame/racinggame'
+2026-10-20T10:18:05.3668023Z ##[group]Initializing the repository
+2026-10-20T10:18:05.3682657Z [command]/usr/bin/git init /home/runner/work/racinggame/racinggame
+2026-10-20T10:18:05.3828070Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-20T10:18:05.3830211Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-20T10:18:05.3832482Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-20T10:18:05.3834522Z hint: call:
+2026-10-20T10:18:05.3835821Z hint:
+2026-10-20T10:18:05.3837257Z hint: 	git config --global init.defaultBranch <name>
+2026-10-20T10:18:05.3838836Z hint:
+2026-10-20T10:18:05.3839878Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-20T10:18:05.3841406Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-20T10:18:05.3842690Z hint:
+2026-10-20T10:18:05.3843403Z hint: 	git branch -m <name>
+2026-10-20T10:18:05.3844212Z hint:
+2026-10-20T10:18:05.3845692Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-20T10:18:05.3847484Z Initialized empty Git repository in /home/runner/work/racinggame/racinggame/.git/
+2026-10-20T10:18:05.3850315Z [command]/usr/bin/git remote add origin https://github.com/maccam912/racinggame
+2026-10-20T10:18:05.3913531Z ##[endgroup]
+2026-10-20T10:18:05.3915153Z ##[group]Disabling automatic garbage collection
+2026-10-20T10:18:05.3918997Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-20T10:18:05.3966840Z ##[endgroup]
+2026-10-20T10:18:05.3967629Z ##[group]Setting up auth
+2026-10-20T10:18:05.3968392Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T10:18:05.4003018Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T10:18:05.5417577Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T10:18:05.5456140Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T10:18:05.5685746Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T10:18:05.5724576Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T10:18:05.5949615Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-20T10:18:05.5992117Z ##[endgroup]
+2026-10-20T10:18:05.5993448Z ##[group]Fetching the repository
+2026-10-20T10:18:05.6002125Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +b92a53f86f280ed266ea7debfa2db5c358652f47:refs/remotes/origin/main
+2026-10-20T10:18:22.8250617Z From https://github.com/maccam912/racinggame
+2026-10-20T10:18:22.8252319Z  * [new ref]         b92a53f86f280ed266ea7debfa2db5c358652f47 -> origin/main
+2026-10-20T10:18:22.8256282Z ##[endgroup]
+2026-10-20T10:18:22.8257662Z ##[group]Determining the checkout info
+2026-10-20T10:18:22.8259170Z ##[endgroup]
+2026-10-20T10:18:22.8264200Z [command]/usr/bin/git sparse-checkout disable
+2026-10-20T10:18:22.8330409Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-20T10:18:22.8365970Z ##[group]Checking out the ref
+2026-10-20T10:18:22.8371748Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-10-20T10:18:23.8688166Z Updating files:  30% (1747/5771)
+2026-10-20T10:18:23.8772734Z Updating files:  31% (1790/5771)
+2026-10-20T10:18:23.8794175Z Updating files:  32% (1847/5771)
+2026-10-20T10:18:23.9037822Z Updating files:  33% (1905/5771)
+2026-10-20T10:18:23.9627020Z Updating files:  34% (1963/5771)
+2026-10-20T10:18:23.9986620Z Updating files:  35% (2020/5771)
+2026-10-20T10:18:24.0073290Z Updating files:  36% (2078/5771)
+2026-10-20T10:18:24.0094032Z Updating files:  37% (2136/5771)
+2026-10-20T10:18:24.0131554Z Updating files:  38% (2193/5771)
+2026-10-20T10:18:24.0274105Z Updating files:  39% (2251/5771)
+2026-10-20T10:18:24.0294090Z Updating files:  40% (2309/5771)
+2026-10-20T10:18:24.0319691Z Updating files:  41% (2367/5771)
+2026-10-20T10:18:24.0340624Z Updating files:  42% (2424/5771)
+2026-10-20T10:18:24.0371970Z Updating files:  43% (2482/5771)
+2026-10-20T10:18:24.0496185Z Updating files:  44% (2540/5771)
+2026-10-20T10:18:24.1301230Z Updating files:  45% (2597/5771)
+2026-10-20T10:18:24.1415954Z Updating files:  46% (2655/5771)
+2026-10-20T10:18:24.1437637Z Updating files:  47% (2713/5771)
+2026-10-20T10:18:24.1680430Z Updating files:  48% (2771/5771)
+2026-10-20T10:18:24.1783246Z Updating files:  49% (2828/5771)
+2026-10-20T10:18:24.1805328Z Updating files:  50% (2886/5771)
+2026-10-20T10:18:24.1827559Z Updating files:  51% (2944/5771)
+2026-10-20T10:18:24.1847811Z Updating files:  52% (3001/5771)
+2026-10-20T10:18:24.1870435Z Updating files:  53% (3059/5771)
+2026-10-20T10:18:24.1895386Z Updating files:  54% (3117/5771)
+2026-10-20T10:18:24.1928216Z Updating files:  55% (3175/5771)
+2026-10-20T10:18:24.1949805Z Updating files:  56% (3232/5771)
+2026-10-20T10:18:24.2453042Z Updating files:  57% (3290/5771)
+2026-10-20T10:18:24.2872470Z Updating files:  58% (3348/5771)
+2026-10-20T10:18:24.2999892Z Updating files:  59% (3405/5771)
+2026-10-20T10:18:24.3279211Z Updating files:  60% (3463/5771)
+2026-10-20T10:18:24.3349818Z Updating files:  61% (3521/5771)
+2026-10-20T10:18:24.3452805Z Updating files:  62% (3579/5771)
+2026-10-20T10:18:24.3948285Z Updating files:  63% (3636/5771)
+2026-10-20T10:18:24.4402348Z Updating files:  64% (3694/5771)
+2026-10-20T10:18:24.5307633Z Updating files:  65% (3752/5771)
+2026-10-20T10:18:24.6105731Z Updating files:  66% (3809/5771)
+2026-10-20T10:18:24.6504709Z Updating files:  67% (3867/5771)
+2026-10-20T10:18:24.6893045Z Updating files:  68% (3925/5771)
+2026-10-20T10:18:24.7532545Z Updating files:  69% (3982/5771)
+2026-10-20T10:18:24.7552791Z Updating files:  70% (4040/5771)
+2026-10-20T10:18:24.7755370Z Updating files:  71% (4098/5771)
+2026-10-20T10:18:24.8097008Z Updating files:  72% (4156/5771)
+2026-10-20T10:18:24.8473178Z Updating files:  73% (4213/5771)
+2026-10-20T10:18:24.8605072Z Updating files:  73% (4235/5771)
+2026-10-20T10:18:24.8685377Z Updating files:  74% (4271/5771)
+2026-10-20T10:18:24.8792843Z Updating files:  75% (4329/5771)
+2026-10-20T10:18:24.8937394Z Updating files:  76% (4386/5771)
+2026-10-20T10:18:24.9086580Z Updating files:  77% (4444/5771)
+2026-10-20T10:18:24.9134745Z Updating files:  78% (4502/5771)
+2026-10-20T10:18:24.9185440Z Updating files:  79% (4560/5771)
+2026-10-20T10:18:24.9205328Z Updating files:  80% (4617/5771)
+2026-10-20T10:18:24.9227663Z Updating files:  81% (4675/5771)
+2026-10-20T10:18:24.9247669Z Updating files:  82% (4733/5771)
+2026-10-20T10:18:24.9498596Z Updating files:  83% (4790/5771)
+2026-10-20T10:18:24.9974001Z Updating files:  84% (4848/5771)
+2026-10-20T10:18:25.0049846Z Updating files:  85% (4906/5771)
+2026-10-20T10:18:25.0071863Z Updating files:  86% (4964/5771)
+2026-10-20T10:18:25.0220967Z Updating files:  87% (5021/5771)
+2026-10-20T10:18:25.0245965Z Updating files:  88% (5079/5771)
+2026-10-20T10:18:25.0271719Z Updating files:  89% (5137/5771)
+2026-10-20T10:18:25.0298025Z Updating files:  90% (5194/5771)
+2026-10-20T10:18:25.0326724Z Updating files:  91% (5252/5771)
+2026-10-20T10:18:25.0363653Z Updating files:  92% (5310/5771)
+2026-10-20T10:18:25.0397660Z Updating files:  93% (5368/5771)
+2026-10-20T10:18:25.0439370Z Updating files:  94% (5425/5771)
+2026-10-20T10:18:25.0473092Z Updating files:  95% (5483/5771)
+2026-10-20T10:18:25.0499058Z Updating files:  96% (5541/5771)
+2026-10-20T10:18:25.0529512Z Updating files:  97% (5598/5771)
+2026-10-20T10:18:25.0555694Z Updating files:  98% (5656/5771)
+2026-10-20T10:18:25.0586944Z Updating files:  99% (5714/5771)
+2026-10-20T10:18:25.0587825Z Updating files: 100% (5771/5771)
+2026-10-20T10:18:25.0588247Z Updating files: 100% (5771/5771), done.
+2026-10-20T10:18:25.0657793Z Switched to a new branch 'main'
+2026-10-20T10:18:25.0665292Z branch 'main' set up to track 'origin/main'.
+2026-10-20T10:18:25.0797323Z ##[endgroup]
+2026-10-20T10:18:25.0847575Z [command]/usr/bin/git log -1 --format=%H
+2026-10-20T10:18:25.0877319Z b92a53f86f280ed266ea7debfa2db5c358652f47
+2026-10-20T10:18:25.1158372Z ##[group]Run actions/setup-python@v5
+2026-10-20T10:18:25.1158678Z with:
+2026-10-20T10:18:25.1158885Z   python-version: 3.14.7
+2026-10-20T10:18:25.1159130Z   check-latest: false
+2026-10-20T10:18:25.1161485Z   token: ***
+2026-10-20T10:18:25.1161700Z   update-environment: true
+2026-10-20T10:18:25.1161947Z   allow-prereleases: false
+2026-10-20T10:18:25.1162177Z   freethreaded: false
+2026-10-20T10:18:25.1162390Z ##[endgroup]
+2026-10-20T10:18:25.2473765Z ##[group]Installed versions
+2026-10-20T10:18:25.2493510Z Version 3.14.7 was not found in the local cache
+2026-10-20T10:18:25.2604365Z (node:2214) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T10:18:25.2606057Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T10:18:26.1041116Z Version 3.14.7 is available for downloading
+2026-10-20T10:18:26.1042490Z Download from "https://github.com/actions/python-versions/releases/download/3.14.7-31064857500/python-3.14.7-linux-24.04-x64.tar.gz"
+2026-10-20T10:18:27.0985432Z Extract downloaded archive
+2026-10-20T10:18:27.1103725Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/71227f7a-ec22-4e8d-84f1-dbf768656eb6 -f /home/runner/work/_temp/dd359a1f-62cb-409f-b785-64b474b70aa1
+2026-10-20T10:18:29.5324065Z Execute installation script
+2026-10-20T10:18:29.5419350Z Check if Python hostedtoolcache folder exist...
+2026-10-20T10:18:29.5419861Z Create Python 3.14.7 folder
+2026-10-20T10:18:29.5435170Z Copy Python binaries to hostedtoolcache folder
+2026-10-20T10:18:30.1115800Z Create additional symlinks (Required for the UsePythonVersion Azure Pipelines task and the setup-python GitHub Action)
+2026-10-20T10:18:30.1161510Z Upgrading pip...
+2026-10-20T10:18:32.2595204Z Collecting pip
+2026-10-20T10:18:32.3401064Z Downloading pip-26.2.1-py3-none-any.whl.metadata (4.6 kB)
+2026-10-20T10:18:32.3601177Z Downloading pip-26.2.1-py3-none-any.whl (1.8 MB)
+2026-10-20T10:18:32.5558186Z ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.8/1.8 MB 10.6 MB/s  0:00:00
+2026-10-20T10:18:32.5559091Z 
+2026-10-20T10:18:32.6677466Z Installing collected packages: pip
+2026-10-20T10:18:32.6678089Z Attempting uninstall: pip
+2026-10-20T10:18:32.6700813Z Found existing installation: pip 26.2.1
+2026-10-20T10:18:32.7033237Z Uninstalling pip-26.2.1:
+2026-10-20T10:18:32.7094312Z Successfully uninstalled pip-26.2.1
+2026-10-20T10:18:33.8304326Z Successfully installed pip-26.2.1
+2026-10-20T10:18:33.8977196Z Create complete file
+2026-10-20T10:18:33.9025518Z Successfully set up CPython (3.14.7)
+2026-10-20T10:18:33.9026300Z ##[endgroup]
+2026-10-20T10:18:33.9779967Z ##[group]Run actions/cache@v4
+2026-10-20T10:18:33.9780243Z with:
+2026-10-20T10:18:33.9780482Z   path: ~/.cache/pacific-rush/toolchain
+2026-10-20T10:18:33.9780923Z   key: godot-linux-2f023a374c20851e8ba46e838b193742e27d142b6518181f73b0e60694f5e5e5
+2026-10-20T10:18:33.9781367Z   enableCrossOsArchive: false
+2026-10-20T10:18:33.9781622Z   fail-on-cache-miss: false
+2026-10-20T10:18:33.9781856Z   lookup-only: false
+2026-10-20T10:18:33.9782060Z   save-always: false
+2026-10-20T10:18:33.9782265Z env:
+2026-10-20T10:18:33.9782511Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:33.9782962Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib/pkgconfig
+2026-10-20T10:18:33.9783381Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:33.9783762Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:33.9784133Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:33.9784553Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib
+2026-10-20T10:18:33.9785291Z ##[endgroup]
+2026-10-20T10:18:34.0865637Z (node:2310) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T10:18:34.0866588Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T10:18:34.2400949Z Cache hit for: godot-linux-2f023a374c20851e8ba46e838b193742e27d142b6518181f73b0e60694f5e5e5
+2026-10-20T10:18:34.2517407Z (node:2310) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-20T10:18:35.4236507Z Received 67108864 of 141600740 (47.4%), 63.9 MBs/sec
+2026-10-20T10:18:36.4248230Z Received 130023424 of 141600740 (91.8%), 61.9 MBs/sec
+2026-10-20T10:18:37.4251924Z Received 130023424 of 141600740 (91.8%), 41.3 MBs/sec
+2026-10-20T10:18:38.4256259Z Received 137406436 of 141600740 (97.0%), 32.7 MBs/sec
+2026-10-20T10:18:39.4257379Z Received 137406436 of 141600740 (97.0%), 26.2 MBs/sec
+2026-10-20T10:18:39.9844579Z Received 141600740 of 141600740 (100.0%), 24.3 MBs/sec
+2026-10-20T10:18:39.9847855Z Cache Size: ~135 MB (141600740 B)
+2026-10-20T10:18:39.9958556Z [command]/usr/bin/tar -xf /home/runner/work/_temp/24af419f-2982-4a29-a80e-42db383e5489/cache.tzst -P -C /home/runner/work/racinggame/racinggame --use-compress-program unzstd
+2026-10-20T10:18:40.2757831Z Cache restored successfully
+2026-10-20T10:18:40.2904265Z Cache restored from key: godot-linux-2f023a374c20851e8ba46e838b193742e27d142b6518181f73b0e60694f5e5e5
+2026-10-20T10:18:40.3030075Z ##[group]Run python tools/godot.py --headless --editor --import --quit
+2026-10-20T10:18:40.3030684Z [36;1mpython tools/godot.py --headless --editor --import --quit[0m
+2026-10-20T10:18:40.3315364Z shell: /usr/bin/bash -e {0}
+2026-10-20T10:18:40.3315683Z env:
+2026-10-20T10:18:40.3316013Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:40.3316554Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib/pkgconfig
+2026-10-20T10:18:40.3317116Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:40.3317575Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:40.3318029Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:40.3318485Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib
+2026-10-20T10:18:40.3318876Z ##[endgroup]
+2026-10-20T10:18:40.4500203Z Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+2026-10-20T10:18:40.5048887Z 
+2026-10-20T10:18:43.9134168Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+2026-10-20T10:18:43.9135791Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+2026-10-20T10:18:43.9173574Z [  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+2026-10-20T10:18:43.9450945Z [  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+2026-10-20T10:18:43.9452024Z [  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+2026-10-20T10:18:43.9453151Z [  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+2026-10-20T10:18:43.9465178Z [  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+2026-10-20T10:18:43.9466201Z [92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+2026-10-20T10:18:43.9466685Z [0m
+2026-10-20T10:18:44.2890277Z [   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (258 steps)[39m[0m
+2026-10-20T10:18:44.2891503Z [   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2892264Z [   0% ] [90m[1mupdate_scripts_classes[22m | AudioLibrary[39m[0m
+2026-10-20T10:18:44.2893044Z [   0% ] [90m[1mupdate_scripts_classes[22m | EngineAudio[39m[0m
+2026-10-20T10:18:44.2893790Z [   1% ] [90m[1mupdate_scripts_classes[22m | GameAudio[39m[0m
+2026-10-20T10:18:44.2894569Z [   1% ] [90m[1mupdate_scripts_classes[22m | RaceAudio[39m[0m
+2026-10-20T10:18:44.2896062Z [   1% ] [90m[1mupdate_scripts_classes[22m | CarDefinition[39m[0m
+2026-10-20T10:18:44.2896829Z [   2% ] [90m[1mupdate_scripts_classes[22m | Catalog[39m[0m
+2026-10-20T10:18:44.2897593Z [   2% ] [90m[1mupdate_scripts_classes[22m | Compatibility[39m[0m
+2026-10-20T10:18:44.2898279Z [   3% ] [90m[1mupdate_scripts_classes[22m | TrackDefinition[39m[0m
+2026-10-20T10:18:44.2898778Z [   3% ] [90m[1mupdate_scripts_classes[22m | BotDriver[39m[0m
+2026-10-20T10:18:44.2899228Z [   3% ] [90m[1mupdate_scripts_classes[22m | CarContact[39m[0m
+2026-10-20T10:18:44.2899669Z [   4% ] [90m[1mupdate_scripts_classes[22m | CupBook[39m[0m
+2026-10-20T10:18:44.2900103Z [   4% ] [90m[1mupdate_scripts_classes[22m | FlatQuery[39m[0m
+2026-10-20T10:18:44.2900535Z [   5% ] [90m[1mupdate_scripts_classes[22m | InputFrame[39m[0m
+2026-10-20T10:18:44.2900958Z [   5% ] [90m[1mupdate_scripts_classes[22m | Medals[39m[0m
+2026-10-20T10:18:44.2901416Z [   5% ] [90m[1mupdate_scripts_classes[22m | ProgressTracker[39m[0m
+2026-10-20T10:18:44.2906298Z [   6% ] [90m[1mupdate_scripts_classes[22m | RaceSession[39m[0m
+2026-10-20T10:18:44.2906789Z [   6% ] [90m[1mupdate_scripts_classes[22m | RaceSetup[39m[0m
+2026-10-20T10:18:44.2907601Z [   6% ] [90m[1mupdate_scripts_classes[22m | SchoolLesson[39m[0m
+2026-10-20T10:18:44.2908400Z [   7% ] [90m[1mupdate_scripts_classes[22m | VehicleSim[39m[0m
+2026-10-20T10:18:44.2909140Z [   7% ] [90m[1mupdate_scripts_classes[22m | VehicleState[39m[0m
+2026-10-20T10:18:44.2910187Z [   8% ] [90m[1mupdate_scripts_classes[22m | DirectoryClient[39m[0m
+2026-10-20T10:18:44.2911037Z [   8% ] [90m[1mupdate_scripts_classes[22m | DirectorySchema[39m[0m
+2026-10-20T10:18:44.2911795Z [   8% ] [90m[1mupdate_scripts_classes[22m | InputBuffer[39m[0m
+2026-10-20T10:18:44.2912524Z [   9% ] [90m[1mupdate_scripts_classes[22m | LobbyState[39m[0m
+2026-10-20T10:18:44.2913267Z [   9% ] [90m[1mupdate_scripts_classes[22m | NetworkClient[39m[0m
+2026-10-20T10:18:44.2914040Z [  10% ] [90m[1mupdate_scripts_classes[22m | NetworkDeparture[39m[0m
+2026-10-20T10:18:44.2915024Z [  10% ] [90m[1mupdate_scripts_classes[22m | NetworkQuality[39m[0m
+2026-10-20T10:18:44.2915800Z [  10% ] [90m[1mupdate_scripts_classes[22m | NetCodec[39m[0m
+2026-10-20T10:18:44.2916509Z [  11% ] [90m[1mupdate_scripts_classes[22m | NetEvents[39m[0m
+2026-10-20T10:18:44.2917222Z [  11% ] [90m[1mupdate_scripts_classes[22m | PeerAddress[39m[0m
+2026-10-20T10:18:44.2917985Z [  11% ] [90m[1mupdate_scripts_classes[22m | PredictionBuffer[39m[0m
+2026-10-20T10:18:44.2918729Z [  12% ] [90m[1mupdate_scripts_classes[22m | RegionBook[39m[0m
+2026-10-20T10:18:44.2919472Z [  12% ] [90m[1mupdate_scripts_classes[22m | ReliableFragments[39m[0m
+2026-10-20T10:18:44.2920226Z [  13% ] [90m[1mupdate_scripts_classes[22m | RemoteBuffer[39m[0m
+2026-10-20T10:18:44.2920944Z [  13% ] [90m[1mupdate_scripts_classes[22m | WirePeer[39m[0m
+2026-10-20T10:18:44.2921687Z [  13% ] [90m[1mupdate_scripts_classes[22m | AdaptiveResolution[39m[0m
+2026-10-20T10:18:44.2922505Z [  14% ] [90m[1mupdate_scripts_classes[22m | AndroidKeyStoreAdapter[39m[0m
+2026-10-20T10:18:44.2923257Z [  14% ] [90m[1mupdate_scripts_classes[22m | AppData[39m[0m
+2026-10-20T10:18:44.2923967Z [  15% ] [90m[1mupdate_scripts_classes[22m | AudioMix[39m[0m
+2026-10-20T10:18:44.2924917Z [  15% ] [90m[1mupdate_scripts_classes[22m | BindingBook[39m[0m
+2026-10-20T10:18:44.2925985Z [  15% ] [90m[1mupdate_scripts_classes[22m | DesktopDisplay[39m[0m
+2026-10-20T10:18:44.2926765Z [  16% ] [90m[1mupdate_scripts_classes[22m | Diagnostics[39m[0m
+2026-10-20T10:18:44.2927587Z [  16% ] [90m[1mupdate_scripts_classes[22m | DiagnosticLog[39m[0m
+2026-10-20T10:18:44.2928429Z [  16% ] [90m[1mupdate_scripts_classes[22m | DrivingHaptics[39m[0m
+2026-10-20T10:18:44.2929251Z [  17% ] [90m[1mupdate_scripts_classes[22m | DrivingInput[39m[0m
+2026-10-20T10:18:44.2930024Z [  17% ] [90m[1mupdate_scripts_classes[22m | GhostCodec[39m[0m
+2026-10-20T10:18:44.2931070Z [  18% ] [90m[1mupdate_scripts_classes[22m | GuestIdentity[39m[0m
+2026-10-20T10:18:44.2931930Z [  18% ] [90m[1mupdate_scripts_classes[22m | GuestIdentityService[39m[0m
+2026-10-20T10:18:44.2932490Z [  18% ] [90m[1mupdate_scripts_classes[22m | MobileRuntime[39m[0m
+2026-10-20T10:18:44.2932910Z [  19% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2933331Z [  19% ] [90m[1mupdate_scripts_classes[22m | PlayerName[39m[0m
+2026-10-20T10:18:44.2933828Z [  20% ] [90m[1mupdate_scripts_classes[22m | ProtectedGuestStore[39m[0m
+2026-10-20T10:18:44.2934275Z [  20% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2935089Z [  20% ] [90m[1mupdate_scripts_classes[22m | RaceArchive[39m[0m
+2026-10-20T10:18:44.2935628Z [  21% ] [90m[1mupdate_scripts_classes[22m | RaceCheckpoint[39m[0m
+2026-10-20T10:18:44.2936100Z [  21% ] [90m[1mupdate_scripts_classes[22m | ResultReceipt[39m[0m
+2026-10-20T10:18:44.2936526Z [  22% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2936931Z [  22% ] [90m[1mupdate_scripts_classes[22m | SaveStore[39m[0m
+2026-10-20T10:18:44.2937393Z [  22% ] [90m[1mupdate_scripts_classes[22m | SettingsCatalog[39m[0m
+2026-10-20T10:18:44.2937867Z [  23% ] [90m[1mupdate_scripts_classes[22m | SettingsRuntime[39m[0m
+2026-10-20T10:18:44.2938289Z [  23% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2938894Z [  23% ] [90m[1mupdate_scripts_classes[22m | TouchDriving[39m[0m
+2026-10-20T10:18:44.2939374Z [  24% ] [90m[1mupdate_scripts_classes[22m | TouchLayoutBook[39m[0m
+2026-10-20T10:18:44.2939898Z [  24% ] [90m[1mupdate_scripts_classes[22m | UnicodeGraphemes[39m[0m
+2026-10-20T10:18:44.2940483Z [  25% ] [90m[1mupdate_scripts_classes[22m | RoomServer[39m[0m
+2026-10-20T10:18:44.2940942Z [  25% ] [90m[1mupdate_scripts_classes[22m | SnapshotEvents[39m[0m
+2026-10-20T10:18:44.2941405Z [  25% ] [90m[1mupdate_scripts_classes[22m | TicketVerifier[39m[0m
+2026-10-20T10:18:44.2941875Z [  26% ] [90m[1mupdate_scripts_classes[22m | WorkerDirectory[39m[0m
+2026-10-20T10:18:44.2961297Z [  26% ] [90m[1mupdate_scripts_classes[22m | WorkerPerformance[39m[0m
+2026-10-20T10:18:44.2962310Z [  27% ] [90m[1mupdate_scripts_classes[22m | BindingsPage[39m[0m
+2026-10-20T10:18:44.2963161Z [  27% ] [90m[1mupdate_scripts_classes[22m | BindingCapture[39m[0m
+2026-10-20T10:18:44.2964008Z [  27% ] [90m[1mupdate_scripts_classes[22m | ChoicePicker[39m[0m
+2026-10-20T10:18:44.2965018Z [  28% ] [90m[1mupdate_scripts_classes[22m | EventMenu[39m[0m
+2026-10-20T10:18:44.2965816Z [  28% ] [90m[1mupdate_scripts_classes[22m | FocusPointer[39m[0m
+2026-10-20T10:18:44.2966572Z [  28% ] [90m[1mupdate_scripts_classes[22m | I18n[39m[0m
+2026-10-20T10:18:44.2967289Z [  29% ] [90m[1mupdate_scripts_classes[22m | LobbyPage[39m[0m
+2026-10-20T10:18:44.2968120Z [  29% ] [90m[1mupdate_scripts_classes[22m | MenuFocusHelp[39m[0m
+2026-10-20T10:18:44.2968770Z [  30% ] [90m[1mupdate_scripts_classes[22m | MenuRepeat[39m[0m
+2026-10-20T10:18:44.2969404Z [  30% ] [90m[1mupdate_scripts_classes[22m | MenuScroll[39m[0m
+2026-10-20T10:18:44.2970009Z [  30% ] [90m[1mupdate_scripts_classes[22m | MenuShell[39m[0m
+2026-10-20T10:18:44.2970442Z [  31% ] [90m[1mupdate_scripts_classes[22m | MenuStage[39m[0m
+2026-10-20T10:18:44.2970910Z [  31% ] [90m[1mupdate_scripts_classes[22m | NetworkStatusRow[39m[0m
+2026-10-20T10:18:44.2971626Z [  32% ] [90m[1mupdate_scripts_classes[22m | OnlinePage[39m[0m
+2026-10-20T10:18:44.2972121Z [  32% ] [90m[1mupdate_scripts_classes[22m | RaceHUD[39m[0m
+2026-10-20T10:18:44.2972581Z [  32% ] [90m[1mupdate_scripts_classes[22m | RaceNameplates[39m[0m
+2026-10-20T10:18:44.2973048Z [  33% ] [90m[1mupdate_scripts_classes[22m | RoutePreview[39m[0m
+2026-10-20T10:18:44.2973750Z [  33% ] [90m[1mupdate_scripts_classes[22m | SchoolInputDemo[39m[0m
+2026-10-20T10:18:44.2974236Z [  33% ] [90m[1mupdate_scripts_classes[22m | SchoolOverlay[39m[0m
+2026-10-20T10:18:44.2975219Z [  34% ] [90m[1mupdate_scripts_classes[22m | SettingsPage[39m[0m
+2026-10-20T10:18:44.2975988Z [  34% ] [90m[1mupdate_scripts_classes[22m | TouchLayoutEditor[39m[0m
+2026-10-20T10:18:44.2976546Z [  35% ] [90m[1mupdate_scripts_classes[22m | TrialDelta[39m[0m
+2026-10-20T10:18:44.2976985Z [  35% ] [90m[1mupdate_scripts_classes[22m | UIFactory[39m[0m
+2026-10-20T10:18:44.2977421Z [  35% ] [90m[1mupdate_scripts_classes[22m | UIIcons[39m[0m
+2026-10-20T10:18:44.2978116Z [  36% ] [90m[1mupdate_scripts_classes[22m | BillboardArt[39m[0m
+2026-10-20T10:18:44.2978589Z [  36% ] [90m[1mupdate_scripts_classes[22m | CarVisual[39m[0m
+2026-10-20T10:18:44.2979033Z [  37% ] [90m[1mupdate_scripts_classes[22m | ChaseCamera[39m[0m
+2026-10-20T10:18:44.2979473Z [  37% ] [90m[1mupdate_scripts_classes[22m | CourseArt[39m[0m
+2026-10-20T10:18:44.2980203Z [  37% ] [90m[1mupdate_scripts_classes[22m | CourseDecor[39m[0m
+2026-10-20T10:18:44.2980693Z [  38% ] [90m[1mupdate_scripts_classes[22m | CourseRoadMesh[39m[0m
+2026-10-20T10:18:44.2981175Z [  38% ] [90m[1mupdate_scripts_classes[22m | CourseSetPieces[39m[0m
+2026-10-20T10:18:44.2981773Z [  38% ] [90m[1mupdate_scripts_classes[22m | CourseSpectacles[39m[0m
+2026-10-20T10:18:44.2982378Z [  39% ] [90m[1mupdate_scripts_classes[22m | RaceFeedback[39m[0m
+2026-10-20T10:18:44.2982874Z [  39% ] [90m[1mupdate_scripts_classes[22m | RoadsidePosterArt[39m[0m
+2026-10-20T10:18:44.2983597Z [  40% ] [90m[1mupdate_scripts_classes[22m | RouteCollision[39m[0m
+2026-10-20T10:18:44.2984317Z [  40% ] [90m[1mupdate_scripts_classes[22m | RouteGeometry[39m[0m
+2026-10-20T10:18:44.2985079Z [  40% ] [90m[1mupdate_scripts_classes[22m | RouteLandmark[39m[0m
+2026-10-20T10:18:44.2985570Z [  41% ] [90m[1mupdate_scripts_classes[22m | ShaderWarmup[39m[0m
+2026-10-20T10:18:44.2986371Z [  41% ] [90m[1mupdate_scripts_classes[22m | TrackLoader[39m[0m
+2026-10-20T10:18:44.2986924Z [  42% ] [90m[1mupdate_scripts_classes[22m | TrackWorld[39m[0m
+2026-10-20T10:18:44.2987410Z [  42% ] [90m[1mupdate_scripts_classes[22m | WaterworksDetail[39m[0m
+2026-10-20T10:18:44.2988106Z [  42% ] [90m[1mupdate_scripts_classes[22m | WorldPresentation[39m[0m
+2026-10-20T10:18:44.2988778Z [  43% ] [90m[1mupdate_scripts_classes[22m | WorldQuery[39m[0m
+2026-10-20T10:18:44.2989200Z [  43% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2989608Z [  44% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2990385Z [  44% ] [90m[1mupdate_scripts_classes[22m | RaceDrive[39m[0m
+2026-10-20T10:18:44.2990838Z [  44% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2991216Z [  45% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2991595Z [  45% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2992324Z [  45% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2992753Z [  46% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2993133Z [  46% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2993506Z [  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2994173Z [  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2994935Z [  47% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2995337Z [  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2995717Z [  48% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2996318Z [  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2996940Z [  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2997312Z [  49% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2997681Z [  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2998239Z [  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2999048Z [  50% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2999442Z [  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.2999819Z [  51% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3000566Z [  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3001015Z [  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3001403Z [  52% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3001777Z [  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3002497Z [  53% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3002935Z [  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3003306Z [  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3003676Z [  54% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3004330Z [  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3005072Z [  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3005534Z [  55% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3005914Z [  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3006539Z [  56% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3007238Z [  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3008009Z [  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3008699Z [  57% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3009214Z [  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3009588Z [  58% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3009957Z [  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3010593Z [  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3011112Z [  59% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3011483Z [  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3011850Z [  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3012371Z [  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3012972Z [  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3013349Z [  61% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3013726Z [  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3014181Z [  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3015107Z [  62% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3015520Z [  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3015901Z [  63% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3016351Z [  64% ] [90m[1mupdate_scripts_classes[22m | GrayboxCarVisual[39m[0m
+2026-10-20T10:18:44.3017124Z [  64% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3017660Z [  64% ] [90m[1mupdate_scripts_classes[22m | GrayboxTrackWorld[39m[0m
+2026-10-20T10:18:44.3018100Z [  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3018468Z [  65% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3019115Z [  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3019504Z [  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3019877Z [  66% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3020243Z [  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3020949Z [  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3021358Z [  67% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3021730Z [  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3022096Z [  68% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3023017Z [  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3023402Z [  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3023794Z [  69% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3024300Z [  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3025138Z [  70% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3025536Z [  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3025914Z [  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3026434Z [  71% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3027006Z [  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3027381Z [  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3027750Z [  72% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3028252Z [  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3028826Z [  73% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3029221Z [  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3029589Z [  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3030038Z [  74% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3030747Z [  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3031286Z [  75% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3031666Z [  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3032147Z [  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3032761Z [  76% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3033134Z [  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3033501Z [  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3033958Z [  77% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3034606Z [  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3035174Z [  78% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3035551Z [  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3035935Z [  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3036598Z [  79% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3036990Z [  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3037364Z [  80% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3037737Z [  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3038365Z [  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3038746Z [  81% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3039113Z [  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3039493Z [  82% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3040087Z [  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3040487Z [  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3040855Z [  83% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3041228Z [  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3041737Z [  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3042236Z [  84% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3042628Z [  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3043004Z [  85% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3043455Z [  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3043984Z [  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3044363Z [  86% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3045271Z [  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3045930Z [  87% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3046391Z [  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3046766Z [  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3047143Z [  88% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3047832Z [  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3048230Z [  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3048605Z [  89% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3048979Z [  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3049662Z [  90% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3050054Z [  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3050440Z [  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3050811Z [  91% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3051443Z [  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3051881Z [  92% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3052264Z [  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3052633Z [  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3053500Z [  93% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3053935Z [  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3054316Z [  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3054993Z [  94% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3055543Z [  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3055918Z [  95% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3056311Z [  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3056679Z [  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3057378Z [  96% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3057763Z [  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3058136Z [  97% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3058506Z [  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3059187Z [  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3059566Z [  98% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3059938Z [  99% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-10-20T10:18:44.3060313Z [92m[ DONE ][39m [1mupdate_scripts_classes[22m
+2026-10-20T10:18:44.3060869Z [0m
+2026-10-20T10:18:44.3061350Z [   0% ] [90m[1m_update_scan_actions[22m | Started Scanning actions... (245 steps)[39m[0m
+2026-10-20T10:18:44.3061913Z [   0% ] [90m[1m_update_scan_actions[22m | backdrop.svg[39m[0m
+2026-10-20T10:18:44.3062543Z [   0% ] [90m[1m_update_scan_actions[22m | button.svg[39m[0m
+2026-10-20T10:18:44.3063110Z [   0% ] [90m[1m_update_scan_actions[22m | disabled.svg[39m[0m
+2026-10-20T10:18:44.3063549Z [   1% ] [90m[1m_update_scan_actions[22m | focus.svg[39m[0m
+2026-10-20T10:18:44.3064018Z [   1% ] [90m[1m_update_scan_actions[22m | hover.svg[39m[0m
+2026-10-20T10:18:44.3065096Z [   2% ] [90m[1m_update_scan_actions[22m | pacific-rush-wordmark-v1.png[39m[0m
+2026-10-20T10:18:44.3065629Z [   2% ] [90m[1m_update_scan_actions[22m | panel.svg[39m[0m
+2026-10-20T10:18:44.3066155Z [   2% ] [90m[1m_update_scan_actions[22m | pressed.svg[39m[0m
+2026-10-20T10:18:44.3066891Z [   3% ] [90m[1m_update_scan_actions[22m | effect_asphalt_squeal.ogg[39m[0m
+2026-10-20T10:18:44.3067390Z [   3% ] [90m[1m_update_scan_actions[22m | effect_bump.ogg[39m[0m
+2026-10-20T10:18:44.3067919Z [   4% ] [90m[1m_update_scan_actions[22m | effect_countdown.ogg[39m[0m
+2026-10-20T10:18:44.3068898Z [   4% ] [90m[1m_update_scan_actions[22m | effect_finish.ogg[39m[0m
+2026-10-20T10:18:44.3069370Z [   4% ] [90m[1m_update_scan_actions[22m | effect_go.ogg[39m[0m
+2026-10-20T10:18:44.3070065Z [   5% ] [90m[1m_update_scan_actions[22m | effect_grass_rumble.ogg[39m[0m
+2026-10-20T10:18:44.3070690Z [   5% ] [90m[1m_update_scan_actions[22m | effect_landing.ogg[39m[0m
+2026-10-20T10:18:44.3071169Z [   6% ] [90m[1m_update_scan_actions[22m | effect_lap.ogg[39m[0m
+2026-10-20T10:18:44.3071811Z [   6% ] [90m[1m_update_scan_actions[22m | effect_recovery.ogg[39m[0m
+2026-10-20T10:18:44.3072454Z [   6% ] [90m[1m_update_scan_actions[22m | effect_results.ogg[39m[0m
+2026-10-20T10:18:44.3072948Z [   7% ] [90m[1m_update_scan_actions[22m | effect_sand_rumble.ogg[39m[0m
+2026-10-20T10:18:44.3073620Z [   7% ] [90m[1m_update_scan_actions[22m | effect_ui_back.ogg[39m[0m
+2026-10-20T10:18:44.3074232Z [   8% ] [90m[1m_update_scan_actions[22m | effect_ui_confirm.ogg[39m[0m
+2026-10-20T10:18:44.3074881Z [   8% ] [90m[1m_update_scan_actions[22m | effect_ui_error.ogg[39m[0m
+2026-10-20T10:18:44.3075479Z [   8% ] [90m[1m_update_scan_actions[22m | effect_ui_move.ogg[39m[0m
+2026-10-20T10:18:44.3076194Z [   9% ] [90m[1m_update_scan_actions[22m | effect_wall_heavy.ogg[39m[0m
+2026-10-20T10:18:44.3076687Z [   9% ] [90m[1m_update_scan_actions[22m | effect_wall_light.ogg[39m[0m
+2026-10-20T10:18:44.3077488Z [  10% ] [90m[1m_update_scan_actions[22m | engine_comet_coast.ogg[39m[0m
+2026-10-20T10:18:44.3078244Z [  10% ] [90m[1m_update_scan_actions[22m | engine_comet_high.ogg[39m[0m
+2026-10-20T10:18:44.3078740Z [  10% ] [90m[1m_update_scan_actions[22m | engine_comet_idle.ogg[39m[0m
+2026-10-20T10:18:44.3079381Z [  11% ] [90m[1m_update_scan_actions[22m | engine_comet_low.ogg[39m[0m
+2026-10-20T10:18:44.3080061Z [  11% ] [90m[1m_update_scan_actions[22m | engine_needle_coast.ogg[39m[0m
+2026-10-20T10:18:44.3080578Z [  12% ] [90m[1m_update_scan_actions[22m | engine_needle_high.ogg[39m[0m
+2026-10-20T10:18:44.3081200Z [  12% ] [90m[1m_update_scan_actions[22m | engine_needle_idle.ogg[39m[0m
+2026-10-20T10:18:44.3081892Z [  13% ] [90m[1m_update_scan_actions[22m | engine_needle_low.ogg[39m[0m
+2026-10-20T10:18:44.3082402Z [  13% ] [90m[1m_update_scan_actions[22m | engine_sunset_coast.ogg[39m[0m
+2026-10-20T10:18:44.3083016Z [  13% ] [90m[1m_update_scan_actions[22m | engine_sunset_high.ogg[39m[0m
+2026-10-20T10:18:44.3083713Z [  14% ] [90m[1m_update_scan_actions[22m | engine_sunset_idle.ogg[39m[0m
+2026-10-20T10:18:44.3084213Z [  14% ] [90m[1m_update_scan_actions[22m | engine_sunset_low.ogg[39m[0m
+2026-10-20T10:18:44.3084996Z [  15% ] [90m[1m_update_scan_actions[22m | engine_switch_coast.ogg[39m[0m
+2026-10-20T10:18:44.3085692Z [  15% ] [90m[1m_update_scan_actions[22m | engine_switch_high.ogg[39m[0m
+2026-10-20T10:18:44.3086185Z [  15% ] [90m[1m_update_scan_actions[22m | engine_switch_idle.ogg[39m[0m
+2026-10-20T10:18:44.3086687Z [  16% ] [90m[1m_update_scan_actions[22m | engine_switch_low.ogg[39m[0m
+2026-10-20T10:18:44.3087409Z [  16% ] [90m[1m_update_scan_actions[22m | music_citrus_pass.ogg[39m[0m
+2026-10-20T10:18:44.3088033Z [  17% ] [90m[1m_update_scan_actions[22m | music_marina_lights.ogg[39m[0m
+2026-10-20T10:18:44.3088508Z [  17% ] [90m[1m_update_scan_actions[22m | music_menu.ogg[39m[0m
+2026-10-20T10:18:44.3089075Z [  17% ] [90m[1m_update_scan_actions[22m | music_pacific_summit.ogg[39m[0m
+2026-10-20T10:18:44.3089820Z [  18% ] [90m[1m_update_scan_actions[22m | music_palm_bay.ogg[39m[0m
+2026-10-20T10:18:44.3090309Z [  18% ] [90m[1m_update_scan_actions[22m | music_redwood_run.ogg[39m[0m
+2026-10-20T10:18:44.3090814Z [  19% ] [90m[1m_update_scan_actions[22m | music_sunstone_canyon.ogg[39m[0m
+2026-10-20T10:18:44.3091630Z [  19% ] [90m[1m_update_scan_actions[22m | voice_final_lap.ogg[39m[0m
+2026-10-20T10:18:44.3092114Z [  19% ] [90m[1m_update_scan_actions[22m | voice_finish.ogg[39m[0m
+2026-10-20T10:18:44.3092744Z [  20% ] [90m[1m_update_scan_actions[22m | voice_go.ogg[39m[0m
+2026-10-20T10:18:44.3093575Z [  20% ] [90m[1m_update_scan_actions[22m | voice_new_best_time.ogg[39m[0m
+2026-10-20T10:18:44.3094074Z [  21% ] [90m[1m_update_scan_actions[22m | voice_one.ogg[39m[0m
+2026-10-20T10:18:44.3094522Z [  21% ] [90m[1m_update_scan_actions[22m | voice_three.ogg[39m[0m
+2026-10-20T10:18:44.3095448Z [  21% ] [90m[1m_update_scan_actions[22m | voice_two.ogg[39m[0m
+2026-10-20T10:18:44.3096070Z [  22% ] [90m[1m_update_scan_actions[22m | voice_wrong_way.ogg[39m[0m
+2026-10-20T10:18:44.3096550Z [  22% ] [90m[1m_update_scan_actions[22m | grass-v1.png[39m[0m
+2026-10-20T10:18:44.3097009Z [  23% ] [90m[1m_update_scan_actions[22m | orchard-v1.png[39m[0m
+2026-10-20T10:18:44.3097788Z [  23% ] [90m[1m_update_scan_actions[22m | palm-v1.png[39m[0m
+2026-10-20T10:18:44.3098261Z [  23% ] [90m[1m_update_scan_actions[22m | redwood-v1.png[39m[0m
+2026-10-20T10:18:44.3098757Z [  24% ] [90m[1m_update_scan_actions[22m | shrub-v1.png[39m[0m
+2026-10-20T10:18:44.3099297Z [  24% ] [90m[1m_update_scan_actions[22m | icon_16x16.png[39m[0m
+2026-10-20T10:18:44.3099964Z [  25% ] [90m[1m_update_scan_actions[22m | icon_16x16@2x.png[39m[0m
+2026-10-20T10:18:44.3100424Z [  25% ] [90m[1m_update_scan_actions[22m | icon_32x32.png[39m[0m
+2026-10-20T10:18:44.3101032Z [  26% ] [90m[1m_update_scan_actions[22m | icon_32x32@2x.png[39m[0m
+2026-10-20T10:18:44.3101852Z [  26% ] [90m[1m_update_scan_actions[22m | icon_128x128.png[39m[0m
+2026-10-20T10:18:44.3102344Z [  26% ] [90m[1m_update_scan_actions[22m | icon_128x128@2x.png[39m[0m
+2026-10-20T10:18:44.3102802Z [  27% ] [90m[1m_update_scan_actions[22m | icon_256x256.png[39m[0m
+2026-10-20T10:18:44.3103530Z [  27% ] [90m[1m_update_scan_actions[22m | icon_256x256@2x.png[39m[0m
+2026-10-20T10:18:44.3104077Z [  28% ] [90m[1m_update_scan_actions[22m | icon_512x512.png[39m[0m
+2026-10-20T10:18:44.3106393Z [  28% ] [90m[1m_update_scan_actions[22m | icon_512x512@2x.png[39m[0m
+2026-10-20T10:18:44.3108207Z [  28% ] [90m[1m_update_scan_actions[22m | adaptive-background.png[39m[0m
+2026-10-20T10:18:44.3110211Z [  29% ] [90m[1m_update_scan_actions[22m | adaptive-background.svg[39m[0m
+2026-10-20T10:18:44.3112201Z [  29% ] [90m[1m_update_scan_actions[22m | adaptive-foreground.png[39m[0m
+2026-10-20T10:18:44.3114226Z [  30% ] [90m[1m_update_scan_actions[22m | adaptive-foreground.svg[39m[0m
+2026-10-20T10:18:44.3116582Z [  30% ] [90m[1m_update_scan_actions[22m | adaptive-monochrome.png[39m[0m
+2026-10-20T10:18:44.3118571Z [  30% ] [90m[1m_update_scan_actions[22m | adaptive-monochrome.svg[39m[0m
+2026-10-20T10:18:44.3120469Z [  31% ] [90m[1m_update_scan_actions[22m | desktop-16.png[39m[0m
+2026-10-20T10:18:44.3122428Z [  31% ] [90m[1m_update_scan_actions[22m | desktop-24.png[39m[0m
+2026-10-20T10:18:44.3124348Z [  32% ] [90m[1m_update_scan_actions[22m | desktop-32.png[39m[0m
+2026-10-20T10:18:44.3126649Z [  32% ] [90m[1m_update_scan_actions[22m | desktop-48.png[39m[0m
+2026-10-20T10:18:44.3128541Z [  32% ] [90m[1m_update_scan_actions[22m | desktop-64.png[39m[0m
+2026-10-20T10:18:44.3130590Z [  33% ] [90m[1m_update_scan_actions[22m | desktop-128.png[39m[0m
+2026-10-20T10:18:44.3132652Z [  33% ] [90m[1m_update_scan_actions[22m | desktop-192.png[39m[0m
+2026-10-20T10:18:44.3134988Z [  34% ] [90m[1m_update_scan_actions[22m | desktop-256.png[39m[0m
+2026-10-20T10:18:44.3137256Z [  34% ] [90m[1m_update_scan_actions[22m | desktop-512.png[39m[0m
+2026-10-20T10:18:44.3139236Z [  34% ] [90m[1m_update_scan_actions[22m | desktop-1024.png[39m[0m
+2026-10-20T10:18:44.3141191Z [  35% ] [90m[1m_update_scan_actions[22m | store-512.png[39m[0m
+2026-10-20T10:18:44.3143133Z [  35% ] [90m[1m_update_scan_actions[22m | store.svg[39m[0m
+2026-10-20T10:18:44.3145418Z [  36% ] [90m[1m_update_scan_actions[22m | comet.glb[39m[0m
+2026-10-20T10:18:44.3147420Z [  36% ] [90m[1m_update_scan_actions[22m | needle.glb[39m[0m
+2026-10-20T10:18:44.3149281Z [  36% ] [90m[1m_update_scan_actions[22m | sunset.glb[39m[0m
+2026-10-20T10:18:44.3151162Z [  37% ] [90m[1m_update_scan_actions[22m | switch.glb[39m[0m
+2026-10-20T10:18:44.3153272Z [  37% ] [90m[1m_update_scan_actions[22m | waterfall-v1.png[39m[0m
+2026-10-20T10:18:44.3155433Z [  38% ] [90m[1m_update_scan_actions[22m | action_accelerate.svg[39m[0m
+2026-10-20T10:18:44.3172292Z [  38% ] [90m[1m_update_scan_actions[22m | action_brake.svg[39m[0m
+2026-10-20T10:18:44.3173216Z [  39% ] [90m[1m_update_scan_actions[22m | action_camera.svg[39m[0m
+2026-10-20T10:18:44.3174108Z [  39% ] [90m[1m_update_scan_actions[22m | action_handbrake.svg[39m[0m
+2026-10-20T10:18:44.3175282Z [  39% ] [90m[1m_update_scan_actions[22m | action_look_back.svg[39m[0m
+2026-10-20T10:18:44.3176174Z [  40% ] [90m[1m_update_scan_actions[22m | action_pause.svg[39m[0m
+2026-10-20T10:18:44.3177074Z [  40% ] [90m[1m_update_scan_actions[22m | action_recover.svg[39m[0m
+2026-10-20T10:18:44.3177973Z [  41% ] [90m[1m_update_scan_actions[22m | action_steer_left.svg[39m[0m
+2026-10-20T10:18:44.3178907Z [  41% ] [90m[1m_update_scan_actions[22m | action_steer_right.svg[39m[0m
+2026-10-20T10:18:44.3179861Z [  41% ] [90m[1m_update_scan_actions[22m | action_ui_accept.svg[39m[0m
+2026-10-20T10:18:44.3180775Z [  42% ] [90m[1m_update_scan_actions[22m | action_ui_cancel.svg[39m[0m
+2026-10-20T10:18:44.3181936Z [  42% ] [90m[1m_update_scan_actions[22m | action_ui_down.svg[39m[0m
+2026-10-20T10:18:44.3182889Z [  43% ] [90m[1m_update_scan_actions[22m | action_ui_left.svg[39m[0m
+2026-10-20T10:18:44.3183821Z [  43% ] [90m[1m_update_scan_actions[22m | action_ui_right.svg[39m[0m
+2026-10-20T10:18:44.3185918Z [  43% ] [90m[1m_update_scan_actions[22m | action_ui_up.svg[39m[0m
+2026-10-20T10:18:44.3188179Z [  44% ] [90m[1m_update_scan_actions[22m | car_comet.svg[39m[0m
+2026-10-20T10:18:44.3190332Z [  44% ] [90m[1m_update_scan_actions[22m | car_needle.svg[39m[0m
+2026-10-20T10:18:44.3191816Z [  45% ] [90m[1m_update_scan_actions[22m | car_sunset.svg[39m[0m
+2026-10-20T10:18:44.3194063Z [  45% ] [90m[1m_update_scan_actions[22m | car_switch.svg[39m[0m
+2026-10-20T10:18:44.3196471Z [  45% ] [90m[1m_update_scan_actions[22m | connection_caution.svg[39m[0m
+2026-10-20T10:18:44.3198754Z [  46% ] [90m[1m_update_scan_actions[22m | connection_good.svg[39m[0m
+2026-10-20T10:18:44.3200895Z [  46% ] [90m[1m_update_scan_actions[22m | connection_poor.svg[39m[0m
+2026-10-20T10:18:44.3203077Z [  47% ] [90m[1m_update_scan_actions[22m | medal_bronze.svg[39m[0m
+2026-10-20T10:18:44.3205193Z [  47% ] [90m[1m_update_scan_actions[22m | medal_gold.svg[39m[0m
+2026-10-20T10:18:44.3207602Z [  47% ] [90m[1m_update_scan_actions[22m | medal_none.svg[39m[0m
+2026-10-20T10:18:44.3209788Z [  48% ] [90m[1m_update_scan_actions[22m | medal_silver.svg[39m[0m
+2026-10-20T10:18:44.3211988Z [  48% ] [90m[1m_update_scan_actions[22m | menu_credits.svg[39m[0m
+2026-10-20T10:18:44.3214168Z [  49% ] [90m[1m_update_scan_actions[22m | menu_cup.svg[39m[0m
+2026-10-20T10:18:44.3216611Z [  49% ] [90m[1m_update_scan_actions[22m | menu_garage.svg[39m[0m
+2026-10-20T10:18:44.3218765Z [  50% ] [90m[1m_update_scan_actions[22m | menu_online.svg[39m[0m
+2026-10-20T10:18:44.3220952Z [  50% ] [90m[1m_update_scan_actions[22m | menu_quick.svg[39m[0m
+2026-10-20T10:18:44.3223131Z [  50% ] [90m[1m_update_scan_actions[22m | menu_quit.svg[39m[0m
+2026-10-20T10:18:44.3225329Z [  51% ] [90m[1m_update_scan_actions[22m | menu_school.svg[39m[0m
+2026-10-20T10:18:44.3227681Z [  51% ] [90m[1m_update_scan_actions[22m | menu_settings.svg[39m[0m
+2026-10-20T10:18:44.3229815Z [  52% ] [90m[1m_update_scan_actions[22m | menu_trial.svg[39m[0m
+2026-10-20T10:18:44.3232083Z [  52% ] [90m[1m_update_scan_actions[22m | paint_0.svg[39m[0m
+2026-10-20T10:18:44.3234235Z [  52% ] [90m[1m_update_scan_actions[22m | paint_1.svg[39m[0m
+2026-10-20T10:18:44.3236628Z [  53% ] [90m[1m_update_scan_actions[22m | paint_2.svg[39m[0m
+2026-10-20T10:18:44.3238776Z [  53% ] [90m[1m_update_scan_actions[22m | paint_3.svg[39m[0m
+2026-10-20T10:18:44.3240947Z [  54% ] [90m[1m_update_scan_actions[22m | paint_4.svg[39m[0m
+2026-10-20T10:18:44.3243109Z [  54% ] [90m[1m_update_scan_actions[22m | paint_5.svg[39m[0m
+2026-10-20T10:18:44.3245318Z [  54% ] [90m[1m_update_scan_actions[22m | paint_6.svg[39m[0m
+2026-10-20T10:18:44.3247611Z [  55% ] [90m[1m_update_scan_actions[22m | paint_7.svg[39m[0m
+2026-10-20T10:18:44.3249861Z [  55% ] [90m[1m_update_scan_actions[22m | tab_accessibility.svg[39m[0m
+2026-10-20T10:18:44.3252014Z [  56% ] [90m[1m_update_scan_actions[22m | tab_audio.svg[39m[0m
+2026-10-20T10:18:44.3254194Z [  56% ] [90m[1m_update_scan_actions[22m | tab_controls.svg[39m[0m
+2026-10-20T10:18:44.3256601Z [  56% ] [90m[1m_update_scan_actions[22m | tab_data.svg[39m[0m
+2026-10-20T10:18:44.3258785Z [  57% ] [90m[1m_update_scan_actions[22m | tab_display.svg[39m[0m
+2026-10-20T10:18:44.3260932Z [  57% ] [90m[1m_update_scan_actions[22m | tab_gameplay.svg[39m[0m
+2026-10-20T10:18:44.3263121Z [  58% ] [90m[1m_update_scan_actions[22m | tab_graphics.svg[39m[0m
+2026-10-20T10:18:44.3265319Z [  58% ] [90m[1m_update_scan_actions[22m | tab_touch.svg[39m[0m
+2026-10-20T10:18:44.3267746Z [  58% ] [90m[1m_update_scan_actions[22m | track_caldera_crosscut.svg[39m[0m
+2026-10-20T10:18:44.3270031Z [  59% ] [90m[1m_update_scan_actions[22m | track_citrus_pass.svg[39m[0m
+2026-10-20T10:18:44.3272128Z [  59% ] [90m[1m_update_scan_actions[22m | track_marina_lights.svg[39m[0m
+2026-10-20T10:18:44.3274289Z [  60% ] [90m[1m_update_scan_actions[22m | track_pacific_summit.svg[39m[0m
+2026-10-20T10:18:44.3276674Z [  60% ] [90m[1m_update_scan_actions[22m | track_palm_bay.svg[39m[0m
+2026-10-20T10:18:44.3278952Z [  60% ] [90m[1m_update_scan_actions[22m | track_quarry_switchback.svg[39m[0m
+2026-10-20T10:18:44.3281071Z [  61% ] [90m[1m_update_scan_actions[22m | track_redwood_run.svg[39m[0m
+2026-10-20T10:18:44.3283267Z [  61% ] [90m[1m_update_scan_actions[22m | track_skyline_splice.svg[39m[0m
+2026-10-20T10:18:44.3285414Z [  62% ] [90m[1m_update_scan_actions[22m | track_spillway_sprint.svg[39m[0m
+2026-10-20T10:18:44.3287791Z [  62% ] [90m[1m_update_scan_actions[22m | track_sunstone_canyon.svg[39m[0m
+2026-10-20T10:18:44.3289955Z [  63% ] [90m[1m_update_scan_actions[22m | trophy_bronze.svg[39m[0m
+2026-10-20T10:18:44.3292126Z [  63% ] [90m[1m_update_scan_actions[22m | trophy_gold.svg[39m[0m
+2026-10-20T10:18:44.3294348Z [  63% ] [90m[1m_update_scan_actions[22m | trophy_silver.svg[39m[0m
+2026-10-20T10:18:44.3296960Z [  64% ] [90m[1m_update_scan_actions[22m | caldera-crosscut-v1.png[39m[0m
+2026-10-20T10:18:44.3299098Z [  64% ] [90m[1m_update_scan_actions[22m | citrus-pass-v1.png[39m[0m
+2026-10-20T10:18:44.3301305Z [  65% ] [90m[1m_update_scan_actions[22m | marina-lights-v1.png[39m[0m
+2026-10-20T10:18:44.3303562Z [  65% ] [90m[1m_update_scan_actions[22m | pacific-summit-v1.png[39m[0m
+2026-10-20T10:18:44.3305777Z [  65% ] [90m[1m_update_scan_actions[22m | palm-bay-v1.png[39m[0m
+2026-10-20T10:18:44.3308104Z [  66% ] [90m[1m_update_scan_actions[22m | quarry-switchback-v1.png[39m[0m
+2026-10-20T10:18:44.3310243Z [  66% ] [90m[1m_update_scan_actions[22m | redwood-run-v1.png[39m[0m
+2026-10-20T10:18:44.3312440Z [  67% ] [90m[1m_update_scan_actions[22m | skyline-splice-v1.png[39m[0m
+2026-10-20T10:18:44.3314721Z [  67% ] [90m[1m_update_scan_actions[22m | spillway-sprint-v1.png[39m[0m
+2026-10-20T10:18:44.3317098Z [  67% ] [90m[1m_update_scan_actions[22m | sunstone-canyon-v1.png[39m[0m
+2026-10-20T10:18:44.3319173Z [  68% ] [90m[1m_update_scan_actions[22m | arcade.glb[39m[0m
+2026-10-20T10:18:44.3321272Z [  68% ] [90m[1m_update_scan_actions[22m | balloons.glb[39m[0m
+2026-10-20T10:18:44.3323446Z [  69% ] [90m[1m_update_scan_actions[22m | beach_hotel.glb[39m[0m
+2026-10-20T10:18:44.3325561Z [  69% ] [90m[1m_update_scan_actions[22m | bench.glb[39m[0m
+2026-10-20T10:18:44.3327885Z [  69% ] [90m[1m_update_scan_actions[22m | caldera_crosscut_terrain.glb[39m[0m
+2026-10-20T10:18:44.3329909Z [  70% ] [90m[1m_update_scan_actions[22m | chevron.glb[39m[0m
+2026-10-20T10:18:44.3332191Z [  70% ] [90m[1m_update_scan_actions[22m | citrus_pass_terrain.glb[39m[0m
+2026-10-20T10:18:44.3334286Z [  71% ] [90m[1m_update_scan_actions[22m | coastal_home.glb[39m[0m
+2026-10-20T10:18:44.3336503Z [  71% ] [90m[1m_update_scan_actions[22m | cone.glb[39m[0m
+2026-10-20T10:18:44.3338645Z [  71% ] [90m[1m_update_scan_actions[22m | crate.glb[39m[0m
+2026-10-20T10:18:44.3340783Z [  72% ] [90m[1m_update_scan_actions[22m | dinosaur.glb[39m[0m
+2026-10-20T10:18:44.3342876Z [  72% ] [90m[1m_update_scan_actions[22m | fruit_stand.glb[39m[0m
+2026-10-20T10:18:44.3345050Z [  73% ] [90m[1m_update_scan_actions[22m | giant_tree.glb[39m[0m
+2026-10-20T10:18:44.3347266Z [  73% ] [90m[1m_update_scan_actions[22m | grass.glb[39m[0m
+2026-10-20T10:18:44.3349373Z [  73% ] [90m[1m_update_scan_actions[22m | lighthouse.glb[39m[0m
+2026-10-20T10:18:44.3351491Z [  74% ] [90m[1m_update_scan_actions[22m | marina_hotel.glb[39m[0m
+2026-10-20T10:18:44.3353645Z [  74% ] [90m[1m_update_scan_actions[22m | marina_lights_terrain.glb[39m[0m
+2026-10-20T10:18:44.3355925Z [  75% ] [90m[1m_update_scan_actions[22m | marina_shops.glb[39m[0m
+2026-10-20T10:18:44.3358020Z [  75% ] [90m[1m_update_scan_actions[22m | marina_wheel.glb[39m[0m
+2026-10-20T10:18:44.3360112Z [  76% ] [90m[1m_update_scan_actions[22m | motel_sign.glb[39m[0m
+2026-10-20T10:18:44.3362277Z [  76% ] [90m[1m_update_scan_actions[22m | mountain_lodge.glb[39m[0m
+2026-10-20T10:18:44.3364424Z [  76% ] [90m[1m_update_scan_actions[22m | observatory.glb[39m[0m
+2026-10-20T10:18:44.3366712Z [  77% ] [90m[1m_update_scan_actions[22m | orange_arch.glb[39m[0m
+2026-10-20T10:18:44.3368805Z [  77% ] [90m[1m_update_scan_actions[22m | orchard.glb[39m[0m
+2026-10-20T10:18:44.3370941Z [  78% ] [90m[1m_update_scan_actions[22m | overlook.glb[39m[0m
+2026-10-20T10:18:44.3373193Z [  78% ] [90m[1m_update_scan_actions[22m | pacific_summit_terrain.glb[39m[0m
+2026-10-20T10:18:44.3375241Z [  78% ] [90m[1m_update_scan_actions[22m | packing_shed.glb[39m[0m
+2026-10-20T10:18:44.3377541Z [  79% ] [90m[1m_update_scan_actions[22m | palm.glb[39m[0m
+2026-10-20T10:18:44.3379738Z [  79% ] [90m[1m_update_scan_actions[22m | palm_bay_terrain.glb[39m[0m
+2026-10-20T10:18:44.3381820Z [  80% ] [90m[1m_update_scan_actions[22m | pier.glb[39m[0m
+2026-10-20T10:18:44.3384023Z [  80% ] [90m[1m_update_scan_actions[22m | quarry_switchback_terrain.glb[39m[0m
+2026-10-20T10:18:44.3386378Z [  80% ] [90m[1m_update_scan_actions[22m | rail_trestle.glb[39m[0m
+2026-10-20T10:18:44.3388878Z [  81% ] [90m[1m_update_scan_actions[22m | ranger_kiosk.glb[39m[0m
+2026-10-20T10:18:44.3390902Z [  81% ] [90m[1m_update_scan_actions[22m | redwood.glb[39m[0m
+2026-10-20T10:18:44.3393020Z [  82% ] [90m[1m_update_scan_actions[22m | redwood_run_terrain.glb[39m[0m
+2026-10-20T10:18:44.3395112Z [  82% ] [90m[1m_update_scan_actions[22m | sailboats.glb[39m[0m
+2026-10-20T10:18:44.3397359Z [  82% ] [90m[1m_update_scan_actions[22m | sandstone_rock.glb[39m[0m
+2026-10-20T10:18:44.3399451Z [  83% ] [90m[1m_update_scan_actions[22m | seafood_diner.glb[39m[0m
+2026-10-20T10:18:44.3401487Z [  83% ] [90m[1m_update_scan_actions[22m | shrub.glb[39m[0m
+2026-10-20T10:18:44.3403671Z [  84% ] [90m[1m_update_scan_actions[22m | skyline_splice_terrain.glb[39m[0m
+2026-10-20T10:18:44.3405822Z [  84% ] [90m[1m_update_scan_actions[22m | spillway_sprint_terrain.glb[39m[0m
+2026-10-20T10:18:44.3407945Z [  84% ] [90m[1m_update_scan_actions[22m | streetlight.glb[39m[0m
+2026-10-20T10:18:44.3410011Z [  85% ] [90m[1m_update_scan_actions[22m | summit_peak.glb[39m[0m
+2026-10-20T10:18:44.3412203Z [  85% ] [90m[1m_update_scan_actions[22m | sunstone_canyon_terrain.glb[39m[0m
+2026-10-20T10:18:44.3414207Z [  86% ] [90m[1m_update_scan_actions[22m | sun_sign.glb[39m[0m
+2026-10-20T10:18:44.3416507Z [  86% ] [90m[1m_update_scan_actions[22m | surf_shop.glb[39m[0m
+2026-10-20T10:18:44.3418634Z [  86% ] [90m[1m_update_scan_actions[22m | timber_bridge.glb[39m[0m
+2026-10-20T10:18:44.3420731Z [  87% ] [90m[1m_update_scan_actions[22m | tree_display.glb[39m[0m
+2026-10-20T10:18:44.3422904Z [  87% ] [90m[1m_update_scan_actions[22m | tunnel_portal.glb[39m[0m
+2026-10-20T10:18:44.3425065Z [  88% ] [90m[1m_update_scan_actions[22m | twin_mesas.glb[39m[0m
+2026-10-20T10:18:44.3427316Z [  88% ] [90m[1m_update_scan_actions[22m | umbrella.glb[39m[0m
+2026-10-20T10:18:44.3429437Z [  89% ] [90m[1m_update_scan_actions[22m | underpass.glb[39m[0m
+2026-10-20T10:18:44.3431578Z [  89% ] [90m[1m_update_scan_actions[22m | viaduct.glb[39m[0m
+2026-10-20T10:18:44.3433804Z [  89% ] [90m[1m_update_scan_actions[22m | visitor_center.glb[39m[0m
+2026-10-20T10:18:44.3436136Z [  90% ] [90m[1m_update_scan_actions[22m | warning.glb[39m[0m
+2026-10-20T10:18:44.3438271Z [  90% ] [90m[1m_update_scan_actions[22m | water_tower.glb[39m[0m
+2026-10-20T10:18:44.3440400Z [  91% ] [90m[1m_update_scan_actions[22m | windmill.glb[39m[0m
+2026-10-20T10:18:44.3442583Z [  91% ] [90m[1m_update_scan_actions[22m | cars_atlas.png[39m[0m
+2026-10-20T10:18:44.3445037Z [  91% ] [90m[1m_update_scan_actions[22m | foliage_atlas.png[39m[0m
+2026-10-20T10:18:44.3447432Z [  92% ] [90m[1m_update_scan_actions[22m | props_atlas.png[39m[0m
+2026-10-20T10:18:44.3449577Z [  92% ] [90m[1m_update_scan_actions[22m | scenery_atlas.png[39m[0m
+2026-10-20T10:18:44.3451818Z [  93% ] [90m[1m_update_scan_actions[22m | caldera_crosscut.png[39m[0m
+2026-10-20T10:18:44.3453940Z [  93% ] [90m[1m_update_scan_actions[22m | citrus_pass.png[39m[0m
+2026-10-20T10:18:44.3457011Z [  93% ] [90m[1m_update_scan_actions[22m | marina_lights.png[39m[0m
+2026-10-20T10:18:44.3458885Z [  94% ] [90m[1m_update_scan_actions[22m | pacific_summit.png[39m[0m
+2026-10-20T10:18:44.3460926Z [  94% ] [90m[1m_update_scan_actions[22m | palm_bay.png[39m[0m
+2026-10-20T10:18:44.3463391Z [  95% ] [90m[1m_update_scan_actions[22m | quarry_switchback.png[39m[0m
+2026-10-20T10:18:44.3465421Z [  95% ] [90m[1m_update_scan_actions[22m | redwood_run.png[39m[0m
+2026-10-20T10:18:44.3467692Z [  95% ] [90m[1m_update_scan_actions[22m | skyline_splice.png[39m[0m
+2026-10-20T10:18:44.3469566Z [  96% ] [90m[1m_update_scan_actions[22m | spillway_sprint.png[39m[0m
+2026-10-20T10:18:44.3471882Z [  96% ] [90m[1m_update_scan_actions[22m | sunstone_canyon.png[39m[0m
+2026-10-20T10:18:44.3473516Z [  97% ] [90m[1m_update_scan_actions[22m | icon.svg[39m[0m
+2026-10-20T10:18:44.3475466Z [  97% ] [90m[1m_update_scan_actions[22m | Barlow-SemiBold.ttf[39m[0m
+2026-10-20T10:18:44.3477806Z [  97% ] [90m[1m_update_scan_actions[22m | BarlowCondensed-Bold.ttf[39m[0m
+2026-10-20T10:18:44.3479488Z [  98% ] [90m[1m_update_scan_actions[22m | NotoColorEmoji.ttf[39m[0m
+2026-10-20T10:18:44.3481340Z [  98% ] [90m[1m_update_scan_actions[22m | PacificRushDisplay.ttf[39m[0m
+2026-10-20T10:18:44.3483134Z [  99% ] [90m[1m_update_scan_actions[22m | Rajdhani-SemiBold.ttf[39m[0m
+2026-10-20T10:18:44.3483910Z [92m[ DONE ][39m [1m_update_scan_actions[22m
+2026-10-20T10:18:44.3484460Z [0m
+2026-10-20T10:18:44.3485433Z [   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (245 steps)[39m[0m
+2026-10-20T10:18:44.3486427Z [   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3487369Z [   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3489039Z [   0% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3490610Z [   1% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3492321Z [   1% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3493859Z [   2% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3495599Z [   2% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3497782Z [   2% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3498916Z [   3% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3501020Z [   3% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3502232Z [   4% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3503567Z [   4% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3505452Z [   4% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3507343Z [   5% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3509371Z [   5% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3510446Z [   6% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3512354Z [   6% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3514356Z [   6% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3515492Z [   7% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3517706Z [   7% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3519316Z [   8% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3520577Z [   8% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3522426Z [   8% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3524252Z [   9% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3525495Z [   9% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3527535Z [  10% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3529502Z [  10% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3530751Z [  10% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3532577Z [  11% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3534420Z [  11% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3535686Z [  12% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3537661Z [  12% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3539595Z [  13% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3540668Z [  13% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3542604Z [  13% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3544568Z [  14% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3545967Z [  14% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3547794Z [  15% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3549629Z [  15% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3551456Z [  15% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3552686Z [  16% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3554573Z [  16% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3556651Z [  17% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3558670Z [  17% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3559782Z [  17% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3561693Z [  18% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3563670Z [  18% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3564995Z [  19% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3566953Z [  19% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3568936Z [  19% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3570014Z [  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3571942Z [  20% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3573914Z [  21% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3575233Z [  21% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3577303Z [  21% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3579252Z [  22% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3580323Z [  22% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3582344Z [  23% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3584549Z [  23% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3585616Z [  23% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3587629Z [  24% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3589630Z [  24% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3590883Z [  25% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3592950Z [  25% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3594651Z [  26% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3596963Z [  26% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3598833Z [  26% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3600646Z [  27% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3602741Z [  27% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3603797Z [  28% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3606080Z [  28% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3607896Z [  28% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3609988Z [  29% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3611189Z [  29% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3612997Z [  30% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3615008Z [  30% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3616785Z [  30% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3618072Z [  31% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3619834Z [  31% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3621835Z [  32% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3623228Z [  32% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3624593Z [  32% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3626778Z [  33% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3628810Z [  33% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3630081Z [  34% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3631953Z [  34% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3633976Z [  34% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3635223Z [  35% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3637291Z [  35% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3639312Z [  36% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3640606Z [  36% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3642636Z [  36% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3643747Z [  37% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3645785Z [  37% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3647780Z [  38% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3649821Z [  38% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3650906Z [  39% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3652903Z [  39% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3655081Z [  39% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3656687Z [  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3657913Z [  40% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3659774Z [  41% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3661753Z [  41% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3663032Z [  41% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3664957Z [  42% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3666871Z [  42% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3668914Z [  43% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3670135Z [  43% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3672098Z [  43% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3674090Z [  44% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3675383Z [  44% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3677426Z [  45% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3679452Z [  45% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3680541Z [  45% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3682624Z [  46% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3684518Z [  46% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3686218Z [  47% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3687521Z [  47% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3689316Z [  47% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3691090Z [  48% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3692862Z [  48% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3695077Z [  49% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3696385Z [  49% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3698345Z [  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3700316Z [  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3701570Z [  50% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3703373Z [  51% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3705525Z [  51% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3706999Z [  52% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3708982Z [  52% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3710981Z [  52% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3712055Z [  53% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3714092Z [  53% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3716060Z [  54% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3717891Z [  54% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3719186Z [  54% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3721035Z [  55% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3723089Z [  55% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3725346Z [  56% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3726576Z [  56% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3728397Z [  56% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3730476Z [  57% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3731648Z [  57% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3733681Z [  58% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3735396Z [  58% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3736867Z [  58% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3738715Z [  59% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3740746Z [  59% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3741972Z [  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3743919Z [  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3745937Z [  60% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3747492Z [  61% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3749346Z [  61% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3751439Z [  62% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3752843Z [  62% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3755105Z [  63% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3756947Z [  63% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3758358Z [  63% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3759943Z [  64% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3761348Z [  64% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3762922Z [  65% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3764316Z [  65% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3765849Z [  65% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3767364Z [  66% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3768868Z [  66% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3778382Z [  67% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3779833Z [  67% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3780597Z [  67% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3781696Z [  68% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3782473Z [  68% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3783259Z [  69% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3783849Z [  69% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3784605Z [  69% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3785360Z [  70% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3786215Z [  70% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3787180Z [  71% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3788156Z [  71% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3789158Z [  71% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3790641Z [  72% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3791850Z [  72% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3793234Z [  73% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3794814Z [  73% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3796613Z [  73% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3798005Z [  74% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3799855Z [  74% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3801874Z [  75% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3802945Z [  75% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3804990Z [  76% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3806862Z [  76% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3809245Z [  76% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3811263Z [  77% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3812331Z [  77% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3814226Z [  78% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3816262Z [  78% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3818325Z [  78% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3819513Z [  79% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3820905Z [  79% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3822702Z [  80% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3824596Z [  80% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3826056Z [  80% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3827863Z [  81% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3829834Z [  81% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3830938Z [  82% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3832455Z [  82% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3833775Z [  82% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3835220Z [  83% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3836768Z [  83% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3838174Z [  84% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3839533Z [  84% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3840908Z [  84% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3842316Z [  85% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3843734Z [  85% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3845328Z [  86% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3846722Z [  86% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3848498Z [  86% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3850430Z [  87% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3851564Z [  87% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3853415Z [  88% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3855212Z [  88% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3857098Z [  89% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3859131Z [  89% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3860347Z [  89% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3862255Z [  90% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3864034Z [  90% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3866032Z [  91% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3867914Z [  91% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3869946Z [  91% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3871186Z [  92% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3873038Z [  92% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3874986Z [  93% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3876873Z [  93% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3878894Z [  93% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3880067Z [  94% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3882003Z [  94% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3883779Z [  95% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3885670Z [  95% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3887026Z [  95% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3888906Z [  96% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3890727Z [  96% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3892600Z [  97% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3894310Z [  97% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3896352Z [  97% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3898338Z [  98% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3899589Z [  98% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3900873Z [  99% ] [90m[1mreimport[22m | Preparing files to reimport...[39m[0m
+2026-10-20T10:18:44.3903067Z [   0% ] [90m[1mreimport[22m | Executing pre-reimport operations...[39m[0m
+2026-10-20T10:18:44.3930389Z [   0% ] [90m[1mpreload_reimporting_scene[22m | Started Preparing scenes for reload (1 steps)[39m[0m
+2026-10-20T10:18:44.3931531Z [   0% ] [90m[1mpreload_reimporting_scene[22m | Analyzing scene [empty][39m[0m
+2026-10-20T10:18:44.3934561Z [  50% ] [90m[1mpreload_reimporting_scene[22m | Preparation done.[39m[0m
+2026-10-20T10:18:44.3936030Z [92m[ DONE ][39m [1mpreload_reimporting_scene[22m
+2026-10-20T10:18:44.3936822Z [0m
+2026-10-20T10:18:44.3937655Z [   0% ] [90m[1mreimport[22m | Rajdhani-SemiBold.ttf[39m[0m
+2026-10-20T10:18:44.3975711Z [   0% ] [90m[1mreimport[22m | PacificRushDisplay.ttf[39m[0m
+2026-10-20T10:18:44.3999429Z [   0% ] [90m[1mreimport[22m | NotoColorEmoji.ttf[39m[0m
+2026-10-20T10:18:44.4025845Z [   1% ] [90m[1mreimport[22m | BarlowCondensed-Bold.ttf[39m[0m
+2026-10-20T10:18:44.4035729Z [   1% ] [90m[1mreimport[22m | Barlow-SemiBold.ttf[39m[0m
+2026-10-20T10:18:44.5915890Z res://assets/fonts/NotoColorEmoji.ttf: Pixel font detected, disabling subpixel positioning.
+2026-10-20T10:18:44.6936459Z [   2% ] [90m[1mreimport[22m | Rajdhani-SemiBold.ttf[39m[0m
+2026-10-20T10:18:44.6938026Z [   2% ] [90m[1mreimport[22m | PacificRushDisplay.ttf[39m[0m
+2026-10-20T10:18:44.6950412Z [   2% ] [90m[1mreimport[22m | NotoColorEmoji.ttf[39m[0m
+2026-10-20T10:18:44.7005726Z [   3% ] [90m[1mreimport[22m | BarlowCondensed-Bold.ttf[39m[0m
+2026-10-20T10:18:44.7016378Z [   3% ] [90m[1mreimport[22m | Barlow-SemiBold.ttf[39m[0m
+2026-10-20T10:18:44.7017198Z [   4% ] [90m[1mreimport[22m | music_marina_lights.ogg[39m[0m
+2026-10-20T10:18:44.7049461Z [   4% ] [90m[1mreimport[22m | music_citrus_pass.ogg[39m[0m
+2026-10-20T10:18:44.7095614Z [   4% ] [90m[1mreimport[22m | engine_switch_low.ogg[39m[0m
+2026-10-20T10:18:44.7105503Z [   5% ] [90m[1mreimport[22m | engine_switch_idle.ogg[39m[0m
+2026-10-20T10:18:44.7125408Z [   5% ] [90m[1mreimport[22m | engine_switch_high.ogg[39m[0m
+2026-10-20T10:18:44.7165340Z [   6% ] [90m[1mreimport[22m | engine_switch_coast.ogg[39m[0m
+2026-10-20T10:18:44.7336024Z [   6% ] [90m[1mreimport[22m | engine_sunset_low.ogg[39m[0m
+2026-10-20T10:18:44.7385700Z [   6% ] [90m[1mreimport[22m | engine_sunset_idle.ogg[39m[0m
+2026-10-20T10:18:44.7386644Z [   7% ] [90m[1mreimport[22m | engine_sunset_high.ogg[39m[0m
+2026-10-20T10:18:44.7706084Z [   7% ] [90m[1mreimport[22m | engine_sunset_coast.ogg[39m[0m
+2026-10-20T10:18:44.7735574Z [   8% ] [90m[1mreimport[22m | engine_needle_low.ogg[39m[0m
+2026-10-20T10:18:44.7762308Z [   8% ] [90m[1mreimport[22m | engine_needle_idle.ogg[39m[0m
+2026-10-20T10:18:44.7763228Z [   8% ] [90m[1mreimport[22m | music_menu.ogg[39m[0m
+2026-10-20T10:18:44.7770766Z [   9% ] [90m[1mreimport[22m | music_pacific_summit.ogg[39m[0m
+2026-10-20T10:18:44.7786513Z [   9% ] [90m[1mreimport[22m | music_palm_bay.ogg[39m[0m
+2026-10-20T10:18:44.7798694Z [  10% ] [90m[1mreimport[22m | music_redwood_run.ogg[39m[0m
+2026-10-20T10:18:44.7809492Z [  10% ] [90m[1mreimport[22m | music_sunstone_canyon.ogg[39m[0m
+2026-10-20T10:18:44.7818321Z [  10% ] [90m[1mreimport[22m | voice_final_lap.ogg[39m[0m
+2026-10-20T10:18:44.7826710Z [  11% ] [90m[1mreimport[22m | voice_finish.ogg[39m[0m
+2026-10-20T10:18:44.7855864Z [  11% ] [90m[1mreimport[22m | voice_go.ogg[39m[0m
+2026-10-20T10:18:44.7858912Z [  12% ] [90m[1mreimport[22m | voice_new_best_time.ogg[39m[0m
+2026-10-20T10:18:44.7859917Z [  12% ] [90m[1mreimport[22m | voice_one.ogg[39m[0m
+2026-10-20T10:18:44.7890734Z [  13% ] [90m[1mreimport[22m | voice_three.ogg[39m[0m
+2026-10-20T10:18:44.7891694Z [  13% ] [90m[1mreimport[22m | voice_two.ogg[39m[0m
+2026-10-20T10:18:44.7907488Z [  13% ] [90m[1mreimport[22m | voice_wrong_way.ogg[39m[0m
+2026-10-20T10:18:44.7908552Z [  14% ] [90m[1mreimport[22m | effect_asphalt_squeal.ogg[39m[0m
+2026-10-20T10:18:44.7909569Z [  14% ] [90m[1mreimport[22m | effect_bump.ogg[39m[0m
+2026-10-20T10:18:44.7931402Z [  15% ] [90m[1mreimport[22m | effect_countdown.ogg[39m[0m
+2026-10-20T10:18:44.7940555Z [  15% ] [90m[1mreimport[22m | effect_finish.ogg[39m[0m
+2026-10-20T10:18:44.7965596Z [  15% ] [90m[1mreimport[22m | effect_go.ogg[39m[0m
+2026-10-20T10:18:44.7990484Z [  16% ] [90m[1mreimport[22m | effect_grass_rumble.ogg[39m[0m
+2026-10-20T10:18:44.8015680Z [  16% ] [90m[1mreimport[22m | effect_landing.ogg[39m[0m
+2026-10-20T10:18:44.8016619Z [  17% ] [90m[1mreimport[22m | effect_lap.ogg[39m[0m
+2026-10-20T10:18:44.8017510Z [  17% ] [90m[1mreimport[22m | effect_recovery.ogg[39m[0m
+2026-10-20T10:18:44.8018358Z [  17% ] [90m[1mreimport[22m | effect_results.ogg[39m[0m
+2026-10-20T10:18:44.8019239Z [  18% ] [90m[1mreimport[22m | effect_sand_rumble.ogg[39m[0m
+2026-10-20T10:18:44.8020109Z [  18% ] [90m[1mreimport[22m | engine_needle_high.ogg[39m[0m
+2026-10-20T10:18:44.8020995Z [  19% ] [90m[1mreimport[22m | engine_needle_coast.ogg[39m[0m
+2026-10-20T10:18:44.8021854Z [  19% ] [90m[1mreimport[22m | engine_comet_low.ogg[39m[0m
+2026-10-20T10:18:44.8022726Z [  19% ] [90m[1mreimport[22m | engine_comet_idle.ogg[39m[0m
+2026-10-20T10:18:44.8023917Z [  20% ] [90m[1mreimport[22m | engine_comet_high.ogg[39m[0m
+2026-10-20T10:18:44.8025073Z [  20% ] [90m[1mreimport[22m | engine_comet_coast.ogg[39m[0m
+2026-10-20T10:18:44.8042574Z [  21% ] [90m[1mreimport[22m | effect_wall_light.ogg[39m[0m
+2026-10-20T10:18:44.8044007Z [  21% ] [90m[1mreimport[22m | Rajdhani-SemiBold.ttf[39m[0m
+2026-10-20T10:18:44.8091774Z [  21% ] [90m[1mreimport[22m | PacificRushDisplay.ttf[39m[0m
+2026-10-20T10:18:44.8108505Z [  22% ] [90m[1mreimport[22m | NotoColorEmoji.ttf[39m[0m
+2026-10-20T10:18:44.8109629Z [  22% ] [90m[1mreimport[22m | BarlowCondensed-Bold.ttf[39m[0m
+2026-10-20T10:18:44.8145697Z [  23% ] [90m[1mreimport[22m | Barlow-SemiBold.ttf[39m[0m
+2026-10-20T10:18:44.8146560Z [  23% ] [90m[1mreimport[22m | music_marina_lights.ogg[39m[0m
+2026-10-20T10:18:44.8147374Z [  23% ] [90m[1mreimport[22m | music_citrus_pass.ogg[39m[0m
+2026-10-20T10:18:44.8181877Z [  24% ] [90m[1mreimport[22m | engine_switch_low.ogg[39m[0m
+2026-10-20T10:18:44.8210731Z [  24% ] [90m[1mreimport[22m | engine_switch_idle.ogg[39m[0m
+2026-10-20T10:18:44.8227795Z [  25% ] [90m[1mreimport[22m | engine_switch_high.ogg[39m[0m
+2026-10-20T10:18:44.8255508Z [  25% ] [90m[1mreimport[22m | engine_switch_coast.ogg[39m[0m
+2026-10-20T10:18:44.8263732Z [  26% ] [90m[1mreimport[22m | engine_sunset_low.ogg[39m[0m
+2026-10-20T10:18:44.8295733Z [  26% ] [90m[1mreimport[22m | engine_sunset_idle.ogg[39m[0m
+2026-10-20T10:18:44.8325901Z [  26% ] [90m[1mreimport[22m | engine_sunset_high.ogg[39m[0m
+2026-10-20T10:18:44.8336832Z [  27% ] [90m[1mreimport[22m | engine_sunset_coast.ogg[39m[0m
+2026-10-20T10:18:44.8364537Z [  27% ] [90m[1mreimport[22m | engine_needle_low.ogg[39m[0m
+2026-10-20T10:18:44.8365832Z [  28% ] [90m[1mreimport[22m | engine_needle_idle.ogg[39m[0m
+2026-10-20T10:18:44.8366650Z [  28% ] [90m[1mreimport[22m | music_menu.ogg[39m[0m
+2026-10-20T10:18:44.8367550Z [  28% ] [90m[1mreimport[22m | music_pacific_summit.ogg[39m[0m
+2026-10-20T10:18:44.8368487Z [  29% ] [90m[1mreimport[22m | music_palm_bay.ogg[39m[0m
+2026-10-20T10:18:44.8369419Z [  29% ] [90m[1mreimport[22m | music_redwood_run.ogg[39m[0m
+2026-10-20T10:18:44.8370346Z [  30% ] [90m[1mreimport[22m | music_sunstone_canyon.ogg[39m[0m
+2026-10-20T10:18:44.8380816Z [  30% ] [90m[1mreimport[22m | voice_final_lap.ogg[39m[0m
+2026-10-20T10:18:44.8405664Z [  30% ] [90m[1mreimport[22m | voice_finish.ogg[39m[0m
+2026-10-20T10:18:44.8414374Z [  31% ] [90m[1mreimport[22m | voice_go.ogg[39m[0m
+2026-10-20T10:18:44.8425026Z [  31% ] [90m[1mreimport[22m | voice_new_best_time.ogg[39m[0m
+2026-10-20T10:18:44.8448711Z [  32% ] [90m[1mreimport[22m | voice_one.ogg[39m[0m
+2026-10-20T10:18:44.8465039Z [  32% ] [90m[1mreimport[22m | voice_three.ogg[39m[0m
+2026-10-20T10:18:44.8465927Z [  32% ] [90m[1mreimport[22m | voice_two.ogg[39m[0m
+2026-10-20T10:18:44.8485779Z [  33% ] [90m[1mreimport[22m | voice_wrong_way.ogg[39m[0m
+2026-10-20T10:18:44.8486933Z [  33% ] [90m[1mreimport[22m | effect_asphalt_squeal.ogg[39m[0m
+2026-10-20T10:18:44.8525490Z [  34% ] [90m[1mreimport[22m | effect_bump.ogg[39m[0m
+2026-10-20T10:18:44.8555571Z [  34% ] [90m[1mreimport[22m | effect_countdown.ogg[39m[0m
+2026-10-20T10:18:44.9091752Z [  34% ] [90m[1mreimport[22m | effect_finish.ogg[39m[0m
+2026-10-20T10:18:44.9123877Z [  35% ] [90m[1mreimport[22m | effect_go.ogg[39m[0m
+2026-10-20T10:18:44.9285734Z [  35% ] [90m[1mreimport[22m | effect_grass_rumble.ogg[39m[0m
+2026-10-20T10:18:44.9882189Z [  36% ] [90m[1mreimport[22m | effect_landing.ogg[39m[0m
+2026-10-20T10:18:44.9975890Z [  36% ] [90m[1mreimport[22m | effect_lap.ogg[39m[0m
+2026-10-20T10:18:45.0005674Z [  36% ] [90m[1mreimport[22m | effect_recovery.ogg[39m[0m
+2026-10-20T10:18:45.0775907Z [  37% ] [90m[1mreimport[22m | effect_results.ogg[39m[0m
+2026-10-20T10:18:45.0795537Z [  37% ] [90m[1mreimport[22m | effect_sand_rumble.ogg[39m[0m
+2026-10-20T10:18:45.0886340Z [  38% ] [90m[1mreimport[22m | engine_needle_high.ogg[39m[0m
+2026-10-20T10:18:45.1326072Z [  38% ] [90m[1mreimport[22m | engine_needle_coast.ogg[39m[0m
+2026-10-20T10:18:45.1563438Z [  39% ] [90m[1mreimport[22m | engine_comet_low.ogg[39m[0m
+2026-10-20T10:18:45.1986089Z [  39% ] [90m[1mreimport[22m | engine_comet_idle.ogg[39m[0m
+2026-10-20T10:18:45.2166676Z [  39% ] [90m[1mreimport[22m | engine_comet_high.ogg[39m[0m
+2026-10-20T10:18:45.2515997Z [  40% ] [90m[1mreimport[22m | engine_comet_coast.ogg[39m[0m
+2026-10-20T10:18:45.2565654Z [  40% ] [90m[1mreimport[22m | effect_wall_light.ogg[39m[0m
+2026-10-20T10:18:45.2592779Z [  41% ] [90m[1mreimport[22m | effect_wall_heavy.ogg[39m[0m
+2026-10-20T10:18:45.2655743Z [  41% ] [90m[1mreimport[22m | effect_ui_move.ogg[39m[0m
+2026-10-20T10:18:45.2682281Z [  41% ] [90m[1mreimport[22m | effect_ui_error.ogg[39m[0m
+2026-10-20T10:18:45.2719600Z [  42% ] [90m[1mreimport[22m | effect_ui_confirm.ogg[39m[0m
+2026-10-20T10:18:45.2805854Z [  42% ] [90m[1mreimport[22m | effect_ui_back.ogg[39m[0m
+2026-10-20T10:18:45.2835808Z [  43% ] [90m[1mreimport[22m | paint_5.svg[39m[0m
+2026-10-20T10:18:45.2865507Z [  43% ] [90m[1mreimport[22m | paint_6.svg[39m[0m
+2026-10-20T10:18:45.4095932Z [  43% ] [90m[1mreimport[22m | paint_7.svg[39m[0m
+2026-10-20T10:18:46.1456381Z [  44% ] [90m[1mreimport[22m | tab_accessibility.svg[39m[0m
+2026-10-20T10:18:46.1986949Z [  44% ] [90m[1mreimport[22m | tab_audio.svg[39m[0m
+2026-10-20T10:18:46.3675354Z [  45% ] [90m[1mreimport[22m | tab_controls.svg[39m[0m
+2026-10-20T10:18:47.0502482Z [  45% ] [90m[1mreimport[22m | tab_data.svg[39m[0m
+2026-10-20T10:18:47.1335995Z [  45% ] [90m[1mreimport[22m | tab_display.svg[39m[0m
+2026-10-20T10:18:47.3546205Z [  46% ] [90m[1mreimport[22m | tab_gameplay.svg[39m[0m
+2026-10-20T10:18:47.9373341Z [  46% ] [90m[1mreimport[22m | tab_graphics.svg[39m[0m
+2026-10-20T10:18:47.9996179Z [  47% ] [90m[1mreimport[22m | tab_touch.svg[39m[0m
+2026-10-20T10:18:48.0045650Z [  47% ] [90m[1mreimport[22m | track_caldera_crosscut.svg[39m[0m
+2026-10-20T10:18:48.0101468Z [  47% ] [90m[1mreimport[22m | track_citrus_pass.svg[39m[0m
+2026-10-20T10:18:48.0315401Z [  48% ] [90m[1mreimport[22m | track_marina_lights.svg[39m[0m
+2026-10-20T10:18:48.0535728Z [  48% ] [90m[1mreimport[22m | track_pacific_summit.svg[39m[0m
+2026-10-20T10:18:48.1152428Z [  49% ] [90m[1mreimport[22m | track_palm_bay.svg[39m[0m
+2026-10-20T10:18:48.1216309Z [  49% ] [90m[1mreimport[22m | paint_4.svg[39m[0m
+2026-10-20T10:18:48.1293756Z [  50% ] [90m[1mreimport[22m | paint_3.svg[39m[0m
+2026-10-20T10:18:48.1702735Z [  50% ] [90m[1mreimport[22m | paint_2.svg[39m[0m
+2026-10-20T10:18:48.2106110Z [  50% ] [90m[1mreimport[22m | paint_1.svg[39m[0m
+2026-10-20T10:18:48.2515808Z [  51% ] [90m[1mreimport[22m | paint_0.svg[39m[0m
+2026-10-20T10:18:48.2917179Z [  51% ] [90m[1mreimport[22m | menu_trial.svg[39m[0m
+2026-10-20T10:18:48.2925508Z [  52% ] [90m[1mreimport[22m | menu_settings.svg[39m[0m
+2026-10-20T10:18:48.2945559Z [  52% ] [90m[1mreimport[22m | menu_school.svg[39m[0m
+2026-10-20T10:18:48.2975967Z [  52% ] [90m[1mreimport[22m | menu_quit.svg[39m[0m
+2026-10-20T10:18:48.2994176Z [  53% ] [90m[1mreimport[22m | menu_quick.svg[39m[0m
+2026-10-20T10:18:48.3013621Z [  53% ] [90m[1mreimport[22m | menu_online.svg[39m[0m
+2026-10-20T10:18:48.3035552Z [  54% ] [90m[1mreimport[22m | menu_garage.svg[39m[0m
+2026-10-20T10:18:48.3036453Z [  54% ] [90m[1mreimport[22m | menu_cup.svg[39m[0m
+2026-10-20T10:18:48.3037259Z [  54% ] [90m[1mreimport[22m | medal_none.svg[39m[0m
+2026-10-20T10:18:48.3148947Z [  55% ] [90m[1mreimport[22m | medal_silver.svg[39m[0m
+2026-10-20T10:18:48.3316052Z [  55% ] [90m[1mreimport[22m | menu_credits.svg[39m[0m
+2026-10-20T10:18:48.3334596Z [  56% ] [90m[1mreimport[22m | icon.svg[39m[0m
+2026-10-20T10:18:48.6156782Z [  56% ] [90m[1mreimport[22m | sunstone_canyon.png[39m[0m
+2026-10-20T10:18:48.6196232Z [  56% ] [90m[1mreimport[22m | spillway_sprint.png[39m[0m
+2026-10-20T10:18:48.6225541Z [  57% ] [90m[1mreimport[22m | skyline_splice.png[39m[0m
+2026-10-20T10:18:48.9456221Z [  57% ] [90m[1mreimport[22m | redwood_run.png[39m[0m
+2026-10-20T10:18:49.1685962Z [  58% ] [90m[1mreimport[22m | quarry_switchback.png[39m[0m
+2026-10-20T10:18:50.1687009Z [  58% ] [90m[1mreimport[22m | quarry_switchback.png[39m[0m
+2026-10-20T10:18:50.4155783Z [  58% ] [90m[1mreimport[22m | palm_bay.png[39m[0m
+2026-10-20T10:18:50.5856135Z [  58% ] [90m[1mreimport[22m | pacific_summit.png[39m[0m
+2026-10-20T10:18:50.5975505Z [  59% ] [90m[1mreimport[22m | marina_lights.png[39m[0m
+2026-10-20T10:18:50.5989964Z [  59% ] [90m[1mreimport[22m | citrus_pass.png[39m[0m
+2026-10-20T10:18:50.6015732Z [  60% ] [90m[1mreimport[22m | caldera_crosscut.png[39m[0m
+2026-10-20T10:18:50.6041657Z [  60% ] [90m[1mreimport[22m | scenery_atlas.png[39m[0m
+2026-10-20T10:18:50.6065407Z [  60% ] [90m[1mreimport[22m | props_atlas.png[39m[0m
+2026-10-20T10:18:50.6095376Z [  61% ] [90m[1mreimport[22m | foliage_atlas.png[39m[0m
+2026-10-20T10:18:50.6145692Z [  61% ] [90m[1mreimport[22m | cars_atlas.png[39m[0m
+2026-10-20T10:18:50.6175401Z [  62% ] [90m[1mreimport[22m | sunstone-canyon-v1.png[39m[0m
+2026-10-20T10:18:50.6197899Z [  62% ] [90m[1mreimport[22m | track_quarry_switchback.svg[39m[0m
+2026-10-20T10:18:50.6255313Z [  63% ] [90m[1mreimport[22m | track_redwood_run.svg[39m[0m
+2026-10-20T10:18:50.6285405Z [  63% ] [90m[1mreimport[22m | track_skyline_splice.svg[39m[0m
+2026-10-20T10:18:50.6332505Z [  63% ] [90m[1mreimport[22m | track_spillway_sprint.svg[39m[0m
+2026-10-20T10:18:50.6344050Z [  64% ] [90m[1mreimport[22m | track_sunstone_canyon.svg[39m[0m
+2026-10-20T10:18:50.6395954Z [  64% ] [90m[1mreimport[22m | trophy_bronze.svg[39m[0m
+2026-10-20T10:18:50.6403874Z [  65% ] [90m[1mreimport[22m | trophy_gold.svg[39m[0m
+2026-10-20T10:18:50.6455697Z [  65% ] [90m[1mreimport[22m | trophy_silver.svg[39m[0m
+2026-10-20T10:18:50.6469360Z [  65% ] [90m[1mreimport[22m | caldera-crosscut-v1.png[39m[0m
+2026-10-20T10:18:50.6506587Z [  66% ] [90m[1mreimport[22m | citrus-pass-v1.png[39m[0m
+2026-10-20T10:18:50.6543558Z [  66% ] [90m[1mreimport[22m | marina-lights-v1.png[39m[0m
+2026-10-20T10:18:50.6605700Z [  67% ] [90m[1mreimport[22m | pacific-summit-v1.png[39m[0m
+2026-10-20T10:18:50.6625679Z [  67% ] [90m[1mreimport[22m | palm-bay-v1.png[39m[0m
+2026-10-20T10:18:50.6685490Z [  67% ] [90m[1mreimport[22m | quarry-switchback-v1.png[39m[0m
+2026-10-20T10:18:50.6745350Z [  68% ] [90m[1mreimport[22m | redwood-run-v1.png[39m[0m
+2026-10-20T10:18:50.6835297Z [  68% ] [90m[1mreimport[22m | skyline-splice-v1.png[39m[0m
+2026-10-20T10:18:50.6895323Z [  69% ] [90m[1mreimport[22m | spillway-sprint-v1.png[39m[0m
+2026-10-20T10:18:50.6975814Z [  69% ] [90m[1mreimport[22m | icon_128x128@2x.png[39m[0m
+2026-10-20T10:18:50.7035311Z [  69% ] [90m[1mreimport[22m | icon_256x256.png[39m[0m
+2026-10-20T10:18:50.7088322Z [  70% ] [90m[1mreimport[22m | icon_256x256@2x.png[39m[0m
+2026-10-20T10:18:50.7195253Z [  70% ] [90m[1mreimport[22m | icon_512x512.png[39m[0m
+2026-10-20T10:18:50.7255275Z [  71% ] [90m[1mreimport[22m | icon_512x512@2x.png[39m[0m
+2026-10-20T10:18:51.7235971Z [  71% ] [90m[1mreimport[22m | icon_512x512@2x.png[39m[0m
+2026-10-20T10:18:51.8924499Z [  71% ] [90m[1mreimport[22m | adaptive-background.png[39m[0m
+2026-10-20T10:18:51.9046200Z [  71% ] [90m[1mreimport[22m | adaptive-background.svg[39m[0m
+2026-10-20T10:18:51.9165876Z [  72% ] [90m[1mreimport[22m | adaptive-foreground.png[39m[0m
+2026-10-20T10:18:51.9366281Z [  72% ] [90m[1mreimport[22m | adaptive-foreground.svg[39m[0m
+2026-10-20T10:18:51.9425614Z [  73% ] [90m[1mreimport[22m | adaptive-monochrome.png[39m[0m
+2026-10-20T10:18:51.9586826Z [  73% ] [90m[1mreimport[22m | adaptive-monochrome.svg[39m[0m
+2026-10-20T10:18:51.9757555Z [  73% ] [90m[1mreimport[22m | desktop-16.png[39m[0m
+2026-10-20T10:18:52.0173821Z [  74% ] [90m[1mreimport[22m | desktop-24.png[39m[0m
+2026-10-20T10:18:52.0726697Z [  74% ] [90m[1mreimport[22m | sun_sign.glb[39m[0m
+2026-10-20T10:18:52.0728324Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.0729307Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.0776018Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.0776951Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.0796331Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.0796936Z [0m
+2026-10-20T10:18:52.0808659Z [  75% ] [90m[1mreimport[22m | sunstone_canyon_terrain.glb[39m[0m
+2026-10-20T10:18:52.0810644Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.0811479Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.1152760Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.1153706Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.1528018Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.1528581Z [0m
+2026-10-20T10:18:52.1559211Z [  75% ] [90m[1mreimport[22m | summit_peak.glb[39m[0m
+2026-10-20T10:18:52.1561987Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.1562956Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.1585663Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.1586674Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.1602011Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.1611598Z [0m
+2026-10-20T10:18:52.1612186Z [  76% ] [90m[1mreimport[22m | streetlight.glb[39m[0m
+2026-10-20T10:18:52.1613820Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.1614857Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.1629416Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.1630275Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.1643270Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.1643772Z [0m
+2026-10-20T10:18:52.1652280Z [  76% ] [90m[1mreimport[22m | surf_shop.glb[39m[0m
+2026-10-20T10:18:52.1654905Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.1655955Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.1692805Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.1693669Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.1710134Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.1710739Z [0m
+2026-10-20T10:18:52.1720960Z [  76% ] [90m[1mreimport[22m | timber_bridge.glb[39m[0m
+2026-10-20T10:18:52.1722924Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.1723783Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.1752123Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.1753011Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.1768100Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.1778099Z [0m
+2026-10-20T10:18:52.1778714Z [  77% ] [90m[1mreimport[22m | tree_display.glb[39m[0m
+2026-10-20T10:18:52.1780818Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.1781747Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.1922477Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.1923444Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.1958594Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.1959483Z [0m
+2026-10-20T10:18:52.1976723Z [  77% ] [90m[1mreimport[22m | tunnel_portal.glb[39m[0m
+2026-10-20T10:18:52.1979853Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.1980846Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.2026000Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.2027120Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.2045405Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.2045985Z [0m
+2026-10-20T10:18:52.2056518Z [  78% ] [90m[1mreimport[22m | twin_mesas.glb[39m[0m
+2026-10-20T10:18:52.2058537Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.2059363Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.2081400Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.2082328Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.2097888Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.2098577Z [0m
+2026-10-20T10:18:52.2137159Z [  78% ] [90m[1mreimport[22m | umbrella.glb[39m[0m
+2026-10-20T10:18:52.2139952Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.2141125Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.2155435Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.2156211Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.2169091Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.2169693Z [0m
+2026-10-20T10:18:52.2178013Z [  78% ] [90m[1mreimport[22m | underpass.glb[39m[0m
+2026-10-20T10:18:52.2180008Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.2180839Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.2195921Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.2196850Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.2210143Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.2210686Z [0m
+2026-10-20T10:18:52.2220155Z [  79% ] [90m[1mreimport[22m | viaduct.glb[39m[0m
+2026-10-20T10:18:52.2222554Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.2223430Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.2247967Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.2248899Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.2263382Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.2263977Z [0m
+2026-10-20T10:18:52.2273079Z [  79% ] [90m[1mreimport[22m | visitor_center.glb[39m[0m
+2026-10-20T10:18:52.2275182Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.2276040Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.2337700Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.2338594Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.2359098Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.2359590Z [0m
+2026-10-20T10:18:52.2371434Z [  80% ] [90m[1mreimport[22m | warning.glb[39m[0m
+2026-10-20T10:18:52.2373914Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.2374980Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.2388388Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.2389171Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.2401318Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.2401900Z [0m
+2026-10-20T10:18:52.2410676Z [  80% ] [90m[1mreimport[22m | water_tower.glb[39m[0m
+2026-10-20T10:18:52.2426296Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.2427302Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.2439898Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.2440884Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.2456377Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.2457062Z [0m
+2026-10-20T10:18:52.2466692Z [  80% ] [90m[1mreimport[22m | windmill.glb[39m[0m
+2026-10-20T10:18:52.2486670Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.2487672Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.2491006Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.2491776Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.2507260Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.2508051Z [0m
+2026-10-20T10:18:52.2517514Z [  81% ] [90m[1mreimport[22m | caldera_crosscut_terrain.glb[39m[0m
+2026-10-20T10:18:52.2519483Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.2520560Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.4177319Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.4178278Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.5546540Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.5547442Z [0m
+2026-10-20T10:18:52.5636976Z [  81% ] [90m[1mreimport[22m | bench.glb[39m[0m
+2026-10-20T10:18:52.5639899Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.5641145Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.5655784Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.5656845Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.5670694Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.5671204Z [0m
+2026-10-20T10:18:52.5680076Z [  82% ] [90m[1mreimport[22m | beach_hotel.glb[39m[0m
+2026-10-20T10:18:52.5681995Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.5683068Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.5730947Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.5731973Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.5751131Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.5751929Z [0m
+2026-10-20T10:18:52.5762659Z [  82% ] [90m[1mreimport[22m | balloons.glb[39m[0m
+2026-10-20T10:18:52.5764599Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.5766056Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.5817863Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.5819158Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.5841028Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.5841359Z [0m
+2026-10-20T10:18:52.5853396Z [  82% ] [90m[1mreimport[22m | arcade.glb[39m[0m
+2026-10-20T10:18:52.5855427Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.5863820Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.5924539Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.5925721Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.5949656Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.5950405Z [0m
+2026-10-20T10:18:52.5961208Z [  83% ] [90m[1mreimport[22m | switch.glb[39m[0m
+2026-10-20T10:18:52.5976324Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.5977265Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.6205624Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.6206495Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.6259389Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.6259982Z [0m
+2026-10-20T10:18:52.6282046Z [  83% ] [90m[1mreimport[22m | sunset.glb[39m[0m
+2026-10-20T10:18:52.6287043Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.6287982Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.6515620Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.6516489Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.6569845Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.6570436Z [0m
+2026-10-20T10:18:52.6592426Z [  84% ] [90m[1mreimport[22m | needle.glb[39m[0m
+2026-10-20T10:18:52.6594272Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.6595414Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.6827912Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.6828778Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.6882704Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.6883318Z [0m
+2026-10-20T10:18:52.6905455Z [  84% ] [90m[1mreimport[22m | comet.glb[39m[0m
+2026-10-20T10:18:52.6907414Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.6908314Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.7141852Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.7142744Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.7197173Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.7197793Z [0m
+2026-10-20T10:18:52.7220063Z [  84% ] [90m[1mreimport[22m | orange_arch.glb[39m[0m
+2026-10-20T10:18:52.7222055Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.7222934Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.7291018Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.7291865Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.7313008Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.7313609Z [0m
+2026-10-20T10:18:52.7325478Z [  85% ] [90m[1mreimport[22m | observatory.glb[39m[0m
+2026-10-20T10:18:52.7336454Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.7337390Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.7353478Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.7354610Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.7368831Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.7369404Z [0m
+2026-10-20T10:18:52.7379833Z [  85% ] [90m[1mreimport[22m | mountain_lodge.glb[39m[0m
+2026-10-20T10:18:52.7382460Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.7383411Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.7439928Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.7440791Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.7460359Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.7460951Z [0m
+2026-10-20T10:18:52.7473712Z [  86% ] [90m[1mreimport[22m | motel_sign.glb[39m[0m
+2026-10-20T10:18:52.7475517Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.7476494Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.7540036Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.7540859Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.7561086Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.7561666Z [0m
+2026-10-20T10:18:52.7573014Z [  86% ] [90m[1mreimport[22m | marina_wheel.glb[39m[0m
+2026-10-20T10:18:52.7575405Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.7577225Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.7653354Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.7654494Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.7679063Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.7679675Z [0m
+2026-10-20T10:18:52.7694285Z [  86% ] [90m[1mreimport[22m | marina_shops.glb[39m[0m
+2026-10-20T10:18:52.7697008Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.7698176Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.7714305Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.7715244Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.7728186Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.7728776Z [0m
+2026-10-20T10:18:52.7737481Z [  87% ] [90m[1mreimport[22m | marina_lights_terrain.glb[39m[0m
+2026-10-20T10:18:52.7739409Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.7740262Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8002271Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8003266Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8315302Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8316308Z [0m
+2026-10-20T10:18:52.8342116Z [  87% ] [90m[1mreimport[22m | marina_hotel.glb[39m[0m
+2026-10-20T10:18:52.8345222Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8346106Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8364968Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8365934Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8380151Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8380670Z [0m
+2026-10-20T10:18:52.8390114Z [  88% ] [90m[1mreimport[22m | lighthouse.glb[39m[0m
+2026-10-20T10:18:52.8392581Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8393655Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8424907Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8426360Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8442978Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8443865Z [0m
+2026-10-20T10:18:52.8453610Z [  88% ] [90m[1mreimport[22m | grass.glb[39m[0m
+2026-10-20T10:18:52.8456513Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8457366Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8471643Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8472431Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8485869Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8486383Z [0m
+2026-10-20T10:18:52.8495215Z [  89% ] [90m[1mreimport[22m | giant_tree.glb[39m[0m
+2026-10-20T10:18:52.8497948Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8498799Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8529355Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8530214Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8545772Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8546361Z [0m
+2026-10-20T10:18:52.8556159Z [  89% ] [90m[1mreimport[22m | fruit_stand.glb[39m[0m
+2026-10-20T10:18:52.8558501Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8559348Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8635688Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8636731Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8660240Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8660939Z [0m
+2026-10-20T10:18:52.8673583Z [  89% ] [90m[1mreimport[22m | dinosaur.glb[39m[0m
+2026-10-20T10:18:52.8676444Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8677452Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8700989Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8701772Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8718029Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8718760Z [0m
+2026-10-20T10:18:52.8728484Z [  90% ] [90m[1mreimport[22m | crate.glb[39m[0m
+2026-10-20T10:18:52.8731303Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8732628Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8745413Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8746392Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8761387Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8761976Z [0m
+2026-10-20T10:18:52.8771821Z [  90% ] [90m[1mreimport[22m | cone.glb[39m[0m
+2026-10-20T10:18:52.8775856Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8776708Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8789055Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8789959Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8802923Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8803989Z [0m
+2026-10-20T10:18:52.8813763Z [  91% ] [90m[1mreimport[22m | coastal_home.glb[39m[0m
+2026-10-20T10:18:52.8816323Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8816882Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.8839963Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.8840757Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.8858248Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.8858756Z [0m
+2026-10-20T10:18:52.8868959Z [  91% ] [90m[1mreimport[22m | citrus_pass_terrain.glb[39m[0m
+2026-10-20T10:18:52.8871287Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.8872446Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.9181020Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.9182039Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.9603514Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.9604064Z [0m
+2026-10-20T10:18:52.9631452Z [  91% ] [90m[1mreimport[22m | chevron.glb[39m[0m
+2026-10-20T10:18:52.9634206Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.9635329Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:52.9652606Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:52.9653575Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:52.9667502Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:52.9668459Z [0m
+2026-10-20T10:18:52.9676993Z [  92% ] [90m[1mreimport[22m | spillway_sprint_terrain.glb[39m[0m
+2026-10-20T10:18:52.9679183Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:52.9691199Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.1148383Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.1149111Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.2535039Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.2535845Z [0m
+2026-10-20T10:18:53.2621752Z [  92% ] [90m[1mreimport[22m | skyline_splice_terrain.glb[39m[0m
+2026-10-20T10:18:53.2624457Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.2625671Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.2879895Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.2880957Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.3176053Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.3176787Z [0m
+2026-10-20T10:18:53.3210904Z [  93% ] [90m[1mreimport[22m | shrub.glb[39m[0m
+2026-10-20T10:18:53.3213241Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.3214030Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.3230584Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.3231344Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.3245834Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.3246372Z [0m
+2026-10-20T10:18:53.3255465Z [  93% ] [90m[1mreimport[22m | seafood_diner.glb[39m[0m
+2026-10-20T10:18:53.3258311Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.3259261Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.3327096Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.3327875Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.3348980Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.3349521Z [0m
+2026-10-20T10:18:53.3361190Z [  93% ] [90m[1mreimport[22m | sandstone_rock.glb[39m[0m
+2026-10-20T10:18:53.3363665Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.3364504Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.3388978Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.3389776Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.3404324Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.3405123Z [0m
+2026-10-20T10:18:53.3413879Z [  94% ] [90m[1mreimport[22m | sailboats.glb[39m[0m
+2026-10-20T10:18:53.3416560Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.3417401Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.3439046Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.3440008Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.3453491Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.3454178Z [0m
+2026-10-20T10:18:53.3462616Z [  94% ] [90m[1mreimport[22m | redwood_run_terrain.glb[39m[0m
+2026-10-20T10:18:53.3465472Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.3466492Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.3712880Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.3713864Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.4006268Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.4007115Z [0m
+2026-10-20T10:18:53.4035127Z [  95% ] [90m[1mreimport[22m | redwood.glb[39m[0m
+2026-10-20T10:18:53.4038265Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.4039107Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.4055450Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.4056560Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.4069175Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.4069800Z [0m
+2026-10-20T10:18:53.4077959Z [  95% ] [90m[1mreimport[22m | ranger_kiosk.glb[39m[0m
+2026-10-20T10:18:53.4079738Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.4080625Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.4122200Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.4123346Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.4140211Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.4140857Z [0m
+2026-10-20T10:18:53.4150889Z [  95% ] [90m[1mreimport[22m | rail_trestle.glb[39m[0m
+2026-10-20T10:18:53.4153619Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.4154454Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.4200108Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.4200931Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.4219571Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.4220250Z [0m
+2026-10-20T10:18:53.4231754Z [  96% ] [90m[1mreimport[22m | quarry_switchback_terrain.glb[39m[0m
+2026-10-20T10:18:53.4234283Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.4235361Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.4627591Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.4628788Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.5111331Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.5111873Z [0m
+2026-10-20T10:18:53.5151230Z [  96% ] [90m[1mreimport[22m | pier.glb[39m[0m
+2026-10-20T10:18:53.5154131Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.5155202Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.5199175Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.5199910Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.5220256Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.5220769Z [0m
+2026-10-20T10:18:53.5232297Z [  97% ] [90m[1mreimport[22m | palm_bay_terrain.glb[39m[0m
+2026-10-20T10:18:53.5235168Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.5236428Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.5541857Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.5542889Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.5899292Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.5900144Z [0m
+2026-10-20T10:18:53.5929878Z [  97% ] [90m[1mreimport[22m | palm.glb[39m[0m
+2026-10-20T10:18:53.5932679Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.5933788Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.5952493Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.5953393Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.5969319Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.5969878Z [0m
+2026-10-20T10:18:53.5979034Z [  97% ] [90m[1mreimport[22m | packing_shed.glb[39m[0m
+2026-10-20T10:18:53.5981649Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.5982789Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.6045631Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.6046626Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.6068582Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.6069087Z [0m
+2026-10-20T10:18:53.6081559Z [  98% ] [90m[1mreimport[22m | pacific_summit_terrain.glb[39m[0m
+2026-10-20T10:18:53.6084135Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.6085376Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.6480133Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.6481200Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.6935389Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.6936200Z [0m
+2026-10-20T10:18:53.6977261Z [  98% ] [90m[1mreimport[22m | overlook.glb[39m[0m
+2026-10-20T10:18:53.6979657Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.6980471Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.7013075Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.7013941Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.7031812Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.7032351Z [0m
+2026-10-20T10:18:53.7042802Z [  99% ] [90m[1mreimport[22m | orchard.glb[39m[0m
+2026-10-20T10:18:53.7045410Z [   0% ] [90m[1mimport[22m | Started Import Scene (104 steps)[39m[0m
+2026-10-20T10:18:53.7046297Z [   0% ] [90m[1mimport[22m | Importing Scene...[39m[0m
+2026-10-20T10:18:53.7066802Z [   1% ] [90m[1mimport[22m | Running Custom Script...[39m[0m
+2026-10-20T10:18:53.7067554Z [  99% ] [90m[1mimport[22m | Saving...[39m[0m
+2026-10-20T10:18:53.7083771Z [92m[ DONE ][39m [1mimport[22m
+2026-10-20T10:18:53.7084444Z [0m
+2026-10-20T10:18:53.7094422Z [  99% ] [90m[1mreimport[22m | Finalizing Asset Import...[39m[0m
+2026-10-20T10:18:53.7110578Z [92m[ DONE ][39m [1mreimport[22m
+2026-10-20T10:18:53.7111126Z [0m
+2026-10-20T10:18:53.7111774Z [   0% ] [90m[1mreimport[22m | Started (Re)Importing Assets (245 steps)[39m[0m
+2026-10-20T10:18:53.7113231Z [   0% ] [90m[1mreimport[22m | Executing post-reimport operations...[39m[0m
+2026-10-20T10:18:53.7114052Z [92m[ DONE ][39m [1mreimport[22m
+2026-10-20T10:18:53.7114526Z [0m
+2026-10-20T10:18:53.7202592Z [   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+2026-10-20T10:18:53.7203797Z [   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+2026-10-20T10:18:53.7205079Z [  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+2026-10-20T10:18:53.7205927Z [92m[ DONE ][39m [1mloading_editor_layout[22m
+2026-10-20T10:18:53.7206563Z [0m
+2026-10-20T10:18:55.0762483Z ##[group]Run python tools/soak_acceptance.py --port 27510 --races 2 --laps 1 --seconds 480 --minimum-seconds 0 --tracks spillway_sprint,caldera_crosscut
+2026-10-20T10:18:55.0763601Z [36;1mpython tools/soak_acceptance.py --port 27510 --races 2 --laps 1 --seconds 480 --minimum-seconds 0 --tracks spillway_sprint,caldera_crosscut[0m
+2026-10-20T10:18:55.0829048Z shell: /usr/bin/bash -e {0}
+2026-10-20T10:18:55.0829320Z env:
+2026-10-20T10:18:55.0829622Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:55.0830276Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib/pkgconfig
+2026-10-20T10:18:55.0830731Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:55.0831130Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:55.0831558Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:18:55.0831971Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib
+2026-10-20T10:18:55.0832356Z ##[endgroup]
+2026-10-20T10:18:55.5963400Z {"elapsed": 0.3, "completed_min_max": [0, 0], "folder": "/home/runner/work/racinggame/racinggame/reports/soak-eight-16f76ba163"}
+2026-10-20T10:21:31.0625502Z {"elapsed": 155.8, "completed_min_max": [0, 1], "folder": "/home/runner/work/racinggame/racinggame/reports/soak-eight-16f76ba163"}
+2026-10-20T10:21:31.3136790Z {"elapsed": 156.0, "completed_min_max": [1, 1], "folder": "/home/runner/work/racinggame/racinggame/reports/soak-eight-16f76ba163"}
+2026-10-20T10:24:35.3474031Z {"elapsed": 340.1, "completed_min_max": [1, 2], "folder": "/home/runner/work/racinggame/racinggame/reports/soak-eight-16f76ba163"}
+2026-10-20T10:24:35.5980119Z {"elapsed": 340.3, "completed_min_max": [2, 2], "folder": "/home/runner/work/racinggame/racinggame/reports/soak-eight-16f76ba163"}
+2026-10-20T10:24:35.7146816Z {"passed": false, "report": "/home/runner/work/racinggame/racinggame/reports/soak-eight-16f76ba163/summary.json", "failure": "AssertionError: Failed checks: clear_coverage_500_each"}
+2026-10-20T10:24:35.7173597Z Traceback (most recent call last):
+2026-10-20T10:24:35.7185235Z   File "/home/runner/work/racinggame/racinggame/tools/soak_acceptance.py", line 200, in <module>
+2026-10-20T10:24:35.7186073Z     if __name__ == '__main__': main()
+2026-10-20T10:24:35.7186610Z                                ~~~~^^
+2026-10-20T10:24:35.7187349Z   File "/home/runner/work/racinggame/racinggame/tools/soak_acceptance.py", line 176, in main
+2026-10-20T10:24:35.7188263Z     assert summary['passed'], 'Failed checks: '+', '.join(key for key,value in checks.items() if not value)
+2026-10-20T10:24:35.7188850Z            ~~~~~~~^^^^^^^^^^
+2026-10-20T10:24:35.7189173Z AssertionError: Failed checks: clear_coverage_500_each
+2026-10-20T10:24:35.7323577Z ##[error]Process completed with exit code 1.
+2026-10-20T10:24:35.7395982Z ##[group]Run actions/upload-artifact@v4
+2026-10-20T10:24:35.7396311Z with:
+2026-10-20T10:24:35.7396539Z   name: network-evidence-new-courses
+2026-10-20T10:24:35.7396882Z   path: reports/network-*/
+reports/soak-eight-*/
+
+2026-10-20T10:24:35.7397223Z   if-no-files-found: error
+2026-10-20T10:24:35.7397475Z   compression-level: 6
+2026-10-20T10:24:35.7397706Z   overwrite: false
+2026-10-20T10:24:35.7397936Z   include-hidden-files: false
+2026-10-20T10:24:35.7398180Z env:
+2026-10-20T10:24:35.7398459Z   pythonLocation: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:24:35.7398926Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib/pkgconfig
+2026-10-20T10:24:35.7399376Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:24:35.7399797Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:24:35.7400201Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.14.7/x64
+2026-10-20T10:24:35.7400637Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.14.7/x64/lib
+2026-10-20T10:24:35.7400977Z ##[endgroup]
+2026-10-20T10:24:35.9200178Z (node:2562) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-20T10:24:35.9201152Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-20T10:24:35.9371549Z With the provided path, there will be 21 files uploaded
+2026-10-20T10:24:35.9379161Z Artifact name is valid!
+2026-10-20T10:24:35.9379786Z Root directory input is valid!
+2026-10-20T10:24:36.2573968Z Beginning upload of artifact content to blob storage
+2026-10-20T10:24:36.3102005Z (node:2562) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-20T10:24:36.4908248Z Uploaded bytes 64028
+2026-10-20T10:24:36.5292680Z Finished uploading artifact content to blob storage!
+2026-10-20T10:24:36.5293968Z SHA256 digest of uploaded artifact zip is 756dae31d07c193825e500b2cc13f81d809e3c0f613cb1875e2d165d16c882b7
+2026-10-20T10:24:36.5296633Z Finalizing artifact upload
+2026-10-20T10:24:36.7777060Z Artifact network-evidence-new-courses.zip successfully finalized. Artifact ID 12257418772
+2026-10-20T10:24:36.7779064Z Artifact network-evidence-new-courses has been successfully uploaded! Final size is 64028 bytes. Artifact ID is 12257418772
+2026-10-20T10:24:36.7786520Z Artifact download URL: https://github.com/maccam912/racinggame/actions/runs/39406198364/artifacts/12257418772
+2026-10-20T10:24:36.7988260Z Post job cleanup.
+2026-10-20T10:24:36.8870899Z [command]/usr/bin/git version
+2026-10-20T10:24:36.8916083Z git version 2.55.0
+2026-10-20T10:24:36.8960409Z Temporarily overriding HOME='/home/runner/work/_temp/517a7c7a-2d54-4e9c-b89f-a65f7501d872' before making global git config changes
+2026-10-20T10:24:36.8961271Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-20T10:24:36.8966432Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/racinggame/racinggame
+2026-10-20T10:24:36.9004405Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-20T10:24:36.9040058Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-20T10:24:36.9303217Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-20T10:24:36.9331437Z http.https://github.com/.extraheader
+2026-10-20T10:24:36.9343416Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-20T10:24:36.9379919Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-20T10:24:36.9654140Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-20T10:24:36.9692197Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-20T10:24:37.0097635Z Cleaning up orphan processes
+2026-10-20T10:24:37.0477540Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

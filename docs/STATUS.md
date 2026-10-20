@@ -1,5 +1,11 @@
 # Implementation status
 
+## 20 October — Build 112 published; Build 113 clear-sample coverage failure
+
+[Build 112](https://github.com/maccam912/racinggame/releases/tag/v0.0.112-dev) publishes all **18 files** from clean `8b9fe9a`, with all **32 required jobs passing** and two correct unchanged-gameplay AI/soak skips. Tag, six metadata files and six GitHub payload digests match. Its exact downloaded public APK updates public Build 111 on a separate Android 15 emulator, preserving the UID/signer and all **28 existing files** before launch; ordinary exported Spillway gameplay then renders the new machinery. [Publication and actual public APK evidence](evidence/release112/).
+
+The later Build 113 Linux new-course network job **fails** its unchanged 500 clear-road observations per client/race requirement: one Spillway client collects **483** clear and 1,904 contact observations. Both one-lap races otherwise finish with **16 matching rows**, final snapshot gates **74/88**, worst clear p95 **0.0323264 m** and no cleanup issues. [Original failed report, fixture and job log](evidence/ci113-clear-coverage/initial-failure/). The proposed CI procedure drives **two laps** on these two long courses, retaining the 500-sample, correction, finish-grace and wire bounds. Validation and subsequent publication remain pending; Build 113 is not a successful release.
+
 ## 20 October — route-aware emulator memory acceptance
 
 The installed-APK helper now labels the actual chosen routes/lap count and accepts `--check-memory` for other explicitly selected race populations. Automatic ten-race/three-lap enforcement remains. The existing **1 GB process VmRSS / 5% repeated-cycle peak-growth** limits are retained; full pre-five-minute/window coverage is required and a lower endpoint cannot hide an intermediate peak. Exact integer byte arithmetic preserves the inclusive 5% threshold. All **23 Python regressions** pass. [Code, focused cases and the original early interrupted invocation](evidence/emulator-memory-scope/). A fresh six-race new-course memory/cross-play run remains pending; game/runtime/assets are unchanged from clean Build112.
