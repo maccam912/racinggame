@@ -34,8 +34,23 @@ python3 tools/godot.py --max-fps 60 --script tests/scenery_library_evidence.gd
 python3 tools/godot.py --max-fps 60 --script tests/roadside_poster_tests.gd
 ```
 
-The [native library and road-approach views](evidence/scenery-detail/) show all
+The initial Blender-detail checkpoint's [native library and road-approach views](evidence/scenery-detail/) show all
 three LODs and the actual Canyon/Summit scenery. They are posed renderer checks,
 separate from normal-race exported desktop/Android captures. Gameplay content 5,
 protocol 5 and save schema 1 remain unchanged. Cosmetic identity is
 `442367da36de66721bbb1ac5b6f666880ab372f9ede98afa1be8573399ecbb74`.
+
+
+Current procedural roadside detail extends those unchanged 47 GLBs with bounded
+3D boulder clusters, cut-log piles, quarry bluffs and Skyline towers. Illustrated
+waterfalls retain 3D base rocks and animated pools. Clearance plans reserve road
+and poster sightlines; each root has independent bounds and distance culling,
+without new driving collision. Both roadside instances are checked by semantic
+metadata even if Godot auto-renames duplicate node names.
+
+Skyline facade walls add original metre-aligned panes, static glass sweeps,
+warm rooms, ordered dither and derivative-filtered distance detail. Trim and
+roof equipment remain opaque solids. Existing tower geometry and default atlas
+shading are preserved. [Current source/native evidence](evidence/city108/)
+records the current identities, source checks and exported follow-up; the
+initial material/content-5 identity above describes its original checkpoint.

@@ -17,8 +17,12 @@ from asset_hash import compute as cosmetic_manifest
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--seconds', type=int, default=900)
+    parser.add_argument('--tracks', help='Comma-separated course IDs in repeated order; defaults to the complete catalog')
     args = parser.parse_args()
     assert platform.system() in ['Darwin','Linux'] and 1<=args.seconds<=3600
+    catalog = [row['id'] for row in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']]
+    tracks = args.tracks.split(',') if args.tracks else catalog
+    assert tracks and len(set(tracks))==len(tracks) and all(track in catalog for track in tracks), 'Unknown or repeated course in --tracks'
     folder = ROOT/'reports'/('render-soak-'+uuid.uuid4().hex[:10])
     folder.mkdir(parents=True)
     profile = 'render_soak_'+uuid.uuid4().hex[:12]
@@ -30,9 +34,10 @@ def main():
               'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True)),
               'platform':platform.platform(),'requested_seconds':args.seconds,'profile':profile,
               'content_hash':manifest['content_hash'],'asset_hash':cosmetics['asset_hash'],
+              'planned_tracks':tracks,'all_catalog_tracks':set(tracks)==set(catalog),
               'audio_driver':'Dummy',
               'fixture_sha256':hashlib.sha256(script.read_bytes()).hexdigest(),
-              'boundary':'Live native source rendering at 1920x1080 Medium/60 cap, eight-course repeated eight-car races. RSS includes renderer/audio/scene resources. This host can have other applications/emulators active; no minimum-device, physical thermal or standalone worst-track budget claim.'}
+              'boundary':'Live native source rendering at 1920x1080 Medium/60 cap, repeated eight-car races on the explicitly recorded courses. RSS includes renderer/audio/scene resources. This host can have other applications/emulators active; no minimum-device or physical thermal budget claim.'}
     process = None
     observations = []
     began = time.monotonic()
@@ -41,7 +46,7 @@ def main():
             command = [str(engine()),'--path',str(ROOT),'--audio-driver','Dummy','--resolution','1920x1080',
                        '--script',str(script),'--','--autodrive','--profile='+profile,
                        '--capture-frame=1000000000','--capture='+str(folder/'unused.png'),
-                       '--seconds='+str(args.seconds),'--report='+str(folder/'native.json')]
+                       '--seconds='+str(args.seconds),'--tracks='+','.join(tracks),'--report='+str(folder/'native.json')]
             process = subprocess.Popen(command,cwd=ROOT,stdout=log,stderr=subprocess.STDOUT)
             while process.poll() is None:
                 elapsed = time.monotonic()-began
@@ -76,7 +81,7 @@ def main():
                   'engine_log':not any(marker in (folder/'native.log').read_text() for marker in ['SCRIPT ERROR:','ERROR:','instances leaked'])}
         if args.seconds>=900:
             checks['rss_growth_at_most_5percent'] = memory['peak_growth_fraction']<=.05
-            checks['all_catalog_courses'] = {row['track'] for row in native['races']}=={row['id'] for row in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']}
+            checks['all_planned_courses'] = {row['track'] for row in native['races']}==set(tracks)
         # Report timing independently: host contention does not become a passing
         # minimum-device claim or get hidden by the lifetime/memory verdict.
         report.update(memory=memory,checks=checks,passed=all(checks.values()),

@@ -2,9 +2,12 @@
 
 Original colorful 3D arcade circuit racer for desktop and Android. [DESIGN.md](DESIGN.md) is the authoritative launch specification; [docs/STATUS.md](docs/STATUS.md) separates implemented work from acceptance evidence.
 
-Four cars race six courses with steep climbs, drops and Summit flight. Painted
-travel signs and illustrated roadside foliage mix with 3D cars, buildings,
-bridges and crest structures. Download numbered desktop/Android development
+Four cars race eight courses with steep climbs, drops and Summit flight,
+including Skyline Splice's layered harbor crossing and Quarry Switchback's
+linked hairpins. Original rocks, logs, waterfalls, painted travel signs and
+illustrated foliage mix with 3D cars, buildings, bridges and crest structures.
+The interface uses original arcade lettering and glossy chrome; car paint,
+glass and dry paving have authored surface detail. Download numbered desktop/Android development
 packages from [Releases](https://github.com/maccam912/racinggame/releases).
 [The 32-row acceptance index](docs/ACCEPTANCE.md) records verified scope and open
 human, hosting and publisher checks. Phone/tablet development checks use emulators;
@@ -42,7 +45,7 @@ Build targets: `linux`, `windows`, `macos`, `android` (APK), `android_aab`, `ser
 
 Android exports also compile the project-owned [audio-focus/network bridge](docs/ANDROID_SERVICES.md) against the pinned engine library and verify its manifest/DEX inclusion. Mobile [offline recovery](docs/OFFLINE_RESUME.md) and [foreground/adaptive resource policy](docs/MOBILE_RUNTIME.md) have separate source, native-render and emulator evidence in the status report.
 
-Track Loading now [renders required graphics variants](docs/SHADER_LOADING.md) before Grid or online Loaded, with foreground waiting, Retry and Cancel. The Linux rendering job is being corrected after an audit found that audio startup failures were hidden by piped log capture; [the correction and raw evidence](docs/evidence/render-gate98/) distinguish it from passing native macOS/Android rendering.
+Track Loading now [renders required graphics variants](docs/SHADER_LOADING.md) before Grid or online Loaded, with foreground waiting, Retry and Cancel. Strict Linux graphics pass in the fully gated [Build 106 evidence](docs/evidence/release106/). The latest long-course fixture correction and focused Linux confirmation are tracked in [the graphics follow-up](docs/evidence/graphics108/); the full development release workflow remains independently gated.
 
 Player and room names use portable [Unicode 16 grapheme rules](docs/UNICODE_NAMES.md), checked against the same 1,093 official vectors as the directory. The Android/native eight-player race-and-rematch fixture is documented there. Shared [font fallbacks and whole-grapheme editing](docs/TEXT_RENDERING.md) keep accepted emoji names visible in exported games.
 
@@ -54,12 +57,12 @@ The [Linux server bundle](docs/SERVER_PACKAGE.md) includes the matching operator
 
 Every push to main requires source/geometry/assets, real-client network fault scenarios, Linux graphical rendering, platform exports and native package startup before publishing a numbered development prerelease. The rendering job now uses explicit Bash pipefail, a deliberate failure probe and Dummy audio output while retaining its actual graphics context. Earlier green rendering jobs are superseded by the [validation audit](docs/evidence/render-gate98/). These are development checkpoints, not completed launch releases.
 
-Gameplay identity changes also require the complete six-course AI matrix and
+Gameplay identity changes also require the complete eight-course AI matrix and
 ten-race impaired network/memory soak before publication. Changes to the soak driver/harness, network/server runtime or pinned toolchain also require that full soak. Detection compares the last numbered gated tag, so a failed build followed by a cosmetic repair cannot skip it. Cosmetic changes keep
 their own asset identity. [Foliage](docs/BILLBOARD_ART.md), [painted signs](docs/ROADSIDE_POSTERS.md),
 [3D scenery detail](docs/SCENERY_DETAIL.md) and [content-5 tuning](docs/ARCADE_TUNING.md)
 have saved sources and evidence. `python3 tools/render_soak.py` separately measures
-live six-course graphical scene lifetimes on the current desktop; its wall-clock
+live eight-course graphical scene lifetimes on the current desktop; its wall-clock
 frame report is distinct from fixed-frame video recording and minimum-device
 performance acceptance.
 
@@ -71,7 +74,7 @@ unrelated profiles, records exact authority/Android/native result agreement,
 streams logs across buffer rotation and samples Android process RSS. Its output
 is automated emulator evidence, separate from human touch or hardware performance.
 
-The four original car meshes have explicit 35/90 m LODs, a shared 1024² atlas, all eight paint choices and independently animated wheels. Editable Blender source and regeneration instructions are in [assets/source/README.md](assets/source/README.md). Run `python3 tools/asset_hash.py` after changing cosmetic exports; this identity is separate from gameplay content and appears in build metadata. Six original scenery kits now supply all 30 named landmarks, with shared vegetation, neighborhood buildings, road furniture and rendered course postcards. The 48 original audio assets include six course compositions, menu/results music, four engine profiles, effects and fixed synthetic announcer cues. Run `python3 tools/audio_acceptance.py --capture` (ffmpeg required) for the actual eight-engine mix gate, or add `--native-output` for a rendered final-output/Master-mute check. Bounded smoke/dust/sparks/skid batches, contact opacity, recovery transitions and camera feedback are implemented. Sixty original editable interface icons, real Garage stat bars, car-specific medals and responsive selection panes are implemented. Authoritative lap clocks, saved-ghost live delta and bounded visible rival labels complete the main racing HUD. M4 source/assets are complete with human/physical reviews still open; M5 robustness work continues. Native save barriers, profile ownership and deletion recovery are documented in [docs/SAVE_DURABILITY.md](docs/SAVE_DURABILITY.md).
+The four original car meshes have explicit 35/90 m LODs, a shared 1024² atlas, all eight paint choices and independently animated wheels. Editable Blender source and regeneration instructions are in [assets/source/README.md](assets/source/README.md). Run `python3 tools/asset_hash.py` after changing cosmetic exports; this identity is separate from gameplay content and appears in build metadata. Six original scenery kits now supply all 30 named landmarks, with shared vegetation, neighborhood buildings, road furniture and rendered course postcards. The 48 original audio assets include six course compositions, menu/results music, four engine profiles, effects and fixed synthetic announcer cues. Run `python3 tools/audio_acceptance.py --capture` (ffmpeg required) for the actual eight-engine mix gate, or add `--native-output` for a rendered final-output/Master-mute check. Bounded smoke/dust/sparks/skid batches, contact opacity, recovery transitions and camera feedback are implemented. Sixty-two original editable interface icons, real Garage stat bars, car-specific medals and responsive selection panes are implemented. Authoritative lap clocks, saved-ghost live delta and bounded visible rival labels complete the main racing HUD. The dated status report records current release checkpoints and remaining owner usability, hosting and publisher inputs; physical-device testing is optional owner follow-up. Native save barriers, profile ownership and deletion recovery are documented in [docs/SAVE_DURABILITY.md](docs/SAVE_DURABILITY.md).
 
 
 Touch layout editing is under Settings → Touch → Edit Layout on Android. Drag the outlines, or focus one and press Confirm to move it with keyboard/controller directions; Back stops moving it. Save validates target sizes, safe margins and overlap. Preview runs a separate 30-second practice drive and returns to the draft. Cancel preserves saved positions, and Restore Layout resets only the current device/orientation/control profile. Layout geometry cannot be changed during an online race.

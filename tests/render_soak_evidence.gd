@@ -8,6 +8,7 @@ var output: String
 var began_us: int
 var duration: int = 900
 var serial: int = 0
+var planned_tracks: Array[int] = []
 var last_heartbeat: int = -1
 var last_draw_us: int = 0
 
@@ -40,11 +41,12 @@ func report(passed: bool, final: bool = false) -> void:
 	var snapshot: Dictionary = app.diagnostics.snapshot()
 	var value := {"passed":passed,"final":final,"elapsed_seconds":(Time.get_ticks_usec()-began_us)/1000000.0,
 		"requested_seconds":duration,"races":races,"racing_frames":frames.size(),
+		"planned_tracks":planned_tracks.map(func(index: int) -> String: return Catalog.tracks[index].id),
 		"frame_timing":"Wall-clock microseconds between RenderingServer.frame_post_draw callbacks, including OS scheduling; excludes loading/menu/countdown. No engine simulation-delta or fixed-fps movie timing.",
 		"content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,
 		"renderer":RenderingServer.get_current_rendering_method(),"gpu":RenderingServer.get_video_adapter_name(),
 		"platform":snapshot["platform.json"],"settings":snapshot["settings.json"],"last_60_seconds":snapshot["performance.json"],
-		"boundary":"Live source client, normally paced eight-car races across eight courses, production loading/HUD/render-scale path, ordinary diagnostic AI inputs. Repeated scene lifetime exercise on this host; not exported-template, minimum-hardware, continuous worst-track, human driving, physical Android or thermal acceptance."}
+		"boundary":"Live source client, normally paced eight-car races on the recorded courses, production loading/HUD/render-scale path, ordinary diagnostic AI inputs. Repeated scene lifetime exercise on this host; not exported-template, minimum-hardware, human driving, physical Android or thermal acceptance."}
 	if final: value["racing_frame_times"] = stats()
 	var file := FileAccess.open(output,FileAccess.WRITE)
 	assert(file!=null)
@@ -53,7 +55,7 @@ func report(passed: bool, final: bool = false) -> void:
 
 
 func start_next() -> void:
-	var track := serial%Catalog.tracks.size()
+	var track := planned_tracks[serial%planned_tracks.size()]
 	app.request_drive({"mode":"quick","track":track,"car":serial%4,"paint":serial%8,
 		"opponents":7,"laps":1,"difficulty":1,"contact":true,"seed":0x534f4100+serial},app.show_menu)
 	serial += 1
@@ -63,10 +65,12 @@ func run() -> void:
 	assert(DisplayServer.get_name()!="headless")
 	assert("--autodrive" in OS.get_cmdline_user_args())
 	var profile := ""
+	var course_ids := ""
 	for argument: String in OS.get_cmdline_user_args():
 		if argument.begins_with("--report="): output = argument.trim_prefix("--report=")
 		elif argument.begins_with("--seconds="): duration = clampi(int(argument.trim_prefix("--seconds=")),1,3600)
 		elif argument.begins_with("--profile="): profile = argument.trim_prefix("--profile=")
+		elif argument.begins_with("--tracks="): course_ids = argument.trim_prefix("--tracks=")
 	assert(not output.is_empty() and profile.begins_with("render_soak_") and GhostCodec.valid_id(profile))
 	root.size = Vector2i(1920,1080)
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_CANVAS_ITEMS
@@ -77,6 +81,16 @@ func run() -> void:
 	app.capture_frame = 1000000000
 	root.add_child(app)
 	await process_frame
+	if course_ids.is_empty():
+		for index in range(Catalog.tracks.size()): planned_tracks.append(index)
+	else:
+		for id: String in course_ids.split(","):
+			var found := -1
+			for index in range(Catalog.tracks.size()):
+				if Catalog.tracks[index].id==id: found = index
+			assert(found>=0 and not planned_tracks.has(found),"explicit course order must contain distinct catalog IDs")
+			planned_tracks.append(found)
+	assert(not planned_tracks.is_empty())
 	app.data.profile.first_run_complete = true
 	app.data.apply_preset("medium")
 	app.data.settings.frame_cap = 60

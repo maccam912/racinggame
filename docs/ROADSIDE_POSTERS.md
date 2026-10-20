@@ -1,6 +1,6 @@
 # Painted roadside travel signs
 
-Six original generated illustrations give the fictional courses painted travel
+Eight original generated illustrations give the fictional courses painted travel
 signs. The signs use course names and scenery already defined by the game. They
 are decorative artwork on 3D frames; navigation remains the road, chevrons and
 advance-warning boards.
@@ -29,13 +29,21 @@ hide the panel, including their canopy width. Grass and driving geometry remain.
 Signs participate in the existing scenery-distance setting and add no collision.
 
 The memory-pressure path drops reusable sign materials while active scene nodes
-retain their textures. Source tests check all six raw/source hashes, opaque
-pixels, mipmaps, fixed orientation, 18 clear sites and active texture ownership.
+retain their textures. Source tests check all eight raw/source hashes, opaque
+pixels, mipmaps, fixed orientation, 24 clear sites and active texture ownership.
 The native/software-GL CI gate renders every course's first sign from a normal
 Near Chase approach. Source views were inspected after clearing initial tree
 occlusion. [Native views and numeric evidence](evidence/posters/).
 
-Cars, buildings, bridges and the 28 crest structures retain their 3D geometry.
+Cars, buildings, bridges and crest structures retain their 3D geometry.
 The five illustrated foliage species still use cylindrical billboards as
-described in [the foliage checkpoint](BILLBOARD_ART.md). Physics content 5,
-network protocol 5 and game save schema 1 do not change with the sign artwork.
+described in [the foliage checkpoint](BILLBOARD_ART.md). The sign artwork has a separate cosmetic identity; current gameplay/protocol/save
+versions and exported acceptance are recorded in the status report.
+
+
+Skyline's elevated signs use original triangular cantilevers attached below the
+bridge deck. Structural checks keep their beams outside the seven-metre driving
+corridor; source/native approach and external support views are retained in
+[the arcade touch/bridge checkpoint](evidence/arcade-touch106/). The original
+six-sign images/evidence above remain historical; current eight-sign native
+views are included in [the facade checkpoint](evidence/city108/).

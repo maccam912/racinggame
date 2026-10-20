@@ -11,8 +11,9 @@ Submissions include actual imported mesh formats, ordinary and instanced track
 materials, all four car models and LOD formats, normal/fading/ghost car shaders,
 slot-number glyphs, blob shadows, smoke/dust/sparks and skid batches. Materials
 are collected from the selected course; water is required only on water courses.
-All eight shipped spatial shaders are covered across the six courses. Current
-inventory is bounded at 38–46 submissions. Instanced effects use the same material
+All nine shipped spatial shaders are covered across eight courses, including
+the procedural Skyline facade material. Current inventory reaches at most
+61 submissions. Instanced effects use the same material
 factories and instance-color layout as gameplay. Model/material resources remain
 owned by the prepared course after temporary submissions are freed.
 
@@ -46,3 +47,20 @@ driver cache behavior, absence of every future graphics stall, first-install
 performance on all hardware, or physical-device thermal acceptance. In-race
 settings changes can select a new renderer variant. Godot's renderer remains
 responsible for driver program caching; see its [viewport rendering API](https://docs.godotengine.org/en/4.6/classes/class_renderingserver.html).
+
+
+The graphical fixture separates construction from GPU readiness. Construction
+allows `max(60000, (world.build_steps() + 4) * 1000)` milliseconds; the GPU stage
+retains 15,000 milliseconds. Actual authored work determines the allowance:
+Skyline has 70 construction units / 74 seconds, Quarry 90 / 94. Native slow
+probes use `--slow-construction-probe` (Citrus, 3 fps) and
+`--slow-long-construction-probe` (Quarry, 1 fps), restoring the original frame
+cap before GPU preparation. These are fixture bounds, not normal loading-time
+or minimum-hardware performance promises.
+
+The JSON report clears previous success at startup and stores a unique run ID,
+fixture SHA-256, current content/cosmetic identity, each completed course and
+its measured duration/allowance. A timeout retains the failed stage and loader
+state. Only the completed full matrix sets `passed=true`. Historical failures,
+slow native probes and Linux follow-up are preserved in
+[the graphics evidence](evidence/graphics108/).

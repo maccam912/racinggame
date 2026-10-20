@@ -1,0 +1,42 @@
+{
+  "version": "0.0.108-dev",
+  "build_number": 108,
+  "working_tree_dirty": false,
+  "commit": "958478afcb986e6b38597108958644be08ea44cd",
+  "engine_version": "4.6.3-stable",
+  "engine_checksum": "d0bc2113065e481c9c2c2b2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3",
+  "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+  "protocol_version": 5,
+  "save_schema": 1,
+  "content_hash": "dfb78c447e094d7e0200a2538fec45cae44c848a4e3c65334f642fb970b415f7",
+  "asset_hash": "f84503f54c7eaa8e6178c76689a30f931d17f1af33aa123570bc5ae05e349a6c",
+  "target_platform": "server",
+  "distribution": "development",
+  "public_signing": "not configured",
+  "native_adapter": {
+    "platform": "linux",
+    "architecture": "x86_64",
+    "api_floor": "4.5",
+    "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+    "scons": "4.11.1",
+    "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e",
+    "sha256": "9c4783a6a462dcb23ac69be53c3cca94352a5b34e3f879591626b06bf3a097fb"
+  },
+  "directory_service": {
+    "version": "0.0.108-dev",
+    "build_number": 108,
+    "commit": "958478afcb986e6b38597108958644be08ea44cd",
+    "working_tree_dirty": false,
+    "protocol_version": 5,
+    "content_hash": "dfb78c447e094d7e0200a2538fec45cae44c848a4e3c65334f642fb970b415f7",
+    "distribution": "development",
+    "source_sha256": "911b6266d4c3a0ec448833d9cce08dcda1ef803990bc35765b8bdcbd1f8b751d",
+    "target_platform": "linux-amd64",
+    "go_version": "go1.27.0",
+    "service_schema": 4,
+    "path": "pacific-directory",
+    "sha256": "26692f7ada7c029015afdc74d2b84b317b288e681c986c969ec9c0d05b989542",
+    "cgo_enabled": false,
+    "go_sum_sha256": "d4f4737252e72cdf461a67ebaf0eaa24366c520464962c89e46c355049842c2d"
+  }
+}

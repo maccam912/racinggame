@@ -1,0 +1,58 @@
+{
+  "passed": true,
+  "commit": "958478afcb986e6b38597108958644be08ea44cd",
+  "workflow": 39379722661,
+  "jobs": 40,
+  "published_files": 18,
+  "packages": [
+    {
+      "platform": "android",
+      "metadata": "pacific-rush-00108-android-build.json",
+      "payload": "pacific-rush-00108-android.apk",
+      "sha256": "e511e5e19c65bd414332171a46430d67903dd3742951f16871a76022d7941b7a",
+      "github_stored_digest_matches": true,
+      "bytes": 162872935
+    },
+    {
+      "platform": "android_aab",
+      "metadata": "pacific-rush-00108-android_aab-build.json",
+      "payload": "pacific-rush-00108-android_aab.aab",
+      "sha256": "4e1872433c01fb2fab815af7c68a5dd3013150a2d9d26520e5c9b88db200e006",
+      "github_stored_digest_matches": true,
+      "bytes": 111419718
+    },
+    {
+      "platform": "linux",
+      "metadata": "pacific-rush-00108-linux-build.json",
+      "payload": "pacific-rush-00108-linux.zip",
+      "sha256": "019292d90d982ea024bcabe85af6d472d22f4c3e3da13efb2028aa8d134a8717",
+      "github_stored_digest_matches": true,
+      "bytes": 112967770
+    },
+    {
+      "platform": "macos",
+      "metadata": "pacific-rush-00108-macos-build.json",
+      "payload": "pacific-rush-00108-macos.zip",
+      "sha256": "b8764417b5f59a6ead03a667b8abff74e5e05f9dab9849655215098073493fc8",
+      "github_stored_digest_matches": true,
+      "bytes": 147670996
+    },
+    {
+      "platform": "server",
+      "metadata": "pacific-rush-00108-server-build.json",
+      "payload": "pacific-rush-00108-server.zip",
+      "sha256": "8a81063253967b369475c0df16dea6355e80da479e7d0a7d042f80a24664d6a8",
+      "github_stored_digest_matches": true,
+      "bytes": 37469496
+    },
+    {
+      "platform": "windows",
+      "metadata": "pacific-rush-00108-windows-build.json",
+      "payload": "pacific-rush-00108-windows.zip",
+      "sha256": "4925a352b37cb60a743e9df957b0cbfcbe7117ba1bc51803b69af14455e469bb",
+      "github_stored_digest_matches": true,
+      "bytes": 121233236
+    }
+  ],
+  "boundary": "Published metadata and sidecars fetched; payload SHA compared with GitHub stored asset digests. Does not claim all published binaries were downloaded or run locally."
+}
