@@ -7,9 +7,9 @@ requirement; human handling/usability and operated public regions remain open.
 
 Current gameplay is **content 9 / protocol 5 / save schema 1**, digest
 `f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f`, with ten playable courses.
-The [101-command source report](evidence/waterworks112/source101/summary.json)
-contains the final source matrix after the richer car geometry and near-plane
-hood correction. [Car/camera evidence](evidence/car-crater111/) retains
+The current [102-command source report](evidence/caption117/source102/summary.json)
+passes after the following-gap contract and pause/settings caption correction.
+The earlier waterworks and car/near-plane matrices retain their original identities. [Car/camera evidence](evidence/car-crater111/) retains
 all 40 corrected native framing cases and both original failed reports; the
 [later waterworks detail](evidence/waterworks112/) has its own native/source proof.
 [Content-9 evidence](evidence/content9/) also

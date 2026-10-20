@@ -1,5 +1,9 @@
 # Implementation status
 
+## 20 October — pause/settings caption overlap corrected
+
+A live announcer GO caption could briefly cover Resume because its global audio canvas sits above menus. Race captions now require active unpaused driving; Results keep saved-record captions. The extended existing audio fixture traverses actual Pause, Audio Settings and Resume, retaining muted-announcer and prioritized-HUD behavior. All **102 source commands pass**. Two actual native menu frames hold a live GO deadline while proving the label hidden; observed viewport **3456×2168**, both visually reviewed. [Final source, checks, native frames and initial diagnostic failures](evidence/caption117/). Gameplay/protocol/save **9/5/1**, game `f762fa68` and cosmetic digest `f6fadc28` remain unchanged. Clean exports and remote publication are pending at this source checkpoint.
+
 ## 20 October — clean full ten-race pass and actual OS multi-touch
 
 Clean `9156350` passes **ten impaired three-lap races / 80 matching normal finishes** with all eight identities, original wire/memory/engine gates, minimum **2,793 clear samples** and worst clear p95 **0.0406286 m**. Worker comparable RSS peaks decline **0.225449%**, elapsed **1,947.933 s**, no cleanup issues. [Complete local run, eighty checkpoints and exact fixtures](evidence/ci115-ten-race-coverage/spacing-full-ten/). GitHub Build116 platform/native/graphics/audio/network jobs pass; the independent remote full soak and publication remain pending.

@@ -61,7 +61,8 @@ func _process(_dt: float) -> void:
 		if app.result_summary.get("saved",false) and app.result_summary.get("new_best",false) and not best_announced.has(race_id):
 			best_announced[race_id] = true
 			say("new_best_time")
-	caption.visible = bool(app.data.settings.captions) and Time.get_ticks_msec()<caption_until
+	var caption_context: bool = app.page=="results" or active and app.page=="race" and not app.drive.paused
+	caption.visible = caption_context and bool(app.data.settings.captions) and Time.get_ticks_msec()<caption_until
 	if active and app.page=="race" and app.drive.hud.is_visible_in_tree() and not app.drive.hud.banner_text().is_empty():
 		caption.hide() # The prioritized HUD already provides the visible race cue.
 	var size := get_viewport().get_visible_rect().size

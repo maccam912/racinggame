@@ -13,6 +13,7 @@ func run() -> void:
 	app.start_drive({"mode":"trial","track":0,"car":0,"paint":0,"opponents":7})
 	await process_frame
 	var drive: RaceDrive = app.drive
+	drive.set_physics_process(false)
 	var audio: RaceAudio = drive.audio
 	audio.set_physics_process(false)
 	assert(audio.engines.size()==8,"only actual roster cars get engines; ghosts never enter this map")
@@ -62,6 +63,24 @@ func run() -> void:
 	app.game_audio._process(.016)
 	assert(app.game_audio.caption.visible and app.game_audio.caption.text=="Wrong way")
 	assert(AudioServer.is_bus_mute(AudioServer.get_bus_index("Announcer")))
+	app.game_audio.caption_until = Time.get_ticks_msec()+10000
+	drive.show_pause()
+	await process_frame
+	assert(app.page=="pause")
+	app.game_audio._process(.016)
+	assert(not app.game_audio.caption.visible,"a live announcer caption cannot cover pause navigation")
+	app.settings_page.show_tab("audio",app.show_pause)
+	await process_frame
+	app.game_audio._process(.016)
+	assert(not app.game_audio.caption.visible,"race captions stay hidden while adjusting settings from Pause")
+	app.show_pause()
+	await process_frame
+	app.resume_drive()
+	await process_frame
+	drive.resume_ticks = 0
+	app.game_audio.say("wrong_way")
+	app.game_audio._process(.016)
+	assert(app.game_audio.caption.visible,"resuming restores captions when there is no prioritized HUD cue")
 	drive.set_physics_process(false)
 	state.events.clear()
 	other.events.clear()
@@ -116,6 +135,7 @@ func run() -> void:
 	app.game_audio._process(.016)
 	app.game_audio._process(.016)
 	assert(app.game_audio.played.voice_new_best_time==1,"save retries/screen refresh cannot duplicate the best-time line")
+	assert(app.game_audio.caption.visible and app.game_audio.caption.text=="New best time","results retain the saved-record caption")
 	app.page = "race"
 	drive.paused = true
 	audio._physics_process(.016)
