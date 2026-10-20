@@ -17,7 +17,7 @@ retains 600 field races, 40 Gold trials, 60 camera paths and the 80-case actual
 native scale/layout matrix. Each source-test link below points to its executable
 fixture; screenshots alone do not establish a numeric pass.
 
-Current [Build116](evidence/release116/) passes all 33 required jobs, all102 source commands and the full Linux ten-race soak, publishes 18 verified files and has actual public APK/macOS startup/gameplay evidence. Historical platform evidence keeps its original build and compatibility label.
+Current [Build116](evidence/release116/) passes all 33 required jobs, all 102 source commands and the full Linux ten-race soak, publishes 18 verified files and has actual public APK/macOS startup/gameplay evidence. Historical platform evidence keeps its original build and compatibility label.
 [Build 108](evidence/release108/) passes all 40 remote jobs and publishes all 18
 files. Build 110 passes all 43 jobs and publishes the ten-course game.
 [Build 111](evidence/release111/) passes 32 required jobs with two correct

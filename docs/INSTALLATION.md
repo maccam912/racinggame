@@ -5,6 +5,15 @@ They can update an earlier compatible development build without uninstalling it.
 The current emulator-only scope is distinct from storefront or physical-device
 acceptance. Publisher signing and macOS notarization are still open.
 
+## Current public package checkpoint
+
+[Build 116](evidence/release116/) publishes 18 verified desktop/Android/server files.
+Its actual downloaded APK updates public Build 112 on a separate Android 15
+emulator while preserving all 28 files, UID and signer. The actual public macOS
+binary passes platform/Keychain/headless startup; both public binaries also
+render ordinary eight-car gameplay. The earlier fresh-install/reinstall and
+same-version procedures below retain their original build identities.
+
 ## Fresh offline Android install and reinstall
 
 The clean local Build **95** APK embeds clean commit `9d50b49`, content 5

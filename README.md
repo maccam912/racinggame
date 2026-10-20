@@ -3,8 +3,9 @@
 Original colorful 3D arcade circuit racer for desktop and Android. [DESIGN.md](DESIGN.md) is the authoritative launch specification; [docs/STATUS.md](docs/STATUS.md) separates implemented work from acceptance evidence.
 
 Four cars race ten courses with steep climbs, drops and Summit flight,
-including Skyline Splice's layered harbor crossing and Quarry Switchback's
-linked hairpins. Original rocks, logs, waterfalls, painted travel signs and
+including Skyline Splice's layered harbor crossing, Quarry Switchback's
+linked hairpins, Spillway Sprint's trefoil waterworks and Caldera Crosscut's
+star-shaped volcanic route. Original rocks, logs, waterfalls, painted travel signs and
 illustrated foliage mix with 3D cars, buildings, bridges and crest structures.
 The interface uses original arcade lettering and glossy chrome; car paint,
 glass and dry paving have authored surface detail. Download numbered desktop/Android development
@@ -45,7 +46,7 @@ Build targets: `linux`, `windows`, `macos`, `android` (APK), `android_aab`, `ser
 
 Android exports also compile the project-owned [audio-focus/network bridge](docs/ANDROID_SERVICES.md) against the pinned engine library and verify its manifest/DEX inclusion. Mobile [offline recovery](docs/OFFLINE_RESUME.md) and [foreground/adaptive resource policy](docs/MOBILE_RUNTIME.md) have separate source, native-render and emulator evidence in the status report.
 
-Track Loading now [renders required graphics variants](docs/SHADER_LOADING.md) before Grid or online Loaded, with foreground waiting, Retry and Cancel. Strict Linux graphics pass in the fully gated [Build 106 evidence](docs/evidence/release106/). The latest long-course fixture correction and focused Linux confirmation are tracked in [the graphics follow-up](docs/evidence/graphics108/); the full development release workflow remains independently gated.
+Track Loading now [renders required graphics variants](docs/SHADER_LOADING.md) before Grid or online Loaded, with foreground waiting, Retry and Cancel. Current [Build 116 evidence](docs/evidence/release116/) includes all ten actual Linux GPU-prepared worlds and strict native rendering, with full release gates passing. Earlier construction-time failures and their correction remain in [the graphics follow-up](docs/evidence/graphics108/).
 
 Player and room names use portable [Unicode 16 grapheme rules](docs/UNICODE_NAMES.md), checked against the same 1,093 official vectors as the directory. The Android/native eight-player race-and-rematch fixture is documented there. Shared [font fallbacks and whole-grapheme editing](docs/TEXT_RENDERING.md) keep accepted emoji names visible in exported games.
 
@@ -53,16 +54,16 @@ Handling and cars: `game/content/cars.json` and `game/core/vehicle_sim.gd`; cour
 
 `local_race.py` launches a dedicated worker and two native clients. Direct Connect accepts `host:port`; the community worker opens a persistent lobby with Ready/Start, bot fill, car/track choices and rematches. The local Go directory allocates ticket-required workers; see `services/directory/README.md` and run `python3 tools/directory_integration.py` with Go 1.27.0 installed. The HTTPS client, full online menu path and native identity stores have integration gates; official hosted regions remain deployment work. Both official URLs in `game/content/regions.json` stay blank until deployment. An explicit `--directory-url=https://…` selects Test Region; `--directory-ca=/path/to/test-root.crt` trusts that CA for these requests only. Run `python3 tools/directory_client_integration.py` for the client/auth/allocator/private-code fixture with an isolated test CA; add `--menu` for the complete menu path or `--menu --visual` for native 150% screenshots. Fault fixtures use a real UDP proxy and keep resets separate from ordinary correction measurements.
 
-The [Linux server bundle](docs/SERVER_PACKAGE.md) includes the matching operator CLI, dependency licenses and runbooks. [OCI hosting](docs/CONTAINER_HOSTING.md) adds gated image/recovery checks and an operator region example. Managed workers report [tick percentiles, current native RSS and capacity headroom](docs/SERVER_PERFORMANCE.md) through authenticated private heartbeats. [Supervisor recovery and rollout](docs/SUPERVISOR_LIFECYCLE.md) retain active races, drain old pools and share bounded capacity. [Database backup and restore](docs/DIRECTORY_BACKUPS.md) preserve identities while clearing stale leases. `python3 tools/soak_acceptance.py` runs the separate eight-client, ten-race impaired-network and 5–15 minute memory fixture.
+The [Linux server bundle](docs/SERVER_PACKAGE.md) includes the matching operator CLI, dependency licenses and runbooks. [OCI hosting](docs/CONTAINER_HOSTING.md) adds gated image/recovery checks and an operator region example. Managed workers report [tick percentiles, current native RSS and capacity headroom](docs/SERVER_PERFORMANCE.md) through authenticated private heartbeats. [Supervisor recovery and rollout](docs/SUPERVISOR_LIFECYCLE.md) retain active races, drain old pools and share bounded capacity. [Database backup and restore](docs/DIRECTORY_BACKUPS.md) preserve identities while clearing stale leases. `python3 tools/soak_acceptance.py --clear-road-spacing` runs the separate eight-client, ten-race impaired-network and 5–15 minute memory fixture.
 
 Every push to main requires source/geometry/assets, real-client network fault scenarios, Linux graphical rendering, platform exports and native package startup before publishing a numbered development prerelease. The rendering job now uses explicit Bash pipefail, a deliberate failure probe and Dummy audio output while retaining its actual graphics context. Earlier green rendering jobs are superseded by the [validation audit](docs/evidence/render-gate98/). These are development checkpoints, not completed launch releases.
 
-Gameplay identity changes also require the complete eight-course AI matrix and
+Gameplay identity changes also require the complete ten-course AI matrix and
 ten-race impaired network/memory soak before publication. Changes to the soak driver/harness, network/server runtime or pinned toolchain also require that full soak. Detection compares the last numbered gated tag, so a failed build followed by a cosmetic repair cannot skip it. Cosmetic changes keep
 their own asset identity. [Foliage](docs/BILLBOARD_ART.md), [painted signs](docs/ROADSIDE_POSTERS.md),
 [3D scenery detail](docs/SCENERY_DETAIL.md) and [content-5 tuning](docs/ARCADE_TUNING.md)
 have saved sources and evidence. `python3 tools/render_soak.py` separately measures
-live eight-course graphical scene lifetimes on the current desktop; its wall-clock
+live catalog graphical scene lifetimes on the current desktop; its wall-clock
 frame report is distinct from fixed-frame video recording and minimum-device
 performance acceptance.
 
