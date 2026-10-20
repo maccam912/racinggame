@@ -1,0 +1,593 @@
+name: Extra tests and soak
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  packages:
+    needs: verify
+    uses: ./.github/workflows/packages.yml
+    secrets: inherit
+
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      # The generated runtime data is committed. Cache checksum-pinned upstream
+      # inputs so the reproducibility check can also run without downloading.
+      - uses: actions/cache@v4
+        with:
+          path: build/unicode16
+          key: unicode16-${{ hashFiles('tools/generate_graphemes.py') }}
+      - run: python tools/check.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-check-evidence
+          path: |
+            reports/checks.json
+            reports/checks-*/
+            reports/m5-packet-faults.json
+            reports/m6-trial-gold.json
+            reports/m6-course-cameras.json
+            reports/car-lamp-attachment.json
+            reports/worker-retirement-*/
+          if-no-files-found: error
+
+  ai:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        track: [palm_bay, citrus_pass, marina_lights, redwood_run, sunstone_canyon, pacific_summit, skyline_splice, quarry_switchback, spillway_sprint, caldera_crosscut]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Seven bots and reference driver, all difficulties and 20 seeds
+        run: python tools/godot.py --headless --fixed-fps 60 --script tests/bot_tracks.gd -- --track=${{ matrix.track }} --seeds=20 --report=res://reports/ai-field.json
+      - name: Single-car difficulty ordering on the flat reference
+        if: matrix.track == 'palm_bay'
+        shell: bash
+        run: |
+          python tools/godot.py --headless --fixed-fps 60 --script tests/bot_tracks.gd -- --track=palm_bay --seeds=4 --solo --report=res://reports/ai-solo.json
+          python - <<'PY'
+          import json
+          rows = json.load(open('reports/ai-solo.json'))['results']
+          for car in range(4):
+              times = [next(row['times'][0] for row in rows if row['reference_car']==car and row['difficulty']==difficulty) for difficulty in range(3)]
+              assert times[2] < times[1] < times[0], (car,times)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ai-evidence-${{ matrix.track }}
+          path: reports/ai-*.json
+          if-no-files-found: error
+
+  network:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: ${{ matrix.scenario == 'new-courses' && 20 || 15 }}
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [race-reconnect, race-expiry, contacts, degraded, skyline, quarry, bonus-field, new-courses]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Faulted race, client stall and five-second reconnect
+        if: matrix.scenario == 'race-reconnect'
+        run: python tools/network_integration.py --seconds 160 --laps 2 --latency 75 --jitter 30 --loss .03 --reconnect --client-hitch --reverse-start --trace
+      - name: Expired 25-second disconnect remains DNF without duplicate identity
+        if: matrix.scenario == 'race-expiry'
+        run: python tools/network_integration.py --seconds 160 --laps 2 --latency 75 --jitter 30 --loss .03 --reconnect --away-seconds 25
+      - name: Repeated side/rear contacts under real UDP faults
+        if: matrix.scenario == 'contacts'
+        run: python tools/network_integration.py --seconds 420 --latency 75 --jitter 30 --loss .03 --contacts
+      - name: Degraded-tier indication and bounded presentation under real UDP faults
+        if: matrix.scenario == 'degraded'
+        run: python tools/network_integration.py --seconds 210 --laps 3 --latency 125 --jitter 30 --loss .08 --degraded
+      - name: Layered Skyline race under real UDP faults
+        if: matrix.scenario == 'skyline'
+        run: python tools/network_integration.py --track skyline_splice --laps 1 --seconds 160 --latency 50 --jitter 10 --loss .02
+      - name: Full Quarry switchback race under real UDP faults
+        if: matrix.scenario == 'quarry'
+        run: python tools/network_integration.py --track quarry_switchback --laps 1 --seconds 190 --latency 50 --jitter 10 --loss .02
+      - name: Eight real clients through both bonus courses and their final checkpoints
+        if: matrix.scenario == 'bonus-field'
+        run: python tools/soak_acceptance.py --races 2 --laps 1 --seconds 360 --minimum-seconds 0 --tracks skyline_splice,quarry_switchback
+      # One lap can leave two closely paced cars together for most of Spillway.
+      # Keep the 500 clear samples per client/race requirement and drive two laps.
+      - name: Eight clients retain late snapshots and clear-road coverage through Spillway and Caldera
+        if: matrix.scenario == 'new-courses'
+        run: python tools/soak_acceptance.py --port 27510 --races 2 --laps 2 --seconds 840 --minimum-seconds 0 --tracks spillway_sprint,caldera_crosscut
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: network-evidence-${{ matrix.scenario }}
+          path: |
+            reports/network-*/
+            reports/soak-eight-*/
+          if-no-files-found: error
+
+  render:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - name: Require failed render commands to propagate through log capture
+        run: |
+          mkdir -p reports
+          if python -c "print('EXPECTED_RENDER_PROBE_FAILURE'); raise SystemExit(23)" | tee reports/pipeline-failure.log; then
+            echo 'A failed renderer was hidden by log capture'
+            exit 1
+          else
+            probe_status=$?
+            test "$probe_status" -eq 23
+          fi
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - name: Software graphics context for actual Compatibility shader compilation
+        run: sudo apt-get update && sudo apt-get install -y xvfb libgl1-mesa-dri
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Render all four original models, ghost, garage choices and race
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          mkdir -p reports
+          xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/car_asset_evidence.gd -- --ci --game-ui --profile=car_render_ci 2>&1 | tee reports/car-render.log
+      - name: Render bundled emoji with system font fallback disabled
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/font_render_evidence.gd 2>&1 | tee reports/font-render.log
+      - name: Reveal local results across phone tablet and desktop layouts
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/results_visibility_tests.gd -- --profile=ci_tests 2>&1 | tee reports/results-visibility.log
+      - name: Render all original scenery silhouettes and 40 course references
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: |
+          xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/scenery_library_evidence.gd 2>&1 | tee -a reports/car-render.log
+          xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/course_reference_evidence.gd -- --ci 2>&1 | tee -a reports/car-render.log
+      - name: Render illustrated foliage from four approach directions
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/billboard_tests.gd 2>&1 | tee reports/billboards.log
+      - name: Render original painted roadside signs on all ten courses
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/roadside_poster_tests.gd 2>&1 | tee reports/posters.log
+      - name: Render original driving effects and recovery transitions
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/feedback_render_evidence.gd -- --profile=feedback_render_ci --capture=res://reports/unused-feedback.png 2>&1 | tee -a reports/car-render.log
+      - name: Render original interface icons and selection/results references
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/interface_icon_evidence.gd -- --profile=interface_render_ci 2>&1 | tee -a reports/car-render.log
+      - name: Require native safe-frame course selection at all supported scales
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/event_layout_tests.gd -- --profile=event_layout_ci 2>&1 | tee -a reports/car-render.log
+      - name: Render race HUD and bounded rival nameplates
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/race_hud_evidence.gd -- --profile=hud_render_ci --capture=res://reports/unused-hud.png 2>&1 | tee -a reports/car-render.log
+      - name: Render focus help and menu transitions
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/menu_style_evidence.gd -- --profile=menu_style_ci --capture=res://reports/unused-menu-style.png 2>&1 | tee -a reports/car-render.log
+      - name: Check preview turnout and all four cars through a complete orbit
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/menu_stage_tests.gd -- --render 2>&1 | tee reports/menu-stage.log
+      - name: Measure actual hood silhouettes for four models and five FOVs
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/hood_camera_evidence.gd 2>&1 | tee reports/hood-cameras.log
+      - name: Render Driving School input demonstrations
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/school_presentation_evidence.gd -- --profile=school_style_ci --capture=res://reports/unused-school-reference.png 2>&1 | tee -a reports/car-render.log
+      - name: Render mixed Summit shoulders and authoritative remote brake lamps
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/surface_lamp_evidence.gd 2>&1 | tee -a reports/car-render.log
+      - name: Render adaptive world scale and retained resources after memory pressure
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/mobile_runtime_evidence.gd -- --profile=mobile_runtime_ci --capture=res://reports/unused-runtime.png 2>&1 | tee -a reports/car-render.log
+      - name: Render required material variants before entering the grid
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/shader_warmup_evidence.gd -- --profile=shader_warmup_ci --capture=res://reports/unused-warmup.png 2>&1 | tee -a reports/car-render.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: compatibility-render-evidence
+          path: |
+            reports/results-visibility/
+            reports/results-visibility.log
+            reports/billboards/
+            reports/billboards.log
+            reports/posters/
+            reports/posters.log
+            reports/m4-*.png
+            reports/m4-feedback-render.json
+            reports/m4-ui-reference.json
+            reports/m4-course-references.json
+            reports/event-layout-native.json
+            reports/m4-hud-reference.json
+            reports/m4-menu-reference.json
+            reports/menu-stage/
+            reports/menu-stage.json
+            reports/menu-stage.log
+            reports/hood-cameras/
+            reports/hood-cameras.log
+            reports/pipeline-failure.log
+            reports/m4-school-reference.json
+            reports/m4-surface-lamp-reference.json
+            reports/m5-runtime-*.png
+            reports/m5-runtime-reference.json
+            reports/m5-shader-*.png
+            reports/m5-shader-warmup.json
+            reports/font-render/
+            reports/font-render.log
+            reports/car-render.log
+          if-no-files-found: error
+
+  audio:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Capture decoded game output with eight engines and simultaneous impacts
+        run: python tools/audio_acceptance.py --capture
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: actual-game-audio-evidence
+          path: |
+            reports/audio-game-*.json
+            reports/audio-game-mix.wav
+          if-no-files-found: error
+
+  native:
+    needs: packages
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: linux
+            runner: ubuntu-24.04
+          - target: server
+            runner: ubuntu-24.04
+          - target: windows
+            runner: windows-2022
+          - target: macos
+            runner: macos-15
+          - target: macos
+            runner: macos-15-intel
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: ${{ matrix.target == 'server' && 20 || 10 }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: package-${{ matrix.target }}
+          path: build/download
+      - uses: actions/cache@v4
+        if: matrix.target == 'server'
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - name: Import source clients for actual exported-server cross-play
+        if: matrix.target == 'server'
+        run: python tools/godot.py --headless --editor --import --quit
+      - name: Run exported native package
+        shell: bash
+        run: python tools/native_package_smoke.py ${{ matrix.target }} build/download/*-${{ matrix.target }}.zip
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-evidence-${{ matrix.target }}-${{ matrix.runner }}
+          path: |
+            reports/native-*.json
+            reports/directory-backup-*/summary.json
+            reports/directory-backup-*/*.log
+            reports/soak-eight-*/
+          if-no-files-found: error
+
+  lobbies:
+    needs: verify
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [rematch, lobby-reconnect]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Lobby identity reservation and immediate explicit leave
+        run: python tools/godot.py --headless --max-fps 60 --script tests/lobby_reconnect_tests.gd
+      - name: Eight clients, all cars, two tracks and persistent rematch
+        if: matrix.scenario == 'rematch'
+        run: python tools/lobby_integration.py
+      - name: Eight clients and rematch after five-second lobby transport loss
+        if: matrix.scenario == 'lobby-reconnect'
+        run: python tools/lobby_integration.py --lobby-reconnect
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lobby-eight-client-evidence-${{ matrix.scenario }}
+          path: reports/lobby-eight-*/
+          if-no-files-found: error
+
+  directory:
+    needs: [verify, packages]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.27.0'
+          cache-dependency-path: services/directory/go.sum
+      - run: go -C services/directory test -race ./...
+      - run: go -C services/directory vet ./...
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: platform-adapter-linux
+          path: native/bin
+      - name: Register the measured native worker adapter
+        run: python -c "import sys; sys.path.insert(0,'tools'); from native_build import configure; configure()"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Cross-language ticket signature and claim rejection
+        run: |
+          mkdir -p reports
+          go -C services/directory run ./cmd/ticket-fixture
+          python tools/godot.py --headless --script tests/ticket_tests.gd
+      - name: Caddy HTTPS, auth, forwarding and private-interface boundaries
+        run: python tools/caddy_integration.py
+      - name: Game HTTPS client, HMAC sessions, allocation and private codes
+        run: python tools/directory_client_integration.py
+      - name: Full online menus, regional probes, joins and protected identity reset
+        run: python tools/directory_client_integration.py --menu
+      - name: Real allocated worker, eight signed admissions and two races
+        run: python tools/directory_integration.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: directory-evidence
+          path: |
+            reports/directory-backup-*/summary.json
+            reports/directory-backup-*/*.log
+            reports/directory-eight-*/summary.json
+            reports/directory-eight-*/*.log
+            reports/caddy-*/summary.json
+            reports/caddy-*/*.log
+            reports/directory-client-*/summary.json
+            reports/directory-client-*/*.log
+          if-no-files-found: warn
+
+  soak:
+    needs: [verify, packages]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: platform-adapter-linux
+          path: native/bin
+      - run: python -c "import sys; sys.path.insert(0,'tools'); from native_build import configure; configure()"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Ten impaired eight-client races and five-to-fifteen-minute native RSS
+        run: python tools/soak_acceptance.py --laps 3 --seconds 2400 --clear-road-spacing
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: ten-race-soak-evidence
+          path: reports/soak-eight-*/
+          if-no-files-found: error
+
+  directory-lifecycle:
+    needs: [verify, packages]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v6
+        with:
+          go-version: '1.27.0'
+          cache-dependency-path: services/directory/go.sum
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: platform-adapter-linux
+          path: native/bin
+      - run: python -c "import sys; sys.path.insert(0,'tools'); from native_build import configure; configure()"
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - run: python tools/godot.py --headless --editor --import --quit
+      - name: Managed idle drain, graceful race, supervisor kill and overlapping pools
+        run: python tools/directory_lifecycle_integration.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: directory-lifecycle-evidence
+          path: |
+            reports/directory-lifecycle-*/summary.json
+            reports/directory-lifecycle-*/*.log
+            reports/directory-lifecycle-*/workers/*.json
+            reports/directory-lifecycle-*/logs/*.jsonl
+          if-no-files-found: error
+  platform-tests:
+    needs: [verify, packages]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux
+            runner: ubuntu-22.04
+          - platform: windows
+            runner: windows-2022
+          - platform: macos
+            runner: macos-15
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-${{ runner.os }}-${{ hashFiles('tools/toolchain.lock') }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: platform-adapter-${{ matrix.platform }}
+          path: native/bin
+      - name: Register the matching native adapters
+        run: python -c "import sys; sys.path.insert(0,'tools'); from native_build import configure; configure()"
+      - name: Linux isolated Secret Service test dependencies
+        if: matrix.platform == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y libsecret-1-0 libxrandr2 gnome-keyring dbus-x11
+      - name: Native save barriers and process-lock crash recovery
+        run: python tools/save_acceptance.py
+      - name: Exercise the real OS store with temporary test data
+        run: python tools/native_store_ci.py --isolated
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: native-save-evidence-${{ matrix.platform }}
+          path: reports/save-acceptance/
+          if-no-files-found: error
+
+  containers:
+    needs: [verify, packages]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: server-container
+          path: build/container-release
+      - name: Load the built image and its matching context
+        run: |
+          cd build/container-release
+          sha256sum --check image.sha256
+          docker load --input image.tar.gz
+          mkdir -p ../container-context
+          cp image.json ../container-context/context.json
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - name: Import independent source clients
+        run: python tools/godot.py --headless --editor --import --quit
+      - name: Check the operator region configuration without deployment
+        env:
+          PR_SERVER_IMAGE: pacific-rush-ci:${{ github.run_number }}
+          PR_PUBLIC_ADDRESS: https://fixture.invalid
+          PR_WORKER_HOST: 127.0.0.1
+          PR_REGION_ID: test
+          PR_REGION_NAME: Test Region
+          PR_WORKERS: '1'
+          PR_HOST_WORKERS: '1'
+          PR_PROTOCOL: '5'
+          PR_CONTENT_HASH: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+          PR_DATA_VOLUME: fixture-data
+          PR_LOG_VOLUME: fixture-logs
+        run: docker compose --file services/directory/deploy/container/compose.yaml config --quiet
+      - name: Eight actual racers survive directory SIGKILL and graceful image stop
+        run: python tools/container_integration.py --image pacific-rush-ci:${{ github.run_number }} --context build/container-context
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: container-evidence
+          path: |
+            build/container-context/context.json
+            reports/container-*/summary.json
+            reports/container-*/*.log
+            reports/container-*/client-*.json
+          if-no-files-found: warn

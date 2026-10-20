@@ -59,11 +59,25 @@ Handling and cars: `game/content/cars.json` and `game/core/vehicle_sim.gd`; cour
 
 The [Linux server bundle](docs/SERVER_PACKAGE.md) includes the matching operator CLI, dependency licenses and runbooks. [OCI hosting](docs/CONTAINER_HOSTING.md) adds gated image/recovery checks and an operator region example. Managed workers report [tick percentiles, current native RSS and capacity headroom](docs/SERVER_PERFORMANCE.md) through authenticated private heartbeats. [Supervisor recovery and rollout](docs/SUPERVISOR_LIFECYCLE.md) retain active races, drain old pools and share bounded capacity. [Database backup and restore](docs/DIRECTORY_BACKUPS.md) preserve identities while clearing stale leases. `python3 tools/soak_acceptance.py --clear-road-spacing` runs the separate eight-client, ten-race impaired-network and 5–15 minute memory fixture.
 
-Every push to main requires source/geometry/assets, real-client network fault scenarios, Linux graphical rendering, platform exports and native package startup before publishing a numbered development prerelease. The rendering job now uses explicit Bash pipefail, a deliberate failure probe and Dummy audio output while retaining its actual graphics context. Earlier green rendering jobs are superseded by the [validation audit](docs/evidence/render-gate98/). These are development checkpoints, not completed launch releases.
+Every push to main builds all platform packages and the Linux OCI image, then
+publishes a numbered development prerelease. Pull requests build the same
+artifacts. Package checksums, icons and Android signatures remain part of the
+build. These are development checkpoints, not completed launch releases.
 
-Gameplay identity changes also require the complete ten-course AI matrix and
-ten-race impaired network/memory soak before publication. Changes to the soak driver/harness, network/server runtime or pinned toolchain also require that full soak. Detection compares the last numbered gated tag, so a failed build followed by a cosmetic repair cannot skip it. Cosmetic changes keep
-their own asset identity. [Foliage](docs/BILLBOARD_ART.md), [painted signs](docs/ROADSIDE_POSTERS.md),
+Run **Actions → Extra tests and soak → Run workflow** for source/content checks,
+the complete ten-course AI matrix, network integration, rendering/audio,
+native package and save/store checks, directory/container recovery, and the
+ten-race impaired network/memory soak. This separate
+[`workflow_dispatch` workflow](.github/workflows/extra-tests.yml) runs only when
+requested; it builds matching packages, retains test evidence even on failure,
+and does not publish a release. The regular build and manual tests share
+[`packages.yml`](.github/workflows/packages.yml). From the CLI:
+
+```sh
+gh workflow run extra-tests.yml
+```
+
+Cosmetic changes keep their own asset identity. [Foliage](docs/BILLBOARD_ART.md), [painted signs](docs/ROADSIDE_POSTERS.md),
 [3D scenery detail](docs/SCENERY_DETAIL.md) and [content-5 tuning](docs/ARCADE_TUNING.md)
 have saved sources and evidence. `python3 tools/render_soak.py` separately measures
 live catalog graphical scene lifetimes on the current desktop; its wall-clock

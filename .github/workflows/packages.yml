@@ -1,0 +1,173 @@
+name: Build packages
+
+on:
+  workflow_call:
+
+permissions:
+  contents: read
+
+jobs:
+  platform-adapter:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: linux
+            runner: ubuntu-22.04
+          - platform: windows
+            runner: windows-2022
+          - platform: macos
+            runner: macos-15
+          - platform: android
+            runner: ubuntu-24.04
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/native
+          key: platform-sdk-${{ runner.os }}-${{ matrix.platform }}-${{ hashFiles('tools/toolchain.lock') }}
+      - name: Linux Secret Service build dependencies
+        if: matrix.platform == 'linux'
+        run: sudo apt-get update && sudo apt-get install -y libsecret-1-dev libxrandr-dev
+      - uses: android-actions/setup-android@v3
+        if: matrix.platform == 'android'
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - name: Android native toolchain
+        if: matrix.platform == 'android'
+        run: |
+          for attempt in 1 2 3; do
+            sdkmanager 'ndk;28.1.13356709' && break
+            [ "$attempt" -lt 3 ] || exit 1
+            sleep 5
+          done
+      - run: python tools/native_build.py ${{ matrix.platform }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: platform-adapter-${{ matrix.platform }}
+          path: |
+            native/bin/*.so
+            native/bin/*.dll
+            native/bin/*.dylib
+            native/bin/manifest-*.json
+          if-no-files-found: error
+
+  export:
+    needs: platform-adapter
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [linux, windows, macos, android, android_aab, server]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pacific-rush/toolchain
+          key: godot-exports-linux-${{ hashFiles('tools/toolchain.lock') }}
+      - uses: actions/setup-java@v4
+        if: startsWith(matrix.target, 'android')
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+        if: startsWith(matrix.target, 'android')
+        with:
+          packages: platform-tools
+          log-accepted-android-sdk-licenses: false
+      - name: Android packages and stable development identity
+        if: startsWith(matrix.target, 'android')
+        env:
+          KEYSTORE: ${{ secrets.ANDROID_DEBUG_KEYSTORE_BASE64 }}
+        run: |
+          for attempt in 1 2 3; do
+            sdkmanager 'platforms;android-36' 'build-tools;35.0.1' 'ndk;28.1.13356709' && break
+            [ "$attempt" -lt 3 ] || exit 1
+            sleep 5
+          done
+          mkdir -p ~/.android
+          if [ -n "$KEYSTORE" ]; then
+            umask 077
+            printf '%s' "$KEYSTORE" | base64 --decode > ~/.android/debug.keystore
+          elif [ "$GITHUB_EVENT_NAME" = push ]; then
+            echo 'Missing stable development Android signing identity.' >&2
+            exit 1
+          else
+            keytool -genkeypair -keystore ~/.android/debug.keystore -storepass android -keypass android -alias androiddebugkey -dname 'CN=Pacific Rush PR' -keyalg RSA -keysize 2048 -validity 30
+          fi
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: platform-adapter-*
+          merge-multiple: true
+          path: native/bin
+      - uses: actions/setup-go@v6
+        if: matrix.target == 'server'
+        with:
+          go-version: '1.27.0'
+          cache-dependency-path: services/directory/go.sum
+      - run: python tools/build.py ${{ matrix.target }} --number ${{ github.run_number }}
+      - name: Verify authored native and adaptive icon resources
+        if: matrix.target == 'windows' || matrix.target == 'macos' || startsWith(matrix.target, 'android')
+        shell: bash
+        run: |
+          case "${{ matrix.target }}" in
+            windows|macos) icon_extension=zip ;;
+            android) icon_extension=apk ;;
+            android_aab) icon_extension=aab ;;
+          esac
+          python tools/icon_package.py ${{ matrix.target }} build/download/*-${{ matrix.target }}."$icon_extension"
+      - uses: actions/upload-artifact@v4
+        if: always() && (matrix.target == 'windows' || matrix.target == 'macos' || startsWith(matrix.target, 'android'))
+        with:
+          name: launcher-icon-${{ matrix.target }}
+          path: reports/app-icons/package-*.json
+          if-no-files-found: warn
+      - name: Verify Android package
+        if: matrix.target == 'android'
+        run: '"$ANDROID_HOME/build-tools/35.0.1/apksigner" verify --verbose build/android/pacific-rush.apk'
+      - name: Verify Android App Bundle signature
+        if: matrix.target == 'android_aab'
+        run: jarsigner -verify build/android_aab/pacific-rush.aab
+      - uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.target }}
+          path: build/download/
+          if-no-files-found: error
+
+  containers:
+    needs: export
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14.7'
+      - uses: actions/download-artifact@v4
+        with:
+          name: package-server
+          path: build/download
+      - name: Build the pinned runtime from the server artifact
+        run: python tools/container_image.py build/download/*-server.zip --context build/container-context --tag pacific-rush-ci:${{ github.run_number }}
+      - name: Preserve the built image for publication and manual tests
+        run: |
+          mkdir -p build/container-release
+          docker save pacific-rush-ci:${{ github.run_number }} | gzip -1 > build/container-release/image.tar.gz
+          cp build/container-context/context.json build/container-release/image.json
+          cd build/container-release
+          sha256sum image.tar.gz > image.sha256
+      - uses: actions/upload-artifact@v4
+        with:
+          name: server-container
+          path: build/container-release/
+          if-no-files-found: error

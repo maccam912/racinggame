@@ -78,9 +78,12 @@ fixed random seed. The collector includes a final post-exit pass so the last
 race's wire interval cannot disappear when all clients end together. Failures
 remain in unique report folders, with coverage and accuracy recorded separately.
 
-The build workflow exposes an optional `run_soak` manual-dispatch input and
-preserves its reports even on failure. Directory integration CI downloads and
-registers the matching Linux adapter before checking measured workers.
+The separate **Extra tests and soak** workflow runs only through
+`workflow_dispatch` (Actions → Extra tests and soak → Run workflow, or
+`gh workflow run extra-tests.yml`). It always includes the full soak and
+preserves its reports even on failure. Regular builds do not run these tests.
+Directory integration downloads and registers the matching Linux adapter
+before checking measured workers.
 
 Source/native checks establish instrumentation and policy behavior. This Mac's
 automated soak is a different status from the required stripped Linux export on

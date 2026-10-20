@@ -61,9 +61,10 @@ operator-managed volumes must already permit UID 10001 to access their private
 files. The example validates configuration and creates no public region until an
 operator supplies actual infrastructure and runs it.
 
-The published image reference appears in the development release notes after all
-image, package, network and service gates pass. GitHub Container Registry package
-visibility is separate from repository/release visibility; access may require an
+The published image reference appears in the development release notes after the
+image and platform packages build successfully. Network and service tests run in
+the separate manual **Extra tests and soak** workflow. GitHub Container Registry
+package visibility is separate from repository/release visibility; access may require an
 operator login. CI uses the repository's scoped `GITHUB_TOKEN`, with package write
 permission only in the final publisher. No registry token is embedded in the image.
 No anonymous-pull or production-publication claim follows from preparing a context.
@@ -93,8 +94,8 @@ Do not force-remove an active production region or its volumes during a rollout.
 ## Validation and publication
 
 Local source tests exercise the wrapper's owned child crash/restart and delayed
-signal completion. Required Linux image CI verifies runtime identity/native
-adapter, then uses eight signed real clients and all four cars in one ordinary
+signal completion. The manual **Extra tests and soak** workflow verifies runtime
+identity/native adapter, then uses eight signed real clients and all four cars in one ordinary
 two-lap race. It kills only the image's verified directory PID, observes a fresh
 heartbeat from the **same worker process**, requests image stop while that
 recovered race is active, receives eight identical genuine finishes, and checks
@@ -102,13 +103,16 @@ clean exit and temporary volume removal. It has no synthetic finish or profiles.
 The fixture applies a two-CPU cgroup quota and 1 GiB total image memory; it is
 not the specified dedicated host benchmark, physical touch test or impaired soak.
 
-Only that exact tested image is saved into a checksum-verified CI artifact.
-The final publisher loads it, pushes its numbered GHCR tag, records its immutable
-digest and publishes the ordinary **18** desktop/Android/server release files.
+The shared package workflow saves the built image into a checksum-verified CI
+artifact. Manual container tests load that image and its matching build context.
+The regular build's final publisher loads its image, pushes its numbered GHCR
+tag, records its immutable digest and publishes the ordinary **18**
+desktop/Android/server release files.
 The image is an additional registry distribution, not an extra desktop download.
-The full ten-race impairment/memory and native exported-worker gates remain
-independent. No public regions, production schedules, publisher certificates or
-store submissions are created by these example files.
+The full ten-race impairment/memory and native exported-worker checks also run
+in the manual workflow; development publication does not wait for them. No public
+regions, production schedules, publisher certificates or store submissions are
+created by these example files.
 
 References: [Docker signal and health configuration](https://docs.docker.com/reference/dockerfile/),
 [init and process management](https://docs.docker.com/engine/containers/multi-service_container/),
