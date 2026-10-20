@@ -71,6 +71,16 @@ all draw intervals remain, including one 34.713 ms maximum. This is a
 course-specific host lifetime result, with the same hardware boundaries above.
 
 
+The later [current car/waterworks native repeat](evidence/waterworks112/native-lifetime/)
+retains the same explicit Caldera/Spillway course population with cosmetic hash
+**`15a71230`**. It passes seven complete eight-car races in **1,042.510 native
+seconds**, peak RSS **818,970,624 bytes** and a later repeated-cycle high-water
+mark **5.601568% lower** than warm-up. Racing wall-clock p95/p99 are
+**18.314/18.945 ms**, maximum **31.590 ms**, zero over 33 ms among **59,258
+samples**. The raw native/helper source, transition peaks and archived QA profile
+are retained; source/runtime/assets remain unchanged. The report records other
+active emulator/headless work and keeps the same hardware/population boundaries.
+
 ## Explicit emulator process-memory acceptance
 
 The installed-APK mixed-client helper accepts `--check-memory` for an explicitly

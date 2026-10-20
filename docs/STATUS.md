@@ -1,5 +1,9 @@
 # Implementation status
 
+## 20 October — current car/waterworks native lifetime pass
+
+The clean-source native repeat with current cosmetics **`15a71230`** passes **seven eight-car races / 56 finishers** in **1,042.510 native seconds**. Peak RSS is **818,970,624 bytes** during warm-up; the later repeated-cycle peak is **773,095,424 bytes** (**5.601568% lower**), passing the unchanged lifetime guards. Actual racing draw intervals are **18.314/18.945 ms p95/p99**, maximum **31.590 ms**, with no interval over 33 ms across **59,258 samples**. [Exact source, current fixture, raw intervals/observations and owned-profile archive](evidence/waterworks112/native-lifetime/). Game/runtime/assets are unchanged throughout; the separate network fixture changes do not affect this graphical population. These are Apple M5 Pro host measurements, with emulators/headless fixtures active, and retain the minimum-hardware/GPU-memory/thermal boundaries.
+
 ## 20 October — long-course coverage fixture preserves normal finish grace
 
 The first local two-lap procedure fixes clear coverage (**minimum 3,870**, worst p95 **0.0307725 m**) but **fails** complete finishing: the slowest scripted Switch at pace .93 exceeds Caldera's unchanged 30-second grace. [Exact failed run and old fixture](evidence/ci113-clear-coverage/two-lap-grace-failure/). The long-course multi-lap fixture now uses **.97 for driver 6**, retaining all four normal car types, public-bake release ordering and ordinary brake/throttle/steer inputs. Every launch records the exact pace array. All one-lap procedures and the classic Palm/Citrus three-lap population remain unchanged. Production AI/physics/routes/grace and every correction/coverage/wire assertion are unchanged. Engine import and all **23 Python regressions** pass; the replacement real eight-client run and full remote acceptance remain pending.
