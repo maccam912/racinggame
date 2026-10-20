@@ -34,6 +34,12 @@ func prepare(world: TrackWorld, values: Dictionary) -> void:
 		environment.environment.adjustment_enabled = true
 		environment.environment.adjustment_brightness = float(values.get("brightness",1))
 		scene.add_child(environment)
+		var sky := environment.environment.sky
+		if sky!=null and sky.sky_material is ShaderMaterial:
+			var sky_material := sky.sky_material as ShaderMaterial
+			retained_resources.append(sky_material)
+			shader_paths[sky_material.shader.resource_path] = true
+			submissions += 1 # The cloned environment submits the sky to this viewport.
 		break
 	var sun := DirectionalLight3D.new()
 	sun.rotation_degrees = Vector3(-50,-35,0)

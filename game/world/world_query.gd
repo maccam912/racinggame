@@ -66,7 +66,7 @@ func ground(state: VehicleState) -> Dictionary:
 				height += hit.position.y
 				normal += hit.normal
 	var route := nearest(state.position)
-	var surface: String = "asphalt" if absf(route.lateral) <= float(track.bake.samples[hint][8]) / 2 else track.shoulder_surface(route.s)
+	var surface: String = track.road_surface() if absf(route.lateral) <= float(track.bake.samples[hint][8]) / 2 else track.shoulder_surface(route.s)
 	return {"supported": supported >= 2, "height": height / maxf(supported, 1), "normal": normal.normalized() if supported else Vector3.UP, "surface": surface, "lateral": route.lateral, "s": route.s}
 
 

@@ -3,6 +3,8 @@ extends RefCounted
 ## Shared 60 Hz kinematic rules. No scene tree, input devices, rendering, or network.
 
 const DT: float = 1.0 / 60.0
+const DRIFT_STEER_ENTRY: float = 0.90
+const DRIFT_STEER_HOLD: float = 0.75
 
 
 static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, query: Variant) -> void:
@@ -29,7 +31,13 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 	var vf := state.velocity.dot(forward)
 	var grip_factor := 1.0
 	var yaw_factor := 1.0
-	if frame.handbrake and vf > 15.0 and absf(state.steer_filter) > 0.25:
+	# Full lock breaks traction without requiring the handbrake. A lower hold
+	# threshold keeps small stick/touch changes from repeatedly grabbing grip;
+	# releasing or countersteering starts the existing smooth recovery.
+	var steer_threshold := DRIFT_STEER_HOLD if state.drift_phase == 1 else DRIFT_STEER_ENTRY
+	var steering_slide := absf(frame.steer) >= steer_threshold and absf(state.steer_filter) >= steer_threshold and signf(frame.steer) == signf(state.steer_filter)
+	var handbrake_slide := frame.handbrake and absf(state.steer_filter) > 0.25
+	if state.grounded and vf > 15.0 and (steering_slide or handbrake_slide):
 		state.drift_entry = minf(.1, state.drift_entry + DT)
 		if state.drift_entry >= 0.10 - 0.00001:
 			state.drift_phase = 1
@@ -49,6 +57,12 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 		if state.drift_timer >= 0.4 - 0.00001:
 			state.drift_phase = 0
 	var target_yaw := state.steer_filter * car.turn_factor * lerpf(100.0, 35.0, clampf(absf(vf) / 55.0, 0.0, 1.0)) * clampf(absf(vf) / 5.0, 0.0, 1.0) * yaw_factor
+	if state.grounded and state.drift_phase != 0 and vf > 0.0:
+		var sideways := state.velocity.dot(forward.cross(state.ground_normal))
+		# Ease rotation into a growing slide so full lock settles into an arc.
+		# Opposite steering keeps its full authority to catch the rear end.
+		var into_slide := -signf(state.steer_filter) * atan2(sideways, vf)
+		target_yaw *= lerpf(1.0, 0.10, smoothstep(deg_to_rad(20.0), deg_to_rad(40.0), into_slide))
 	if vf < -0.1:
 		target_yaw = -target_yaw
 	if not state.grounded:
@@ -91,13 +105,13 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 				acceleration -= 3.0 if state.drift_phase == 1 else 10.0 if vf <= 15.0 else 0.0
 			if vf > car.top_speed:
 				acceleration -= 6.0
-			var extra_drag := 5.0 if state.surface == "sand" else 6.0 if state.surface == "grass" else 0.0
+			var extra_drag := 1.2 if state.surface == "dirt" else 5.0 if state.surface == "sand" else 6.0 if state.surface == "grass" else 0.0
 			if vf > 12.0:
 				acceleration -= extra_drag
 			vf = maxf(0.0, vf + acceleration * DT)
 			vf += Vector3.DOWN.dot(forward) * 9.81 * 0.4 * DT
 			vf = minf(vf, car.top_speed * 1.08)
-		var surface_grip := 0.65 if state.surface == "sand" else 0.70 if state.surface == "grass" else 1.0
+		var surface_grip := 0.78 if state.surface == "dirt" else 0.65 if state.surface == "sand" else 0.70 if state.surface == "grass" else 1.0
 		lateral = move_toward(lateral, 0.0, car.grip * surface_grip * grip_factor * DT)
 		state.velocity = forward * vf + right * lateral
 	else:

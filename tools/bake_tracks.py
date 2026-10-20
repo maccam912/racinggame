@@ -41,6 +41,19 @@ def catmull(p0, p1, p2, p3, t):
                  for a, b, c, d in zip(p0, p1, p2, p3))
 
 
+def centripetal(p0, p1, p2, p3, fraction):
+    # Unequal street-block lengths must not make the curve loop back on itself.
+    times = [0.0]
+    for a, b in zip([p0,p1,p2], [p1,p2,p3]):
+        times.append(times[-1]+math.sqrt(length(sub(b,a))))
+    t = times[1]+fraction*(times[2]-times[1])
+    def blend(a,b,lo,hi):
+        return add(mul(a,(hi-t)/(hi-lo)),mul(b,(t-lo)/(hi-lo)))
+    a = [blend(x,y,lo,hi) for x,y,lo,hi in zip([p0,p1,p2],[p1,p2,p3],times,times[1:])]
+    b = [blend(a[i],a[i+1],times[i],times[i+2]) for i in range(2)]
+    return blend(b[0],b[1],times[1],times[2])
+
+
 def interpolate(points, distances, s):
     i = min(len(points)-2, bisect.bisect_right(distances, s)-1)
     alpha = (s-distances[i])/(distances[i+1]-distances[i])
@@ -50,8 +63,9 @@ def interpolate(points, distances, s):
 def bake(track):
     controls = track['ordered_control_points']
     count = len(controls)
-    assert 16 <= count <= 32, f"{track['id']}: expected 16 to 32 route points"
-    points = [catmull(controls[(i-1)%count], controls[i], controls[(i+1)%count], controls[(i+2)%count], j/256)
+    assert 16 <= count <= 64, f"{track['id']}: expected 16 to 64 route points"
+    curve = centripetal if track.get('spline') == 'centripetal' else catmull
+    points = [curve(controls[(i-1)%count], controls[i], controls[(i+1)%count], controls[(i+2)%count], j/256)
               for i in range(count) for j in range(256)]
     points.append(points[0])
     distances = [0.0]
@@ -136,7 +150,8 @@ def bake(track):
     cars = json.loads((CONTENT/'cars.json').read_text())['cars']
     smooth_curve = [sum(rotated[(i+j)%n][6] for j in range(-2, 3))/5 for i in range(n)]
     for car in cars:
-        line = [max(12, min(.96*car['top_speed'], math.sqrt(car['grip']*.82/max(abs(c), .0005)))) for c in smooth_curve]
+        grip = .78 if track.get('road_surface') == 'dirt' else 1.0
+        line = [max(12, min(.96*car['top_speed'], math.sqrt(car['grip']*grip*.82/max(abs(c), .0005)))) for c in smooth_curve]
         for _ in range(4):
             for i in range(n-1, -1, -1):
                 segment = length(sub(rotated[(i+1)%n][:3], rotated[i][:3]))

@@ -1,5 +1,31 @@
 # Implementation status
 
+## 20 October — distinct arcade courses implemented locally
+
+The six original layouts are rebuilt as coastal highway, angular downtown
+blocks, orchard zigzag dirt rally, forest dirt slalom, desert jump stadium and
+mountain rollercoaster. Caldera becomes a neon volcanic moon beneath a ringed
+planet. Dirt has shared traction/drag, dust and rumble; all three Summit jumps
+work independently each lap and have widened landing zones. New terrain,
+postcards, minimap icons and descriptions match the routes.
+
+[Maps, native views and exact evidence](evidence/arcade-tracks/) include 120
+eight-car races / 960 finishers, followed by 12 final Summit races / 96 finishers,
+all without DNFs/recoveries; 180 Summit landing approaches; all ten actual GPU
+loading worlds; and matching two-client dirt-course results through impaired
+UDP with worst clear p95 0.036781 m. The full 105-command source run found three
+issues; all were corrected and the separate 11-command repair/critical-course
+run passes. The initial run remains recorded as failed. Current game `70dbe372`,
+cosmetics `ed9ac660`, content 10 / protocol 6 / save schema 1. Concurrent
+steering/HUD work is preserved. These are local implementation checks, with
+remote release and physical-device/human-feel acceptance still separate.
+
+## 20 October — full-lock steering enters controlled drift
+
+All four cars now break traction after sustained full-lock steering above 15 m/s, using the shared offline/authority/prediction controller. Lower hold thresholds absorb small input fluctuations; yaw eases as the slide grows so holding lock settles into an arc. Easing off or countersteering restores grip over 0.40 seconds. Handbrake entry remains available, and steering alone does not illuminate brake lamps or add handbrake drag.
+
+The current flat fixture passes **96 car/direction/surface/speed cases**, including the concurrently added dirt surface. An isolated starting revision plus drift passes **30 selected validation commands/checks**, including physics, snapshot replay, archive preservation, all **40 valid Gold car/course reference trials with zero recoveries**, and actual native keyboard slide/recovery with a visually reviewed frame. Frozen content-9 records/ghost/Cup/active-race bytes remain preserved with incompatible continuation disabled. [Exact tested source, complete logs, rendered frame, initial harness failures and boundaries](evidence/steering-drift10/). Content advances to 10; drift uses existing snapshot fields. Concurrent course/protocol work is preserved and has separate acceptance. The interrupted whole-workspace source run is not an acceptance pass. Human feel, physical Android, remote CI and a new release have not been checked for this handling change.
+
 ## 20 October — stopped at owner request after Build117 passes and publishes
 
 [Build117](https://github.com/maccam912/racinggame/releases/tag/v0.0.117-dev) publishes all **18 desktop/Android/server files** from clean `44fffaa`. All **32 required jobs pass**, including **102 source commands**, actual Linux graphics, platform/native checks, server, directory and containers. Two expected AI/full-soak skips reuse unchanged accepted baselines, with Build116’s full ten-race evidence retained. Tag, six clean metadata files and six GitHub stored payload digests match. The latest run of all three active workflows is successful. [Final publication and workflow audit](evidence/release117/).

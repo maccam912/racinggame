@@ -1,0 +1,433 @@
+{
+  "passed": true,
+  "base_commit": "023d306582b52c9f18cd7009f8ea0ff02c03f80c",
+  "isolated_checks": [
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/content_hash.py"
+      ],
+      "log": "drift-check-00.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/validate_content.py"
+      ],
+      "log": "drift-followup-00.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/bake_tracks.py",
+        "--check"
+      ],
+      "log": "drift-check-02.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/content_hash.py",
+        "--check"
+      ],
+      "log": "drift-check-03.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--editor",
+        "--import",
+        "--quit"
+      ],
+      "log": "drift-check-04.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/source_script_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-05.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/content_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-06.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/driving_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-07.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/steering_drift_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-08.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/world_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-09.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/progress_touch_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-10.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/network_contract_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-11.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/race_contact_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-12.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/jump_track_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-13.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/summit_landing_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-14.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/bot_contract_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-15.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/bot_vertical_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-16.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/snapshot_course_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-17.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/save_cup_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-18.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/ghost_medal_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-19.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--max-fps",
+        "60",
+        "--script",
+        "tests/race_archive_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-followup-01.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/surface_version_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-21.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/content_transition_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-22.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/content5_transition_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-23.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/content6_transition_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-24.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/content7_transition_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-25.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/content8_transition_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-26.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/content9_transition_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-27.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/trial_medal_acceptance.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "log": "drift-check-28.log",
+      "passed": true
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--max-fps",
+        "60",
+        "--script",
+        "reports/steering_drift_native.gd",
+        "--",
+        "--profile=drift_native_isolated",
+        "--capture=drift_fixture"
+      ],
+      "log": "drift-native-final.log",
+      "passed": true
+    }
+  ],
+  "current_flat_cases": 96,
+  "isolated_flat_cases": 72,
+  "standing_start_valid_gold_trials": 40,
+  "source_boundary": "Isolated starting revision plus steering drift and content-10 compatibility changes. Concurrent track/surface/protocol work is excluded.",
+  "native_boundary": "Actual native graphics, injected W/D keyboard events, production RaceDrive and route collision. Diagnostic forward speed 40 m/s at start; no earned record. Capture flag suppresses focus-loss pause during unattended capture. Separate from human feel or physical Android.",
+  "current_vehicle_sim_sha256": "8bd7d18b874465e7da506a59f1ef0444d82e3fcc496b3951926266ebdb9e1440"
+}

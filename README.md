@@ -2,10 +2,13 @@
 
 Original colorful 3D arcade circuit racer for desktop and Android. [DESIGN.md](DESIGN.md) is the authoritative launch specification; [docs/STATUS.md](docs/STATUS.md) separates implemented work from acceptance evidence.
 
-Four cars race ten courses with steep climbs, drops and Summit flight,
-including Skyline Splice's layered harbor crossing, Quarry Switchback's
-linked hairpins, Spillway Sprint's trefoil waterworks and Caldera Crosscut's
-star-shaped volcanic route. Original rocks, logs, waterfalls, painted travel signs and
+Four cars race ten distinct arcade courses: coastal highway, sharp downtown
+blocks, orchard and forest dirt rallies, a desert jump stadium and a mountain
+rollercoaster. Skyline Splice adds a layered harbor crossing, Quarry Switchback
+linked hairpins, Spillway Sprint a trefoil waterworks and Caldera Crosscut a
+neon volcanic moon beneath a ringed planet. [Course maps and elevation profiles](docs/evidence/arcade-tracks/layouts.svg)
+and [native views](docs/evidence/arcade-tracks/lineup.jpg) show the current lineup.
+Original rocks, logs, waterfalls, painted travel signs and
 illustrated foliage mix with 3D cars, buildings, bridges and crest structures.
 The interface uses original arcade lettering and glossy chrome; car paint,
 glass and dry paving have authored surface detail. Download numbered desktop/Android development
@@ -50,7 +53,7 @@ Track Loading now [renders required graphics variants](docs/SHADER_LOADING.md) b
 
 Player and room names use portable [Unicode 16 grapheme rules](docs/UNICODE_NAMES.md), checked against the same 1,093 official vectors as the directory. The Android/native eight-player race-and-rematch fixture is documented there. Shared [font fallbacks and whole-grapheme editing](docs/TEXT_RENDERING.md) keep accepted emoji names visible in exported games.
 
-Handling and cars: `game/content/cars.json` and `game/core/vehicle_sim.gd`; course controls: `game/content/tracks.json`. Rebuild canonical routes with `python3 tools/bake_tracks.py`; do not hand-edit bakes. After gameplay changes run `python3 tools/content_hash.py`. Strict JSON schemas live in `schemas/`. Tools are pinned in `tools/toolchain.lock`. Source assets and licenses are listed in `assets/manifest.json`. Touch layout is `game/platform/touch_driving.gd`. Offline menus now expose Quick Race, Trial, Cup, School and Garage; art remains developmental. Saves use independent components under Godot's Pacific Rush user-data folder. `--profile=left` selects an isolated diagnostic profile.
+Handling and cars: `game/content/cars.json` and `game/core/vehicle_sim.gd`; course controls: `game/content/tracks.json`. Full-lock steering above 15 m/s starts a controlled slide; ease off or countersteer to catch it. The Slide button also starts a drift. Run `tests/steering_drift_tests.gd` for all-car slide/recovery/snapshot coverage. Rebuild canonical routes with `python3 tools/bake_tracks.py`; do not hand-edit bakes. After gameplay changes run `python3 tools/content_hash.py`. Strict JSON schemas live in `schemas/`. Tools are pinned in `tools/toolchain.lock`. Source assets and licenses are listed in `assets/manifest.json`. Touch layout is `game/platform/touch_driving.gd`. Offline menus now expose Quick Race, Trial, Cup, School and Garage; art remains developmental. Saves use independent components under Godot's Pacific Rush user-data folder. `--profile=left` selects an isolated diagnostic profile.
 
 `local_race.py` launches a dedicated worker and two native clients. Direct Connect accepts `host:port`; the community worker opens a persistent lobby with Ready/Start, bot fill, car/track choices and rematches. The local Go directory allocates ticket-required workers; see `services/directory/README.md` and run `python3 tools/directory_integration.py` with Go 1.27.0 installed. The HTTPS client, full online menu path and native identity stores have integration gates; official hosted regions remain deployment work. Both official URLs in `game/content/regions.json` stay blank until deployment. An explicit `--directory-url=https://…` selects Test Region; `--directory-ca=/path/to/test-root.crt` trusts that CA for these requests only. Run `python3 tools/directory_client_integration.py` for the client/auth/allocator/private-code fixture with an isolated test CA; add `--menu` for the complete menu path or `--menu --visual` for native 150% screenshots. Fault fixtures use a real UDP proxy and keep resets separate from ordinary correction measurements.
 

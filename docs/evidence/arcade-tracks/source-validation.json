@@ -1,0 +1,79 @@
+{
+  "source_initial": {
+    "status": "complete",
+    "command_count": 105,
+    "passed_commands": 102,
+    "failed_commands": [
+      "tools/asset_hash.py --check",
+      "tools/godot.py --headless --fixed-fps 60 --script tests/summit_landing_tests.gd -- --profile=ci_tests",
+      "tools/godot.py --headless --script tests/shader_warmup_tests.gd"
+    ],
+    "report": "/Users/maccam912/dev/racinggame/reports/checks-f41f8c35bc",
+    "sha256": "e2b6b4c1f430b6dc951df83ed7fa9469e64359f1a5ac6aa5a8e718daf3cbc054"
+  },
+  "focused_after_repairs": {
+    "passed": true,
+    "command_count": 11,
+    "report": "reports/arcade-final/checks-128f86243e",
+    "results": [
+      {
+        "suite": "tools/asset_hash.py --check",
+        "passed": true,
+        "seconds": 0.296
+      },
+      {
+        "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/summit_landing_tests.gd -- --profile=ci_tests",
+        "passed": true,
+        "seconds": 1.1
+      },
+      {
+        "suite": "tools/godot.py --headless --script tests/shader_warmup_tests.gd",
+        "passed": true,
+        "seconds": 3.838
+      },
+      {
+        "suite": "-m unittest discover -s tests -p test_track_variety.py",
+        "passed": true,
+        "seconds": 0.089
+      },
+      {
+        "suite": "tools/godot.py --headless --script tests/arcade_track_tests.gd",
+        "passed": true,
+        "seconds": 0.952
+      },
+      {
+        "suite": "tools/godot.py --headless --script tests/course_variety_tests.gd",
+        "passed": true,
+        "seconds": 3.505
+      },
+      {
+        "suite": "tools/godot.py --headless --script tests/course_spectacle_tests.gd",
+        "passed": true,
+        "seconds": 1.429
+      },
+      {
+        "suite": "tools/godot.py --headless --script tests/surface_version_tests.gd",
+        "passed": true,
+        "seconds": 0.543
+      },
+      {
+        "suite": "tools/godot.py --headless --script tests/content9_transition_tests.gd",
+        "passed": true,
+        "seconds": 0.525
+      },
+      {
+        "suite": "tools/godot.py --headless --script tests/network_contract_tests.gd",
+        "passed": true,
+        "seconds": 0.311
+      },
+      {
+        "suite": "tools/godot.py --headless --script tests/terrain_grounding_tests.gd",
+        "passed": true,
+        "seconds": 0.527
+      }
+    ]
+  },
+  "content_hash": "70dbe372a22ce7e59d5ceb68b94a7950e804ab3ce7d78430022782e7c0791f51",
+  "asset_hash": "ed9ac660454056c9fb8eabfdeffb84923f5bf6b58891b591c9437c86f05dd32f",
+  "boundary": "Initial full source run is retained as failed, with each reported failure corrected and rechecked. Focused final checks are a separate run, not a claimed clean full rerun. AI matrix predates widening Summit landing zones; the final Summit matrix rechecks all four reference cars at all three difficulties after that change. No publication, physical-device performance or human handling judgment is claimed."
+}

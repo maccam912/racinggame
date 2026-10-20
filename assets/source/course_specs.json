@@ -95,28 +95,26 @@
           "u": 0.86,
           "lateral": 35
         }
-      ]
+      ],
+      "soil": "AD783F"
     },
     {
       "id": "marina_lights",
       "ground": "B1B7B0",
-      "sky_top": "658BBF",
-      "horizon": "B4DAEA",
-      "sun": "D5E4F5",
+      "sky_top": "1C254E",
+      "horizon": "8A6D9D",
+      "sun": "F2B8E0",
       "sun_energy": 0.35,
-      "ambient": 0.55,
+      "ambient": 0.6,
       "sun_rotation": [
         -20,
         -60,
         0
       ],
-      "water": true,
-      "coast_interval": [
-        0.25,
-        0.75
-      ],
+      "water": false,
+      "coast_interval": [],
       "vegetation": "palm",
-      "emission": 0.35,
+      "emission": 0.7,
       "landmarks": [
         {
           "id": "arcade",
@@ -198,7 +196,9 @@
           "u": 0.82,
           "lateral": 25
         }
-      ]
+      ],
+      "soil": "805331",
+      "verge_extent": 22
     },
     {
       "id": "sunstone_canyon",
@@ -248,7 +248,8 @@
           "u": 0.79,
           "lateral": 30
         }
-      ]
+      ],
+      "soil": "C1844C"
     },
     {
       "id": "pacific_summit",
@@ -447,12 +448,12 @@
     },
     {
       "id": "caldera_crosscut",
-      "ground": "80727F",
-      "sky_top": "7078B8",
-      "horizon": "F4AE89",
-      "sun": "FFD8A0",
-      "sun_energy": 0.7,
-      "ambient": 0.48,
+      "ground": "554862",
+      "sky_top": "100C2B",
+      "horizon": "58416F",
+      "sun": "CAB9FF",
+      "sun_energy": 0.55,
+      "ambient": 0.6,
       "sun_rotation": [
         -36,
         -42,
@@ -461,7 +462,7 @@
       "water": false,
       "coast_interval": [],
       "vegetation": "shrub",
-      "emission": 0.15,
+      "emission": 0.35,
       "landmarks": [
         {
           "id": "observatory",
@@ -493,7 +494,8 @@
       "terrain_height": 3,
       "sea_level": 3.2,
       "elevated": true,
-      "terrain_margin_m": 1000
+      "terrain_margin_m": 1000,
+      "space": true
     }
   ]
 }

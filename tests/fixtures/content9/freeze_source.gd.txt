@@ -1,0 +1,54 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("run")
+func run() -> void:
+	Catalog.load_all()
+	assert(Catalog.rules.content_version==9 and Compatibility.content_hash()=="f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f")
+	var output := "res://tests/fixtures/content9/profile/"
+	assert(not FileAccess.file_exists(output+"manifest.json"),"freeze once, never replace historical fixtures")
+	DirAccess.make_dir_recursive_absolute(output)
+	var folder := "user://tests/freeze9-"+RaceSetup.uuid()
+	var app: Node = load("res://game/client_app.gd").new()
+	root.add_child(app)
+	await process_frame
+	app.data = AppData.new(folder,false)
+	app.data.profile.display_name = "Archive Nine"
+	app.data.profile.first_run_complete = true
+	assert(AppData.validate_profile(app.data.profile))
+	assert(app.data.save_profile()==OK)
+	assert(app.data.store.load_component("profile",{},AppData.validate_profile).display_name=="Archive Nine")
+	assert(app.data.start_cup()==OK)
+	var hash := Compatibility.content_hash()
+	app.data.records.times["trial:palm_bay:comet:"+hash] = {"time":0.1}
+	assert(app.data.store.save_component("records",app.data.records)==OK)
+	var samples: Array[Dictionary] = [{"time":0.0,"position":Vector3.ZERO,"yaw":0.0},{"time":0.05,"position":Vector3(0,0,1),"yaw":0.0},{"time":0.1,"position":Vector3(0,0,2),"yaw":0.0}]
+	var ghost := GhostCodec.encode("palm_bay","comet",hash,0.1,samples)
+	assert(not ghost.is_empty() and not GhostCodec.decode(ghost,"palm_bay","comet",hash).is_empty())
+	var file := FileAccess.open(output+"ghost.bin",FileAccess.WRITE)
+	file.store_buffer(ghost)
+	file.close()
+	app.start_drive({"mode":"quick","track":7,"car":0,"paint":0,"opponents":7,"laps":2,"difficulty":1,"contact":true,"seed":515005})
+	app.drive.set_physics_process(false)
+	await physics_frame
+	await physics_frame
+	for tick in range(600):
+		var drive: RaceDrive = app.drive
+		drive.session.step({drive.local_slot:drive.demo_driver.sample(drive.state,drive.car,drive.track,drive.query)})
+	var archive := RaceArchive.capture(app.drive)
+	assert(RaceArchive.valid(archive) and archive.content_hash==hash)
+	assert(app.data.store.save_component("suspended_race",archive)==OK)
+	var hashes: Dictionary = {}
+	for name: String in ["profile.json","cup.json","records.json","suspended_race.json"]:
+		var bytes := FileAccess.get_file_as_bytes(app.data.store.root_path.path_join(name))
+		file = FileAccess.open(output+name,FileAccess.WRITE)
+		file.store_buffer(bytes)
+		file.close()
+		hashes[name] = FileAccess.get_sha256(output+name)
+	hashes["ghost.bin"] = FileAccess.get_sha256(output+"ghost.bin")
+	file = FileAccess.open(output+"manifest.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify({"schema_version":1,"source_commit":"023d306582b52c9f18cd7009f8ea0ff02c03f80c","engine":"Godot 4.6.3","content_version":9,"content_hash":hash,"online_identity":"none created","purpose":"Frozen migration fixture: synthetic 0.1-second record/ghost and fresh Cup; actual 600-tick eight-car in-progress content-9 Quarry source race. No earned lap, result or performance claim.","files":hashes},"  ")+"\n")
+	file.close()
+	app.queue_free()
+	await create_timer(.5).timeout
+	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
+	print("FROZEN_CONTENT9_EXACT_CONFIGURATION_PROFILE_RECORD_GHOST_CUP_600_TICK_EIGHT_CAR_RACE_PASS")
+	quit()

@@ -69,6 +69,7 @@ func advance_build() -> bool:
 				CourseSetPieces.build(self)
 				CourseDecor.build(self)
 				CourseSpectacles.build(self)
+				ArcadeCourseDetail.build(self)
 				if art.get("elevated",false): CourseRoadMesh.elevated_supports(self)
 				RoadsidePosterArt.build(self)
 				build_stage += 1
@@ -83,12 +84,17 @@ func build_environment() -> void:
 	settings.background_mode = Environment.BG_SKY
 	if not skies.has(track.id):
 		var shared_sky := Sky.new()
-		var sky_material := ProceduralSkyMaterial.new()
-		sky_material.sky_top_color = Color.html(art.sky_top)
-		sky_material.sky_horizon_color = Color.html(art.horizon)
-		sky_material.ground_horizon_color = Color.html(art.horizon)
-		sky_material.ground_bottom_color = Color.html(art.ground)
-		shared_sky.sky_material = sky_material
+		if art.get("space",false):
+			var orbital := ShaderMaterial.new()
+			orbital.shader = load("res://assets/exported/shaders/orbital_sky.gdshader")
+			shared_sky.sky_material = orbital
+		else:
+			var sky_material := ProceduralSkyMaterial.new()
+			sky_material.sky_top_color = Color.html(art.sky_top)
+			sky_material.sky_horizon_color = Color.html(art.horizon)
+			sky_material.ground_horizon_color = Color.html(art.horizon)
+			sky_material.ground_bottom_color = Color.html(art.ground)
+			shared_sky.sky_material = sky_material
 		skies[track.id] = shared_sky
 	settings.sky = skies[track.id]
 	settings.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
@@ -136,6 +142,10 @@ func build_road() -> void:
 		else:
 			var mat: StandardMaterial3D = material(Color.html("F3E4C4")) if key == "markings" else sand
 			mat.cull_mode = BaseMaterial3D.CULL_BACK
+			if key=="markings" and art.get("space",false):
+				mat.albedo_color = Color("65F6ED")
+				mat.emission_enabled = true
+				mat.emission = Color("36C6DF")
 			instance.material_override = mat
 		add_child(instance)
 	var shoulders := CourseRoadMesh.shoulders(track)
@@ -163,8 +173,13 @@ func paving_material(shoulder: bool = false) -> ShaderMaterial:
 	var key := "paving_shoulder" if shoulder else "paving_road"
 	if materials.has(key): return materials[key]
 	var result := ShaderMaterial.new()
-	result.shader = load("res://assets/exported/shaders/asphalt.gdshader")
-	result.set_shader_parameter("lane_wear",0.0 if shoulder else 0.13)
+	if not shoulder and track.road_surface()=="dirt":
+		result.shader = load("res://assets/exported/shaders/dirt.gdshader")
+		result.set_shader_parameter("soil_color",Color.html(art.get("soil","A56C38")))
+	else:
+		result.shader = load("res://assets/exported/shaders/asphalt.gdshader")
+		result.set_shader_parameter("lane_wear",0.0 if shoulder else 0.13)
+		if art.get("space",false): result.set_shader_parameter("paving_color",Color("33304D"))
 	materials[key] = result
 	return result
 
@@ -228,6 +243,7 @@ func verge_height(s: float, lateral: float, point: Vector3) -> float:
 
 
 func build_scenery_batch(first: int, last: int) -> void:
+	if art.get("space",false): return
 	var batches: Dictionary = {}
 	var species: String = art.vegetation
 	var spacing := 10 if species=="orchard" else 16 if species=="palm" else 20
@@ -403,8 +419,12 @@ func build_covers() -> void:
 
 
 func build_jump_markings() -> void:
-	if track.definition.ramp_markers.is_empty(): return
-	var crest := CourseArt.original_s(track,float(track.definition.ramp_markers[0]))
+	for marker: float in track.definition.ramp_markers:
+		build_jump_marker(marker)
+
+
+func build_jump_marker(marker: float) -> void:
+	var crest := CourseArt.original_s(track,marker)
 	for distance: float in [-10.0,-7.0,-4.0,50.0]:
 		var tool := SurfaceTool.new()
 		tool.begin(Mesh.PRIMITIVE_TRIANGLES)

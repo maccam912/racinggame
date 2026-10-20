@@ -19,7 +19,7 @@ func original_s(track: TrackDefinition, u: float) -> float:
 
 func run() -> void:
 	Catalog.load_all()
-	assert(Catalog.rules.content_version==9 and Catalog.rules.protocol_version==5 and NetCodec.PROTOCOL==5)
+	assert(Catalog.rules.content_version==10 and Catalog.rules.protocol_version==6 and NetCodec.PROTOCOL==6)
 	for track: TrackDefinition in Catalog.tracks:
 		for u: float in [.00001,.249,.5,.6999,.7001,.8999,.9001,.99999]:
 			var s := original_s(track,u)

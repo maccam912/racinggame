@@ -106,9 +106,12 @@ func banner_text() -> String:
 	if ticks<36 and phase=="Racing": return I18n.t("hud.go")
 	return announcement if announcement_remaining>0 else ""
 
-func fitted(at: Vector2,value: String,font_size: int,width: float,color: Color = UIFactory.CREAM) -> void:
-	var measured := HUD_FONT.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
-	text(at,value,maxi(16,mini(font_size,int(font_size*width/maxf(1,measured)))),color)
+func fitted_display(at: Vector2,value: String,font_size: int,width: float,color: Color = UIFactory.CREAM,centered: bool = false) -> void:
+	var measured := DISPLAY_FONT.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x
+	var fitted_size := maxi(16,mini(font_size,int(font_size*width/maxf(1,measured))))
+	if centered:
+		at.x += (width-DISPLAY_FONT.get_string_size(value,HORIZONTAL_ALIGNMENT_LEFT,-1,fitted_size).x)/2
+	display_text(at,value,fitted_size,color)
 
 func timing_rects() -> Dictionary:
 	var canvas := size/clampf(ui_scale,.9,1.5)
@@ -147,23 +150,21 @@ func _draw() -> void:
 	var clock_box: Rect2 = regions.elapsed
 	var lap_box: Rect2 = regions.lap
 	for box: Rect2 in [position_box,clock_box,lap_box]: draw_style_box(display_panel(),box)
-	fitted(position_box.position+Vector2(12,29)*unit,I18n.t("hud.trial") if trial else I18n.t("hud.position",[rank,racers]),int(22*unit),position_box.size.x-24*unit,UIFactory.TURQUOISE)
+	fitted_display(position_box.position+Vector2(12,29)*unit,I18n.t("hud.trial") if trial else I18n.t("hud.position",[rank,racers]),int(22*unit),position_box.size.x-24*unit,UIFactory.TURQUOISE)
 	var lap_text := I18n.t("hud.lap", [mini(lap_count, state.laps + 1), lap_count])
 	if mobile:
-		fitted(lap_box.position+Vector2(10,29)*unit,lap_text,int(22*unit),lap_box.size.x-20*unit)
+		fitted_display(lap_box.position+Vector2(10,29)*unit,lap_text,int(22*unit),lap_box.size.x-20*unit)
 	else:
-		text(position_box.position+Vector2(12,64),lap_text,28)
-		text(lap_box.position+Vector2(12,30),I18n.t("hud.current_lap")+"  "+time(current_lap()),20)
-		text(lap_box.position+Vector2(12,62),I18n.t("hud.best_lap")+"  "+(time(state.best_lap_time) if state.best_lap_time>0 else I18n.t("hud.no_lap")),20)
+		fitted_display(position_box.position+Vector2(12,64),lap_text,28,position_box.size.x-24)
+		fitted_display(lap_box.position+Vector2(12,30),I18n.t("hud.current_lap")+"  "+time(current_lap()),20,lap_box.size.x-24)
+		fitted_display(lap_box.position+Vector2(12,62),I18n.t("hud.best_lap")+"  "+(time(state.best_lap_time) if state.best_lap_time>0 else I18n.t("hud.no_lap")),20,lap_box.size.x-24)
 	var clock_text := time(elapsed())
 	var clock_font := int(28*unit) if mobile else 36
-	var clock_width := HUD_FONT.get_string_size(clock_text,HORIZONTAL_ALIGNMENT_LEFT,-1,clock_font).x
-	fitted(Vector2(clock_box.get_center().x-minf(clock_width,clock_box.size.x-16*unit)/2,clock_box.position.y+34*unit),clock_text,clock_font,clock_box.size.x-16*unit)
+	fitted_display(clock_box.position+Vector2(8,34)*unit,clock_text,clock_font,clock_box.size.x-16*unit,UIFactory.CREAM,true)
 	if trial:
 		var delta_text := I18n.t("hud.delta")+"  "+("%+.3f"%float(trial_delta) if trial_delta!=null else I18n.t("hud.no_lap"))
 		var delta_font := int(16*unit) if mobile else 18
-		var delta_width := HUD_FONT.get_string_size(delta_text,HORIZONTAL_ALIGNMENT_LEFT,-1,delta_font).x
-		fitted(Vector2(clock_box.get_center().x-minf(delta_width,clock_box.size.x-16*unit)/2,clock_box.position.y+56*unit),delta_text,delta_font,clock_box.size.x-16*unit,UIFactory.TURQUOISE if trial_delta!=null and float(trial_delta)<0 else UIFactory.CREAM)
+		fitted_display(clock_box.position+Vector2(8,56)*unit,delta_text,delta_font,clock_box.size.x-16*unit,UIFactory.TURQUOISE if trial_delta!=null and float(trial_delta)<0 else UIFactory.CREAM,true)
 	if network_level>0:
 		var origin := lap_box.position+Vector2(lap_box.size.x-28*unit,lap_box.size.y+4*unit)
 		draw_style_box(display_panel(),Rect2(origin-Vector2(4,0)*unit,Vector2(32,32)*unit))

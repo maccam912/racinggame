@@ -65,7 +65,7 @@
               }
             },
             "minItems": 16,
-            "maxItems": 32
+            "maxItems": 64
           },
           "width": {
             "type": "number",
@@ -128,7 +128,7 @@
               "maximum": 1
             },
             "minItems": 0,
-            "maxItems": 1
+            "maxItems": 3
           },
           "environment_id": {
             "type": "string",
@@ -189,6 +189,18 @@
                 }
               }
             }
+          },
+          "road_surface": {
+            "enum": [
+              "asphalt",
+              "dirt"
+            ]
+          },
+          "spline": {
+            "enum": [
+              "uniform",
+              "centripetal"
+            ]
           }
         }
       },

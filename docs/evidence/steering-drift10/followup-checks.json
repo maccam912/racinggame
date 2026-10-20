@@ -1,0 +1,52 @@
+{
+  "passed": false,
+  "original_report": "drift-isolated-checks.json",
+  "previous_passes": 27,
+  "rerun_count": 3,
+  "results": [
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/validate_content.py"
+      ],
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 0.08180691604502499,
+      "log": "drift-followup-00.log"
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--max-fps",
+        "60",
+        "--script",
+        "tests/race_archive_tests.gd",
+        "--",
+        "--profile=drift_isolated"
+      ],
+      "passed": true,
+      "exit_code": 0,
+      "seconds": 3.517889874987304,
+      "log": "drift-followup-01.log"
+    },
+    {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--max-fps",
+        "60",
+        "--script",
+        "reports/steering_drift_native.gd",
+        "--",
+        "--profile=drift_native_isolated"
+      ],
+      "passed": false,
+      "exit_code": 241,
+      "seconds": 2.8038174170069396,
+      "log": "drift-followup-02.log"
+    }
+  ],
+  "repairs": "Runner schema replacement corrected to target only content_version; UI archive fixture uses real-time frames for audio cleanup; native recovery asserts actual input/recovery after .5 seconds without assuming later travel cannot meet a course barrier."
+}

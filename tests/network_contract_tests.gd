@@ -33,6 +33,8 @@ func _initialize() -> void:
 		state.last_ack = 456
 		state.last_gate = 12
 		state.braking = i%2==0
+		state.surface = ["asphalt","sand","grass","dirt"][i%4]
+		state.jump_lap = i*8+7
 		session.states.append(state)
 	var packet := NetCodec.encode_snapshot(session, 1234, hash_prefix)
 	check(packet.size()==727,"protocol 5 uses the last flag bit without growing the eight-car snapshot")
@@ -47,8 +49,9 @@ func _initialize() -> void:
 			check(absf(restored.yaw - session.states[i].yaw) <= deg_to_rad(.02), "angle quantization <= .02 degrees")
 			check(restored.last_ack == 456 and restored.drift_phase == 2, "replay state retained")
 			check(restored.braking==(i%2==0),"authoritative brake lamps round trip independently per car")
+			check(restored.surface==session.states[i].surface and restored.jump_lap==i*8+7,"dirt and all three consumed launch bits survive snapshots")
 	var old_protocol := packet.duplicate()
-	old_protocol[4] = 4
+	old_protocol[4] = 5
 	check(NetCodec.decode_snapshot(old_protocol,1,hash_prefix).is_empty(),"protocol 4 clients cannot silently reinterpret the new lamp flag")
 	for length in range(packet.size()):
 		check(NetCodec.decode_snapshot(packet.slice(0, length), 1, hash_prefix).is_empty(), "truncated snapshot rejected")

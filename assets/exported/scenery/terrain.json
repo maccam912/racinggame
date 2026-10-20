@@ -6,68 +6,104 @@
     {
       "id": "palm_bay",
       "path": "assets/exported/scenery/palm_bay_terrain.glb",
-      "sha256": "0d1db067e57e060995d6e37e93da1a98590e4c9e40505cf78aba43cac85f2304",
-      "chunks": 132,
-      "triangles": 6600,
+      "sha256": "42dc93e4d944e6858c2c90dfa6e67356270762d15f9812e05f1a8316df2ad49a",
+      "chunks": 182,
+      "triangles": 9100,
       "chunk_width_m": 160,
       "grid_step_m": 32,
-      "sea_level": -0.5370219999999999,
-      "route_hash": "585fc962341e976e59c27ce5ef3c2d746d7d44abca5b0acaee1764a82672ba90"
+      "sea_level": 0.4986640000000002,
+      "route_hash": "53ba7eb724270f6d4f8d63b0b5094f535b877096cb8fc6afe1d45ddf64a02331",
+      "bounds_xz_m": [
+        -480,
+        -1600,
+        1600,
+        640
+      ]
     },
     {
       "id": "citrus_pass",
       "path": "assets/exported/scenery/citrus_pass_terrain.glb",
-      "sha256": "f3ea5d09e080d5aabc002f6a54f1f63523a83619ab1a93879ee4c365fec8b3e5",
-      "chunks": 121,
-      "triangles": 6050,
+      "sha256": "90e3fda68985c5663f2bda6cb3a31f6fe50d2a4fdc32be57cb889d56b32c0c01",
+      "chunks": 196,
+      "triangles": 9800,
       "chunk_width_m": 160,
       "grid_step_m": 32,
-      "sea_level": 3.3297480000000004,
-      "route_hash": "6b3e16d319ebd52fa7af8482ed581d40879b26948cdc072f8d1922d80359ab87"
+      "sea_level": 4.408843,
+      "route_hash": "f90d353d1c4511e3be86ad0d52377027bd38ef7ee2ffb9fcdbe5ad6c66bd9ab5",
+      "bounds_xz_m": [
+        -480,
+        -1440,
+        1760,
+        800
+      ]
     },
     {
       "id": "marina_lights",
       "path": "assets/exported/scenery/marina_lights_terrain.glb",
-      "sha256": "21fb645c90b3d68c56dc7d2ff739a816bcbdd39edc2f65ce0875316396dc55a9",
-      "chunks": 120,
-      "triangles": 6000,
-      "chunk_width_m": 160,
-      "grid_step_m": 32,
-      "sea_level": -1.688903,
-      "route_hash": "ea9ea5f013bfce7e1768b110004fb3d506ea2ac040afdfd152d4ee8088a7c242"
-    },
-    {
-      "id": "redwood_run",
-      "path": "assets/exported/scenery/redwood_run_terrain.glb",
-      "sha256": "744158bdce77114cd00102cf87287a17157919fd56bcbdd07aad30552b42591d",
-      "chunks": 120,
-      "triangles": 6000,
-      "chunk_width_m": 160,
-      "grid_step_m": 32,
-      "sea_level": 5.27041,
-      "route_hash": "ee8ce1fcd1b24557d5a44d42c0d09911b9769bde28027edea73081abbc69ce95"
-    },
-    {
-      "id": "sunstone_canyon",
-      "path": "assets/exported/scenery/sunstone_canyon_terrain.glb",
-      "sha256": "be381273d451936cb2e2c080508973f8b2a13b16b5bb6abf5cbd580a51242097",
-      "chunks": 143,
-      "triangles": 7150,
-      "chunk_width_m": 160,
-      "grid_step_m": 32,
-      "sea_level": 7.270559,
-      "route_hash": "0875d3db42c014a102da244f108e21bb0c1eecbe77417d25a22fa2c715ddfe52"
-    },
-    {
-      "id": "pacific_summit",
-      "path": "assets/exported/scenery/pacific_summit_terrain.glb",
-      "sha256": "fae0ac4ae3f3f9a8c2f33a985d309c43cd5f6b5e29d7065e3182cf25ad1920c7",
+      "sha256": "5b289a583fb73eb4d06bb3bef6eba0c9c26b4f0d5dfb4f5ed4f451b4ff797821",
       "chunks": 168,
       "triangles": 8400,
       "chunk_width_m": 160,
       "grid_step_m": 32,
-      "sea_level": 14.793516,
-      "route_hash": "77d62b9cf9f283321f3c8a4ede8159ea67c1ab3b931b935555c7f6d3c770cb4b"
+      "sea_level": -0.5,
+      "route_hash": "a8ca61ce41aaef5caa3ec5d2ca8ef2271a882e10fd27a40f3d2bad12c82376cd",
+      "bounds_xz_m": [
+        -480,
+        -1440,
+        1440,
+        800
+      ]
+    },
+    {
+      "id": "redwood_run",
+      "path": "assets/exported/scenery/redwood_run_terrain.glb",
+      "sha256": "33a082f592805695f31c891fdfd2f193a41d8313353aa8694132e80dc57e42f0",
+      "chunks": 196,
+      "triangles": 9800,
+      "chunk_width_m": 160,
+      "grid_step_m": 32,
+      "sea_level": 5.664771,
+      "route_hash": "8af942503946602277ca5a52684bc70b23649629f250bb61616583c9db88c64e",
+      "bounds_xz_m": [
+        -480,
+        -1280,
+        1760,
+        960
+      ]
+    },
+    {
+      "id": "sunstone_canyon",
+      "path": "assets/exported/scenery/sunstone_canyon_terrain.glb",
+      "sha256": "47d0125aa8277000ac9067809abcce565dee4b5e0b3c074bc48e8f5b188980e0",
+      "chunks": 195,
+      "triangles": 9750,
+      "chunk_width_m": 160,
+      "grid_step_m": 32,
+      "sea_level": 7.493299,
+      "route_hash": "510864db168459b8c0d60a7e393886a8d80604a4b16d07a75093d76088807cc1",
+      "bounds_xz_m": [
+        -480,
+        -1440,
+        1600,
+        960
+      ]
+    },
+    {
+      "id": "pacific_summit",
+      "path": "assets/exported/scenery/pacific_summit_terrain.glb",
+      "sha256": "cc0cc2a9cd42e306a2e0067e3e6503ed7c9a06065cd8129f6709684b41b36b59",
+      "chunks": 224,
+      "triangles": 11200,
+      "chunk_width_m": 160,
+      "grid_step_m": 32,
+      "sea_level": 14.686145,
+      "route_hash": "2adfb33abd44e45f90f114d390eb452fe7f5c228a467b8059be5f62ae815918a",
+      "bounds_xz_m": [
+        -480,
+        -1440,
+        1760,
+        1120
+      ]
     },
     {
       "id": "skyline_splice",
@@ -111,7 +147,7 @@
     {
       "id": "caldera_crosscut",
       "path": "assets/exported/scenery/caldera_crosscut_terrain.glb",
-      "sha256": "7b7b956e063577a3e60a949ab62e3880822ceb32594c8e64fdc863bad7b487af",
+      "sha256": "1c4882a32a29bbe46675b28eac4efedef6e6e1263292376f65b4d5e8e34cdf91",
       "chunks": 552,
       "triangles": 27600,
       "chunk_width_m": 160,

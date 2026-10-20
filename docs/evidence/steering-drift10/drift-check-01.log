@@ -1,0 +1,15 @@
+Validated cars: strict schema and references
+Validated tracks: strict schema and references
+Traceback (most recent call last):
+  File "/private/var/folders/m0/wp67y1md4835y01tzkxy20pc0000gn/T/pacific-drift-xg5d851f/tools/validate_content.py", line 77, in <module>
+    check()
+    ~~~~~^^
+  File "/private/var/folders/m0/wp67y1md4835y01tzkxy20pc0000gn/T/pacific-drift-xg5d851f/tools/validate_content.py", line 52, in check
+    validate(value,schema,name)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/m0/wp67y1md4835y01tzkxy20pc0000gn/T/pacific-drift-xg5d851f/tools/validate_content.py", line 45, in validate
+    validate(item,properties.get(key,{}),f'{path}.{key}')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/var/folders/m0/wp67y1md4835y01tzkxy20pc0000gn/T/pacific-drift-xg5d851f/tools/validate_content.py", line 16, in validate
+    raise ValueError(f'{path}: expected constant {schema["const"]!r}')
+ValueError: rules.collision_grace_ticks: expected constant 100

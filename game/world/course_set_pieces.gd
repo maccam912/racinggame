@@ -63,7 +63,8 @@ static func build(world: TrackWorld) -> void:
 
 static func beam(tool: SurfaceTool, first: Vector3, last: Vector3, width: float, color: Color) -> void:
 	var direction := last-first
-	var basis := Basis.looking_at(direction.normalized(),Vector3.UP)
+	var axis := direction.normalized()
+	var basis := Basis.looking_at(axis,Vector3.FORWARD if absf(axis.y)>.99 else Vector3.UP)
 	cuboid(tool,Transform3D(basis,(first+last)*.5),Vector3(width,width,direction.length()),color)
 
 

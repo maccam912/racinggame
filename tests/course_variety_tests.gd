@@ -10,7 +10,7 @@ func run() -> void:
 	assert(not LobbyState.valid_rules({"track":10,"laps":1,"bot_fill":true,"difficulty":1,"contact":true}))
 	var frozen: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/content5/tracks.json"))
 	for index in range(6):
-		assert(Catalog.tracks[index].definition==frozen.tracks[index],"classic six routes retain their exact gameplay definitions")
+		assert(Catalog.tracks[index].definition.ordered_control_points!=frozen.tracks[index].ordered_control_points,"the six classic courses now have individually authored layouts")
 	var records: Array[Dictionary] = []
 	for track: TrackDefinition in Catalog.tracks:
 		var world := TrackWorld.new()
@@ -95,7 +95,7 @@ func run() -> void:
 	var file := FileAccess.open("res://reports/content6-course-variety.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":true,"content_hash":Compatibility.content_hash(),"cases":records},"\t")+"\n")
 	file.close()
-	print("TEN_ROUTES_CLASSIC_BYTES_LAYERED_CROSSING_DECK_SUPPORTS_ROCKS_LOGS_WATERFALLS_PASS")
+	print("TEN_ROUTES_DISTINCT_CLASSICS_LAYERED_CROSSING_DECK_SUPPORTS_ROCKS_LOGS_WATERFALLS_PASS")
 	quit()
 
 

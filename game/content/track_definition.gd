@@ -70,3 +70,7 @@ func shoulder_surface(s: float) -> String:
 	for interval: Dictionary in definition.get("surface_intervals",[]):
 		if u >= float(interval.start) and u < float(interval.end): return interval.surface
 	return definition.surface
+
+
+func road_surface() -> String:
+	return definition.get("road_surface","asphalt")

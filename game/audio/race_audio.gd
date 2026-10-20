@@ -51,7 +51,7 @@ func _physics_process(dt: float) -> void:
 	for id: String in surfaces:
 		var active := not suspended and drive.state.dnf_reason.is_empty() and drive.state.grounded and drive.state.speed()>3
 		if id=="asphalt_squeal": active = active and drive.state.surface=="asphalt" and drive.state.drift_phase==1
-		else: active = active and drive.state.surface==id.trim_suffix("_rumble")
+		else: active = active and (drive.state.surface==id.trim_suffix("_rumble") or id=="sand_rumble" and drive.state.surface=="dirt")
 		surfaces[id].volume_db = move_toward(surfaces[id].volume_db,-12.0 if active else -80.0,dt*160)
 		surfaces[id].stream_paused = suspended or not drive.state.dnf_reason.is_empty()
 	if suspended: return

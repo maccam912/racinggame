@@ -6,7 +6,7 @@ func _initialize() -> void:
 	assert(Catalog.cars.size() == 4)
 	assert(Catalog.tracks.size() == 10)
 	for track: TrackDefinition in Catalog.tracks:
-		assert(track.length > 3000 and track.length < (4000 if Catalog.tracks.find(track)<6 else 9000))
+		assert(track.length > 3000 and track.length < 9000)
 		assert(track.points.size() > 1500)
 		for key: String in ["track."+track.id,"route.description."+track.id]:
 			assert(I18n.t(key)!=key,"every course needs a player-facing name and description")

@@ -1,0 +1,582 @@
+{
+	"boundary": "Shared 60 Hz controller on deterministic flat asphalt/sand/grass; all four cars, both directions, three approach speeds and ten seconds sustained lock. Recovery, countersteering and snapshot replay are numeric checks, separate from human feel and physical-device testing.",
+	"cases": [
+		{
+			"car": "comet",
+			"final_speed_mps": 64.3118743896484,
+			"max_slip_degrees": 33.6817972314485,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 67.5648803710938,
+			"max_slip_degrees": 33.7808383895083,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 71.7303009033203,
+			"max_slip_degrees": 34.8755742794887,
+			"start_speed_mps": 82.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 54.0071830749512,
+			"max_slip_degrees": 35.9053516553678,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 58.428783416748,
+			"max_slip_degrees": 36.0931135556515,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 64.5669860839844,
+			"max_slip_degrees": 36.7878462470793,
+			"start_speed_mps": 82.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 47.8133277893066,
+			"max_slip_degrees": 35.6388445041431,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 52.6197662353516,
+			"max_slip_degrees": 35.9007925040968,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 59.3125686645508,
+			"max_slip_degrees": 36.5606024382984,
+			"start_speed_mps": 82.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 64.3118743896484,
+			"max_slip_degrees": 33.6817972314485,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 67.5648803710938,
+			"max_slip_degrees": 33.7808383895083,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 71.7303009033203,
+			"max_slip_degrees": 34.8755742794887,
+			"start_speed_mps": 82.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 54.0071830749512,
+			"max_slip_degrees": 35.9053516553678,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 58.428783416748,
+			"max_slip_degrees": 36.0931135556515,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 64.5669860839844,
+			"max_slip_degrees": 36.7878462470793,
+			"start_speed_mps": 82.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 47.8133277893066,
+			"max_slip_degrees": 35.6388445041431,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 52.6197662353516,
+			"max_slip_degrees": 35.9007925040968,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "comet",
+			"final_speed_mps": 59.3125686645508,
+			"max_slip_degrees": 36.5606024382984,
+			"start_speed_mps": 82.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 65.2777786254883,
+			"max_slip_degrees": 33.6306186239976,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 69.888053894043,
+			"max_slip_degrees": 33.9363208157744,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 76.7024459838867,
+			"max_slip_degrees": 35.2862803844708,
+			"start_speed_mps": 88.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 52.2282180786133,
+			"max_slip_degrees": 35.8800833705334,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 58.2937088012695,
+			"max_slip_degrees": 36.1031334431639,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 67.9953079223633,
+			"max_slip_degrees": 37.2438911477719,
+			"start_speed_mps": 88.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 45.3466911315918,
+			"max_slip_degrees": 35.6045467092259,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 51.8470077514648,
+			"max_slip_degrees": 35.9432967713018,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 62.3055114746094,
+			"max_slip_degrees": 37.0364787932461,
+			"start_speed_mps": 88.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 65.2777786254883,
+			"max_slip_degrees": 33.6306186239976,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 69.888053894043,
+			"max_slip_degrees": 33.9363208157744,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 76.7024459838867,
+			"max_slip_degrees": 35.2862803844708,
+			"start_speed_mps": 88.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 52.2282180786133,
+			"max_slip_degrees": 35.8800833705334,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 58.2937088012695,
+			"max_slip_degrees": 36.1031334431639,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 67.9953079223633,
+			"max_slip_degrees": 37.2438911477719,
+			"start_speed_mps": 88.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 45.3466911315918,
+			"max_slip_degrees": 35.6045467092259,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 51.8470077514648,
+			"max_slip_degrees": 35.9432967713018,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "needle",
+			"final_speed_mps": 62.3055114746094,
+			"max_slip_degrees": 37.0364787932461,
+			"start_speed_mps": 88.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 63.5983695983887,
+			"max_slip_degrees": 33.6571265881664,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 65.7634811401367,
+			"max_slip_degrees": 33.6571129277881,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 68.2796020507812,
+			"max_slip_degrees": 34.4928309689687,
+			"start_speed_mps": 78.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 56.0117492675781,
+			"max_slip_degrees": 35.8682910489313,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 59.0371398925781,
+			"max_slip_degrees": 36.0077566815938,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 62.8140029907227,
+			"max_slip_degrees": 36.3831404632831,
+			"start_speed_mps": 78.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 50.489616394043,
+			"max_slip_degrees": 35.6110729549778,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 53.8224029541016,
+			"max_slip_degrees": 35.7954744021898,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 57.9858283996582,
+			"max_slip_degrees": 36.253670812471,
+			"start_speed_mps": 78.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 63.5983695983887,
+			"max_slip_degrees": 33.6571265881664,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 65.7634811401367,
+			"max_slip_degrees": 33.6571129277881,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 68.2796020507812,
+			"max_slip_degrees": 34.4928309689687,
+			"start_speed_mps": 78.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 56.0117492675781,
+			"max_slip_degrees": 35.8682910489313,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 59.0371398925781,
+			"max_slip_degrees": 36.0077566815938,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 62.8140029907227,
+			"max_slip_degrees": 36.3831404632831,
+			"start_speed_mps": 78.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 50.489616394043,
+			"max_slip_degrees": 35.6110729549778,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 53.8224029541016,
+			"max_slip_degrees": 35.7954744021898,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "switch",
+			"final_speed_mps": 57.9858283996582,
+			"max_slip_degrees": 36.253670812471,
+			"start_speed_mps": 78.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 65.1124649047852,
+			"max_slip_degrees": 33.7012666856776,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 68.7727203369141,
+			"max_slip_degrees": 33.9227150789478,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 73.7177963256836,
+			"max_slip_degrees": 35.0696301990926,
+			"start_speed_mps": 84.0,
+			"steer": -1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 53.8502159118652,
+			"max_slip_degrees": 35.9395162615962,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 58.7913017272949,
+			"max_slip_degrees": 36.136304256868,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 65.9914932250977,
+			"max_slip_degrees": 36.9889577520958,
+			"start_speed_mps": 84.0,
+			"steer": -1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 47.4501762390137,
+			"max_slip_degrees": 35.680320827878,
+			"start_speed_mps": 20.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 52.7959632873535,
+			"max_slip_degrees": 35.9622676217215,
+			"start_speed_mps": 40.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 60.6135673522949,
+			"max_slip_degrees": 36.7701184910885,
+			"start_speed_mps": 84.0,
+			"steer": -1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 65.1124649047852,
+			"max_slip_degrees": 33.7012666856776,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 68.7727203369141,
+			"max_slip_degrees": 33.9227150789478,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 73.7177963256836,
+			"max_slip_degrees": 35.0696301990926,
+			"start_speed_mps": 84.0,
+			"steer": 1.0,
+			"surface": "asphalt"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 53.8502159118652,
+			"max_slip_degrees": 35.9395162615962,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 58.7913017272949,
+			"max_slip_degrees": 36.136304256868,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 65.9914932250977,
+			"max_slip_degrees": 36.9889577520958,
+			"start_speed_mps": 84.0,
+			"steer": 1.0,
+			"surface": "sand"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 47.4501762390137,
+			"max_slip_degrees": 35.680320827878,
+			"start_speed_mps": 20.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 52.7959632873535,
+			"max_slip_degrees": 35.9622676217215,
+			"start_speed_mps": 40.0,
+			"steer": 1.0,
+			"surface": "grass"
+		},
+		{
+			"car": "sunset",
+			"final_speed_mps": 60.6135673522949,
+			"max_slip_degrees": 36.7701184910885,
+			"start_speed_mps": 84.0,
+			"steer": 1.0,
+			"surface": "grass"
+		}
+	],
+	"passed": true
+}

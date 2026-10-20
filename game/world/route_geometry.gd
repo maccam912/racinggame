@@ -37,10 +37,12 @@ static func meshes(track: TrackDefinition, visual: bool = false) -> Dictionary:
 			quad(tools.walls, a, b, b + Vector3.UP * .9, a + Vector3.UP * .9)
 			if visual:
 				quad(tools.verges, a, b, point(track, j, side * (wb + 65)) - Vector3.UP * 2.5, point(track, i, side * (wa + 65)) - Vector3.UP * 2.5)
+			if visual and track.road_surface() != "dirt":
 				quad(tools.markings, point(track, i, side * (wa - .35)) + Vector3.UP * .015, point(track, j, side * (wb - .35)) + Vector3.UP * .015, point(track, j, side * (wb - .60)) + Vector3.UP * .015, point(track, i, side * (wa - .60)) + Vector3.UP * .015)
-		if visual and fposmod(track.distances[i], 12) < 4:
+		if visual and track.road_surface() != "dirt" and fposmod(track.distances[i], 12) < 4:
 			quad(tools.markings, point(track, i, -.09) + Vector3.UP * .018, point(track, i, .09) + Vector3.UP * .018, point(track, j, .09) + Vector3.UP * .018, point(track, j, -.09) + Vector3.UP * .018)
 	var result: Dictionary = {}
 	for key: String in tools:
+		if key=="markings" and track.road_surface()=="dirt": continue
 		result[key] = tools[key].commit()
 	return result

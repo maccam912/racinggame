@@ -75,9 +75,13 @@ static func safety(state: VehicleState, frame: InputFrame, track: TrackDefinitio
 		var delta := fposmod(float(nearest.s) - state.route_s + track.length / 2, track.length) - track.length / 2
 		if absf(delta) < 5:
 			state.backwards_m = minf(11, state.backwards_m - delta) if delta < -.001 else 0.0 if delta > .001 else state.backwards_m
-	for marker: float in track.definition.ramp_markers:
+	# The existing signed byte stores lap*8 plus three consumed-launch bits.
+	# This survives prediction, snapshots and checkpoints without growing packets.
+	var used_jumps := state.jump_lap & 7 if state.jump_lap >= 0 and state.jump_lap / 8 == state.laps else 0
+	for marker_index in range(track.definition.ramp_markers.size()):
+		var marker: float = track.definition.ramp_markers[marker_index]
 		var crest := fposmod(marker * track.length - track.start_sample * 2, track.length)
-		if state.route_s >= 0 and state.route_s < crest and nearest.s >= crest and nearest.s - state.route_s < 5 and state.grounded and state.speed() >= 30 and state.jump_lap != state.laps:
+		if state.route_s >= 0 and state.route_s < crest and nearest.s >= crest and nearest.s - state.route_s < 5 and state.grounded and state.speed() >= 30 and (used_jumps & (1 << marker_index)) == 0:
 			# Remove the ramp's geometric upward velocity before the fixed kick,
 			# preserving the original road grade without a speed-scaled extra jump.
 			var base_forward: Vector3 = track.forwards[int(nearest.i)]
@@ -85,7 +89,8 @@ static func safety(state: VehicleState, frame: InputFrame, track: TrackDefinitio
 			state.velocity = state.velocity.slide(base_normal)+base_normal*7.2
 			state.launch_ticks = 23
 			state.grounded = false
-			state.jump_lap = state.laps
+			used_jumps |= 1 << marker_index
+			state.jump_lap = state.laps * 8 + used_jumps
 			state.events.append("jump")
 	state.route_s = nearest.s
 	var half_width: float = track.bake.samples[nearest.i][8] / 2 + 3

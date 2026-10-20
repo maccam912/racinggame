@@ -1,0 +1,227 @@
+{
+  "passed": true,
+  "content_hash": "70dbe372a22ce7e59d5ceb68b94a7950e804ab3ce7d78430022782e7c0791f51",
+  "laps": 1,
+  "seconds": 160.0,
+  "track": "citrus_pass",
+  "track_index": 1,
+  "one_way_latency_ms": 50,
+  "jitter_ms": 20,
+  "loss": 0.01,
+  "contacts": false,
+  "degraded_tier": false,
+  "away_seconds": 0,
+  "client_hitch_seconds": 0,
+  "protocol": 6,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "clients": [
+    {
+      "acknowledged_sequence": 6327,
+      "clear_corrections": {
+        "count": 1998,
+        "max": 0.131661802530289,
+        "p95": 0.0311456173658371
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 0,
+      "connected": true,
+      "contact_corrections": {
+        "count": 85,
+        "max": 0.565560042858124,
+        "p95": 0.113619424402714
+      },
+      "dropped_packets": 0,
+      "finish_time": 105.574180603027,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 1,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 68.8495941162109,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 990,
+        "levels": [
+          863,
+          127,
+          0
+        ],
+        "max_delivery_loss_percent": 4.04040404040404,
+        "max_rtt_ms": 146.8
+      },
+      "received_bytes": 472686,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 1404,
+      "remote_brake_on": 822,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 1.42713510990143,
+        "max_requested_seconds": 0.0368574359894941,
+        "samples": 67
+      },
+      "results": [
+        {
+          "best_lap": 105.47232292575,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 4993.21182612982,
+          "dnf": "",
+          "id": "3f91e1e0-93f9-4f76-a256-3e71ac794ffb",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 105.47232292575
+        },
+        {
+          "best_lap": 105.574181358105,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 4992.38268378284,
+          "dnf": "",
+          "id": "90aec80b-934e-4306-a082-03db42aa4390",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 105.574181358105
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 118.0,
+      "sent_bytes": 267008,
+      "sequence": 6332,
+      "slot": 1,
+      "snapshots": 2130,
+      "terminal_corrections": {
+        "count": 39,
+        "max": 2.68047428131104,
+        "p95": 2.63016057014465
+      },
+      "track_id": "citrus_pass",
+      "track_index": 1
+    },
+    {
+      "acknowledged_sequence": 6320,
+      "clear_corrections": {
+        "count": 1992,
+        "max": 0.170529082417488,
+        "p95": 0.0367800518870354
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 4,
+      "connected": true,
+      "contact_corrections": {
+        "count": 85,
+        "max": 0.562000334262848,
+        "p95": 0.0864361673593521
+      },
+      "dropped_packets": 0,
+      "finish_time": 105.472320556641,
+      "hitch_done": false,
+      "initial_slot": 0,
+      "laps": 1,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 68.8537216186523,
+      "permanent_error": "",
+      "quality_observations": {
+        "active_samples": 989,
+        "levels": [
+          855,
+          134,
+          0
+        ],
+        "max_delivery_loss_percent": 5.05050505050505,
+        "max_rtt_ms": 152.7
+      },
+      "received_bytes": 472997,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 1402,
+      "remote_brake_on": 821,
+      "remote_extrapolation": {
+        "capped_samples": 0,
+        "max_buffer_samples": 20,
+        "max_distance_m": 3.51595997810364,
+        "max_requested_seconds": 0.0513853501918826,
+        "samples": 64
+      },
+      "results": [
+        {
+          "best_lap": 105.47232292575,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 4993.21182612982,
+          "dnf": "",
+          "id": "3f91e1e0-93f9-4f76-a256-3e71ac794ffb",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 105.47232292575
+        },
+        {
+          "best_lap": 105.574181358105,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 4992.38268378284,
+          "dnf": "",
+          "id": "90aec80b-934e-4306-a082-03db42aa4390",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 105.574181358105
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 165.0,
+      "sent_bytes": 266762,
+      "sequence": 6327,
+      "slot": 0,
+      "snapshots": 2125,
+      "terminal_corrections": {
+        "count": 41,
+        "max": 2.66030430793762,
+        "p95": 2.57008504867554
+      },
+      "track_id": "citrus_pass",
+      "track_index": 1
+    }
+  ],
+  "wire_metrics": {
+    "upstream_bytes": 602161,
+    "downstream_bytes": 1003259,
+    "upstream_packets": 7470,
+    "downstream_packets": 5669,
+    "dropped_packets": 122,
+    "offered_upstream_bytes": 608096,
+    "offered_downstream_bytes": 1012313,
+    "offered_upstream_packets": 7541,
+    "offered_downstream_packets": 5720
+  },
+  "contact_events": 10,
+  "elapsed_seconds": 114.41724945907481,
+  "engine_error_logs": [],
+  "cleanup_errors": [],
+  "source_manifest_unchanged": true
+}

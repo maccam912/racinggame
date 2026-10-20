@@ -2,7 +2,7 @@ class_name NetCodec
 extends RefCounted
 ## Explicit fixed-width little-endian packets. No Variant deserialization on UDP.
 
-const PROTOCOL: int = 5
+const PROTOCOL: int = 6
 const MAX_PACKET: int = 1200
 const FIELDS: Array = [
 	["yaw", "i16", 100.0 * 180 / PI], ["yaw_rate", "i16", 100.0 * 180 / PI],
@@ -98,7 +98,7 @@ static func encode_snapshot(session: RaceSession, server_tick: int, hash_prefix:
 			if not is_finite(value) or absf(value) > 327.67:
 				return PackedByteArray()
 			buffer.put_16(roundi(value * 100))
-		if not state.ground_normal.is_finite() or state.ground_normal.x * state.ground_normal.x + state.ground_normal.z * state.ground_normal.z > 1.001 or not state.surface in ["asphalt", "sand", "grass"]:
+		if not state.ground_normal.is_finite() or state.ground_normal.x * state.ground_normal.x + state.ground_normal.z * state.ground_normal.z > 1.001 or not state.surface in ["asphalt", "sand", "grass", "dirt"]:
 			return PackedByteArray()
 		for value: float in [state.finish_time, state.lap_start_time, state.last_lap_time, state.best_lap_time, state.distance_m]:
 			if not is_finite(value) or value < -1 or value > 100000:
@@ -117,7 +117,7 @@ static func encode_snapshot(session: RaceSession, server_tick: int, hash_prefix:
 		var flags := int(state.grounded) | (int(state.reversing) << 1) | (int(state.wall_contact) << 2) | (int(state.finished) << 3) | (int(state.trial_valid) << 4) | (int(state.dnf_reason != "") << 5) | (int(state.recovery_latched) << 6) | (int(state.braking) << 7)
 		buffer.put_u8(flags)
 		buffer.put_u8(int(state.lap_valid))
-		buffer.put_u8(["asphalt", "sand", "grass"].find(state.surface))
+		buffer.put_u8(["asphalt", "sand", "grass", "dirt"].find(state.surface))
 		buffer.put_float(state.finish_time)
 		buffer.put_float(state.lap_start_time)
 		buffer.put_float(state.last_lap_time)
@@ -184,9 +184,9 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 			return {}
 		state.lap_valid = bool(lap_valid)
 		var surface := buffer.get_u8()
-		if surface > 2 or state.drift_phase > 2 or state.last_gate < -1 or state.last_gate > maximum_gate or absf(state.steer_filter) > 1:
+		if surface > 3 or state.drift_phase > 2 or state.last_gate < -1 or state.last_gate > maximum_gate or absf(state.steer_filter) > 1:
 			return {}
-		state.surface = ["asphalt", "sand", "grass"][surface]
+		state.surface = ["asphalt", "sand", "grass", "dirt"][surface]
 		state.finish_time = buffer.get_float()
 		state.lap_start_time = buffer.get_float()
 		state.last_lap_time = buffer.get_float()

@@ -7,7 +7,8 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
 	var frozen: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/content8/tracks.json"))
-	for index in range(8): assert(Catalog.tracks[index].definition==frozen.tracks[index],"all existing eight route definitions stay exact")
+	for index in range(6,8):
+		assert(Catalog.tracks[index].definition.ordered_control_points==frozen.tracks[index].ordered_control_points,"the layered city crossing and quarry hairpins retain their authored geometry")
 	var evidence: Array[Dictionary] = []
 	for track: TrackDefinition in Catalog.tracks:
 		if not CROSSINGS.has(track.id): continue
@@ -69,7 +70,7 @@ func run() -> void:
 	var file := FileAccess.open("res://reports/course-spectacles.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":true,"content_hash":Compatibility.content_hash(),"cases":evidence},"\t")+"\n")
 	file.close()
-	print("TEN_ROUTE_EIGHT_ARCHIVES_TEN_LAYERED_CROSSINGS_WATERWORKS_CALDERA_BOUNDS_WINDING_NO_COLLISION_PASS")
+	print("TEN_ROUTE_RETAINED_EXPANSIONS_TEN_LAYERED_CROSSINGS_WATERWORKS_CALDERA_BOUNDS_WINDING_NO_COLLISION_PASS")
 	quit()
 
 

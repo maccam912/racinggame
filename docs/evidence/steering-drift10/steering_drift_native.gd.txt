@@ -1,0 +1,44 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("run")
+func key(code: Key, pressed: bool) -> void:
+	var event := InputEventKey.new()
+	event.physical_keycode = code
+	event.pressed = pressed
+	Input.parse_input_event(event)
+	Input.flush_buffered_events()
+func run() -> void:
+	Catalog.load_all()
+	DrivingInput.register_defaults()
+	root.size = Vector2i(1280,720)
+	var drive := RaceDrive.new()
+	drive.config = {"mode":"quick","track":0,"opponents":0,"car":0,"paint":0,"contact":false}
+	root.add_child(drive)
+	await physics_frame
+	drive.session.phase = RaceSession.Phase.RACING
+	drive.phase = "Racing"
+	drive.state.velocity = drive.state.forward()*40
+	key(KEY_W,true)
+	for tick in range(12): await physics_frame
+	key(KEY_D,true)
+	for tick in range(56): await physics_frame
+	key(KEY_D,false)
+	drive.set_physics_process(false)
+	assert(drive.frame.steer==1 and not drive.frame.handbrake and drive.state.drift_phase==1)
+	assert(not drive.state.wall_contact and drive.state.grounded)
+	var drift_slip := rad_to_deg(drive.state.forward().slide(drive.state.ground_normal).normalized().angle_to(drive.state.velocity.normalized()))
+	assert(drift_slip>15 and drift_slip<45)
+	for tick in range(3): await process_frame
+	await RenderingServer.frame_post_draw
+	root.get_texture().get_image().save_png("res://reports/steering-drift-native.png")
+	print("NATIVE_KEYBOARD_FULL_LOCK_SLIDE slip=",drift_slip," speed=",drive.state.speed()," handbrake=",drive.frame.handbrake)
+	drive.set_physics_process(true)
+	for tick in range(30): await physics_frame
+	drive.set_physics_process(false)
+	assert(drive.state.drift_phase==0)
+	assert(drive.frame.steer==0 and not drive.frame.handbrake and drive.state.speed()>15)
+	key(KEY_W,false)
+	print("NATIVE_KEYBOARD_RELEASE_RECOVERY_PASS")
+	drive.queue_free()
+	await process_frame
+	await create_timer(.5).timeout
+	quit()

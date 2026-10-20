@@ -187,7 +187,11 @@ Steering filter moves toward target at 5 units/s while increasing magnitude and 
 
 ### 7.4 Sliding and surfaces
 
-Handbrake above 15 m/s and abs(filtered steer) > 0.25 enters Drift after 0.10 seconds. Holding it multiplies grip by 0.45, yaw target by 1.20, and adds forward drag 3 m/s². Below entry speed it applies 10 m/s² braking and normal steering; it is not a pivot button. Releasing handbrake enters Recovering Grip: interpolate grip factor from 0.45 to 1 over 0.40 seconds, and yaw multiplier from 1.20 to 1 over the same interval. Pressing again resets recovery into Drift. Maximum sustained slip is not hard-clamped; spin prevention comes from bounded yaw and restoring grip. A car may rotate broadly under misuse but cannot roll over.
+While grounded and traveling forward above 15 m/s, either full-lock steering or the handbrake can enter Drift after 0.10 seconds. Steering entry requires both raw and filtered steering magnitude ≥0.90 in the same direction. An existing slide stays active down to 0.75 steering magnitude, so small stick/touch fluctuations do not repeatedly restore grip. Handbrake entry requires abs(filtered steer) >0.25. Both paths multiply grip by 0.45 and yaw target by 1.20. Only the held handbrake adds forward drag of 3 m/s²; below entry speed it applies 10 m/s² braking. Parking, reverse and airborne steering cannot initiate a drift.
+
+During grounded Drift and Recovering Grip, smoothly reduce yaw into the slide as sideslip grows: `into_slide = -sign(filtered_steer) * atan2(vl,vf)`, measured before yaw, and multiply target yaw by `lerp(1.0,0.10,smoothstep(20°,40°,into_slide))` while vf >0. Opposite steering retains full authority to catch the rear. This settles sustained full lock into a controlled arc without hard-clamping velocity or adding sideways impulses. Easing steering below the hold threshold, countersteering without the handbrake, or dropping below entry speed starts Recovering Grip: interpolate grip factor from 0.45 to 1 over 0.40 seconds and yaw multiplier from 1.20 to 1. Re-entering through either input resets recovery into Drift. Cars cannot roll over.
+
+This handling revision is **content 10, save schema 1**. All modes, bots and client prediction use the shared controller and existing drift snapshot fields. Preserve frozen content-9 profile/records/ghost/Cup/active-race bytes and earlier archives; incompatible results remain archived and continuation stays disabled. The concurrent course revision determines the combined protocol version; steering drift itself adds no packet fields.
 
 | Surface | Grip multiplier | Extra forward drag | Feedback |
 | --- | --- | --- | --- |
@@ -853,7 +857,7 @@ Each row is required. Evidence records build, platform/device, settings, steps, 
 | DRIVE-01 | Comet flat launch, throttle 1 for 20 s | 0–100 km/h within 1.5–2.0 s; speed never above permitted cap; no lateral drift with steer 0 |
 | DRIVE-02 | Brake from 100 km/h on flat asphalt | Stop in 18–26 m; no automatic reverse until 0.35 s stopped brake hold |
 | DRIVE-03 | Constant steering at 25/40/50 m/s | Turn tightens at lower speed; repeatability tolerance met; no snapping or rollovers |
-| DRIVE-04 | 0.5 s handbrake turn then release | Visible slip; grip restoration completes in .40 s; no boost or hidden speed gain |
+| DRIVE-04 | Sustained full-lock steering and 0.5 s handbrake turns, then release/countersteer | All four cars slide at speed without handbrake; sustained lock stays controlled; partial lock/parking/reverse/airborne cannot initiate drift; grip restoration completes in .40 s; no boost or hidden speed gain |
 | DRIVE-05 | Scrape wall at 40 m/s, 15° approach | Forward motion retained; no repeated 4% per-tick damping; no wall penetration >.05 m |
 | DRIVE-06 | Two-car bump at 10 m/s relative speed | Impulse bound honored; no angular flip; neither car pushed through world wall |
 | DRIVE-07 | Ramp at 30/45/60/80/95 m/s; −15%, flat, +15% grades | Single launch trigger per lap; safe landing; no tunnel-through or repeated snap-launch |
@@ -954,3 +958,47 @@ This is content version 8 / protocol 5 / save schema 1. Frozen content-4/5/6/7 c
 Skyline tower walls use original procedural window grids and static glass reflections, aligned in facade metres with floor bands; roof equipment and trim remain opaque solids. Ordered dither and derivative filtering keep distance detail stable. Opponent labels share the original arcade chrome/display-number face while retaining nickname/emoji support, color-palette identity, clipping, four-label limit, occlusion and High Contrast.
 
 Graphics acceptance separates construction from GPU readiness. Its construction fixture allows max(60 seconds, (actual authored build steps + four frame allowance) × one second), recording each world's unit count, cap and measured duration. The independent 15-second two-frame/readback GPU deadline, Retry/Cancel/background and real ENet Loaded ordering remain. Reports retain partial course results and failure state; only full completion is successful. These construction fixture bounds do not change production loading or the performance budgets.
+
+## Arcade course identities — 20 October 2026
+
+The owner requests substantially different layouts and driving experiences in the
+style of 1990s arcade racers. This section supersedes the original six coordinate
+lists and their former common asphalt-only presentation. The current definitions
+and canonical bakes are normative; `tools/author_arcade_tracks.py` reproduces the
+six authored layouts. `tools/course_layout_preview.py` renders their actual maps
+and elevation strips in `docs/evidence/arcade-tracks/layouts.svg`.
+
+| Course | Driving identity |
+| --- | --- |
+| Palm Bay | 3.99 km broad coastal pentagon; 20 m highway, long straights and sweeping bends |
+| Citrus Pass | 4.97 km orchard zigzag rally; 18 m clay road, alternating block cuts and two launches |
+| Marina Lights | 5.27 km flat downtown block circuit; long boulevards, sharp braking corners, lit towers and purple night lighting |
+| Redwood Run | 5.21 km forest dirt slalom; narrow 16 m road, linked reversals, 93 m height range and a timber launch |
+| Sunstone Canyon | 5.08 km desert dirt stadium; long launch straight, broad sweepers, twisting infield and three jumps |
+| Pacific Summit | 5.60 km mountain rollercoaster; 150 m height range, 20.5% maximum grade, three launches and 24 m landing zones |
+| Skyline Splice | Retains its layered harbor figure eight and bridge launch |
+| Quarry Switchback | Retains its chain of climbing hairpins |
+| Spillway Sprint | Retains its three-lobed elevated reservoir knot |
+| Caldera Crosscut | Retains its seven-crossing star geometry; now an alien volcanic moon with starfield, ringed planet, crystals and neon speed gates |
+
+Authored street corners use centripetal Catmull–Rom interpolation so unequal
+block lengths cannot create loops near corners. The original uniform option
+remains for expansion geometry. Allow 16–64 controls; preserve 2 m samples,
+28 m minimum radius, 24% maximum grade and safe separation/start checks.
+
+`road_surface` selects asphalt or dirt independently of shoulder surface. Dirt
+uses 0.78 grip and 1.2 m/s² extra drag above 12 m/s, with brown rutted gravel,
+dust and the existing loose-surface rumble. It has no painted highway lanes.
+AI braking curves use the same grip multiplier. Each course supports up to three
+ramps; each fires once per lap, with the existing 7.2 m/s kick and 23-tick launch
+lockout. The signed `jump_lap` byte now stores `lap*8 + consumed_ramp_bits`.
+Protocol 6 adds dirt as surface byte 3 and defines that bitfield; the eight-car
+snapshot remains 727 bytes. The shared development content version is 10 and
+save schema remains 1. Preserve frozen content-4 through content-9 fixtures and
+incompatible player records/ghosts/Cups/checkpoints byte-for-byte.
+
+Acceptance includes actual main-road surface probes, every ramp launching and
+landing on course collision, repeat-trigger suppression and next-lap rearming,
+network round trips of dirt and all ramp bits, geometry diversity thresholds,
+all-car trials, complete-field races, and native rendered review. Publication
+and minimum-device/human feel checks remain distinct from local source evidence.

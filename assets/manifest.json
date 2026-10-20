@@ -601,6 +601,18 @@
       "exports": [
         "game/world/roadside_life.gd"
       ]
+    },
+    {
+      "id": "arcade_course_surfaces",
+      "source": "game/world/arcade_course_detail.gd",
+      "creator": "Pacific Rush contributors",
+      "license": "MIT",
+      "attribution": "LICENSE",
+      "modifications": "Original code-native clay/gravel tire-rut material, starfield and ringed planet sky; batched downtown blocks, lit windows, launch gates, neon orbital gates and moon crystals. No external artwork.",
+      "exports": [
+        "assets/exported/shaders/dirt.gdshader",
+        "assets/exported/shaders/orbital_sky.gdshader"
+      ]
     }
   ]
 }
