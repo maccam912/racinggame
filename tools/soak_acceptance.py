@@ -138,6 +138,11 @@ def main():
         identities = {row['id'] for row in results[0]['rows']} if results else set()
         checks['all_finish_same_eight'] = len(identities)==8 and all(len(race['rows'])==8 and {row['id'] for row in race['rows']}==identities and all(not row['dnf'] and not row['bot'] for row in race['rows']) for race in results)
         checks['bounded_racing_control'] = all(report['large_racing_events']==0 for report in reports)
+        launches = [json.loads(line.split(' ',1)[1]) for path in sorted(folder.glob('client-*.log')) for line in path.read_text().splitlines() if line.startswith('SOAK_LAUNCH_PLAN ')]
+        checks['staged_launches_each'] = len(launches)==8*args.races and all(
+            sorted(row['hold_ticks'] for row in launches if row['race']==race)==list(range(0,480,60)) and
+            len({json.dumps(row['order'],sort_keys=True) for row in launches if row['race']==race})==1
+            for race in range(1,args.races+1))
         corrections = [row['clear'] for report in reports for row in report['race_metrics']]
         checks['clear_coverage_500_each'] = len(corrections)==8*args.races and all(row['count']>=500 for row in corrections)
         checks['clear_p95_025m_each'] = bool(corrections) and all(row['p95']<=.25 for row in corrections)
@@ -165,7 +170,8 @@ def main():
                        max_clear_p95_m=max((row['p95'] for row in corrections),default=None),
                        min_clear_samples=min((row['count'] for row in corrections),default=0),clear_samples=sum(row['count'] for row in corrections),
                        proxy_seeds=[94723+101*index for index in range(8)],
-                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; test-only target speed factors [1,.96,.985,.945,.97,.955,.93,.995], four normal car types; ordinary brake-only launch holds of index*30 input ticks after GO (0–3.5 seconds)',
+                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; test-only target speed factors [1,.96,.985,.945,.97,.955,.93,.995], four normal car types. Public baked target speeds estimate fastest-first release order; ordinary brake-only launch holds of rank*60 input ticks after GO (0–7 seconds). No physics, finish-grace, population-classifier or correction-limit changes.',
+                       launch_plans=launches,
                        clients_reports=reports,memory=memory,racing_wire=race_wire)
         assert summary['passed'], 'Failed checks: '+', '.join(key for key,value in checks.items() if not value)
     except Exception as error:

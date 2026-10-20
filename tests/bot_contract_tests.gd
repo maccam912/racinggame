@@ -10,8 +10,9 @@ func racer(slot: int, lateral: float, ahead: float, speed: float = 20) -> Vehicl
 func _initialize() -> void:
 	Catalog.load_all()
 	var route := TrackDefinition.new()
-	route.forwards = PackedVector3Array([Vector3.FORWARD])
-	route.bake = {"samples":[[0,0,0,0,0,-1,0,0,16]]}
+	route.points = PackedVector3Array([Vector3.ZERO,Vector3.FORWARD*100])
+	route.forwards = PackedVector3Array([Vector3.FORWARD,Vector3.FORWARD])
+	route.bake = {"samples":[[0,0,0,0,0,-1,0,0,16,0,0],[0,0,-100,0,0,-1,0,0,16,0,0]]}
 	var driver := BotDriver.new()
 	var state := racer(0,0,0)
 	var nearest := {"i":0,"lateral":0.0}

@@ -1,5 +1,16 @@
 # Implementation status
 
+## 20 October — content 8 keeps traffic on its road level
+
+The actual Skyline crossing regression reproduced a passing manoeuvre for a rival 180 m above. Both lead selection and passing-side blockers now use perpendicular distance from the collision-surface plane, including grade/bank/ramp offsets. Real cars 4.8 m higher/lower on a 24% road remain traffic. Lane rules, target speeds, physics, route bakes, recovery and packet format remain unchanged. Content/protocol/save are **8/5/1**, gameplay `dfb78c44`, assets `1ece6157`. Frozen content-4/5/6/7 saves retain their exact archived bytes with incompatible continuation disabled.
+
+All **98 final source commands**, **32 Gold trials**, **48 full camera paths** and the complete **480-race AI matrix / 3,840 finishers / zero recoveries** pass. The original schema-pin failure is retained alongside the final passing run. [Complete regressions, frozen-source capture and field evidence](evidence/content8/).
+
+GitHub **Build 105 is not published**: all other jobs passed, while its ten-race soak finished all 80 matching results but missed the required 500 clear samples for two cars in one race (257/300). Worst clear p95, wire and memory limits passed; those values do not replace coverage. [Original failed run](evidence/ci105-ten-race/).
+
+The test-only staged start now uses public baked speeds for a fastest-first one-second release order, verified independently by all eight clients, preserving all numeric gates and normal finish grace. Local classic three-lap and bonus one-lap pairs pass **32 matching finishes**, minimum clear counts **1,307 / 1,209**, worst clear p95 **0.031437 / 0.028114 m**, and finish spreads under 30 s. Matching exports/Android and the required remote full-soak repeat remain pending. Build 106's separate content-7 workflow is still running at this checkpoint.
+
+
 
 ## 20 October — arcade touch controls and grounded Skyline furniture
 

@@ -1,0 +1,910 @@
+{
+  "schema_version": 1,
+  "tracks": [
+    {
+      "id": "palm_bay",
+      "name": "Palm Bay",
+      "display_name_key": "track.palm_bay",
+      "ordered_control_points": [
+        [
+          0.0,
+          4.0,
+          0.0
+        ],
+        [
+          0.0,
+          4.0,
+          -200.0
+        ],
+        [
+          0.0,
+          4.0,
+          -400.0
+        ],
+        [
+          80.0,
+          12.0,
+          -620.0
+        ],
+        [
+          240.0,
+          38.0,
+          -760.0
+        ],
+        [
+          460.0,
+          58.0,
+          -800.0
+        ],
+        [
+          680.0,
+          32.0,
+          -740.0
+        ],
+        [
+          820.0,
+          8.0,
+          -560.0
+        ],
+        [
+          860.0,
+          4.0,
+          -340.0
+        ],
+        [
+          820.0,
+          4.0,
+          -100.0
+        ],
+        [
+          700.0,
+          4.0,
+          100.0
+        ],
+        [
+          520.0,
+          18.0,
+          200.0
+        ],
+        [
+          320.0,
+          38.0,
+          220.0
+        ],
+        [
+          140.0,
+          12.0,
+          180.0
+        ],
+        [
+          20.0,
+          4.0,
+          120.0
+        ],
+        [
+          0.0,
+          4.0,
+          60.0
+        ]
+      ],
+      "width": 18,
+      "shoulder": 3,
+      "surface": "sand",
+      "difficulty": "Easy",
+      "width_intervals": [],
+      "bank_intervals": [],
+      "ramp_markers": [],
+      "environment_id": "palm_bay",
+      "baked_route_id": "res://game/content/baked/palm_bay.json",
+      "collision_id": "palm_bay_road",
+      "thumbnail_id": "palm_bay_thumbnail",
+      "minimap_id": "palm_bay_minimap",
+      "landmark_specs": [],
+      "surface_intervals": []
+    },
+    {
+      "id": "citrus_pass",
+      "name": "Citrus Pass",
+      "display_name_key": "track.citrus_pass",
+      "ordered_control_points": [
+        [
+          0.0,
+          8.0,
+          0.0
+        ],
+        [
+          0.0,
+          8.0,
+          -200.0
+        ],
+        [
+          0.0,
+          8.0,
+          -400.0
+        ],
+        [
+          100.0,
+          20.32,
+          -620.0
+        ],
+        [
+          340.0,
+          50.86,
+          -760.0
+        ],
+        [
+          560.0,
+          80.56,
+          -700.0
+        ],
+        [
+          700.0,
+          65.6,
+          -520.0
+        ],
+        [
+          620.0,
+          31.58,
+          -340.0
+        ],
+        [
+          820.0,
+          12.94,
+          -160.0
+        ],
+        [
+          900.0,
+          14.84,
+          60.0
+        ],
+        [
+          760.0,
+          42.02,
+          240.0
+        ],
+        [
+          520.0,
+          63.3,
+          300.0
+        ],
+        [
+          320.0,
+          23.8,
+          240.0
+        ],
+        [
+          180.0,
+          8.0,
+          160.0
+        ],
+        [
+          40.0,
+          8.0,
+          120.0
+        ],
+        [
+          0.0,
+          8.0,
+          60.0
+        ]
+      ],
+      "width": 16,
+      "shoulder": 3,
+      "surface": "grass",
+      "difficulty": "Easy",
+      "width_intervals": [],
+      "bank_intervals": [
+        [
+          0.3,
+          0.4,
+          6
+        ],
+        [
+          0.66,
+          0.75,
+          5
+        ]
+      ],
+      "ramp_markers": [],
+      "environment_id": "citrus_pass",
+      "baked_route_id": "res://game/content/baked/citrus_pass.json",
+      "collision_id": "citrus_pass_road",
+      "thumbnail_id": "citrus_pass_thumbnail",
+      "minimap_id": "citrus_pass_minimap",
+      "landmark_specs": [],
+      "surface_intervals": []
+    },
+    {
+      "id": "marina_lights",
+      "name": "Marina Lights",
+      "display_name_key": "track.marina_lights",
+      "ordered_control_points": [
+        [
+          0.0,
+          3.0,
+          0.0
+        ],
+        [
+          0.0,
+          3.0,
+          -200.0
+        ],
+        [
+          0.0,
+          3.0,
+          -400.0
+        ],
+        [
+          120.0,
+          8.0,
+          -600.0
+        ],
+        [
+          360.0,
+          32.0,
+          -640.0
+        ],
+        [
+          580.0,
+          52.0,
+          -560.0
+        ],
+        [
+          620.0,
+          28.0,
+          -340.0
+        ],
+        [
+          500.0,
+          5.0,
+          -200.0
+        ],
+        [
+          620.0,
+          3.0,
+          -40.0
+        ],
+        [
+          740.0,
+          3.0,
+          180.0
+        ],
+        [
+          580.0,
+          18.0,
+          360.0
+        ],
+        [
+          360.0,
+          40.0,
+          380.0
+        ],
+        [
+          160.0,
+          14.0,
+          300.0
+        ],
+        [
+          40.0,
+          3.0,
+          200.0
+        ],
+        [
+          0.0,
+          3.0,
+          120.0
+        ],
+        [
+          0.0,
+          3.0,
+          60.0
+        ]
+      ],
+      "width": 16,
+      "shoulder": 3,
+      "surface": "asphalt",
+      "difficulty": "Medium",
+      "width_intervals": [
+        [
+          0.35,
+          0.55,
+          14
+        ]
+      ],
+      "bank_intervals": [],
+      "ramp_markers": [],
+      "environment_id": "marina_lights",
+      "baked_route_id": "res://game/content/baked/marina_lights.json",
+      "collision_id": "marina_lights_road",
+      "thumbnail_id": "marina_lights_thumbnail",
+      "minimap_id": "marina_lights_minimap",
+      "landmark_specs": [],
+      "surface_intervals": []
+    },
+    {
+      "id": "redwood_run",
+      "name": "Redwood Run",
+      "display_name_key": "track.redwood_run",
+      "ordered_control_points": [
+        [
+          0.0,
+          10.0,
+          0.0
+        ],
+        [
+          0.0,
+          10.0,
+          -200.0
+        ],
+        [
+          0.0,
+          10.0,
+          -400.0
+        ],
+        [
+          120.0,
+          26.6,
+          -620.0
+        ],
+        [
+          360.0,
+          64.12,
+          -760.0
+        ],
+        [
+          600.0,
+          93.92,
+          -640.0
+        ],
+        [
+          660.0,
+          56.96,
+          -420.0
+        ],
+        [
+          520.0,
+          18.28,
+          -240.0
+        ],
+        [
+          700.0,
+          27.44,
+          -40.0
+        ],
+        [
+          760.0,
+          67.56,
+          180.0
+        ],
+        [
+          580.0,
+          87.36,
+          360.0
+        ],
+        [
+          340.0,
+          40.08,
+          400.0
+        ],
+        [
+          160.0,
+          12.0,
+          300.0
+        ],
+        [
+          40.0,
+          10.0,
+          200.0
+        ],
+        [
+          0.0,
+          10.0,
+          120.0
+        ],
+        [
+          0.0,
+          10.0,
+          60.0
+        ]
+      ],
+      "width": 16,
+      "shoulder": 3,
+      "surface": "grass",
+      "difficulty": "Medium",
+      "width_intervals": [],
+      "bank_intervals": [
+        [
+          0.25,
+          0.36,
+          7
+        ]
+      ],
+      "ramp_markers": [],
+      "environment_id": "redwood_run",
+      "baked_route_id": "res://game/content/baked/redwood_run.json",
+      "collision_id": "redwood_run_road",
+      "thumbnail_id": "redwood_run_thumbnail",
+      "minimap_id": "redwood_run_minimap",
+      "landmark_specs": [],
+      "surface_intervals": []
+    },
+    {
+      "id": "sunstone_canyon",
+      "name": "Sunstone Canyon",
+      "display_name_key": "track.sunstone_canyon",
+      "ordered_control_points": [
+        [
+          0.0,
+          12.0,
+          0.0
+        ],
+        [
+          0.0,
+          12.0,
+          -200.0
+        ],
+        [
+          0.0,
+          12.0,
+          -400.0
+        ],
+        [
+          140.0,
+          28.6,
+          -640.0
+        ],
+        [
+          400.0,
+          67.84,
+          -800.0
+        ],
+        [
+          680.0,
+          99.92,
+          -680.0
+        ],
+        [
+          760.0,
+          62.96,
+          -440.0
+        ],
+        [
+          580.0,
+          20.56,
+          -240.0
+        ],
+        [
+          800.0,
+          18.28,
+          -40.0
+        ],
+        [
+          940.0,
+          46.96,
+          200.0
+        ],
+        [
+          760.0,
+          75.64,
+          420.0
+        ],
+        [
+          500.0,
+          25.76,
+          460.0
+        ],
+        [
+          260.0,
+          12.0,
+          340.0
+        ],
+        [
+          80.0,
+          12.0,
+          220.0
+        ],
+        [
+          0.0,
+          12.0,
+          120.0
+        ],
+        [
+          0.0,
+          12.0,
+          60.0
+        ]
+      ],
+      "width": 16,
+      "shoulder": 3,
+      "surface": "sand",
+      "difficulty": "Hard",
+      "width_intervals": [],
+      "bank_intervals": [
+        [
+          0.27,
+          0.39,
+          8
+        ]
+      ],
+      "ramp_markers": [],
+      "environment_id": "sunstone_canyon",
+      "baked_route_id": "res://game/content/baked/sunstone_canyon.json",
+      "collision_id": "sunstone_canyon_road",
+      "thumbnail_id": "sunstone_canyon_thumbnail",
+      "minimap_id": "sunstone_canyon_minimap",
+      "landmark_specs": [],
+      "surface_intervals": []
+    },
+    {
+      "id": "pacific_summit",
+      "name": "Pacific Summit",
+      "display_name_key": "track.pacific_summit",
+      "ordered_control_points": [
+        [
+          0.0,
+          20.0,
+          0.0
+        ],
+        [
+          0.0,
+          20.0,
+          -200.0
+        ],
+        [
+          0.0,
+          20.0,
+          -400.0
+        ],
+        [
+          160.0,
+          42.96,
+          -660.0
+        ],
+        [
+          420.0,
+          82.88,
+          -820.0
+        ],
+        [
+          720.0,
+          123.12,
+          -700.0
+        ],
+        [
+          820.0,
+          88.32,
+          -440.0
+        ],
+        [
+          640.0,
+          38.0,
+          -220.0
+        ],
+        [
+          860.0,
+          28.56,
+          0.0
+        ],
+        [
+          1000.0,
+          57.12,
+          260.0
+        ],
+        [
+          800.0,
+          94.88,
+          500.0
+        ],
+        [
+          520.0,
+          43.04,
+          520.0
+        ],
+        [
+          280.0,
+          20.0,
+          380.0
+        ],
+        [
+          80.0,
+          20.0,
+          240.0
+        ],
+        [
+          0.0,
+          20.0,
+          120.0
+        ],
+        [
+          0.0,
+          20.0,
+          60.0
+        ]
+      ],
+      "width": 16,
+      "shoulder": 3,
+      "surface": "grass",
+      "difficulty": "Hard",
+      "width_intervals": [
+        [
+          0.665,
+          0.725,
+          24
+        ]
+      ],
+      "bank_intervals": [
+        [
+          0.3,
+          0.41,
+          8
+        ]
+      ],
+      "ramp_markers": [
+        0.68
+      ],
+      "environment_id": "pacific_summit",
+      "baked_route_id": "res://game/content/baked/pacific_summit.json",
+      "collision_id": "pacific_summit_road",
+      "thumbnail_id": "pacific_summit_thumbnail",
+      "minimap_id": "pacific_summit_minimap",
+      "landmark_specs": [],
+      "surface_intervals": [
+        {
+          "start": 0.7,
+          "end": 0.9,
+          "surface": "sand"
+        }
+      ]
+    },
+    {
+      "id": "skyline_splice",
+      "name": "Skyline Splice",
+      "display_name_key": "track.skyline_splice",
+      "ordered_control_points": [
+        [
+          0.0,
+          20.0,
+          -0.0
+        ],
+        [
+          229.61,
+          26.851,
+          -339.411
+        ],
+        [
+          424.264,
+          46.36,
+          -480.0
+        ],
+        [
+          554.328,
+          75.558,
+          -339.411
+        ],
+        [
+          600.0,
+          110.0,
+          -0.0
+        ],
+        [
+          554.328,
+          144.442,
+          339.411
+        ],
+        [
+          424.264,
+          173.64,
+          480.0
+        ],
+        [
+          229.61,
+          193.149,
+          339.411
+        ],
+        [
+          0.0,
+          200.0,
+          0.0
+        ],
+        [
+          -229.61,
+          193.149,
+          -339.411
+        ],
+        [
+          -424.264,
+          173.64,
+          -480.0
+        ],
+        [
+          -554.328,
+          144.442,
+          -339.411
+        ],
+        [
+          -600.0,
+          110.0,
+          -0.0
+        ],
+        [
+          -554.328,
+          75.558,
+          339.411
+        ],
+        [
+          -424.264,
+          46.36,
+          480.0
+        ],
+        [
+          -229.61,
+          26.851,
+          339.411
+        ]
+      ],
+      "width": 16,
+      "shoulder": 3,
+      "surface": "asphalt",
+      "difficulty": "Hard",
+      "width_intervals": [
+        [
+          0.485,
+          0.545,
+          24
+        ]
+      ],
+      "bank_intervals": [],
+      "ramp_markers": [
+        0.5
+      ],
+      "environment_id": "marina_lights",
+      "baked_route_id": "res://game/content/baked/skyline_splice.json",
+      "collision_id": "skyline_splice_road",
+      "thumbnail_id": "skyline_splice_thumbnail",
+      "minimap_id": "skyline_splice_minimap",
+      "landmark_specs": [],
+      "surface_intervals": []
+    },
+    {
+      "id": "quarry_switchback",
+      "name": "Quarry Switchback",
+      "display_name_key": "track.quarry_switchback",
+      "ordered_control_points": [
+        [
+          0,
+          12,
+          0
+        ],
+        [
+          0,
+          12,
+          -200
+        ],
+        [
+          0,
+          12,
+          -400
+        ],
+        [
+          0,
+          12,
+          -600
+        ],
+        [
+          150,
+          16.22151654498641,
+          -760
+        ],
+        [
+          320,
+          28.376888981671538,
+          -600
+        ],
+        [
+          320,
+          46.99999999999999,
+          -380
+        ],
+        [
+          460,
+          69.84462756331487,
+          -200
+        ],
+        [
+          620,
+          94.15537243668513,
+          -380
+        ],
+        [
+          620,
+          116.99999999999999,
+          -600
+        ],
+        [
+          770,
+          135.62311101832847,
+          -760
+        ],
+        [
+          940,
+          147.7784834550136,
+          -600
+        ],
+        [
+          940,
+          152.0,
+          -380
+        ],
+        [
+          1080,
+          147.7784834550136,
+          -200
+        ],
+        [
+          1240,
+          135.62311101832847,
+          -380
+        ],
+        [
+          1240,
+          117.00000000000003,
+          -600
+        ],
+        [
+          1390,
+          94.15537243668513,
+          -760
+        ],
+        [
+          1560,
+          69.8446275633149,
+          -600
+        ],
+        [
+          1580,
+          46.99999999999999,
+          -240
+        ],
+        [
+          1500,
+          28.376888981671556,
+          80
+        ],
+        [
+          1230,
+          16.221516544986432,
+          330
+        ],
+        [
+          800,
+          12.0,
+          450
+        ],
+        [
+          300,
+          12,
+          340
+        ],
+        [
+          40,
+          12,
+          170
+        ]
+      ],
+      "width": 16,
+      "shoulder": 3,
+      "surface": "sand",
+      "difficulty": "Hard",
+      "width_intervals": [],
+      "bank_intervals": [],
+      "ramp_markers": [],
+      "environment_id": "sunstone_canyon",
+      "baked_route_id": "res://game/content/baked/quarry_switchback.json",
+      "collision_id": "quarry_switchback_road",
+      "thumbnail_id": "quarry_switchback_thumbnail",
+      "minimap_id": "quarry_switchback_minimap",
+      "landmark_specs": [],
+      "surface_intervals": []
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+extends SceneTree
+func _initialize() -> void:
+ Catalog.load_all()
+ var track := Catalog.tracks[6]
+ var lower := CourseArt.original_s(track,0)
+ var upper := CourseArt.original_s(track,.5)
+ var state := VehicleState.new()
+ var pose := track.pose(lower)
+ state.position = pose.origin+Vector3.UP*.35
+ state.yaw = atan2(-pose.basis.z.x,pose.basis.z.z)
+ state.velocity = state.forward()*40
+ var nearest := {"i":track.sample_index(lower),"lateral":0.0}
+ var driver := BotDriver.new()
+ for ds in range(-20,21):
+  var rival := VehicleState.new()
+  rival.slot = 1
+  rival.position = track.pose(upper+ds).origin+Vector3.UP*.35
+  rival.velocity = Vector3.ZERO
+  var result := driver.passing_plan(state,nearest,track,[rival],60)
+  if result.offset!=0 or result.speed!=60:
+   print("OVERPASS_TRAFFIC_PROBE offset=",ds," separation_m=",rival.position.y-state.position.y," plan=",result," empty=",driver.passing_plan(state,nearest,track,[],60))
+ quit()

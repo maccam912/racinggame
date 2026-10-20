@@ -1,6 +1,7 @@
 class_name BotDriver
 extends RefCounted
 ## Canonical centerline controller; also drives repeatable network fixtures.
+const TRAFFIC_PLANE_HEIGHT_M := 2.5
 
 var planning_ticks: int = 0
 var previous := InputFrame.make()
@@ -55,9 +56,11 @@ func passing_plan(state: VehicleState, nearest: Dictionary, track: TrackDefiniti
 	var lead_ahead: float = INF
 	var forward := state.forward()
 	var right := track.forwards[int(nearest.i)].cross(Vector3.UP).normalized()
+	var normal := traffic_normal(track,int(nearest.i))
 	for rival: VehicleState in others:
 		if rival==state or rival.finished or rival.dnf_reason!="": continue
 		var delta := rival.position-state.position
+		if absf(delta.dot(normal))>TRAFFIC_PLANE_HEIGHT_M: continue
 		var ahead := delta.dot(forward)
 		if ahead<=0 or ahead>=25 or absf(delta.dot(forward.cross(Vector3.UP)))>=3: continue
 		if ahead<lead_ahead-.01 or absf(ahead-lead_ahead)<=.01 and (lead==null or rival.slot<lead.slot):
@@ -75,6 +78,7 @@ func passing_plan(state: VehicleState, nearest: Dictionary, track: TrackDefiniti
 		for rival: VehicleState in others:
 			if rival==state or rival.finished or rival.dnf_reason!="": continue
 			var delta := rival.position-state.position
+			if absf(delta.dot(normal))>TRAFFIC_PLANE_HEIGHT_M: continue
 			var ahead := delta.dot(forward)
 			if ahead>=-5 and ahead<25 and absf(candidate-float(nearest.lateral)-delta.dot(right))<2.5:
 				blocked = true
@@ -85,3 +89,12 @@ func passing_plan(state: VehicleState, nearest: Dictionary, track: TrackDefiniti
 	if available.size()==2:
 		side = -1 if float(clearance[-1])>float(clearance[1])+.01 else 1 if float(clearance[1])>float(clearance[-1])+.01 else (-1 if state.slot%2==0 else 1)
 	return {"offset":side*3.0,"speed":target_speed}
+
+
+static func traffic_normal(track: TrackDefinition, index: int) -> Vector3:
+	# Use the collision surface so grade, banking and baked launch ramps count.
+	# Absolute world Y would wrongly ignore real traffic on a steep climb.
+	var center := RouteGeometry.point(track,index,0)
+	var across := RouteGeometry.point(track,index,1)-center
+	var along := RouteGeometry.point(track,(index+1)%track.points.size(),0)-center
+	return across.cross(along).normalized()

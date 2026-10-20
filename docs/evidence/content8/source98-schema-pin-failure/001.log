@@ -1,0 +1,15 @@
+Validated cars: strict schema and references
+Validated tracks: strict schema and references
+Traceback (most recent call last):
+  File "/Users/maccam912/dev/racinggame/tools/validate_content.py", line 77, in <module>
+    check()
+    ~~~~~^^
+  File "/Users/maccam912/dev/racinggame/tools/validate_content.py", line 52, in check
+    validate(value,schema,name)
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^
+  File "/Users/maccam912/dev/racinggame/tools/validate_content.py", line 45, in validate
+    validate(item,properties.get(key,{}),f'{path}.{key}')
+    ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/maccam912/dev/racinggame/tools/validate_content.py", line 16, in validate
+    raise ValueError(f'{path}: expected constant {schema["const"]!r}')
+ValueError: rules.content_version: expected constant 7

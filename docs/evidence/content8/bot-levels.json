@@ -1,0 +1,114 @@
+{
+  "boundary": "Deterministic planner regression: actual Skyline crossing, physical-grade/bank/ramp geometry and both passing-side blocker paths. Complete field races are separate acceptance.",
+  "cases": [
+    {
+      "height_m": 179.999578475952,
+      "kind": "real_skyline_crossing",
+      "offset": -3,
+      "plan": {
+        "offset": 0.0,
+        "speed": 60.0
+      }
+    },
+    {
+      "height_m": 179.999837875366,
+      "kind": "real_skyline_crossing",
+      "offset": -2,
+      "plan": {
+        "offset": 0.0,
+        "speed": 60.0
+      }
+    },
+    {
+      "height_m": 179.999914169312,
+      "kind": "real_skyline_crossing",
+      "offset": -1,
+      "plan": {
+        "offset": 0.0,
+        "speed": 60.0
+      }
+    },
+    {
+      "height_m": 179.999990463257,
+      "kind": "real_skyline_crossing",
+      "offset": 0,
+      "plan": {
+        "offset": 0.0,
+        "speed": 60.0
+      }
+    },
+    {
+      "height_m": 179.999883651733,
+      "kind": "real_skyline_crossing",
+      "offset": 1,
+      "plan": {
+        "offset": 0.0,
+        "speed": 60.0
+      }
+    },
+    {
+      "height_m": 179.99977684021,
+      "kind": "real_skyline_crossing",
+      "offset": 2,
+      "plan": {
+        "offset": 0.0,
+        "speed": 60.0
+      }
+    },
+    {
+      "height_m": 179.999502182007,
+      "kind": "real_skyline_crossing",
+      "offset": 3,
+      "plan": {
+        "offset": 0.0,
+        "speed": 60.0
+      }
+    },
+    {
+      "kind": "side_blockers_and_height_boundaries",
+      "passed": true
+    },
+    {
+      "bank_degrees": -12.0,
+      "grade": -0.24,
+      "kind": "steep_banked_road",
+      "passed": true
+    },
+    {
+      "bank_degrees": 0.0,
+      "grade": -0.24,
+      "kind": "steep_banked_road",
+      "passed": true
+    },
+    {
+      "bank_degrees": 12.0,
+      "grade": -0.24,
+      "kind": "steep_banked_road",
+      "passed": true
+    },
+    {
+      "bank_degrees": -12.0,
+      "grade": 0.24,
+      "kind": "steep_banked_road",
+      "passed": true
+    },
+    {
+      "bank_degrees": 0.0,
+      "grade": 0.24,
+      "kind": "steep_banked_road",
+      "passed": true
+    },
+    {
+      "bank_degrees": 12.0,
+      "grade": 0.24,
+      "kind": "steep_banked_road",
+      "passed": true
+    },
+    {
+      "kind": "ramp_surface_offset",
+      "passed": true
+    }
+  ],
+  "content_hash": "dfb78c447e094d7e0200a2538fec45cae44c848a4e3c65334f642fb970b415f7",
+  "passed": true
+}
