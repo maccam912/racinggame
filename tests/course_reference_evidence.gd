@@ -22,6 +22,8 @@ func run() -> void:
 		root.add_child(world)
 		await physics_frame
 		await physics_frame
+		if track.id=="skyline_splice":
+			load("res://tests/course_variety_tests.gd").check_elevated_details(world)
 		var query := WorldQuery.new(world.get_world_3d(),track)
 		var camera := ChaseCamera.new()
 		camera.reduce_motion = true

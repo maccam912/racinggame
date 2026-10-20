@@ -16,6 +16,9 @@ var unit: float = 1.0
 var steering_style: String = "slider"
 var button_scale: float = 1.0
 var opacity: float = .6
+var high_contrast: bool = false
+var display_font: Font = preload("res://assets/fonts/heading.tres")
+var plate_cache: Dictionary = {}
 var left_handed: bool = false
 var suppressed: bool = false
 var suppressed_at: int = 0
@@ -42,6 +45,7 @@ func rebuild() -> void:
 	clear()
 	var geometry := safe_geometry(size)
 	unit = geometry.unit
+	plate_cache.clear()
 	logical_safe = geometry.safe
 	layout_supported = logical_safe.size.y >= 320
 	var base := build_layout(logical_safe, auto_accelerate, steering_style, button_scale, left_handed)
@@ -232,20 +236,56 @@ func _input(event: InputEvent) -> void:
 func _draw() -> void:
 	for action: String in controls:
 		var rect: Rect2 = controls[action]
-		var color := Color(.09, .17, .25, .7 if held(action) else .3)
-		draw_style_box(style(color), rect)
-		if action in ["recover", "look_back", "camera"]:
-			draw_icon(action, rect.get_center())
+		draw_style_box(visual_style(action),rect)
+		if action in ["recover","look_back","camera","pause","left","right"]:
+			draw_icon(action,rect.get_center())
 			continue
-		var text: String = {"steer": "STEER", "brake": "BRAKE", "handbrake": "SLIDE", "recover": "RESET", "camera": "CAM", "look_back": "LOOK", "pause": "Ⅱ", "throttle":"GO", "left":"◀", "right":"▶"}[action]
-		draw_string(ThemeDB.fallback_font, rect.get_center() + Vector2(-rect.size.x * .40, 7 * unit), text, HORIZONTAL_ALIGNMENT_CENTER, rect.size.x * .8, int(16 * unit), Color(Color.html("F5EBD3"), minf(1, opacity / .6)))
-		if action == "steer":
-			draw_circle(rect.get_center() + Vector2(steer * 70 * unit, 0), 12 * unit, Color(Color.html("F3CD48"), minf(1, opacity / .6)))
+		if action=="steer":
+			draw_steering(rect)
+			continue
+		var text: String = {"brake":"BRAKE","handbrake":"SLIDE","throttle":"GO"}[action]
+		var font_size := roundi(16*unit)
+		if display_font.get_string_size(text,HORIZONTAL_ALIGNMENT_LEFT,-1,font_size).x>rect.size.x-12*unit:
+			draw_icon(action,rect.get_center())
+			continue
+		var at := Vector2(rect.position.x+6*unit,rect.get_center().y+(display_font.get_ascent(font_size)-display_font.get_descent(font_size))*.5)
+		draw_string_outline(display_font,at,text,HORIZONTAL_ALIGNMENT_CENTER,rect.size.x-12*unit,font_size,roundi(2*unit),Color("101333"))
+		draw_string(display_font,at,text,HORIZONTAL_ALIGNMENT_CENTER,rect.size.x-12*unit,font_size,Color(UIFactory.CREAM,minf(1,opacity/.6)))
+
+
+func visual_style(action: String) -> StyleBox:
+	var active := held(action) or action=="recover" and recovery_armed
+	if high_contrast: return style(Color(.04,.08,.13,.85 if active else .55))
+	var kind := "pressed" if held(action) else "hover" if active else "button"
+	if not plate_cache.has(kind): plate_cache[kind] = UIFactory.chrome_box(kind,unit)
+	var box: StyleBoxTexture = plate_cache[kind]
+	box.modulate_color = Color(1,1,1,clampf(opacity*(1.25 if active else .78),0,1))
+	return box
+
+
+func draw_steering(rect: Rect2) -> void:
+	var alpha := minf(1,opacity/.6)
+	var middle := rect.get_center()
+	# Compact profiles keep the diamond inside its frame. Input travel stays 70 dp.
+	var span := minf(70*unit,rect.size.x*.5-16*unit)
+	# A stationary tick rail gives the thumb a clear centre and travel range.
+	for index in range(-7,8):
+		var x := middle.x+index*span/7
+		var tall := 10.0 if index==0 else 6.0 if index%2==0 else 3.0
+		draw_line(Vector2(x,middle.y-tall*unit),Vector2(x,middle.y+tall*unit),Color(UIFactory.CREAM,alpha*.8),maxf(1,unit))
+	var label_at := Vector2(rect.position.x,middle.y-23*unit)
+	draw_string(display_font,label_at,"STEER",HORIZONTAL_ALIGNMENT_CENTER,rect.size.x,roundi(16*unit),Color(UIFactory.CREAM,alpha))
+	var center := middle+Vector2(steer*span,0)
+	var points := PackedVector2Array([center+Vector2(0,-13)*unit,center+Vector2(13,0)*unit,center+Vector2(0,13)*unit,center+Vector2(-13,0)*unit])
+	draw_colored_polygon(points,Color(UIFactory.YELLOW,alpha))
+	points.append(points[0])
+	draw_polyline(points,Color(Color("FFF4C7"),alpha),maxf(1,unit))
+	draw_line(center-Vector2(6,5)*unit,center+Vector2(4,5)*unit,Color(UIFactory.CREAM,alpha),2*unit)
 
 
 func draw_icon(action: String, center: Vector2) -> void:
 	var cream := Color(Color.html("F5EBD3"), minf(1, opacity / .6))
-	var id := "action_ui_accept" if action=="recover" and recovery_armed else "action_"+action
+	var id := "action_ui_accept" if action=="recover" and recovery_armed else "action_steer_left" if action=="left" else "action_steer_right" if action=="right" else "action_"+action
 	var tint := Color(UIFactory.YELLOW,cream.a) if action=="recover" and recovery_armed else Color(1,1,1,cream.a)
 	draw_texture_rect(UIIcons.texture(id),Rect2(center-Vector2.ONE*16*unit,Vector2.ONE*32*unit),false,tint)
 

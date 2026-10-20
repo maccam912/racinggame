@@ -509,6 +509,7 @@ func apply_settings() -> void:
 	touch.steering_style = str(settings.get("steering_style", "slider"))
 	touch.button_scale = float(settings.get("button_size", 100)) / 100
 	touch.opacity = float(settings.get("opacity", 60)) / 100
+	touch.high_contrast = bool(settings.high_contrast)
 	touch.left_handed = bool(settings.get("left_handed", false))
 	touch.layouts = settings.touch_layouts.duplicate(true)
 	touch.rebuild()

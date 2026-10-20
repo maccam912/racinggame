@@ -1,0 +1,20 @@
+{"passed": false, "report": "/Users/maccam912/dev/racinggame/reports/mixed-android-105-e5cf420b/summary.json"}
+Traceback (most recent call last):
+  File "/Users/maccam912/dev/racinggame/tools/mixed_android_acceptance.py", line 284, in <module>
+    main()
+    ~~~~^^
+  File "/Users/maccam912/dev/racinggame/tools/mixed_android_acceptance.py", line 161, in main
+    pid = device('shell','pidof','dev.pacificrush.game').decode().strip()
+          ~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/maccam912/dev/racinggame/tools/mixed_android_acceptance.py", line 44, in device
+    return subprocess.check_output([*adb, *arguments], stderr=subprocess.STDOUT)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 473, in check_output
+    return run(*popenargs, stdout=PIPE, timeout=timeout, check=True,
+           ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+               **kwargs).stdout
+               ^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.7/Frameworks/Python.framework/Versions/3.14/lib/python3.14/subprocess.py", line 578, in run
+    raise CalledProcessError(retcode, process.args,
+                             output=stdout, stderr=stderr)
+subprocess.CalledProcessError: Command '['/Users/maccam912/Library/Android/sdk/platform-tools/adb', '-s', 'emulator-5580', 'shell', 'pidof', 'dev.pacificrush.game']' returned non-zero exit status 1.

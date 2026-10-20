@@ -141,9 +141,21 @@ def main():
         for index in range(1, 7):
             launch(native_arguments(index), f'client{index}.log')
         device('shell', 'am', 'start', '-n', 'dev.pacificrush.game/com.godot.game.GodotApp', '--esa', 'command_line_params', '--,--profile='+profile+',--connect=10.0.2.2:'+str(ports[7])+',--autodrive,--network-evidence')
+        # Activity launch may return before the package appears in pidof.
+        # Once acquired, the normal loop still rejects any missing/replaced PID.
+        startup_pid = []
+        def process_started():
+            observed = subprocess.run([*adb,'shell','pidof','dev.pacificrush.game'],capture_output=True,text=True)
+            value = observed.stdout.strip()
+            if observed.returncode==0 and value.isdigit():
+                startup_pid.append(value)
+                return True
+            return False
+        wait_for(process_started,15)
+        report['android_startup_pid'] = startup_pid[0]
         deadline = time.monotonic()+args.seconds
         next_memory = 0
-        android_pid = None
+        android_pid = startup_pid[0]
         previous = (-1, -1)
         captured = set()
         while time.monotonic() < deadline:

@@ -1,0 +1,36 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("run")
+func run() -> void:
+ assert(DisplayServer.get_name()!="headless")
+ Catalog.load_all()
+ root.size = Vector2i(1280,720)
+ root.msaa_3d = Viewport.MSAA_4X
+ var world := TrackWorld.new()
+ world.build(Catalog.tracks[6])
+ root.add_child(world)
+ await physics_frame
+ await physics_frame
+ load("res://tests/course_variety_tests.gd").check_elevated_details(world)
+ var camera := Camera3D.new()
+ camera.current = true
+ camera.fov = 65
+ camera.far = 1000
+ world.add_child(camera)
+ var rows: Array[Dictionary] = []
+ DirAccess.make_dir_recursive_absolute("res://reports/skyline-supports")
+ for poster: Node3D in world.find_children("RoadsidePoster_*","Node3D",false,false):
+  var side := float(world.poster_sites[rows.size()].side)
+  camera.position = poster.position+poster.basis*Vector3(side*22,4,30)
+  camera.look_at(poster.position+Vector3.UP,Vector3.UP)
+  for frame in range(8): await process_frame
+  await RenderingServer.frame_post_draw
+  var path := "res://reports/skyline-supports/"+str(rows.size())+".png"
+  assert(root.get_texture().get_image().save_png(path)==OK)
+  rows.append({"path":path,"sha256":FileAccess.get_sha256(path),"camera":str(camera.transform),"poster":str(poster.transform),"route_s":poster.get_meta("route_s")})
+ var file := FileAccess.open("res://reports/skyline-supports/native.json",FileAccess.WRITE)
+ file.store_string(JSON.stringify({"passed":true,"content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"cases":rows,"boundary":"Posed native external support views, separate from driving and Android acceptance."},"  "))
+ file.close()
+ world.queue_free()
+ await process_frame
+ print("NATIVE_THREE_SKYLINE_CANTILEVER_SUPPORT_VIEWS_PASS")
+ quit()

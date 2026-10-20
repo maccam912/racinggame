@@ -306,7 +306,7 @@
       "source_url": null,
       "license": "MIT",
       "attribution": "LICENSE",
-      "modifications": "Cosmetic terrain follows the current canonical road bakes, including the content-5 elevation revision; original visual barrier extrusion, guidance, gantry lamps, tunnel panels and jump markings. Separate camera collision. Repeated props meet the upper terrain/verge triangle. Content 6 adds flat ground under the layered Skyline crossing, a cosmetic deck and clear bridge pylons."
+      "modifications": "Cosmetic terrain follows the current canonical road bakes, including the content-5 elevation revision; original visual barrier extrusion, guidance, gantry lamps, tunnel panels and jump markings. Separate camera collision. Repeated props meet the upper terrain/verge triangle. Content 6 adds flat ground under the layered Skyline crossing, a cosmetic deck and clear bridge pylons. Skyline streetlight roots sit on the paved shoulder, with no floating verge support."
     },
     {
       "id": "course_postcards",
@@ -466,7 +466,7 @@
       "creator": "Pacific Rush project artwork using built-in image generation",
       "license": "MIT",
       "attribution": "LICENSE; assets/source/roadside-posters/generation.json records the complete prompts and original output provenance",
-      "modifications": "Eight selected opaque generated PNGs copied byte-for-byte; static 3D sign frames and texture placement are authored in game/world/roadside_poster_art.gd. These illustrations are scenery, not gameplay screenshots.",
+      "modifications": "Eight selected opaque generated PNGs copied byte-for-byte; static 3D sign frames and texture placement are authored in game/world/roadside_poster_art.gd. These illustrations are scenery, not gameplay screenshots. Elevated Skyline signs attach to the deck with original below-road cantilever brackets.",
       "exports": [
         "assets/exported/posters/catalog.json",
         "assets/exported/posters/palm-bay-v1.png",
@@ -496,7 +496,11 @@
       "exports": [
         "assets/exported/arcade_ui"
       ],
-      "modifications": "Original editable vector chrome, bevels, static gloss and perspective-grid backdrop. No external bitmap or artwork."
+      "modifications": "Original editable vector chrome, bevels, static gloss and perspective-grid backdrop. No external bitmap or artwork. Mobile touch controls reuse the scalable plates, original display font, static tick rail and diamond thumb indicator; hit rectangles and input semantics are unchanged. High Contrast retains flat controls.",
+      "runtime_source": [
+        "game/ui/ui_factory.gd",
+        "game/platform/touch_driving.gd"
+      ]
     },
     {
       "id": "pacific_rush_display_font",

@@ -48,7 +48,7 @@ static func plan(world: TrackWorld) -> Array[Dictionary]:
 			break
 		if not found: continue
 		selected.basis = selected.basis*Basis(Vector3.UP,-side*deg_to_rad(18))
-		result.append({"index":index,"s":s,"pose":selected,"approach":world.track.pose(s-52).origin})
+		result.append({"index":index,"s":s,"pose":selected,"side":side,"approach":world.track.pose(s-52).origin})
 	return result
 
 
@@ -85,6 +85,21 @@ static func build(world: TrackWorld) -> void:
 		CourseSetPieces.cuboid(tool,Transform3D(Basis.IDENTITY,Vector3(0,7,-.2)),Vector3(12.6,8.6,.35),Color("865435"))
 		for x: float in [-4.6,4.6]:
 			CourseSetPieces.cuboid(tool,Transform3D(Basis.IDENTITY,Vector3(x,1.35,-.3)),Vector3(.4,4,.5),Color("8CA2AA"))
+		if world.art.get("elevated",false):
+			var anchors := PackedVector3Array()
+			for x: float in [-4.6,4.6]:
+				var s := float(site.s)+x*.35
+				var half := float(world.track.bake.samples[world.track.sample_index(s)][8])*.5
+				var at := world.ground_pose(s,float(site.side)*(half+2.2)).origin-Vector3.UP*1.4
+				anchors.append(at)
+				var anchor: Vector3 = site.pose.affine_inverse()*at
+				var bottom := anchor-Vector3.UP*3.5
+				var foot := Vector3(x,-.65,-.3)
+				CourseSetPieces.beam(tool,anchor,foot,.4,Color("8CA2AA"))
+				CourseSetPieces.beam(tool,bottom,foot,.3,Color("8CA2AA"))
+				CourseSetPieces.cuboid(tool,Transform3D(Basis.IDENTITY,(anchor+bottom)*.5),Vector3(.4,3.5,.4),Color("8CA2AA"))
+				CourseSetPieces.cuboid(tool,Transform3D(Basis.IDENTITY,anchor),Vector3(.9,.6,.9),Color("BCC6C2"))
+			root.set_meta("bridge_anchors",anchors)
 		var frame := MeshInstance3D.new()
 		frame.name = "Frame"
 		frame.mesh = tool.commit()

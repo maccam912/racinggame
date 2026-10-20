@@ -30,6 +30,7 @@ func run() -> void:
 		if track.id in ["citrus_pass","redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Logs>=3)
 		if track.id in ["redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Waterfall==2)
 		if track.id=="skyline_splice":
+			check_elevated_details(world)
 			assert(counts.Tower>=40)
 			assert(world.has_node("ElevatedDeck") and not world.has_node("Road_verges"))
 			var deck: Array = world.get_node("ElevatedDeck").mesh.surface_get_arrays(0)
@@ -79,3 +80,44 @@ func run() -> void:
 	file.close()
 	print("EIGHT_ROUTES_CLASSIC_BYTES_LAYERED_CROSSING_DECK_SUPPORTS_ROCKS_LOGS_WATERFALLS_PASS")
 	quit()
+
+
+static func check_elevated_details(world: TrackWorld) -> void:
+	var track := world.track
+	var query := WorldQuery.new(world.get_world_3d(),track)
+	var lights := 0
+	for batch: MultiMeshInstance3D in world.find_children("*","MultiMeshInstance3D",false,false):
+		if batch.multimesh.mesh!=CourseArt.mesh("streetlight",0): continue
+		# Dummy RenderingServer does not retain MultiMesh transform buffers.
+		# The required native course-reference fixture checks every actual transform.
+		if DisplayServer.get_name()=="headless":
+			lights += batch.multimesh.instance_count
+			continue
+		for instance in range(batch.multimesh.instance_count):
+			var at: Vector3 = (batch.transform*batch.multimesh.get_instance_transform(instance)).origin
+			var closest := INF
+			for index in range(track.points.size()):
+				var distance := at.distance_squared_to(track.points[index])
+				if distance<closest:
+					closest = distance
+					query.hint = index
+			var nearest := query.nearest(at)
+			var half := float(track.bake.samples[track.sample_index(nearest.s)][8])*.5
+			assert(absf(nearest.lateral)>half+1.3 and absf(nearest.lateral)<half+2.2,"elevated lamp roots stay on the paved shoulder: at=%s nearest=%s half=%s"%[at,nearest,half])
+			assert(absf(at.y-world.ground_pose(nearest.s,nearest.lateral).origin.y)<.08,"lamp roots meet the deck surface")
+			lights += 1
+	assert(lights>=100,"all elevated streetlight instances checked: %s"%lights)
+	for poster: Node3D in world.find_children("RoadsidePoster_*","Node3D",false,false):
+		assert(poster.get_meta("bridge_anchors").size()==2)
+		var vertices: PackedVector3Array = poster.get_node("Frame").mesh.get_faces()
+		var inverse := poster.transform.affine_inverse()
+		for offset: float in [-12.0,-6.0,0.0,6.0,12.0]:
+			var s := float(poster.get_meta("route_s"))+offset
+			var edge := float(track.bake.samples[track.sample_index(s)][8])*.5+3
+			for lateral: float in [-edge,0.0,edge]:
+				var at := world.ground_pose(s,lateral).origin
+				var first: Vector3 = inverse*(at+Vector3.UP*.05)
+				var last: Vector3 = inverse*(at+Vector3.UP*7)
+				for triangle in range(0,vertices.size(),3):
+					assert(Geometry3D.segment_intersects_triangle(first,last,vertices[triangle],vertices[triangle+1],vertices[triangle+2])==null,"billboard cantilevers remain below or outside the driving corridor")
+	query = null

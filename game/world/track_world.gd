@@ -250,7 +250,8 @@ func build_scenery_batch(first: int, last: int) -> void:
 		for s in range(first,last,40):
 			var id := "streetlight" if track.id!="palm_bay" else "umbrella" if s%80==0 else "bench"
 			if not batches.has(id): batches[id] = [] as Array[Transform3D]
-			batches[id].append(ground_pose(s,-18) if art.get("elevated",false) else scenery_pose(s,-18))
+			var edge := float(track.bake.samples[track.sample_index(s)][8])*.5
+			batches[id].append(ground_pose(s,-edge-1.7) if art.get("elevated",false) else scenery_pose(s,-18))
 	if track.id in ["marina_lights","skyline_splice"] or track.id=="palm_bay" and first%160==0:
 		var id := ("marina_shops" if first%160==0 else "marina_hotel") if track.id!="palm_bay" else "coastal_home"
 		var pose := scenery_pose(first+40,-48 if track.id!="palm_bay" else -65)
