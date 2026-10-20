@@ -49,8 +49,16 @@ func run() -> void:
 	drive.hud.rank = 5
 	drive.hud.queue_redraw()
 	var display: WorldPresentation = app.presentation
+	var slow_draw_probe := "--slow-draw-probe" in OS.get_cmdline_user_args()
+	if slow_draw_probe: Engine.max_fps = 3 # Exercise genuine missed draw deadlines.
+	# These captures deliberately apply synthetic pressure/headroom. Otherwise
+	# the real llvmpipe draw cost also feeds the policy during GPU readback and
+	# can correctly lower quality before the selected-scale assertion. Resume
+	# normal feedback for the separate live instrumentation samples below.
+	assert(RenderingServer.frame_post_draw.is_connected(display.after_draw))
+	RenderingServer.frame_post_draw.disconnect(display.after_draw)
 	await capture("selected-80")
-	assert(display.viewport.size==Vector2i(1536,864))
+	assert(display.viewport.size==Vector2i(1536,864),"Expected selected 80%% world; actual=%s host=%s scale=%d"%[display.viewport.size,display.physical_size(),display.adaptive.current])
 	for index in range(200): display.adaptive.sample(.02,.02,true)
 	display.reflow()
 	assert(display.adaptive.current==60 and display.viewport.size==Vector2i(1152,648))
@@ -64,11 +72,16 @@ func run() -> void:
 	display.reflow()
 	assert(display.adaptive.current==80 and app.data.settings.render_scale==80)
 	await capture("restored-80")
+	var changes_before_live := display.adaptive.changes
+	if slow_draw_probe: Engine.max_fps = 3
+	RenderingServer.frame_post_draw.connect(display.after_draw)
 	for index in range(30):
 		await RenderingServer.frame_post_draw
 		samples.append({"work_ms":display.last_work_seconds*1000,"gpu_ms":display.last_gpu_seconds*1000,"interval_ms":display.last_interval_seconds*1000})
 	assert(display.measurement_enabled and Engine.physics_ticks_per_second==60)
-	var result := {"renderer":"Godot 4.6.3 Compatibility","host_pixels":[1920,1080],"selected_scale":80,"adaptive_floor":60,"world_sizes":[[1536,864],[1152,648]],"hud_native_host_unchanged":true,"physics_hz":60,"active_state_and_space_preserved":true,"captures":captures,"live_timing_samples":samples,"boundary":"Actual renderer, posed eight-car scene, synthetic continuous pressure/headroom samples and injected OS memory notification. Live timings validate instrumentation only; not physical thermal, real memory exhaustion, human driving or sustained device performance acceptance."}
+	var live_changes := display.adaptive.changes-changes_before_live
+	if slow_draw_probe: assert(live_changes>0 and display.adaptive.current==60,"Reconnected live feedback must lower quality under missed presentation deadlines")
+	var result := {"renderer":"Godot 4.6.3 Compatibility","host_pixels":[1920,1080],"selected_scale":80,"adaptive_floor":60,"world_sizes":[[1536,864],[1152,648]],"hud_native_host_unchanged":true,"physics_hz":60,"active_state_and_space_preserved":true,"captures":captures,"live_timing_samples":samples,"diagnostic_draw_cap":3 if slow_draw_probe else 0,"live_adaptive_changes":live_changes,"automatic_feedback_paused_only_during_scripted_phases":true,"boundary":"Actual renderer, posed eight-car scene, synthetic continuous pressure/headroom samples and injected OS memory notification. Automatic pressure feedback is disconnected only during the controlled 80/60/80 captures, then reconnected for live instrumentation. Live timings validate instrumentation only; not physical thermal, real memory exhaustion, human driving or sustained device performance acceptance."}
 	var file := FileAccess.open("res://reports/m5-runtime-reference.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify(result,"  "))
 	file.close()

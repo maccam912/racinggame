@@ -26,6 +26,9 @@ func run() -> void:
 		race.contact_enabled = false
 		var driver := BotDriver.new()
 		driver.difficulty = 1
+		var visual := CarVisual.new()
+		visual.build(Catalog.paints[0],"needle")
+		scene.add_child(visual)
 		var terrain_query := WorldQuery.new(scene.get_world_3d(),track)
 		var cameras: Array[ChaseCamera] = []
 		var rows: Array[Dictionary] = []
@@ -33,6 +36,7 @@ func run() -> void:
 			for rear in range(2):
 				var camera := ChaseCamera.new()
 				camera.mode = mode
+				camera.hood_profiles = visual.hood_profiles
 				scene.add_child(camera)
 				cameras.append(camera)
 				rows.append({"mode":mode,"look_phase":rear,"samples":0,"terrain_samples":0,"overlaps":0,"terrain_clips":0,"min_terrain_clearance_m":INF,"max_distance_m":0.0,"max_camera_step_m":0.0})

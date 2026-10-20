@@ -9,3 +9,12 @@ Adaptive resolution is mobile-only and enabled by the existing option. After two
 Frame load uses measured scene/script time, conservative physics cost and enabled [RenderingServer CPU/GPU timings](https://docs.godotengine.org/en/4.6/classes/class_renderingserver.html#class-renderingserver-method-viewport-get-measured-render-time-cpu), excluding frame-limiter sleep. GPU timing can be zero on Android GLES; observed missed presentation deadlines supplement CPU work in that case. This fallback can probe a higher scale after stable headroom and lower it again if presentation becomes overloaded. It does not claim a hardware GPU utilization measurement. Profiling runs only during eligible active play. Diagnostics export the numeric effective scale, actual world dimensions, timing sample, change count, keep-awake state and memory-notification count in the existing fixed technical archive.
 
 `mobile_runtime_tests.gd` checks both caps, exact hysteresis, floor/ceiling, interruption, native HUD/AA/persistence stability, preview rebuild and active collision/state preservation. `mobile_runtime_evidence.gd` renders 80% → 60% → memory warning → 80% with posed cars and injected pressure/headroom, and records separate live instrumentation samples. These are contract/render checks, not a physical thermal or actual memory-exhaustion test. The design's unplugged phone/tablet thermal and system gesture matrix remains open.
+
+
+The strict Linux render audit found that live llvmpipe feedback could alter the
+reference fixture's selected scale during its scripted GPU captures. The fixture
+now disconnects only that feedback callback during the controlled 80/60/80
+sequence and reconnects it for live samples. A native 3 fps deadline probe proves
+live feedback still makes two reductions afterward. The production policy is
+unchanged; [raw scope and measurements](evidence/hood99/) retain the separation
+from device performance.

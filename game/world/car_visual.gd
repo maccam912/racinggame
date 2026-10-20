@@ -25,6 +25,8 @@ var ghost: bool = false
 var last_grounded: bool = true
 var landing_time: float = 0.0
 var visual_up := Vector3.UP
+var hood_profiles: Array[PackedVector2Array] = []
+static var cached_hood_profiles: Dictionary = {}
 
 static func available(id: String) -> bool:
 	var path := "res://assets/exported/cars/"+id+".glb"
@@ -93,6 +95,45 @@ func build(paint: Color, id: String = "comet", slot: int = 0) -> void:
 	shadow.position.y = -.32
 	add_child(shadow)
 	choose_lod(0)
+	if not cached_hood_profiles.has(id):
+		cached_hood_profiles[id] = build_hood_profiles()
+	hood_profiles = cached_hood_profiles[id]
+
+
+func build_hood_profiles() -> Array[PackedVector2Array]:
+	# Intersect the actual LOD0 triangles with the car's centre plane. Side
+	# mirrors, wheel arches and off-centre stripes must not move the hood eye.
+	var points: Array[Vector2] = []
+	for mesh: MeshInstance3D in lods[0].find_children("*","MeshInstance3D",true,false):
+		var local := relative_transform(mesh)
+		for surface_index in range(mesh.mesh.get_surface_count()):
+			var arrays: Array = mesh.mesh.surface_get_arrays(surface_index)
+			var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+			var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+			if indices.is_empty():
+				for index in range(vertices.size()): indices.append(index)
+			for triangle in range(0,indices.size(),3):
+				for edge in range(3):
+					var a: Vector3 = local*vertices[indices[triangle+edge]]
+					var b: Vector3 = local*vertices[indices[triangle+(edge+1)%3]]
+					if (a.x>0 and b.x>0) or (a.x<0 and b.x<0): continue
+					var point := a.lerp(b,a.x/(a.x-b.x)) if not is_zero_approx(a.x-b.x) else a
+					if absf(point.z)>.8 and point.y<.79: points.append(Vector2(-point.z,point.y))
+	var profiles: Array[PackedVector2Array] = []
+	for direction: float in [1.0,-1.0]:
+		var ordered: Array[Vector2] = []
+		for point: Vector2 in points:
+			if point.x*direction>.8: ordered.append(Vector2(point.x*direction,point.y))
+		ordered.sort_custom(func(a: Vector2,b: Vector2) -> bool: return a.x>b.x if a.x!=b.x else a.y>b.y)
+		var envelope := PackedVector2Array()
+		var highest: float = -INF
+		for point: Vector2 in ordered:
+			if point.y<=highest: continue
+			envelope.append(point)
+			highest = point.y
+		assert(not envelope.is_empty(),"Installation incomplete: missing hood geometry")
+		profiles.append(envelope)
+	return profiles
 
 func choose_lod(level: int) -> void:
 	if active_lod==level: return

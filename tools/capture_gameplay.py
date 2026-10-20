@@ -13,7 +13,7 @@ from bootstrap import ROOT
 PACKAGE = 'dev.pacificrush.game'
 
 
-def verify(path, track, mobile, tick, expected_size=None):
+def verify(path, track, mobile, tick, expected_size=None, camera='near'):
     image = path.read_bytes()
     assert image[:8] == b'\x89PNG\r\n\x1a\n'
     size = struct.unpack('>II', image[16:24])
@@ -22,7 +22,7 @@ def verify(path, track, mobile, tick, expected_size=None):
     assert value['race_ticks'] >= tick and value['speed_mps'] > 5
     assert value['mode'] == 'quick' and value['opponents'] == 7
     assert value['autodrive'] and not value['synthetic_pose'] and value['hud']
-    assert value['touch'] == mobile and value['camera'] == 'near'
+    assert value['touch'] == mobile and value['camera'] == camera
     assert value['settings']['preset'] == 'medium'
     assert size == (value['width'], value['height'])
     assert size == (expected_size or ((2400, 1080) if mobile else (1920, 1080)))
@@ -39,6 +39,7 @@ def main():
     parser.add_argument('--adb', type=Path, default=Path.home()/'Library/Android/sdk/platform-tools/adb')
     parser.add_argument('--out', required=True, type=Path)
     parser.add_argument('--race-tick', type=int, default=1200)
+    parser.add_argument('--camera', choices=['near','far','hood'], default='near')
     parser.add_argument('--expected-resolution', nargs=2, type=int, metavar=('WIDTH', 'HEIGHT'),
                         help='Explicit capture size, including an owned tablet emulator; defaults to phone/desktop baselines')
     parser.add_argument('--track', action='append', help='Default: all six, in catalog order')
@@ -72,7 +73,7 @@ def main():
             assert not output.exists(), 'Refuse to replace a previous capture'
             screenshot = 'user://diagnostic_profiles/'+profile+'/capture.png' if mobile else str(output)
             options = ['--profile='+profile, '--capture='+screenshot, '--capture-track='+track,
-                       '--capture-race-tick='+str(args.race_tick), '--autodrive']
+                       '--capture-race-tick='+str(args.race_tick), '--capture-camera='+args.camera, '--autodrive']
             archive = None
             if mobile:
                 folder = '/data/user/0/'+PACKAGE+'/files/diagnostic_profiles/'+profile
@@ -113,7 +114,7 @@ def main():
                                    cwd=args.desktop_binary.parent, stdout=log, stderr=subprocess.STDOUT, check=True, timeout=240)
                 log_text = output.with_suffix('.log').read_text()
                 assert not any(marker in log_text for marker in ['SCRIPT ERROR:', 'ERROR:', 'instances leaked']), 'Export capture emitted engine/shutdown errors; inspect '+str(output.with_suffix('.log'))
-            value = verify(output, track, mobile, args.race_tick, expected_size)
+            value = verify(output, track, mobile, args.race_tick, expected_size,args.camera)
             value['png'] = output.name
             if archive: value['owned_profile_archive'] = archive
             summary['captures'].append(value)

@@ -55,7 +55,7 @@ The [Linux server bundle](docs/SERVER_PACKAGE.md) includes the matching operator
 Every push to main requires source/geometry/assets, real-client network fault scenarios, Linux graphical rendering, platform exports and native package startup before publishing a numbered development prerelease. The rendering job now uses explicit Bash pipefail, a deliberate failure probe and Dummy audio output while retaining its actual graphics context. Earlier green rendering jobs are superseded by the [validation audit](docs/evidence/render-gate98/). These are development checkpoints, not completed launch releases.
 
 Gameplay identity changes also require the complete six-course AI matrix and
-ten-race impaired network/memory soak before publication. Changes to the soak driver/harness also require that full soak. Cosmetic changes keep
+ten-race impaired network/memory soak before publication. Changes to the soak driver/harness, network/server runtime or pinned toolchain also require that full soak. Detection compares the last numbered gated tag, so a failed build followed by a cosmetic repair cannot skip it. Cosmetic changes keep
 their own asset identity. [Foliage](docs/BILLBOARD_ART.md), [painted signs](docs/ROADSIDE_POSTERS.md),
 [3D scenery detail](docs/SCENERY_DETAIL.md) and [content-5 tuning](docs/ARCADE_TUNING.md)
 have saved sources and evidence. `python3 tools/render_soak.py` separately measures

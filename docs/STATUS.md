@@ -1037,3 +1037,52 @@ Generic frame 1,500 images have separate camera settings, not synchronized race
 ticks or in-game telemetry sidecars. The Hood view exposes more bonnet than the
 roughly 10% design target; framing remains a presentation follow-up.
 [Original captures/provenance](evidence/cameras96/).
+
+
+## Hood camera, lamp geometry and strict Linux follow-up
+
+The revised launch fixture passes locally with **16 matching finishes**, minimum
+**2,388** clear samples and worst clear p95 **.0345031 m**; the numeric gates and
+physics stay unchanged. [Original follow-up](evidence/stagger98/).
+
+The Hood eye now uses each actual model's centreline and current FOV. All **40**
+native car/FOV/front/rear raster cases measure 10% bonnet on the flat control;
+all four normal course references were reviewed. Lamp/grille placement follows
+the actual nose/tail dimensions, fixing floating lamps on the low Needle.
+**240 actual body-attachment rays** pass across all cars/LODs, and the same guard
+rejects the original Needle bytes. The **92-command source matrix** and updated
+six-course camera-clearance gate pass. [Full evidence and boundaries](evidence/hood99/).
+
+Build **98 is unpublished**: its repaired Linux graphics job executes fourteen
+fixtures successfully, then correctly fails the adaptive-resource reference's
+fixed-scale assertion. Live software-render pressure was mixed with its synthetic
+pressure sequence. The fixture now pauses that callback only for controlled
+80/60/80 captures, then reconnects for real timing. Normal native and a deliberate
+3 fps deadline probe pass; the latter measures two real quality reductions after
+reconnection. This final render-fixture edit is verified separately from the
+full source run. Required remote confirmation and shader-warmup rendering remain
+pending. Actual exported Linux worker, native platforms and containers pass;
+the remote full ten-race soak is still running at this checkpoint.
+
+Owner's next visual direction: expand track and decoration variety, with more
+varied route plans instead of repeated oval/kidney shapes; add rocks, logs,
+waterfalls and other set pieces; replace the dark clinical menu treatment with
+bold nostalgic techno lettering and glossy arcade styling. This is accepted
+follow-up work, not a claim those changes are implemented in this checkpoint.
+
+The owner also approves extending the decorations' dithered look into richer car
+and pavement materials. Add styled paint/surface detail and wear while retaining
+clear road edges, readable opponents, original assets and the established physics
+contract. This material pass joins the next visual revision.
+
+
+Release acceptance now compares gameplay/soak inputs with the latest numbered
+workflow-gated development tag, rather than only the previous commit. A failed
+harness-change build followed by a cosmetic repair must still run the full soak.
+The real temporary-Git regression covers that sequence, a later gated tag and a
+new gameplay identity. Network/server runtime and pinned toolchain changes also
+require the full soak. [Detector](../tools/acceptance_changes.py).
+
+The owner extends this implementation session's stop boundary to **20% weekly
+remaining**, replacing 40%; finish the current chunk, commit/push and stop when
+that threshold is reached. Current visual follow-ups above remain authorized.

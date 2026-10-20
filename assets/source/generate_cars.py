@@ -325,11 +325,18 @@ def build_car(identifier,spec,index):
         build_body(name,spec,level,group)
         build_cabin(identifier,spec,level,group)
         stripe(identifier,spec,group)
+        nose_width = spec['width']*spec['profiles'][-1][1]
+        nose_height = spec['profiles'][-1][2]
+        tail_width = spec['width']*spec['profiles'][0][1]
+        tail_height = spec['profiles'][0][2]
         for side in [-1,1]:
             for front in [True,False]: wheel(name,spec,level,group,side,front)
-            cube(name+'_Headlamp',(side*spec['width']*.31,spec['length']/2+.014,.35),(.44,.03,.13),group,'Headlamp')
-            cube(name+'_Brake',(side*spec['width']*.31,-spec['length']/2-.015,.37),(.46,.032,.14),group,'Brake')
-        cube(name+'_FrontGrille',(0,spec['length']/2+.016,.23),(spec['width']*.42,.028,.09),group,'Grille')
+            cube(name+'_Headlamp',(side*nose_width*.30,spec['length']/2+.014,nose_height*.68),
+                 (min(.44,nose_width*.32),.03,min(.13,nose_height*.32)),group,'Headlamp')
+            cube(name+'_Brake',(side*tail_width*.30,-spec['length']/2-.015,tail_height*.60),
+                 (min(.46,tail_width*.32),.032,min(.14,tail_height*.32)),group,'Brake')
+        cube(name+'_FrontGrille',(0,spec['length']/2+.016,nose_height*.45),
+             (nose_width*.45,.028,min(.09,nose_height*.25)),group,'Grille')
         if level<2:
             for side in [-1,1]: cube(name+'_DoorHandle',(side*(spec['width']/2+.012),-.28,.57),(.02,.19,.035),group,'Chrome')
         meshes = [obj for obj in descendants(group) if obj.type=='MESH']

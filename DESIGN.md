@@ -1,6 +1,6 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.6 — 19 October 2026
+Version 1.7 — 19 October 2026
 
 Owner decisions, 19 October 2026: implementation validation uses Android phone
 and tablet **emulators only**. Physical-device checks elsewhere in this document
@@ -220,7 +220,7 @@ Eight colors: coral #F16B50, turquoise #20BFC5, sunshine #F3CD48, violet #8465CC
 
 ## 9 Camera and sensation of speed
 
-Default Near Chase: anchor 5.0 m behind chassis center and 1.65 m above road; aim at a point 10 m ahead and 0.8 m above the chassis base. Far Chase: 8.2 m behind, 3.4 m high, aim 12 m ahead. Hood: camera 1.1 m forward of center and 1.15 m above road, with 10% visible hood at screen bottom; no interior cockpit. The lower Near anchor is the owner's approved arcade-speed presentation revision.
+Default Near Chase: anchor 5.0 m behind chassis center and 1.65 m above road; aim at a point 10 m ahead and 0.8 m above the chassis base. Far Chase: 8.2 m behind, 3.4 m high, aim 12 m ahead. Hood: eye 1.15 m above road, with approximately 10% visible hood at screen bottom; no interior cockpit. Derive its forward offset from the actual car's cached centreline silhouette and current vertical FOV, rather than one fixed offset that fills the view on longer cars or hides shorter bonnets. Look-back uses the rear silhouette. The lower Near anchor is the owner's approved arcade-speed presentation revision.
 
 Chase translation follows with exponential rate 10/s; yaw with 8/s. Frame-rate-independent coefficient is 1-exp(-rate*render_dt). Camera may lag yaw at most 12 degrees behind vehicle heading. Look-ahead shifts laterally by up to 1.0 m in steering direction, smoothing at 4/s. Chase collision sphere radius 0.25 m shortens boom against scenery and restores over 0.3 seconds. Camera never goes below the local road. Look Back uses a front-facing equivalent mount with a 0.12-second blend; release restores prior camera.
 
@@ -799,3 +799,24 @@ For each later change, record: problem, exact changed rule/data, affected tests,
 - A short README explaining where to change handling, add a track, adjust touch layout, run tests, and publish a compatible build.
 
 No implementation or game assets are created by this design document itself. All target values remain requirements until validated in the actual build.
+
+
+## Owner visual expansion direction — 19 October 2026
+
+After the current validation repair, expand the course experience with stronger
+route-shape variety instead of a family of ovals or kidney loops. Broaden the
+track catalogue as practical, and give each environment distinct driving and
+landmark sequences. Decorations must include visible rocks, logs, waterfalls and
+other authored set pieces rather than relying mainly on trees. Retain the
+approved mix of illustrated cards and substantial 3D geometry.
+
+Revise the interface toward a nostalgic radical arcade presentation: bold techno
+lettering, gloss, saturated accents and energetic panels/buttons. Preserve
+required contrast, scalable text, visible focus, touch targets and reduced-motion
+support. This owner direction supersedes the current clinical dark-panel visual
+treatment; it is a planned implementation change, not completed acceptance.
+
+The owner also approves extending the decorations' dithered look into richer car
+and pavement materials. Add styled paint/surface detail and wear while retaining
+clear road edges, readable opponents, original assets and the established physics
+contract. This material pass joins the next visual revision.

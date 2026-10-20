@@ -41,18 +41,9 @@ jobs:
       - run: python tools/check.py
       - name: Determine whether full AI acceptance is needed
         id: gameplay
-        shell: bash
-        run: |
-          if git rev-parse --verify HEAD^ >/dev/null 2>&1 && git diff --quiet HEAD^ HEAD -- game/content/compatibility.json tests/bot_tracks.gd tools/bot_acceptance.py; then
-            echo 'changed=false' >> "$GITHUB_OUTPUT"
-          else
-            echo 'changed=true' >> "$GITHUB_OUTPUT"
-          fi
-          if git rev-parse --verify HEAD^ >/dev/null 2>&1 && git diff --quiet HEAD^ HEAD -- game/content/compatibility.json tests/soak_network_client.gd tests/lobby_network_client.gd tools/soak_acceptance.py; then
-            echo 'soak_changed=false' >> "$GITHUB_OUTPUT"
-          else
-            echo 'soak_changed=true' >> "$GITHUB_OUTPUT"
-          fi
+        # Comparing only HEAD^ would skip a required soak after a failed
+        # input-change build followed by a cosmetic correction.
+        run: python tools/acceptance_changes.py
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -63,6 +54,7 @@ jobs:
             reports/m5-packet-faults.json
             reports/m6-trial-gold.json
             reports/m6-course-cameras.json
+            reports/car-lamp-attachment.json
             reports/worker-retirement-*/
           if-no-files-found: error
 
@@ -218,6 +210,10 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/menu_stage_tests.gd -- --render 2>&1 | tee reports/menu-stage.log
+      - name: Measure actual hood silhouettes for four models and five FOVs
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/hood_camera_evidence.gd 2>&1 | tee reports/hood-cameras.log
       - name: Render Driving School input demonstrations
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
@@ -253,6 +249,8 @@ jobs:
             reports/menu-stage/
             reports/menu-stage.json
             reports/menu-stage.log
+            reports/hood-cameras/
+            reports/hood-cameras.log
             reports/pipeline-failure.log
             reports/m4-school-reference.json
             reports/m4-surface-lamp-reference.json

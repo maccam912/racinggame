@@ -362,6 +362,8 @@ func _process(dt: float) -> void:
 			target = spectated
 		else:
 			spectator_slot = state.slot
+	var camera_visual: CarVisual = remote_visuals.get(target.slot,visual)
+	camera.hood_profiles = camera_visual.hood_profiles
 	camera.follow(target, visual_dt, driver.held("look_back", touch if touch.visible else null))
 
 

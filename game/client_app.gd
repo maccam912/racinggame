@@ -12,6 +12,7 @@ var touch_demo: bool = false
 var capture_path: String = ""
 var rendered_frames: int = 0
 var capture_frame: int = 150
+var capture_camera: String = "near"
 var capture_track: String = ""
 var capture_race_tick: int = -1
 var capture_pending: bool = false
@@ -72,6 +73,8 @@ func _ready() -> void:
 			capture_frame = maxi(1, int(arg.trim_prefix("--capture-frame=")))
 		elif arg.begins_with("--capture-track="):
 			capture_track = arg.trim_prefix("--capture-track=")
+		elif arg.begins_with("--capture-camera="):
+			capture_camera = arg.trim_prefix("--capture-camera=")
 		elif arg.begins_with("--capture-race-tick="):
 			capture_race_tick = clampi(int(arg.trim_prefix("--capture-race-tick=")),1,18000)
 	data = AppData.new(folder)
@@ -140,7 +143,11 @@ func open_start_screen() -> void:
 			push_error("Unknown gameplay capture track")
 			get_tree().quit(1)
 			return
-		data.settings.camera = "near"
+		if capture_camera not in ["near","far","hood"]:
+			push_error("Unknown gameplay capture camera")
+			get_tree().quit(1)
+			return
+		data.settings.camera = capture_camera
 		data.settings.preset = "medium"
 		data.apply_preset("medium")
 		if capture_race_tick<0: capture_race_tick = 1200
