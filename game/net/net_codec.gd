@@ -150,6 +150,8 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 		record_size += {"i8":1, "u8":1, "i16":2, "u16":2, "i32":4, "u32":4}[field[1]]
 	if count < 1 or count > 8 or bytes.size() != 31 + count * record_size or phase > RaceSession.Phase.RESULTS:
 		return {}
+	var maximum_gate := Catalog.maximum_gate_count()-1
+	if maximum_gate<0 or maximum_gate>127: return {}
 	var states: Array[VehicleState] = []
 	var slots: Dictionary = {}
 	for _index in range(count):
@@ -182,7 +184,7 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 			return {}
 		state.lap_valid = bool(lap_valid)
 		var surface := buffer.get_u8()
-		if surface > 2 or state.drift_phase > 2 or state.last_gate < -1 or state.last_gate > 40 or absf(state.steer_filter) > 1:
+		if surface > 2 or state.drift_phase > 2 or state.last_gate < -1 or state.last_gate > maximum_gate or absf(state.steer_filter) > 1:
 			return {}
 		state.surface = ["asphalt", "sand", "grass"][surface]
 		state.finish_time = buffer.get_float()

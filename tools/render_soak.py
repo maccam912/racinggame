@@ -31,7 +31,7 @@ def main():
               'platform':platform.platform(),'requested_seconds':args.seconds,'profile':profile,
               'content_hash':manifest['content_hash'],'asset_hash':cosmetics['asset_hash'],
               'fixture_sha256':hashlib.sha256(script.read_bytes()).hexdigest(),
-              'boundary':'Live native source rendering at 1920x1080 Medium/60 cap, six-course repeated eight-car races. RSS includes renderer/audio/scene resources. This host can have other applications/emulators active; no minimum-device, physical thermal or standalone worst-track budget claim.'}
+              'boundary':'Live native source rendering at 1920x1080 Medium/60 cap, eight-course repeated eight-car races. RSS includes renderer/audio/scene resources. This host can have other applications/emulators active; no minimum-device, physical thermal or standalone worst-track budget claim.'}
     process = None
     observations = []
     began = time.monotonic()
@@ -75,7 +75,7 @@ def main():
                   'engine_log':not any(marker in (folder/'native.log').read_text() for marker in ['SCRIPT ERROR:','ERROR:','instances leaked'])}
         if args.seconds>=900:
             checks['rss_growth_at_most_5percent'] = memory['peak_growth_fraction']<=.05
-            checks['all_six_courses'] = {row['track'] for row in native['races']}=={row['id'] for row in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']}
+            checks['all_catalog_courses'] = {row['track'] for row in native['races']}=={row['id'] for row in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']}
         # Report timing independently: host contention does not become a passing
         # minimum-device claim or get hidden by the lifetime/memory verdict.
         report.update(memory=memory,checks=checks,passed=all(checks.values()),

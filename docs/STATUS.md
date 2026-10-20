@@ -1,5 +1,17 @@
 # Implementation status
 
+## 19 October — long-course snapshot cutoff corrected, content 7
+
+Expanded eight-client testing exposed a legacy snapshot-decoder limit of checkpoint 40. Skyline has 49 checkpoints and Quarry 65. Earlier two-client runs received enough early snapshots and reliable results to pass, but did not establish late-course continuity. Build **104 was cancelled before publication**; its offline/source/export/emulator images remain valid within their stated bounds. [Reproduction, discarded diagnostic hypotheses and complete correction evidence](evidence/snapshot-cutoff/).
+
+The decoder now derives its checkpoint limit from the loaded catalog; the existing per-course client guard remains. The baker rejects checkpoint counts beyond the signed-byte field. All **321 actual checkpoints** round-trip, final-checkpoint direct/batched receipt works, and out-of-course/malformed values remain rejected. The eight-car packet remains **727 bytes**. Physics, BotDriver, all route bakes, finish grace and numeric network limits are unchanged.
+
+All **96 source commands pass**. Two post-fix eight-client runs finish all 16 cars each; the stricter repeat records checkpoint **48/64 on every client**, minimum **1,173 clear samples**, worst clear p95 **0.029232 m**, and matching authoritative rows. This bonus-course eight-client check is now a required GitHub release gate, alongside existing scenarios and the ten-race soak. Exact fixture sources are archived per new run. Content/protocol/save are **7/5/1**, gameplay `0e06e18b`, assets `bd9bd532`. Frozen content-4/5/6 saves remain preserved; incompatible records/ghost/Cup/checkpoint continuation stays disabled. Matching corrected exports, installed-APK cross-play and GitHub confirmation remain pending at this commit.
+
+Clean local Build 104 exports separately pass phone/tablet in-place updates (all 44/34 existing files, UID and signer preserved), four actual installed-APK bonus-course views with native touch HUD, and macOS adapter/headless driving smoke. Those packages predate the network correction and are not published. [Full package/emulator evidence](evidence/content6/packages104/).
+
+A **902.44-second live native render lifetime run** completes all eight courses and repeated scene replacements, passes the 2 GB memory guard, and records **784,728,064-byte peak RSS / 3.955% post-warm-up peak growth**. All transients and frame timing are retained. This is local scene-lifetime evidence with other emulators/processes active, separate from minimum hardware or physical thermal performance. [Raw measurements](evidence/content6/render-lifetime/).
+
 ## 19 October — eight-course scenery expansion, content 6
 
 Skyline Splice adds a 4.828 km harbor figure eight with a 180 m vertical crossing gap, bridge decks, clear pylons and roadside towers. Quarry Switchback adds a 6.409 km chain of hairpins and climbs with 24 control points. Both are available in Quick Race, Time Trial and Community rooms; the classic six-event Cup remains unchanged. Original six route definitions and bakes are byte-identical. Course choices, network validation, directory bounds, minimaps, thumbnails and localization cover eight routes. Race music deliberately reuses Marina/Canyon themes.

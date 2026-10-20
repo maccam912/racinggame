@@ -24,3 +24,10 @@ static func load_all() -> void:
 static func track_count() -> int:
 	load_all()
 	return tracks.size()
+
+
+static func maximum_gate_count() -> int:
+	load_all()
+	var result := 0
+	for track: TrackDefinition in tracks: result = maxi(result,track.bake.gates.size())
+	return result

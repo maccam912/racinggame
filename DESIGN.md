@@ -1,6 +1,6 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.11 — 19 October 2026
+Version 1.12 — 19 October 2026
 
 Owner decisions, 19 October 2026: implementation validation uses Android phone
 and tablet **emulators only**. Physical-device checks elsewhere in this document
@@ -893,3 +893,11 @@ material revision; current evidence and remaining package boundaries are recorde
 in docs/STATUS.md.
 
 The content-6 scenery pass adds original procedural boulder clusters on ground courses, log piles on orchard/forest/mountain/quarry routes, waterfalls on Redwood/Summit/Quarry, and larger quarry bluffs. Sites clear the road and poster approach sightlines, reserve foliage clearings, and use independent spatial bounds and view-distance limits. These meshes have no driving collision. Skyline towers, bridge deck and pylons provide a distinct elevated city silhouette.
+
+## Content 7 — long-course snapshot checkpoint correction
+
+The first eight-course development snapshot exposed a legacy decoder bound of 40 checkpoints. Skyline Splice has 49 checkpoints and Quarry Switchback 65; valid late-race snapshots were rejected while reliable results could still arrive. Build 104 was cancelled before publication when the expanded eight-client fixture exposed the issue.
+
+The decoder now derives its upper checkpoint index from the loaded catalog. Per-course guards in client snapshot application still reject indices outside the selected route. The signed-byte field and protocol-5 packet layout remain unchanged (727 bytes for eight cars); the baker rejects more than 128 checkpoint entries. This is content version 7 / protocol 5 / save schema 1. Course definitions/bakes, steering, traffic planning, car physics, race grace and wire/correction limits are unchanged. Prior content-4/5/6 fixtures stay frozen; their records/ghost/Cup/checkpoint bytes remain preserved with incompatible continuation disabled.
+
+Acceptance now includes all 321 authored checkpoints in snapshot round-trips, final checkpoint receipt through direct and batched client paths, invalid checkpoint rejection, and eight real impaired clients on both bonus courses. Every client must observe snapshots reaching the final checkpoint section, finish, and agree with authoritative rows. A matching installed Android APK is checked separately against native clients.

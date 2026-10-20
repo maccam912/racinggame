@@ -30,7 +30,13 @@ def main():
     parser.add_argument('--seconds', type=int, default=350)
     parser.add_argument('--impaired', action='store_true', help='Eight independent UDP proxies: 50±20 ms each direction and 1%% loss, including ENet ACKs')
     parser.add_argument('--adb', default=str(Path.home()/'Library/Android/sdk/platform-tools/adb'))
+    parser.add_argument("--tracks", default="palm_bay,citrus_pass", help="Comma-separated catalog IDs; native host selects this sequence")
     args = parser.parse_args()
+    catalog=[row["id"] for row in json.loads((ROOT/"game/content/tracks.json").read_text())["tracks"]]
+    selected=args.tracks.split(",")
+    assert selected and all(value in catalog for value in selected)
+    track_indices=[catalog.index(value) for value in selected]
+    expected_tracks=[track_indices[index%len(track_indices)] for index in range(args.races)]
     assert 120 <= args.seconds <= 2400
     adb = [args.adb, '-s', args.serial]
 
@@ -125,10 +131,10 @@ def main():
         fixture = 'tests/soak_network_client.gd' if args.impaired else 'tests/lobby_network_client.gd'
         def native_arguments(index):
             return ['--script',fixture,'--','--index='+str(index),'--port='+str(ports[index]),
-                    '--races='+str(args.races),'--laps='+str(args.laps),'--seconds='+str(args.seconds),
+                    '--races='+str(args.races),'--laps='+str(args.laps),'--seconds='+str(args.seconds),'--tracks='+','.join(map(str,track_indices)),
                     '--report='+str(folder/f'client{index}.json')]
         # Establish a native host before the mobile client joins. The existing
-        # eight-member fixture requests Palm Bay/Citrus rules and marks itself
+        # eight-member fixture requests the selected course rules and marks itself
         # ready; Android exercises the normal automatic lobby/results timers.
         launch(native_arguments(0), 'client0.log')
         wait_for(lambda: 'waiting for racers' in (folder/'client0.log').read_text(), 8)
@@ -179,7 +185,7 @@ def main():
         wait_for(lambda: all(p.poll() == 0 for p in processes[1:]), 8)
         values = [json.loads((folder/f'client{i}.json').read_text()) for i in range(7)]
         races = values[0]['results']
-        assert len(races) == args.races and all(value['results'] == races and value['loaded_tracks'] == [index%2 for index in range(args.races)] and value['large_racing_events'] == 0 for value in values)
+        assert len(races) == args.races and all(value['results'] == races and value['loaded_tracks'] == expected_tracks and value['large_racing_events'] == 0 for value in values)
         hashes = values[0]['result_hashes']
         assert all(value['result_hashes'] == hashes for value in values)
         assert all(int(race_id) == index+1 and int(count) == 8 and digest == hashes[index] for index, (race_id, count, digest) in enumerate(result_text)), 'Android/native complete result digests differ'
@@ -195,7 +201,7 @@ def main():
         assert saved['payload']['races_completed'] == args.races, 'Android result journal did not commit exactly the requested races'
         (folder/'android-profile.json').write_text(json.dumps(saved, indent=2)+'\n')
         assert gameplay_manifest()==manifest and manifest==json.loads((ROOT/'game/content/compatibility.json').read_text()), 'Gameplay sources changed during the run'
-        report.update(passed=True, humans=8, native_clients=7, android_clients=1, tracks=[index%2 for index in range(args.races)], races=races,
+        report.update(passed=True, humans=8, native_clients=7, android_clients=1, tracks=expected_tracks, races=races,
                       all_requested_finishes=True, finishes=8*args.races, identical_authority_android_native_rows=True,
                       same_eight_identities=True, android_graphics_prepared_count=args.races,
                       android_races_committed=args.races, native_large_racing_events=0,

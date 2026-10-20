@@ -131,6 +131,7 @@ def bake(track):
         f = unit(b[3:6])
         gates.append({'s': s, 'position': list(pos), 'forward': list(f),
                       'recovery': list(add(pos, mul(f, -6)))})
+    assert 1 <= len(gates) <= 128, f"{track['id']}: checkpoint count exceeds the signed-byte snapshot field"
     speeds = {}
     cars = json.loads((CONTENT/'cars.json').read_text())['cars']
     smooth_curve = [sum(rotated[(i+j)%n][6] for j in range(-2, 3))/5 for i in range(n)]

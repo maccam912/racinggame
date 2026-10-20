@@ -8,6 +8,7 @@ import argparse
 import hashlib
 import json
 import platform
+import shutil
 from pathlib import Path
 import subprocess
 import time
@@ -25,7 +26,13 @@ def main():
     parser.add_argument('--laps', type=int, choices=[1,2,3], default=3)
     parser.add_argument('--seconds', type=int, default=2400)
     parser.add_argument('--minimum-seconds', type=int, default=960)
+    parser.add_argument("--trace-driving", action="store_true")
+    parser.add_argument("--tracks", default="palm_bay,citrus_pass", help="Comma-separated catalog IDs in race order; repeats as necessary")
     args = parser.parse_args()
+    catalog=[row["id"] for row in json.loads((ROOT/"game/content/tracks.json").read_text())["tracks"]]
+    selected=args.tracks.split(",")
+    assert selected and all(value in catalog for value in selected), "Unknown or empty course order"
+    track_indices=[catalog.index(value) for value in selected]
     assert 2 <= args.races <= 10 and 0 <= args.minimum_seconds <= args.seconds <= 2400
     folder = ROOT/'reports'/('soak-eight-'+uuid.uuid4().hex[:10])
     folder.mkdir(parents=True)
@@ -50,11 +57,16 @@ def main():
                'content_hash':manifest['content_hash'],
                'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True)),
                'platform':platform.platform(), 'processor':platform.processor(),
-               'races_requested':args.races, 'laps':args.laps, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
+               'races_requested':args.races, 'laps':args.laps, 'track_order':selected,  'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
                'independent_datagram_loss':.01, 'transport':'Eight independent real UDP proxies, including ENet ACKs and retransmissions',
                'boundary':'Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.'}
     summary['fixture_sha256'] = {name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in
                                ('tools/soak_acceptance.py','tests/soak_network_client.gd','tests/lobby_network_client.gd')}
+    for name,expected in summary['fixture_sha256'].items():
+        saved=folder/'fixture_source'/name
+        saved.parent.mkdir(parents=True,exist_ok=True)
+        shutil.copyfile(ROOT/name,saved)
+        assert hashlib.sha256(saved.read_bytes()).hexdigest()==expected
     if worker_build:
         summary['worker_kind'] = 'Actual exported Linux x86-64 binary with its embedded project, no source-project path'
         summary['worker_build'] = worker_build
@@ -78,7 +90,7 @@ def main():
             handle = (folder/f'client-{index}.log').open('w'); handles.append(handle)
             processes.append(subprocess.Popen([*command, '--script','tests/soak_network_client.gd','--',
                 f'--port={args.port+index}',f'--index={index}',f'--races={args.races}',
-                f'--laps={args.laps}',
+                f'--laps={args.laps}', '--tracks='+','.join(map(str,track_indices)), *(['--trace-driving'] if args.trace_driving else []),
                 f'--seconds={args.seconds}',f'--minimum-seconds={args.minimum_seconds}',
                 f'--report={folder/f"client-{index}.json"}'], stdout=handle, stderr=subprocess.STDOUT))
         seen_perf = 0
@@ -120,6 +132,8 @@ def main():
         results = reports[0]['results']
         checks = {}
         checks['client_exit'] = all(child.returncode==0 for child in processes[1:])
+        gate_counts=[len(json.loads((ROOT/f'game/content/baked/{identifier}.json').read_text())['gates']) for identifier in selected]
+        checks['late_course_snapshots_each'] = all(len(report['race_metrics'])==args.races and all(metric['highest_snapshot_gate']>=gate_counts[(int(metric['race'])-1)%len(gate_counts)]-2 for metric in report['race_metrics']) for report in reports)
         checks['identical_standings'] = len(results)==args.races and all(report['results']==results for report in reports)
         identities = {row['id'] for row in results[0]['rows']} if results else set()
         checks['all_finish_same_eight'] = len(identities)==8 and all(len(race['rows'])==8 and {row['id'] for row in race['rows']}==identities and all(not row['dnf'] and not row['bot'] for row in race['rows']) for race in results)

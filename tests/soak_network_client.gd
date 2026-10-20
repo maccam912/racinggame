@@ -3,6 +3,7 @@ extends "res://tests/lobby_network_client.gd"
 ## ordinary client snapshots. No authority mutation or physics/stat changes.
 
 var launch_hold_ticks: int = 0
+var drive_trace_at: int = 0
 
 class PacedDriver extends BotDriver:
 	var pace: float = 1.0
@@ -26,4 +27,13 @@ func start_race(config: Dictionary) -> void:
 		if bot.planning_ticks <= 1:
 			for state: VehicleState in link.latest_snapshot.get("states", []):
 				if state.slot != link.slot: rivals.append(state)
-		return bot.sample(link.prediction.state, link.prediction.car, link.prediction.track, link.prediction.query, rivals)
+		var frame := bot.sample(link.prediction.state, link.prediction.car, link.prediction.track, link.prediction.query, rivals)
+		if "--trace-driving" in OS.get_cmdline_user_args() and Time.get_ticks_msec()>=drive_trace_at:
+			drive_trace_at = Time.get_ticks_msec()+5000
+			var state: VehicleState = link.prediction.state
+			var others: Array = []
+			for rival: VehicleState in link.latest_snapshot.get("states",[]):
+				if rival.slot!=link.slot and rival.position.distance_to(state.position)<60:
+					others.append({"slot":rival.slot,"delta":[rival.position.x-state.position.x,rival.position.y-state.position.y,rival.position.z-state.position.z],"speed":rival.speed(),"finished":rival.finished})
+			print("DRIVE_TRACE "+JSON.stringify({"index":index,"race":link.race_id,"slot":link.slot,"s":state.route_s,"position":[state.position.x,state.position.y,state.position.z],"speed":state.speed(),"steer":frame.steer,"throttle":frame.throttle,"brake":frame.brake,"offset":bot.offset,"others":others}))
+		return frame

@@ -26,8 +26,10 @@ var next_trace_ms: int = 0
 var required_races: int = 2
 var timeout_ms: int = 340000
 var race_metrics: Array[Dictionary] = []
+var highest_gate_by_race: Dictionary = {}
 var minimum_ms: int = 0
 var requested_laps: int = 1
+var requested_tracks: Array[int] = [0,1]
 
 
 func _initialize() -> void:
@@ -46,6 +48,12 @@ func run() -> void:
 		elif arg.begins_with("--seconds="): timeout_ms = int(float(arg.trim_prefix("--seconds=")) * 1000)
 		elif arg.begins_with("--minimum-seconds="): minimum_ms = int(float(arg.trim_prefix("--minimum-seconds=")) * 1000)
 		elif arg.begins_with("--laps="): requested_laps = int(arg.trim_prefix("--laps="))
+		elif arg.begins_with("--tracks="):
+			requested_tracks.clear()
+			for value: String in arg.trim_prefix("--tracks=").split(","):
+				assert(value.is_valid_int() and int(value)>=0 and int(value)<Catalog.tracks.size())
+				requested_tracks.append(int(value))
+	assert(not requested_tracks.is_empty())
 	link.admission_ticket = OS.get_environment("PR_TEST_TICKET")
 	root.add_child(scene)
 	scene.add_child(link)
@@ -58,7 +66,7 @@ func run() -> void:
 		result_hashes.append(JSON.stringify(rows).sha256_text())
 		results.append({"race":link.race_id, "track":int(link.config.track), "rows":rows.duplicate(true)})
 		if link.prediction:
-			race_metrics.append({"race":link.race_id, "snapshots":link.prediction.snapshot_count,
+			race_metrics.append({"race":link.race_id, "snapshots":link.prediction.snapshot_count, "highest_snapshot_gate":int(highest_gate_by_race.get(link.race_id,-1)),
 				"clear":statistics(link.prediction.clear_corrections), "contact":statistics(link.prediction.contact_corrections),
 				"terminal":statistics(link.prediction.terminal_corrections), "recoveries":link.prediction.recovery_corrections,
 				"clock_restores":statistics(link.prediction.clock_corrections), "history":link.prediction.history.size(), "rtt_ms":link.rtt_ms})
@@ -69,6 +77,8 @@ func run() -> void:
 	started_ms = Time.get_ticks_msec()
 	while results.size() < required_races and Time.get_ticks_msec() - started_ms < timeout_ms:
 		await physics_frame
+		for authority: VehicleState in link.latest_snapshot.get("states",[]):
+			highest_gate_by_race[link.race_id] = maxi(int(highest_gate_by_race.get(link.race_id,-1)),authority.last_gate)
 		if Time.get_ticks_msec() >= next_trace_ms:
 			next_trace_ms = Time.get_ticks_msec() + 5000
 			trace.append({"ms":Time.get_ticks_msec() - started_ms, "physics_ticks":link.tick_counter, "connected":link.connected, "transport":link.wire.peer.get_connection_status(), "received_age_ms":Time.get_ticks_msec() - link.last_received_ms, "sent":link.wire.sent_bytes, "received":link.wire.received_bytes, "pending":link.wire.pending.size(), "phase":link.phase})
@@ -97,7 +107,7 @@ func run() -> void:
 		var file := FileAccess.open(output, FileAccess.WRITE)
 		file.store_string(JSON.stringify(report, "\t"))
 	var expected_tracks: Array[int] = []
-	for race: int in range(required_races): expected_tracks.append(race % 2)
+	for race: int in range(required_races): expected_tracks.append(requested_tracks[race%requested_tracks.size()])
 	var success := results.size() == required_races and loaded_tracks == expected_tracks and link.large_racing_events == 0 and lobby_rejoin_ok and (not reconnect_test or (reconnect_done and link.resume_count >= 1))
 	print("LOBBY_CLIENT_DONE index=%d races=%d tracks=%s" % [index, results.size(), loaded_tracks])
 	link.leave_room()
@@ -113,7 +123,7 @@ func on_lobby(state: Dictionary) -> void:
 	if results.size() >= required_races: return
 	if int(state.phase) != LobbyState.Phase.LOBBY or state.members.size() != expected_humans:
 		return
-	var target := {"track":results.size() % 2, "laps":requested_laps, "bot_fill":false, "difficulty":1, "contact":true}
+	var target := {"track":requested_tracks[results.size()%requested_tracks.size()], "laps":requested_laps, "bot_fill":false, "difficulty":1, "contact":true}
 	if state.host == link.guest_id and state.rules != target:
 		if requested_rules != target:
 			requested_rules = target

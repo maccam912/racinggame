@@ -1,0 +1,13 @@
+# Snapshot cutoff on long courses
+
+Content 6 introduced 49- and 65-checkpoint courses, while NetCodec.decode_snapshot still rejected last_gate > 40. `before-gate41.log` reproduces the exact first rejection with a valid eight-car packet on Skyline. This was a decoder bound, not a packet-layout limitation: last_gate already uses a signed byte.
+
+The eight-client baseline on Skyline/Quarry (`soak-eight-d55899fcec`) agrees on authoritative results but two paced drivers DNF on Quarry. Late snapshots stop after the first car reaches checkpoint 41, leaving stale remote traffic and correction/clock feedback. Earlier two-client tests had enough early samples and still received reliable results, so their green verdict did not establish late-course snapshot continuity. Those original results are preserved in the content-6 evidence; they are superseded for the expanded multiplayer acceptance claim.
+
+Equal pace and a diagnostic road-normal traffic-awareness filter were investigated, also failed, and were discarded. Their exact prototype source and raw reports are retained here. Production BotDriver, physics and grace limits are unchanged. Build 104 was cancelled before publication; the public Build 103 remains the preceding content-5 checkpoint.
+
+The fix derives the catalog maximum and keeps the existing per-course guard in NetworkClient. The baker enforces the signed-byte capacity. Content 7 changes compatibility identity; protocol 5, save schema 1 and the 727-byte eight-car packet remain. All 321 actual checkpoints round-trip; direct/batched client receipt reaches final checkpoints, and malformed/out-of-course indices remain rejected. Frozen content-6 bytes were captured separately from clean 27bd101 before the correction.
+
+The first post-fix repeat (`soak-eight-92ceb79532`) finishes all 16 cars and agrees on results, worst clear-road p95 0.025042 m with at least 667 samples per client/race. A further run explicitly requires every client to see the final checkpoint section and archives the exact fixture sources before launch. Complete follow-up checks and reports are retained separately below.
+
+`late-checkpoint-repeat/` passes with all eight clients observing maximum gate **48 on Skyline and 64 on Quarry**, all 16 finishes, minimum 1,173 clear samples, worst clear p95 0.029232 m. All original wire, correction, coverage, finish and grace limits remain. `source-final96/` preserves every final command, full output and passing atomic report. The first new source attempt's test-only ENet cleanup failure is retained in initial-checks.log; closing the unused fixture peer before freeing the client fixes that harness error.
