@@ -1,0 +1,119 @@
+{
+  "asset_hash": "1fe44b97904705d8c33d4a6d531e12bccd243882b48dfa82e540f57d62a9bd1b",
+  "baseline_resolution": [
+    1920,
+    1080
+  ],
+  "boundary": "Native final-art HUD and touch layout with posed race/lap/record states and explicit per-image dimensions. Numerical timing and real collision occlusion are separate tests. No human driving, physical device or gameplay win acceptance.",
+  "capture_details": [
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-race-100.png",
+      "sha256": "25937f13edaaedb10ad0cc756e53e11b0c42a164e78effa86829cdec85b217ed",
+      "width": 1920
+    },
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-race-150.png",
+      "sha256": "cdc27c21c979e5c1d2f551a6fcf49bacdd4c1ef9a18d18d32f628b2b9679ed12",
+      "width": 1920
+    },
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-nameplates-emoji-150.png",
+      "sha256": "c7cbc34fdbac500fc78d81055808a650be09a93a723f8e6901e4f6d755ee2851",
+      "width": 1920
+    },
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-nameplates-ellipsis-150.png",
+      "sha256": "0ed63e65e79f311c719e9fb495e9086ddf93b05528338f1e0f5b8a7d69b9c72d",
+      "width": 1920
+    },
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-nameplates-contrast-150.png",
+      "sha256": "eefd5d0c5c22913f121b60f9f10d3d5e1797e0498811c3beb8b26dcc602fb4bb",
+      "width": 1920
+    },
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-connection.png",
+      "sha256": "0706584b319402df09916d551e1fe8689aafc94b20f16bdd6b122cec787ec3ad",
+      "width": 1920
+    },
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-trial-delta.png",
+      "sha256": "30b7c6d465ee073ec9aebf1765be3f68e0d90da5b32c756e44d198c3ba595bba",
+      "width": 1920
+    },
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-recovery-priority.png",
+      "sha256": "7d73e00f8a5b7507c5aab7fafad4cf2e1d032fb541e6bd8f8e1942a8c39cd700",
+      "width": 1920
+    },
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-recover-hold.png",
+      "sha256": "d5f14c32c338f89f4aadf111c179d6ece3ff7c2ce4e9ed8bba36b98477a4cc8f",
+      "width": 1920
+    },
+    {
+      "height": 1080,
+      "image": "res://reports/m4-hud-results.png",
+      "sha256": "460347894b5ee57a77546467e6442375bfa80af61df56ebd0a5a0f0e5df1bf51",
+      "width": 1920
+    },
+    {
+      "height": 796,
+      "image": "res://reports/m4-hud-touch-phone-slider.png",
+      "sha256": "50fb56c85a68ba3fbe80efbd7e8ff7763f281de3003559e4ec8228e82dafefd8",
+      "width": 1768
+    },
+    {
+      "height": 796,
+      "image": "res://reports/m4-hud-touch-phone-minimum.png",
+      "sha256": "f5f3ce3085b1ab7dc68971d33b162325d6810c33a29a2711cb9dec790793c5ba",
+      "width": 1768
+    },
+    {
+      "height": 796,
+      "image": "res://reports/m4-hud-touch-phone-buttons.png",
+      "sha256": "f7a763b397590ade39cd57eb5564a5f432bd017de4e2972a45fa19370534d11e",
+      "width": 1768
+    },
+    {
+      "height": 1600,
+      "image": "res://reports/m4-hud-touch-tablet-slider.png",
+      "sha256": "10d4021db2c408757b3a6bf69e1ec8908026b477a695e250fc70f845062add70",
+      "width": 2560
+    },
+    {
+      "height": 796,
+      "image": "res://reports/m4-hud-touch-phone-contrast.png",
+      "sha256": "882a0ffdf1a1e0a0eb0e4d6a2d61857a2b55870f3b1f03ca3b6c48288497adf9",
+      "width": 1768
+    }
+  ],
+  "captures": [
+    "res://reports/m4-hud-race-100.png",
+    "res://reports/m4-hud-race-150.png",
+    "res://reports/m4-hud-nameplates-emoji-150.png",
+    "res://reports/m4-hud-nameplates-ellipsis-150.png",
+    "res://reports/m4-hud-nameplates-contrast-150.png",
+    "res://reports/m4-hud-connection.png",
+    "res://reports/m4-hud-trial-delta.png",
+    "res://reports/m4-hud-recovery-priority.png",
+    "res://reports/m4-hud-recover-hold.png",
+    "res://reports/m4-hud-results.png",
+    "res://reports/m4-hud-touch-phone-slider.png",
+    "res://reports/m4-hud-touch-phone-minimum.png",
+    "res://reports/m4-hud-touch-phone-buttons.png",
+    "res://reports/m4-hud-touch-tablet-slider.png",
+    "res://reports/m4-hud-touch-phone-contrast.png"
+  ],
+  "content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+  "renderer": "Godot 4.6.3 Compatibility"
+}

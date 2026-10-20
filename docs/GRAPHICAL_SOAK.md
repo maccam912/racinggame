@@ -1,8 +1,9 @@
 # Live graphical scene-cycle evidence
 
 `python3 tools/render_soak.py` runs the source client for at least 900 seconds,
-finishing its current race before stopping. It cycles all six courses, seven
-Medium opponents, normal input-provider AI for the local car, the production
+finishing its current race before stopping. By default it cycles the current
+ten-course catalog; `--tracks` selects an explicit repeated course order. It uses
+seven Medium opponents, normal input-provider AI for the local car, the production
 loading/warm-up path and the native HUD. A random diagnostic profile isolates the
 run. `--seconds 1` is a smoke run that still finishes one ordinary race.
 
@@ -44,3 +45,27 @@ The final wrapper also passes a separate one-race
 [automatic-profile-archive smoke](evidence/graphical-soak/profile-archive-smoke.json),
 with `owned_profile_archived: true`. That follow-up verifies its cleanup path;
 the original fifteen-minute report remains unchanged.
+
+## Later content-8 runs
+
+The [full catalog-cycle run](evidence/city108/render-lifetime-initial/)
+completes 12 races but **fails** the unchanged 5% post-warm-up growth guard at
+**9.343%** (peak RSS 815,464,448 bytes). Its first full eight-course cycle takes
+638 seconds, beyond the five-minute warm-up; the actual failed verdict remains.
+A separate explicit [Skyline/Quarry repeat](evidence/city108/render-lifetime-heavy/)
+**passes** nine complete eight-car races in 957.4 native seconds, with peak RSS
+**666,681,344 bytes**, growth **2.478152%**, racing p95/p99 **18.349/18.905 ms**.
+Both heavy worlds are seen before the five-minute baseline. This does not
+reclassify the earlier failure or establish all-catalog/minimum-hardware limits.
+The current quiet fixture uses the production mixer/resource path with Dummy
+audio output; its exact source and every scene/loading memory peak are retained.
+
+The clean-source [content-9 Caldera/Spillway repeat](evidence/content9/render-lifetime-new-courses/)
+passes seven complete eight-car races in 1,042.6 native seconds, with peak RSS
+**761,806,848 bytes**, growth **1.855422%**, and racing p95/p99
+**18.336/19.048 ms** across 59,260 samples. Both new worlds load before the
+five-minute baseline. The report identifies clean source `95660b7` and exact
+cosmetic hash `1fe44b97`; later cosmetic work does not change that pairing.
+Other fixture processes were active during warm-up. Full loading peaks and
+all draw intervals remain, including one 34.713 ms maximum. This is a
+course-specific host lifetime result, with the same hardware boundaries above.

@@ -1,0 +1,184 @@
+{
+  "active_state_and_space_preserved": true,
+  "adaptive_floor": 60,
+  "automatic_feedback_paused_only_during_scripted_phases": true,
+  "boundary": "Actual renderer, posed eight-car scene, synthetic continuous pressure/headroom samples and injected OS memory notification. Automatic pressure feedback is disconnected only during the controlled 80/60/80 captures, then reconnected for live instrumentation. Live timings validate instrumentation only; not physical thermal, real memory exhaustion, human driving or sustained device performance acceptance.",
+  "captures": [
+    "res://reports/m5-runtime-selected-80.png",
+    "res://reports/m5-runtime-adaptive-60.png",
+    "res://reports/m5-runtime-memory-pressure.png",
+    "res://reports/m5-runtime-restored-80.png"
+  ],
+  "diagnostic_draw_cap": 0,
+  "host_pixels": [
+    1920,
+    1080
+  ],
+  "hud_native_host_unchanged": true,
+  "live_adaptive_changes": 2,
+  "live_timing_samples": [
+    {
+      "gpu_ms": 370.446998596191,
+      "interval_ms": 0.0,
+      "work_ms": 370.446998596191
+    },
+    {
+      "gpu_ms": 371.662002563477,
+      "interval_ms": 383.03,
+      "work_ms": 371.662002563477
+    },
+    {
+      "gpu_ms": 371.917003631592,
+      "interval_ms": 384.278,
+      "work_ms": 371.917003631592
+    },
+    {
+      "gpu_ms": 373.279003143311,
+      "interval_ms": 378.744,
+      "work_ms": 373.279003143311
+    },
+    {
+      "gpu_ms": 374.180015563965,
+      "interval_ms": 380.492,
+      "work_ms": 374.180015563965
+    },
+    {
+      "gpu_ms": 373.334999084473,
+      "interval_ms": 383.331,
+      "work_ms": 373.334999084473
+    },
+    {
+      "gpu_ms": 374.841987609863,
+      "interval_ms": 380.619,
+      "work_ms": 374.841987609863
+    },
+    {
+      "gpu_ms": 373.520004272461,
+      "interval_ms": 344.882,
+      "work_ms": 373.520004272461
+    },
+    {
+      "gpu_ms": 375.993991851807,
+      "interval_ms": 323.417,
+      "work_ms": 375.993991851807
+    },
+    {
+      "gpu_ms": 372.074012756348,
+      "interval_ms": 323.863,
+      "work_ms": 372.074012756348
+    },
+    {
+      "gpu_ms": 373.033004760742,
+      "interval_ms": 322.961,
+      "work_ms": 373.033004760742
+    },
+    {
+      "gpu_ms": 373.730007171631,
+      "interval_ms": 324.949,
+      "work_ms": 373.730007171631
+    },
+    {
+      "gpu_ms": 373.161987304687,
+      "interval_ms": 328.009,
+      "work_ms": 373.161987304687
+    },
+    {
+      "gpu_ms": 330.884994506836,
+      "interval_ms": 325.068,
+      "work_ms": 330.884994506836
+    },
+    {
+      "gpu_ms": 316.974994659424,
+      "interval_ms": 278.269,
+      "work_ms": 316.974994659424
+    },
+    {
+      "gpu_ms": 317.169994354248,
+      "interval_ms": 278.143,
+      "work_ms": 317.169994354248
+    },
+    {
+      "gpu_ms": 315.287006378174,
+      "interval_ms": 275.377,
+      "work_ms": 315.287006378174
+    },
+    {
+      "gpu_ms": 316.835987091064,
+      "interval_ms": 275.303,
+      "work_ms": 316.835987091064
+    },
+    {
+      "gpu_ms": 320.149997711182,
+      "interval_ms": 277.383,
+      "work_ms": 320.149997711182
+    },
+    {
+      "gpu_ms": 316.943000793457,
+      "interval_ms": 279.931,
+      "work_ms": 316.943000793457
+    },
+    {
+      "gpu_ms": 270.880004882812,
+      "interval_ms": 283.082,
+      "work_ms": 270.880004882812
+    },
+    {
+      "gpu_ms": 271.208000183105,
+      "interval_ms": 280.081,
+      "work_ms": 271.208000183105
+    },
+    {
+      "gpu_ms": 268.593006134033,
+      "interval_ms": 281.711,
+      "work_ms": 268.593006134033
+    },
+    {
+      "gpu_ms": 268.927001953125,
+      "interval_ms": 274.973,
+      "work_ms": 268.927001953125
+    },
+    {
+      "gpu_ms": 270.633007049561,
+      "interval_ms": 279.271,
+      "work_ms": 270.633007049561
+    },
+    {
+      "gpu_ms": 273.315006256104,
+      "interval_ms": 275.097,
+      "work_ms": 273.315006256104
+    },
+    {
+      "gpu_ms": 275.991996765137,
+      "interval_ms": 277.406,
+      "work_ms": 275.991996765137
+    },
+    {
+      "gpu_ms": 273.482006072998,
+      "interval_ms": 275.333,
+      "work_ms": 273.482006072998
+    },
+    {
+      "gpu_ms": 274.872993469238,
+      "interval_ms": 277.702,
+      "work_ms": 274.872993469238
+    },
+    {
+      "gpu_ms": 268.629005432129,
+      "interval_ms": 274.763,
+      "work_ms": 268.629005432129
+    }
+  ],
+  "physics_hz": 60,
+  "renderer": "Godot 4.6.3 Compatibility",
+  "selected_scale": 80,
+  "world_sizes": [
+    [
+      1536,
+      864
+    ],
+    [
+      1152,
+      648
+    ]
+  ]
+}

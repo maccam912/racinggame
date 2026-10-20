@@ -1,0 +1,36 @@
+{
+  "target": "macos",
+  "host": "Darwin-arm64",
+  "kind": "exported binary headless startup; graphical/device performance not measured",
+  "artifact": "pacific-rush-00110-macos.zip",
+  "artifact_sha256": "b9f113bc8ce24136e6870b17e63c90613c31aa9d2b7664f0bfe8b2c5b5af3bda",
+  "binary_sha256": "1a1cb5e5e29b1314d151a9d9459d6cb60dd9d5d90feef52e4671d6d586a44090",
+  "packaged_build": {
+    "version": "0.0.110-dev",
+    "build_number": 110,
+    "working_tree_dirty": false,
+    "commit": "95660b7013375212548f9bbae4aba708c72bd5c7",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+    "asset_hash": "1fe44b97904705d8c33d4a6d531e12bccd243882b48dfa82e540f57d62a9bd1b",
+    "target_platform": "macos",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "macos",
+      "architecture": "universal",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e",
+      "sha256": "3f114e0879af03e00644f5f5dd4c50278be5412e11e397a8064e6784e0404a3b"
+    }
+  },
+  "passed": true,
+  "platform_probe": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_PLATFORM_READY Keychain\n",
+  "output": "Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_CLIENT_READY\n"
+}

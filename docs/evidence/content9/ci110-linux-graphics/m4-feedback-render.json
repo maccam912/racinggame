@@ -1,0 +1,151 @@
+{
+  "asset_hash": "1fe44b97904705d8c33d4a6d531e12bccd243882b48dfa82e540f57d62a9bd1b",
+  "boundary": "Scripted presentation-state native renders, not physical driving, thermal, gamepad motor or human feel acceptance",
+  "renderer": "Godot 4.6.3 Compatibility",
+  "resolution": [
+    1920,
+    1080
+  ],
+  "views": [
+    {
+      "car_opacity": 1.0,
+      "draw_calls": 279.0,
+      "file": "res://reports/m4-feedback-smoke-skids-full.png",
+      "id": "smoke-skids-full",
+      "particles": {
+        "dust": 0,
+        "smoke": 35,
+        "spark": 0
+      },
+      "recovery_ticks": 0,
+      "skid_strips": 118,
+      "world_cover": 0.0
+    },
+    {
+      "car_opacity": 1.0,
+      "draw_calls": 279.0,
+      "file": "res://reports/m4-feedback-dust-landing-full.png",
+      "id": "dust-landing-full",
+      "particles": {
+        "dust": 42,
+        "smoke": 0,
+        "spark": 0
+      },
+      "recovery_ticks": 0,
+      "skid_strips": 118,
+      "world_cover": 0.0
+    },
+    {
+      "car_opacity": 1.0,
+      "draw_calls": 279.0,
+      "file": "res://reports/m4-feedback-wall-sparks.png",
+      "id": "wall-sparks",
+      "particles": {
+        "dust": 0,
+        "smoke": 0,
+        "spark": 12
+      },
+      "recovery_ticks": 0,
+      "skid_strips": 118,
+      "world_cover": 0.0
+    },
+    {
+      "car_opacity": 1.0,
+      "draw_calls": 280.0,
+      "file": "res://reports/m4-feedback-reduced.png",
+      "id": "reduced",
+      "particles": {
+        "dust": 0,
+        "smoke": 20,
+        "spark": 6
+      },
+      "recovery_ticks": 0,
+      "skid_strips": 118,
+      "world_cover": 0.0
+    },
+    {
+      "car_opacity": 1.0,
+      "draw_calls": 277.0,
+      "file": "res://reports/m4-feedback-off.png",
+      "id": "off",
+      "particles": {
+        "dust": 0,
+        "smoke": 0,
+        "spark": 0
+      },
+      "recovery_ticks": 0,
+      "skid_strips": 0,
+      "world_cover": 0.0
+    },
+    {
+      "car_opacity": 1.0,
+      "draw_calls": 260.0,
+      "file": "res://reports/m4-feedback-recovery-60.png",
+      "id": "recovery-60",
+      "particles": {
+        "dust": 0,
+        "smoke": 0,
+        "spark": 0
+      },
+      "recovery_ticks": 60,
+      "skid_strips": 0,
+      "world_cover": 0.0
+    },
+    {
+      "car_opacity": 0.5,
+      "draw_calls": 260.0,
+      "file": "res://reports/m4-feedback-recovery-45.png",
+      "id": "recovery-45",
+      "particles": {
+        "dust": 0,
+        "smoke": 0,
+        "spark": 0
+      },
+      "recovery_ticks": 45,
+      "skid_strips": 0,
+      "world_cover": 0.5
+    },
+    {
+      "car_opacity": 0.0,
+      "draw_calls": 157.0,
+      "file": "res://reports/m4-feedback-recovery-30.png",
+      "id": "recovery-30",
+      "particles": {
+        "dust": 0,
+        "smoke": 0,
+        "spark": 0
+      },
+      "recovery_ticks": 30,
+      "skid_strips": 0,
+      "world_cover": 1.0
+    },
+    {
+      "car_opacity": 0.375,
+      "draw_calls": 179.0,
+      "file": "res://reports/m4-feedback-recovery-15.png",
+      "id": "recovery-15",
+      "particles": {
+        "dust": 0,
+        "smoke": 0,
+        "spark": 0
+      },
+      "recovery_ticks": 15,
+      "skid_strips": 0,
+      "world_cover": 0.5
+    },
+    {
+      "car_opacity": 0.75,
+      "draw_calls": 176.0,
+      "file": "res://reports/m4-feedback-recovery-0.png",
+      "id": "recovery-0",
+      "particles": {
+        "dust": 0,
+        "smoke": 0,
+        "spark": 0
+      },
+      "recovery_ticks": 0,
+      "skid_strips": 0,
+      "world_cover": 0.0
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "boundary": "Native desktop menu renders with explicit mobile-layout overrides, 100/150 percent scale, plus deterministic keyboard/focus tests. These are not Android APK captures, human comprehension, screen-reader or physical input-device acceptance.",
+  "captures": [
+    "res://reports/m4-menu-main-focus-help.png",
+    "res://reports/m4-menu-slide.png",
+    "res://reports/m4-menu-garage-selected.png",
+    "res://reports/m4-menu-garage-150.png",
+    "res://reports/m4-menu-disabled-reason-150.png",
+    "res://reports/m4-menu-reduced-motion-cut.png",
+    "res://reports/m4-menu-phone-main-100.png",
+    "res://reports/m4-menu-phone-garage-100.png",
+    "res://reports/m4-menu-phone-settings-100.png",
+    "res://reports/m4-menu-phone-main-150.png",
+    "res://reports/m4-menu-phone-garage-150.png",
+    "res://reports/m4-menu-phone-settings-150.png",
+    "res://reports/m4-menu-tablet-main-100.png",
+    "res://reports/m4-menu-tablet-garage-100.png",
+    "res://reports/m4-menu-tablet-settings-100.png",
+    "res://reports/m4-menu-tablet-main-150.png",
+    "res://reports/m4-menu-tablet-garage-150.png",
+    "res://reports/m4-menu-tablet-settings-150.png",
+    "res://reports/m4-menu-tablet-high-contrast-150.png"
+  ],
+  "desktop_resolution": [
+    1920,
+    1080
+  ],
+  "focus_help_seconds": 0.5,
+  "focus_transition_seconds": 0.1,
+  "mobile_layouts": [
+    [
+      884,
+      398
+    ],
+    [
+      1280,
+      800
+    ]
+  ],
+  "renderer": "Godot 4.6.3 Compatibility",
+  "screen_transition_seconds": 0.18
+}

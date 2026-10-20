@@ -1,0 +1,5 @@
+# Actual installed APK 110 plus seven native clients
+
+Both new courses complete through eight independent UDP proxies (50±20 ms each direction, 1% datagram loss including ENet ACKs): **16 identical authority/Android/native finish rows**, all eight identities retained, two graphics preparations and two committed Android race journals. The same Android process survives both races. No cleanup issue occurs. Source at launch is clean `95660b7`, APK SHA-256 `9a3c9e3ad150ceba5bb0d055f61141911de9e1486775148124281088d3fea5dd`.
+
+Seven native clients record minimum **1,635 clear samples** and worst clear p95 **0.0338212 m**; Android correction percentiles are not measured. Highest snapshot checkpoints are 74/88 in both races. Ordinary input-provider AI drives the real installed APK; this is emulator cross-play, separate from human two-thumb, cellular, thermal or minimum-hardware acceptance. Every log, full authority row, client report, actual APK grid/results PNG and exact fixture source is retained. The native source client and APK identify content/protocol/save 9/5/1 and gameplay `f762fa68`; elapsed wrapper time **393.151 seconds**.
