@@ -1,0 +1,1214 @@
+{
+	"payload": {
+		"bots": {
+			"0": {
+				"difficulty": 1,
+				"offset": {
+					"f64": "ac9999999999c93f"
+				},
+				"planning_ticks": 1,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "ad3d85674e50babf"
+					},
+					"throttle": {
+						"f64": "000000000000f03f"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			"1": {
+				"difficulty": 1,
+				"offset": {
+					"f64": "0000000000000000"
+				},
+				"planning_ticks": 1,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "b9680022627ba2bf"
+					},
+					"throttle": {
+						"f64": "55d6ea9808f0e03f"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			"2": {
+				"difficulty": 1,
+				"offset": {
+					"f64": "343333333333e3bf"
+				},
+				"planning_ticks": 1,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "9495b8083856bd3f"
+					},
+					"throttle": {
+						"f64": "000000000000f03f"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			"3": {
+				"difficulty": 1,
+				"offset": {
+					"f64": "cccccccccccc0440"
+				},
+				"planning_ticks": 1,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "340f3d953180a6bf"
+					},
+					"throttle": {
+						"f64": "000000000000f03f"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			"5": {
+				"difficulty": 1,
+				"offset": {
+					"f64": "9b9999999999d93f"
+				},
+				"planning_ticks": 1,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "a9cf90b2e50ab5bf"
+					},
+					"throttle": {
+						"f64": "000000000000f03f"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			"6": {
+				"difficulty": 1,
+				"offset": {
+					"f64": "caccccccccccfc3f"
+				},
+				"planning_ticks": 1,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "6eef8efff491bbbf"
+					},
+					"throttle": {
+						"f64": "000000000000f03f"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			"7": {
+				"difficulty": 1,
+				"offset": {
+					"f64": "00000000000090bc"
+				},
+				"planning_ticks": 1,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "772cca4448bdb23f"
+					},
+					"throttle": {
+						"f64": "000000000000f03f"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			}
+		},
+		"config": {
+			"car": 0,
+			"contact": true,
+			"cup_event": -1,
+			"cup_id": "",
+			"difficulty": 1,
+			"ghost": true,
+			"laps": 2,
+			"lesson": 0,
+			"mode": "quick",
+			"opponents": 7,
+			"paint": 0,
+			"roster": [
+				{
+					"bot": true,
+					"car": 0,
+					"id": "bot_sunny",
+					"name": "Sunny",
+					"paint": 0
+				},
+				{
+					"bot": true,
+					"car": 2,
+					"id": "bot_jet",
+					"name": "Jet",
+					"paint": 1
+				},
+				{
+					"bot": true,
+					"car": 1,
+					"id": "bot_poppy",
+					"name": "Poppy",
+					"paint": 2
+				},
+				{
+					"bot": true,
+					"car": 3,
+					"id": "bot_ridge",
+					"name": "Ridge",
+					"paint": 3
+				},
+				{
+					"bot": false,
+					"car": 0,
+					"id": "local",
+					"name": "Driver",
+					"paint": 0
+				},
+				{
+					"bot": true,
+					"car": 2,
+					"id": "bot_skipper",
+					"name": "Skipper",
+					"paint": 5
+				},
+				{
+					"bot": true,
+					"car": 1,
+					"id": "bot_dash",
+					"name": "Dash",
+					"paint": 6
+				},
+				{
+					"bot": true,
+					"car": 3,
+					"id": "bot_cove",
+					"name": "Cove",
+					"paint": 7
+				}
+			],
+			"seed": 515005,
+			"track": 0
+		},
+		"content_hash": "4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a",
+		"finish_drivers": [
+			{
+				"difficulty": 1,
+				"offset": {
+					"f64": "0000000000000000"
+				},
+				"planning_ticks": 0,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "0000000000000000"
+					},
+					"throttle": {
+						"f64": "0000000000000000"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			{
+				"difficulty": 1,
+				"offset": {
+					"f64": "0000000000000000"
+				},
+				"planning_ticks": 0,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "0000000000000000"
+					},
+					"throttle": {
+						"f64": "0000000000000000"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			{
+				"difficulty": 1,
+				"offset": {
+					"f64": "0000000000000000"
+				},
+				"planning_ticks": 0,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "0000000000000000"
+					},
+					"throttle": {
+						"f64": "0000000000000000"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			{
+				"difficulty": 1,
+				"offset": {
+					"f64": "0000000000000000"
+				},
+				"planning_ticks": 0,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "0000000000000000"
+					},
+					"throttle": {
+						"f64": "0000000000000000"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			{
+				"difficulty": 1,
+				"offset": {
+					"f64": "0000000000000000"
+				},
+				"planning_ticks": 0,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "0000000000000000"
+					},
+					"throttle": {
+						"f64": "0000000000000000"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			{
+				"difficulty": 1,
+				"offset": {
+					"f64": "0000000000000000"
+				},
+				"planning_ticks": 0,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "0000000000000000"
+					},
+					"throttle": {
+						"f64": "0000000000000000"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			{
+				"difficulty": 1,
+				"offset": {
+					"f64": "0000000000000000"
+				},
+				"planning_ticks": 0,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "0000000000000000"
+					},
+					"throttle": {
+						"f64": "0000000000000000"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			},
+			{
+				"difficulty": 1,
+				"offset": {
+					"f64": "0000000000000000"
+				},
+				"planning_ticks": 0,
+				"previous": {
+					"brake": {
+						"f64": "0000000000000000"
+					},
+					"handbrake": false,
+					"recover": false,
+					"sequence": 0,
+					"steer": {
+						"f64": "0000000000000000"
+					},
+					"throttle": {
+						"f64": "0000000000000000"
+					},
+					"tick": 0
+				},
+				"recover_hold_ticks": 0,
+				"stuck_ticks": 0
+			}
+		],
+		"format": 1,
+		"inputs": [
+			{
+				"brake": {
+					"f64": "0000000000000000"
+				},
+				"handbrake": false,
+				"recover": false,
+				"sequence": 0,
+				"steer": {
+					"f64": "ad3d85674e50babf"
+				},
+				"throttle": {
+					"f64": "000000000000f03f"
+				},
+				"tick": 0
+			},
+			{
+				"brake": {
+					"f64": "0000000000000000"
+				},
+				"handbrake": false,
+				"recover": false,
+				"sequence": 0,
+				"steer": {
+					"f64": "b9680022627ba2bf"
+				},
+				"throttle": {
+					"f64": "55d6ea9808f0e03f"
+				},
+				"tick": 0
+			},
+			{
+				"brake": {
+					"f64": "0000000000000000"
+				},
+				"handbrake": false,
+				"recover": false,
+				"sequence": 0,
+				"steer": {
+					"f64": "9495b8083856bd3f"
+				},
+				"throttle": {
+					"f64": "000000000000f03f"
+				},
+				"tick": 0
+			},
+			{
+				"brake": {
+					"f64": "0000000000000000"
+				},
+				"handbrake": false,
+				"recover": false,
+				"sequence": 0,
+				"steer": {
+					"f64": "340f3d953180a6bf"
+				},
+				"throttle": {
+					"f64": "000000000000f03f"
+				},
+				"tick": 0
+			},
+			{
+				"brake": {
+					"f64": "0000000000000000"
+				},
+				"handbrake": false,
+				"recover": false,
+				"sequence": 0,
+				"steer": {
+					"f64": "99a610275ae4563f"
+				},
+				"throttle": {
+					"f64": "000000000000f03f"
+				},
+				"tick": 0
+			},
+			{
+				"brake": {
+					"f64": "0000000000000000"
+				},
+				"handbrake": false,
+				"recover": false,
+				"sequence": 0,
+				"steer": {
+					"f64": "a9cf90b2e50ab5bf"
+				},
+				"throttle": {
+					"f64": "000000000000f03f"
+				},
+				"tick": 0
+			},
+			{
+				"brake": {
+					"f64": "0000000000000000"
+				},
+				"handbrake": false,
+				"recover": false,
+				"sequence": 0,
+				"steer": {
+					"f64": "6eef8efff491bbbf"
+				},
+				"throttle": {
+					"f64": "000000000000f03f"
+				},
+				"tick": 0
+			},
+			{
+				"brake": {
+					"f64": "0000000000000000"
+				},
+				"handbrake": false,
+				"recover": false,
+				"sequence": 0,
+				"steer": {
+					"f64": "772cca4448bdb23f"
+				},
+				"throttle": {
+					"f64": "000000000000f03f"
+				},
+				"tick": 0
+			}
+		],
+		"lesson": {
+
+		},
+		"queries": [
+			88,
+			95,
+			63,
+			72,
+			82,
+			54,
+			45,
+			37
+		],
+		"session": {
+			"contact_enabled": true,
+			"cup_event": -1,
+			"elapsed_ticks": 300,
+			"event_uuid": "",
+			"first_finish_tick": -1,
+			"human_slot": 4,
+			"lap_count": 2,
+			"mode": "quick",
+			"phase": 4,
+			"phase_ticks": 300,
+			"race_id": 1,
+			"race_uuid": "895fe2c3-c380-48d1-88bb-0eb53b13632f",
+			"seed": 515005,
+			"settled_ticks": 0
+		},
+		"states": [
+			{
+				"backwards_m": {
+					"f64": "0000000000000000"
+				},
+				"best_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"braking": false,
+				"contact_ticks": 0,
+				"distance_m": {
+					"f64": "0080c758fd426740"
+				},
+				"dnf_reason": "",
+				"drift_entry": {
+					"f64": "0000000000000000"
+				},
+				"drift_phase": 0,
+				"drift_timer": {
+					"f64": "0000000000000000"
+				},
+				"events": [],
+				"finish_time": {
+					"f64": "000000000000f0bf"
+				},
+				"finished": false,
+				"forward_ticks": 300,
+				"ghost_ticks": 0,
+				"ground_normal": {
+					"v3": "000000000000803f00000000"
+				},
+				"grounded": true,
+				"jump_lap": -1,
+				"lap_start_time": {
+					"f64": "0000000000000000"
+				},
+				"lap_valid": true,
+				"laps": 0,
+				"last_ack": 0,
+				"last_gate": 1,
+				"last_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"launch_ticks": 0,
+				"offroad_ticks": 0,
+				"outside_ticks": 0,
+				"position": {
+					"v3": "2990643f33338b4094ba39c3"
+				},
+				"recovery_hold_ticks": 0,
+				"recovery_latched": false,
+				"recovery_ticks": 0,
+				"reverse_hold": {
+					"f64": "0000000000000000"
+				},
+				"reversing": false,
+				"route_s": {
+					"f64": "0000008052376640"
+				},
+				"slot": 0,
+				"steer_filter": {
+					"f64": "ad3d85674e50babf"
+				},
+				"surface": "asphalt",
+				"trial_valid": true,
+				"velocity": {
+					"v3": "3912e33f0000000000a67fc2"
+				},
+				"wall_contact": false,
+				"wall_separation_ticks": 312,
+				"wrong_way_ticks": 0,
+				"yaw": {
+					"f64": "6cfb6109676a9c3f"
+				},
+				"yaw_rate": {
+					"f64": "34c462aff912b0bf"
+				}
+			},
+			{
+				"backwards_m": {
+					"f64": "0000000000000000"
+				},
+				"best_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"braking": false,
+				"contact_ticks": 0,
+				"distance_m": {
+					"f64": "00002f17e6d96840"
+				},
+				"dnf_reason": "",
+				"drift_entry": {
+					"f64": "0000000000000000"
+				},
+				"drift_phase": 0,
+				"drift_timer": {
+					"f64": "0000000000000000"
+				},
+				"events": [],
+				"finish_time": {
+					"f64": "000000000000f0bf"
+				},
+				"finished": false,
+				"forward_ticks": 300,
+				"ghost_ticks": 0,
+				"ground_normal": {
+					"v3": "000000000000803f00000000"
+				},
+				"grounded": true,
+				"jump_lap": -1,
+				"lap_start_time": {
+					"f64": "0000000000000000"
+				},
+				"lap_valid": true,
+				"laps": 0,
+				"last_ack": 0,
+				"last_gate": 1,
+				"last_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"launch_ticks": 0,
+				"offroad_ticks": 0,
+				"outside_ticks": 0,
+				"position": {
+					"v3": "7bebf13c33338b40998846c3"
+				},
+				"recovery_hold_ticks": 0,
+				"recovery_latched": false,
+				"recovery_ticks": 0,
+				"reverse_hold": {
+					"f64": "0000000000000000"
+				},
+				"reversing": false,
+				"route_s": {
+					"f64": "0000002013d16740"
+				},
+				"slot": 1,
+				"steer_filter": {
+					"f64": "b9680022627ba2bf"
+				},
+				"surface": "asphalt",
+				"trial_valid": true,
+				"velocity": {
+					"v3": "ab1849be0000000053f780c2"
+				},
+				"wall_contact": false,
+				"wall_separation_ticks": 312,
+				"wrong_way_ticks": 0,
+				"yaw": {
+					"f64": "9aeb3f77dbf268bf"
+				},
+				"yaw_rate": {
+					"f64": "417654c9e96298bf"
+				}
+			},
+			{
+				"backwards_m": {
+					"f64": "0000000000000000"
+				},
+				"best_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"braking": false,
+				"contact_ticks": 0,
+				"distance_m": {
+					"f64": "00c074046bcf6140"
+				},
+				"dnf_reason": "",
+				"drift_entry": {
+					"f64": "0000000000000000"
+				},
+				"drift_phase": 0,
+				"drift_timer": {
+					"f64": "0000000000000000"
+				},
+				"events": [],
+				"finish_time": {
+					"f64": "000000000000f0bf"
+				},
+				"finished": false,
+				"forward_ticks": 300,
+				"ghost_ticks": 0,
+				"ground_normal": {
+					"v3": "000000000000803f00000000"
+				},
+				"grounded": true,
+				"jump_lap": -1,
+				"lap_start_time": {
+					"f64": "0000000000000000"
+				},
+				"lap_valid": true,
+				"laps": 0,
+				"last_ack": 0,
+				"last_gate": 1,
+				"last_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"launch_ticks": 0,
+				"offroad_ticks": 0,
+				"outside_ticks": 0,
+				"position": {
+					"v3": "f26426c033338b40fa0507c3"
+				},
+				"recovery_hold_ticks": 0,
+				"recovery_latched": false,
+				"recovery_ticks": 0,
+				"reverse_hold": {
+					"f64": "0000000000000000"
+				},
+				"reversing": false,
+				"route_s": {
+					"f64": "000000807ec15f40"
+				},
+				"slot": 2,
+				"steer_filter": {
+					"f64": "9495b8083856bd3f"
+				},
+				"surface": "asphalt",
+				"trial_valid": true,
+				"velocity": {
+					"v3": "03d7df3e000000008b1563c2"
+				},
+				"wall_contact": false,
+				"wall_separation_ticks": 312,
+				"wrong_way_ticks": 0,
+				"yaw": {
+					"f64": "53afb7f2cd8a7f3f"
+				},
+				"yaw_rate": {
+					"f64": "271a57be77d8b03f"
+				}
+			},
+			{
+				"backwards_m": {
+					"f64": "0000000000000000"
+				},
+				"best_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"braking": false,
+				"contact_ticks": 0,
+				"distance_m": {
+					"f64": "0030e239acf76340"
+				},
+				"dnf_reason": "",
+				"drift_entry": {
+					"f64": "0000000000000000"
+				},
+				"drift_phase": 0,
+				"drift_timer": {
+					"f64": "0000000000000000"
+				},
+				"events": [],
+				"finish_time": {
+					"f64": "000000000000f0bf"
+				},
+				"finished": false,
+				"forward_ticks": 300,
+				"ghost_ticks": 0,
+				"ground_normal": {
+					"v3": "000000000000803f00000000"
+				},
+				"grounded": true,
+				"jump_lap": -1,
+				"lap_start_time": {
+					"f64": "0000000000000000"
+				},
+				"lap_valid": true,
+				"laps": 0,
+				"last_ack": 0,
+				"last_gate": 1,
+				"last_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"launch_ticks": 0,
+				"offroad_ticks": 0,
+				"outside_ticks": 0,
+				"position": {
+					"v3": "1a2a2f4033338b40f81a18c3"
+				},
+				"recovery_hold_ticks": 0,
+				"recovery_latched": false,
+				"recovery_ticks": 0,
+				"reverse_hold": {
+					"f64": "0000000000000000"
+				},
+				"reversing": false,
+				"route_s": {
+					"f64": "000000005f036240"
+				},
+				"slot": 3,
+				"steer_filter": {
+					"f64": "340f3d953180a6bf"
+				},
+				"surface": "asphalt",
+				"trial_valid": true,
+				"velocity": {
+					"v3": "82909c3f0000000088ff72c2"
+				},
+				"wall_contact": false,
+				"wall_separation_ticks": 312,
+				"wrong_way_ticks": 0,
+				"yaw": {
+					"f64": "6e9a71036b9d943f"
+				},
+				"yaw_rate": {
+					"f64": "8f267cf5a7f09abf"
+				}
+			},
+			{
+				"backwards_m": {
+					"f64": "0000000000000000"
+				},
+				"best_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"braking": false,
+				"contact_ticks": 0,
+				"distance_m": {
+					"f64": "00c0dae99a776740"
+				},
+				"dnf_reason": "",
+				"drift_entry": {
+					"f64": "0000000000000000"
+				},
+				"drift_phase": 0,
+				"drift_timer": {
+					"f64": "0000000000000000"
+				},
+				"events": [],
+				"finish_time": {
+					"f64": "000000000000f0bf"
+				},
+				"finished": false,
+				"forward_ticks": 300,
+				"ghost_ticks": 0,
+				"ground_normal": {
+					"v3": "000000000000803f00000000"
+				},
+				"grounded": true,
+				"jump_lap": -1,
+				"lap_start_time": {
+					"f64": "0000000000000000"
+				},
+				"lap_valid": true,
+				"laps": 0,
+				"last_ack": 0,
+				"last_gate": 1,
+				"last_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"launch_ticks": 0,
+				"offroad_ticks": 0,
+				"outside_ticks": 0,
+				"position": {
+					"v3": "1472b7bd33338b4019652dc3"
+				},
+				"recovery_hold_ticks": 0,
+				"recovery_latched": false,
+				"recovery_ticks": 0,
+				"reverse_hold": {
+					"f64": "0000000000000000"
+				},
+				"reversing": false,
+				"route_s": {
+					"f64": "00000020a3ac6440"
+				},
+				"slot": 4,
+				"steer_filter": {
+					"f64": "99a610275ae4563f"
+				},
+				"surface": "asphalt",
+				"trial_valid": true,
+				"velocity": {
+					"v3": "e63ef83d00000000516b80c2"
+				},
+				"wall_contact": false,
+				"wall_separation_ticks": 312,
+				"wrong_way_ticks": 0,
+				"yaw": {
+					"f64": "53d43dd5ebed5e3f"
+				},
+				"yaw_rate": {
+					"f64": "4adc6955c5f74b3f"
+				}
+			},
+			{
+				"backwards_m": {
+					"f64": "0000000000000000"
+				},
+				"best_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"braking": false,
+				"contact_ticks": 0,
+				"distance_m": {
+					"f64": "000467ccbe4a6040"
+				},
+				"dnf_reason": "",
+				"drift_entry": {
+					"f64": "0000000000000000"
+				},
+				"drift_phase": 0,
+				"drift_timer": {
+					"f64": "0000000000000000"
+				},
+				"events": [],
+				"finish_time": {
+					"f64": "000000000000f0bf"
+				},
+				"finished": false,
+				"forward_ticks": 300,
+				"ghost_ticks": 0,
+				"ground_normal": {
+					"v3": "000000000000803f00000000"
+				},
+				"grounded": true,
+				"jump_lap": -1,
+				"lap_start_time": {
+					"f64": "0000000000000000"
+				},
+				"lap_valid": true,
+				"laps": 0,
+				"last_ack": 0,
+				"last_gate": 1,
+				"last_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"launch_ticks": 0,
+				"offroad_ticks": 0,
+				"outside_ticks": 0,
+				"position": {
+					"v3": "4d5e8f3f33338b40b044e8c2"
+				},
+				"recovery_hold_ticks": 0,
+				"recovery_latched": false,
+				"recovery_ticks": 0,
+				"reverse_hold": {
+					"f64": "0000000000000000"
+				},
+				"reversing": false,
+				"route_s": {
+					"f64": "0000000096085b40"
+				},
+				"slot": 5,
+				"steer_filter": {
+					"f64": "a9cf90b2e50ab5bf"
+				},
+				"surface": "asphalt",
+				"trial_valid": true,
+				"velocity": {
+					"v3": "a1658d3f000000003b3562c2"
+				},
+				"wall_contact": false,
+				"wall_separation_ticks": 312,
+				"wrong_way_ticks": 0,
+				"yaw": {
+					"f64": "d0f75d33f7ff933f"
+				},
+				"yaw_rate": {
+					"f64": "d00af8edd7c3abbf"
+				}
+			},
+			{
+				"backwards_m": {
+					"f64": "0000000000000000"
+				},
+				"best_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"braking": false,
+				"contact_ticks": 0,
+				"distance_m": {
+					"f64": "00f0a4f896da5d40"
+				},
+				"dnf_reason": "",
+				"drift_entry": {
+					"f64": "0000000000000000"
+				},
+				"drift_phase": 0,
+				"drift_timer": {
+					"f64": "0000000000000000"
+				},
+				"events": [],
+				"finish_time": {
+					"f64": "000000000000f0bf"
+				},
+				"finished": false,
+				"forward_ticks": 300,
+				"ghost_ticks": 0,
+				"ground_normal": {
+					"v3": "000000000000803f00000000"
+				},
+				"grounded": true,
+				"jump_lap": -1,
+				"lap_start_time": {
+					"f64": "0000000000000000"
+				},
+				"lap_valid": true,
+				"laps": 0,
+				"last_ack": 0,
+				"last_gate": 0,
+				"last_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"launch_ticks": 0,
+				"offroad_ticks": 0,
+				"outside_ticks": 0,
+				"position": {
+					"v3": "554a4c4033338b406289c4c2"
+				},
+				"recovery_hold_ticks": 0,
+				"recovery_latched": false,
+				"recovery_ticks": 0,
+				"reverse_hold": {
+					"f64": "0000000000000000"
+				},
+				"reversing": false,
+				"route_s": {
+					"f64": "000000402c915640"
+				},
+				"slot": 6,
+				"steer_filter": {
+					"f64": "6eef8efff491bbbf"
+				},
+				"surface": "asphalt",
+				"trial_valid": true,
+				"velocity": {
+					"v3": "99caa83e00000000605251c2"
+				},
+				"wall_contact": false,
+				"wall_separation_ticks": 312,
+				"wrong_way_ticks": 0,
+				"yaw": {
+					"f64": "f72f6818b8cd793f"
+				},
+				"yaw_rate": {
+					"f64": "4da6905b0d59b1bf"
+				}
+			},
+			{
+				"backwards_m": {
+					"f64": "0000000000000000"
+				},
+				"best_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"braking": false,
+				"contact_ticks": 0,
+				"distance_m": {
+					"f64": "004017a698f15940"
+				},
+				"dnf_reason": "",
+				"drift_entry": {
+					"f64": "0000000000000000"
+				},
+				"drift_phase": 0,
+				"drift_timer": {
+					"f64": "0000000000000000"
+				},
+				"events": [],
+				"finish_time": {
+					"f64": "000000000000f0bf"
+				},
+				"finished": false,
+				"forward_ticks": 300,
+				"ghost_ticks": 0,
+				"ground_normal": {
+					"v3": "000000000000803f00000000"
+				},
+				"grounded": true,
+				"jump_lap": -1,
+				"lap_start_time": {
+					"f64": "0000000000000000"
+				},
+				"lap_valid": true,
+				"laps": 0,
+				"last_ack": 0,
+				"last_gate": 0,
+				"last_lap_time": {
+					"f64": "000000000000f0bf"
+				},
+				"launch_ticks": 0,
+				"offroad_ticks": 0,
+				"outside_ticks": 0,
+				"position": {
+					"v3": "1c6710bf33338b407d2ca5c2"
+				},
+				"recovery_hold_ticks": 0,
+				"recovery_latched": false,
+				"recovery_ticks": 0,
+				"reverse_hold": {
+					"f64": "0000000000000000"
+				},
+				"reversing": false,
+				"route_s": {
+					"f64": "000000a08fa55240"
+				},
+				"slot": 7,
+				"steer_filter": {
+					"f64": "772cca4448bdb23f"
+				},
+				"surface": "asphalt",
+				"trial_valid": true,
+				"velocity": {
+					"v3": "478350bf000000009f1f42c2"
+				},
+				"wall_contact": false,
+				"wall_separation_ticks": 312,
+				"wrong_way_ticks": 0,
+				"yaw": {
+					"f64": "882a0c6c332f91bf"
+				},
+				"yaw_rate": {
+					"f64": "eca537133179ab3f"
+				}
+			}
+		]
+	},
+	"saved_at_utc": "2026-10-20T03:18:28Z",
+	"schema_version": 1
+}
