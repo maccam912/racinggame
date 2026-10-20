@@ -77,7 +77,7 @@ Useful checks:
 ```sh
 python3 tools/check.py
 python3 tools/bot_acceptance.py --seeds 20 --jobs 3
-python3 tools/soak_acceptance.py --laps 3 --seconds 2400
+python3 tools/soak_acceptance.py --laps 3 --seconds 2400 --clear-road-spacing
 python3 tools/godot.py --max-fps 60 --script tests/shader_warmup_evidence.gd
 ```
 

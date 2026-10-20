@@ -672,7 +672,7 @@ jobs:
           key: godot-linux-${{ hashFiles('tools/toolchain.lock') }}
       - run: python tools/godot.py --headless --editor --import --quit
       - name: Ten impaired eight-client races and five-to-fifteen-minute native RSS
-        run: python tools/soak_acceptance.py --laps 3 --seconds 2400
+        run: python tools/soak_acceptance.py --laps 3 --seconds 2400 --clear-road-spacing
       - uses: actions/upload-artifact@v4
         if: always()
         with:

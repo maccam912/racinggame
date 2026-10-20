@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/Users/maccam912/dev/racinggame/build/native-smoke/macos/Pacific Rush.app/Contents/MacOS/Pacific Rush",
+    "--resolution",
+    "1280x720",
+    "--disable-vsync",
+    "--audio-driver",
+    "Dummy",
+    "--write-movie",
+    "/Users/maccam912/dev/racinggame/build/roadside116-footage/citrus.avi",
+    "--fixed-fps",
+    "60",
+    "--",
+    "--profile=movie_citrus116_9d6f258068",
+    "--capture=/Users/maccam912/dev/racinggame/reports/roadside116-footage/citrus.png",
+    "--capture-track=citrus_pass",
+    "--capture-race-tick=1800",
+    "--autodrive"
+  ],
+  "profile": "movie_citrus116_9d6f258068",
+  "boundary": "Actual clean local exported Build116, ordinary shared-controller AI and seven opponents. Fixed 60 Hz Movie Maker demonstrates motion/presentation; no wall-clock performance or human handling claim."
+}

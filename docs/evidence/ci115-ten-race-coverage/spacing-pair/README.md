@@ -1,0 +1,7 @@
+# Explicit following-gap fixture: first classic three-lap pair
+
+**Pass:** 16 normal matching finishes, minimum **2829** clear observations per client/race, worst clear p95 **0.029287035 m**, all original finish/identity/checkpoint/coverage/correction/wire/error/source assertions. Elapsed **391.665 s**, no cleanup issues. All sixteen per-race checkpoints and 98 actual spacing transitions are retained.
+
+Command: `python3 tools/soak_acceptance.py --port 27510 --races 2 --laps 3 --seconds 540 --minimum-seconds 0 --clear-road-spacing --trace-driving`. The explicit mode compares vehicle positions from the same received snapshot, uses the production road-surface plane to exclude other levels, and gives the trailing/tied higher-slot driver ordinary full-brake input below 14 m until the gap reaches 28 m or speed falls below 10 m/s. It preserves normal steering, car types, staged starts and current paces. It never mutates vehicle state, production AI/physics or correction classification.
+
+The default direct/mixed-client fixture remains unchanged without this flag. The required ten-race CI recipe opts in. A focused read-only/aligned-traffic/level/tie/terminal contract, all 23 Python regressions and actionlint pass. The full source matrix now includes this contract (102 commands); remote execution and full ten-race acceptance remain pending. The dirty-source snapshot and embedded fixture hashes remain explicit; later clean commits/exports retain their own identities.

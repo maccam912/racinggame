@@ -46,14 +46,20 @@ limits also cover these events; operators must collect these fixed alert codes.
 python3 tools/godot.py --headless --script tests/worker_performance_tests.gd
 python3 tools/godot.py --headless --script tests/native_memory_tests.gd
 go -C services/directory test -race ./...
-python3 tools/soak_acceptance.py
+python3 tools/soak_acceptance.py --clear-road-spacing
 ```
 
-The optional source soak runs eight actual clients through ten two-lap Palm Bay/Citrus
+The optional source soak runs eight actual clients through ten three-lap Palm Bay/Citrus
 Pass races over independent real UDP proxies. Each direction adds 50±20 ms and
 1% independent datagram loss, including ENet acknowledgements/retransmissions.
 It checks matching standings, 80 finishes, clear-road p95 ≤0.25 m per client per
-race and no large racing control events. Counts include offered datagrams later
+race, at least 500 clear observations per client/race, and no large racing control events.
+The explicit following-gap fixture uses aligned received snapshots and ordinary
+brake inputs to prevent scripted drivers remaining in contact for an entire
+race. Production AI/physics, sample classification and all limits are unchanged.
+Each race publishes complete client checkpoints and checks its existing limits
+immediately; the full run still requires all 80 normal finishes and memory coverage.
+Counts include offered datagrams later
 dropped by the proxy. Racing wire intervals exclude handshake; reports separate
 UDP payload bytes from IPv4+UDP overhead (28 bytes/datagram). Default lifetime
 is at least 960 seconds to compare maximum observed RSS between five and fifteen

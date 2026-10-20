@@ -1,5 +1,15 @@
 # Implementation status
 
+## 20 October — Build115 full-soak coverage failure; physical-gap fixture under acceptance
+
+Build115's ten impaired three-lap Palm/Citrus races have **80 matching finishes**, worst clear p95 **0.0479960 m** and **0.981889%** worker RSS growth, but **fail** unchanged per-race clear coverage: two drivers in Palm race 7 have only **442/460 clear samples**, with **2,694/2,708 contact observations**. All other required jobs pass and publication correctly skips; no Build115 release exists. [Original failed full report, exact source and workflow](evidence/ci115-ten-race-coverage/initial-failure/).
+
+The explicit `--clear-road-spacing` fixture now creates real following gaps with ordinary brake inputs from aligned received traffic, retaining production AI/physics/classification and every numeric bound. It is opt-in, and the required full CI procedure enables it. Complete immutable per-race checkpoint files permit immediate checks of the same 500-sample/.25 m/eight-normal-finish requirements; the full 80-result/identity/wire/memory checks remain. A [real three-lap classic pair](evidence/ci115-ten-race-coverage/spacing-pair/) passes, alongside the received-traffic contract, 23 Python regressions and actionlint. Full ten-race and remote acceptance remain pending; the source matrix adds that focused contract for **102 commands**.
+
+## 20 October — clean local Build116 packages and ordinary gameplay
+
+Clean source **`8552845`** exports release Android/macOS packages with current roadside cosmetics **`f6fadc28`**. Actual in-place phone/tablet updates preserve UID/signer and all **47/41 files**; ordinary exported-APK Palm/Marina captures pass at **2400×1080 / 2560×1600** and are visually reviewed. Native macOS Keychain/adapter/headless startup passes. [Exact package/build/update evidence](evidence/roadside116/packages116/). The actual exported macOS Citrus game also records loading/countdown and 30 racing seconds: [36.383 s H264/AAC clip](evidence/roadside116/footage/citrus-gameplay.mp4), fixed60Hz MovieMaker, with original frame/command/build/provenance retained and only its own QA profile archived. This is presentation evidence; the measured native lifetime/frame population above retains its separate `15a71230` identity. Remote publication remains pending.
+
 ## 20 October — original beach, orchard and harbor roadside scenes
 
 Palm Bay gains **five surf huts and five striped umbrella/lounge/board-rack scenes**, Citrus **four produce-pallet/crate scenes**, and Marina **ten corrugated cargo stacks**. Four original paint variants, fitted doors/windows, extruded boards, braced crates, round faceted oranges, closed porch ceilings and two-sided cloth add detail between the existing landmarks. Every scene replaces an existing decoration site with the same **7 m** clearing, one shared-material surface, **fewer than 500 triangles** and no driving collision/frame work. Other road/terrain, landmark and foliage layouts remain unchanged.

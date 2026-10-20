@@ -70,6 +70,7 @@ func run() -> void:
 				"clear":statistics(link.prediction.clear_corrections), "contact":statistics(link.prediction.contact_corrections),
 				"terminal":statistics(link.prediction.terminal_corrections), "recoveries":link.prediction.recovery_corrections,
 				"clock_restores":statistics(link.prediction.clock_corrections), "history":link.prediction.history.size(), "rtt_ms":link.rtt_ms})
+		write_race_progress()
 		print("LOBBY_CLIENT_RACE_DONE index=%d race=%d" % [index, link.race_id])
 		link.command("return_lobby"))
 	link.status_changed.connect(func(message: String) -> void: print("LOBBY_CLIENT_STATUS ", message))
@@ -117,6 +118,18 @@ func run() -> void:
 	scene.queue_free()
 	await process_frame
 	quit(0 if success else 1)
+
+
+func write_race_progress() -> void:
+	if output.is_empty(): return
+	var path := output+".race-"+str(link.race_id)+".json"
+	var value := {"index":index,"race":link.race_id,"result":results.back(),"result_hash":result_hashes.back(),
+		"metrics":race_metrics.back() if not race_metrics.is_empty() and int(race_metrics.back().race)==link.race_id else {}}
+	var file := FileAccess.open(path+".pending",FileAccess.WRITE)
+	assert(file!=null,"owned per-race evidence must be writable")
+	file.store_string(JSON.stringify(value,"\t")+"\n")
+	file.close()
+	assert(DirAccess.rename_absolute(path+".pending",path)==OK,"publish only complete per-race evidence")
 
 
 func on_lobby(state: Dictionary) -> void:

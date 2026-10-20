@@ -27,6 +27,7 @@ def main():
     parser.add_argument('--seconds', type=int, default=2400)
     parser.add_argument('--minimum-seconds', type=int, default=960)
     parser.add_argument("--trace-driving", action="store_true")
+    parser.add_argument('--clear-road-spacing', action='store_true', help='Test-only ordinary brake inputs create following gaps; classification/coverage limits stay unchanged')
     parser.add_argument("--tracks", default="palm_bay,citrus_pass", help="Comma-separated catalog IDs in race order; repeats as necessary")
     args = parser.parse_args()
     catalog=[row["id"] for row in json.loads((ROOT/"game/content/tracks.json").read_text())["tracks"]]
@@ -57,7 +58,7 @@ def main():
                'content_hash':manifest['content_hash'],
                'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True)),
                'platform':platform.platform(), 'processor':platform.processor(),
-               'races_requested':args.races, 'laps':args.laps, 'track_order':selected,  'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
+               'races_requested':args.races, 'laps':args.laps, 'track_order':selected, 'clear_road_spacing':args.clear_road_spacing, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
                'independent_datagram_loss':.01, 'transport':'Eight independent real UDP proxies, including ENet ACKs and retransmissions',
                'boundary':'Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.'}
     summary['fixture_sha256'] = {name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in
@@ -74,7 +75,7 @@ def main():
             summary['worker_executable_sha256'] = hashlib.file_digest(file,'sha256').hexdigest()
     else:
         summary['worker_kind'] = 'Pinned editor running the source headless worker'
-    observations, race_wire, race_begin = [], [], {}
+    observations, race_wire, race_begin, progress_rows = [], [], {}, []
     began = time.monotonic()
     try:
         handle = (folder/'server.log').open('w'); handles.append(handle)
@@ -91,6 +92,7 @@ def main():
             processes.append(subprocess.Popen([*command, '--script','tests/soak_network_client.gd','--',
                 f'--port={args.port+index}',f'--index={index}',f'--races={args.races}',
                 f'--laps={args.laps}', '--tracks='+','.join(map(str,track_indices)), *(['--trace-driving'] if args.trace_driving else []),
+                *(['--clear-road-spacing'] if args.clear_road_spacing else []),
                 f'--seconds={args.seconds}',f'--minimum-seconds={args.minimum_seconds}',
                 f'--report={folder/f"client-{index}.json"}'], stdout=handle, stderr=subprocess.STDOUT))
         seen_perf = 0
@@ -123,6 +125,11 @@ def main():
                                       'ipv4_udp_down_Bps':(delta['offered_downstream_bytes']+28*delta['offered_downstream_packets'])/seconds,
                                       'counts':delta})
                     race_wire.append({'race':race,'seconds':seconds,'scope':'First Start to last Results, includes Grid and ENet overhead; excludes handshake. IPv4+UDP adds 28 bytes per observed datagram; no Ethernet/VPN estimate.','clients':rates})
+                    completed = [json.loads((folder/f'client-{index}.json.race-{race}.json').read_text()) for index in range(8)]
+                    progress_rows.extend(completed)
+                    assert all(row['metrics'].get('clear',{}).get('count',0)>=500 for row in completed), 'Race %d clear coverage below 500: %s' % (race,[(row['index'],row['metrics'].get('clear',{}).get('count',0)) for row in completed])
+                    assert all(row['metrics']['clear']['p95']<=.25 for row in completed), f'Race {race} clear correction bound failed'
+                    assert all(len(row['result']['rows'])==8 and all(not result['dnf'] and not result['bot'] for result in row['result']['rows']) for row in completed), f'Race {race} requires eight normal finishes'
             rows = [json.loads(line.split(' ',1)[1]) for line in (folder/'server.log').read_text().splitlines() if line.startswith('PACIFIC_RUSH_WORKER_PERFORMANCE ')]
             for value in rows[seen_perf:]: observations.append({'elapsed':time.monotonic()-began,**value})
             seen_perf = len(rows)
@@ -143,6 +150,8 @@ def main():
             sorted(row['hold_ticks'] for row in launches if row['race']==race)==list(range(0,480,60)) and
             len({json.dumps(row['order'],sort_keys=True) for row in launches if row['race']==race})==1
             for race in range(1,args.races+1))
+        checks['requested_driver_population_each'] = len(launches)==8*args.races and all(row.get('clear_road_spacing')==args.clear_road_spacing for row in launches)
+        spacing_events = [json.loads(line.split(' ',1)[1]) for path in sorted(folder.glob('client-*.log')) for line in path.read_text().splitlines() if line.startswith('SOAK_SPACING ')]
         corrections = [row['clear'] for report in reports for row in report['race_metrics']]
         checks['clear_coverage_500_each'] = len(corrections)==8*args.races and all(row['count']>=500 for row in corrections)
         checks['clear_p95_025m_each'] = bool(corrections) and all(row['p95']<=.25 for row in corrections)
@@ -172,6 +181,8 @@ def main():
                        proxy_seeds=[94723+101*index for index in range(8)],
                        driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; four normal car types. Test-only target factors [1,.96,.985,.945,.97,.955,.93,.995]; multi-lap Spillway/Caldera use .97 for driver 6 so the slowest scripted Switch stays inside normal finish grace. Every launch records its exact pace population. Public baked target speeds estimate fastest-first release order; ordinary brake-only launch holds of rank*60 input ticks after GO (0–7 seconds). No physics, finish-grace, population-classifier or correction-limit changes.',
                        launch_plans=launches,
+                       spacing_events=spacing_events,
+                       spacing_strategy='Enabled: aligned received snapshots; trailing/tied higher-slot driver applies ordinary brakes below 14 m, releases at 28 m or low speed. Same-surface/lateral filtering; no state mutation or sample relabeling.' if args.clear_road_spacing else 'Disabled; original scripted pace/launch population.',
                        clients_reports=reports,memory=memory,racing_wire=race_wire)
         assert summary['passed'], 'Failed checks: '+', '.join(key for key,value in checks.items() if not value)
     except Exception as error:
@@ -179,6 +190,7 @@ def main():
         raise
     finally:
         summary['elapsed_seconds'] = time.monotonic()-began
+        summary['completed_race_progress'] = progress_rows
         summary['worker_observations'] = observations
         summary['wire_totals'] = [dict(proxy.stats) for proxy in proxies]
         for process in reversed(processes):
