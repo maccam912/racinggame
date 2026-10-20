@@ -77,6 +77,36 @@
       "prompt": "Use case: stylized-concept\nAsset type: flat raster roadside travel-poster artwork for an original 3D arcade racing game.\nCreate one original full-bleed 3:2 landscape painted travel poster for the fictional course QUARRY SWITCHBACK. Straight-on rectangular artwork only, no physical frame, poles or perspective skew. Huge perfectly legible cream block text in two lines across the upper quarter, exact words \"QUARRY\" then \"SWITCHBACK\". Below, a manic winding road zigzags through a huge abandoned coastal granite quarry: sharp layered blue-gray and warm stone cliffs, three sweeping hairpin climbs and deep drops, rusty yellow industrial gantries, piles of detailed broken boulders and an impressive turquoise waterfall tumbling in several steps into a quarry lake. A tiny original purple sports coupe with a cream stripe races through the foreground curve, dwarfed by the landscape. A few pines and old timber logs add texture but the scenery is mainly rock and water. Golden late-afternoon sunlight, crisp navy shadows, strong sweeping shapes, rich hand-painted details with fine dither/halftone shading, nostalgic late-1990s arcade scenery and vintage roadside travel advertising character. Palette: blue-gray granite, warm ochre, rust red, vivid turquoise water, violet car, sun gold and cream. Readable during a fast drive-by. No other words, real vehicle badges, brands, existing game imagery, watermark, border or transparency.",
       "transparent_background": false,
       "modifications": "None; selected PNG copied byte-for-byte."
+    },
+    {
+      "id": "spillway_sprint",
+      "tool": "built-in image_gen",
+      "mode": "generate",
+      "prompt": "Use case: stylized-concept\nAsset type: original opaque painted roadside travel billboard for the fictional 3D arcade racing game Pacific Rush, landscape 3:2 aspect, 1536 by 1024 composition.\nPrimary request: A nostalgic late-1990s coin-op racing travel illustration for a new course called SPILLWAY SPRINT. Bold readable hand-painted block lettering 'SPILLWAY SPRINT' across the upper part. No other words.\nScene: Exuberant California-inspired waterworks fantasy: huge pale concrete dam arches, bright turquoise reservoir water, layered concrete road viaducts weaving above and below each other, dramatic cascading waterfalls and sunlit rocky cliffs. A small original orange racing coupe with a cream stripe charges along a foreground road. Road guardrails and bridge supports make the layered roads convincing. The mood is fast and adventurous, with inviting bright blue sky.\nStyle: Original airbrush-and-gouache arcade cabinet illustration, richly painted scenic depth, chunky readable shapes, stippled/dithered shading and slightly grainy printed ink. Saturated cobalt, turquoise, warm cream concrete and coral highlights. Filled composition with no blank margins, no photographic realism.\nConstraints: This is decorative fictional travel art, not a technical map or a screenshot. Entire image opaque and edge-to-edge. No existing game logos, real car brands, trademarks, UI overlays, borders, frames or watermarks. Spell SPILLWAY SPRINT exactly. Preserve readable lettering at distance.",
+      "transparent_background": false,
+      "generated_path": "/Users/maccam912/.codex/generated_images/01a151a0-7c88-7ac0-a89f-6d1e90c4d56b/exec-aaa07bcd-f6fc-4ed5-96cd-132b10bc124e.png",
+      "source": "assets/source/roadside-posters/spillway-sprint-v1.png",
+      "sha256": "f15c24cfd70aadd1d905652aff33594a1f5a38c05b108d14cb9a6c932c7353b9",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "title": "Spillway Sprint"
+    },
+    {
+      "id": "caldera_crosscut",
+      "tool": "built-in image_gen",
+      "mode": "generate",
+      "prompt": "Use case: stylized-concept\nAsset type: original opaque painted roadside travel billboard for the fictional 3D arcade racing game Pacific Rush, landscape 3:2 aspect, 1536 by 1024 composition.\nPrimary request: A nostalgic late-1990s coin-op racing travel illustration for a new course called CALDERA CROSSCUT. Bold readable hand-painted block lettering 'CALDERA CROSSCUT' across the upper part. No other words.\nScene: A spectacular California-inspired volcanic fantasy landscape. A central dark basalt volcano with a glowing orange crater and geothermal steam rises behind a web of silver elevated racing roads that cross at distinct heights. Long fast road straights connect sharp mountain bends. Sculptural basalt spires, glowing lava pools far below the safe guardrailed roads, sturdy bridge pylons and sunset clouds give dramatic scale. A small original turquoise racing coupe with a cream stripe accelerates through the foreground.\nStyle: Original airbrush-and-gouache arcade cabinet illustration, richly painted depth, chunky readable silhouettes, stippled/dithered shading and slightly grainy printed ink. Vibrant coral-orange, cobalt-purple shadows, warm gold light and turquoise car accents. Filled edge-to-edge composition, no photographic realism.\nConstraints: Decorative fictional travel artwork, not a technical map or a screenshot. Entire image opaque. No existing game logos, real car brands, trademarks, UI overlays, borders, frames or watermarks. Spell CALDERA CROSSCUT exactly. Keep the title legible at distance; no danger to people is depicted.",
+      "transparent_background": false,
+      "generated_path": "/Users/maccam912/.codex/generated_images/01a151a0-7c88-7ac0-a89f-6d1e90c4d56b/exec-0df2296d-2f1b-4a61-9374-3ac44efe9f45.png",
+      "source": "assets/source/roadside-posters/caldera-crosscut-v1.png",
+      "sha256": "a6a7ef7fb74adda72d7e326d9cfee79a94fc4ae76a3f9e7c239b062239bc1a84",
+      "pixels": [
+        1536,
+        1024
+      ],
+      "title": "Caldera Crosscut"
     }
   ]
 }

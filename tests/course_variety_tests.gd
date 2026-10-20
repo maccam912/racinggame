@@ -5,9 +5,9 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	Catalog.load_all()
-	assert(Catalog.tracks.size()==8 and Catalog.tracks[6].id=="skyline_splice" and Catalog.tracks[7].id=="quarry_switchback")
-	assert(LobbyState.valid_rules({"track":7,"laps":1,"bot_fill":true,"difficulty":1,"contact":true}))
-	assert(not LobbyState.valid_rules({"track":8,"laps":1,"bot_fill":true,"difficulty":1,"contact":true}))
+	assert(Catalog.tracks.size()==10 and Catalog.tracks[6].id=="skyline_splice" and Catalog.tracks[7].id=="quarry_switchback")
+	assert(LobbyState.valid_rules({"track":9,"laps":1,"bot_fill":true,"difficulty":1,"contact":true}))
+	assert(not LobbyState.valid_rules({"track":10,"laps":1,"bot_fill":true,"difficulty":1,"contact":true}))
 	var frozen: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/content5/tracks.json"))
 	for index in range(6):
 		assert(Catalog.tracks[index].definition==frozen.tracks[index],"classic six routes retain their exact gameplay definitions")
@@ -32,7 +32,7 @@ func run() -> void:
 			if node.get_meta("kind")=="Tower":
 				assert(node.material_override is ShaderMaterial and node.material_override.get_shader_parameter("city_facade")==true)
 		assert(decor_nodes==world.decor_sites.size(),"both roadside instances remain checked even when Godot auto-renames duplicate node names")
-		if track.id!="skyline_splice": assert(counts.Rocks>=8)
+		if not world.art.get("elevated",false): assert(counts.Rocks>=8)
 		if track.id in ["citrus_pass","redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Logs>=3)
 		if track.id in ["redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Waterfall==2)
 		if track.id=="skyline_splice":
@@ -84,7 +84,7 @@ func run() -> void:
 	var file := FileAccess.open("res://reports/content6-course-variety.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":true,"content_hash":Compatibility.content_hash(),"cases":records},"\t")+"\n")
 	file.close()
-	print("EIGHT_ROUTES_CLASSIC_BYTES_LAYERED_CROSSING_DECK_SUPPORTS_ROCKS_LOGS_WATERFALLS_PASS")
+	print("TEN_ROUTES_CLASSIC_BYTES_LAYERED_CROSSING_DECK_SUPPORTS_ROCKS_LOGS_WATERFALLS_PASS")
 	quit()
 
 

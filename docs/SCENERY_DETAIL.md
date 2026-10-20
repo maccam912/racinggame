@@ -54,3 +54,11 @@ roof equipment remain opaque solids. Existing tower geometry and default atlas
 shading are preserved. [Current source/native evidence](evidence/city108/)
 records the current identities, source checks and exported follow-up; the
 initial material/content-5 identity above describes its original checkpoint.
+
+## Content 9 waterworks and volcanic scenery
+
+`game/world/course_spectacles.gd` authors batched concrete dam arches/cascades, bounded basalt formations, a multi-ring crater with cosmetic lava, and sixteen distant cliff/ridge silhouettes per new route. The entire 300 m crater footprint and every roadside footprint stay clear of all crossing branches. Planned clearings reserve vegetation space before scenery batches are built. These meshes have no driving-collision bodies.
+
+The original waterfall cutout retains scale under tall dam openings; painted falls and animated pool materials are shared within the new world. Default original-course waterfalls retain unit scale. Fine strata/grain in the original landscape shader fade with derivatives and use static ordered dither; distant cliff meshes contain few triangles and remain visible for the skyline. All eight existing route definitions/bakes and their terrain bytes are preserved.
+
+The two new terrain exports use a 1,000 m route margin (506/552 chunks) to support the distant silhouettes. Original eight terrain descriptors/bytes remain exact. Formation bases embed below the mesh, and a two-triangle floor below the authored terrain remains visible when detailed chunks cull. A regression checks actual underlying terrain beneath every distant-cliff vertex.

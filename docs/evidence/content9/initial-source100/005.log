@@ -1,0 +1,14 @@
+Validated four original cars, twelve explicit LODs, shared 1024 atlas and editable source
+Validated 30 landmarks, five vegetation models, seven props, ten cosmetic terrains and shared atlases
+Validated 48 original Vorbis streams, six race compositions, four engine profiles and eight fixed prompts
+Traceback (most recent call last):
+  File "/Users/maccam912/dev/racinggame/tools/asset_hash.py", line 208, in <module>
+    validate()
+    ~~~~~~~~^^
+  File "/Users/maccam912/dev/racinggame/tools/asset_hash.py", line 70, in validate
+    validate_icons()
+    ~~~~~~~~~~~~~~^^
+  File "/Users/maccam912/dev/racinggame/tools/asset_hash.py", line 117, in validate_icons
+    assert 'mipmaps/generate=true' in path.with_suffix('.svg.import').read_text()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

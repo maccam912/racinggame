@@ -16,6 +16,7 @@ var terrain_grid: Dictionary = {}
 var poster_sites: Array[Dictionary] = []
 var scenery_clearings: Array[Dictionary] = []
 var decor_sites: Array[Dictionary] = []
+var spectacle_sites: Array[Dictionary] = []
 static var skies: Dictionary = {}
 
 
@@ -67,6 +68,7 @@ func advance_build() -> bool:
 				build_jump_markings()
 				CourseSetPieces.build(self)
 				CourseDecor.build(self)
+				CourseSpectacles.build(self)
 				if art.get("elevated",false): CourseRoadMesh.elevated_supports(self)
 				RoadsidePosterArt.build(self)
 				build_stage += 1
@@ -104,6 +106,7 @@ func build_environment() -> void:
 	terrain_grid = CourseArt.terrain_heights[track.id]
 	poster_sites = RoadsidePosterArt.plan(self)
 	decor_sites = CourseDecor.plan(self)
+	spectacle_sites = CourseSpectacles.plan(self)
 	if art.water:
 		var water := MeshInstance3D.new()
 		var plane := PlaneMesh.new()

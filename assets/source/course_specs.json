@@ -394,6 +394,106 @@
         }
       ],
       "verge_extent": 18
+    },
+    {
+      "id": "spillway_sprint",
+      "ground": "90B4A4",
+      "sky_top": "4AA9DC",
+      "horizon": "CBEBE8",
+      "sun": "FFF1CF",
+      "sun_energy": 0.7,
+      "ambient": 0.45,
+      "sun_rotation": [
+        -36,
+        -42,
+        0
+      ],
+      "water": true,
+      "coast_interval": [],
+      "vegetation": "shrub",
+      "emission": 0.0,
+      "landmarks": [
+        {
+          "id": "water_tower",
+          "u": 0.13,
+          "lateral": 80
+        },
+        {
+          "id": "windmill",
+          "u": 0.29,
+          "lateral": -85
+        },
+        {
+          "id": "rail_trestle",
+          "u": 0.47,
+          "lateral": 78
+        },
+        {
+          "id": "lighthouse",
+          "u": 0.65,
+          "lateral": -90
+        },
+        {
+          "id": "overlook",
+          "u": 0.83,
+          "lateral": 75
+        }
+      ],
+      "terrain_mode": "flat",
+      "terrain_height": 3,
+      "sea_level": 3.2,
+      "elevated": true,
+      "terrain_margin_m": 1000
+    },
+    {
+      "id": "caldera_crosscut",
+      "ground": "80727F",
+      "sky_top": "7078B8",
+      "horizon": "F4AE89",
+      "sun": "FFD8A0",
+      "sun_energy": 0.7,
+      "ambient": 0.48,
+      "sun_rotation": [
+        -36,
+        -42,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "shrub",
+      "emission": 0.15,
+      "landmarks": [
+        {
+          "id": "observatory",
+          "u": 0.12,
+          "lateral": -85
+        },
+        {
+          "id": "dinosaur",
+          "u": 0.29,
+          "lateral": 85
+        },
+        {
+          "id": "twin_mesas",
+          "u": 0.46,
+          "lateral": -95
+        },
+        {
+          "id": "motel_sign",
+          "u": 0.65,
+          "lateral": 75
+        },
+        {
+          "id": "balloons",
+          "u": 0.84,
+          "lateral": -100
+        }
+      ],
+      "terrain_mode": "flat",
+      "terrain_height": 3,
+      "sea_level": 3.2,
+      "elevated": true,
+      "terrain_margin_m": 1000
     }
   ]
 }

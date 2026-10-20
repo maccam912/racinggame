@@ -11,7 +11,7 @@ Submissions include actual imported mesh formats, ordinary and instanced track
 materials, all four car models and LOD formats, normal/fading/ghost car shaders,
 slot-number glyphs, blob shadows, smoke/dust/sparks and skid batches. Materials
 are collected from the selected course; water is required only on water courses.
-All nine shipped spatial shaders are covered across eight courses, including
+All nine shipped spatial shaders are covered across ten courses, including
 the procedural Skyline facade material. Current inventory reaches at most
 61 submissions. Instanced effects use the same material
 factories and instance-color layout as gameplay. Model/material resources remain
@@ -64,3 +64,5 @@ its measured duration/allowance. A timeout retains the failed stage and loader
 state. Only the completed full matrix sets `passed=true`. Historical failures,
 slow native probes and Linux follow-up are preserved in
 [the graphics evidence](evidence/graphics108/).
+
+Content 9 adds the original landscape shader and two course worlds. Dam cascades and pools share their material resources within the world; the maximum retained material submission count remains 61. The complete render job has a 30-minute aggregate allowance and the focused Linux diagnostic 25 minutes for the larger catalog. Each construction budget and the independent 15-second GPU/readback bound remain unchanged.

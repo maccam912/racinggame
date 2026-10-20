@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-24.04
     # Eight course constructions plus readback/error/ENet stages have their
     # own bounded timers; leave room for that complete software-render matrix.
-    timeout-minutes: 20
+    timeout-minutes: 25
     defaults:
       run:
         shell: bash

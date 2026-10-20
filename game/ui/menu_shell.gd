@@ -66,7 +66,8 @@ func reset(title: String, subtitle: String = "", dark: bool = true) -> VBoxConta
 	frame.add_child(column)
 	if title != "":
 		var heading := ui.label(title, true)
-		heading.size_flags_horizontal = Control.SIZE_SHRINK_BEGIN
+		heading.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		var title_control: Control
 		if title==I18n.t("app.title"):
 			var logo := TextureRect.new()
@@ -110,11 +111,16 @@ func reset(title: String, subtitle: String = "", dark: bool = true) -> VBoxConta
 	return content
 
 
+func safe_frame_width() -> float:
+	var size := get_viewport().get_visible_rect().size
+	return minf(size.x*.90,size.y*16.0/9*.90)
+
+
 func layout() -> void:
 	if not is_instance_valid(frame):
 		return
 	var size := get_viewport().get_visible_rect().size
-	var width := minf(size.x * .90, size.y * 16 / 9 * .90)
+	var width := safe_frame_width()
 	frame.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	frame.offset_left = (size.x - width) / 2
 	frame.offset_right = -(size.x - width) / 2

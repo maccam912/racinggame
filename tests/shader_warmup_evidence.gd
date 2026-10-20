@@ -166,5 +166,5 @@ func run() -> void:
 	app.queue_free()
 	await create_timer(.5).timeout
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
-	print("NATIVE_ALL_EIGHT_TRACKS_SHADER_READBACK_BEFORE_GRID_REAL_ENET_LOADED_FAILURE_RETRY_CANCEL_BACKGROUND_NO_STATS_PASS")
+	print("NATIVE_ALL_TEN_TRACKS_SHADER_READBACK_BEFORE_GRID_REAL_ENET_LOADED_FAILURE_RETRY_CANCEL_BACKGROUND_NO_STATS_PASS")
 	quit()

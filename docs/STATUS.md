@@ -1,5 +1,16 @@
 # Implementation status
 
+## 20 October — ten routes, waterworks, volcanic scenery and responsive arcade selection
+
+Spillway Sprint adds a **7.457 km interwoven knot with three crossings**; Caldera Crosscut adds an **8.869 km seven-crossing star of long straights, climbs and hairpins**. Their concrete arches, tall illustrated cascades, basalt formations, central crater/lava and distant cliffs provide new original scenery. All eight prior route definitions/bakes and terrain bytes remain exact; the Coast Cup remains six events. New minimaps, native postcards, five-landmark arrangements, original painted posters, directory bounds and multiplayer choices cover all ten. Content/protocol/save **9/5/1**, gameplay `f762fa68`, cosmetics `1fe44b97`. The immutable content-8 fixture preserves old profile/record/ghost/Cup/active-race bytes.
+
+All **101 final source commands**, **40 Gold trials**, **60 full camera paths**, **600 field races / 4,800 finishers / zero recoveries**, 12 solo ordering cases and **16 matching impaired eight-client finishes** pass. Every network client reaches final checkpoint **74/88**; minimum clear coverage **2,179**, worst clear p95 **0.034580 m**. New course structures have bounded footprints and actual underlying terrain with embedded broad bases; original failed floating-cliff images remain preserved. [Complete evidence](evidence/content9/).
+
+Course selection now measures card/detail widths and reflows within the shared safe frame. Large mobile titles/options and menu headings wrap while retaining their font size. The final **80 headless + 80 native** layout cases cover four aspect ratios, five scales, Quick/Trial and desktop/mobile, with actual scale assertions. Native 150% references show the complete detail panel and highest course button. Initial fixture/import/count and native-harness failures retain their own labels.
+
+Forty final native course views, 64-icon/selection references and diagnostic overview/details are reviewed. GPU preparation covers all ten worlds and ten shaders, retaining a maximum 61 submissions and the independent 15-second GPU/readback bound. CI adds both new AI matrices, an eight-client final-checkpoint scenario and the actual native layout matrix. Clean exports, emulator/mixed cross-play and the content-9 public release remain pending at this source checkpoint. Latest public [Build 109](https://github.com/maccam912/racinggame/releases/tag/v0.0.109-dev) remains the content-8 game; its workflow has 31 successful jobs, no failures, and correctly reuses Build 108's unchanged AI/ten-race baseline. [Remote 109 checkpoint](evidence/release109/).
+
+
 ## 20 October — city facades, arcade opponent labels and long-course graphics fixture
 
 Skyline towers now have original procedural windows, glass sweeps, warm rooms, ordered dither and distance filtering aligned with their floor bands. Existing geometry stays intact. Opponent labels use original chrome and display-number badges, retaining readable names/emoji, palette identity, clipping, occlusion and High Contrast. All **98 source commands**, **15 posed HUD/touch references**, **32 native course views**, eight poster views and all nine-shader/eight-world GPU preparation cases pass. [Current art and source proof](evidence/city108/). Gameplay remains content/protocol/save **8/5/1**, hash `dfb78c44`; cosmetics `f84503f5`.

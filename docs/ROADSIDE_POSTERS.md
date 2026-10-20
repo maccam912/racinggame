@@ -47,3 +47,5 @@ corridor; source/native approach and external support views are retained in
 [the arcade touch/bridge checkpoint](evidence/arcade-touch106/). The original
 six-sign images/evidence above remain historical; current eight-sign native
 views are included in [the facade checkpoint](evidence/city108/).
+
+Content 9 adds unmodified original Spillway Sprint and Caldera Crosscut paintings. Their complete prompts and output/source provenance are in `assets/source/roadside-posters/generation.json` and `new-courses-provenance.json`; each exports byte-for-byte at 1536×1024 with mipmaps.

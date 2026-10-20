@@ -145,7 +145,7 @@ static func build(world: TrackWorld) -> void:
 		world.add_child(node)
 
 
-static func waterfall(_world: TrackWorld, parent: Node3D) -> void:
+static func waterfall(_world: TrackWorld, parent: Node3D, painted_override: StandardMaterial3D = null, pool_override: ShaderMaterial = null) -> void:
 	var card := MeshInstance3D.new()
 	card.name = "IllustratedWaterfall"
 	var quad := QuadMesh.new()
@@ -153,10 +153,11 @@ static func waterfall(_world: TrackWorld, parent: Node3D) -> void:
 	quad.center_offset = Vector3(0,13,0)
 	card.mesh = quad
 	card.custom_aabb = AABB(Vector3(-13.5,0,-13.5),Vector3(27,26,27))
-	var painted := StandardMaterial3D.new()
+	var painted := painted_override if painted_override!=null else StandardMaterial3D.new()
 	painted.albedo_texture = load("res://assets/exported/decorations/waterfall-v1.png")
 	painted.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	painted.billboard_mode = BaseMaterial3D.BILLBOARD_FIXED_Y
+	painted.billboard_keep_scale = true
 	painted.cull_mode = BaseMaterial3D.CULL_DISABLED
 	painted.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA_SCISSOR
 	painted.alpha_scissor_threshold = .5
@@ -167,7 +168,7 @@ static func waterfall(_world: TrackWorld, parent: Node3D) -> void:
 	card.add_to_group("scenery_distance")
 	card.visibility_range_end = 700
 	parent.add_child(card)
-	var surface := ShaderMaterial.new()
+	var surface := pool_override if pool_override!=null else ShaderMaterial.new()
 	surface.shader = load("res://assets/exported/shaders/water.gdshader")
 	var pool := MeshInstance3D.new()
 	pool.name = "WaterfallPool"

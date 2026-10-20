@@ -51,6 +51,7 @@ func show_event() -> void:
 		var distance: float = track.length / (1609.344 if app.data.settings.units == "mph" else 1000)
 		var description := "%s • %.2f %s" % [I18n.t("difficulty."+str(track.definition.difficulty).to_lower()), distance, "mi" if app.data.settings.units == "mph" else "km"]
 		var button := shell.ui.button(name_value + "\n" + description, func() -> void: select_track(index), 180 if app.data.mobile else 230)
+		if app.data.mobile: button.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		button.focus_entered.connect(func() -> void:
 			select_track(index)
 			list.get_parent().call_deferred("ensure_control_visible", card))
@@ -119,8 +120,23 @@ func show_event() -> void:
 		list.add_child(toggle)
 	shell.add_back(func() -> void: app.show_garage(mode))
 	shell.footer.add_child(shell.ui.button(I18n.t("event.start_trial" if mode == "trial" else "event.start_race"), start))
+	var fit := fit_columns.bind(grid,workspace,list.get_parent())
+	workspace.resized.connect(fit)
+	fit.call_deferred()
 	select_track(track_index)
 	shell.focus_later(buttons[track_index])
+
+
+func fit_columns(grid: GridContainer, workspace: HBoxContainer, list_scroll: MenuScroll) -> void:
+	if not is_instance_valid(grid) or not is_instance_valid(workspace) or not app.menu.root.is_ancestor_of(workspace): return
+	var widest := 0.0
+	for card: Control in grid.get_children(): widest = maxf(widest,card.get_combined_minimum_size().x)
+	var gap := float(grid.get_theme_constant("h_separation"))
+	var reserved := detail_scroll.get_combined_minimum_size().x+workspace.get_theme_constant("separation")+list_scroll.get_v_scroll_bar().get_combined_minimum_size().x
+	var maximum := (1 if int(app.data.settings.ui_scale)>=125 else 2) if app.data.mobile else 3
+	var count := maximum
+	while count>1 and widest*count+gap*(count-1)+reserved>app.menu.safe_frame_width(): count -= 1
+	if grid.columns!=count: grid.columns = count
 
 
 func select_track(index: int) -> void:
@@ -140,6 +156,7 @@ func select_track(index: int) -> void:
 func choice(parent: Node, key: String, items: Array, selected: int, callback: Callable) -> void:
 	var row := HBoxContainer.new()
 	var label: Label = app.menu.ui.label(I18n.t(key))
+	label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 	label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	row.add_child(label)
 	var picker: Variant = app.menu.ui.choice_picker(I18n.t(key))

@@ -36,7 +36,7 @@ func run() -> void:
 	var file := FileAccess.open("res://reports/terrain-grounding.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":true,"cases":cases,"max_triangle_error_m":maximum_error,"triangle_tolerance_m":.002},"\t")+"\n")
 	file.close()
-	print("EIGHT_COURSE_SCENERY_ROOTS_MATCH_EXPORTED_TERRAIN_TRIANGLES_NO_COLLISION_PASS")
+	print("TEN_COURSE_SCENERY_ROOTS_MATCH_EXPORTED_TERRAIN_TRIANGLES_NO_COLLISION_PASS")
 	quit()
 
 

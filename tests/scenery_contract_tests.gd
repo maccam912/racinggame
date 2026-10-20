@@ -8,7 +8,9 @@ const EXPECTED: Array = [
 	[["dinosaur",.16,-30],["twin_mesas",.33,165],["rail_trestle",.48,-60],["tunnel_portal",.60,0],["motel_sign",.79,30]],
 	[["observatory",.14,-65],["overlook",.33,35],["mountain_lodge",.50,-45],["viaduct",.69,0],["balloons",.84,85]],
 	[["marina_wheel",.15,68],["arcade",.32,-55],["sailboats",.62,64],["lighthouse",.78,70],["seafood_diner",.89,-48]],
-	[["rail_trestle",.15,-60],["water_tower",.32,45],["packing_shed",.50,-50],["dinosaur",.69,58],["motel_sign",.85,35]]]
+	[["rail_trestle",.15,-60],["water_tower",.32,45],["packing_shed",.50,-50],["dinosaur",.69,58],["motel_sign",.85,35]],
+	[["water_tower",.13,80],["windmill",.29,-85],["rail_trestle",.47,78],["lighthouse",.65,-90],["overlook",.83,75]],
+	[["observatory",.12,-85],["dinosaur",.29,85],["twin_mesas",.46,-95],["motel_sign",.65,75],["balloons",.84,-100]]]
 
 
 func _initialize() -> void: call_deferred("run")

@@ -2,7 +2,7 @@
 
 Original colorful 3D arcade circuit racer for desktop and Android. [DESIGN.md](DESIGN.md) is the authoritative launch specification; [docs/STATUS.md](docs/STATUS.md) separates implemented work from acceptance evidence.
 
-Four cars race eight courses with steep climbs, drops and Summit flight,
+Four cars race ten courses with steep climbs, drops and Summit flight,
 including Skyline Splice's layered harbor crossing and Quarry Switchback's
 linked hairpins. Original rocks, logs, waterfalls, painted travel signs and
 illustrated foliage mix with 3D cars, buildings, bridges and crest structures.

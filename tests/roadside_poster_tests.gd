@@ -70,5 +70,5 @@ func run() -> void:
 	var file := FileAccess.open("res://reports/posters/"+("headless" if DisplayServer.get_name()=="headless" else "native")+".json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":true,"content_hash":content_before,"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"backend":DisplayServer.get_name(),"boundary":"Static posed native views and asset/placement checks, not human readability or device performance","cases":records},"\t")+"\n")
 	file.close()
-	print("EIGHT_ORIGINAL_POSTERS_24_CLEAR_STATIC_FRAMES_MIPMAPS_HASHES_ACTIVE_TEXTURES_NO_COLLISION_PASS")
+	print("TEN_ORIGINAL_POSTERS_30_CLEAR_STATIC_FRAMES_MIPMAPS_HASHES_ACTIVE_TEXTURES_NO_COLLISION_PASS")
 	quit()

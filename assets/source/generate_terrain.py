@@ -1,4 +1,6 @@
 """Bake cosmetic terrain chunks around unchanged canonical road samples (Blender)."""
+import argparse
+import sys
 import hashlib
 import json
 import math
@@ -17,18 +19,31 @@ def smooth(a,b,x):
 
 def main():
     courses=json.loads((ROOT/'assets/source/course_specs.json').read_text())
+    arguments = sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else []
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--tracks', help='Regenerate only these comma-separated courses, preserving the other terrain bytes')
+    args = parser.parse_args(arguments)
+    selected = set(args.tracks.split(',')) if args.tracks else {spec['id'] for spec in courses['courses']}
+    assert selected and selected <= {spec['id'] for spec in courses['courses']}
+    previous = json.loads((OUT/'terrain.json').read_text()) if (OUT/'terrain.json').exists() else {'courses':[]}
+    retained = {row['id']:row for row in previous['courses']}
     reports=[]
     for spec in courses['courses']:
+        if spec['id'] not in selected:
+            assert spec['id'] in retained, 'An unselected course needs an existing terrain bake'
+            reports.append(retained[spec['id']])
+            continue
         bpy.ops.object.select_all(action='SELECT'); bpy.ops.object.delete(use_global=False)
         bake=json.loads((ROOT/f'game/content/baked/{spec["id"]}.json').read_text())
         rows=bake['samples']
         tree=KDTree(len(rows))
         for i,row in enumerate(rows): tree.insert((row[0],row[2],0),i)
         tree.balance()
-        low_x=math.floor((min(r[0] for r in rows)-320)/160)*160
-        high_x=math.ceil((max(r[0] for r in rows)+320)/160)*160
-        low_z=math.floor((min(r[2] for r in rows)-320)/160)*160
-        high_z=math.ceil((max(r[2] for r in rows)+320)/160)*160
+        margin=float(spec.get("terrain_margin_m",320))
+        low_x=math.floor((min(r[0] for r in rows)-margin)/160)*160
+        high_x=math.ceil((max(r[0] for r in rows)+margin)/160)*160
+        low_z=math.floor((min(r[2] for r in rows)-margin)/160)*160
+        high_z=math.ceil((max(r[2] for r in rows)+margin)/160)*160
         sea_level=float(spec.get('sea_level',min(row[1] for row in rows)-3.5))
         root=bpy.data.objects.new(spec['id']+'_Terrain',None)
         bpy.context.collection.objects.link(root)
@@ -65,7 +80,7 @@ def main():
         bpy.ops.object.select_all(action='SELECT')
         path=OUT/(spec['id']+'_terrain.glb')
         bpy.ops.export_scene.gltf(filepath=str(path),export_format='GLB',export_yup=True,export_materials='NONE',export_vertex_color='NAME',export_vertex_color_name='PacificTerrain',export_all_vertex_colors=False)
-        reports.append({'id':spec['id'],'path':path.relative_to(ROOT).as_posix(),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'chunks':len(chunks),'triangles':len(chunks)*50,'chunk_width_m':160,'grid_step_m':32,'sea_level':sea_level,'route_hash':bake['content_hash']})
+        reports.append({'id':spec['id'],'path':path.relative_to(ROOT).as_posix(),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'chunks':len(chunks),'triangles':len(chunks)*50,'chunk_width_m':160,'grid_step_m':32,'sea_level':sea_level,'route_hash':bake['content_hash'],'bounds_xz_m':[low_x,low_z,high_x,high_z]})
     (OUT/'terrain.json').write_text(json.dumps({'schema_version':1,'source':'assets/source/generate_terrain.py','license':'MIT','courses':reports},indent=2)+'\n')
     (OUT/'courses.json').write_text(json.dumps(courses,indent=2)+'\n')
     print('PACIFIC_COSMETIC_TERRAIN_EXPORTED',len(reports))

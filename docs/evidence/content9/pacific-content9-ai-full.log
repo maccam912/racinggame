@@ -1,0 +1,52 @@
+PASS marina_lights: 60 races in 176.5s
+PASS palm_bay: 60 races in 187.8s
+PASS citrus_pass: 60 races in 279.2s
+PASS sunstone_canyon: 60 races in 353.5s
+PASS redwood_run: 60 races in 401.2s
+PASS pacific_summit: 60 races in 395.8s
+PASS skyline_splice: 60 races in 285.7s
+PASS quarry_switchback: 60 races in 352.1s
+PASS palm_bay-solo: 12 races in 3.3s
+PASS spillway_sprint: 60 races in 389.9s
+PASS caldera_crosscut: 60 races in 637.8s
+{
+  "passed": true,
+  "content_hash": "f762fa68aa71c7e869d62e309713aedb9c40dc0eb938b28ec9ea6db5ff53e32f",
+  "tracks": 10,
+  "difficulties": 3,
+  "seeds_per_case": 20,
+  "field_races": 600,
+  "finished_cars": 4800,
+  "recoveries": 0,
+  "single_car_ordering": [
+    {
+      "car": 0,
+      "easy": 56.0124767736743,
+      "medium": 49.5717019951174,
+      "hard": 45.9193679178917
+    },
+    {
+      "car": 1,
+      "easy": 53.8623482756282,
+      "medium": 47.8876323221702,
+      "hard": 44.4990038862019
+    },
+    {
+      "car": 2,
+      "easy": 57.7155254392399,
+      "medium": 50.9269748018197,
+      "hard": 47.0352528613045
+    },
+    {
+      "car": 3,
+      "easy": 55.2211736544277,
+      "medium": 48.9169556018506,
+      "hard": 45.372556159213
+    }
+  ],
+  "boundaries": [
+    "Seven bots plus an autopiloted reference car; not a human difficulty/feel test",
+    "Bots have no random reaction or line variation; seeds rotate four legal reference-car choices",
+    "Single-car ordering uses a fixture-only flattened Palm Bay route at y=4, with bank/jump offsets zero and car contact disabled; shipped geometry is unchanged"
+  ]
+}

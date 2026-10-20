@@ -66,7 +66,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        track: [palm_bay, citrus_pass, marina_lights, redwood_run, sunstone_canyon, pacific_summit, skyline_splice, quarry_switchback]
+        track: [palm_bay, citrus_pass, marina_lights, redwood_run, sunstone_canyon, pacific_summit, skyline_splice, quarry_switchback, spillway_sprint, caldera_crosscut]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -105,7 +105,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scenario: [race-reconnect, race-expiry, contacts, degraded, skyline, quarry, bonus-field]
+        scenario: [race-reconnect, race-expiry, contacts, degraded, skyline, quarry, bonus-field, new-courses]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -137,6 +137,9 @@ jobs:
       - name: Eight real clients through both bonus courses and their final checkpoints
         if: matrix.scenario == 'bonus-field'
         run: python tools/soak_acceptance.py --races 2 --laps 1 --seconds 360 --minimum-seconds 0 --tracks skyline_splice,quarry_switchback
+      - name: Eight clients retain late snapshots through Spillway and Caldera
+        if: matrix.scenario == 'new-courses'
+        run: python tools/soak_acceptance.py --port 27510 --races 2 --laps 1 --seconds 480 --minimum-seconds 0 --tracks spillway_sprint,caldera_crosscut
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -149,7 +152,7 @@ jobs:
   render:
     needs: verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 30
     defaults:
       run:
         shell: bash
@@ -189,7 +192,7 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/results_visibility_tests.gd -- --profile=ci_tests 2>&1 | tee reports/results-visibility.log
-      - name: Render all original scenery silhouettes and 32 course references
+      - name: Render all original scenery silhouettes and 40 course references
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: |
@@ -199,7 +202,7 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/billboard_tests.gd 2>&1 | tee reports/billboards.log
-      - name: Render original painted roadside signs on all eight courses
+      - name: Render original painted roadside signs on all ten courses
         run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/roadside_poster_tests.gd 2>&1 | tee reports/posters.log
       - name: Render original driving effects and recovery transitions
         env:
@@ -209,6 +212,10 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/interface_icon_evidence.gd -- --profile=interface_render_ci 2>&1 | tee -a reports/car-render.log
+      - name: Require native safe-frame course selection at all supported scales
+        env:
+          LIBGL_ALWAYS_SOFTWARE: '1'
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/event_layout_tests.gd -- --profile=event_layout_ci 2>&1 | tee -a reports/car-render.log
       - name: Render race HUD and bounded rival nameplates
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
@@ -255,6 +262,7 @@ jobs:
             reports/m4-*.png
             reports/m4-feedback-render.json
             reports/m4-ui-reference.json
+            reports/event-layout-native.json
             reports/m4-hud-reference.json
             reports/m4-menu-reference.json
             reports/menu-stage/

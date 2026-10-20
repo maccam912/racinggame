@@ -1,0 +1,1 @@
+All 100 commands pass on gameplay f762fa68 / assets 78ec3b83 after mipmap/cache and icon-count repairs. The later visual terrain-footprint correction is a separate change and needs its own final validation.

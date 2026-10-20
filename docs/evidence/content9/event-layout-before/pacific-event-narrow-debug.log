@@ -1,0 +1,14 @@
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+PACIFIC_RUSH_CLIENT_READY
+EVENT_LAYOUT_WINDOW_DIAGNOSTIC { "requested": (960, 720), "root_size": (960, 720), "visible": [P: (0.0, 0.0), S: (960.0, 720.0)], "canvas": (1280, 720), "scale_mode": 0, "window_mode": 1, "safe_frame_width": 864.0, "frame": [P: (48.0, 36.0), S: (867.0, 648.0)] }
+EVENT_LAYOUT_CHILD Label minimum=(1.0, 77.0) size=(867.0, 77.0)
+EVENT_LAYOUT_CHILD Label minimum=(1.0, 39.0) size=(867.0, 39.0)
+EVENT_LAYOUT_CHILD VBoxContainer minimum=(867.0, 24.0) size=(867.0, 364.0)
+EVENT_LAYOUT_CHILD PanelContainer minimum=(313.0, 114.0) size=(867.0, 114.0)
+EVENT_LAYOUT_WORKSPACE ScrollContainer minimum=(475.0, 0.0) size=(475.0, 364.0)
+EVENT_LAYOUT_WORKSPACE ScrollContainer minimum=(374.0, 24.0) size=(374.0, 364.0)
+SCRIPT ERROR: Assertion failed: event detail panel escapes safe frame: mobile=true size=(960, 720) scale=125 rect=[P: (541.0, 188.0), S: (374.0, 364.0)] right=912.0
+          at: run (res://tests/event_layout_tests.gd:46)
+          GDScript backtrace (most recent call first):
+              [0] run (res://tests/event_layout_tests.gd:46)

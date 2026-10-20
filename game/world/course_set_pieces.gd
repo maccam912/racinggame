@@ -10,6 +10,8 @@ const SPECS: Dictionary = {
 	"sunstone_canyon":{"id":"CanyonRibs","u":.585,"count":6,"spacing":16,"height":18,"color":"D58C53","trim":"F0C381"},
 	"pacific_summit":{"id":"SummitFlight","u":.68,"count":7,"spacing":20,"height":18,"color":"498DD3","trim":"F3CD48"},
 	"skyline_splice":{"id":"SkylinePortal","u":.5,"count":5,"spacing":24,"height":24,"color":"20BFC5","trim":"F16B50"},
+	"spillway_sprint":{"id":"ReservoirRibs","u":.30,"count":5,"spacing":24,"height":22,"color":"D9D7BD","trim":"20BFC5"},
+	"caldera_crosscut":{"id":"GeothermalGate","u":.45,"count":5,"spacing":24,"height":25,"color":"786578","trim":"FFAD54"},
 	"quarry_switchback":{"id":"QuarryCut","u":.4,"count":6,"spacing":18,"height":18,"color":"8CA2AA","trim":"F3CD48"}}
 
 

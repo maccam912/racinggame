@@ -7,7 +7,7 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	Catalog.load_all()
-	assert(Catalog.rules.content_version==8 and Catalog.rules.protocol_version==5 and SaveStore.SCHEMA==1)
+	assert(Catalog.rules.content_version==9 and Catalog.rules.protocol_version==5 and SaveStore.SCHEMA==1)
 	assert(FileAccess.get_sha256(SOURCE+"profile/manifest.json")==MANIFEST_SHA,"frozen transition manifest cannot drift with new physics")
 	var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SOURCE+"profile/manifest.json"))
 	var previous: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SOURCE+"compatibility.json"))
@@ -15,7 +15,7 @@ func run() -> void:
 	assert(previous.content_hash==old_hash and old_hash!=Compatibility.content_hash())
 	for name: String in ["cars","tracks","rules"]:
 		assert(FileAccess.get_sha256(SOURCE+name+".json")==previous.files["game/content/"+name+".json"])
-	var folder := "user://tests/content6-to8-transition-"+RaceSetup.uuid()
+	var folder := "user://tests/content6-to9-transition-"+RaceSetup.uuid()
 	DirAccess.make_dir_recursive_absolute(folder)
 	var destinations: Dictionary = {}
 	for name: String in manifest.files:
@@ -37,16 +37,16 @@ func run() -> void:
 	var checkpoint := RaceCheckpoint.new(data)
 	checkpoint.reload()
 	assert(RaceArchive.valid(checkpoint.payload) and checkpoint.payload.content_hash==old_hash)
-	assert(not checkpoint.can_resume(),"content-6 active state cannot continue under content-8 simulation")
+	assert(not checkpoint.can_resume(),"content-6 active state cannot continue under content-9 simulation")
 	for name: String in destinations:
 		assert(FileAccess.get_sha256(destinations[name])==manifest.files[name],"opening an incompatible component must preserve its exact bytes: "+name)
 	var evidence := {"passed":true,"old_content_hash":old_hash,"new_content_hash":Compatibility.content_hash(),"old_save_schema":1,"new_save_schema":SaveStore.SCHEMA,"frozen_files_preserved":manifest.files,"old_records_preserved_but_inactive":true,"old_ghost_preserved_but_inactive":true,"old_cup_preserved_continuation_disabled":true,"old_active_race_preserved_continuation_disabled":true,"boundary":manifest.purpose}
 	DirAccess.make_dir_recursive_absolute("res://reports")
-	var output := FileAccess.open("res://reports/content6-to8-transition.json",FileAccess.WRITE)
+	var output := FileAccess.open("res://reports/content6-to9-transition.json",FileAccess.WRITE)
 	output.store_string(JSON.stringify(evidence,"\t")+"\n")
 	output.close()
 	checkpoint = null
 	data = null
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
-	print("FROZEN_CONTENT6_PROFILE_RECORD_GHOST_CUP_ACTIVE_RACE_BYTES_PRESERVED_CONTENT8_CONTINUATION_DISABLED_PASS")
+	print("FROZEN_CONTENT6_PROFILE_RECORD_GHOST_CUP_ACTIVE_RACE_BYTES_PRESERVED_CONTENT9_CONTINUATION_DISABLED_PASS")
 	quit()
