@@ -23,6 +23,9 @@ var hitch_done: bool = false
 var lamp_snapshot_tick: int = -1
 var remote_brake_on: int = 0
 var remote_brake_off: int = 0
+var quality_observations := {"active_samples":0,"levels":[0,0,0],"max_rtt_ms":0.0,"max_delivery_loss_percent":0.0}
+var next_quality_ms: int = 0
+var remote_extrapolation := {"samples":0,"capped_samples":0,"max_requested_seconds":0.0,"max_distance_m":0.0,"max_buffer_samples":0}
 
 
 func _initialize() -> void:
@@ -85,6 +88,30 @@ func run() -> void:
 			OS.delay_msec(roundi(hitch_seconds*1000))
 		if link.prediction:
 			maximum_speed = maxf(maximum_speed, link.prediction.state.speed())
+		var now := Time.get_ticks_msec()
+		if now>=next_quality_ms and link.start_tick>=0 and link.phase in [RaceSession.Phase.RACING,RaceSession.Phase.GRACE]:
+			next_quality_ms = now+100
+			var quality := link.quality.measure(now,true)
+			quality_observations.active_samples += 1
+			quality_observations.levels[int(quality.level)] += 1
+			quality_observations.max_rtt_ms = maxf(quality_observations.max_rtt_ms,quality.rtt_ms)
+			quality_observations.max_delivery_loss_percent = maxf(quality_observations.max_delivery_loss_percent,quality.loss_percent)
+			remote_extrapolation.max_buffer_samples = maxi(remote_extrapolation.max_buffer_samples,link.remotes.samples.size())
+			assert(link.remotes.samples.size()<=20,"real impaired traffic must keep the remote buffer bounded")
+			if not link.remotes.samples.is_empty():
+				var latest: Dictionary = link.remotes.samples[-1]
+				var requested := (link.server_tick-6-float(latest.tick))/60.0
+				if requested>0:
+					for other: VehicleState in latest.states:
+						if other.slot==link.slot: continue
+						var rendered := link.remotes.sample(other.slot,link.server_tick)
+						assert(rendered.position.is_finite() and is_finite(rendered.yaw))
+						var distance := rendered.position.distance_to(other.position)
+						assert(distance<=other.velocity.length()*.15+.001,"real remote extrapolation must stop at 150 milliseconds")
+						remote_extrapolation.samples += 1
+						if requested>.15: remote_extrapolation.capped_samples += 1
+						remote_extrapolation.max_requested_seconds = maxf(remote_extrapolation.max_requested_seconds,requested)
+						remote_extrapolation.max_distance_m = maxf(remote_extrapolation.max_distance_m,distance)
 		if link.latest_snapshot_tick!=lamp_snapshot_tick and not link.latest_snapshot.is_empty():
 			lamp_snapshot_tick = link.latest_snapshot_tick
 			for state: VehicleState in link.latest_snapshot.states:
@@ -108,6 +135,8 @@ func run() -> void:
 	data.large_racing_events = link.large_racing_events
 	data.remote_brake_on = remote_brake_on
 	data.remote_brake_off = remote_brake_off
+	data.quality_observations = quality_observations
+	data.remote_extrapolation = remote_extrapolation
 	data.resume_count = link.resume_count
 	data.hitch_done = hitch_done
 	data.clock_rebase_count = link.clock_rebase_count

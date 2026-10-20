@@ -20,9 +20,16 @@ func run_probe() -> bool:
 			scope = arg.trim_prefix("--probe-scope=")
 		if arg.begins_with("--probe-action="):
 			action = arg.trim_prefix("--probe-action=")
-	if not scope.begins_with("test:") or not GuestIdentity.valid_uuid(scope.trim_prefix("test:")) or not action in ["write","read","replace","read_replaced","erase","cleanup"]:
+	if not scope.begins_with("test:") or not GuestIdentity.valid_uuid(scope.trim_prefix("test:")) or not action in ["absent","write","read","replace","read_replaced","erase","cleanup"]:
 		return false
 	var store := ProtectedGuestStore.new("user://diagnostic_profiles/protected_store_probe")
+	if action=="absent":
+		var missing := store.read_secret(scope)
+		if missing.ok or missing.state!="missing": return false
+		if store.provider is AndroidKeyStoreAdapter:
+			var key: Variant = store.provider.get_key(store.provider.key_store(),scope,false)
+			return key==null and not store.provider.failed
+		return true
 	if action=="cleanup":
 		return store.erase_secret(scope).ok and not store.read_secret(scope).ok
 	var value := PackedByteArray()

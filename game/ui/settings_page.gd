@@ -81,6 +81,7 @@ func show_tab(selected: String, return_to: Callable) -> void:
 		if touch_layout_locked():
 			list.add_child(shell.ui.paragraph(I18n.t("touch.change_lobby")))
 	if tab == "data":
+		list.add_child(shell.ui.paragraph(I18n.t("data.local_identity_help_android" if app.data.mobile else "data.local_identity_help")))
 		list.add_child(shell.ui.button(I18n.t("settings.name"), func() -> void: app.show_name(false)))
 		list.add_child(shell.ui.button(I18n.t("settings.export"), export_diagnostics))
 		list.add_child(shell.ui.paragraph(I18n.t("data.deletion_help")))

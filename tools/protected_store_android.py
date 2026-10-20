@@ -40,10 +40,10 @@ def main():
         raise RuntimeError('Protected store '+action+' timed out')
     results,errors = {},[]
     try:
-        for action in ['write','read','replace','read_replaced','erase']:
-            results[action] = probe(action)
+        for label,action in [('absent_before','absent'),('write','write'),('read','read'),('replace','replace'),('read_replaced','read_replaced'),('erase','erase'),('absent_after_erase','absent')]:
+            results[label] = probe(action)
     except RuntimeError as error:
-        results[action] = False
+        results[label] = False
         errors.append(str(error))
     finally:
         try:
@@ -53,7 +53,7 @@ def main():
             errors.append(str(error))
     report = {'kind':'exported ARM64 Android emulator; physical hardware key backing not established',
               'apk_sha256':hashlib.file_digest(args.artifact.open('rb'),'sha256').hexdigest(),
-              'cold_processes':True,'tamper_rejected':True,'replacement':True,'steps':results,'errors':errors,'passed':all(results.values()) and len(results)==6}
+              'cold_processes':True,'tamper_rejected':True,'replacement':True,'absence_before_and_after_erase':True,'steps':results,'errors':errors,'passed':all(results.values()) and len(results)==8}
     (ROOT/'reports').mkdir(exist_ok=True)
     (ROOT/'reports/android-protected-store.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps(report,indent=2))

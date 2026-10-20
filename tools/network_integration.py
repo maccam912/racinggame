@@ -11,7 +11,7 @@ from content_hash import compute as gameplay_manifest
 from udp_proxy import UDPProxy
 
 
-def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False, client_hitch=False, laps=2):
+def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False, client_hitch=False, laps=2, degraded=False):
     folder = ROOT/'reports'/f'network-udp-{latency}-{jitter}-{loss}-{port}-{uuid.uuid4().hex[:10]}'
     folder.mkdir(parents=True)
     command = [str(engine()), '--headless', '--path', str(ROOT)]
@@ -23,12 +23,14 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
     report = {'passed':False, 'content_hash':manifest['content_hash'],
               'laps':3 if contacts else laps, 'seconds':seconds,
               'one_way_latency_ms':latency, 'jitter_ms':jitter, 'loss':loss,
-              'contacts':contacts, 'away_seconds':away_seconds if reconnect else 0,
+              'contacts':contacts, 'degraded_tier':degraded, 'away_seconds':away_seconds if reconnect else 0,
               'client_hitch_seconds':1.5 if client_hitch else 0,
               'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'],
               'transport':'UDP proxy including ENet handshake/ACK/reliable packets' if proxy else 'loopback ENet',
               'clients':[]}
     try:
+        if degraded:
+            assert latency>=125 and loss>=.08 and seconds>=90 and not contacts and not reconnect, 'Degraded tier needs at least 250 ms added RTT, 8% loss and ordinary complete races'
         assert manifest==json.loads((ROOT/'game/content/compatibility.json').read_text()), 'Gameplay manifest must be current before launch'
         if proxy:
             proxy.start()
@@ -99,6 +101,12 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
             assert all(v['results'] for v in values), 'Race did not finish on authority and both clients'
         if all(v['results'] for v in values):
             assert values[0]['results'] == values[1]['results'], 'Authoritative standings diverged'
+        if degraded:
+            for value in values:
+                quality = value['quality_observations']
+                assert quality['active_samples']>=600 and quality['levels'][2]>0, 'At least 60 seconds of actual racing quality observations must include the poor-tier indication'
+                assert value['acknowledged_sequence']>1000 and all(row['dnf']=='' for row in value['results']), 'Impaired input must keep reaching authority and finish without inactive-input DNF'
+                assert 0<value['remote_extrapolation']['samples'] and value['remote_extrapolation']['max_buffer_samples']<=20, 'Actual bounded remote presentation must be exercised'
         contact_events = (folder/'server.log').read_text().count('PACIFIC_RUSH_CONTACT_EVENT')
         if contacts:
             assert contact_events >= 20, f'Only {contact_events} distinct contact episodes; need 20'
@@ -176,4 +184,5 @@ if __name__ == '__main__':
     parser.add_argument('--trace', action='store_true')
     parser.add_argument('--reverse-start', action='store_true')
     parser.add_argument('--client-hitch', action='store_true')
+    parser.add_argument('--degraded', action='store_true')
     run(**vars(parser.parse_args()))

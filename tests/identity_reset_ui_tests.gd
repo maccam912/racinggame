@@ -30,6 +30,23 @@ func run_tests() -> void:
 	var adapter := EraseAdapter.new()
 	app.guest_service.identity = GuestIdentity.new(ProtectedGuestStore.new(folder,adapter))
 	app.settings_page.show_tab("data",app.show_menu)
+	assert(app.menu.root.find_children("*","Label",true,false).any(func(label: Label) -> bool: return label.text==I18n.t("data.local_identity_help")))
+	data.mobile = true
+	data.settings.ui_scale = 150
+	root.size = Vector2i(2400,1080)
+	app.settings_page.show_tab("data",app.show_menu)
+	await settle()
+	var notice: Label
+	for label: Label in app.menu.root.find_children("*","Label",true,false):
+		if label.text==I18n.t("data.local_identity_help_android"): notice = label
+	assert(is_instance_valid(notice))
+	if DisplayServer.get_name()!="headless":
+		for frame in range(6): await process_frame
+		await RenderingServer.frame_post_draw
+		assert(root.get_texture().get_image().save_png("res://reports/m6-local-identity-phone-150.png")==OK)
+	data.mobile = false
+	data.settings.ui_scale = 100
+	app.settings_page.show_tab("data",app.show_menu)
 	app.settings_page.reset_data(true)
 	while app.settings_page.reset_pending: await process_frame
 	assert(app.page=="settings" and app.settings_page.status.text==I18n.t("online.identity_unavailable"))

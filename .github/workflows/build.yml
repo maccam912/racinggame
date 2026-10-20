@@ -104,7 +104,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scenario: [race-reconnect, race-expiry, contacts]
+        scenario: [race-reconnect, race-expiry, contacts, degraded]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -124,6 +124,9 @@ jobs:
       - name: Repeated side/rear contacts under real UDP faults
         if: matrix.scenario == 'contacts'
         run: python tools/network_integration.py --seconds 420 --latency 75 --jitter 30 --loss .03 --contacts
+      - name: Degraded-tier indication and bounded presentation under real UDP faults
+        if: matrix.scenario == 'degraded'
+        run: python tools/network_integration.py --seconds 210 --laps 3 --latency 125 --jitter 30 --loss .08 --degraded
       - uses: actions/upload-artifact@v4
         if: always()
         with:

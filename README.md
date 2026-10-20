@@ -2,11 +2,19 @@
 
 Original colorful 3D arcade circuit racer for desktop and Android. [DESIGN.md](DESIGN.md) is the authoritative launch specification; [docs/STATUS.md](docs/STATUS.md) separates implemented work from acceptance evidence.
 
+Four cars race six courses with steep climbs, drops and Summit flight. Painted
+travel signs and illustrated roadside foliage mix with 3D cars, buildings,
+bridges and crest structures. Download numbered desktop/Android development
+packages from [Releases](https://github.com/maccam912/racinggame/releases).
+[The 32-row acceptance index](docs/ACCEPTANCE.md) records verified scope and open
+human, hosting and publisher checks. Phone/tablet development checks use emulators;
+physical-device testing is optional owner follow-up.
+
 Requires Python 3.14.7. The bootstrap downloads checksum-verified Godot 4.6.3 into a project-specific user cache, preserving your existing engine. No cloud account is required for offline development.
 
 ```sh
 python3 tools/native_build.py host
-python3 tools/godot.py --editor --import --quit
+python3 tools/godot.py --headless --editor --import --quit
 python3 tools/godot.py
 python3 tools/godot.py -- --drive
 python3 tools/godot.py --headless -- --server --port=27020
@@ -23,7 +31,7 @@ python3 tools/network_integration.py --seconds 160 --laps 2 --latency 75 --jitte
 python3 tools/build.py macos --number 1
 ```
 
-Build targets: `linux`, `windows`, `macos`, `android` (APK), `android_aab`, `server`. Export templates and checksum-pinned native SDK/SCons dependencies download on first export. Native adapters build on their target OS (Android can cross-build); Linux builds require `libsecret-1-dev`, `libxrandr-dev` and `pkg-config`. CI builds and merges all adapters before export. Android requires JDK 17, SDK 36/build-tools 35.0.1 and ARM64; set `JAVA_HOME` and `ANDROID_HOME`. Release-mode APK/AAB packages use a stable development keystore. Production publisher signing, store submission, Developer ID/notarization and physical-device validation remain required.
+Build targets: `linux`, `windows`, `macos`, `android` (APK), `android_aab`, `server`. Export templates and checksum-pinned native SDK/SCons dependencies download on first export. Native adapters build on their target OS (Android can cross-build); Linux builds require `libsecret-1-dev`, `libxrandr-dev` and `pkg-config`. CI builds and merges all adapters before export. Android requires JDK 17, SDK 36/build-tools 35.0.1 and ARM64; set `JAVA_HOME` and `ANDROID_HOME`. Release-mode APK/AAB packages use a stable development keystore. Production publisher signing, store submission and Developer ID/notarization remain owner release inputs.
 
 Android exports also compile the project-owned [audio-focus/network bridge](docs/ANDROID_SERVICES.md) against the pinned engine library and verify its manifest/DEX inclusion. Mobile [offline recovery](docs/OFFLINE_RESUME.md) and [foreground/adaptive resource policy](docs/MOBILE_RUNTIME.md) have separate source, native-render and emulator evidence in the status report.
 
@@ -39,9 +47,18 @@ The [Linux server bundle](docs/SERVER_PACKAGE.md) includes the matching operator
 
 Every push to main validates source/geometry/assets, executes real-client network fault scenarios, renders the original car/ghost shaders in a Linux graphics context, exports all platforms, checks native package startup, and publishes a numbered development prerelease if every gate passes. These are development checkpoints, not completed launch releases.
 
+Gameplay identity changes also require the complete six-course AI matrix and
+ten-race impaired network/memory soak before publication. Cosmetic changes keep
+their own asset identity. [Foliage](docs/BILLBOARD_ART.md), [painted signs](docs/ROADSIDE_POSTERS.md),
+[3D scenery detail](docs/SCENERY_DETAIL.md) and [content-5 tuning](docs/ARCADE_TUNING.md)
+have saved sources and evidence. `python3 tools/render_soak.py` separately measures
+live six-course graphical scene lifetimes on the current desktop; its wall-clock
+frame report is distinct from fixed-frame video recording and minimum-device
+performance acceptance.
+
 The four original car meshes have explicit 35/90 m LODs, a shared 1024² atlas, all eight paint choices and independently animated wheels. Editable Blender source and regeneration instructions are in [assets/source/README.md](assets/source/README.md). Run `python3 tools/asset_hash.py` after changing cosmetic exports; this identity is separate from gameplay content and appears in build metadata. Six original scenery kits now supply all 30 named landmarks, with shared vegetation, neighborhood buildings, road furniture and rendered course postcards. The 48 original audio assets include six course compositions, menu/results music, four engine profiles, effects and fixed synthetic announcer cues. Run `python3 tools/audio_acceptance.py --capture` (ffmpeg required) for the actual eight-engine mix gate, or add `--native-output` for a rendered final-output/Master-mute check. Bounded smoke/dust/sparks/skid batches, contact opacity, recovery transitions and camera feedback are implemented. Sixty original editable interface icons, real Garage stat bars, car-specific medals and responsive selection panes are implemented. Authoritative lap clocks, saved-ghost live delta and bounded visible rival labels complete the main racing HUD. M4 source/assets are complete with human/physical reviews still open; M5 robustness work continues. Native save barriers, profile ownership and deletion recovery are documented in [docs/SAVE_DURABILITY.md](docs/SAVE_DURABILITY.md).
 
 
 Touch layout editing is under Settings → Touch → Edit Layout on Android. Drag the outlines, or focus one and press Confirm to move it with keyboard/controller directions; Back stops moving it. Save validates target sizes, safe margins and overlap. Preview runs a separate 30-second practice drive and returns to the draft. Cancel preserves saved positions, and Restore Layout resets only the current device/orientation/control profile. Layout geometry cannot be changed during an online race.
 
-The optional native platform extension supplies macOS Keychain, Windows DPAPI and Linux Secret Service primitives. Run `python3 tools/native_store_ci.py` to test a new random test entry and delete it afterward. Hosted CI isolates its macOS keychain and Linux D-Bus session. Android uses non-exportable AES/GCM keys and atomic ciphertext files excluded from backup. Guest identity storage and its worker service are implemented; online directory menus remain in progress. No plaintext identity fallback is provided.
+The optional native platform extension supplies macOS Keychain, Windows DPAPI and Linux Secret Service primitives. Run `python3 tools/native_store_ci.py` to test a new random test entry and delete it afterward. Hosted CI isolates its macOS keychain and Linux D-Bus session. Android uses non-exportable AES/GCM keys and atomic ciphertext files excluded from backup. Guest identity storage, its worker service and online directory menus are implemented; official region operation remains unconfigured. No plaintext identity fallback is provided.

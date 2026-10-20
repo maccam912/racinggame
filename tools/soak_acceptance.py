@@ -22,8 +22,8 @@ def main():
     parser.add_argument('--port', type=int, default=27410)
     parser.add_argument('--server-binary', type=Path, help='Use an actual exported server with its adjacent build.json')
     parser.add_argument('--races', type=int, default=10)
-    parser.add_argument('--laps', type=int, choices=[1,2,3], default=2)
-    parser.add_argument('--seconds', type=int, default=1800)
+    parser.add_argument('--laps', type=int, choices=[1,2,3], default=3)
+    parser.add_argument('--seconds', type=int, default=2400)
     parser.add_argument('--minimum-seconds', type=int, default=960)
     args = parser.parse_args()
     assert 2 <= args.races <= 10 and 0 <= args.minimum_seconds <= args.seconds <= 2400

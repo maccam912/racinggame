@@ -1,6 +1,6 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.5 — 19 October 2026
+Version 1.6 — 19 October 2026
 
 Owner decisions, 19 October 2026: implementation validation uses Android phone
 and tablet **emulators only**. Physical-device checks elsewhere in this document
@@ -12,6 +12,12 @@ manic arcade speed, stronger hills/drops and dramatic set pieces. Hybrid origina
 illustrated billboard decorations with retained 3D structures/landmarks are
 approved. Update numeric rules/content versions and repeat driving/network checks
 when handling or course geometry changes; preserve historical evidence.
+
+The owner also explicitly defers official-region hosting for now. Development
+releases MUST leave both official region URLs unconfigured. Preserve working
+offline modes and Community Direct Connect. Hosted-region launch requirements
+below describe a later operator deployment; do not provision hosts, invent public
+domains or advertise regional matchmaking as available in these checkpoints.
 
 Working title: **Pacific Rush**. The title is provisional; title availability is not established. Product: a downloadable 3D online arcade circuit racer for Windows, macOS, Linux, and Android. This document defines the complete first release, including offline play, online services, touch controls, cross-play, content, presentation, controls, and delivery criteria.
 

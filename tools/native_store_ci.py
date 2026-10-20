@@ -17,7 +17,7 @@ def engine_commands():
     scope = 'test:'+str(uuid.uuid4())
     return [['--headless','--editor','--import','--quit'],['--headless','--script','tests/native_memory_tests.gd'],['--headless','--script','tests/native_store_tests.gd']] + [
         ['--headless','--','--protected-store-probe','--probe-scope='+scope,'--probe-action='+action]
-        for action in ['write','read','replace','read_replaced','erase']]
+        for action in ['absent','write','read','replace','read_replaced','erase','absent']]
 
 
 def engine_tests():

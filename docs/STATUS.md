@@ -6,9 +6,10 @@ follow-up, not blockers. Human usability, real thermal behavior and other hardwa
 remain unmeasured; emulator evidence retains its actual label. The latest owner feedback
 authorizes physics tuning for manic arcade speed, stronger hills/drops and dramatic
 set pieces, superseding the earlier exact-physics choice. Original illustrated
-billboard decorations are approved. DESIGN.md v1.5 records this direction.
+billboard decorations are approved. The owner explicitly leaves official regions
+unconfigured in development releases for now. DESIGN.md v1.6 records this scope.
 
-Latest release: **Build 92**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
+Latest release: **Build 94**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
 
 The design, including the latest owner decisions, remains the launch contract. Historical checkpoint notes retain their original measurements and open gates; the owner update above supersedes physical-device blockers.
 
@@ -831,3 +832,76 @@ readback and real ENet Loaded/retry/cancel/background checks also pass:
 gameplay remains `4eaef43b…`, content 5/protocol 5/save 1. The capture helper now
 accepts an explicit expected tablet resolution and validates it without resizing.
 Matching exported phone/tablet/desktop follow-up remains pending at this point.
+
+## Exported detail checkpoint and degraded network tier
+
+Build **93** passes remote CI and publishes all **18 files** with the painted
+signs as [v0.0.93-dev](https://github.com/maccam912/racinggame/releases/tag/v0.0.93-dev).
+Its tested server image is
+`ghcr.io/maccam912/pacific-rush-server@sha256:0b7ebf20f1f8599b406d5e8d8fe7eef0bab4bd87da7296e64fa784c47ed1f9b6`.
+Build 94's detailed-scene remote release gates are still completing.
+
+Clean local Build **94** embeds commit `69e349b`, gameplay `4eaef43b…` and cosmetic
+`442367da…`. All **18 actual exported captures** pass: six 1920×1080 macOS,
+six 2400×1080 Android phone and six 2560×1600 Android tablet. Seventeen captures
+hold racing tick 1,200; tablet Palm Bay holds 1,201 after a two-tick presentation
+interval. The genuine timestamp is retained. Medium graphics, native HUD/touch
+controls and ordinary seven-opponent Quick Races remain active; no capture has
+engine or shutdown-resource errors. Representative tablet Palm/Redwood, desktop
+Summit and phone Marina views were inspected. [Export evidence](evidence/detail94/).
+
+The actual phone update from Build 92 and tablet update from Build 55 use the same
+verified signing certificate and retain their app UID and **all 31/20 existing
+file bytes**, respectively. APK hashes match the installed packages. This
+byte-preservation check occurs before launch and is separate from source save
+migration, clean install or uninstall/reinstall. Only newly created capture
+profiles are archived afterward. [Phone](evidence/detail94/phone-update.json) and
+[tablet](evidence/detail94/tablet-update.json) retain exact versions and hashes.
+
+The refreshed real-UDP degraded tier adds **125±30 ms each direction / 8% loss**.
+Both clients complete three laps with identical two-human results and no DNF;
+1,368 active 10 Hz quality observations per client show the poor tier. Clear-road
+p95 corrections are **.04684/.05041 m** over 2,471/2,451 samples. Five/three
+actual remote presentation samples need more than 150 ms prediction and remain
+capped; buffers never exceed 20 snapshots. One initial liveness timeout resumes
+its same slot before GO. This is automated movement and bounded presentation,
+not a human degraded-network feel guarantee. [Raw evidence](evidence/network-degraded-content5.json).
+Required CI now includes this fourth network scenario.
+
+[The current acceptance index](ACCEPTANCE.md) maps all 32 required rows to actual
+source/evidence and identifies human, emulator, hosted-region and publisher
+boundaries. A separate live, normally paced six-course graphical scene/memory
+soak is in progress; movie output and engine-smoothed simulation deltas are not
+used to claim real frame timing.
+
+Build **94** subsequently passes every remote gate and publishes all **18 files**
+as [v0.0.94-dev](https://github.com/maccam912/racinggame/releases/tag/v0.0.94-dev).
+Its tested server image is
+`ghcr.io/maccam912/pacific-rush-server@sha256:20fcd2a6c8fa39b534e23bf2c73152e8ce7925ee179c7cf9419309572c786158`.
+The exact published macOS/APK packages and their sidecars/checksums have also
+been downloaded for separate artifact execution; that follow-up is pending.
+
+The 90-command source matrix passes again with the new real-traffic quality and
+remote-presentation observations. A subsequent targeted native Data-page fixture
+and all 112 shipped-script compilation also pass. Settings → Data now explains
+local identity loss and Android uninstall behavior. The 150% phone-sized native
+[render](evidence/installation-preparation/local-identity-phone-150.png) is
+reviewed; its existing reset-failure/data-preservation and successful retry checks
+remain green. [Check logs](evidence/installation-preparation/) preserve the scope.
+The actual native Keychain sequence passes seven cold-process probes, now
+including absence before writing and after erasure. Android's new absence check
+also verifies that the test-scope KeyStore alias is absent; its fresh-install/
+uninstall/reinstall run is prepared in the new `pacific_rush_install_95` AVD and
+awaits the matching APK. Existing phone/tablet app data is outside that fixture.
+
+The completed [live graphical soak](GRAPHICAL_SOAK.md) finishes **12 races / 96
+cars**, all six courses twice, without DNF or engine/shutdown errors. Across
+44,699 racing draw intervals, wall-clock p95 is **18.497 ms**, p99 **22.324 ms**;
+all four >33 ms intervals, including a **1.773 s maximum**, are retained. Native
+RSS peaks at **688,226,304 bytes** with **2.8803%** comparable five-/fifteen-minute
+cycle high-water growth. Other apps/emulators were active. A temporarily occluded
+loading window required raising; that interval is not a cold-load timing result.
+The run passes its scene-lifetime/memory guards on this Apple M5 Pro, separate
+from minimum hardware, continuous worst-track, GPU-memory or thermal acceptance.
+The source/art identities remain unchanged. Official region hosting is now
+explicitly owner-deferred; the two shipped official URLs remain blank.
