@@ -5,18 +5,31 @@ import json
 from pathlib import Path
 import subprocess
 import time
+import uuid
 from bootstrap import ROOT, engine
+from content_hash import compute as gameplay_manifest
 from udp_proxy import UDPProxy
 
 
 def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, contacts=False, away_seconds=5, trace=False, reverse_start=False, client_hitch=False, laps=2):
-    folder = ROOT/'reports'/f'network-udp-{latency}-{jitter}-{loss}-{port}'
-    folder.mkdir(parents=True, exist_ok=True)
+    folder = ROOT/'reports'/f'network-udp-{latency}-{jitter}-{loss}-{port}-{uuid.uuid4().hex[:10]}'
+    folder.mkdir(parents=True)
     command = [str(engine()), '--headless', '--path', str(ROOT)]
     proxy = UDPProxy(port,port+100,latency,jitter,loss) if latency or jitter or loss else None
     worker_port = port+100 if proxy else port
     processes, files = [], []
+    began = time.monotonic()
+    manifest = gameplay_manifest()
+    report = {'passed':False, 'content_hash':manifest['content_hash'],
+              'laps':3 if contacts else laps, 'seconds':seconds,
+              'one_way_latency_ms':latency, 'jitter_ms':jitter, 'loss':loss,
+              'contacts':contacts, 'away_seconds':away_seconds if reconnect else 0,
+              'client_hitch_seconds':1.5 if client_hitch else 0,
+              'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'],
+              'transport':'UDP proxy including ENet handshake/ACK/reliable packets' if proxy else 'loopback ENet',
+              'clients':[]}
     try:
+        assert manifest==json.loads((ROOT/'game/content/compatibility.json').read_text()), 'Gameplay manifest must be current before launch'
         if proxy:
             proxy.start()
         log = (folder/'server.log').open('w')
@@ -89,28 +102,64 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
         contact_events = (folder/'server.log').read_text().count('PACIFIC_RUSH_CONTACT_EVENT')
         if contacts:
             assert contact_events >= 20, f'Only {contact_events} distinct contact episodes; need 20'
-        report = {'passed':True, 'laps':3 if contacts else laps, 'protocol':json.loads((ROOT/'game/content/rules.json').read_text())['protocol_version'], 'content_hash':json.loads((ROOT/'game/content/compatibility.json').read_text())['content_hash'], 'away_seconds':away_seconds if reconnect else 0, 'client_hitch_seconds':1.5 if client_hitch else 0, 'seconds':seconds, 'one_way_latency_ms':latency, 'jitter_ms':jitter, 'loss':loss, 'transport':'UDP proxy including ENet handshake/ACK/reliable packets' if proxy else 'loopback ENet', 'wire_metrics':dict(proxy.stats) if proxy else {}, 'contact_events':contact_events, 'clients':values}
-        (folder/'summary.json').write_text(json.dumps(report, indent=2)+'\n')
-        console_report = {**report, 'clients':[{k:v for k,v in value.items() if k != 'reconciliation_trace'} for value in values]}
-        print(json.dumps(console_report, indent=2), flush=True)
-        return report
+        assert gameplay_manifest()==manifest and json.loads((ROOT/'game/content/compatibility.json').read_text())==manifest, 'Gameplay sources or manifest changed during the fixture'
+        report.update(passed=True,wire_metrics=dict(proxy.stats) if proxy else {},contact_events=contact_events,clients=values)
+    except Exception as error:
+        report['failure'] = f'{type(error).__name__}: {error}'
+        raise
     finally:
+        cleanup_errors = []
         for process in reversed(processes):
-            if process.poll() is None:
-                process.terminate()
-                try:
-                    process.wait(timeout=5)
-                except subprocess.TimeoutExpired:
-                    process.kill()
-                    process.wait()
+            try:
+                if process.poll() is None:
+                    process.terminate()
+                    try:
+                        process.wait(timeout=5)
+                    except subprocess.TimeoutExpired:
+                        process.kill()
+                        process.wait()
+            except OSError as error:
+                cleanup_errors.append(str(error))
         for file in files:
             file.close()
         if proxy:
-            proxy.stop()
+            try:
+                proxy.stop()
+            except Exception as error:
+                cleanup_errors.append(str(error))
+        engine_errors = []
         for path in folder.glob('*.log'):
             text = path.read_text()
             if 'SCRIPT ERROR:' in text or 'ERROR:' in text:
-                raise RuntimeError(f'Errors in {path.name}: {text[-3000:]}')
+                engine_errors.append(path.name)
+        if not report['clients']:
+            report['client_report_errors'] = []
+            for path in sorted(folder.glob('client*.json')):
+                try:
+                    report['clients'].append(json.loads(path.read_text()))
+                except (OSError,ValueError) as error:
+                    report['client_report_errors'].append({'file':path.name,'error':str(error)})
+        try:
+            unchanged = gameplay_manifest()==manifest and json.loads((ROOT/'game/content/compatibility.json').read_text())==manifest
+        except Exception as error:
+            unchanged = False
+            report['source_manifest_error'] = str(error)
+        report.update(elapsed_seconds=time.monotonic()-began,engine_error_logs=engine_errors,
+                      cleanup_errors=cleanup_errors,source_manifest_unchanged=unchanged)
+        report.setdefault('wire_metrics',dict(proxy.stats) if proxy else {})
+        report.setdefault('contact_events',(folder/'server.log').read_text().count('PACIFIC_RUSH_CONTACT_EVENT') if (folder/'server.log').exists() else 0)
+        if engine_errors or cleanup_errors or not unchanged:
+            report['passed'] = False
+            report.setdefault('failure','Engine/cleanup errors or changed gameplay sources; inspect '+str(folder))
+        if not report['passed']:
+            report.setdefault('failure','Interrupted before a complete fixture result')
+        (folder/'summary.json').write_text(json.dumps(report, indent=2)+'\n')
+        if engine_errors or cleanup_errors:
+            raise RuntimeError('Engine/cleanup errors; inspect '+str(folder))
+    assert report['passed'], report.get('failure','Incomplete network fixture')
+    console_report = {**report, 'clients':[{k:v for k,v in value.items() if k != 'reconciliation_trace'} for value in report['clients']]}
+    print(json.dumps(console_report, indent=2), flush=True)
+    return report
 
 
 if __name__ == '__main__':

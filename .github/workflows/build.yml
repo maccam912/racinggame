@@ -123,7 +123,7 @@ jobs:
         run: python tools/network_integration.py --seconds 160 --laps 2 --latency 75 --jitter 30 --loss .03 --reconnect --away-seconds 25
       - name: Repeated side/rear contacts under real UDP faults
         if: matrix.scenario == 'contacts'
-        run: python tools/network_integration.py --seconds 340 --latency 75 --jitter 30 --loss .03 --contacts
+        run: python tools/network_integration.py --seconds 420 --latency 75 --jitter 30 --loss .03 --contacts
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -171,6 +171,8 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/billboard_tests.gd 2>&1 | tee reports/billboards.log
+      - name: Render original painted roadside signs on all six courses
+        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/roadside_poster_tests.gd 2>&1 | tee reports/posters.log
       - name: Render original driving effects and recovery transitions
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
@@ -212,6 +214,8 @@ jobs:
             reports/results-visibility.log
             reports/billboards/
             reports/billboards.log
+            reports/posters/
+            reports/posters.log
             reports/m4-*.png
             reports/m4-feedback-render.json
             reports/m4-ui-reference.json
@@ -409,8 +413,8 @@ jobs:
       always() && github.event_name == 'push' && github.ref == 'refs/heads/main' &&
       needs.export.result == 'success' && needs.network.result == 'success' &&
       needs.native.result == 'success' && needs.lobbies.result == 'success' &&
-      needs.directory.result == 'success' && needs['directory-lifecycle'].result == 'success' && needs.render.result == 'success' && needs.audio.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped') && needs.containers.result == 'success'
-    needs: [export, network, native, lobbies, directory, directory-lifecycle, ai, render, audio, containers]
+      needs.directory.result == 'success' && needs['directory-lifecycle'].result == 'success' && needs.render.result == 'success' && needs.audio.result == 'success' && (needs.ai.result == 'success' || needs.ai.result == 'skipped') && (needs.soak.result == 'success' || needs.soak.result == 'skipped') && needs.containers.result == 'success'
+    needs: [export, network, native, lobbies, directory, directory-lifecycle, ai, soak, render, audio, containers]
     runs-on: ubuntu-24.04
     permissions:
       contents: write
@@ -593,7 +597,7 @@ jobs:
           if-no-files-found: warn
 
   soak:
-    if: github.event_name == 'workflow_dispatch' && inputs.run_soak
+    if: needs.verify.outputs.gameplay_changed == 'true' || (github.event_name == 'workflow_dispatch' && inputs.run_soak)
     needs: [verify, platform-adapter]
     runs-on: ubuntu-24.04
     timeout-minutes: 45

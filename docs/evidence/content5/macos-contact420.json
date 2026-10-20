@@ -1,0 +1,135 @@
+{
+  "passed": true,
+  "content_hash": "4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a",
+  "laps": 3,
+  "seconds": 420.0,
+  "one_way_latency_ms": 75,
+  "jitter_ms": 30,
+  "loss": 0.03,
+  "contacts": true,
+  "away_seconds": 0,
+  "client_hitch_seconds": 0,
+  "protocol": 5,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "clients": [
+    {
+      "acknowledged_sequence": 24838,
+      "clear_corrections": {
+        "count": 5528,
+        "max": 0.00996668543666601,
+        "p95": 0.00835221353918314
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 307,
+      "connected": true,
+      "contact_corrections": {
+        "count": 1576,
+        "max": 0.933349609375,
+        "p95": 0.599296569824219
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 30.7788238525391,
+      "permanent_error": "",
+      "received_bytes": 1684935,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 480,
+      "remote_brake_off": 7675,
+      "remote_brake_on": 0,
+      "results": [],
+      "resume_count": 0,
+      "rtt_ms": 185.0,
+      "sent_bytes": 1045947,
+      "sequence": 24838,
+      "slot": 1,
+      "snapshots": 7584,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      }
+    },
+    {
+      "acknowledged_sequence": 24838,
+      "clear_corrections": {
+        "count": 5916,
+        "max": 0.0104667134582996,
+        "p95": 0.00829617585986853
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 300,
+      "connected": true,
+      "contact_corrections": {
+        "count": 1204,
+        "max": 1.26974868774414,
+        "p95": 0.685848236083984
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 0,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 30.7213726043701,
+      "permanent_error": "",
+      "received_bytes": 1687297,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 477,
+      "remote_brake_off": 7689,
+      "remote_brake_on": 0,
+      "results": [],
+      "resume_count": 0,
+      "rtt_ms": 221.0,
+      "sent_bytes": 1045947,
+      "sequence": 24838,
+      "slot": 0,
+      "snapshots": 7597,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      }
+    }
+  ],
+  "wire_metrics": {
+    "upstream_bytes": 2308762,
+    "downstream_bytes": 3623166,
+    "upstream_packets": 28281,
+    "downstream_packets": 20354,
+    "dropped_packets": 1495,
+    "offered_upstream_bytes": 2376488,
+    "offered_downstream_bytes": 3737797,
+    "offered_upstream_packets": 29118,
+    "offered_downstream_packets": 21012
+  },
+  "contact_events": 104,
+  "elapsed_seconds": 420.82412262493744,
+  "engine_error_logs": [],
+  "source_manifest_unchanged": true
+}

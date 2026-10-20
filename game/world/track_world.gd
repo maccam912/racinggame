@@ -13,6 +13,7 @@ var start_lamps: Array[MeshInstance3D] = []
 var warmed_resources: Array[Resource] = []
 var shader_warmup: Dictionary = {}
 var terrain_grid: Dictionary = {}
+var poster_sites: Array[Dictionary] = []
 static var skies: Dictionary = {}
 
 
@@ -63,6 +64,7 @@ func advance_build() -> bool:
 				build_covers()
 				build_jump_markings()
 				CourseSetPieces.build(self)
+				RoadsidePosterArt.build(self)
 				build_stage += 1
 				return true
 	build_stage += 1
@@ -96,6 +98,7 @@ func build_environment() -> void:
 	add_child(sun)
 	add_child(CourseArt.terrain(track.id))
 	terrain_grid = CourseArt.terrain_heights[track.id]
+	poster_sites = RoadsidePosterArt.plan(self)
 	if art.water:
 		var water := MeshInstance3D.new()
 		var plane := PlaneMesh.new()
@@ -202,6 +205,7 @@ func build_scenery_batch(first: int, last: int) -> void:
 		for lateral: float in offsets:
 			if species=="palm" and lateral>0 and s%48!=0: continue
 			var pose := scenery_pose(s,lateral)
+			if RoadsidePosterArt.blocks_sightline(poster_sites,pose.origin): continue
 			pose.basis = pose.basis.rotated(Vector3.UP,sin(s*.071+lateral)*PI)
 			pose.basis = pose.basis.scaled(Vector3.ONE*(1+.12*sin(s*.11+lateral)))
 			if not batches.has(species): batches[species] = [] as Array[Transform3D]
@@ -229,7 +233,8 @@ func build_scenery_batch(first: int, last: int) -> void:
 		var pose := scenery_pose(first+40,lateral)
 		if clear_of_road(pose.origin,25 if id=="sandstone_rock" else 52): batches[id] = [pose] as Array[Transform3D]
 	if track.id=="pacific_summit":
-		batches.redwood = [scenery_pose(first+20,-48)] as Array[Transform3D]
+		var pose := scenery_pose(first+20,-48)
+		if not RoadsidePosterArt.blocks_sightline(poster_sites,pose.origin): batches.redwood = [pose] as Array[Transform3D]
 	for id: String in batches: CourseArt.batch(id,batches[id],self,float(art.get("emission",0)))
 
 

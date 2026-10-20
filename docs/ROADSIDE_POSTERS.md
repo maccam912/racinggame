@@ -1,0 +1,41 @@
+# Painted roadside travel signs
+
+Six original generated illustrations give the fictional courses painted travel
+signs. The signs use course names and scenery already defined by the game. They
+are decorative artwork on 3D frames; navigation remains the road, chevrons and
+advance-warning boards.
+
+The selected 1536×1024 PNGs and complete prompts live in
+[source provenance](../assets/source/roadside-posters/generation.json). The
+built-in `image_gen.imagegen` tool produced each image separately, without a CLI,
+API key, external reference image or downloaded artwork. The cataloguer copies
+the selected bytes unchanged into the exported folder; it does not generate,
+paint, crop or resample images. New remote generations would be new versions,
+not deterministic replacements for these frozen originals.
+
+```sh
+python3 assets/source/describe_roadside_posters.py
+python3 tools/godot.py --headless --editor --import --quit
+python3 tools/asset_hash.py
+python3 tools/godot.py --max-fps 60 --script tests/roadside_poster_tests.gd
+```
+
+Committed imports generate mipmaps. Each 12×8 m panel has a static face aimed
+toward approaching traffic, opaque unshaded color, back-face culling and clamped
+anisotropic sampling. The 3D wooden backing and posts remain visible from behind.
+There are three signs per course, with conservative clearance from every road
+section. A small view corridor removes only decorative trees/shrubs that would
+hide the panel, including their canopy width. Grass and driving geometry remain.
+Signs participate in the existing scenery-distance setting and add no collision.
+
+The memory-pressure path drops reusable sign materials while active scene nodes
+retain their textures. Source tests check all six raw/source hashes, opaque
+pixels, mipmaps, fixed orientation, 18 clear sites and active texture ownership.
+The native/software-GL CI gate renders every course's first sign from a normal
+Near Chase approach. Source views were inspected after clearing initial tree
+occlusion. [Native views and numeric evidence](evidence/posters/).
+
+Cars, buildings, bridges and the 28 crest structures retain their 3D geometry.
+The five illustrated foliage species still use cylindrical billboards as
+described in [the foliage checkpoint](BILLBOARD_ART.md). Physics content 5,
+network protocol 5 and game save schema 1 do not change with the sign artwork.

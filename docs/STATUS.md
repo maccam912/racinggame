@@ -6,9 +6,9 @@ follow-up, not blockers. Human usability, real thermal behavior and other hardwa
 remain unmeasured; emulator evidence retains its actual label. The latest owner feedback
 authorizes physics tuning for manic arcade speed, stronger hills/drops and dramatic
 set pieces, superseding the earlier exact-physics choice. Original illustrated
-billboard decorations are approved. DESIGN.md v1.4 records this direction.
+billboard decorations are approved. DESIGN.md v1.5 records this direction.
 
-Latest release: **Build 88**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
+Latest release: **Build 92**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
 
 The design, including the latest owner decisions, remains the launch contract. Historical checkpoint notes retain their original measurements and open gates; the owner update above supersedes physical-device blockers.
 
@@ -752,3 +752,62 @@ with equal authoritative standings and all 16 human finishes. This is Android
 [Native races](evidence/content5/native-course-races.json) and
 [APK cross-play](evidence/content5/android91-crossplay.json) retain their exact
 identities. The longer independent three-lap impaired soak continues.
+
+## Content 5 — completed race/network checkpoint and painted travel signs
+
+The final native macOS **ten-race / three-lap / eight-client** impairment matrix
+passes all 11 checks: **80 human finishes**, identical standings, 214,761 clear-road
+samples (minimum 1,000 in any client/race), worst clear p95 **.03935 m**, wire
+budgets and no engine errors. Native worker RSS peaks at **171,163,648 bytes**;
+the 5–15 minute high-water growth is **−0.201%**. This cycles Palm Bay/Citrus on
+this computer and remains separate from the named cloud-host/worst-track target.
+[Raw soak evidence](evidence/content5/macos-ten-race-soak.json) retains its source
+worker/dirty-checkpoint provenance; gameplay sources were held at the final
+`4eaef43b…` configuration throughout. New fixture reports now record and verify
+the computed gameplay identity both before and after execution.
+
+Linux CI's six-course AI jobs also complete 360 field races / **2,880 finishes**
+with zero DNFs/recoveries on the same gameplay digest, plus the 12 single-car
+ordering cases. [Raw per-track evidence](evidence/content5/ci91-linux-ai/) is
+retained independently of the parent Build 91 workflow's contact-sample failure.
+The contact gate keeps its 1,000-sample / 1.5 m p95 requirements and now runs
+420 seconds. The local real-fault run passes **104 distinct contact episodes**,
+1,576/1,204 contact samples, and p95 **.5993/.6859 m**.
+[Contact evidence](evidence/content5/macos-contact420.json) labels the scripted
+reset/contact fixture separately from ordinary completed races.
+
+**Build 92** passes all remote gates and publishes all **18 files** as
+[v0.0.92-dev](https://github.com/maccam912/racinggame/releases/tag/v0.0.92-dev),
+with tested OCI digest
+`sha256:2fe8866db9560d38c93beaeac964707a2054730577da55bfd7ae467de216d187`.
+The clean local Build 92 exports complete all six actual ordinary-race captures
+on desktop and Android, exactly 1,200 racing ticks, with the proper HUD/touch
+controls and no engine/resource-shutdown errors.
+[Desktop/Android capture evidence](evidence/content5/export92/) retains each
+platform's exact embedded build identity.
+
+Six further original painted course posters now sit on **18 static 3D frames**.
+All PNG source bytes, full built-in image-generation prompts and hashes are
+frozen; no image was repainted or resampled. Decorative vegetation leaves short
+sightlines to the panels. Cars, buildings and structures stay 3D; rotating
+foliage billboards remain separate. [Authoring details](ROADSIDE_POSTERS.md).
+All **90 source commands** pass, the full Python suite passes **13 tests**
+(including four failure-report cases), and actual native six-course poster views
+and all-six shader/readback/ENet readiness checks pass. These source signs await
+their own exported Android/desktop checkpoint. Physics content 5/protocol 5/save 1
+remain unchanged; cosmetic digest becomes
+`acc55b771495e4121c7fec86aec7fcd5f7a93102642b5fcaf85e525f20c27177`.
+
+Network fixtures now give every invocation its own directory, preserve failed or
+partial client reports, terminate only owned processes, save timeout/engine-error
+metadata, and refuse stale or changing gameplay identities. Historical failed
+runs are not overwritten or relabeled. Official regions remain unconfigured.
+
+All six native sign approaches and the actual Build 91 enlarged Android results
+were visually reviewed. Build 92's exported mobile Summit and desktop Redwood
+views retain readable HUDs and slope-following cars. Two normal-pace scripted
+driving clips preserve the source/build provenance and show Palm Bay's climb/drop
+and Summit's flight: [footage and reproduction notes](evidence/content5/footage/).
+The required ten-race Linux soak now automatically runs after gameplay identity
+changes and gates publishing; it can also be requested manually. Cosmetic-only
+pushes retain the ordinary source, rendering, network and packaged-race gates.

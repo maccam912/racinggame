@@ -68,6 +68,23 @@ def validate():
     validate_scenery()
     validate_audio()
     validate_icons()
+    validate_posters()
+
+
+def validate_posters():
+    catalog=json.loads((ROOT/'assets/exported/posters/catalog.json').read_text())
+    provenance=json.loads((ROOT/catalog['source']).read_text())
+    assert catalog['license']=='MIT' and len(catalog['assets'])==6
+    assert {row['id'] for row in catalog['assets']}=={row['id'] for row in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']}
+    for row in catalog['assets']:
+        source=ROOT/row['source']; path=ROOT/row['path']
+        assert digest(source)==digest(path)==row['sha256']
+        assert struct.unpack_from('>II',path.read_bytes(),16)==tuple(row['pixels'])==(1536,1024)
+        assert row['size_m']==[12,8]
+        assert 'mipmaps/generate=true' in path.with_suffix('.png.import').read_text()
+        original=next(item for item in provenance['images'] if item['id']==row['id'])
+        assert original['source']==row['source'] and original['prompt'] and not original['transparent_background']
+    print('Validated six unmodified original painted course posters, provenance, hashes and mipmaps')
 
 
 def validate_icons():

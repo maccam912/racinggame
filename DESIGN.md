@@ -1,6 +1,6 @@
 # Pacific Rush Game Design and Implementation Specification
 
-Version 1.4 — 19 October 2026
+Version 1.5 — 19 October 2026
 
 Owner decisions, 19 October 2026: implementation validation uses Android phone
 and tablet **emulators only**. Physical-device checks elsewhere in this document
@@ -295,6 +295,8 @@ Jump marker at original u=.68, with a 24 m paved corridor over u=.665–.725: pl
 ### 11.7 Shared course furniture
 
 One start gantry per track, 6 m tall and 22 m wide, with checker band, track name, and three countdown lamps. Timing gates after the start are invisible; do not place giant glowing rings. At least one landmark visible from each third of a lap. Add original batched 3D structure sequences at the main crests: Sunburst Crest, Packing Skyway, Harbor Cranes, Timber Crest, Canyon Ribs and Summit Flight. These frame climbs and drops without adding driving collision; keep the driving/flight corridor clear. Timber Bridge and Viaduct artwork must follow the actual banked, ramped road in every detail level. Road center marking: cream broken stripes, 4 m painted / 8 m gap, 0.18 m wide. Edge marking 0.25 m cream. Use arrow boards at radius <80 m and advance warning at radius <45 m. Route direction is unambiguous at every decorative intersection, which must be blocked with visible barriers.
+
+Each course also has three original painted travel signs on static 3D frames, outside the driving corridor. The six illustrated panels use the canonical course names, mipmapped textures and no driving collision. Small vegetation sightlines keep the signs visible on approach. These are scenery; route guidance remains the existing chevrons and warning boards.
 
 No alternate routes or shortcuts at launch. Visible inaccessible roads may exist beyond barriers, but must not look like missed race branches. Minimap depicts only the actual circuit. Track selection shows difficulty in words: Palm Bay Easy; Citrus Pass Easy; Marina Lights Medium; Redwood Run Medium; Sunstone Canyon Hard; Pacific Summit Hard.
 

@@ -454,6 +454,24 @@
       "license": "MIT",
       "attribution": "LICENSE",
       "modifications": "Original triangle subdivision/road deformation for all three LODs of the project-authored Timber Bridge and Viaduct, retaining original atlas UVs and source GLBs."
+    },
+    {
+      "id": "painted_course_posters_v1",
+      "source": "assets/source/roadside-posters/generation.json",
+      "generator": "assets/source/describe_roadside_posters.py",
+      "creator": "Pacific Rush project artwork using built-in image generation",
+      "license": "MIT",
+      "attribution": "LICENSE; assets/source/roadside-posters/generation.json records the complete prompts and original output provenance",
+      "modifications": "Six selected opaque generated PNGs copied byte-for-byte; static 3D sign frames and texture placement are authored in game/world/roadside_poster_art.gd. These illustrations are scenery, not gameplay screenshots.",
+      "exports": [
+        "assets/exported/posters/catalog.json",
+        "assets/exported/posters/palm-bay-v1.png",
+        "assets/exported/posters/citrus-pass-v1.png",
+        "assets/exported/posters/marina-lights-v1.png",
+        "assets/exported/posters/redwood-run-v1.png",
+        "assets/exported/posters/sunstone-canyon-v1.png",
+        "assets/exported/posters/pacific-summit-v1.png"
+      ]
     }
   ]
 }

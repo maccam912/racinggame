@@ -104,6 +104,7 @@ func release_inactive_assets() -> void:
 	CourseArt.materials.clear()
 	CourseArt.terrain_heights.clear()
 	BillboardArt.release_cache()
+	RoadsidePosterArt.release_cache()
 	TrackWorld.skies.clear()
 	AudioLibrary.streams.clear()
 	# Canvas draw commands retain texture RIDs rather than Resource objects.

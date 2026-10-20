@@ -13,6 +13,7 @@ import subprocess
 import time
 import uuid
 from bootstrap import ROOT, engine
+from content_hash import compute as gameplay_manifest
 from udp_proxy import UDPProxy
 
 
@@ -28,6 +29,8 @@ def main():
     assert 2 <= args.races <= 10 and 0 <= args.minimum_seconds <= args.seconds <= 2400
     folder = ROOT/'reports'/('soak-eight-'+uuid.uuid4().hex[:10])
     folder.mkdir(parents=True)
+    manifest = gameplay_manifest()
+    assert manifest==json.loads((ROOT/'game/content/compatibility.json').read_text()), 'Gameplay manifest must be current before launch'
     command = [str(engine()), '--headless', '--path', str(ROOT)]
     authority_command = command
     authority_folder = ROOT
@@ -44,6 +47,7 @@ def main():
     worker_port = args.port + 20
     processes, handles, proxies = [], [], []
     summary = {'passed':False, 'base_commit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+               'content_hash':manifest['content_hash'],
                'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True)),
                'platform':platform.platform(), 'processor':platform.processor(),
                'races_requested':args.races, 'laps':args.laps, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
@@ -139,6 +143,7 @@ def main():
             checks['rss_growth_005'] = warmup_peak>0 and growth<=.05
             checks['rss_below_256MB'] = all(0<row['rss_bytes']<=256000000 for row in observations)
         checks['engine_logs'] = all(not any(marker in path.read_text() for marker in ('SCRIPT ERROR:','ERROR:','Leaked instance','Unicode parsing error')) for path in folder.glob('*.log'))
+        checks['source_manifest_unchanged'] = gameplay_manifest()==manifest and json.loads((ROOT/'game/content/compatibility.json').read_text())==manifest
         summary.update(checks=checks,passed=all(checks.values()),races=results,finishes=sum(len(race['rows']) for race in results),
                        identical_standings=checks['identical_standings'],
                        max_clear_p95_m=max((row['p95'] for row in corrections),default=None),
