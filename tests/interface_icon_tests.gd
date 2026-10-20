@@ -9,7 +9,7 @@ func run() -> void:
 	var app: Node = load("res://game/client_app.gd").new()
 	root.add_child(app)
 	await process_frame
-	var folder := "user://tests/ui-icons-"+str(Time.get_ticks_usec())
+	var folder := "user://tests/ui-icons-"+RaceSetup.uuid()
 	app.data = AppData.new(folder,false)
 	app.data.profile.selected_car = 0
 	app.data.settings.bindings = BindingBook.defaults()

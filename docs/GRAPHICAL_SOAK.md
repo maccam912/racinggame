@@ -39,3 +39,8 @@ uses the wall-clock fixture hash recorded in its raw JSON. Its wrapper predates
 the final automatic QA-profile archival refinement; the completed run's unique
 profile was separately archived after exit. Current helpers retain only their
 own newly named profiles with their reports.
+
+The final wrapper also passes a separate one-race
+[automatic-profile-archive smoke](evidence/graphical-soak/profile-archive-smoke.json),
+with `owned_profile_archived: true`. That follow-up verifies its cleanup path;
+the original fifteen-minute report remains unchanged.

@@ -14,7 +14,7 @@ func run() -> void:
 	var app: Node=load("res://game/client_app.gd").new()
 	root.add_child(app)
 	await process_frame
-	app.data=AppData.new("user://tests/binding-ui-"+str(Time.get_ticks_usec()),false)
+	app.data=AppData.new("user://tests/binding-ui-"+RaceSetup.uuid(),false)
 	BindingBook.apply({})
 	var page: BindingsPage=app.bindings_page
 	page.show_page(app.show_menu)

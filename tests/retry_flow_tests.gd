@@ -6,7 +6,7 @@ func run() -> void:
 	var app: Node = load("res://game/client_app.gd").new()
 	root.add_child(app)
 	await process_frame
-	app.data = AppData.new("user://tests/retry-"+str(Time.get_ticks_usec()),false)
+	app.data = AppData.new("user://tests/retry-"+RaceSetup.uuid(),false)
 	app.events.mode = "quick"
 	app.events.opponents = 7
 	app.events.start()

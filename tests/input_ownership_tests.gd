@@ -129,7 +129,7 @@ func run() -> void:
 	var drive := RaceDrive.new()
 	drive.show_touch = true
 	drive.external_menus = true
-	drive.app_data = AppData.new("user://tests/touch-drive-" + str(Time.get_ticks_usec()),true)
+	drive.app_data = AppData.new("user://tests/touch-drive-" + RaceSetup.uuid(),true)
 	drive.app_data.settings.touch_auto_accelerate = false
 	DrivingInput.last_device = "touch"
 	root.add_child(drive)

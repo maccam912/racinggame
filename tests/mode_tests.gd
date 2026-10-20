@@ -16,7 +16,7 @@ func _initialize() -> void:
 func run() -> void:
 	Catalog.load_all()
 	DrivingInput.register_defaults()
-	var folder := "user://tests/modes-" + str(Time.get_ticks_usec())
+	var folder := "user://tests/modes-" + RaceSetup.uuid()
 	var data := AppData.new(folder, false)
 	var drive := RaceDrive.new()
 	drive.config = {"mode":"trial", "laps":1, "opponents":0}

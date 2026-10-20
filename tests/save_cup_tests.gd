@@ -10,7 +10,7 @@ func check(condition: bool, message: String) -> void:
 
 
 func _initialize() -> void:
-	var folder := "user://test-save-" + str(Time.get_ticks_usec())
+	var folder := "user://test-save-" + RaceSetup.uuid()
 	var store := SaveStore.new(folder)
 	check(store.save_component("settings", {"value":1}) == OK, "initial save")
 	check(store.save_component("settings", {"value":2}) == OK, "atomic replacement")

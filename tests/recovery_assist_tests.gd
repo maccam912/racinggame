@@ -28,7 +28,7 @@ func run() -> void:
 	root.size = Vector2i(1280,720)
 	Catalog.load_all()
 	DrivingInput.register_defaults()
-	var data := AppData.new("user://tests/recover-assist-"+str(Time.get_ticks_usec()),false)
+	var data := AppData.new("user://tests/recover-assist-"+RaceSetup.uuid(),false)
 	data.settings.hold_assistance = true
 	data.settings.touch_auto_accelerate = false
 	var drive := RaceDrive.new()

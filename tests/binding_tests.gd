@@ -32,7 +32,7 @@ func _initialize() -> void:
 	BindingBook.apply(remapped.bindings)
 	assert(InputMap.action_has_event("accelerate",BindingBook.event_for(BindingBook.key(KEY_E))))
 	assert(not InputMap.action_has_event("accelerate",BindingBook.event_for(BindingBook.key(KEY_W))))
-	var folder := "user://tests/bindings-"+str(Time.get_ticks_usec())
+	var folder := "user://tests/bindings-"+RaceSetup.uuid()
 	var data := AppData.new(folder,false)
 	data.settings.bindings=remapped.bindings
 	assert(data.save_settings()==OK)

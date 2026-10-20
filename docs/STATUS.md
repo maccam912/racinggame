@@ -905,3 +905,49 @@ The run passes its scene-lifetime/memory guards on this Apple M5 Pro, separate
 from minimum hardware, continuous worst-track, GPU-memory or thermal acceptance.
 The source/art identities remain unchanged. Official region hosting is now
 explicitly owner-deferred; the two shipped official URLs remain blank.
+
+## Installation, published artifacts and trial reachability
+
+The exact public **Build 94** macOS ZIP/APK and their metadata match every
+downloaded checksum line. Both actual published artifacts complete six ordinary
+seven-opponent Quick Race captures, each at tick 1,200: twelve total, separate
+from the earlier clean local exports. Installing the public APK over the same
+version preserves all **32** existing files, UID and verified signer; equality
+requires an explicit helper option. [Provenance/captures](evidence/published94/)
+and [original-pace footage](evidence/published94/footage/) retain the distinction.
+
+Clean local **Build 95** (`9d50b49`, gameplay `4eaef43b…`, cosmetic `442367da…`)
+passes actual offline install and uninstall/reinstall in the new
+`pacific_rush_install_95` Android 15 ARM64 AVD. The native bridge reports no
+default route. Native save/key cold reads succeed before uninstall; the app
+directory and old save/key/alias are absent afterward, and reinstall shows fresh
+preferences. The eight-step KeyStore absence/tamper/replacement/erase sequence
+also passes. [Installation runbook/evidence](INSTALLATION.md) records ownership
+guards and reviewed renders; older phone/tablet data stays outside this fixture.
+
+The tablet's actual Build 95 APK separately finishes an eight-human race/rematch
+at **150% UI scale**. All **16 finishes** match complete authority/native rows
+and Android parsed-row hashes, preserve all eight identities and commit exactly
+two Android results. The eighth-place local row remains visible in the reviewed
+results render. [Tablet report and renders](evidence/install95/tablet-crossplay.json)
+retain its real emulator/automated-input boundary.
+
+All **24 car/course standing-start Time Trials** reach the existing Gold targets
+with valid finishes and zero recoveries through ordinary shared-controller input
+frames. Actual times span **47.908–69.524 seconds**; the tightest observed margin
+is **22.025 seconds**. No medal threshold or car rule changes. The new required
+source gate retains each input-stream hash and [raw case evidence](evidence/content5/TRIAL_GOLD.md).
+Human difficulty balance remains open.
+
+Remote **Build 95 is blocked**, with no release: its source fixture uses an
+engine-delta timer to check the worker's monotonic 15-second supervisor lease.
+That test now polls the same monotonic clock with an independent 20-second bound.
+Retirement is also idempotent across repeated 401/404 and drain callbacks;
+late success cannot reopen it. Local actual lease observations are
+**15.004/15.002 seconds**. [Failed CI log](evidence/content5/ci95-source-failure.log)
+is preserved. A separate local source run found an uptime-named ghost-test folder
+colliding with an old synthetic .1-second record. Fifteen test folders now use
+random UUIDs; old bytes and the failed report remain under
+[validation evidence](evidence/validation96/). The corrected **91-command source
+matrix passes**, including all 24 Gold cases and the actual 15-second lease.
+The actual supervisor lifecycle follow-up is running at this checkpoint.

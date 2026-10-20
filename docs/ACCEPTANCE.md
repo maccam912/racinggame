@@ -7,8 +7,8 @@ requirement; human handling/usability and operated public regions remain open.
 
 Current gameplay is **content 5 / protocol 5 / save schema 1**, digest
 `4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a`.
-The [90-command source report](evidence/scenery-detail/checks.json) uses this
-gameplay with the detailed scenery checkpoint. Each source-test link below is
+The [91-command source report](evidence/validation96/checks.json) uses this
+gameplay with detailed scenery and the Gold matrix. Each source-test link below is
 the actual executable fixture; screenshots alone do not establish a numeric pass.
 Historical platform evidence retains its original build and compatibility label.
 
@@ -29,7 +29,7 @@ a remaining procedure or platform boundary. Neither substitutes for human feel.
 | RACE-03 | Automated | [Mode/session rules](../tests/mode_tests.gd): finish grace, hard cap and DNF behavior. |
 | RACE-04 | Automated | [Recovery fixtures](../tests/progress_touch_tests.gd), [world safety](../tests/world_tests.gd), [hold assistance](../tests/recovery_assist_tests.gd). |
 | AI-01 | Automated | Final [macOS matrix](evidence/content5/ai-summary.json) and [Linux matrix](evidence/content5/ci91-linux-ai/): 360 races / 2,880 finishes each, zero DNF/recovery. Parent CI 91's separate contact-coverage failure is retained. |
-| TRIAL-01 | Automated | [Medal/ghost rules](../tests/ghost_medal_tests.gd), [atomic matched pairs](../tests/ghost_transaction_tests.gd), [content transition](../tests/content_transition_tests.gd). Human confirmation of all gold targets remains open. |
+| TRIAL-01 | Automated | [Medal/ghost rules](../tests/ghost_medal_tests.gd), [atomic matched pairs](../tests/ghost_transaction_tests.gd), [content transition](../tests/content_transition_tests.gd), [24 valid standing-start Gold laps](evidence/content5/trial-gold.json) with every car/course through ordinary shared-controller inputs and zero recoveries. Human skill/difficulty confirmation remains open. |
 | CUP-01 | Automated | [Cup/save/tie rules](../tests/save_cup_tests.gd), [frozen old-content preservation](../tests/content_transition_tests.gd). |
 | NET-01 | Automated local matrix | [Ten-race impaired content-5 soak](evidence/content5/macos-ten-race-soak.json): 80 matching human finishes; worst clear p95 .03935 m. This is a development Mac, separate from operated regions and the specified server-host benchmark. |
 | NET-02 | Automated local matrix | [420-second real UDP contact run](evidence/content5/macos-contact420.json): 104 episodes, 1,576/1,204 samples, p95 .5993/.6859 m. Synthetic contact/reset transitions are explicitly excluded from ordinary-driving claims. |
@@ -45,10 +45,10 @@ a remaining procedure or platform boundary. Neither substitutes for human feel.
 | MOBILE-03 | Partial | [Focus/checkpoint/resume](../tests/mobile_services_tests.gd), [Android service bridge and retained emulator drills](ANDROID_SERVICES.md), [cold checkpoint UI](../tests/checkpoint_ui_tests.gd). Content-5 source coverage and actual APK startup are current; old OS-interruption evidence keeps its original build. |
 | MOBILE-04 | Partial | [Default-route replacement](../tests/online_lifecycle_tests.gd), [actual emulator bridge/handover checkpoint](ANDROID_SERVICES.md). No physical carrier transition is claimed; hardware is optional owner follow-up. |
 | MOBILE-05 | Automated emulator | [Build 91 Android + seven native clients](evidence/content5/android91-crossplay.json): two complete races/rematches, 16 finishes, identical parsed authority rows and retained identities. |
-| PERF-01 | Partial | [Server network/memory soak](evidence/content5/macos-ten-race-soak.json), required exported Linux worker and constrained OCI race gates. New six-course live graphical lifetime test is separate from a continuous worst-track run or minimum-hardware acceptance. Physical thermal checks are waived. |
+| PERF-01 | Partial | [Server network/memory soak](evidence/content5/macos-ten-race-soak.json), required exported Linux worker and constrained OCI race gates. The [15-minute live six-course graphical soak](GRAPHICAL_SOAK.md) retains actual draw intervals and RSS; it is separate from continuous worst-track or minimum-hardware acceptance. Physical thermal checks are waived. |
 | AUDIO-01 | Automated output; human listening open | [Decoded eight-engine/music/impact capture](../tools/audio_acceptance.py), [DSP/caption rules](../tests/race_audio_tests.gd), [retained audio measurements](evidence/m4-audio-acceptance.json). Required CI repeats real decoded output. |
 | ACCESS-01 | Automated layout/motion | [Accessibility settings](../tests/accessibility_settings_tests.gd), [HUD](../tests/race_hud_tests.gd), [results visibility](../tests/results_visibility_tests.gd). Human comprehension remains open. |
-| RELEASE-01 | Partial | Required native package startup/save gates, [versioned packaging](RELEASE.md), actual byte-preserving emulator updates in the newer status checkpoint. Publisher signing/notarization, clean-install/reinstall identity UX review and store acceptance remain owner inputs or separate tests. |
+| RELEASE-01 | Partial | Required native package startup/save gates, [versioned packaging](RELEASE.md), [actual offline Android install/reinstall, byte-preserving updates and published artifact execution](INSTALLATION.md). Local identity-loss help is rendered and reviewed. Publisher signing/notarization, human comprehension and store acceptance remain open. |
 
 The current export, CI and publication results are tracked at the top of
 [STATUS.md](STATUS.md). That distinguishes source checks, clean local exports,

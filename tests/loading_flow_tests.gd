@@ -8,7 +8,7 @@ func run() -> void:
 	var app: Node = load("res://game/client_app.gd").new()
 	root.add_child(app)
 	await process_frame
-	app.data = AppData.new("user://tests/loading-"+str(Time.get_ticks_usec()),false)
+	app.data = AppData.new("user://tests/loading-"+RaceSetup.uuid(),false)
 	app.events.mode = "trial"
 	app.events.track_index = 3
 	app.events.show_event()

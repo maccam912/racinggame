@@ -26,6 +26,13 @@ Drain on their next heartbeat. A fifteen-second private-link outage also retires
 the worker once, and a later success cannot reopen it. No worker is reconstructed
 from invented race state, and no profile or result is manufactured after a crash.
 
+The worker's retirement notification is idempotent across lease expiry, repeated
+401/404 replies and repeated drain responses. The source fixture polls the same
+monotonic clock as the 15-second lease, with a separate 20-second failure bound;
+an engine-delta timer must not stand in for that wall-clock deadline. It checks
+that retirement never occurs before 15 seconds and that late successful replies
+cannot reopen admission.
+
 Reconciliation runs every five seconds. Fresh startup reservations remain held.
 Stale or draining rows keep their UDP reservation while an exclusive IPv4/IPv6
 bind probe finds the port busy. Only the allocator's own child may be signaled;

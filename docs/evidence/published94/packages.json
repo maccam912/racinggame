@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "release": "https://github.com/maccam912/racinggame/releases/tag/v0.0.94-dev",
+  "packages": [
+    {
+      "package": "pacific-rush-00094-macos.zip",
+      "bytes": 132976667,
+      "sha256": "ed5b3bf065f533c37aed020b527190997616865d671b0bed54f9de32254146af",
+      "build": {
+        "version": "0.0.94-dev",
+        "build_number": 94,
+        "working_tree_dirty": false,
+        "commit": "69e349bee20802222729f32bf378a3850b4f76d8",
+        "engine_version": "4.6.3-stable",
+        "engine_checksum": "d0bc2113065e481c9c2c2b2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3",
+        "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+        "protocol_version": 5,
+        "save_schema": 1,
+        "content_hash": "4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a",
+        "asset_hash": "442367da36de66721bbb1ac5b6f666880ab372f9ede98afa1be8573399ecbb74",
+        "target_platform": "macos",
+        "distribution": "development",
+        "public_signing": "not configured",
+        "native_adapter": {
+          "platform": "macos",
+          "architecture": "universal",
+          "api_floor": "4.5",
+          "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+          "scons": "4.11.1",
+          "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e",
+          "sha256": "df9bc37c480a787939898ee0267d17eadc24c11d9f66d980f392392a1b541dcb"
+        }
+      }
+    },
+    {
+      "package": "pacific-rush-00094-android.apk",
+      "bytes": 148166818,
+      "sha256": "628b0ddf1b07af5a962babc3965d904e98ab775c1d12f0f154f10746c4740948",
+      "build": {
+        "version": "0.0.94-dev",
+        "build_number": 94,
+        "working_tree_dirty": false,
+        "commit": "69e349bee20802222729f32bf378a3850b4f76d8",
+        "engine_version": "4.6.3-stable",
+        "engine_checksum": "d0bc2113065e481c9c2c2b2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3",
+        "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+        "protocol_version": 5,
+        "save_schema": 1,
+        "content_hash": "4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a",
+        "asset_hash": "442367da36de66721bbb1ac5b6f666880ab372f9ede98afa1be8573399ecbb74",
+        "target_platform": "android",
+        "distribution": "development",
+        "public_signing": "not configured",
+        "native_adapter": {
+          "platform": "android",
+          "architecture": "arm64",
+          "api_floor": "4.5",
+          "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+          "scons": "4.11.1",
+          "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e",
+          "sha256": "9a52ed2826bc86ece6013f53aa357dac61b27e08484b74676b34cf9137ec4b63"
+        },
+        "android_services": {
+          "source_hash": "d3b152de525fa6fc6804c9afc2dc1141871399d0bbfcf2b2668180c575523a77",
+          "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+          "android_api": 36,
+          "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+          "java_release": 17,
+          "compiler": "javac 17.0.20.1",
+          "sha256": "98e0e48ee687e68962f3e2a7bf89958df293f3c0b3e0f6b65106ad8a70e72de4"
+        }
+      }
+    }
+  ],
+  "boundary": "Downloaded public CI release assets, original package and metadata checksum lines verified, executed separately from local exports. macOS Apple silicon graphical execution and Android ARM64 phone emulator; other native platform startup is separately gated in CI."
+}

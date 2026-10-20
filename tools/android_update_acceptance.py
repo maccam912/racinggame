@@ -20,6 +20,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('apk', type=Path)
     parser.add_argument('--serial', required=True)
+    parser.add_argument('--allow-same-version', action='store_true', help='Explicitly verify a published CI package over a local export with the same version code')
     parser.add_argument('--adb', type=Path, default=Path.home()/'Library/Android/sdk/platform-tools/adb')
     parser.add_argument('--apksigner', type=Path, default=Path.home()/'Library/Android/sdk/build-tools/35.0.1/apksigner')
     args = parser.parse_args()
@@ -27,9 +28,11 @@ def main():
     apk = args.apk.resolve()
     folder = ROOT/'reports'/('android-update-'+uuid.uuid4().hex[:10])
     folder.mkdir(parents=True)
-    report = {'passed':False, 'serial':args.serial,
+    report = {'passed':False, 'serial':args.serial, 'same_version_reinstall_allowed':args.allow_same_version,
               'boundary':'Actual in-place emulator APK update and byte preservation before any game launch. Separate from save migration, clean installation, uninstall/reinstall or physical-device acceptance.',
               'apk_sha256':hashlib.sha256(apk.read_bytes()).hexdigest()}
+    metadata = apk.with_name(apk.stem+'-build.json')
+    if metadata.exists(): report['artifact_build'] = json.loads(metadata.read_text())
 
     def adb(*command):
         return subprocess.check_output([str(args.adb), '-s', args.serial, *command], stderr=subprocess.STDOUT, text=True)
@@ -87,7 +90,7 @@ def main():
         installed_hash = shell('sha256sum '+shlex.quote(source)).split()[0]
         report['installed_apk_sha256'] = installed_hash
         checks = {'same_uid':report['before']['uid']==report['after']['uid'],
-                  'version_increased':report['after']['version_code']>report['before']['version_code'],
+                  'version_advanced_or_explicit_same':report['after']['version_code']>report['before']['version_code'] or args.allow_same_version and report['after']['version_code']==report['before']['version_code'],
                   'all_existing_file_bytes_preserved':before==after,
                   'tested_apk_installed':installed_hash==report['apk_sha256']}
         report.update(checks=checks, file_count=len(before), passed=all(checks.values()))

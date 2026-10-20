@@ -65,3 +65,11 @@ captures reached tick 1,200. That difference is retained in metadata. The curren
 capture code holds the genuine simulated instant before waiting for GPU readback.
 These images preserve the previous presentation for comparison; final store images
 will be recaptured after the owner's approved billboard/speed/verticality pass.
+
+The newer [published Build 94 desktop/phone set](evidence/published94/) contains
+all six courses per family after that pass, with actual public-package hashes
+and clean embedded identities. All twelve capture tick 1,200. The separate
+[local Build 94 tablet set](evidence/detail94/tablet/) retains native 2560×1600
+output; tablet Palm reaches tick 1,201 as recorded. These are review candidates,
+not storefront submissions. [Published-game footage](evidence/published94/footage/)
+also preserves original game pace and exact package provenance.

@@ -1,0 +1,66 @@
+{
+  "release": "https://github.com/maccam912/racinggame/releases/tag/v0.0.94-dev",
+  "boundary": "Exact published macOS package. Fixed 60 Hz Movie Maker, original driving/world/HUD/audio; only time range and H.264/AAC encoding changed. No live performance or human handling claim.",
+  "clips": [
+    {
+      "file": "palm-bay.mp4",
+      "bytes": 24498032,
+      "sha256": "4c2b7e34d775ecb10d1f0ba204bdcc4356f5fee4010cd887c873e7dd55a32493",
+      "raw_movie_sha256": "96b82372f88ea70c7c8254234f8a895b167ffac107d91a970d15332a407a0550",
+      "trim_start_seconds": 7.5,
+      "duration_seconds": 28.25,
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1280,
+            "height": 720,
+            "avg_frame_rate": "60/1",
+            "nb_frames": "1695"
+          },
+          {
+            "codec_name": "aac",
+            "avg_frame_rate": "0/0",
+            "nb_frames": "1326"
+          }
+        ],
+        "format": {
+          "duration": "28.250000"
+        }
+      },
+      "end_sidecar": "palm-bay-end.json"
+    },
+    {
+      "file": "summit-flight.mp4",
+      "bytes": 6233162,
+      "sha256": "f6cbc5ee1c08bc79f99d1c4146ad765fc06ec595901138213c5cfd4c54699022",
+      "raw_movie_sha256": "d52fc2634b4d7b3373d9d5f57b5ad4e59e9c921bd0a701bb5da80587b8ee73d4",
+      "trim_start_seconds": 46,
+      "duration_seconds": 14,
+      "ffprobe": {
+        "programs": [],
+        "stream_groups": [],
+        "streams": [
+          {
+            "codec_name": "h264",
+            "width": 1280,
+            "height": 720,
+            "avg_frame_rate": "60/1",
+            "nb_frames": "840"
+          },
+          {
+            "codec_name": "aac",
+            "avg_frame_rate": "0/0",
+            "nb_frames": "658"
+          }
+        ],
+        "format": {
+          "duration": "14.000000"
+        }
+      },
+      "end_sidecar": "summit-end.json"
+    }
+  ]
+}

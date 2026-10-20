@@ -35,7 +35,7 @@ func run() -> void:
 	var app: Node = load("res://game/client_app.gd").new()
 	root.add_child(app)
 	await process_frame
-	var folder := "user://tests/results-"+str(Time.get_ticks_usec())
+	var folder := "user://tests/results-"+RaceSetup.uuid()
 	app.data = AppData.new(folder,false)
 	var data: AppData = app.data
 	data.start_cup()

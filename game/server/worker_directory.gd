@@ -47,10 +47,7 @@ func _ready() -> void:
 func _process(_dt: float) -> void:
 	var now := Time.get_ticks_msec()
 	if last_success >= 0 and now - last_success >= 15000:
-		healthy = false
-		if not retired:
-			retired = true
-			retire_requested.emit()
+		retire()
 	if now >= next_heartbeat and heartbeat.get_http_client_status() == HTTPClient.STATUS_DISCONNECTED and state_provider.is_valid():
 		next_heartbeat = now + 5000
 		var body: Dictionary = state_provider.call()
@@ -71,9 +68,7 @@ func headers() -> PackedStringArray:
 func heartbeat_complete(result: int, status: int, _headers: PackedStringArray, bytes: PackedByteArray) -> void:
 	if result != HTTPRequest.RESULT_SUCCESS or status != 200:
 		if status in [401, 404]:
-			healthy = false
-			retired = true
-			retire_requested.emit()
+			retire()
 		return
 	var response: Variant = JSON.parse_string(bytes.get_string_from_utf8())
 	if not response is Dictionary or not response.get("commands") is Array or response.commands.size() > 16 or not response.get("drain") is bool:
@@ -88,9 +83,14 @@ func heartbeat_complete(result: int, status: int, _headers: PackedStringArray, b
 		acknowledged.append(command.id)
 	if not acknowledged.is_empty(): next_heartbeat = 0
 	if response.drain:
-		retired = true
-		healthy = false
-		retire_requested.emit()
+		retire()
+
+
+func retire() -> void:
+	healthy = false
+	if retired: return
+	retired = true
+	retire_requested.emit()
 
 
 func admit(sender: int, event: Dictionary) -> void:

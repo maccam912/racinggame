@@ -41,7 +41,7 @@ func _initialize() -> void:
 					assert(not keys.has(profile))
 					keys[profile]=true
 	assert(keys.size()==32,"orientation, device class and control variants remain independent")
-	var folder := "user://tests/touch-layout-"+str(Time.get_ticks_usec())
+	var folder := "user://tests/touch-layout-"+RaceSetup.uuid()
 	var data := AppData.new(folder,true)
 	data.settings.touch_layouts = book
 	assert(data.save_settings()==OK)

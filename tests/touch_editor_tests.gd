@@ -37,7 +37,7 @@ func run() -> void:
 	var app: Node = load("res://game/client_app.gd").new()
 	root.add_child(app)
 	await settle()
-	app.data = AppData.new("user://tests/touch-editor-"+str(Time.get_ticks_usec()),true)
+	app.data = AppData.new("user://tests/touch-editor-"+RaceSetup.uuid(),true)
 	app.start_drive({"mode":"quick","opponents":0})
 	await physics_frame
 	app.drive.show_pause()

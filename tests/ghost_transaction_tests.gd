@@ -15,7 +15,7 @@ func write_bytes(path: String, bytes: PackedByteArray) -> void:
 
 func _initialize() -> void:
 	Catalog.load_all()
-	var folder := "user://tests/ghost-transaction-"+str(Time.get_ticks_usec())
+	var folder := "user://tests/ghost-transaction-"+RaceSetup.uuid()
 	var data := AppData.new(folder,false)
 	var race := RaceSession.new()
 	race.track = Catalog.tracks[0]

@@ -1,0 +1,20 @@
+{
+  "kind": "exported ARM64 Android emulator; physical hardware key backing not established",
+  "apk_sha256": "52667127bcf9af0a453c6857858fdcdd8263611394065ffc8c424b49e936890a",
+  "cold_processes": true,
+  "tamper_rejected": true,
+  "replacement": true,
+  "absence_before_and_after_erase": true,
+  "steps": {
+    "absent_before": true,
+    "write": true,
+    "read": true,
+    "replace": true,
+    "read_replaced": true,
+    "erase": true,
+    "absent_after_erase": true,
+    "cleanup": true
+  },
+  "errors": [],
+  "passed": true
+}

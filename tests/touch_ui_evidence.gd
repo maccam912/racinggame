@@ -7,7 +7,7 @@ func run() -> void:
 	Catalog.load_all()
 	DrivingInput.register_defaults()
 	DisplayServer.window_set_size(Vector2i(1280,720))
-	var data := AppData.new("user://tests/touch-evidence-" + str(Time.get_ticks_usec()),true)
+	var data := AppData.new("user://tests/touch-evidence-" + RaceSetup.uuid(),true)
 	var drive := RaceDrive.new()
 	drive.app_data = data
 	drive.show_touch = true
