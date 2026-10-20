@@ -37,8 +37,15 @@ ENet Loaded ordering. [Original failure and local follow-up](evidence/graphics-p
 All **92 final source commands pass** with complete raw logs, alongside 19 native
 menu captures, seven posed HUD references and real six-cell bundled emoji
 readback. [Interface and source evidence](evidence/arcade-ui101/). Corrected remote
-graphics execution and the new interface's release packages remain pending in
-this checkpoint.
+graphics execution and public publication remain pending in this checkpoint.
+Clean-source local Build 101 APK and macOS packages carry commit `8545b3c` and
+asset hash `8fc08bbd`. Both Android emulators updated with the same signer/UID
+and all **58 existing files** preserved byte-for-byte. Four actual installed-APK
+main-menu readbacks cover phone/tablet at 100/150%; their isolated synthetic
+profiles retain zero race stats and are archived separately. The native macOS
+export passes platform-adapter/headless driving startup. [Package evidence](evidence/arcade-ui101/packages/).
+These package checks do not establish other desktop platforms, a full Android
+menu traversal, human readability or physical hardware performance.
 
 Owner scope update, 19 October 2026: use phone/tablet **emulators only** for this
 implementation. Physical checks in historical checkpoints are optional owner

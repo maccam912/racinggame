@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "build": {
+    "version": "0.0.101-dev",
+    "build_number": 101,
+    "working_tree_dirty": false,
+    "commit": "8545b3c09f74d68d3213ff89fdf4d405792d7cbd",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a",
+    "asset_hash": "8fc08bbda8c0e2ba0209c57741ee7ddeb52e17e96feddb8f34d1642270e023ba",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e",
+      "sha256": "454cc58b61467a74619871c2db148eb45e5449d8d40b1f6f4c56d60f521104a2"
+    },
+    "android_services": {
+      "source_hash": "d3b152de525fa6fc6804c9afc2dc1141871399d0bbfcf2b2668180c575523a77",
+      "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+      "android_api": 36,
+      "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+      "java_release": 17,
+      "compiler": "javac 17.0.20.1",
+      "sha256": "98e0e48ee687e68962f3e2a7bf89958df293f3c0b3e0f6b65106ad8a70e72de4"
+    }
+  },
+  "captures": [
+    {
+      "serial": "emulator-5580",
+      "layout": "phone",
+      "ui_scale": 100,
+      "profile": "m6_ui101_82ea35a8c785",
+      "archived_profile": "/data/user/0/dev.pacificrush.game/files/qa_archive_m6_ui101_82ea35a8c785",
+      "path": "phone-100/main.png",
+      "sha256": "65cb6ddfd00ff536ff875025485bd076a576b98d74b303aa9d70fa6147797b9e",
+      "zero_race_stats": true
+    },
+    {
+      "serial": "emulator-5580",
+      "layout": "phone",
+      "ui_scale": 150,
+      "profile": "m6_ui101_e021b35926ca",
+      "archived_profile": "/data/user/0/dev.pacificrush.game/files/qa_archive_m6_ui101_e021b35926ca",
+      "path": "phone-150/main.png",
+      "sha256": "6dead5b984e128e7bf9703a67cc019bc5dfc5f32ce16383d669320ce02a9214c",
+      "zero_race_stats": true
+    },
+    {
+      "serial": "emulator-5582",
+      "layout": "tablet",
+      "ui_scale": 100,
+      "profile": "m6_ui101_acd6681753dd",
+      "archived_profile": "/data/user/0/dev.pacificrush.game/files/qa_archive_m6_ui101_acd6681753dd",
+      "path": "tablet-100/main.png",
+      "sha256": "3938767342f87f3f34e162e24100f6f8701eafe5de37ee573f06d1a2b9ef9985",
+      "zero_race_stats": true
+    },
+    {
+      "serial": "emulator-5582",
+      "layout": "tablet",
+      "ui_scale": 150,
+      "profile": "m6_ui101_f0cd0e2496b8",
+      "archived_profile": "/data/user/0/dev.pacificrush.game/files/qa_archive_m6_ui101_f0cd0e2496b8",
+      "path": "tablet-150/main.png",
+      "sha256": "62d2596d4d4b08086a2ab01d8926fa58c2325d2df97eef78daed7fc93b722afd",
+      "zero_race_stats": true
+    }
+  ],
+  "boundary": "Actual installed clean-source release-mode APK main menus on Android 15 ARM64 emulators, captured by existing in-game GPU readback. Synthetic owned profiles; no source UI overrides, physical input, thermal or minimum-hardware claim."
+}
