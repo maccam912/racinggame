@@ -1,5 +1,31 @@
 # Implementation status
 
+## 19 October — Linux graphics construction deadline diagnosed
+
+The focused Linux diagnostic reproduced the strict shader-fixture failure and
+identified its actual state: Palm Bay completed GPU preparation, then Citrus
+was still constructing at stage **39/48** when the shared 15-second fixture
+deadline expired. No graphics error or completed world was reported. The initial
+missed-phase explanation was a hypothesis; this trace establishes construction
+time as the failing boundary. [Original diagnostic](evidence/graphics103/).
+
+The fixture now allows a bounded **60 seconds for construction** and retains
+**15 seconds for GPU/readiness**. Its real submissions, two drawn frames,
+readback, background wait, Retry/Cancel and real ENet Loaded assertions remain.
+Timeout stops the calling fixture without a secondary nil-warmer error.
+Production loading and performance limits are unchanged. Native 60 fps follow-up
+passes all six worlds and readiness/error cases; corrected Linux execution and
+public release publication remain pending.
+
+The clean-source local Build 102 release APK also renders the new materials in
+three actual seven-opponent ordinary races: Palm Bay, Marina Lights and Redwood
+Run at tick 1,200, with touch HUD and unretouched 2400×1080 readbacks. Metadata
+records commit `86a45a5`, asset `714139d3` and unchanged gameplay `4eaef43b`.
+Its in-place emulator update preserves all 40 preexisting files and the signer/
+UID. [Actual Android material evidence](evidence/materials102/android/). This is
+emulator rendering and automated driving, separate from physical controls,
+thermal behavior, minimum hardware or human handling.
+
 ## 19 October — dithered paint, glass/chrome and dry asphalt
 
 Original car shaders now use object-space ordered dither, restrained metallic

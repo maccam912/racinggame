@@ -2,6 +2,9 @@ extends SceneTree
 var app: Node
 var rows: Array[Dictionary] = []
 var folder: String
+const CONSTRUCTION_TIMEOUT_MS: int = 60000
+const GPU_TIMEOUT_MS: int = 15000
+var slow_construction_probe: bool = "--slow-construction-probe" in OS.get_cmdline_user_args()
 func _initialize() -> void: call_deferred("run")
 func hold_graphics(child: Node) -> void:
 	if child is TrackLoader:
@@ -10,9 +13,13 @@ func hold_graphics(child: Node) -> void:
 		# foreground guard before its first draw so the phase is observable.
 		child.set_meta("fixture_foreground",child.active)
 		child.active = func() -> bool: return false
+		child.set_meta("fixture_frame_cap",Engine.max_fps)
+		if slow_construction_probe and child.world.track.id=="citrus_pass": Engine.max_fps = 3
+		child.set_meta("construction_frame_cap",Engine.max_fps)
 		print("SHADER_FIXTURE_HOLD id="+str(child.get_instance_id())+" valid="+str(child.active.is_valid())+" allowed="+str(child.active.call()))
 func release_graphics(job: TrackLoader) -> void:
 	print("SHADER_FIXTURE_RELEASE "+JSON.stringify(loader_state()))
+	Engine.max_fps = int(job.get_meta("fixture_frame_cap"))
 	job.active = job.get_meta("fixture_foreground")
 	job.warmer.active = job.active
 func loader_state() -> Dictionary:
@@ -22,11 +29,11 @@ func loader_state() -> Dictionary:
 	result.merge({"id":job.get_instance_id(),"warming":job.warming,"done":job.done,"graphics_error":job.graphics_error,"guard_saved":job.has_meta("fixture_foreground"),"active_valid":job.active.is_valid(),"active":bool(job.active.call()) if job.active.is_valid() else null,"world_stage":job.world.build_stage if is_instance_valid(job.world) else -1})
 	if is_instance_valid(job.warmer): result["warmer"] = {"allowed":job.warmer.allowed(),"frames":job.warmer.rendered_frames,"submissions":job.warmer.submissions,"draws":job.warmer.draw_calls,"finished":job.warmer.finished,"update_mode":job.warmer.viewport.render_target_update_mode}
 	return result
-func until(condition: Callable, label: String = "") -> void:
-	var deadline := Time.get_ticks_msec()+15000
+func until(condition: Callable, label: String = "", timeout_ms: int = GPU_TIMEOUT_MS) -> bool:
+	var deadline := Time.get_ticks_msec()+timeout_ms
 	while not condition.call() and Time.get_ticks_msec()<deadline: await process_frame
 	if not condition.call(): print("SHADER_FIXTURE_TIMEOUT "+label+" "+JSON.stringify(loader_state()))
-	assert(condition.call(),"native graphics preparation completed before deadline: "+label)
+	return condition.call()
 func run() -> void:
 	assert(DisplayServer.get_name()!="headless")
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://reports"))
@@ -48,7 +55,10 @@ func run() -> void:
 		var started := Time.get_ticks_msec()
 		app.request_drive({"mode":"quick","track":index,"opponents":7,"car":index%4},app.show_menu)
 		var job: TrackLoader = app.track_loader
-		await until(func() -> bool: return job.warming,"course_"+str(index)+"_warming")
+		assert(await until(func() -> bool: return job.warming,"course_"+str(index)+"_warming",CONSTRUCTION_TIMEOUT_MS),"fixture stage completed within its documented bound")
+		var construction_ms := Time.get_ticks_msec()-started
+		var construction_cap := int(job.get_meta("construction_frame_cap"))
+		if slow_construction_probe and index==1: assert(construction_cap==3 and construction_ms>15000,"actual 3 fps construction exceeds the old shared deadline")
 		assert(not job.done and job.world.get_parent()==null and app.loading_bar.value<1)
 		assert(job.warmer.viewport.find_world_3d()!=app.get_world_3d())
 		if index==0:
@@ -59,7 +69,7 @@ func run() -> void:
 			assert(root.get_texture().get_image().save_png("res://reports/m5-shader-loading.png")==OK)
 			assert(job.warmer.viewport.get_texture().get_image().save_png("res://reports/m5-shader-material-grid.png")==OK)
 		release_graphics(job)
-		await until(func() -> bool: return app.page=="race")
+		assert(await until(func() -> bool: return app.page=="race"),"fixture stage completed within its documented bound")
 		app.drive.set_physics_process(false)
 		var evidence: Dictionary = app.drive.world.shader_warmup.duplicate(true)
 		assert(evidence.gpu_warmed and evidence.rendered_frames>=2 and evidence.draw_calls>0 and evidence.visible_objects>0)
@@ -68,15 +78,17 @@ func run() -> void:
 		evidence["track"] = Catalog.tracks[index].id
 		evidence["msaa"] = app.data.settings.msaa
 		evidence["load_ms"] = Time.get_ticks_msec()-started
+		evidence["construction_ms"] = construction_ms
+		evidence["construction_frame_cap"] = construction_cap
 		rows.append(evidence)
 		app.show_menu()
 		await process_frame
 	app.request_drive({"mode":"quick","track":0,"opponents":0},app.show_menu)
 	var failing: TrackLoader = app.track_loader
-	await until(func() -> bool: return failing.warming)
+	assert(await until(func() -> bool: return failing.warming,"construction",CONSTRUCTION_TIMEOUT_MS),"fixture stage completed within its documented bound")
 	failing.warmer.force_failure = true
 	release_graphics(failing)
-	await until(func() -> bool: return failing.graphics_error)
+	assert(await until(func() -> bool: return failing.graphics_error),"fixture stage completed within its documented bound")
 	assert(app.page=="loading" and app.drive==null and not failing.done and app.loading_bar.value<1)
 	await RenderingServer.frame_post_draw
 	assert(root.get_texture().get_image().save_png("res://reports/m5-shader-retry.png")==OK)
@@ -85,13 +97,13 @@ func run() -> void:
 		if button.text==I18n.t("button.retry"): retry = button
 	assert(retry!=null)
 	retry.pressed.emit()
-	await until(func() -> bool: return app.page=="race")
+	assert(await until(func() -> bool: return app.page=="race"),"fixture stage completed within its documented bound")
 	app.drive.set_physics_process(false)
 	assert(app.drive.world.shader_warmup.gpu_warmed)
 	app.show_menu()
 	app.request_drive({"mode":"quick","track":2,"opponents":0},app.show_menu)
 	var cancelling: TrackLoader = app.track_loader
-	await until(func() -> bool: return cancelling.warming)
+	assert(await until(func() -> bool: return cancelling.warming,"construction",CONSTRUCTION_TIMEOUT_MS),"fixture stage completed within its documented bound")
 	app.back_action.call()
 	for frame in range(5): await process_frame
 	assert(app.page=="main" and app.drive==null and app.track_loader==null and app.data.profile.races_completed==0)
@@ -105,24 +117,24 @@ func run() -> void:
 	root.add_child(server)
 	app.show_connection_form()
 	app.connect_address("127.0.0.1:"+str(port))
-	await until(func() -> bool: return app.page=="lobby")
+	assert(await until(func() -> bool: return app.page=="lobby"),"fixture stage completed within its documented bound")
 	var client: NetworkClient = app.network
 	var identity := client.guest_id
 	client.command("ready",{"value":true})
-	await until(func() -> bool: return server.lobby.all_ready())
+	assert(await until(func() -> bool: return server.lobby.all_ready()),"fixture stage completed within its documented bound")
 	client.command("start")
-	await until(func() -> bool: return is_instance_valid(app.track_loader) and app.track_loader.warming)
+	assert(await until(func() -> bool: return is_instance_valid(app.track_loader) and app.track_loader.warming,"construction",CONSTRUCTION_TIMEOUT_MS),"fixture stage completed within its documented bound")
 	app.track_loader.warmer.active = func() -> bool: return false
 	for frame in range(8): await process_frame
 	assert(not server.players[0].loaded and client.loaded_race==-1 and server.session==null,"authority receives no Loaded until real shader submissions finish")
 	release_graphics(app.track_loader)
-	await until(func() -> bool: return app.page=="race")
+	assert(await until(func() -> bool: return app.page=="race"),"fixture stage completed within its documented bound")
 	app.drive.set_physics_process(false)
 	assert(app.drive.world.shader_warmup.gpu_warmed and server.players[0].loaded and client.guest_id==identity)
 	app.show_menu()
 	server.queue_free()
 	var file := FileAccess.open("res://reports/m5-shader-warmup.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":true,"renderer":RenderingServer.get_current_rendering_method(),"tracks":rows,"failed_readback_retry":true,"cancel_during_graphics":true,"background_waits":true,"real_enet_loaded_after_gpu":true,"no_stats":true,"boundary":"Actual native Compatibility material/mesh/instanced submissions, two drawn frames, GPU readback and loading UI. Not a universal hardware no-stutter guarantee or physical thermal test."},"  "))
+	file.store_string(JSON.stringify({"passed":true,"construction_timeout_ms":CONSTRUCTION_TIMEOUT_MS,"gpu_timeout_ms":GPU_TIMEOUT_MS,"renderer":RenderingServer.get_current_rendering_method(),"tracks":rows,"failed_readback_retry":true,"cancel_during_graphics":true,"background_waits":true,"real_enet_loaded_after_gpu":true,"no_stats":true,"boundary":"Actual native Compatibility material/mesh/instanced submissions, two drawn frames, GPU readback and loading UI. Not a universal hardware no-stutter guarantee or physical thermal test."},"  "))
 	file.close()
 	app.queue_free()
 	await create_timer(.5).timeout
