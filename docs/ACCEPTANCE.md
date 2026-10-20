@@ -7,10 +7,12 @@ requirement; human handling/usability and operated public regions remain open.
 
 Current gameplay is **content 5 / protocol 5 / save schema 1**, digest
 `4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a`.
-The [91-command source report](evidence/validation96/checks.json) uses this
-gameplay with detailed scenery and the Gold matrix. Each source-test link below is
+The [92-command source report](evidence/source98/summary.json) uses this
+gameplay with detailed scenery, Gold and camera matrices. Each source-test link below is
 the actual executable fixture; screenshots alone do not establish a numeric pass.
 Historical platform evidence retains its original build and compatibility label.
+The [Linux render audit](evidence/render-gate98/) supersedes earlier green
+render-job claims; actual corrected remote execution is pending.
 
 “Automated” means the listed scope has executable evidence. “Partial” identifies
 a remaining procedure or platform boundary. Neither substitutes for human feel.
@@ -19,7 +21,7 @@ a remaining procedure or platform boundary. Neither substitutes for human feel.
 | --- | --- | --- |
 | DRIVE-01 | Automated | [Driving fixtures](../tests/driving_tests.gd): Comet 0–100 km/h 1.650 s, capped speed, straight-line repeatability. |
 | DRIVE-02 | Automated | [Driving fixtures](../tests/driving_tests.gd): 20.806 m stop and delayed reverse. |
-| DRIVE-03 | Automated | [Driving fixtures](../tests/driving_tests.gd), [hill presentation](../tests/hill_presentation_tests.gd): repeatable steering and slope-following presentation. Human cornering feel remains an owner review. |
+| DRIVE-03 | Automated | [Driving fixtures](../tests/driving_tests.gd), [hill presentation](../tests/hill_presentation_tests.gd), [36 camera paths through six actual fast-car laps](evidence/camera-courses/summary.json): repeatable steering, slope following and static/terrain clearance. Human cornering feel remains an owner review. |
 | DRIVE-04 | Automated | [Driving fixtures](../tests/driving_tests.gd), [feedback](../tests/race_feedback_tests.gd): grip restoration, slip and bounded visual feedback. |
 | DRIVE-05 | Automated | [Engine world fixture](../tests/world_tests.gd): sustained wall scrape, tangential retention and penetration bounds. |
 | DRIVE-06 | Automated | [Car contact](../tests/race_contact_tests.gd): bounded pair impulses and barrier interaction. |
@@ -44,7 +46,7 @@ a remaining procedure or platform boundary. Neither substitutes for human feel.
 | MOBILE-02 | Partial | [Five-pointer/cancellation](../tests/progress_touch_tests.gd), [layout edits](../tests/touch_editor_tests.gd), [device ownership](../tests/input_ownership_tests.gd). Real emulator captures prove the touch HUD, not physical gestures. |
 | MOBILE-03 | Partial | [Focus/checkpoint/resume](../tests/mobile_services_tests.gd), [Android service bridge and retained emulator drills](ANDROID_SERVICES.md), [cold checkpoint UI](../tests/checkpoint_ui_tests.gd). Content-5 source coverage and actual APK startup are current; old OS-interruption evidence keeps its original build. |
 | MOBILE-04 | Partial | [Default-route replacement](../tests/online_lifecycle_tests.gd), [actual emulator bridge/handover checkpoint](ANDROID_SERVICES.md). No physical carrier transition is claimed; hardware is optional owner follow-up. |
-| MOBILE-05 | Automated emulator | [Build 91 Android + seven native clients](evidence/content5/android91-crossplay.json): two complete races/rematches, 16 finishes, identical parsed authority rows and retained identities. |
+| MOBILE-05 | Automated emulator | [Actual Build 95 ten-race APK run](evidence/android-ten95/): 80 matching finishes, eight retained identities, 50±20 ms / 1% datagram loss and ten graphics loads. Native p95 and actual Android process RSS are separate populations; OS-overlay screenshots do not prove readability. |
 | PERF-01 | Partial | [Server network/memory soak](evidence/content5/macos-ten-race-soak.json), required exported Linux worker and constrained OCI race gates. The [15-minute live six-course graphical soak](GRAPHICAL_SOAK.md) retains actual draw intervals and RSS; it is separate from continuous worst-track or minimum-hardware acceptance. Physical thermal checks are waived. |
 | AUDIO-01 | Automated output; human listening open | [Decoded eight-engine/music/impact capture](../tools/audio_acceptance.py), [DSP/caption rules](../tests/race_audio_tests.gd), [retained audio measurements](evidence/m4-audio-acceptance.json). Required CI repeats real decoded output. |
 | ACCESS-01 | Automated layout/motion | [Accessibility settings](../tests/accessibility_settings_tests.gd), [HUD](../tests/race_hud_tests.gd), [results visibility](../tests/results_visibility_tests.gd). Human comprehension remains open. |

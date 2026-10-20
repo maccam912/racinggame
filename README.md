@@ -31,11 +31,18 @@ python3 tools/network_integration.py --seconds 160 --laps 2 --latency 75 --jitte
 python3 tools/build.py macos --number 1
 ```
 
+`tools/check.py` retains a separate `reports/checks-<id>/` folder for each run,
+complete merged logs for every command and an atomic partial/final summary.
+`reports/checks.json` is the latest snapshot; an unfinished run cannot be green.
+Timeouts and interruption retain output and stop that invocation's owned process
+group on macOS/Linux. Windows source runs retain their direct-child cleanup
+scope. CI uploads the full source-check folder, including failures.
+
 Build targets: `linux`, `windows`, `macos`, `android` (APK), `android_aab`, `server`. Export templates and checksum-pinned native SDK/SCons dependencies download on first export. Native adapters build on their target OS (Android can cross-build); Linux builds require `libsecret-1-dev`, `libxrandr-dev` and `pkg-config`. CI builds and merges all adapters before export. Android requires JDK 17, SDK 36/build-tools 35.0.1 and ARM64; set `JAVA_HOME` and `ANDROID_HOME`. Release-mode APK/AAB packages use a stable development keystore. Production publisher signing, store submission and Developer ID/notarization remain owner release inputs.
 
 Android exports also compile the project-owned [audio-focus/network bridge](docs/ANDROID_SERVICES.md) against the pinned engine library and verify its manifest/DEX inclusion. Mobile [offline recovery](docs/OFFLINE_RESUME.md) and [foreground/adaptive resource policy](docs/MOBILE_RUNTIME.md) have separate source, native-render and emulator evidence in the status report.
 
-Track Loading now [renders required graphics variants](docs/SHADER_LOADING.md) before Grid or online Loaded, with foreground waiting, Retry and Cancel. Native rendering CI covers every course and all shipped spatial shaders.
+Track Loading now [renders required graphics variants](docs/SHADER_LOADING.md) before Grid or online Loaded, with foreground waiting, Retry and Cancel. The Linux rendering job is being corrected after an audit found that audio startup failures were hidden by piped log capture; [the correction and raw evidence](docs/evidence/render-gate98/) distinguish it from passing native macOS/Android rendering.
 
 Player and room names use portable [Unicode 16 grapheme rules](docs/UNICODE_NAMES.md), checked against the same 1,093 official vectors as the directory. The Android/native eight-player race-and-rematch fixture is documented there. Shared [font fallbacks and whole-grapheme editing](docs/TEXT_RENDERING.md) keep accepted emoji names visible in exported games.
 
@@ -45,16 +52,24 @@ Handling and cars: `game/content/cars.json` and `game/core/vehicle_sim.gd`; cour
 
 The [Linux server bundle](docs/SERVER_PACKAGE.md) includes the matching operator CLI, dependency licenses and runbooks. [OCI hosting](docs/CONTAINER_HOSTING.md) adds gated image/recovery checks and an operator region example. Managed workers report [tick percentiles, current native RSS and capacity headroom](docs/SERVER_PERFORMANCE.md) through authenticated private heartbeats. [Supervisor recovery and rollout](docs/SUPERVISOR_LIFECYCLE.md) retain active races, drain old pools and share bounded capacity. [Database backup and restore](docs/DIRECTORY_BACKUPS.md) preserve identities while clearing stale leases. `python3 tools/soak_acceptance.py` runs the separate eight-client, ten-race impaired-network and 5–15 minute memory fixture.
 
-Every push to main validates source/geometry/assets, executes real-client network fault scenarios, renders the original car/ghost shaders in a Linux graphics context, exports all platforms, checks native package startup, and publishes a numbered development prerelease if every gate passes. These are development checkpoints, not completed launch releases.
+Every push to main requires source/geometry/assets, real-client network fault scenarios, Linux graphical rendering, platform exports and native package startup before publishing a numbered development prerelease. The rendering job now uses explicit Bash pipefail, a deliberate failure probe and Dummy audio output while retaining its actual graphics context. Earlier green rendering jobs are superseded by the [validation audit](docs/evidence/render-gate98/). These are development checkpoints, not completed launch releases.
 
 Gameplay identity changes also require the complete six-course AI matrix and
-ten-race impaired network/memory soak before publication. Cosmetic changes keep
+ten-race impaired network/memory soak before publication. Changes to the soak driver/harness also require that full soak. Cosmetic changes keep
 their own asset identity. [Foliage](docs/BILLBOARD_ART.md), [painted signs](docs/ROADSIDE_POSTERS.md),
 [3D scenery detail](docs/SCENERY_DETAIL.md) and [content-5 tuning](docs/ARCADE_TUNING.md)
 have saved sources and evidence. `python3 tools/render_soak.py` separately measures
 live six-course graphical scene lifetimes on the current desktop; its wall-clock
 frame report is distinct from fixed-frame video recording and minimum-device
 performance acceptance.
+
+`python3 tools/mixed_android_acceptance.py --serial emulator-5584 --number 95
+--races 10 --laps 3 --seconds 2400 --impaired` runs an installed release APK
+against seven native clients through independent 50±20 ms / 1% loss UDP proxies.
+Use only an explicitly selected, already rooted test emulator. It preserves
+unrelated profiles, records exact authority/Android/native result agreement,
+streams logs across buffer rotation and samples Android process RSS. Its output
+is automated emulator evidence, separate from human touch or hardware performance.
 
 The four original car meshes have explicit 35/90 m LODs, a shared 1024² atlas, all eight paint choices and independently animated wheels. Editable Blender source and regeneration instructions are in [assets/source/README.md](assets/source/README.md). Run `python3 tools/asset_hash.py` after changing cosmetic exports; this identity is separate from gameplay content and appears in build metadata. Six original scenery kits now supply all 30 named landmarks, with shared vegetation, neighborhood buildings, road furniture and rendered course postcards. The 48 original audio assets include six course compositions, menu/results music, four engine profiles, effects and fixed synthetic announcer cues. Run `python3 tools/audio_acceptance.py --capture` (ffmpeg required) for the actual eight-engine mix gate, or add `--native-output` for a rendered final-output/Master-mute check. Bounded smoke/dust/sparks/skid batches, contact opacity, recovery transitions and camera feedback are implemented. Sixty original editable interface icons, real Garage stat bars, car-specific medals and responsive selection panes are implemented. Authoritative lap clocks, saved-ghost live delta and bounded visible rival labels complete the main racing HUD. M4 source/assets are complete with human/physical reviews still open; M5 robustness work continues. Native save barriers, profile ownership and deletion recovery are documented in [docs/SAVE_DURABILITY.md](docs/SAVE_DURABILITY.md).
 

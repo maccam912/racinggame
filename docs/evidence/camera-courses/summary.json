@@ -1,0 +1,464 @@
+{
+	"boundary": "Six real standing-start Needle laps, ordinary Medium inputs, full static world/camera bounds and actual exported cosmetic terrain triangles. All three cameras with alternating four-second look-back phases, 60 Hz updates and 10 Hz clearance samples. No synthetic vehicle poses or saved records. Numeric camera/static-clearance coverage; not human preference, rendered occlusion, every off-road pose or live frame timing.",
+	"cases": [
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.28804707527161,
+					"max_distance_m": 5.17602396011353,
+					"min_terrain_clearance_m": 4.01883800274118,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.29638314247131,
+					"max_distance_m": 5.16625118255615,
+					"min_terrain_clearance_m": 4.12557544772441,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.95773124694824,
+					"max_distance_m": 8.74887275695801,
+					"min_terrain_clearance_m": 5.67355889072996,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.9608256816864,
+					"max_distance_m": 8.74887371063232,
+					"min_terrain_clearance_m": 5.8364858080732,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.48653328418732,
+					"max_distance_m": 1.47171914577484,
+					"min_terrain_clearance_m": 3.64900126643897,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.47589528560638,
+					"max_distance_m": 1.44776976108551,
+					"min_terrain_clearance_m": 3.6050532607178,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 499,
+					"terrain_clips": 0,
+					"terrain_samples": 499
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 74.9735794067383,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 47.9075924662277,
+			"track": "palm_bay"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.24120759963989,
+					"max_distance_m": 5.18720102310181,
+					"min_terrain_clearance_m": 4.04980501676619,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.2431583404541,
+					"max_distance_m": 5.18319749832153,
+					"min_terrain_clearance_m": 3.96710430097301,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.9054388999939,
+					"max_distance_m": 8.74886608123779,
+					"min_terrain_clearance_m": 5.85863000902827,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.91138434410095,
+					"max_distance_m": 8.74887466430664,
+					"min_terrain_clearance_m": 5.72654332860839,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.42919945716858,
+					"max_distance_m": 1.5000809431076,
+					"min_terrain_clearance_m": 3.46878152093996,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.43186700344086,
+					"max_distance_m": 1.48702561855316,
+					"min_terrain_clearance_m": 3.51161866741313,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 606,
+					"terrain_clips": 0,
+					"terrain_samples": 606
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 73.9797134399414,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 58.6225537052031,
+			"track": "citrus_pass"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.22079491615295,
+					"max_distance_m": 5.16625595092773,
+					"min_terrain_clearance_m": 4.14710344445484,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.17215371131897,
+					"max_distance_m": 5.16624736785889,
+					"min_terrain_clearance_m": 4.11411338922668,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.88847780227661,
+					"max_distance_m": 8.74891376495361,
+					"min_terrain_clearance_m": 5.9034725075835,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.83546710014343,
+					"max_distance_m": 8.74886798858643,
+					"min_terrain_clearance_m": 5.79092206267864,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.36376738548279,
+					"max_distance_m": 1.45539891719818,
+					"min_terrain_clearance_m": 3.62420591482078,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.40832030773163,
+					"max_distance_m": 1.43799388408661,
+					"min_terrain_clearance_m": 3.65117835134151,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 584,
+					"terrain_clips": 0,
+					"terrain_samples": 584
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 75.2941513061523,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 56.3750873389609,
+			"track": "marina_lights"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.25625085830688,
+					"max_distance_m": 5.1828293800354,
+					"min_terrain_clearance_m": 4.17423685891936,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.26255083084106,
+					"max_distance_m": 5.18764591217041,
+					"min_terrain_clearance_m": 4.13871835973623,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.91739201545715,
+					"max_distance_m": 8.74887275695801,
+					"min_terrain_clearance_m": 5.87411678064927,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.92573165893555,
+					"max_distance_m": 8.74888038635254,
+					"min_terrain_clearance_m": 5.85378934416849,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.45366108417511,
+					"max_distance_m": 1.49076390266418,
+					"min_terrain_clearance_m": 3.61750650461181,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.45118546485901,
+					"max_distance_m": 1.49816155433655,
+					"min_terrain_clearance_m": 3.59170969636034,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 604,
+					"terrain_clips": 0,
+					"terrain_samples": 604
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 73.9303283691406,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 58.4177137656129,
+			"track": "redwood_run"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.25475168228149,
+					"max_distance_m": 5.18772554397583,
+					"min_terrain_clearance_m": 4.18336540686505,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.28041386604309,
+					"max_distance_m": 5.18778848648071,
+					"min_terrain_clearance_m": 4.06905059814744,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.91780781745911,
+					"max_distance_m": 8.74889469146729,
+					"min_terrain_clearance_m": 5.84052844538019,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.94302582740784,
+					"max_distance_m": 8.74891948699951,
+					"min_terrain_clearance_m": 5.83197446967097,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.47259652614594,
+					"max_distance_m": 1.49976813793182,
+					"min_terrain_clearance_m": 3.56644631788367,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.44616496562958,
+					"max_distance_m": 1.49806237220764,
+					"min_terrain_clearance_m": 3.56722158589764,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 691,
+					"terrain_clips": 0,
+					"terrain_samples": 691
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 74.7405319213867,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 67.1114972125291,
+			"track": "sunstone_canyon"
+		},
+		{
+			"cameras": [
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.28158283233643,
+					"max_distance_m": 5.1806378364563,
+					"min_terrain_clearance_m": 4.00271641580184,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.2842333316803,
+					"max_distance_m": 5.18725252151489,
+					"min_terrain_clearance_m": 4.01235944093787,
+					"mode": 0,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 2.94447493553162,
+					"max_distance_m": 8.74888801574707,
+					"min_terrain_clearance_m": 5.72330145332671,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 2.94628071784973,
+					"max_distance_m": 8.74886989593506,
+					"min_terrain_clearance_m": 5.77811158604163,
+					"mode": 1,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 0,
+					"max_camera_step_m": 1.47711622714996,
+					"max_distance_m": 1.48055040836334,
+					"min_terrain_clearance_m": 3.46943967144762,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				},
+				{
+					"look_phase": 1,
+					"max_camera_step_m": 1.47325193881989,
+					"max_distance_m": 1.50061118602753,
+					"min_terrain_clearance_m": 3.50001936127956,
+					"mode": 2,
+					"overlaps": 0,
+					"samples": 696,
+					"terrain_clips": 0,
+					"terrain_samples": 696
+				}
+			],
+			"car": "needle",
+			"max_horizontal_speed_mps": 74.9465789794922,
+			"passed": true,
+			"recoveries": 0,
+			"time_seconds": 67.5758160560017,
+			"track": "pacific_summit"
+		}
+	],
+	"content_hash": "4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a",
+	"failures": [],
+	"passed": true
+}

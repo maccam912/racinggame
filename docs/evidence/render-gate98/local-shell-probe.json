@@ -1,0 +1,16 @@
+[
+  {
+    "shell": "legacy",
+    "exit_code": 1,
+    "expected": 1,
+    "passed": true,
+    "output": "EXPECTED_RENDER_PROBE_FAILURE\nA failed renderer was hidden by log capture\n"
+  },
+  {
+    "shell": "explicit-bash",
+    "exit_code": 0,
+    "expected": 0,
+    "passed": true,
+    "output": "EXPECTED_RENDER_PROBE_FAILURE\n"
+  }
+]

@@ -53,6 +53,8 @@ def main():
                'races_requested':args.races, 'laps':args.laps, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
                'independent_datagram_loss':.01, 'transport':'Eight independent real UDP proxies, including ENet ACKs and retransmissions',
                'boundary':'Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.'}
+    summary['fixture_sha256'] = {name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in
+                               ('tools/soak_acceptance.py','tests/soak_network_client.gd','tests/lobby_network_client.gd')}
     if worker_build:
         summary['worker_kind'] = 'Actual exported Linux x86-64 binary with its embedded project, no source-project path'
         summary['worker_build'] = worker_build
@@ -149,7 +151,7 @@ def main():
                        max_clear_p95_m=max((row['p95'] for row in corrections),default=None),
                        min_clear_samples=min((row['count'] for row in corrections),default=0),clear_samples=sum(row['count'] for row in corrections),
                        proxy_seeds=[94723+101*index for index in range(8)],
-                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; test-only target speed factors [1,.96,.985,.945,.97,.955,.93,.995], four normal car types',
+                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; test-only target speed factors [1,.96,.985,.945,.97,.955,.93,.995], four normal car types; ordinary brake-only launch holds of index*30 input ticks after GO (0–3.5 seconds)',
                        clients_reports=reports,memory=memory,racing_wire=race_wire)
         assert summary['passed'], 'Failed checks: '+', '.join(key for key,value in checks.items() if not value)
     except Exception as error:

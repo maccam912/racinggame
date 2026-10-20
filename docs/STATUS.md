@@ -9,7 +9,7 @@ set pieces, superseding the earlier exact-physics choice. Original illustrated
 billboard decorations are approved. The owner explicitly leaves official regions
 unconfigured in development releases for now. DESIGN.md v1.6 records this scope.
 
-Latest release: **Build 94**, all 18 desktop/Android/server files plus the tested OCI image. Current source work finishes M5 robustness gates and prepares the specified M6 release assets; owner-operated publishing/regions remain open; physical hardware is optional owner follow-up.
+Latest release: **Build 96**, all 18 desktop/Android/server files plus the tested OCI image. **Validation correction:** its Linux graphical job stopped at audio initialization, and piped log capture hid the failure. The green workflow does not establish Linux graphics coverage. Public release notes are corrected; the separately executed macOS and Android evidence remains valid. Build 97 was not published because its exported-worker soak also missed clear-road sample coverage. Current work repairs these gates and prepares M6 release evidence; official regions remain owner-deferred.
 
 The design, including the latest owner decisions, remains the launch contract. Historical checkpoint notes retain their original measurements and open gates; the owner update above supersedes physical-device blockers.
 
@@ -974,3 +974,66 @@ orbit angles for each car. Representative all-car views, actual Main Menu and
 shipped scripts and memory-pressure reconstruction. Required CI adds the native
 clearance/orbit gate. [Evidence and scope](evidence/menu-turnout/).
 Gameplay, assets, save/protocol identities and driving scenery are unchanged.
+
+Build **96** reports a green workflow and publishes all **18 files** as
+[v0.0.96-dev](https://github.com/maccam912/racinggame/releases/tag/v0.0.96-dev),
+including the required degraded-network scenario and new all-car Gold matrix.
+Its tested OCI image is
+`ghcr.io/maccam912/pacific-rush-server@sha256:4d30f87be5c71733684ffa91074f519c6a6c4ffa87df236f3957bc1a53ead2ad`.
+The preview fix is pushed as `93e6410`. The later audit below supersedes the
+workflow's apparent Linux graphical success; Build 97 did not publish.
+
+Six real standing-start **Needle** laps now exercise Near, Far and Hood cameras,
+with both alternating look-back phases: **36 camera paths / 22,080 samples**.
+Every sample has actual exported terrain coverage; none overlaps static geometry
+or clips the cosmetic floor. All laps are valid with no recovery. This extends
+the planar 30/60/120 fps and collision-wall fixtures; it does not cover every
+off-road pose or human camera preference. [Raw report](evidence/camera-courses/summary.json).
+This new required source suite raises the full matrix to 92 commands.
+
+Source checks now preserve every invocation's complete output, a unique run
+folder, and atomic running/final reports. Timeouts/interruption stop the owned
+macOS/Linux process group, including a tested descendant that ignores TERM;
+Windows retains its direct-child source-runner scope. Five new actual subprocess
+tests prove original non-UTF-8/merged output retention, launch failure, forced
+descendant cleanup, interruption and non-green partial checkpoints with immutable
+earlier runs. All **18 Python tests** pass. The complete **92-command matrix now
+passes**; [every full command log and final summary](evidence/source98/) is retained.
+
+
+## Linux graphical gate audit and extended emulator evidence
+
+Raw CI 96/97 logs show **audio initialization errors in every Linux rendering
+invocation**. The engine wrapper correctly returns failure, but implicit Bash
+and `tee` mask it. Earlier green rendering-job claims are superseded. The fixed
+job uses explicit pipefail, a real expected-exit-23 pipeline probe, Dummy audio
+and the same actual graphics context; local actionlint, shell probes and the
+32-view native Dummy-audio preview pass. Required remote Linux execution remains
+pending here. [Audit and raw evidence](evidence/render-gate98/). The public Build
+96 notes now disclose the correction.
+
+Build **97 is blocked and unpublished**: its actual exported Linux worker has
+16 matching finishes and .040763 m worst moving clear p95, but one client/race
+contains only **460/500** clear samples. The unchanged coverage gate correctly
+fails. Ordinary brake-only launch holds of 0–3.5 seconds are being validated to
+spread the test pack; physics, state, finish grace, sample categories and numeric
+limits remain unchanged. [Original failed reports](evidence/ci97-worker-failure/).
+Changes to the soak harness now require the full ten-race remote soak.
+
+The actual local release **APK 95** separately completes **ten three-lap races**
+against seven native clients through independent 50±20 ms / 1% real-loss UDP
+proxies. All **80 finishes**, parsed full rows and eight identities agree, with
+ten graphics loads and result commits. Worst native clear p95 is **.041211 m**;
+Android correction p95 is not measured. Android process RSS peaks at
+**417,374,208 bytes**, with **4.734202%** repeated-cycle peak growth at minutes
+5–15. Elapsed time is 36.60 minutes; no cleanup issue occurs. This is automated
+emulator evidence. The captured fresh-install OS full-screen overlay prevents
+using those images to establish unobscured readability.
+[Complete measurements and limits](evidence/android-ten95/).
+
+The exact public **macOS Build 96** also renders ordinary Near/Far/Hood Quick
+Races with verified package and sidecar hashes, normal exits and no engine error.
+Generic frame 1,500 images have separate camera settings, not synchronized race
+ticks or in-game telemetry sidecars. The Hood view exposes more bonnet than the
+roughly 10% design target; framing remains a presentation follow-up.
+[Original captures/provenance](evidence/cameras96/).

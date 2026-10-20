@@ -20,6 +20,7 @@ jobs:
     timeout-minutes: 15
     outputs:
       gameplay_changed: ${{ steps.gameplay.outputs.changed }}
+      soak_changed: ${{ steps.gameplay.outputs.soak_changed }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -47,14 +48,21 @@ jobs:
           else
             echo 'changed=true' >> "$GITHUB_OUTPUT"
           fi
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1 && git diff --quiet HEAD^ HEAD -- game/content/compatibility.json tests/soak_network_client.gd tests/lobby_network_client.gd tools/soak_acceptance.py; then
+            echo 'soak_changed=false' >> "$GITHUB_OUTPUT"
+          else
+            echo 'soak_changed=true' >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: source-check-evidence
           path: |
             reports/checks.json
+            reports/checks-*/
             reports/m5-packet-faults.json
             reports/m6-trial-gold.json
+            reports/m6-course-cameras.json
             reports/worker-retirement-*/
           if-no-files-found: error
 
@@ -138,12 +146,25 @@ jobs:
   render:
     needs: verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14.7'
+      - name: Require failed render commands to propagate through log capture
+        run: |
+          mkdir -p reports
+          if python -c "print('EXPECTED_RENDER_PROBE_FAILURE'); raise SystemExit(23)" | tee reports/pipeline-failure.log; then
+            echo 'A failed renderer was hidden by log capture'
+            exit 1
+          else
+            probe_status=$?
+            test "$probe_status" -eq 23
+          fi
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pacific-rush/toolchain
@@ -156,63 +177,63 @@ jobs:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: |
           mkdir -p reports
-          xvfb-run -a python tools/godot.py --max-fps 60 --script tests/car_asset_evidence.gd -- --ci --game-ui --profile=car_render_ci 2>&1 | tee reports/car-render.log
+          xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/car_asset_evidence.gd -- --ci --game-ui --profile=car_render_ci 2>&1 | tee reports/car-render.log
       - name: Render bundled emoji with system font fallback disabled
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/font_render_evidence.gd 2>&1 | tee reports/font-render.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/font_render_evidence.gd 2>&1 | tee reports/font-render.log
       - name: Reveal local results across phone tablet and desktop layouts
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/results_visibility_tests.gd -- --profile=ci_tests 2>&1 | tee reports/results-visibility.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/results_visibility_tests.gd -- --profile=ci_tests 2>&1 | tee reports/results-visibility.log
       - name: Render all original scenery silhouettes and 24 course references
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: |
-          xvfb-run -a python tools/godot.py --max-fps 60 --script tests/scenery_library_evidence.gd 2>&1 | tee -a reports/car-render.log
-          xvfb-run -a python tools/godot.py --max-fps 60 --script tests/course_reference_evidence.gd -- --ci 2>&1 | tee -a reports/car-render.log
+          xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/scenery_library_evidence.gd 2>&1 | tee -a reports/car-render.log
+          xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/course_reference_evidence.gd -- --ci 2>&1 | tee -a reports/car-render.log
       - name: Render illustrated foliage from four approach directions
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/billboard_tests.gd 2>&1 | tee reports/billboards.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/billboard_tests.gd 2>&1 | tee reports/billboards.log
       - name: Render original painted roadside signs on all six courses
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/roadside_poster_tests.gd 2>&1 | tee reports/posters.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/roadside_poster_tests.gd 2>&1 | tee reports/posters.log
       - name: Render original driving effects and recovery transitions
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/feedback_render_evidence.gd -- --profile=feedback_render_ci --capture=res://reports/unused-feedback.png 2>&1 | tee -a reports/car-render.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/feedback_render_evidence.gd -- --profile=feedback_render_ci --capture=res://reports/unused-feedback.png 2>&1 | tee -a reports/car-render.log
       - name: Render original interface icons and selection/results references
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/interface_icon_evidence.gd -- --profile=interface_render_ci 2>&1 | tee -a reports/car-render.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/interface_icon_evidence.gd -- --profile=interface_render_ci 2>&1 | tee -a reports/car-render.log
       - name: Render race HUD and bounded rival nameplates
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/race_hud_evidence.gd -- --profile=hud_render_ci --capture=res://reports/unused-hud.png 2>&1 | tee -a reports/car-render.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/race_hud_evidence.gd -- --profile=hud_render_ci --capture=res://reports/unused-hud.png 2>&1 | tee -a reports/car-render.log
       - name: Render focus help and menu transitions
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/menu_style_evidence.gd -- --profile=menu_style_ci --capture=res://reports/unused-menu-style.png 2>&1 | tee -a reports/car-render.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/menu_style_evidence.gd -- --profile=menu_style_ci --capture=res://reports/unused-menu-style.png 2>&1 | tee -a reports/car-render.log
       - name: Check preview turnout and all four cars through a complete orbit
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/menu_stage_tests.gd -- --render 2>&1 | tee reports/menu-stage.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/menu_stage_tests.gd -- --render 2>&1 | tee reports/menu-stage.log
       - name: Render Driving School input demonstrations
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/school_presentation_evidence.gd -- --profile=school_style_ci --capture=res://reports/unused-school-reference.png 2>&1 | tee -a reports/car-render.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/school_presentation_evidence.gd -- --profile=school_style_ci --capture=res://reports/unused-school-reference.png 2>&1 | tee -a reports/car-render.log
       - name: Render mixed Summit shoulders and authoritative remote brake lamps
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/surface_lamp_evidence.gd 2>&1 | tee -a reports/car-render.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/surface_lamp_evidence.gd 2>&1 | tee -a reports/car-render.log
       - name: Render adaptive world scale and retained resources after memory pressure
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/mobile_runtime_evidence.gd -- --profile=mobile_runtime_ci --capture=res://reports/unused-runtime.png 2>&1 | tee -a reports/car-render.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/mobile_runtime_evidence.gd -- --profile=mobile_runtime_ci --capture=res://reports/unused-runtime.png 2>&1 | tee -a reports/car-render.log
       - name: Render required material variants before entering the grid
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
-        run: xvfb-run -a python tools/godot.py --max-fps 60 --script tests/shader_warmup_evidence.gd -- --profile=shader_warmup_ci --capture=res://reports/unused-warmup.png 2>&1 | tee -a reports/car-render.log
+        run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/shader_warmup_evidence.gd -- --profile=shader_warmup_ci --capture=res://reports/unused-warmup.png 2>&1 | tee -a reports/car-render.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -232,6 +253,7 @@ jobs:
             reports/menu-stage/
             reports/menu-stage.json
             reports/menu-stage.log
+            reports/pipeline-failure.log
             reports/m4-school-reference.json
             reports/m4-surface-lamp-reference.json
             reports/m5-runtime-*.png
@@ -400,7 +422,7 @@ jobs:
             android) icon_extension=apk ;;
             android_aab) icon_extension=aab ;;
           esac
-          python tools/icon_package.py ${{ matrix.target }} build/download/*-${{ matrix.target }}.$icon_extension
+          python tools/icon_package.py ${{ matrix.target }} build/download/*-${{ matrix.target }}."$icon_extension"
       - uses: actions/upload-artifact@v4
         if: always() && (matrix.target == 'windows' || matrix.target == 'macos' || startsWith(matrix.target, 'android'))
         with:
@@ -409,7 +431,7 @@ jobs:
           if-no-files-found: warn
       - name: Verify Android package
         if: matrix.target == 'android'
-        run: $ANDROID_HOME/build-tools/35.0.1/apksigner verify --verbose build/android/pacific-rush.apk
+        run: '"$ANDROID_HOME/build-tools/35.0.1/apksigner" verify --verbose build/android/pacific-rush.apk'
       - name: Verify Android App Bundle signature
         if: matrix.target == 'android_aab'
         run: jarsigner -verify build/android_aab/pacific-rush.aab
@@ -468,6 +490,8 @@ jobs:
           docker push "$server_image:$RELEASE_TAG"
           image_digest=$(docker image inspect "$server_image:$RELEASE_TAG" --format '{{index .RepoDigests 0}}')
           cp docs/RELEASE.md /tmp/pacific-release-notes.md
+          # Markdown backticks are literal text in this format string.
+          # shellcheck disable=SC2016
           printf '\nServer OCI image: `%s`.\n' "$image_digest" >> /tmp/pacific-release-notes.md
           gh release create "$RELEASE_TAG" release/* --verify-tag --title "Development Build ${{ github.run_number }}" --notes-file /tmp/pacific-release-notes.md --prerelease
 
@@ -608,7 +632,7 @@ jobs:
           if-no-files-found: warn
 
   soak:
-    if: needs.verify.outputs.gameplay_changed == 'true' || (github.event_name == 'workflow_dispatch' && inputs.run_soak)
+    if: needs.verify.outputs.soak_changed == 'true' || (github.event_name == 'workflow_dispatch' && inputs.run_soak)
     needs: [verify, platform-adapter]
     runs-on: ubuntu-24.04
     timeout-minutes: 45

@@ -1,0 +1,102 @@
+{
+  "passed": true,
+  "build": {
+    "version": "0.0.96-dev",
+    "build_number": 96,
+    "working_tree_dirty": false,
+    "commit": "8d7a432d40aa9fb66d19ae67a7bca372d390ebd4",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "d0bc2113065e481c9c2c2b2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 5,
+    "save_schema": 1,
+    "content_hash": "4eaef43b6dd7efb40414a23b8f84f4f2902417f8e3a9d0d85bbeced354b3e69a",
+    "asset_hash": "442367da36de66721bbb1ac5b6f666880ab372f9ede98afa1be8573399ecbb74",
+    "target_platform": "macos",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "macos",
+      "architecture": "universal",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "082cbb93815af3cfe1eaed8279f6725801f2455a2a86982f4876561baf56989e",
+      "sha256": "df9bc37c480a787939898ee0267d17eadc24c11d9f66d980f392392a1b541dcb"
+    }
+  },
+  "package_sha256": "e1c8c524189f749cf3a25679cf844a085684404f736591051b3cede1ffc89543",
+  "captures": [
+    {
+      "camera": "near",
+      "command": [
+        "/Users/maccam912/dev/racinggame/build/ci96-native/Pacific Rush.app/Contents/MacOS/Pacific Rush",
+        "--resolution",
+        "1280x720",
+        "--",
+        "--profile=camera96_near_95c488a5",
+        "--drive",
+        "--autodrive",
+        "--capture=/Users/maccam912/dev/racinggame/reports/cameras96-c80330d0/near.png",
+        "--capture-frame=1500"
+      ],
+      "exit_code": 0,
+      "png": "near.png",
+      "png_sha256": "04e9d95a60fd09b8bb5ff16d24a5d8ca2f1c43c9e44358a8a05dcd3d320185d5",
+      "settings_sha256": "b9622a836e6650c254412cad0e1311171be07644dbae1b6e3c17bd7d1c758f07",
+      "resolution": [
+        1280,
+        720
+      ],
+      "drawn_client_frames": 1500
+    },
+    {
+      "camera": "far",
+      "command": [
+        "/Users/maccam912/dev/racinggame/build/ci96-native/Pacific Rush.app/Contents/MacOS/Pacific Rush",
+        "--resolution",
+        "1280x720",
+        "--",
+        "--profile=camera96_far_d057fd6c",
+        "--drive",
+        "--autodrive",
+        "--capture=/Users/maccam912/dev/racinggame/reports/cameras96-c80330d0/far.png",
+        "--capture-frame=1500"
+      ],
+      "exit_code": 0,
+      "png": "far.png",
+      "png_sha256": "c04e22aefe23d8b75c355e045fd76066b2a4857ff4b909b12e196ed815321fe2",
+      "settings_sha256": "5e16414b04ee14408740db4d84935d48ee5d97d51990268b05431b809dbe1575",
+      "resolution": [
+        1280,
+        720
+      ],
+      "drawn_client_frames": 1500
+    },
+    {
+      "camera": "hood",
+      "command": [
+        "/Users/maccam912/dev/racinggame/build/ci96-native/Pacific Rush.app/Contents/MacOS/Pacific Rush",
+        "--resolution",
+        "1280x720",
+        "--",
+        "--profile=camera96_hood_63756c32",
+        "--drive",
+        "--autodrive",
+        "--capture=/Users/maccam912/dev/racinggame/reports/cameras96-c80330d0/hood.png",
+        "--capture-frame=1500"
+      ],
+      "exit_code": 0,
+      "png": "hood.png",
+      "png_sha256": "68915218ceeb0ae6ec1be6ce6f9d68e79aa545b38f200684687fab8494d860fd",
+      "settings_sha256": "120983ed0192af889326d05351d3eafb95b8679b9a098d16a8995d191d809af5",
+      "resolution": [
+        1280,
+        720
+      ],
+      "drawn_client_frames": 1500
+    }
+  ],
+  "boundary": "Exact published CI Build96 macOS package, ordinary solo Comet Quick Races with diagnostic AI and real HUD. Fresh camera settings profiles; generic 1500-frame captures have no course telemetry sidecar. PNG/package/seed hashes and command lines retained; no matching-tick, human-input or performance claim.",
+  "current_camera": "hood"
+}
