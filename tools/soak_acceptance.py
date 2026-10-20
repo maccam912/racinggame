@@ -170,7 +170,7 @@ def main():
                        max_clear_p95_m=max((row['p95'] for row in corrections),default=None),
                        min_clear_samples=min((row['count'] for row in corrections),default=0),clear_samples=sum(row['count'] for row in corrections),
                        proxy_seeds=[94723+101*index for index in range(8)],
-                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; test-only target speed factors [1,.96,.985,.945,.97,.955,.93,.995], four normal car types. Public baked target speeds estimate fastest-first release order; ordinary brake-only launch holds of rank*60 input ticks after GO (0–7 seconds). No physics, finish-grace, population-classifier or correction-limit changes.',
+                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; four normal car types. Test-only target factors [1,.96,.985,.945,.97,.955,.93,.995]; multi-lap Spillway/Caldera use .97 for driver 6 so the slowest scripted Switch stays inside normal finish grace. Every launch records its exact pace population. Public baked target speeds estimate fastest-first release order; ordinary brake-only launch holds of rank*60 input ticks after GO (0–7 seconds). No physics, finish-grace, population-classifier or correction-limit changes.',
                        launch_plans=launches,
                        clients_reports=reports,memory=memory,racing_wire=race_wire)
         assert summary['passed'], 'Failed checks: '+', '.join(key for key,value in checks.items() if not value)

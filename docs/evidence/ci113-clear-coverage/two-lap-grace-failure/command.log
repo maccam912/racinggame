@@ -1,0 +1,13 @@
+{"elapsed": 0.3, "completed_min_max": [0, 0], "folder": "/Users/maccam912/dev/racinggame/reports/soak-eight-c8137373ab"}
+{"elapsed": 272.8, "completed_min_max": [1, 1], "folder": "/Users/maccam912/dev/racinggame/reports/soak-eight-c8137373ab"}
+{"elapsed": 611.0, "completed_min_max": [1, 2], "folder": "/Users/maccam912/dev/racinggame/reports/soak-eight-c8137373ab"}
+{"elapsed": 611.2, "completed_min_max": [2, 2], "folder": "/Users/maccam912/dev/racinggame/reports/soak-eight-c8137373ab"}
+{"passed": false, "report": "/Users/maccam912/dev/racinggame/reports/soak-eight-c8137373ab/summary.json", "failure": "AssertionError: Failed checks: all_finish_same_eight"}
+Traceback (most recent call last):
+  File "/Users/maccam912/dev/racinggame/tools/soak_acceptance.py", line 200, in <module>
+    if __name__ == '__main__': main()
+                               ~~~~^^
+  File "/Users/maccam912/dev/racinggame/tools/soak_acceptance.py", line 176, in main
+    assert summary['passed'], 'Failed checks: '+', '.join(key for key,value in checks.items() if not value)
+           ~~~~~~~^^^^^^^^^^
+AssertionError: Failed checks: all_finish_same_eight

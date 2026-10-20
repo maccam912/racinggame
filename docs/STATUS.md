@@ -1,5 +1,9 @@
 # Implementation status
 
+## 20 October — long-course coverage fixture preserves normal finish grace
+
+The first local two-lap procedure fixes clear coverage (**minimum 3,870**, worst p95 **0.0307725 m**) but **fails** complete finishing: the slowest scripted Switch at pace .93 exceeds Caldera's unchanged 30-second grace. [Exact failed run and old fixture](evidence/ci113-clear-coverage/two-lap-grace-failure/). The long-course multi-lap fixture now uses **.97 for driver 6**, retaining all four normal car types, public-bake release ordering and ordinary brake/throttle/steer inputs. Every launch records the exact pace array. All one-lap procedures and the classic Palm/Citrus three-lap population remain unchanged. Production AI/physics/routes/grace and every correction/coverage/wire assertion are unchanged. Engine import and all **23 Python regressions** pass; the replacement real eight-client run and full remote acceptance remain pending.
+
 ## 20 October — six-race installed-APK lifetime/cross-play pass
 
 The actual clean local Build112 APK and seven native clients complete **six impaired new-course races / 48 matching finishes** in **1,193.122 s**, retaining all eight identities and the same Android process. All six worlds complete graphics preparation and all six Android result journals commit. Every native client receives final gates **74/88**; separate arithmetic over all 42 native race metrics gives minimum **854 clear samples** and worst clear p95 **0.0408212 m**. Explicit Android process-memory acceptance passes: peak **434,458,624 bytes**, five-to-fifteen-minute comparable cycle growth **2.246021%**, full window coverage and no cleanup issues. [Exact APK/source identities, raw observations and fixtures](evidence/waterworks112/mixed-six-race/). This emulator population excludes separate GPU/host allocations and does not establish human touch or minimum-hardware performance.
