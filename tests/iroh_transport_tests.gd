@@ -29,7 +29,7 @@ func run() -> void:
 	for index in range(30):
 		for channel in range(4):
 			var payload := PackedByteArray()
-			payload.resize([1200,82,727,64][channel])
+			payload.resize([1200,82,743,64][channel])
 			payload.fill(channel+10)
 			server.send(client.peer.get_unique_id(),channel,payload,channel==0)
 			client.send(1,channel,payload,channel==0)
@@ -51,7 +51,7 @@ func run() -> void:
 	assert(client.peer.get_connection_status()==MultiplayerPeer.CONNECTION_DISCONNECTED)
 	client.close()
 	server.close()
-	print("Iroh raw transport: four bidirectional channels, 1200-byte reliable / 727-byte snapshots, connect cancellation and forced disconnect pass")
+	print("Iroh raw transport: four bidirectional channels, 1200-byte reliable / 743-byte snapshots, connect cancellation and forced disconnect pass")
 	quit()
 
 
@@ -59,6 +59,6 @@ func collect(packets: Array[Dictionary], counts: Dictionary) -> void:
 	for packet: Dictionary in packets:
 		var channel: int = packet.channel
 		assert(channel>=0 and channel<4)
-		assert(packet.bytes.size()==[1200,82,727,64][channel])
+		assert(packet.bytes.size()==[1200,82,743,64][channel])
 		for value: int in packet.bytes: assert(value==channel+10)
 		counts[channel] = int(counts.get(channel,0))+1

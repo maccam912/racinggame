@@ -1,5 +1,62 @@
 # Implementation status
 
+## 20 October — remote-car and contact prediction validated locally
+
+Active online drivers now see remote cars estimated on the local input timeline,
+including the server's three-tick input buffer, instead of 100 ms delayed poses.
+Forecasts use velocity/turn rate, road probes, airborne gravity and static-world
+sweeps, with a 150 ms horizon and cached bounded state. Rendering and speculative
+contacts share these proxies. The shared contact solver predicts local bumps
+before progress/safety and repeats them during reconciliation; the server keeps
+authority over actual impulses, progress and results. Stale estimates stop
+causing speculative hits; ghosted, finished, DNF and contact-off cases retain
+their exclusions. Recovery discontinuities cannot interpolate a collision path.
+
+All **109 source commands pass**, including both client slot orderings, replay
+without accumulated impulses, a six-metre constant-speed targeting-error fixture,
+actual wall sweeps, stale/ghost/layer exclusions and the existing assistance,
+archive and compatibility tests: [source checks](evidence/client-prediction/source-checks.json).
+The **420-second** real ENet/UDP contact fixture with **75±30 ms one-way delay
+and 3% loss** passes **116 episodes**, **1,165 / 1,334** contact correction samples,
+and p95 **0.5934 / 0.4831 m**, below the unchanged 1.5 m gate. Both clients
+exercise speculative impulses: [contact evidence](evidence/client-prediction/contacts.json).
+The earlier 58-second pilot is retained as an insufficient-coverage failure
+(13 of 20 required episodes): [pilot](evidence/client-prediction/short-contact-insufficient-coverage.json).
+
+Ordinary two-lap races also pass with identical authoritative finishes under
+the same faults plus a client stall/reconnect, and separately with **250 ms added
+RTT / 8% loss**: [stall/reconnect](evidence/client-prediction/race-reconnect-hitch.json),
+[degraded](evidence/client-prediction/degraded-race.json). These automated headless
+runs do not establish physical-device driving feel or remote CI. Unknown remote
+inputs can still cause corrections. Content/protocol/save remain **11/7/1** with
+the combined assistance revision; prediction adds no packet fields. Exact dirty
+source provenance is retained in [source hashes](evidence/client-prediction/source-hashes.json).
+
+## 20 October — rubberbanding and race-order recovery implemented locally
+
+AI pace now responds to the nearest active human's total race distance. A 25 m
+dead zone preserves close fights; over the next 200 m, trailing bots gain up to
+14% target pace and leading bots ease off by up to 18%, within existing baked
+corner/car limits. Trial, School, solo and all-bot reference pacing stay fixed.
+
+Race recovery remembers the last clean-road rank, rejoins near that place during
+the covered midpoint of the fade, and resumes with a safe rolling speed. It
+cannot award a lap/finish or a clean-lap record; teleport distance adds no stats.
+Rank/progress anchors and rolling speed survive offline suspension. Protocol 7
+shares rolling release speed in 743-byte eight-car snapshots; content is 11 and
+save schema remains 1. Frozen content-10 and earlier saves remain preserved with
+incompatible race/Cup continuation disabled.
+
+[Actual moving-field evidence](evidence/race-assistance/field-summary.json) passes
+nine races / 72 finishers across Palm Bay, Pacific Summit and Skyline Splice at
+all three difficulties. Each deliberately off-course human slot rejoins its
+original sixth place. Targeted fixtures cover first/middle/last, manual/automatic
+recovery, finish crossing, collision layers/ramps, snapshot prediction and cold
+mid-recovery continuation. All 108 local commands are verified after repairing
+an initial stale rules-schema constant: [validation and retained failure](evidence/race-assistance/validation.json).
+Human driving feel, physical-device testing, live multi-device play and remote CI
+remain unverified.
+
 ## 20 October — Iroh code multiplayer implemented and checked locally
 
 **Host by Code / Join by Code** now uses the same live

@@ -18,6 +18,11 @@ var braking: bool = false # Authoritative lamp state; no additional controller f
 var wall_separation_ticks: int = 12
 var wall_contact: bool = false
 var contact_ticks: int = 0
+# Authority-only race recovery anchors. Local archives preserve these; UDP
+# prediction receives the resulting pose/progress through the existing snapshot.
+var recovery_rank: int = -1
+var recovery_progress: float = -1.0
+var recovery_speed: float = 0.0 # Shared rolling speed at fade completion.
 var recovery_ticks: int = 0
 var recovery_hold_ticks: int = 0
 var recovery_latched: bool = false

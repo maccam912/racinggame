@@ -1,0 +1,52 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "suite": "tools/validate_content.py",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/validate_content.py"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-21T00:24:01.324409+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "docs/evidence/race-assistance/schema-repair.log",
+      "seconds": 0.207,
+      "output": "Validated cars: strict schema and references\nValidated tracks: strict schema and references\nValidated rules: strict schema and references\nValidated regions: strict schema and references\n"
+    },
+    {
+      "suite": "tools/content_hash.py --check",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/content_hash.py",
+        "--check"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-21T00:24:01.531707+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "docs/evidence/race-assistance/final-content-hash.log",
+      "seconds": 0.179,
+      "output": "2bbe4cc9ee8af4a822816a2214daa7512b5fc74958628fe658fa5c5dc08879b6\n"
+    },
+    {
+      "suite": "diff --check",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-21T00:24:01.711463+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "docs/evidence/race-assistance/final-diff.log",
+      "seconds": 0.078,
+      "output": ""
+    }
+  ]
+}

@@ -2,7 +2,7 @@ class_name CarContact
 extends RefCounted
 
 
-static func resolve(states: Array[VehicleState], queries: Array[WorldQuery]) -> void:
+static func resolve(states: Array[VehicleState], queries: Array[WorldQuery], local_slot: int = -1) -> void:
 	var displacement: Array[float] = []
 	var impulses: Array[Vector3] = []
 	for _state: VehicleState in states:
@@ -11,6 +11,10 @@ static func resolve(states: Array[VehicleState], queries: Array[WorldQuery]) -> 
 	for _pass in range(2):
 		for a in range(states.size()):
 			for b in range(a + 1, states.size()):
+				# Prediction only resolves pairs involving the local driver. Remote
+				# states are disposable estimates; authority still resolves all pairs.
+				if local_slot >= 0 and a != local_slot and b != local_slot:
+					continue
 				var first := states[a]
 				var second := states[b]
 				if first.ghost_ticks > 0 or second.ghost_ticks > 0 or first.finished or second.finished or first.dnf_reason != "" or second.dnf_reason != "":

@@ -62,6 +62,10 @@ func step(frames: Dictionary) -> void:
 				state.ghost_ticks = 90
 		return
 	elapsed_ticks += 1
+	remember_recovery_order()
+	# Sample the whole field before any car moves, avoiding slot-order bias.
+	var pace: Dictionary = {}
+	for index: int in bots: pace[index] = rubberband_pace(states[index])
 	var previous: Array[Vector3] = []
 	for index in range(states.size()):
 		previous.append(states[index].position)
@@ -71,7 +75,7 @@ func step(frames: Dictionary) -> void:
 			inputs[index] = finish_drivers[index].sample(states[index], cars[index], track, queries[index], states)
 			inputs[index].sequence = ack
 		elif bots.has(index):
-			inputs[index] = bots[index].sample(states[index], cars[index], track, queries[index], states)
+			inputs[index] = bots[index].sample(states[index], cars[index], track, queries[index], states, pace[index])
 		if states[index].dnf_reason == "":
 			VehicleSim.step(states[index], inputs[index], cars[index], queries[index])
 	if contact_enabled:
@@ -80,6 +84,9 @@ func step(frames: Dictionary) -> void:
 		var state := states[index]
 		if state.finished or state.dnf_reason != "":
 			continue
+		if race_assistance() and state.recovery_rank >= 0:
+			if state.recovery_ticks == 30:
+				rejoin_field(state, queries[index])
 		if state.recovery_ticks == 0 and previous[index].distance_to(state.position) < 5:
 			state.distance_m += previous[index].distance_to(state.position)
 		ProgressTracker.advance(state, previous[index], track, elapsed_ticks, lap_count)
@@ -134,3 +141,60 @@ func configure_bots(records: Array[Dictionary], local_slot: int, difficulty: int
 			var driver := BotDriver.new()
 			driver.difficulty = difficulty
 			bots[index] = driver
+
+
+func race_assistance() -> bool:
+	return mode not in ["trial", "school"] and states.size() > 1
+
+
+func rubberband_pace(state: VehicleState) -> float:
+	if not race_assistance() or state.finished or state.dnf_reason != "": return 1.0
+	var gap := INF
+	var progress := ProgressTracker.race_progress(state, track)
+	for rival: VehicleState in states:
+		if rival == state or bots.has(rival.slot) or rival.finished or rival.dnf_reason != "": continue
+		var candidate := ProgressTracker.race_progress(rival, track) - progress
+		if absf(candidate) < absf(gap): gap = candidate
+	if not is_finite(gap): return 1.0
+	# A 25 m dead zone keeps close fights steady; saturate over the next 200 m.
+	var amount := clampf((absf(gap) - 25.0) / 200.0, 0, 1)
+	return 1.0 + amount * (.14 if gap > 0 else -.18)
+
+
+func remember_recovery_order() -> void:
+	if not race_assistance(): return
+	var rank := 0
+	for state: VehicleState in standings():
+		if state.dnf_reason != "": continue
+		if not state.finished and state.recovery_ticks == 0 and state.offroad_ticks == 0 and state.outside_ticks == 0 and state.recovery_hold_ticks == 0:
+			state.recovery_rank = rank
+			state.recovery_progress = ProgressTracker.race_progress(state, track)
+		rank += 1
+
+
+func rejoin_field(state: VehicleState, query: WorldQuery) -> void:
+	var rivals: Array[VehicleState] = []
+	for rival: VehicleState in standings():
+		if rival != state and rival.dnf_reason == "": rivals.append(rival)
+	var rank := clampi(state.recovery_rank, 0, rivals.size())
+	var target := state.recovery_progress
+	var speed := 0.0
+	if rank > 0:
+		var ahead := rivals[rank - 1]
+		target = ProgressTracker.race_progress(ahead, track) - 10.0
+		speed = ahead.speed() if not ahead.finished else 0.0
+	if rank < rivals.size():
+		var behind := rivals[rank]
+		var tail := ProgressTracker.race_progress(behind, track) + 10.0
+		if rank == 0:
+			target = tail
+			speed = behind.speed() if not behind.finished else 0.0
+		else:
+			target = (target + tail) * .5
+			speed = (speed + (behind.speed() if not behind.finished else 0.0)) * .5
+	# Predict the remaining half-second fade; bound each rescue and leave the
+	# finish to actual driving. No race time, lap time or driven-distance credit.
+	target = clampf(target + speed * .5, state.recovery_progress, state.recovery_progress + 240.0)
+	ProgressTracker.place_recovery(state, track, target)
+	query.hint = track.sample_index(state.route_s)
+	state.recovery_speed = minf(minf(speed, cars[state.slot].top_speed * .8), float(track.bake.ai_speeds[cars[state.slot].id][query.hint]) * .9)

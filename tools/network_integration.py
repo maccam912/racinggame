@@ -77,6 +77,8 @@ def run(seconds=160, latency=0, jitter=0, loss=0, reconnect=False, port=27021, c
         for index, value in enumerate(values):
             assert value["track_id"]==track and value["track_index"]==track_index, "Client must drive the selected server course"
             assert value["large_racing_events"] == 0, "Large roster message arrived during racing"
+            if contacts:
+                assert value['predicted_contacts'] > 0, 'Both clients must exercise speculative collision, including reconciliation replay'
             expired = reconnect and away_seconds > 20 and index == 0
             assert value['snapshots'] >= (150 if expired else 1000 if seconds >= 65 else 20), 'Insufficient snapshot samples'
             assert value['max_speed'] > 15, 'Inputs did not drive the car'

@@ -37,7 +37,7 @@ func _initialize() -> void:
 		state.jump_lap = i*8+7
 		session.states.append(state)
 	var packet := NetCodec.encode_snapshot(session, 1234, hash_prefix)
-	check(packet.size()==727,"protocol 5 uses the last flag bit without growing the eight-car snapshot")
+	check(packet.size()==743,"protocol 7 adds two bytes per car for rolling recovery")
 	check(packet.size() > 0 and packet.size() < 1200, "full eight-car snapshot payload budget")
 	var decoded := NetCodec.decode_snapshot(packet, 1, hash_prefix)
 	check(not decoded.is_empty(), "snapshot round trip")
@@ -51,8 +51,8 @@ func _initialize() -> void:
 			check(restored.braking==(i%2==0),"authoritative brake lamps round trip independently per car")
 			check(restored.surface==session.states[i].surface and restored.jump_lap==i*8+7,"dirt and all three consumed launch bits survive snapshots")
 	var old_protocol := packet.duplicate()
-	old_protocol[4] = 5
-	check(NetCodec.decode_snapshot(old_protocol,1,hash_prefix).is_empty(),"protocol 4 clients cannot silently reinterpret the new lamp flag")
+	old_protocol[4] = 6
+	check(NetCodec.decode_snapshot(old_protocol,1,hash_prefix).is_empty(),"protocol 6 clients cannot reinterpret the rolling recovery record")
 	for length in range(packet.size()):
 		check(NetCodec.decode_snapshot(packet.slice(0, length), 1, hash_prefix).is_empty(), "truncated snapshot rejected")
 	var frames: Array[InputFrame] = []

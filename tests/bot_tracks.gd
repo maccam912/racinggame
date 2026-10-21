@@ -33,12 +33,16 @@ func run() -> void:
 	var track_filter: String = ""
 	var report_path: String = "res://reports/bot_tracks.json"
 	var solo: bool = false
+	var human: bool = false
+	var rescue: bool = false
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--seeds="):
 			seed_count = clampi(int(arg.trim_prefix("--seeds=")), 1, 20)
 		elif arg.begins_with("--track="): track_filter = arg.trim_prefix("--track=")
 		elif arg.begins_with("--report="): report_path = arg.trim_prefix("--report=")
 		elif arg=="--solo": solo = true
+		elif arg=="--human": human = true
+		elif arg=="--recover": rescue = true
 	for track: TrackDefinition in Catalog.tracks:
 		if not track_filter.is_empty() and track.id!=track_filter: continue
 		if solo: track = flat_reference(track)
@@ -53,18 +57,33 @@ func run() -> void:
 			for seed_index in range(seed_count):
 				var roster := RaceSetup.roster(0 if solo else 7,seed_index%4,0,"Reference")
 				for row: Dictionary in roster:
-					row.bot = true
+					row.bot = not (human and row.id=="local")
 				var race := RaceSession.new()
 				race.seed = 104729 + seed_index
 				race.setup(track, RaceSetup.car_indices(roster), scene.get_world_3d(), 1)
-				race.configure_bots(roster, -1, difficulty)
+				var human_slot := mini(4,roster.size()-1) if human else -1
+				race.configure_bots(roster, human_slot, difficulty)
+				var human_driver := BotDriver.new()
+				human_driver.difficulty = difficulty
+				var departure_rank := -1
+				var rejoin_rank := -1
 				race.contact_enabled = not solo
 				race.phase = RaceSession.Phase.RACING
 				for state: VehicleState in race.states:
 					state.ghost_ticks = 90
 				var recoveries := 0
 				for tick in range(36000):
-					race.step({})
+					var frames := {}
+					if human:
+						var state := race.states[human_slot]
+						frames[human_slot] = human_driver.sample(state,race.cars[human_slot],track,race.queries[human_slot],race.states)
+						if rescue and tick==900:
+							departure_rank = race.standings().find(state)
+							state.position += track.forwards[race.queries[human_slot].hint].cross(Vector3.UP)*30
+							state.offroad_ticks = 29
+					race.step(frames)
+					if rescue and human and tick==961:
+						rejoin_rank = race.standings().find(race.states[human_slot])
 					for state: VehicleState in race.states:
 						if "recovery" in state.events:
 							recoveries += 1
@@ -80,7 +99,7 @@ func run() -> void:
 				if not dnfs.is_empty():
 					failures += 1
 					push_error("TEST FAIL: " + track.id + " " + str(difficulty) + " " + str(dnfs))
-				results.append({"track":track.id,"difficulty":difficulty,"seed":race.seed,"reference_car":seed_index%4,"times":times,"dnfs":dnfs,"recoveries":recoveries})
+				results.append({"track":track.id,"difficulty":difficulty,"seed":race.seed,"reference_car":seed_index%4,"times":times,"dnfs":dnfs,"recoveries":recoveries,"departure_rank":departure_rank,"rejoin_rank":rejoin_rank})
 				print("AI %s difficulty=%d seed=%d finished=%d/%d recoveries=%d times=%s" % [track.id,difficulty,race.seed,times.size(),roster.size(),recoveries,str(times)])
 				race = null
 				await process_frame

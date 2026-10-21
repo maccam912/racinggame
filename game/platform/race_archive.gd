@@ -161,6 +161,7 @@ static func valid(value: Dictionary) -> bool:
 		var state := VehicleState.new()
 		if not unpack(value.states[index],state) or state.slot!=index or not state.events.is_empty(): return false
 		if state.dnf_reason.length()>160: return false
+		if state.recovery_rank < -1 or state.recovery_rank >= roster.size() or state.recovery_progress < -6 or state.recovery_progress > (int(session.lap_count)+1)*track.length or state.recovery_speed < 0 or state.recovery_speed > 100: return false
 		if state.last_gate>=track.bake.gates.size() or state.laps>int(session.lap_count) or state.laps<0 or state.ground_normal.y<0 or absf(state.ground_normal.length()-1)>.01: return false
 		decoded.states.append(state)
 		var input := InputFrame.new()

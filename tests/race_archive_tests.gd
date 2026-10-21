@@ -80,6 +80,21 @@ func run() -> void:
 		var bytes := FileAccess.get_file_as_bytes(app.data.store.path("suspended_race"))
 		var loaded := SaveStore.new(folder).load_component("suspended_race",{},RaceArchive.valid)
 		assert(not RaceArchive.compatible(loaded,app.data) and FileAccess.get_file_as_bytes(app.data.store.path("suspended_race"))==bytes,"unsupported state stays preserved for explicit discard")
+	# Cold suspension halfway through a race rescue preserves departure order
+	# and the shared rolling speed, then releases identically after 30 ticks.
+	drive.state.recovery_rank = 3
+	drive.state.recovery_progress = ProgressTracker.race_progress(drive.state,drive.track)
+	drive.state.recovery_ticks = 30
+	drive.state.recovery_speed = 20.0
+	var rescue := RaceArchive.capture(drive)
+	assert(RaceArchive.valid(rescue))
+	assert(app.data.store.save_component("suspended_race",rescue)==OK)
+	rescue = SaveStore.new(folder).load_component("suspended_race",{},RaceArchive.valid)
+	drive = start(rescue.config)
+	assert(RaceArchive.restore(drive,rescue))
+	assert(drive.state.recovery_rank==3 and drive.state.recovery_ticks==30 and drive.state.recovery_speed==20.0)
+	for tick in range(30): drive.session.step({})
+	assert(drive.state.recovery_ticks==0 and absf(drive.state.velocity.length()-20.0)<.001)
 	drive = start({"mode":"school","track":0,"car":0,"paint":0,"opponents":0,"lesson":3})
 	drive.lesson.stage = 1
 	drive.lesson.slide_ticks = 18

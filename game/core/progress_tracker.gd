@@ -56,11 +56,16 @@ static func recover(state: VehicleState, track: TrackDefinition) -> void:
 	state.drift_entry = 0
 	state.reverse_hold = 0
 	state.reversing = false
+	state.recovery_speed = 0.0
 	state.recovery_ticks = 60
 	state.recovery_hold_ticks = 0
 	state.recovery_latched = true
 	state.ghost_ticks = 180
 	state.offroad_ticks = 0
+	state.outside_ticks = 0
+	state.launch_ticks = 0
+	state.backwards_m = 0.0
+	state.grounded = true
 	state.trial_valid = false
 	state.lap_valid = false
 	state.events.append("recovery")
@@ -118,3 +123,37 @@ static func safety(state: VehicleState, frame: InputFrame, track: TrackDefinitio
 		recover(state, track)
 		query.hint = track.sample_index(track.bake.gates[maxi(0, state.last_gate)].s - 6)
 		state.route_s = fposmod(track.bake.gates[maxi(0, state.last_gate)].s - 6, track.length)
+
+
+static func race_progress(state: VehicleState, track: TrackDefinition) -> float:
+	if state.recovery_ticks > 0 and state.recovery_rank >= 0:
+		return state.recovery_progress
+	if state.last_gate < 0:
+		return state.laps * track.length - 6.0
+	var start: float = track.bake.gates[state.last_gate].s
+	var next: int = (state.last_gate + 1) % track.bake.gates.size()
+	var end: float = track.bake.gates[next].s if next > 0 else track.length
+	var along := fposmod(state.route_s - start + track.length / 2, track.length) - track.length / 2
+	return state.laps * track.length + start + clampf(along, 0, end - start)
+
+
+static func place_recovery(state: VehicleState, track: TrackDefinition, progress: float) -> void:
+	# Race recovery can restore intervening gates, but never awards a lap or
+	# crosses the finish. The recovered lap remains invalid for records.
+	var s := clampf(progress - state.laps * track.length, 0, track.length - 8)
+	state.last_gate = 0
+	for index in range(1, track.bake.gates.size()):
+		if float(track.bake.gates[index].s) > s: break
+		state.last_gate = index
+	var i := track.sample_index(s)
+	var j := (i + 1) % track.points.size()
+	var end: float = track.distances[j] if j > 0 else track.length
+	var weight := (s - track.distances[i]) / (end - track.distances[i])
+	state.position = RouteGeometry.point(track,i,0).lerp(RouteGeometry.point(track,j,0),weight) + Vector3.UP * .35
+	var forward := track.forwards[i].lerp(track.forwards[j],weight).normalized()
+	state.yaw = atan2(forward.x,-forward.z)
+	state.ground_normal = forward.cross(Vector3.UP).cross(forward).normalized()
+	state.route_s = s
+	state.backwards_m = 0
+	state.wrong_way_ticks = 0
+	state.forward_ticks = 0

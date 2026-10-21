@@ -104,14 +104,17 @@ func run() -> void:
 			assert(link.remotes.samples.size()<=20,"real impaired traffic must keep the remote buffer bounded")
 			if not link.remotes.samples.is_empty():
 				var latest: Dictionary = link.remotes.samples[-1]
-				var requested := (link.server_tick-6-float(latest.tick))/60.0
+				var target_tick := link.prediction.prediction_tick if link.prediction else roundi(link.server_tick)
+				var requested := (target_tick-float(latest.tick))/60.0
 				if requested>0:
 					for other: VehicleState in latest.states:
 						if other.slot==link.slot: continue
-						var rendered := link.remotes.sample(other.slot,link.server_tick)
+						var rendered := link.remote_state(other.slot)
 						assert(rendered.position.is_finite() and is_finite(rendered.yaw))
 						var distance := rendered.position.distance_to(other.position)
-						assert(distance<=other.velocity.length()*.15+.001,"real remote extrapolation must stop at 150 milliseconds")
+						if requested>.15:
+							var capped := link.remotes.predict(other.slot,int(latest.tick)+RemoteBuffer.MAX_PREDICTION_TICKS)
+							assert(rendered.position.distance_to(capped.position)<=.251,"stale presentation freezes after 150 ms; only bounded contact separation may differ")
 						remote_extrapolation.samples += 1
 						if requested>.15: remote_extrapolation.capped_samples += 1
 						remote_extrapolation.max_requested_seconds = maxf(remote_extrapolation.max_requested_seconds,requested)
@@ -150,6 +153,7 @@ func run() -> void:
 	data.initial_slot = initial_slot
 	data.permanent_error = permanent_error
 	if link.prediction:
+		data.predicted_contacts = link.prediction.predicted_contacts
 		data.snapshots = link.prediction.snapshot_count
 		data.clear_corrections = statistics(link.prediction.clear_corrections)
 		data.contact_corrections = statistics(link.prediction.contact_corrections)

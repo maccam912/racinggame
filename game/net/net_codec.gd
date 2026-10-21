@@ -2,7 +2,7 @@ class_name NetCodec
 extends RefCounted
 ## Explicit fixed-width little-endian packets. No Variant deserialization on UDP.
 
-const PROTOCOL: int = 6
+const PROTOCOL: int = 7
 const MAX_PACKET: int = 1200
 const FIELDS: Array = [
 	["yaw", "i16", 100.0 * 180 / PI], ["yaw_rate", "i16", 100.0 * 180 / PI],
@@ -11,6 +11,7 @@ const FIELDS: Array = [
 	["reverse_hold", "u16", 1000], ["wall_separation_ticks", "u16", 1],
 	["contact_ticks", "u8", 1],
 	["recovery_ticks", "u8", 1], ["recovery_hold_ticks", "u8", 1],
+	["recovery_speed", "u16", 100],
 	["ghost_ticks", "u16", 1], ["offroad_ticks", "u8", 1], ["outside_ticks", "u16", 1],
 	["wrong_way_ticks", "u16", 1], ["forward_ticks", "u16", 1],
 	["launch_ticks", "u8", 1], ["jump_lap", "i8", 1], ["last_gate", "i8", 1],
@@ -184,7 +185,7 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 			return {}
 		state.lap_valid = bool(lap_valid)
 		var surface := buffer.get_u8()
-		if surface > 3 or state.drift_phase > 2 or state.last_gate < -1 or state.last_gate > maximum_gate or absf(state.steer_filter) > 1:
+		if state.recovery_speed > 100 or surface > 3 or state.drift_phase > 2 or state.last_gate < -1 or state.last_gate > maximum_gate or absf(state.steer_filter) > 1:
 			return {}
 		state.surface = ["asphalt", "sand", "grass", "dirt"][surface]
 		state.finish_time = buffer.get_float()

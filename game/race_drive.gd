@@ -343,7 +343,7 @@ func _process(dt: float) -> void:
 			rendered.position += network.prediction.render_offset(dt)
 		hud.rivals.clear()
 		for slot: int in remote_visuals:
-			var rival := network.remotes.sample(slot, network.server_tick)
+			var rival := network.remote_state(slot)
 			if rival:
 				remote_visuals[slot].present(rival, InputFrame.make(), dt)
 				hud.rivals.append(rival)
@@ -357,7 +357,7 @@ func _process(dt: float) -> void:
 		camera.initialized = false # Snap while the transition fully covers the world.
 	camera_recovery_ticks = state.recovery_ticks
 	if state.finished and spectator_slot >= 0 and spectator_slot != state.slot:
-		var spectated: VehicleState = network.remotes.sample(spectator_slot, network.server_tick) if network else session.states[spectator_slot]
+		var spectated: VehicleState = network.remote_state(spectator_slot) if network else session.states[spectator_slot]
 		if spectated and not spectated.finished and spectated.dnf_reason == "":
 			target = spectated
 		else:

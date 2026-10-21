@@ -268,7 +268,7 @@ func receive_event(event: Dictionary) -> void:
 				sequence = int(event.get("ack", sequence))
 				control_tick = roundi(server_tick) + 30
 				prediction.history.clear()
-				remotes.samples.clear()
+				remotes.clear()
 			status_changed.emit(("Official room" if official else "Community server") + " — waiting for racers")
 
 		"lobby":
@@ -287,7 +287,7 @@ func receive_event(event: Dictionary) -> void:
 					latest_snapshot.clear()
 					reset_feedback()
 					latest_snapshot_tick = -1
-					remotes.samples.clear()
+					remotes.clear()
 					returned_to_lobby.emit()
 			lobby_changed.emit(event)
 		"loading":
@@ -302,7 +302,7 @@ func receive_event(event: Dictionary) -> void:
 			latest_snapshot.clear()
 			reset_feedback()
 			latest_snapshot_tick = -1
-			remotes.samples.clear()
+			remotes.clear()
 			loading_requested.emit(event)
 		"start":
 			receive_start(event)
@@ -413,7 +413,7 @@ func apply_snapshot(snapshot: Dictionary) -> void:
 	remotes.push(snapshot.tick, snapshot.states)
 	if prediction and slot >= 0 and slot < snapshot.states.size() and int(snapshot.phase) >= RaceSession.Phase.RACING:
 		if restoring_reconnect or server_tick < control_tick:
-			prediction.restore_reconnect(snapshot.states[slot], snapshot.elapsed, roundi(server_tick) - int(snapshot.tick))
+			prediction.restore_reconnect(snapshot.states[slot], snapshot.elapsed, roundi(server_tick) - int(snapshot.tick), snapshot.tick)
 		elif rebase_input_clock():
 			prediction.snapshot_count += 1
 		else:
@@ -461,7 +461,7 @@ func rebase_input_clock() -> bool:
 	clock_rebase_count += 1
 	prediction.history.clear()
 	if not latest_snapshot.is_empty() and slot>=0 and slot<latest_snapshot.states.size():
-		prediction.restore_clock(latest_snapshot.states[slot],latest_snapshot.elapsed,roundi(server_tick)-int(latest_snapshot.tick))
+		prediction.restore_clock(latest_snapshot.states[slot],latest_snapshot.elapsed,roundi(server_tick)-int(latest_snapshot.tick),latest_snapshot.tick)
 	return true
 
 
@@ -488,8 +488,20 @@ func attach_prediction(state: VehicleState, car: CarDefinition, query: WorldQuer
 	prediction.query = query
 	prediction.track = track
 	prediction.lap_count = laps
+	remotes.configure(query.world, track)
+	if not latest_snapshot.is_empty(): remotes.push(latest_snapshot.tick, latest_snapshot.states)
+	prediction.remotes = remotes
+	prediction.contact_enabled = bool(config.get("contact", true))
 	if not latest_snapshot.is_empty():
 		prediction.reconcile(latest_snapshot.states[slot], latest_snapshot.elapsed, latest_snapshot.tick)
+
+
+func remote_state(remote_slot: int) -> VehicleState:
+	# Rendering and local contact use the same estimate, including the server's
+	# input-buffer lead. Predicted pushes affect only these disposable proxies.
+	if prediction and not prediction.state.finished and prediction.state.dnf_reason == "" and prediction.prediction_tick >= latest_snapshot_tick and remote_slot >= 0 and remote_slot < prediction.remote_states.size():
+		return prediction.remote_states[remote_slot]
+	return remotes.predict(remote_slot, roundi(server_tick))
 
 
 func _exit_tree() -> void:
@@ -581,6 +593,7 @@ func receive_start(event: Dictionary) -> void:
 	slot = int(event.slot)
 	if new_race:
 		quality.reset(race_id)
+		remotes.clear()
 		latest_snapshot.clear()
 		reset_feedback()
 		next_input_tick = -1

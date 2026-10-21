@@ -1,0 +1,181 @@
+{
+  "passed": false,
+  "content_hash": "2deddaa1d682e751c197b9de8c499bd1a8cde74fbbcfdc07b1327afd33c61ffd",
+  "laps": 3,
+  "seconds": 58.0,
+  "track": "palm_bay",
+  "track_index": 0,
+  "one_way_latency_ms": 75,
+  "jitter_ms": 30,
+  "loss": 0.03,
+  "contacts": true,
+  "degraded_tier": false,
+  "away_seconds": 0,
+  "client_hitch_seconds": 0,
+  "protocol": 7,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "clients": [
+    {
+      "acknowledged_sequence": 3102,
+      "clear_corrections": {
+        "count": 403,
+        "max": 1.52362060546875,
+        "p95": 0.00932854041457176
+      },
+      "clock_rebase_count": 1,
+      "clock_restores": {
+        "count": 1,
+        "max": 3.38388061523438,
+        "p95": 3.38388061523438
+      },
+      "coalesced_snapshots": 284,
+      "connected": true,
+      "contact_corrections": {
+        "count": 105,
+        "max": 1.2479248046875,
+        "p95": 1.024169921875
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 1,
+      "max_speed": 30.8608932495117,
+      "permanent_error": "",
+      "predicted_contacts": 653,
+      "quality_observations": {
+        "active_samples": 394,
+        "levels": [
+          0,
+          0,
+          394
+        ],
+        "max_delivery_loss_percent": 30.5555555555556,
+        "max_rtt_ms": 274.9
+      },
+      "received_bytes": 189519,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 34,
+      "remote_brake_off": 577,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 214,
+        "max_buffer_samples": 20,
+        "max_distance_m": 4.52112483978271,
+        "max_requested_seconds": 0.283333333333333,
+        "samples": 393
+      },
+      "results": [],
+      "resume_count": 1,
+      "rtt_ms": 197.0,
+      "sent_bytes": 131060,
+      "sequence": 3102,
+      "slot": 1,
+      "snapshots": 543,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    },
+    {
+      "acknowledged_sequence": 3107,
+      "clear_corrections": {
+        "count": 432,
+        "max": 1.25652718544006,
+        "p95": 0.0208271984010935
+      },
+      "clock_rebase_count": 1,
+      "clock_restores": {
+        "count": 1,
+        "max": 6.03076982498169,
+        "p95": 6.03076982498169
+      },
+      "coalesced_snapshots": 283,
+      "connected": true,
+      "contact_corrections": {
+        "count": 86,
+        "max": 1.4194427728653,
+        "p95": 0.871281981468201
+      },
+      "dropped_packets": 0,
+      "finish_time": -1.0,
+      "hitch_done": false,
+      "initial_slot": 0,
+      "laps": 0,
+      "large_racing_events": 0,
+      "last_gate": 1,
+      "max_speed": 30.8050689697266,
+      "permanent_error": "",
+      "predicted_contacts": 618,
+      "quality_observations": {
+        "active_samples": 390,
+        "levels": [
+          0,
+          4,
+          386
+        ],
+        "max_delivery_loss_percent": 30.7692307692308,
+        "max_rtt_ms": 259.0
+      },
+      "received_bytes": 189874,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 37,
+      "remote_brake_off": 585,
+      "remote_brake_on": 0,
+      "remote_extrapolation": {
+        "capped_samples": 175,
+        "max_buffer_samples": 20,
+        "max_distance_m": 4.62920188903809,
+        "max_requested_seconds": 0.333333333333333,
+        "samples": 390
+      },
+      "results": [],
+      "resume_count": 1,
+      "rtt_ms": 213.0,
+      "sent_bytes": 131239,
+      "sequence": 3107,
+      "slot": 0,
+      "snapshots": 556,
+      "terminal_corrections": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    }
+  ],
+  "failure": "AssertionError: Only 13 distinct contact episodes; need 20",
+  "client_report_errors": [],
+  "elapsed_seconds": 60.229696083115414,
+  "engine_error_logs": [],
+  "cleanup_errors": [],
+  "source_manifest_unchanged": true,
+  "wire_metrics": {
+    "upstream_bytes": 255879,
+    "downstream_bytes": 491856,
+    "upstream_packets": 3167,
+    "downstream_packets": 2653,
+    "dropped_packets": 160,
+    "offered_upstream_bytes": 262583,
+    "offered_downstream_bytes": 505910,
+    "offered_upstream_packets": 3250,
+    "offered_downstream_packets": 2730
+  },
+  "contact_events": 13
+}

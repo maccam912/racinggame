@@ -11,7 +11,7 @@ var stuck_ticks: int = 0
 var recover_hold_ticks: int = 0
 
 
-func sample(state: VehicleState, car: CarDefinition, track: TrackDefinition, query: WorldQuery, others: Array[VehicleState] = []) -> InputFrame:
+func sample(state: VehicleState, car: CarDefinition, track: TrackDefinition, query: WorldQuery, others: Array[VehicleState] = [], pace: float = 1.0) -> InputFrame:
 	if state.recovery_ticks > 0:
 		stuck_ticks = 0
 		recover_hold_ticks = 0
@@ -39,7 +39,8 @@ func sample(state: VehicleState, car: CarDefinition, track: TrackDefinition, que
 	planning_ticks = [12, 6, 3][difficulty]
 	var nearest := query.nearest(state.position)
 	var target_s: float = nearest.s + clampf(8 + .45 * state.speed(), 12, 35)
-	var target_speed: float = track.bake.ai_speeds[car.id][nearest.i] * [.78, .90, 1.0][difficulty]
+	var safe_speed: float = track.bake.ai_speeds[car.id][nearest.i]
+	var target_speed: float = minf(safe_speed, safe_speed * [.78, .90, 1.0][difficulty] * pace)
 	if state.finished:
 		target_speed *= .6
 	var passing := passing_plan(state,nearest,track,others,target_speed)

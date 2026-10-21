@@ -1,0 +1,229 @@
+{
+  "passed": true,
+  "content_hash": "2deddaa1d682e751c197b9de8c499bd1a8cde74fbbcfdc07b1327afd33c61ffd",
+  "laps": 2,
+  "seconds": 160.0,
+  "track": "palm_bay",
+  "track_index": 0,
+  "one_way_latency_ms": 75,
+  "jitter_ms": 30,
+  "loss": 0.03,
+  "contacts": false,
+  "degraded_tier": false,
+  "away_seconds": 5,
+  "client_hitch_seconds": 1.5,
+  "protocol": 7,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "clients": [
+    {
+      "acknowledged_sequence": 8286,
+      "clear_corrections": {
+        "count": 1668,
+        "max": 4.5208568572998,
+        "p95": 0.15453314781189
+      },
+      "clock_rebase_count": 2,
+      "clock_restores": {
+        "count": 2,
+        "max": 0.0,
+        "p95": 0.0
+      },
+      "coalesced_snapshots": 594,
+      "connected": true,
+      "contact_corrections": {
+        "count": 27,
+        "max": 0.815427303314209,
+        "p95": 0.733496129512787
+      },
+      "dropped_packets": 0,
+      "finish_time": 145.468704223633,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 2,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 69.837760925293,
+      "permanent_error": "",
+      "predicted_contacts": 0,
+      "quality_observations": {
+        "active_samples": 1154,
+        "levels": [
+          3,
+          239,
+          912
+        ],
+        "max_delivery_loss_percent": 100.0,
+        "max_rtt_ms": 353.0
+      },
+      "received_bytes": 514593,
+      "reconnect_done": true,
+      "reconnect_restores": {
+        "count": 4,
+        "max": 322.6513671875,
+        "p95": 322.6513671875
+      },
+      "recoveries": 2,
+      "remote_brake_off": 1132,
+      "remote_brake_on": 639,
+      "remote_extrapolation": {
+        "capped_samples": 325,
+        "max_buffer_samples": 20,
+        "max_distance_m": 10.4928522109985,
+        "max_requested_seconds": 0.25,
+        "samples": 1122
+      },
+      "results": [
+        {
+          "best_lap": 70.9679661627571,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 8016.41889003199,
+          "dnf": "",
+          "id": "1f9b8616-db95-4508-b1aa-c33afdba03f6",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 144.591723512567
+        },
+        {
+          "best_lap": 70.8279357425742,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 8024.28231997695,
+          "dnf": "",
+          "id": "174b3cdb-6591-42af-9ac6-5948004c9975",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 145.468711615464
+        }
+      ],
+      "resume_count": 2,
+      "rtt_ms": 168.0,
+      "sent_bytes": 349985,
+      "sequence": 8294,
+      "slot": 1,
+      "snapshots": 1742,
+      "terminal_corrections": {
+        "count": 38,
+        "max": 5.29061317443848,
+        "p95": 2.80116105079651
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    },
+    {
+      "acknowledged_sequence": 8570,
+      "clear_corrections": {
+        "count": 1725,
+        "max": 2.28042674064636,
+        "p95": 0.125926911830902
+      },
+      "clock_rebase_count": 3,
+      "clock_restores": {
+        "count": 3,
+        "max": 82.0938034057617,
+        "p95": 82.0938034057617
+      },
+      "coalesced_snapshots": 670,
+      "connected": true,
+      "contact_corrections": {
+        "count": 3,
+        "max": 1.0498833656311,
+        "p95": 1.0498833656311
+      },
+      "dropped_packets": 0,
+      "finish_time": 144.591720581055,
+      "hitch_done": true,
+      "initial_slot": 0,
+      "laps": 2,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 69.8568420410156,
+      "permanent_error": "",
+      "predicted_contacts": 2,
+      "quality_observations": {
+        "active_samples": 1164,
+        "levels": [
+          0,
+          236,
+          928
+        ],
+        "max_delivery_loss_percent": 44.8979591836735,
+        "max_rtt_ms": 471.333333333333
+      },
+      "received_bytes": 545209,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 6,
+      "remote_brake_off": 1196,
+      "remote_brake_on": 642,
+      "remote_extrapolation": {
+        "capped_samples": 264,
+        "max_buffer_samples": 20,
+        "max_distance_m": 10.4905157089233,
+        "max_requested_seconds": 0.283333333333333,
+        "samples": 1130
+      },
+      "results": [
+        {
+          "best_lap": 70.9679661627571,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 8016.41889003199,
+          "dnf": "",
+          "id": "1f9b8616-db95-4508-b1aa-c33afdba03f6",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 144.591723512567
+        },
+        {
+          "best_lap": 70.8279357425742,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 8024.28231997695,
+          "dnf": "",
+          "id": "174b3cdb-6591-42af-9ac6-5948004c9975",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 145.468711615464
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 234.0,
+      "sent_bytes": 361389,
+      "sequence": 8579,
+      "slot": 0,
+      "snapshots": 1791,
+      "terminal_corrections": {
+        "count": 51,
+        "max": 6.68167638778687,
+        "p95": 4.25169372558594
+      },
+      "track_id": "palm_bay",
+      "track_index": 0
+    }
+  ],
+  "wire_metrics": {
+    "upstream_bytes": 746564,
+    "downstream_bytes": 1313644,
+    "upstream_packets": 9171,
+    "downstream_packets": 7142,
+    "dropped_packets": 487,
+    "offered_upstream_bytes": 768316,
+    "offered_downstream_bytes": 1354739,
+    "offered_upstream_packets": 9438,
+    "offered_downstream_packets": 7363
+  },
+  "contact_events": 1,
+  "elapsed_seconds": 155.75845162500627,
+  "engine_error_logs": [],
+  "cleanup_errors": [],
+  "source_manifest_unchanged": true
+}

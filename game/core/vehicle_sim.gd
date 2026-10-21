@@ -16,6 +16,9 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 	if state.recovery_ticks > 0:
 		state.recovery_ticks -= 1
 		state.velocity = Vector3.ZERO
+		if state.recovery_ticks == 0:
+			state.velocity = state.forward().slide(state.ground_normal).normalized() * state.recovery_speed
+			state.recovery_speed = 0.0
 		return
 	var old_grounded := state.grounded
 	var ground: Dictionary = query.ground(state)
