@@ -53,7 +53,7 @@ static func material(id: String, emission: float) -> StandardMaterial3D:
 	materials[key] = result
 	return result
 
-static func batch(id: String, transforms: Array[Transform3D], parent: Node3D, emission: float) -> void:
+static func batch(id: String, transforms: Array[Transform3D], parent: Node3D, emission: float, footprints: bool = true) -> void:
 	var mesh := card(id)
 	var radius := mesh.size.x*.5
 	# Flat source geometry needs a rotation-invariant AABB after billboarding.
@@ -75,6 +75,7 @@ static func batch(id: String, transforms: Array[Transform3D], parent: Node3D, em
 	node.visibility_range_end = 700
 	node.add_to_group("scenery_distance")
 	parent.add_child(node)
+	if not footprints: return
 	# A cheap stationary soft footprint anchors the painted trunks at close range.
 	if not shadows.has(id):
 		var plane := PlaneMesh.new()

@@ -17,13 +17,18 @@ func run() -> void:
 	var decorations := "--decorations" in OS.get_cmdline_user_args()
 	var prefix := "content6-decor" if decorations else "content6-set-piece" if structures else "m4-course"
 	var selected := ""
+	var draw_distance := 700.0
 	for arg: String in OS.get_cmdline_user_args():
 		if arg.begins_with("--tracks="): selected = arg.trim_prefix("--tracks=")
+		if arg.begins_with("--draw-distance="): draw_distance = clampf(float(arg.trim_prefix("--draw-distance=")),400,1000)
+	if draw_distance!=700: prefix += "-distance"+str(int(draw_distance))
 	for track: TrackDefinition in Catalog.tracks:
 		if not selected.is_empty() and not track.id in selected.split(","): continue
 		var world := TrackWorld.new()
 		world.build(track)
 		root.add_child(world)
+		for node: GeometryInstance3D in get_nodes_in_group("scenery_distance"):
+			node.visibility_range_end = minf(draw_distance,float(node.get_meta("lod_limit",draw_distance)))
 		await physics_frame
 		await physics_frame
 		if track.id=="skyline_splice":
@@ -79,7 +84,7 @@ func run() -> void:
 		world.queue_free()
 		for frame in range(8): await process_frame
 	var file := FileAccess.open(output+"/"+prefix+"-references.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"resolution":[1920,1080],"camera":"Near Chase","fov":65,"hud":false,"preset":"Medium: 100%, 4x MSAA, Low shadows 80 m, 700 m scenery, 4x anisotropic","exposure":"Authored fixed course lighting; brightness/exposure 1.0","content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"renderer":RenderingServer.get_current_rendering_method(),"physical_device":false,"records":records},"\t")+"\n")
+	file.store_string(JSON.stringify({"resolution":[1920,1080],"camera":"Near Chase","fov":65,"hud":false,"preset":"Medium: 100%%, 4x MSAA, Low shadows 80 m, %d m scenery, 4x anisotropic"%int(draw_distance),"exposure":"Authored fixed course lighting; brightness/exposure 1.0","content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"renderer":RenderingServer.get_current_rendering_method(),"physical_device":false,"records":records},"\t")+"\n")
 	file.close()
 	print("TEN_COURSE_NATIVE_REFERENCE_VIEWS_PASS count=",records.size())
 	quit()

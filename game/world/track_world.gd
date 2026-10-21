@@ -62,6 +62,7 @@ func advance_build() -> bool:
 				place_landmark(art.landmarks[landmark_cursor])
 				landmark_cursor += 1
 			else:
+				CourseLandscape.build(self)
 				gantry()
 				build_direction_signs()
 				build_covers()

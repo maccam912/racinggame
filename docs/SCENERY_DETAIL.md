@@ -62,3 +62,37 @@ initial material/content-5 identity above describes its original checkpoint.
 The original waterfall cutout retains scale under tall dam openings; painted falls and animated pool materials are shared within the new world. Default original-course waterfalls retain unit scale. Fine strata/grain in the original landscape shader fade with derivatives and use static ordered dither; distant cliff meshes contain few triangles and remain visible for the skyline. All eight existing route definitions/bakes and their terrain bytes are preserved.
 
 The two new terrain exports use a 1,000 m route margin (506/552 chunks) to support the distant silhouettes. Original eight terrain descriptors/bytes remain exact. Formation bases embed below the mesh, and a two-triangle floor below the authored terrain remains visible when detailed chunks cull. A regression checks actual underlying terrain beneath every distant-cliff vertex.
+
+## Landscape sightlines
+
+`game/world/course_landscape.gd` fills the wider landscape independently of the
+roadside rows. A deterministic world-space grid, jitter, and broad patch masks
+place groves, occasional homes/cabins, desert formations, city districts, and
+reservoir islets across the terrain. Sites extend roughly 85–540 m from the
+nearest road sample; clustered forest members break up the spacing further.
+Roots use the actual exported terrain triangles. Full-branch road clearance,
+planned formation clearings, poster sightlines, and open water are respected.
+Reservoir islets deliberately emerge from the submerged terrain.
+
+Spatial batches span 224 m cells and retain the scenery-distance setting.
+Landscape foliage omits close-range footprint-shadow batches; city blocks and
+islets share materials within each world. Distant, muted ridge silhouettes
+remain visible beyond detail culling, with an open seaward arc on the coastal
+courses. The waterworks and volcanic courses retain their existing horizons.
+These additions introduce no driving collision or canonical route changes.
+
+`tests/landscape_sightline_tests.gd` checks all ten courses for terrain grounding,
+road/poster/formation clearance, scenery beyond 220 m, bounded instance and batch
+counts, and complete horizon-vertex clearance. It runs in `tools/check.py`.
+Native driving-camera views can be regenerated with:
+
+```sh
+python3 tools/godot.py --headless --script tests/landscape_sightline_tests.gd
+python3 tools/godot.py --max-fps 60 --script tests/course_reference_evidence.gd -- --ci
+python3 tools/godot.py --max-fps 60 --script tests/course_reference_evidence.gd -- --ci --draw-distance=400
+```
+
+The reference fixture saves four 1920×1080 views per course and their metadata
+under `reports/m4-course-*`; the 400 m run uses a separate `distance400` prefix.
+These are posed native renderer checks, separate
+from Android hardware performance and human driving acceptance.
