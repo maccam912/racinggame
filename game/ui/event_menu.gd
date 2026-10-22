@@ -180,7 +180,54 @@ func show_event() -> void:
 	workspace.resized.connect(adjust_columns)
 	adjust_columns.call_deferred()
 	apply_filter()
-	shell.focus_later(buttons[track_index])
+	fit_mobile_browser()
+	reveal_selection()
+
+
+func fit_mobile_browser() -> void:
+	# Keep the scaled touch rows while reserving room for the course list/map.
+	var ui: UIFactory = app.menu.ui
+	if not ui.mobile: return
+	for control: Node in app.menu.footer.get_children():
+		if control is Button: control.add_theme_font_size_override("font_size",ui.font_size(14))
+	var style := ui.theme.get_stylebox("normal","Button")
+	for button: Button in buttons:
+		var available := button.custom_minimum_size.x-style.get_content_margin(SIDE_LEFT)-style.get_content_margin(SIDE_RIGHT)-2*ui.unit
+		var size := ui.font_size(15)
+		var minimum := roundi(16*ui.unit)
+		while size>minimum:
+			var fits := true
+			for word: String in button.text.split(" "):
+				if ui.title_font.get_string_size(word,HORIZONTAL_ALIGNMENT_LEFT,-1,size).x>available: fits = false
+			if fits: break
+			size -= 1
+		button.add_theme_font_size_override("font_size",size)
+	var logical_height: float = app.get_viewport().get_visible_rect().size.y/(ui.unit*ui.scale)
+	if logical_height>480 or app.menu.headers.size()!=2: return
+	var heading := app.menu.headers[0] as Label
+	var caption := app.menu.headers[1] as Label
+	if heading==null or caption==null: return
+	heading.autowrap_mode = TextServer.AUTOWRAP_OFF
+	caption.autowrap_mode = TextServer.AUTOWRAP_OFF
+	var strip := HBoxContainer.new()
+	strip.name = "CompactEventHeader"
+	strip.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	strip.add_theme_constant_override("separation",roundi(12*ui.unit))
+	var size := mini(heading.get_theme_font_size("font_size"),roundi(32*ui.unit))
+	var available: float = app.menu.safe_frame_width()-caption.get_combined_minimum_size().x-12*ui.unit
+	while size>roundi(20*ui.unit) and ui.title_font.get_string_size(heading.text,HORIZONTAL_ALIGNMENT_LEFT,-1,size).x>available: size -= 1
+	heading.add_theme_font_size_override("font_size",size)
+	heading.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	heading.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	caption.size_flags_horizontal = Control.SIZE_SHRINK_END
+	caption.size_flags_vertical = Control.SIZE_SHRINK_CENTER
+	app.menu.column.remove_child(heading)
+	app.menu.column.remove_child(caption)
+	strip.add_child(heading)
+	strip.add_child(caption)
+	app.menu.column.add_child(strip)
+	app.menu.column.move_child(strip,0)
+	app.menu.headers.assign([strip])
 
 
 func fit_columns(grid: GridContainer, workspace: HBoxContainer, list_scroll: MenuScroll) -> void:
@@ -232,14 +279,23 @@ func select_random_track() -> void:
 
 
 func reveal_selection() -> void:
-	# Coalesce rapid rolls; old scroll requests use stale pre-layout positions.
+	# Cancel old requests and allow the filtered grid/header layout to settle.
 	reveal_generation += 1
 	var token := reveal_generation
-	await app.get_tree().process_frame
-	await app.get_tree().process_frame
-	if token!=reveal_generation or app.page!="event" or not is_instance_valid(track_list): return
-	var button := buttons[track_index]
-	if is_instance_valid(button) and button.is_inside_tree(): track_list.ensure_control_visible(button)
+	var tree: SceneTree = app.get_tree()
+	for frame in range(4):
+		await tree.process_frame
+		if token!=reveal_generation or not is_instance_valid(app) or app.page!="event": return
+	for attempt in range(3):
+		if token!=reveal_generation or not is_instance_valid(track_list) or not track_list.is_inside_tree(): return
+		var button := buttons[track_index]
+		if not is_instance_valid(button) or not button.is_inside_tree(): return
+		track_list.ensure_control_visible(button)
+		await tree.process_frame
+		if token!=reveal_generation or not is_instance_valid(app) or app.page!="event" or not is_instance_valid(button): return
+		var shown := button.get_global_rect().intersection(track_list.get_global_rect())
+		var minimum_visible: float = minf(track_list.size.y,minf(button.size.y,app.menu.ui.row_height()))
+		if shown.size.y>=minimum_visible-1: return
 
 
 func select_track(index: int) -> void:

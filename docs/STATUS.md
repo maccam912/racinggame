@@ -1899,3 +1899,31 @@ macOS Compatibility evidence, not Android runtime or frame-time acceptance.
 The preceding track-tour revision passed remote CI
 [39750068401](https://github.com/maccam912/racinggame/actions/runs/39750068401).
 [Evidence, original geometry and boundaries](evidence/regional-skylines/validation.json).
+
+
+### More readable phone course selection at large UI scale
+
+The mobile browser now keeps footer actions on one row, fits whole track-name
+words with an outline margin and uses a compact heading/mode row in short
+layouts. The scaled minimum touch heights are unchanged. At 150 percent UI scale, the
+measured 884×398 layout gains course-content height from **131 to 198 px**.
+The 960×720 mobile layout with a 1.5 logical-unit override gains **194 to
+410 px**, while its footer shrinks from two rows (**249 px**) to one (**132 px**).
+[Paired native views](evidence/course-browser-readability/comparison.png).
+
+Native review also exposed a stale initial scroll: a selected interior course
+could open offscreen while its preview was correct. Coalesced reveal requests
+now wait for the layout and verify visibility, with a bounded correction when
+the containers adjust. Both final-card and interior selections are checked;
+manual browsing, filters, shuffled tours and race settings retain their behavior.
+
+All **202/202** source commands pass. Native checks cover **90** supported
+layouts, **180** initial selections, **2,000** mobile name-fit cases and all
+**28** filter/mode cases, including 1,880 real random-widget selections and a
+real dirt-race launch. Eight paired native measurements confirm more content
+space, whole words and unchanged footer touch heights. These are native macOS
+UI checks with phone/tablet overrides; Android runtime is not established.
+World, assets and gameplay/save identities are unchanged. The preceding skyline
+revision passed remote CI
+[39756548480](https://github.com/maccam912/racinggame/actions/runs/39756548480).
+[Evidence and boundaries](evidence/course-browser-readability/validation.json).

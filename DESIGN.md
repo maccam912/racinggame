@@ -1218,3 +1218,17 @@ clearance in the current roster. The established ten retain their original
 horizon geometry or spectacle skyline exclusion. The existing 3,000 m camera
 far plane remains the rendering boundary; ordinary driving views complement
 diagnostic landscape comparisons.
+
+
+### Compact mobile course browsing
+
+Mobile course selection keeps footer actions on one row using scaled label
+sizes while retaining their normal scaled touch heights. Track names fit whole
+words within their card, including outline space, with a 16 logical-pixel font
+minimum. In short layouts, the decorative heading and mode share a compact row;
+the mode caption retains its scaled body font. Large layouts keep the full header.
+
+Initial and random selections reveal the current card after the header/grid
+layout settles. Generation tokens cancel stale requests, and a bounded visibility
+check corrects a later container adjustment. This applies to interior selections
+as well as the final card, without changing shuffled tours or race configuration.

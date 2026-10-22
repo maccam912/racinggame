@@ -54,7 +54,32 @@ func run() -> void:
 					for footer_button: Button in app.menu.footer.find_children("*","Button",true,false):
 						assert(root.get_visible_rect().encloses(footer_button.get_global_rect()),"Random Track and Start remain usable inside every supported viewport")
 					assert(app.events.track_index==Catalog.tracks.size()-1 and app.events.buttons[Catalog.tracks.size()-1].has_focus())
-					cases.append({"mobile":mobile,"viewport":[size.x,size.y],"ui_scale":scale,"mode":mode,"detail_right":details.end.x,"safe_right":right})
+					# Interior selection also needs a fresh layout; end clamping can hide a stale scroll.
+					app.events.track_index = 30
+					app.events.show_event()
+					for frame in range(8): await process_frame
+					button = app.events.buttons[30].get_global_rect()
+					list_scroll = app.events.track_list
+					shown = button.intersection(list_scroll.get_global_rect())
+					assert(app.events.buttons[30].has_focus() and shown.size.y>=minf(list_scroll.size.y,minf(button.size.y,app.menu.ui.row_height()))-1,"initial interior course remains visible after layout")
+					details = app.events.detail_scroll.get_global_rect()
+					assert(details.position.x>=left-1 and details.end.x<=right+1)
+
+					if mobile:
+						var footer_y: float = app.menu.footer.get_child(0).get_global_rect().position.y
+						for control: Control in app.menu.footer.get_children():
+							assert(absf(control.get_global_rect().position.y-footer_y)<1,"footer stays on one row")
+						for card_button: Button in app.events.buttons:
+							var font := card_button.get_theme_font("font")
+							var point_size := card_button.get_theme_font_size("font_size")
+							assert(point_size>=roundi(16*app.menu.ui.unit))
+							var skin := card_button.get_theme_stylebox("normal")
+							var available: float = card_button.size.x-skin.get_content_margin(SIDE_LEFT)-skin.get_content_margin(SIDE_RIGHT)-2*app.menu.ui.unit
+							for word: String in card_button.text.split(" "):
+								assert(font.get_string_size(word,HORIZONTAL_ALIGNMENT_LEFT,-1,point_size).x<=available+.5,"whole words fit with outline margin")
+						for header: Control in app.menu.headers:
+							assert(header.get_global_rect().position.x>=left-1 and header.get_global_rect().end.x<=right+1)
+					cases.append({"mobile":mobile,"viewport":[size.x,size.y],"ui_scale":scale,"mode":mode,"detail_right":details.end.x,"safe_right":right,"initial_courses":[Catalog.tracks.size()-1,30],"body_height":app.menu.body.size.y,"header_rows":app.menu.headers.size(),"footer_height":app.menu.footer.get_parent().size.y})
 					if "--capture" in OS.get_cmdline_user_args() and mode=="quick" and (size in [Vector2i(1280,720),Vector2i(960,720)] and scale==150 or size==Vector2i(884,398) and scale in [100,150]):
 						app.menu.footer.get_node("RandomTrack").pressed.emit()
 						for frame in range(8): await process_frame
@@ -68,7 +93,7 @@ func run() -> void:
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
 	DirAccess.make_dir_recursive_absolute("res://reports")
 	var file := FileAccess.open("res://reports/event-layout-"+("headless" if DisplayServer.get_name()=="headless" else "native")+".json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":true,"display_server":DisplayServer.get_name(),"renderer":RenderingServer.get_current_rendering_method(),"cases":cases,"boundary":"Actual Control geometry in the current display server; native 150-percent references are separate."},"\t")+"\n")
+	file.store_string(JSON.stringify({"passed":true,"display_server":DisplayServer.get_name(),"renderer":RenderingServer.get_current_rendering_method(),"cases":cases,"boundary":"Actual Control geometry in the current display server, all forty mobile name-word widths with outline margin, minimum fonts, one-row mobile footer and fixed-header safe frame and both last/interior initial selections; native references are separate."},"\t")+"\n")
 	file.close()
 	print("EVENT_SELECTION_SAFE_FRAME_FOCUS_AND_LAST_COURSE_LAYOUTS_PASS cases=",cases.size())
 	quit()

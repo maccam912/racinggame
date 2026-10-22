@@ -40,6 +40,9 @@ func run() -> void:
 				for button: Button in app.menu.footer.find_children("*","Button",true,false):
 					assert(root.get_visible_rect().encloses(button.get_global_rect()),"filter/random/start must stay inside the phone viewport")
 				assert(app.events.detail_scroll.size.y>=48*app.menu.ui.unit)
+				if mobile:
+					var footer_y: float = app.menu.footer.get_child(0).get_global_rect().position.y
+					for control: Control in app.menu.footer.get_children(): assert(absf(control.get_global_rect().position.y-footer_y)<1,"every filter keeps footer on one row")
 				var key: String = EventMenu.FILTERS[filter]
 				var included: Array[int] = app.events.visible_tracks
 				if key=="all": assert(included.size()==40)
@@ -66,7 +69,7 @@ func run() -> void:
 					assert(not app.events.track_index in seen,"Random completes the visible roster before repeating")
 					seen.append(app.events.track_index)
 					assert(app.events.preview.track==Catalog.tracks[app.events.track_index])
-				for frame in range(4): await process_frame
+				for frame in range(8): await process_frame
 				var selected_button: Button = app.events.buttons[app.events.track_index]
 				var list_scroll: MenuScroll = app.events.detail_scroll.get_parent().get_child(0)
 				var shown := selected_button.get_global_rect().intersection(list_scroll.get_global_rect())

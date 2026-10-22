@@ -1,0 +1,154 @@
+{
+  "passed": true,
+  "source_commands": 202,
+  "content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+  "asset_hash": "456d8d8fce820aba422129de71eb012192e2267a7933213d2d01ea9ae6c0fee3",
+  "source_sha256": {
+    "game/ui/event_menu.gd": "0d7b5a18d3300161bc4cd8eed421cbc06d2a395c2a7d8a0b77f8fbf9cb08bcd7",
+    "tests/event_layout_tests.gd": "eb5e48a0030e42698c9f47ba2e212768f90393ad5befd43a8ef8540336629e71",
+    "tests/event_filter_tests.gd": "241e7e736ed90364048080bf061c1673a7c67f1ba269b9f89caf2ab2fbf10d3c"
+  },
+  "before_source_commit": "7a7ed4957f46ad2d5bd5d4476fcb00af0c1584b3",
+  "before_source_sha256": "c885f9c25283a67c9b78665842d8ad1056522e52cd1dd1b01cb37818bd3d6ffb",
+  "native_layouts": 90,
+  "native_initial_selections": 180,
+  "mobile_word_fit_cases": 2000,
+  "native_filter_mode_cases": 28,
+  "native_random_widget_picks": 1880,
+  "paired_density_cases": [
+    {
+      "viewport": [
+        884,
+        398
+      ],
+      "ui_scale": 100,
+      "unit": 1.0,
+      "track": "steelworks_sprint",
+      "body_before_px": 201.0,
+      "body_after_px": 232.0,
+      "footer_before_px": 64.0,
+      "footer_after_px": 64.0
+    },
+    {
+      "viewport": [
+        884,
+        398
+      ],
+      "ui_scale": 100,
+      "unit": 1.0,
+      "track": "reactor_rift",
+      "body_before_px": 201.0,
+      "body_after_px": 232.0,
+      "footer_before_px": 64.0,
+      "footer_after_px": 64.0
+    },
+    {
+      "viewport": [
+        884,
+        398
+      ],
+      "ui_scale": 150,
+      "unit": 1.0,
+      "track": "steelworks_sprint",
+      "body_before_px": 131.0,
+      "body_after_px": 198.0,
+      "footer_before_px": 88.0,
+      "footer_after_px": 88.0
+    },
+    {
+      "viewport": [
+        884,
+        398
+      ],
+      "ui_scale": 150,
+      "unit": 1.0,
+      "track": "reactor_rift",
+      "body_before_px": 131.0,
+      "body_after_px": 198.0,
+      "footer_before_px": 88.0,
+      "footer_after_px": 88.0
+    },
+    {
+      "viewport": [
+        960,
+        720
+      ],
+      "ui_scale": 100,
+      "unit": 1.5,
+      "track": "steelworks_sprint",
+      "body_before_px": 413.0,
+      "body_after_px": 460.0,
+      "footer_before_px": 96.0,
+      "footer_after_px": 96.0
+    },
+    {
+      "viewport": [
+        960,
+        720
+      ],
+      "ui_scale": 100,
+      "unit": 1.5,
+      "track": "reactor_rift",
+      "body_before_px": 413.0,
+      "body_after_px": 460.0,
+      "footer_before_px": 96.0,
+      "footer_after_px": 96.0
+    },
+    {
+      "viewport": [
+        960,
+        720
+      ],
+      "ui_scale": 150,
+      "unit": 1.5,
+      "track": "steelworks_sprint",
+      "body_before_px": 194.0,
+      "body_after_px": 410.0,
+      "footer_before_px": 249.0,
+      "footer_after_px": 132.0
+    },
+    {
+      "viewport": [
+        960,
+        720
+      ],
+      "ui_scale": 150,
+      "unit": 1.5,
+      "track": "reactor_rift",
+      "body_before_px": 194.0,
+      "body_after_px": 410.0,
+      "footer_before_px": 249.0,
+      "footer_after_px": 132.0
+    }
+  ],
+  "scaled_footer_touch_heights_unchanged": true,
+  "previous_remote_ci": {
+    "commit": "7a7ed4957f46ad2d5bd5d4476fcb00af0c1584b3",
+    "run": 39756548480,
+    "conclusion": "success"
+  },
+  "boundary": "Actual shipping UI on native macOS Compatibility, using phone/tablet layout and logical-unit overrides. Ninety supported layouts check both last and interior initial selections, mobile whole-word widths with outline margin, minimum fonts, one-row footers and header bounds; all 28 filter/mode cases include real widget tours and a dirt-race launch. Eight paired measurements/captures compare the previous source and shipping implementation with identical assets. Every footer touch height is unchanged. World, assets, gameplay and saves unchanged; no repeated world GPU sweep. Not Android runtime acceptance.",
+  "artifacts_sha256": {
+    "after-884x398-100-steelworks_sprint.png": "7b5fcb2ad7741d2e448d20be32599d51e9fbe578bb8de3f819726fb13cc1f78d",
+    "after-884x398-150-steelworks_sprint.png": "7ccb552a03a1bb0f525eea2668b94c1a98d6ec88ee4a211f8f195f5120184ff0",
+    "after-960x720-150-steelworks_sprint.png": "d97142407b293aa346291884458346b9c0077a2a52c3d8d5f3b7004173299bf8",
+    "after-measurement-fixture.gd.txt": "a70cae93a7fe3100d8b162ae1ac9090c54fb3961fa80096e36703d2f589cfed0",
+    "after.json": "9608ca8ab10dc0ec1ad6b3e453b55eef97e26ef96f32b98b945201c5c44f901c",
+    "before-884x398-100-steelworks_sprint.png": "19ba52d3d7fafef83f3aeadc329a4c809a4341500e405e9db3cd70319d38a507",
+    "before-884x398-150-steelworks_sprint.png": "51104694cbd096e60bae064b812bff2f193f6cefc021177171232e9204cd938e",
+    "before-960x720-150-steelworks_sprint.png": "2636f77c621cccea46123edc63b2348ef2fd9a13c10a71069fd2ada4cc8347cd",
+    "before-measurement-fixture.gd.txt": "1e076792f5be5d667d23a80412f188f84517f801924e7ba0df411e961614085b",
+    "before.json": "e7d58c8fb82a9fe3d72a00391099784dedbd94f345896cbe8b7d2b283487622a",
+    "comparison.png": "dca867463d693799c1c0fec97ef617630fef493f69602e939d5774ffcf8c1181",
+    "filter-desktop-new.png": "2bb5e2a5587b5f4eaecf09ca3d90457fd41bf3f656d063f8d7aed8400efa99b1",
+    "filter-phone-dirt.png": "013b2fd0308fe54775f36be16f4f48bac1650cadc55a00380b9178d48ec88b52",
+    "filter-phone-new.png": "11c18828990932f25346f73d561d2910be3b3dc4f063a4296435a7f5b5b8692a",
+    "filter-phone-space.png": "774f0c53626865877e4d0c915432c1d24a98442e16fa843043441626a65071cf",
+    "native-filters.json": "69311dc7ef919ac03c1c2a29296ed8afae53e39638af809964896367bfcf8229",
+    "native-filters.log": "91f0c51e94f13f285131766e92d0e9fc179b6ab828e378133d164140b829e608",
+    "native-layouts.json": "c5a632c53df631c146d24de6f7fb1825ac2c59ecd42528477028c65a03fdcf0f",
+    "native-layouts.log": "12aa5c9bcce93fb0a6fe918d3952ead8937c4eddeec08aab66dc8324ee178248",
+    "random-track-mobile-884x398-scale150.png": "17310ffed307ff362d50e839172da6d2faf79f00e4f93f1de9d4a09f5a86bb39",
+    "source-checks.json": "fb6ea32d6ca0a330093fc72d08417ed23289928c493504782d8bdd23e0e81218"
+  }
+}
