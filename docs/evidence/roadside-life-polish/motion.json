@@ -1,0 +1,49 @@
+{
+	"boundary": "Native macOS pixels at a fixed diagnostic camera, every second pixel with 0.015 channel tolerance, 45 frames between samples. Moving and reduced captures share the same scene/settings; Reduce Motion freezes turbines, wheel and upright cabins, reactor rings, storm funnel, falling water, closed-loop cable cabins and the metro shuttle. Not APK/physical-device or frame-time acceptance.",
+	"cases": [
+		{
+			"moving_changed_samples": 2640,
+			"reduced_changed_samples": 0,
+			"track": "windfarm_run"
+		},
+		{
+			"moving_changed_samples": 3663,
+			"reduced_changed_samples": 0,
+			"track": "festival_speedway"
+		},
+		{
+			"moving_changed_samples": 770,
+			"reduced_changed_samples": 0,
+			"track": "reactor_rift"
+		},
+		{
+			"moving_changed_samples": 2620,
+			"reduced_changed_samples": 0,
+			"track": "storm_chase"
+		},
+		{
+			"moving_changed_samples": 3278,
+			"reduced_changed_samples": 0,
+			"track": "cloudforest_climb"
+		},
+		{
+			"moving_changed_samples": 1014,
+			"reduced_changed_samples": 0,
+			"track": "alpine_meadow"
+		},
+		{
+			"moving_changed_samples": 444,
+			"reduced_changed_samples": 0,
+			"track": "neon_underpass"
+		}
+	],
+	"content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+	"passed": true,
+	"renderer": "gl_compatibility",
+	"resolution": [
+		960,
+		540
+	],
+	"shader_sha256": "016303c2aab630cd0595d2168bb5f2b1cdc08e6f67e4a6b995c23bfdd21dfaaf",
+	"source_sha256": "a78b3b8a58dcfa108b355053a829d395100ad06e2605cc84e15e4aa48eb1eb1b"
+}

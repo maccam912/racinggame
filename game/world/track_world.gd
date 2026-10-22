@@ -146,6 +146,7 @@ func build_environment() -> void:
 	decor_sites = CourseDecor.plan(self)
 	spectacle_sites = CourseSpectacles.plan(self)
 	hero_sites = ExpansionSetPieces.plan(self)
+	if art.get("expansion40",false): ExpansionRoadsideLife.protect_heroes(self)
 	if art.water:
 		var water := MeshInstance3D.new()
 		var plane := PlaneMesh.new()
@@ -349,11 +350,11 @@ func build_scenery_batch(first: int, last: int) -> void:
 			CourseArt.batch(id,retained,self,float(art.get("emission",0)))
 
 
-func decoration_allowed(at: Vector3) -> bool:
+func decoration_allowed(at: Vector3, radius: float = 0.0) -> bool:
 	if ExpansionSetPieces.blocks_sightline(hero_sites,at): return false
 	for clearing: Dictionary in scenery_clearings:
 		var center: Vector3 = clearing.center
-		if Vector2(at.x-center.x,at.z-center.z).length()<float(clearing.radius): return false
+		if Vector2(at.x-center.x,at.z-center.z).length()<float(clearing.radius)+radius: return false
 	return true
 
 
@@ -370,14 +371,9 @@ func place_landmark(description: Dictionary) -> void:
 	var lateral := float(description.lateral)
 	var pose := scenery_pose(s,lateral) if art.get("elevated",false) else ground_pose(s,lateral)
 	if art.get("expansion40",false):
-		var radius: float = float(BillboardArt.rows[description.id].size_m[0])*.55
-		for offset: float in [lateral,-lateral,lateral*1.5,-lateral*1.5,lateral*2.2,-lateral*2.2]:
-			var candidate := scenery_pose(s,offset)
-			if clear_of_road(candidate.origin,radius+3):
-				pose = candidate
-				lateral = offset
-				break
-		assert(clear_of_road(pose.origin,radius+3),"new landmark must clear every road branch")
+		var site := ExpansionCourseArt.landmark_site(self,description)
+		pose = site.pose
+		lateral = site.lateral
 	if description.get("align", "roadside")=="roadside": pose.basis = pose.basis.rotated(Vector3.UP,-signf(lateral)*PI/2)
 	pose.origin.y += float(description.get("height_offset",0))
 	result.transform = pose

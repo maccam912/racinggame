@@ -1157,3 +1157,14 @@ within the viaduct. GPU-only translation uses complete swept culling bounds;
 geometry stays above the actual road and 12 m camera corridor at every phase.
 Reduce Motion freezes the authored starting arrangement. These props have no
 collision, gameplay authority or per-frame scene callbacks.
+
+
+### Small roadside life on the additions
+
+Each addition uses three small object types appropriate to its region, drawn from
+36 original faceted models. Their fronts face the road; footprints clear all
+road branches, actual terrain/verges, water, posters, authored landmarks and hero
+approaches. The planting exclusion includes wide sprite footprints, not only
+sprite roots. Local small-object batches cull at 180 m even after settings
+changes, with no collision, shadows or per-frame callbacks. The established ten
+retain their existing props and placement paths.

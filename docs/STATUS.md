@@ -1737,3 +1737,37 @@ under Reduce Motion. Four normal Far Chase approaches and both postcards were
 refreshed. All **197/197** source commands and all **40** native
 loading/GPU/readback/ENet cases pass.
 [Evidence and boundaries](evidence/transport-polish/validation.json).
+
+
+### Small roadside objects with regional identity
+
+The thirty additions now have three authored small object types per course,
+drawn from **36** original faceted models. Polar routes get ski racks, weather
+stations, rescue sleds, fuel lockers and harbor gear; tropical routes get camps,
+river gauges, surf/fishing racks, coffee crates and stone idols. East Asian
+routes get cycles, carts, tea baskets, lanterns and shrines. Desert routes get
+water, shade, timing and survey equipment; industrial districts get steel,
+cargo, bus shelters, cabinets, snacks and tires; space routes get cargo,
+hydroponics, beacons, batteries, coolant and dishes.
+[Polar objects](evidence/roadside-life-polish/family-0.png),
+[industrial objects](evidence/roadside-life-polish/family-4.png),
+[space objects](evidence/roadside-life-polish/family-5.png).
+
+The objects replace the generic rock fallback on the new courses, with different
+setbacks and road-facing fronts. Local batches cull at **180 m**, carry no
+collision or shadows and use the existing shader. Placement checks all road
+branches, actual terrain/verges, water, posters and hero clearings. Wide scenery
+sprites now reserve their full footprint near clearings; small props also avoid
+the actual authored-landmark footprints and their approach views. Removed prop
+reservations are retired, preserving useful planting area.
+[Alpine road](evidence/roadside-life-polish/alpine_meadow-roadside.png),
+[lunar road](evidence/roadside-life-polish/lunar_freight-roadside.png).
+
+All **198/198** source commands pass. Tests cover all thirty placements, all
+36 model bounds/normals/budgets, every course's three types and original-ten
+exclusion. Native evidence includes all thirty aimed road views, six library
+grids and sixty normal Far Chase hero approaches; all thirty postcards were
+refreshed. All **40** native loading/GPU/readback/ENet and all **seven**
+motion/Reduce Motion cases pass. The preceding transport revision passed remote
+CI [39733354943](https://github.com/maccam912/racinggame/actions/runs/39733354943).
+[Evidence and boundaries](evidence/roadside-life-polish/validation.json).

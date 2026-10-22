@@ -4,6 +4,7 @@ extends RefCounted
 
 
 static func plan(world: TrackWorld) -> Array[Dictionary]:
+	if world.art.get("expansion40",false): return ExpansionRoadsideLife.plan(world)
 	var result: Array[Dictionary] = []
 	for s in range(75,int(world.track.length),145):
 		var edge := float(world.track.bake.samples[world.track.sample_index(s)][8])*.5
@@ -101,6 +102,9 @@ static func facade_box(tool: SurfaceTool, pose: Transform3D, size: Vector3, colo
 
 
 static func build(world: TrackWorld) -> void:
+	if world.art.get("expansion40",false):
+		ExpansionRoadsideLife.build(world)
+		return
 	var surface := StandardMaterial3D.new()
 	surface.vertex_color_use_as_albedo = true
 	surface.roughness = .95

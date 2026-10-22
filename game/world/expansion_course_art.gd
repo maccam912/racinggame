@@ -52,7 +52,7 @@ static func build_batch(world: TrackWorld, first: int, last: int) -> void:
 
 
 static func valid_site(world: TrackWorld, at: Vector3, radius: float) -> bool:
-	if not is_finite(at.y) or not world.clear_of_road(at,radius) or not world.decoration_allowed(at): return false
+	if not is_finite(at.y) or not world.clear_of_road(at,radius) or not world.decoration_allowed(at,radius): return false
 	return not world.art.water or at.y>float(CourseArt.terrain_info[world.track.id].sea_level)+1
 
 
@@ -101,7 +101,7 @@ static func landscape(world: TrackWorld) -> void:
 			var id := species(world,s,at.x+at.z)
 			# Built districts get real facades behind the close lamps/props.
 			var building: bool = urban and seed>.25 and world.art.theme!="space"
-			var width := 23.0 if building else float(BillboardArt.card(id).size.x)*.65
+			var width := 23.0 if building else float(BillboardArt.card(id).size.x)*.75+3
 			if not valid_site(world,at,width): continue
 			var key := "%d:%d"%[floori(at.x/224),floori(at.z/224)]
 			if building:
@@ -186,3 +186,15 @@ static func structures(world: TrackWorld) -> void:
 		node.add_to_group("scenery_distance")
 		node.visibility_range_end = 700
 		world.add_child(node)
+
+
+static func landmark_site(world: TrackWorld, description: Dictionary) -> Dictionary:
+	BillboardArt.load_catalog()
+	var s := CourseArt.original_s(world.track,float(description.u))
+	var lateral := float(description.lateral)
+	var radius := float(BillboardArt.rows[description.id].size_m[0])*.55
+	for offset: float in [lateral,-lateral,lateral*1.5,-lateral*1.5,lateral*2.2,-lateral*2.2]:
+		var pose := world.scenery_pose(s,offset)
+		if world.clear_of_road(pose.origin,radius+3): return {"id":description.id,"s":s,"pose":pose,"lateral":offset,"radius":radius}
+	assert(false,"new landmark must clear every road branch")
+	return {}
