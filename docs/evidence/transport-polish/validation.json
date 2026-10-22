@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "source_commands": 197,
+  "content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+  "asset_hash": "05146dec9c10f8643cbe02bc38679c0be02b01a9e5642f3518bcc72ca73a8b05",
+  "source_sha256": {
+    "game/world/expansion_transport.gd": "414092d39662780637bc5940f3858af7b045b3d5dd599c2184c140423b35e497",
+    "game/world/expansion_set_pieces.gd": "a78b3b8a58dcfa108b355053a829d395100ad06e2605cc84e15e4aa48eb1eb1b",
+    "assets/exported/shaders/set_piece_motion.gdshader": "016303c2aab630cd0595d2168bb5f2b1cdc08e6f67e4a6b995c23bfdd21dfaaf",
+    "tests/expansion_transport_tests.gd": "7aa54e7b655774bd14e6795950583aa61d4310a4123c28fd8c8080ca9ea98d04",
+    "tests/set_piece_motion_evidence.gd": "685799bedce3b8cfd423e95c63b4263c8f332b72dea18d30e26bf4120b86f13d"
+  },
+  "swept_motion_phases": 65,
+  "native_motion_cases": 7,
+  "native_loading_cases": 40,
+  "boundary": "Actual two-course swept geometry against the full road plus 12 m camera space, all thirty hero geometry cases, seven native motion and Reduce Motion pixel comparisons, four ordinary Far Chase approaches, all forty native loading/GPU/readback/ENet cases and full source validation. Native macOS Compatibility, not Android runtime or frame-time acceptance. No gameplay or first-ten changes.",
+  "artifacts_sha256": {
+    "neon_underpass-moving-before.png": "16863d64a2c70aa0dd21ae78fc18d3815904dc327993a177cf29b7ab0c9672b7",
+    "geometry.json": "f9be45ebbc3bdd47d3c79ec03cacbe26e50c5d0eccc8cd7cd8aa053ba3e3c44f",
+    "motion.json": "71b4aee4cfe64e6fbe779a6564376e2efddcc7325ae0ce0a2ccafeb5697e6db6",
+    "approaches.json": "851704cbb150c605454fe7bdd60adaee41d11dde47dcc1fe85d04155108de62a",
+    "expansion-hero-alpine_meadow-u37-s1174.png": "51aac2617b0155ab0b9fb8cc9b868adfb6b64d6e9a72544ea311ff0f98da65c1",
+    "neon_underpass-reduced-after.png": "dd07a9c0fd2bf707289c3fdb50d9a924ff77476fecaf801e84080bd0e4c853b7",
+    "neon_underpass-reduced-before.png": "dd07a9c0fd2bf707289c3fdb50d9a924ff77476fecaf801e84080bd0e4c853b7",
+    "expansion-hero-neon_underpass-u37-s1542.png": "abb66dffdacb4ada866f776efd7224fc9bb5ca08c750cb5ef2f0ceafa5474546",
+    "alpine_meadow-reduced-after.png": "d176022196c788cd288ad3a4a0f9256e0b3eccbc513b5074518e4d0cf5542165",
+    "expansion-hero-neon_underpass-u35-s1478.png": "e3c7f209dc9ab617c8fe4e5a63e57d784d2add83c213813de7320b25199afebe",
+    "all-heroes.json": "ac6c3b04e53f9880f34373de4293f8b2046f7fd3e66ae2b0fb8755be00f7ce52",
+    "warmup.json": "bb31400fde802d65825a88a767e8f2fed0fc94261dc6338677e56d92383ae2b3",
+    "alpine_meadow-moving-before.png": "83758fd47b27cf5f3cf7d75b4100d6372a1be233219c9261048be9b1da506b0e",
+    "alpine_meadow-moving-after.png": "14a525b3cc5bb941bc8771b94601e3970bef71f165c849c20b2fd1eaa833dceb",
+    "expansion-hero-alpine_meadow-u35-s1110.png": "92fe04adbd4d11581562fc052e3e366960bf1e8b17ef4431d0698cf9a43eb349",
+    "neon_underpass-moving-after.png": "fcd4acf8e4920c3163e0816fc67a35e61a2804ff741e30dfed3b65a057ce3463",
+    "alpine_meadow-reduced-before.png": "d176022196c788cd288ad3a4a0f9256e0b3eccbc513b5074518e4d0cf5542165"
+  }
+}

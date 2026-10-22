@@ -1147,3 +1147,13 @@ The five space courses have distinct celestial settings: homeworld, ringed giant
 binary moons/nebula, dusty Mars with small moons, and reactor eclipse. Cloud-bank
 shapes also differ among the five terrestrial regions. No flashing or automatic
 camera effects are added by the sky/ground shaders.
+
+
+### Course transport motion
+
+Alpine Meadow's eight cable cabins follow a closed two-lane cable circuit while
+their floors remain level. Neon Underpass's three-car metro shuttle reverses
+within the viaduct. GPU-only translation uses complete swept culling bounds;
+geometry stays above the actual road and 12 m camera corridor at every phase.
+Reduce Motion freezes the authored starting arrangement. These props have no
+collision, gameplay authority or per-frame scene callbacks.

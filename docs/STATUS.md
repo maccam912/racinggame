@@ -1716,3 +1716,24 @@ The preceding district revision passed remote CI
 A separate live eight-car run covers Glacier Ridge and Lunar Freight;
 [timing and memory](evidence/biome-sky-polish/live-render.json) are independent
 of source/native correctness. [Evidence and boundaries](evidence/biome-sky-polish/validation.json).
+
+
+### Moving cable cabins and metro shuttle
+
+Alpine Meadow has eight level-floor cabins travelling around a closed two-lane
+cable circuit, including the curved returns at each end. Neon Underpass has a
+three-car shuttle that reverses across its elevated viaduct. Both use the shared
+vertex shader, exact full-motion culling bounds and no per-frame scene callbacks.
+Reduce Motion freezes each at its authored starting arrangement.
+[Cabins](evidence/transport-polish/alpine_meadow-moving-after.png),
+[shuttle](evidence/transport-polish/neon_underpass-moving-after.png).
+
+The complete moving silhouettes stay above the actual road plus **12 m** camera
+corridor. Tests cover every relevant road sample and all moving vertices at **65**
+phases, with at least **16.4 m** additional camera clearance. All thirty hero
+geometry cases still pass. Native motion comparisons cover **seven** scenes,
+including both transports: visible moving pixels and **zero** changed samples
+under Reduce Motion. Four normal Far Chase approaches and both postcards were
+refreshed. All **197/197** source commands and all **40** native
+loading/GPU/readback/ENet cases pass.
+[Evidence and boundaries](evidence/transport-polish/validation.json).

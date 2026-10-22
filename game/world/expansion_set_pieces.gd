@@ -201,14 +201,7 @@ static func build(world: TrackWorld, sites: Array[Dictionary]) -> void:
 				for x in range(-8,9,2): box(solid,Vector3(x,36,-9.2),Vector3(.35,6.8,.3),cream)
 				box(solid,Vector3(span-4,42,-12),Vector3(7,6,7),Color("82C2D5"))
 			"chairlift":
-				supports(solid,half,40,Color("7B908F"),0,3)
-				for z: float in [-5.0,5.0]:
-					beam(solid,Vector3(-half-8,40,z),Vector3(half+8,40,z),.25,metal)
-				for cabin in range(5):
-					var x := lerpf(-half+5,half-5,cabin/4.0)
-					beam(solid,Vector3(x,40,0),Vector3(x,34,0),.35,metal)
-					box(solid,Vector3(x,32,0),Vector3(5,4,5),accent if cabin%2==0 else Color("D97055"))
-					box(solid,Vector3(x,33,0),Vector3(5.15,1.4,5.15),Color("A7D2D9"))
+				ExpansionTransport.chairlift(solid,root,half,accent)
 			"pipeline":
 				supports(solid,half,32,metal,0,4)
 				for y: float in [33.0,38.0]:
@@ -264,8 +257,7 @@ static func build(world: TrackWorld, sites: Array[Dictionary]) -> void:
 			"suspension_walk", "mine_conveyor", "metro_viaduct", "canyon_bridge":
 				transport_span(solid,half,str(site.kind),stone)
 				if site.kind=="metro_viaduct":
-					box(solid,Vector3(0,35,0),Vector3(half*1.7,6,8),Color("447B8B"))
-					for x in range(-16,17,4): box(light,Vector3(x,36,-4.1),Vector3(2.5,2,.2),Color("8EDAD9"))
+					ExpansionTransport.metro(solid,root,half)
 				elif site.kind=="mine_conveyor":
 					for x in range(-20,21,5): box(solid,Vector3(x,33,0),Vector3(3,3,7),Color("A66B43"))
 			"timing_gantry":

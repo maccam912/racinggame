@@ -28,7 +28,7 @@ func run() -> void:
 	var output := "res://reports/set-piece-motion"
 	DirAccess.make_dir_recursive_absolute(output)
 	var reports: Array[Dictionary] = []
-	for id: String in ["windfarm_run","festival_speedway","reactor_rift","storm_chase","cloudforest_climb"]:
+	for id: String in ["windfarm_run","festival_speedway","reactor_rift","storm_chase","cloudforest_climb","alpine_meadow","neon_underpass"]:
 		var track: TrackDefinition = Catalog.tracks.filter(func(item: TrackDefinition) -> bool: return item.id==id)[0]
 		var world := TrackWorld.new()
 		world.build(track)
@@ -63,7 +63,7 @@ func run() -> void:
 		world.queue_free()
 		for frame in range(4): await process_frame
 	var file := FileAccess.open(output+"/native.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":true,"renderer":RenderingServer.get_current_rendering_method(),"resolution":[960,540],"content_hash":Compatibility.content_hash(),"shader_sha256":FileAccess.get_sha256("res://assets/exported/shaders/set_piece_motion.gdshader"),"source_sha256":FileAccess.get_sha256("res://game/world/expansion_set_pieces.gd"),"cases":reports,"boundary":"Native macOS pixels at a fixed diagnostic camera, every second pixel with 0.015 channel tolerance, 45 frames between samples. Moving and reduced captures share the same scene/settings; Reduce Motion freezes the three turbines, wheel and upright cabins, reactor rings and storm funnel. Not APK/physical-device or frame-time acceptance."},"\t")+"\n")
+	file.store_string(JSON.stringify({"passed":true,"renderer":RenderingServer.get_current_rendering_method(),"resolution":[960,540],"content_hash":Compatibility.content_hash(),"shader_sha256":FileAccess.get_sha256("res://assets/exported/shaders/set_piece_motion.gdshader"),"source_sha256":FileAccess.get_sha256("res://game/world/expansion_set_pieces.gd"),"cases":reports,"boundary":"Native macOS pixels at a fixed diagnostic camera, every second pixel with 0.015 channel tolerance, 45 frames between samples. Moving and reduced captures share the same scene/settings; Reduce Motion freezes turbines, wheel and upright cabins, reactor rings, storm funnel, falling water, closed-loop cable cabins and the metro shuttle. Not APK/physical-device or frame-time acceptance."},"\t")+"\n")
 	file.close()
 	print("NATIVE_SET_PIECE_VERTEX_MOTION_AND_REDUCED_MOTION_PIXELS_PASS")
 	quit()

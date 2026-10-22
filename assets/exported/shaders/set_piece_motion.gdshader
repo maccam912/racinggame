@@ -7,6 +7,27 @@ uniform float motion_speed = 1.0;
 uniform float animation_enabled = 1.0;
 uniform float glow = 0.0;
 uniform bool water_flow = false;
+uniform vec2 travel_extent = vec2(38.0,6.0);
+uniform float travel_phase = 0.0;
+uniform float travel_distance = 0.0;
+
+vec2 cable_position(float distance) {
+    float span = travel_extent.x;
+    float radius = travel_extent.y;
+    float at = mod(distance,4.0*span+6.2831853*radius);
+    if (at<2.0*span) return vec2(-span+at,-radius);
+    at -= 2.0*span;
+    if (at<3.14159265*radius) {
+        float angle = -1.5707963+at/radius;
+        return vec2(span+cos(angle)*radius,sin(angle)*radius);
+    }
+    at -= 3.14159265*radius;
+    if (at<2.0*span) return vec2(span-at,radius);
+    at -= 2.0*span;
+    float angle = 1.5707963+at/radius;
+    return vec2(-span+cos(angle)*radius,sin(angle)*radius);
+}
+
 varying vec3 local_at;
 void vertex() {
     float angle = TIME * motion_speed * animation_enabled;
@@ -23,6 +44,13 @@ void vertex() {
         // Gondolas travel around the wheel while their floors stay level.
         vec2 offset = orbit_center.xy - pivot.xy;
         p.xy += mat2(vec2(c,s),vec2(-s,c)) * offset - offset;
+    }
+    if (motion == 4) {
+        // Level cabin floors follow a closed two-lane cable circuit.
+        p.xz += cable_position(angle+travel_phase)-cable_position(travel_phase);
+    } else if (motion == 5) {
+        // The bounded city shuttle reverses at the ends of its viaduct.
+        p.x += sin(angle)*travel_distance;
     }
     VERTEX = p + pivot;
     local_at = VERTEX;
