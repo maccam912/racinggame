@@ -1,0 +1,26 @@
+{
+	"ambient_source_sha256": "dfe3e96414648e1d509b270cd9ff77f6de00f56a9da72923e1d09eefbd62955f",
+	"boundary": "Native macOS fixed-camera pixels, every second pixel. Three samples separated by 45 then 37 frames (plus eight settling frames per capture) avoid a periodic sway returning to the same pose. Max of two comparisons, 0.015 channel tolerance for landmarks and 0.003 for subtle water normals. Reduce Motion must yield zero changed samples in both comparisons, including ocean and waterfall pools. Not APK/physical-device or frame-time acceptance.",
+	"cases": [
+		{
+			"best_moving_frame": "after",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 3070,
+			"moving_changed_samples": 3070,
+			"moving_later_changed_samples": 2544,
+			"reduced_changed_samples": 0,
+			"track": "cloudforest_climb"
+		}
+	],
+	"content_hash": "a3f19386ae963d64bef791556074983f4b45cce689f01e2e270b264b7abb05fd",
+	"passed": true,
+	"renderer": "gl_compatibility",
+	"resolution": [
+		960,
+		540
+	],
+	"shader_sha256": "cfbaa53d4a2607ad047c6c04f9ebeff6ce4d2db8989e7c640822bef68137aabe",
+	"source_sha256": "16b7ddeae8feaf51092ab8cc0c3b8549dc974cd4792adf6f2680671293135b09",
+	"water_cases": [],
+	"water_shader_sha256": "f15890ee4711a14f95980bf931c75b9d05b7c6ae3f865e0dfaa762f26a869489"
+}

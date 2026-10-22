@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/source_script_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 0.82
+    },
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/expansion_set_piece_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 9.84
+    },
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/authored_composition_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 12.39
+    }
+  ]
+}

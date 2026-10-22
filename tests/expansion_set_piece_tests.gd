@@ -59,7 +59,7 @@ func run() -> void:
 			assert(world.clear_of_road(hero.position,radius+5))
 			for at: Vector3 in faces:
 				assert(Vector2(at.x,at.z).length()<=radius,"the entire standalone footprint, including moving silhouettes, stays in its reserved clearing")
-		if track.id=="frostbite_fjord": check_frozen_lip(hero)
+		if track.id in ["frostbite_fjord","cloudforest_climb"]: check_waterfall_lip(hero)
 		var settings := SettingsCatalog.defaults(false)
 		settings.reduce_motion = true
 		settings.vsync = false
@@ -81,7 +81,7 @@ func run() -> void:
 	print("THIRTY_UNIQUE_3D_SET_PIECES_REAL_ROAD_CLEARANCE_BOUNDS_AND_REDUCED_MOTION_PASS")
 	quit()
 
-func check_frozen_lip(hero: Node3D) -> void:
+func check_waterfall_lip(hero: Node3D) -> void:
 	var cliff := (hero.get_node("Architecture") as MeshInstance3D).mesh.get_faces()
 	var ice := (hero.get_node("Accents") as MeshInstance3D).mesh.get_faces()
 	var crest := -INF
@@ -93,6 +93,6 @@ func check_frozen_lip(hero: Node3D) -> void:
 		for first in range(0,cliff.size(),3):
 			var hit: Variant = Geometry3D.segment_intersects_triangle(at+Vector3(0,0,100),at-Vector3(0,0,100),cliff[first],cliff[first+1],cliff[first+2])
 			if hit!=null: front = maxf(front,(hit as Vector3).z)
-		assert(is_finite(front) and at.z<=front+.1,"the frozen sheets emerge from the actual cliff instead of hanging above its crest")
+		assert(is_finite(front) and at.z<=front+.1,"the waterfall sheets emerge from the actual cliff instead of hanging above its crest: %s front=%s"%[at,front])
 		checked += 1
 	assert(checked>=18)

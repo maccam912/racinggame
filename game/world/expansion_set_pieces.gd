@@ -347,10 +347,13 @@ static func waterworks(solid: SurfaceTool, water: SurfaceTool, kind: String, sto
 	if kind=="frozen_falls":
 		GlacierArt.frozen_falls(solid,water)
 		return
+	if kind=="canopy_falls":
+		CanopyFallsArt.build(solid,water)
+		return
 	var rock := Color("6B8173")
 	CourseDecor.stone(solid,Vector3(0,-10,-12),Vector3(43,82,24),rock,4)
 	for side: float in [-1.0,1.0]:
-		box(solid,Vector3(side*21,27,0),Vector3(11,66,16),stone if kind=="sluice" else rock)
+		box(solid,Vector3(side*21,27,0),Vector3(11,66,16),stone)
 		box(solid,Vector3(side*21,60,0),Vector3(14,3,18),accent)
 	box(solid,Vector3(0,62,-3),Vector3(53,5,18),stone)
 	for band in range(9):
@@ -358,14 +361,9 @@ static func waterworks(solid: SurfaceTool, water: SurfaceTool, kind: String, sto
 		var color := Color("77C3C6")
 		box(water,Vector3(x,31,9),Vector3(2.7,60-(band%3)*2,.5),color.lightened((band%3)*.06))
 	cylinder(water,Vector3(0,1,9),27,27,1,Color("7DBFC5"),24)
-	if kind=="canopy_falls":
-		for level in range(3):
-			box(solid,Vector3(30,20+level*13,0),Vector3(15,1.5,18),Color("AE9470"))
-			for z: float in [-7.0,7.0]: beam(solid,Vector3(30,level*13,z),Vector3(30,24+level*13,z),1.2,Color("967A55"))
-	elif kind=="sluice":
-		for x: float in [-11.0,11.0]:
-			beam(solid,Vector3(x,10,10),Vector3(x,64,10),1.4,Color("A7794E"))
-			circle(solid,Vector3(x,68,10),4,.7,Color("B66E49"),2,12)
+	for x: float in [-11.0,11.0]:
+		beam(solid,Vector3(x,10,10),Vector3(x,64,10),1.4,Color("A7794E"))
+		circle(solid,Vector3(x,68,10),4,.7,Color("B66E49"),2,12)
 
 static func tea_house(solid: SurfaceTool, stone: Color, accent: Color) -> void:
 	for level in range(5):

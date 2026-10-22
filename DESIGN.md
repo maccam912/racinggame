@@ -1376,3 +1376,10 @@ rectangular pylons; independent rays verify that its upper ice sheets meet the
 actual cliff. Natural-mesh bases, complete road footprints and hero reservations
 retain their existing checks. See `docs/evidence/ice-places14` for native views
 and the focused validation results.
+
+Cloudforest's waterfall uses its own asymmetric rocky formation, twin cascades,
+fern crowns and a supported lookout instead of the sluice frame. Its upper stream
+vertices must meet actual cliff triangles and its entire silhouette must remain
+inside the existing standalone clearing. Native before/after pixels in
+`docs/evidence/canopy-falls14` confirm visible water motion and zero changed
+samples under Reduce Motion; the course and lobby photograph shows this place.
