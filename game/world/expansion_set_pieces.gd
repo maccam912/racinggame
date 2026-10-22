@@ -244,22 +244,14 @@ static func build(world: TrackWorld, sites: Array[Dictionary]) -> void:
 				for height: float in [29.0,35.0]:
 					beam(solid,Vector3(-half-7,height,0),Vector3(half+7,height,0),2.7,Color("B74D45"))
 					for side: float in [-1.0,1.0]: beam(solid,Vector3(side*(half+7),height,0),Vector3(side*(half+12),height+3,0),2.6,Color("6C394B"))
-				if site.kind=="temple_bell":
-					beam(solid,Vector3(0,35,0),Vector3(0,30,0),.7,metal)
-					cylinder(solid,Vector3(0,29,0),6,3,7,Color("B9974F"))
-					cylinder(solid,Vector3(0,25,0),6.5,6.5,1.4,Color("DBB96D"))
-				else:
-					for i in range(9):
-						var x := lerpf(-half+3,half-3,i/8.0)
-						var z := 0.0 if site.kind=="lantern_torii" else sin(i)*14
-						beam(solid,Vector3(x,35,z),Vector3(x,30,z),.15,metal)
-						cylinder(light,Vector3(x,29,z),1.4,1.4,2.7,Color("F3BC65") if i%2==0 else Color("E97877"),8)
+				if site.kind=="temple_bell": ExpansionAmbientMotion.bell(root)
+				else: ExpansionAmbientMotion.lanterns(root,half)
 			"suspension_walk", "mine_conveyor", "metro_viaduct", "canyon_bridge":
 				transport_span(solid,half,str(site.kind),stone)
 				if site.kind=="metro_viaduct":
 					ExpansionTransport.metro(solid,root,half)
 				elif site.kind=="mine_conveyor":
-					for x in range(-20,21,5): box(solid,Vector3(x,33,0),Vector3(3,3,7),Color("A66B43"))
+					ExpansionAmbientMotion.conveyor(solid,root,half)
 			"timing_gantry":
 				supports(solid,half,30,Color("F1EAD1"),0,3)
 				box(solid,Vector3(0,31,0),Vector3(half*2+9,5,5),Color("2B506F"))
@@ -321,8 +313,9 @@ static func build(world: TrackWorld, sites: Array[Dictionary]) -> void:
 				motion_speed = .28
 		finish(root,"Architecture",solid)
 		var accents := finish(root,"Accents",light,.85 if site.kind=="crystal_arch" else .35)
-		if accents!=null and site.kind in ["sluice","canopy_falls"]:
+		if accents!=null and site.kind in ["sluice","canopy_falls","aqueduct"]:
 			accents.material_override.set_shader_parameter("water_flow",true)
+			if site.kind=="aqueduct": accents.material_override.set_shader_parameter("flow_axis",0)
 			accents.add_to_group("scenery_motion")
 		finish(root,"MovingSilhouette",motion,.12,motion_mode,pivot,motion_speed)
 		conform_bases(world,root)

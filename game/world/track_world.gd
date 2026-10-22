@@ -157,6 +157,7 @@ func build_environment() -> void:
 		surface.shader = load("res://assets/exported/shaders/water.gdshader")
 		water.material_override = surface
 		water.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		water.add_to_group("scenery_motion")
 		add_child(water)
 
 

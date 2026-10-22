@@ -7,6 +7,10 @@ uniform float motion_speed = 1.0;
 uniform float animation_enabled = 1.0;
 uniform float glow = 0.0;
 uniform bool water_flow = false;
+uniform int flow_axis = 1;
+uniform float sway_angle = 0.1;
+uniform float sway_phase = 0.0;
+uniform float travel_start = 0.0;
 uniform vec2 travel_extent = vec2(38.0,6.0);
 uniform float travel_phase = 0.0;
 uniform float travel_distance = 0.0;
@@ -52,6 +56,16 @@ void vertex() {
         // The bounded city shuttle reverses at the ends of its viaduct.
         p.x += sin(angle)*travel_distance;
     }
+    if (motion == 6) {
+        float swing = sin(TIME * motion_speed + sway_phase) * sway_angle * animation_enabled;
+        float sc = cos(swing);
+        float ss = sin(swing);
+        p.yz = mat2(vec2(sc,ss),vec2(-ss,sc)) * p.yz;
+        NORMAL.yz = mat2(vec2(sc,ss),vec2(-ss,sc)) * NORMAL.yz;
+    } else if (motion == 7) {
+        float across = -travel_distance + mod(angle + travel_phase, travel_distance * 2.0);
+        p.x += across - travel_start;
+    }
     VERTEX = p + pivot;
     local_at = VERTEX;
 }
@@ -60,7 +74,9 @@ void fragment() {
     float detail = 1.0 - smoothstep(0.2,0.7,length(fwidth(local_at)));
     vec3 ink = COLOR.rgb * (0.97 + (grain-0.5) * 0.06 * detail);
     if (water_flow) {
-        float stream = sin(local_at.y * 0.8 + TIME * 3.0 * animation_enabled + sin(local_at.x * 1.7) * 0.4);
+        float along = flow_axis == 0 ? local_at.x : local_at.y;
+        float cross_flow = flow_axis == 0 ? local_at.z : local_at.x;
+        float stream = sin(along * 0.8 + TIME * 3.0 * animation_enabled + sin(cross_flow * 1.7) * 0.4);
         ink *= 0.92 + smoothstep(0.5,0.95,stream) * 0.18;
     }
     ALBEDO = ink;

@@ -82,8 +82,10 @@ alien surfaces are visual themes, not undocumented changes to tire grip.
    boundaries and run the comprehensive source gate. Report source checks,
    rendered-host evidence and exported/physical-device evidence separately.
 
-Progress is recorded in `docs/STATUS.md`. Weekly usage was 73% remaining at
-the first check; stop at 30% or less remaining without resuming autonomously.
+Progress is recorded in `docs/STATUS.md`. The owner's follow-up on 22 October
+requests continued useful polish and content until weekly usage remaining falls
+below 50 percent. Check between completed chunks; finish validation, commit and
+push the current chunk before stopping.
 
 
 ## Content 13: route variety and landscape depth

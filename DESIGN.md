@@ -1180,3 +1180,15 @@ intact. Salt flats, wetlands and cities remain comparatively flat. The original
 ten terrain exports/metadata and every course's chunk/triangle budget remain
 unchanged. Frozen version-13 original vertex hashes and sea runs audit the actual
 GLBs, including the original grid diagonal and absence of duplicate faces.
+
+
+### Regional ambient motion and water accessibility
+
+Temple Coast's bell and Sakura Ring's nine lanterns sway gently about their
+hanging pivots. Copper Mesa's eight ore pieces travel through the conveyor's
+covered ends. Complete swept custom bounds retain the geometry throughout each
+cycle, above every road branch and the 12 m camera corridor. Motion uses the
+shared GPU material with no scene-frame callbacks or driving collision.
+Oasis Citadel's aqueduct has a slow horizontal surface flow. Reduce Motion
+freezes all of these and the shared ocean/waterfall-pool normal waves, retaining
+the original moving water by default.

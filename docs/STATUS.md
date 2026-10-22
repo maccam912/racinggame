@@ -1802,3 +1802,36 @@ loading/GPU/readback/ENet and all **seven** motion/Reduce Motion cases pass.
 The preceding roadside revision passed remote CI
 [39736386230](https://github.com/maccam912/racinggame/actions/runs/39736386230).
 [Evidence, reproduction data and boundaries](evidence/terrain-landforms/validation.json).
+
+
+### Regional motion in bells, lanterns, ore and water
+
+Temple Coast's bell now swings gently, Sakura Ring's nine lanterns sway at
+different phases, and eight chunks of ore travel along Copper Mesa's overhead
+conveyor through covered ends. Oasis Citadel's aqueduct carries a horizontal
+flow. Complete swept mesh bounds keep these moving silhouettes visible and
+above the actual road/camera corridor; no scene-frame callbacks, collision or
+gameplay changes were added.
+[Temple bell](evidence/regional-motion/temple_coast-moving-before.png),
+[lanterns](evidence/regional-motion/sakura_ring-moving-before.png),
+[ore conveyor](evidence/regional-motion/copper_mesa-moving-before.png),
+[aqueduct](evidence/regional-motion/oasis_citadel-moving-before.png).
+
+Reduce Motion freezes these new pieces, ocean waves and waterfall-pool waves.
+Default water animation retains its original behavior. Native comparisons use
+three captures at different intervals to avoid a periodic sway returning to the
+same pose: **11 landmarks and two actual water scenes** move with motion enabled
+and have **zero changed samples** in both reduced-motion comparisons.
+
+All **200/200** commands pass in the complete replacement source gate. The first
+run's isolated audio-limiter fixture failure is retained; the unchanged fixture
+passed an isolated retry, eleven diagnostic runs and the replacement gate. Its intermittent cause is
+not established. Actual six-world construction tests cover **129 phases**,
+road/camera clearance, normals and water accessibility. All thirty hero geometry
+cases, eight ordinary Far Chase approaches and all **40** native
+loading/GPU/readback/ENet cases pass. Three postcards were refreshed. Native
+macOS Compatibility evidence does not establish Android runtime or universal
+frame-time acceptance. Gameplay/content identity remains unchanged.
+The preceding terrain revision passed remote CI
+[39741586075](https://github.com/maccam912/racinggame/actions/runs/39741586075).
+[Evidence, original failure and boundaries](evidence/regional-motion/validation.json).

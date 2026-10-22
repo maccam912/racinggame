@@ -190,6 +190,7 @@ static func waterfall(_world: TrackWorld, parent: Node3D, painted_override: Stan
 	pool.position = Vector3(0,.08,4)
 	pool.material_override = surface
 	pool.add_to_group("scenery_distance")
+	pool.add_to_group("scenery_motion")
 	pool.visibility_range_end = 700
 	pool.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	parent.add_child(pool)
