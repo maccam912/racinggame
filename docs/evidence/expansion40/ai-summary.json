@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "content_hash": "c1be6354edf13e4c0b5b9a611e01843fa404dcab09ee1c60ed8e73a7e9176c4a",
+  "tracks": 40,
+  "difficulties": 3,
+  "seeds_per_case": 4,
+  "field_races": 480,
+  "finished_cars": 3840,
+  "recoveries": 0,
+  "single_car_ordering": [
+    {
+      "car": 0,
+      "easy": 81.1155784287557,
+      "medium": 72.3087449042361,
+      "hard": 67.1588024315505
+    },
+    {
+      "car": 1,
+      "easy": 82.2355440455302,
+      "medium": 73.5278338121077,
+      "hard": 68.2972328013541
+    },
+    {
+      "car": 2,
+      "easy": 79.6959818538876,
+      "medium": 70.7477917062556,
+      "hard": 65.6150755849064
+    },
+    {
+      "car": 3,
+      "easy": 81.6842133807463,
+      "medium": 72.8577260288391,
+      "hard": 67.6587359146488
+    }
+  ],
+  "boundaries": [
+    "Seven bots plus an autopiloted reference car; not a human difficulty/feel test",
+    "Bots have no random reaction or line variation; seeds rotate four legal reference-car choices",
+    "Single-car ordering uses a fixture-only flattened Palm Bay route at y=4, with bank/jump offsets zero and car contact disabled; shipped geometry is unchanged"
+  ]
+}

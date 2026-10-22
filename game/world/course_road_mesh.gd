@@ -3,6 +3,47 @@ extends RefCounted
 ## Render-only extrusion over the unchanged shared barrier planes.
 
 
+static func partition(instance: MeshInstance3D) -> void:
+	# A whole-lap mesh intersects the view and every shadow cascade even when
+	# nearly all its triangles are behind a mountain. Local bounds let the
+	# renderer reject those triangles before submitting them to the GPU.
+	# Copy triangles exactly; collision keeps its original independent mesh.
+	var source := instance.mesh
+	assert(source.get_surface_count()==1)
+	var arrays := source.surface_get_arrays(0)
+	var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+	var uvs: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV] if arrays[Mesh.ARRAY_TEX_UV]!=null else PackedVector2Array()
+	var colors: PackedColorArray = arrays[Mesh.ARRAY_COLOR] if arrays[Mesh.ARRAY_COLOR]!=null else PackedColorArray()
+	var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX] if arrays[Mesh.ARRAY_INDEX]!=null else PackedInt32Array()
+	var tools: Dictionary = {}
+	for first in range(0,indices.size() if not indices.is_empty() else vertices.size(),3):
+		var order := PackedInt32Array([first,first+1,first+2]) if indices.is_empty() else indices.slice(first,first+3)
+		var center := (vertices[order[0]]+vertices[order[1]]+vertices[order[2]])/3
+		var cell := Vector2i(floori(center.x/640),floori(center.z/640))
+		if not tools.has(cell):
+			var tool := SurfaceTool.new()
+			tool.begin(Mesh.PRIMITIVE_TRIANGLES)
+			tools[cell] = tool
+		var tool: SurfaceTool = tools[cell]
+		for index: int in order:
+			tool.set_normal(normals[index])
+			if not uvs.is_empty(): tool.set_uv(uvs[index])
+			if not colors.is_empty(): tool.set_color(colors[index])
+			tool.add_vertex(vertices[index])
+	var first := true
+	for cell: Vector2i in tools:
+		var chunk := instance if first else MeshInstance3D.new()
+		chunk.mesh = tools[cell].commit()
+		chunk.material_override = instance.material_override
+		chunk.cast_shadow = instance.cast_shadow
+		chunk.set_meta("road_chunk",cell)
+		if not first:
+			chunk.name = "Chunk_%d_%d"%[cell.x,cell.y]
+			instance.add_child(chunk)
+		first = false
+
+
 static func quad(tool: SurfaceTool, a: Vector3, b: Vector3, c: Vector3, d: Vector3) -> void:
 	var normal := -(b-a).cross(c-a).normalized()
 	for point: Vector3 in [a,b,c,a,c,d]:

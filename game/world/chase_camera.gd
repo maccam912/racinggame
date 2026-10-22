@@ -3,7 +3,7 @@ extends Camera3D
 
 const NEAR_CLIP_M: float = .15
 
-var mode: int = 0
+var mode: int = 1
 var reduce_motion: bool = false
 var dynamic_fov: bool = true
 var base_fov: float = 65.0

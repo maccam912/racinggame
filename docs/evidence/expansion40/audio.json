@@ -1,0 +1,204 @@
+{
+  "all_channels_muted_peak": 0.0,
+  "boundary": "Actual Godot decoded-stream/DSP capture at unity Master, before its fader/mute; human listening and physical speaker/device mix review remain separate",
+  "driver": "Dummy",
+  "engines": 8,
+  "frames": 1224704,
+  "impact_burst": 8,
+  "layers_per_engine": 4,
+  "sample_rate": 44100,
+  "sections": [
+    {
+      "label": "standard_palm_bay",
+      "seconds": 4.0,
+      "start_frame": 0
+    },
+    {
+      "label": "standard_citrus_pass",
+      "seconds": 4.0,
+      "start_frame": 147456
+    },
+    {
+      "label": "standard_marina_lights",
+      "seconds": 4.0,
+      "start_frame": 303104
+    },
+    {
+      "label": "standard_redwood_run",
+      "seconds": 4.0,
+      "start_frame": 454656
+    },
+    {
+      "label": "standard_sunstone_canyon",
+      "seconds": 4.0,
+      "start_frame": 606208
+    },
+    {
+      "label": "standard_pacific_summit",
+      "seconds": 4.0,
+      "start_frame": 757760
+    },
+    {
+      "label": "standard_menu",
+      "seconds": 4.0,
+      "start_frame": 909312
+    },
+    {
+      "label": "night",
+      "seconds": 3.0,
+      "start_frame": 1060864
+    },
+    {
+      "label": "all_channels_muted",
+      "seconds": 1.0,
+      "start_frame": 1183744
+    }
+  ],
+  "measurement": {
+    "input_i": "-14.30",
+    "input_tp": "-2.75",
+    "input_lra": "3.80",
+    "input_thresh": "-24.35",
+    "output_i": "-18.33",
+    "output_tp": "-6.73",
+    "output_lra": "0.80",
+    "output_thresh": "-28.35",
+    "normalization_type": "dynamic",
+    "target_offset": "0.33"
+  },
+  "true_peak_dbfs": -2.75,
+  "asset_hash": "0388fd7b72237807380d45319559ebbc4d8fd277256b34e30668fa7f84600392",
+  "decoded_loops": [
+    {
+      "id": "effect_asphalt_squeal",
+      "decoded_wrap_step": 0.016149301081895828,
+      "edge_step_p99": 0.05423604045063257
+    },
+    {
+      "id": "effect_grass_rumble",
+      "decoded_wrap_step": 0.01691743778064847,
+      "edge_step_p99": 0.005709737539291382
+    },
+    {
+      "id": "effect_sand_rumble",
+      "decoded_wrap_step": 0.010693740099668503,
+      "edge_step_p99": 0.010126102715730667
+    },
+    {
+      "id": "engine_comet_coast",
+      "decoded_wrap_step": 0.00941946340026334,
+      "edge_step_p99": 0.006423503160476685
+    },
+    {
+      "id": "engine_comet_high",
+      "decoded_wrap_step": 0.021099438425153494,
+      "edge_step_p99": 0.01580798625946045
+    },
+    {
+      "id": "engine_comet_idle",
+      "decoded_wrap_step": 0.011965931975282729,
+      "edge_step_p99": 0.007145002484321594
+    },
+    {
+      "id": "engine_comet_low",
+      "decoded_wrap_step": 0.008901499259081902,
+      "edge_step_p99": 0.008874315768480301
+    },
+    {
+      "id": "engine_needle_coast",
+      "decoded_wrap_step": 0.011555555276572704,
+      "edge_step_p99": 0.006946462206542492
+    },
+    {
+      "id": "engine_needle_high",
+      "decoded_wrap_step": 0.0334085610229522,
+      "edge_step_p99": 0.019874799996614456
+    },
+    {
+      "id": "engine_needle_idle",
+      "decoded_wrap_step": 0.012684833258390427,
+      "edge_step_p99": 0.007634760811924934
+    },
+    {
+      "id": "engine_needle_low",
+      "decoded_wrap_step": 0.008489056621328928,
+      "edge_step_p99": 0.009581204503774643
+    },
+    {
+      "id": "engine_sunset_coast",
+      "decoded_wrap_step": 0.013903856044635177,
+      "edge_step_p99": 0.005560804158449173
+    },
+    {
+      "id": "engine_sunset_high",
+      "decoded_wrap_step": 0.021552502177655697,
+      "edge_step_p99": 0.0161982923746109
+    },
+    {
+      "id": "engine_sunset_idle",
+      "decoded_wrap_step": 0.0060773128643631935,
+      "edge_step_p99": 0.006148034706711769
+    },
+    {
+      "id": "engine_sunset_low",
+      "decoded_wrap_step": 0.008777549024671316,
+      "edge_step_p99": 0.007649648934602737
+    },
+    {
+      "id": "engine_switch_coast",
+      "decoded_wrap_step": 0.011714370863046497,
+      "edge_step_p99": 0.0061714782495982945
+    },
+    {
+      "id": "engine_switch_high",
+      "decoded_wrap_step": 0.030574403004720807,
+      "edge_step_p99": 0.01583016663789749
+    },
+    {
+      "id": "engine_switch_idle",
+      "decoded_wrap_step": 0.014835428562946618,
+      "edge_step_p99": 0.00683413993101567
+    },
+    {
+      "id": "engine_switch_low",
+      "decoded_wrap_step": 0.016844195532030426,
+      "edge_step_p99": 0.008567743003368378
+    },
+    {
+      "id": "music_citrus_pass",
+      "decoded_wrap_step": 0.006134629249572754,
+      "edge_step_p99": 0.04472137801349163
+    },
+    {
+      "id": "music_marina_lights",
+      "decoded_wrap_step": 5.166558548808098e-05,
+      "edge_step_p99": 0.010084545006975532
+    },
+    {
+      "id": "music_menu",
+      "decoded_wrap_step": 0.06673615984618664,
+      "edge_step_p99": 0.04794600355671719
+    },
+    {
+      "id": "music_pacific_summit",
+      "decoded_wrap_step": 0.022259140387177467,
+      "edge_step_p99": 0.06451018154621124
+    },
+    {
+      "id": "music_palm_bay",
+      "decoded_wrap_step": 0.020025968551635742,
+      "edge_step_p99": 0.03559291362762451
+    },
+    {
+      "id": "music_redwood_run",
+      "decoded_wrap_step": 0.018194623291492462,
+      "edge_step_p99": 0.053427428007125854
+    },
+    {
+      "id": "music_sunstone_canyon",
+      "decoded_wrap_step": 0.02399981254711747,
+      "edge_step_p99": 0.017657249001786113
+    }
+  ],
+  "passed": true
+}

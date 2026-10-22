@@ -28,10 +28,10 @@ func run() -> void:
 				for mode: String in ["quick","trial"]:
 					if "--narrow-probe" in OS.get_cmdline_user_args() and (not mobile or size!=Vector2i(960,720) or scale!=125): continue
 					app.events.mode = mode
-					app.events.track_index = 9
+					app.events.track_index = Catalog.tracks.size()-1
 					app.events.show_event()
 					assert(is_equal_approx(app.menu.ui.scale,float(scale)/100),"the fixture must apply the requested scale to actual controls")
-					app.events.buttons[9].grab_focus()
+					app.events.buttons[Catalog.tracks.size()-1].grab_focus()
 					for frame in range(8): await process_frame
 					var width := minf(size.x*.9,size.y*16.0/9*.9)
 					var left := (size.x-width)*.5
@@ -44,9 +44,9 @@ func run() -> void:
 						for child: Control in app.events.detail_scroll.get_parent().get_children():
 							print("EVENT_LAYOUT_WORKSPACE ",child.get_class()," minimum=",child.get_combined_minimum_size()," size=",child.size)
 					assert(details.position.x>=left-1 and details.end.x<=right+1,"event detail panel escapes safe frame: mobile=%s size=%s scale=%s rect=%s right=%s"%[mobile,size,scale,details,right])
-					var button: Rect2 = app.events.buttons[9].get_global_rect()
+					var button: Rect2 = app.events.buttons[Catalog.tracks.size()-1].get_global_rect()
 					assert(button.position.x>=left-1 and button.end.x<=right+1,"highest course button must fit horizontally")
-					assert(app.events.track_index==9 and app.events.buttons[9].has_focus())
+					assert(app.events.track_index==Catalog.tracks.size()-1 and app.events.buttons[Catalog.tracks.size()-1].has_focus())
 					cases.append({"mobile":mobile,"viewport":[size.x,size.y],"ui_scale":scale,"mode":mode,"detail_right":details.end.x,"safe_right":right})
 	assert(cases.size()==(2 if "--narrow-probe" in OS.get_cmdline_user_args() else 80))
 	app.queue_free()

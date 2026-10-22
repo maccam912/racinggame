@@ -60,6 +60,12 @@ static func palette(category: String, emission: float = 0) -> Material:
 
 static func model(id: String, emission: float = 0) -> Node3D:
 	load_catalog()
+	if BillboardArt.supports(id) and not library.has(id):
+		var illustrated := Node3D.new()
+		illustrated.name = "Landmark_"+id
+		illustrated.set_meta("asset_id",id)
+		BillboardArt.batch(id,[Transform3D.IDENTITY] as Array[Transform3D],illustrated,emission,false)
+		return illustrated
 	var row: Dictionary = library[id]
 	var scene: PackedScene = load("res://"+row.path)
 	var result := scene.instantiate() as Node3D

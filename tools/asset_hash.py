@@ -71,6 +71,24 @@ def validate():
     validate_posters()
     validate_decorations()
     validate_arcade_sprites()
+    validate_expansion40()
+
+
+def validate_expansion40():
+    provenance=json.loads((ROOT/'assets/source/expansion40/generation.json').read_text())
+    catalog=json.loads((ROOT/'assets/exported/billboards/expansion40/catalog.json').read_text())
+    assert provenance['tool']=='built-in image_gen' and len(provenance['images'])==7
+    assert len(catalog['assets'])==52 and len({row['id'] for row in catalog['assets']})==52
+    for row in provenance['images']:
+        assert digest(ROOT/row['source'])==digest(ROOT/row['export'])==row['sha256']
+        assert row['prompt'] and row['transparent_background']
+        assert 'mipmaps/generate=true' in (ROOT/row['export']).with_suffix('.png.import').read_text()
+    for row in catalog['assets']:
+        assert digest(ROOT/row['path'])==row['sha256']
+        x,y,w,h=row['uv_bounds_pixels'];width,height=row['pixels']
+        assert x>=0 and y>=0 and w>0 and h>0 and x+w<=width and y+h<=height
+        assert abs(row['size_m'][0]/row['size_m'][2]-w/h)<.0001
+    print('Validated six untouched imagegen atlases and one standalone tree, 52 alpha-bounded sprites and original prompts')
 
 
 def validate_arcade_sprites():
@@ -105,7 +123,7 @@ def validate_posters():
     catalog=json.loads((ROOT/'assets/exported/posters/catalog.json').read_text())
     provenance=json.loads((ROOT/catalog['source']).read_text())
     assert catalog['license']=='MIT' and len(catalog['assets'])==10
-    assert {row['id'] for row in catalog['assets']}=={row['id'] for row in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']}
+    assert {row['id'] for row in catalog['assets']}=={row['id'] for row in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks'][:10]}
     for row in catalog['assets']:
         source=ROOT/row['source']; path=ROOT/row['path']
         assert digest(source)==digest(path)==row['sha256']
@@ -122,8 +140,8 @@ def validate_icons():
     value=json.loads((ROOT/'assets/exported/icons/catalog.json').read_text())
     rows=value['assets']
     assert value['license']=='MIT' and (ROOT/value['source']).is_file()
-    assert len(rows)==64 and len({r['id'] for r in rows})==64
-    assert [sum(row['category']==kind for row in rows) for kind in ['action','tab','menu','connection','car','track','medal','trophy','paint']]==[15,8,9,3,4,10,4,3,8]
+    assert len(rows)==94 and len({r['id'] for r in rows})==94
+    assert [sum(row['category']==kind for row in rows) for kind in ['action','tab','menu','connection','car','track','medal','trophy','paint']]==[15,8,9,3,4,40,4,3,8]
     actions=['steer_left','steer_right','accelerate','brake','handbrake','recover','camera','look_back','pause','ui_up','ui_down','ui_left','ui_right','ui_accept','ui_cancel']
     assert {row['id'] for row in rows if row['category']=='action'}=={'action_'+a for a in actions}
     for row in rows:
@@ -139,12 +157,12 @@ def validate_icons():
         if row['category']=='paint':
             paints=json.loads((ROOT/'game/content/cars.json').read_text())['paints']
             assert row['color']==paints[int(row['id'].removeprefix('paint_'))]
-    print('Validated 64 original editable SVG interface icons, canonical course outlines, paint swatches and mipmaps')
+    print('Validated 94 original editable SVG interface icons, canonical course outlines, paint swatches and mipmaps')
 
 
 def validate_audio():
     value=json.loads((ROOT/'assets/exported/audio/catalog.json').read_text())
-    assert value['license']=='MIT' and (ROOT/value['source']).is_file()
+    assert value['license']=='MIT AND CC0-1.0' and (ROOT/value['source']).is_file()
     rows=value['assets']
     assert len(rows)==48 and len({row['id'] for row in rows})==48
     assert [sum(row['category']==kind for row in rows) for kind in ['music','engine','effect','voice']]==[7,16,17,8]
@@ -157,12 +175,14 @@ def validate_audio():
         settings=path.with_suffix('.ogg.import').read_text()
         assert ('loop='+str(row['loop']).lower()) in settings,row['id']
         if row['category']=='music':
-            assert row['loop'] and row['channels']==2 and 125<=row['bpm']<=145
-            assert abs(row['duration_seconds']-90)<.001 if row['id']=='music_menu' else 120<=row['duration_seconds']<=180
-            assert abs(row['duration_seconds']-row['beats']*60/row['bpm'])<.001
+            assert row['loop'] and row['channels']==2 and row['license']=='CC0-1.0'
+            assert row['bpm']==0 and row['beats']==0, 'Do not invent tempo metadata for recordings'
+            assert 30<=row['duration_seconds']<=300
+            assert digest(ROOT/row['source_path'])==row['source_sha256']
+            assert 'publicdomain/zero/1.0' in (ROOT/row['license_evidence']).read_text()
             assert -19<=row['integrated_lufs']<=-17
         if row['category']=='engine': assert row['loop'] and row['duration_seconds']==2
-    print('Validated 48 original Vorbis streams, six race compositions, four engine profiles and eight fixed prompts')
+    print('Validated 48 Vorbis streams, seven recorded CC0 rock/metal selections, four engine profiles and eight fixed prompts')
 
 
 def validate_scenery():
@@ -209,14 +229,19 @@ def validate_scenery():
     by_id={row['id']:row for row in assets}
     for row in courses['courses']:
         assert len(row['landmarks'])==5
-        assert all(by_id[landmark['id']]['category']=='landmark' and 0<=landmark['u']<1 for landmark in row['landmarks'])
+        if not row.get('expansion40'):
+            assert all(by_id[landmark['id']]['category']=='landmark' and 0<=landmark['u']<1 for landmark in row['landmarks'])
+        else:
+            sprites=json.loads((ROOT/'assets/exported/billboards/expansion40/catalog.json').read_text())['assets']
+            sprite_ids={item['id'] for item in sprites}|{'alpine_fir'}
+            assert all(landmark['id'] in sprite_ids and 0<=landmark['u']<1 for landmark in row['landmarks'])
         postcard=ROOT/f'assets/exported/thumbnails/{row["id"]}.png'
         assert struct.unpack_from('>II',postcard.read_bytes(),16)==(512,288),'Course postcard must be a shipped 512x288 scene render'
     for row in terrain['courses']:
         assert digest(ROOT/row['path'])==row['sha256']
         bake=json.loads((ROOT/f'game/content/baked/{row["id"]}.json').read_text())
         assert row['route_hash']==bake['content_hash'],'Cosmetic terrain must follow the current canonical bake'
-    print('Validated 30 landmarks, five vegetation models, seven props, ten cosmetic terrains and shared atlases')
+    print('Validated 30 landmarks, five vegetation models, seven props, forty cosmetic terrains and shared atlases')
 
 
 if __name__=='__main__':

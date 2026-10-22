@@ -47,6 +47,7 @@ func run() -> void:
 	await process_frame
 	var folder := "user://tests/mobile-runtime-"+RaceSetup.uuid()
 	app.data = AppData.new(folder,true)
+	app.data.settings.retro = false # Exercise adaptive scaling independently of the default fixed Retro image.
 	app.data.profile.first_run_complete = true
 	app.show_menu()
 	app.mobile_runtime.refresh()

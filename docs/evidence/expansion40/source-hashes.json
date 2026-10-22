@@ -1,0 +1,1625 @@
+{
+  "base_commit": "373c970cc39c5d69022dcb564888365232d93039",
+  "created_utc": "2026-10-22T02:32:44.072561+00:00",
+  "content_hash": "c1be6354edf13e4c0b5b9a611e01843fa404dcab09ee1c60ed8e73a7e9176c4a",
+  "asset_hash": "86df1f62b2e79fa64b27a4243bfd3f0cd1547e4d8c15c3f5b57c5277eaa488b2",
+  "boundary": "Final staged changed-file bytes before commit. This manifest excludes itself. Local package/source gate provenance is recorded separately.",
+  "files": {
+    ".gitattributes": {
+      "sha256": "ba7c6a22418cd8c43506db6d880e6cfd0ae559203c6bc23b73d0b27e804d8c7b",
+      "bytes": 1074
+    },
+    ".github/workflows/extra-tests.yml": {
+      "sha256": "f5737ff8cb00a90f7e6c071c37665f1c0feb8cf6960f37fc6c5f2d105990c0c2",
+      "bytes": 29106
+    },
+    "DESIGN.md": {
+      "sha256": "92e545f247346989e2a64b5af2f3602def94fd65e7dd4cbedf4e16d23accf859",
+      "bytes": 150867
+    },
+    "README.md": {
+      "sha256": "65e98664da1c53b680c33efbb11dac180e3169e10ce1d28ab32a52ed5879e36a",
+      "bytes": 13444
+    },
+    "assets/checksums.json": {
+      "sha256": "41ab1c906af081f8e29309985b7ac27f7f5a97dd7505413c76cec82ce989124f",
+      "bytes": 44979
+    },
+    "assets/exported/audio/catalog.json": {
+      "sha256": "8c9aed46863b80c66122b5dd8009bd6bab2fbf3eab0b11ed050bdc5dda4ff0b0",
+      "bytes": 25955
+    },
+    "assets/exported/audio/effect_asphalt_squeal.ogg": {
+      "sha256": "744c82175560e2a69b640e64076de5353b926d1a909559d33a57e7ca19453896",
+      "bytes": 18364
+    },
+    "assets/exported/audio/music_citrus_pass.ogg": {
+      "sha256": "76d84c8708622802319793190eb4af0b3e9a2a7423bfc1f2e595b66eb70b7e7c",
+      "bytes": 865343
+    },
+    "assets/exported/audio/music_citrus_pass.ogg.import": {
+      "sha256": "7ec934c99da0365bb5521a242c3e2cd38eebe86761e3a8ad722622eba20e66cd",
+      "bytes": 428
+    },
+    "assets/exported/audio/music_marina_lights.ogg": {
+      "sha256": "94f3e314c2b3fc73577ba696d72a74d05eefb83107ee36cfcd6d36399f1549da",
+      "bytes": 1309741
+    },
+    "assets/exported/audio/music_marina_lights.ogg.import": {
+      "sha256": "b7cb6bd73be526399d1b59408e66a387dd015a295a331fa0ee9201948048c806",
+      "bytes": 433
+    },
+    "assets/exported/audio/music_menu.ogg": {
+      "sha256": "5b662f07720bd23b917c6df52d8d1ee485c054acde66421d886ec26ddf66a0e9",
+      "bytes": 1667915
+    },
+    "assets/exported/audio/music_menu.ogg.import": {
+      "sha256": "28f5ec581bc2740699931f0d28134c1c2acf4d4f3d19ec10ba880f45aa81228c",
+      "bytes": 406
+    },
+    "assets/exported/audio/music_pacific_summit.ogg": {
+      "sha256": "acf640bcee24ea792f14d5956cbae7cbc534aaf7f261dd9a72dab2f8814455cb",
+      "bytes": 1378236
+    },
+    "assets/exported/audio/music_pacific_summit.ogg.import": {
+      "sha256": "47aa537af7d602158b17703df438d41a6a16bcfbfe86646b3b0ce7fe39f582b1",
+      "bytes": 437
+    },
+    "assets/exported/audio/music_palm_bay.ogg": {
+      "sha256": "3288385d6ca49394850bfb9249e4aad9b6ac015e45996af0f3b83f42c3841cf7",
+      "bytes": 1309588
+    },
+    "assets/exported/audio/music_palm_bay.ogg.import": {
+      "sha256": "89edb740fbb07bc057006b4ae558666a58ce4b5674475910a26598e5fb7647ee",
+      "bytes": 419
+    },
+    "assets/exported/audio/music_redwood_run.ogg": {
+      "sha256": "9f852988bc2eaea7457cdc13422bc7070779626ba1afc3d576922f7cb9c20153",
+      "bytes": 848351
+    },
+    "assets/exported/audio/music_redwood_run.ogg.import": {
+      "sha256": "d31d2b8ebf63396d8e1629ce98e5c19bb04b9cf9583024bb21c23f9953d600f6",
+      "bytes": 428
+    },
+    "assets/exported/audio/music_sunstone_canyon.ogg": {
+      "sha256": "62397048d8141e6e147ac5db8adae220ed7e86b094ad60d1a9e453921341f35f",
+      "bytes": 2623883
+    },
+    "assets/exported/audio/music_sunstone_canyon.ogg.import": {
+      "sha256": "f3be66b36fec0ce8e7b233238b93ad2d5f30f0dcf4f9930615f0d1374c654001",
+      "bytes": 440
+    },
+    "assets/exported/billboards/expansion40/catalog.json": {
+      "sha256": "c13982fe3a117359cfd63268d694fca1f420796d93b43c5e2e52d7a7e2496f01",
+      "bytes": 30162
+    },
+    "assets/exported/billboards/expansion40/desert-v1.png": {
+      "sha256": "7cf45dbd42f2d9ec8c7b47dfee6ee24c4bd44bc0f96b35435b193fa4e2302855",
+      "bytes": 2638178
+    },
+    "assets/exported/billboards/expansion40/desert-v1.png.import": {
+      "sha256": "7bdacdd89096e6e752f5b7aca05d1e5c2e9964aa64d67b5db2d1fae8a3d24557",
+      "bytes": 969
+    },
+    "assets/exported/billboards/expansion40/east-asia-v1.png": {
+      "sha256": "7532b5d64fe8775651458a2e5ae1c7421299a51c6a2aaba8bd44a29ed714847c",
+      "bytes": 3039155
+    },
+    "assets/exported/billboards/expansion40/east-asia-v1.png.import": {
+      "sha256": "f0c27935d1caf8e09f9dd1269492395bf7fe27e7c61ff93ab33c69d5dfc2fc4c",
+      "bytes": 978
+    },
+    "assets/exported/billboards/expansion40/industry-v1.png": {
+      "sha256": "b9f7b8ba5b8b041311adb95d6c1b2ce4cbea31ed7197f13b219b91f8cd8fed85",
+      "bytes": 2235573
+    },
+    "assets/exported/billboards/expansion40/industry-v1.png.import": {
+      "sha256": "13de5792e9e5e69b273cb369728ce6065a5d83a86c92972940e9cbfc66516d0b",
+      "bytes": 975
+    },
+    "assets/exported/billboards/expansion40/polar-v1.png": {
+      "sha256": "71961514a46f56bc8c9c030bb111c68760a780be9895fe9ea8f16ad93430bd8d",
+      "bytes": 2638860
+    },
+    "assets/exported/billboards/expansion40/polar-v1.png.import": {
+      "sha256": "022566821a86fb30b191bb12f34a0810de03eb87ce4cd6a57fdd007c9eaa86ae",
+      "bytes": 966
+    },
+    "assets/exported/billboards/expansion40/sakura-v1.png": {
+      "sha256": "0a9bce1c5446c441b816340a6dedc76f26c5b10e83df06eeee3411dcea8069a2",
+      "bytes": 2194679
+    },
+    "assets/exported/billboards/expansion40/sakura-v1.png.import": {
+      "sha256": "fc972955fc708c6b9a85114a849674d15d3b07ac3845065f1c00e76595685469",
+      "bytes": 968
+    },
+    "assets/exported/billboards/expansion40/space-v1.png": {
+      "sha256": "8f345b202a608e445444e00f3dc48f7da1411fea681079f1b2e201ad1f6f4524",
+      "bytes": 2775511
+    },
+    "assets/exported/billboards/expansion40/space-v1.png.import": {
+      "sha256": "f6899a9b5efee36af5bc93d53a41ccba08d28c9f0a85137bd4754dcf183b638a",
+      "bytes": 965
+    },
+    "assets/exported/billboards/expansion40/tropical-v1.png": {
+      "sha256": "b4174ff532253bbf0e2ebe624cfd65bacab9598b48fe7916549a4f147dd2c393",
+      "bytes": 3240963
+    },
+    "assets/exported/billboards/expansion40/tropical-v1.png.import": {
+      "sha256": "51d1fd9de4399db61d16e5e885788e1467a03aa4a2e52e1d9f6cc025cc19f839",
+      "bytes": 975
+    },
+    "assets/exported/icons/catalog.json": {
+      "sha256": "98218303110131d127ea20cc396955e8572aa685284e574601b0a8c8b4690ac5",
+      "bytes": 23960
+    },
+    "assets/exported/icons/track_alpine_meadow.svg": {
+      "sha256": "88e931a8d4e066aee4c9d3be572e4a4b2bda6a9775a96ef2f698036c47a525cc",
+      "bytes": 1710
+    },
+    "assets/exported/icons/track_alpine_meadow.svg.import": {
+      "sha256": "0447e97ff7b701c16f6ed872fc475c7a7ffd1325d22ae146325de3e37c72b070",
+      "bytes": 1078
+    },
+    "assets/exported/icons/track_aurora_harbor.svg": {
+      "sha256": "663bc750a44c5abb2182102be88e4e2e4b96639bd65bde081d14eed2cf248ee1",
+      "bytes": 1696
+    },
+    "assets/exported/icons/track_aurora_harbor.svg.import": {
+      "sha256": "defc35fdcd11c0113cba8f1e20d12cacbc5d517b8bb99944bdaff21d1c5f0e38",
+      "bytes": 1079
+    },
+    "assets/exported/icons/track_bamboo_gorge.svg": {
+      "sha256": "10ed98222874750f112a6d23f984b8368e53d7b14b408294c012683f878b8052",
+      "bytes": 1722
+    },
+    "assets/exported/icons/track_bamboo_gorge.svg.import": {
+      "sha256": "4eebf6c6d57f795e5e24c29561f9d377784466d9fa475acf83ad84fd496041df",
+      "bytes": 1076
+    },
+    "assets/exported/icons/track_cloudforest_climb.svg": {
+      "sha256": "462f83a7ba8b586c36cbf41df390b9030d7f71d9a26c18f51e7671f3b1dc97b4",
+      "bytes": 1703
+    },
+    "assets/exported/icons/track_cloudforest_climb.svg.import": {
+      "sha256": "c792748639ed9a9298ceb0b035922c999912ff16425cccd1cde042f75af12201",
+      "bytes": 1090
+    },
+    "assets/exported/icons/track_container_corkscrew.svg": {
+      "sha256": "96bfa4ba9bfb9a824e86f59b9096d7f7fa28e66d9ccb17d501501958a5ddab0f",
+      "bytes": 1702
+    },
+    "assets/exported/icons/track_container_corkscrew.svg.import": {
+      "sha256": "43f65c4d3252a551a83ab5017bbe4579dc90dde8014f1c5b47c8225819755196",
+      "bytes": 1097
+    },
+    "assets/exported/icons/track_copper_mesa.svg": {
+      "sha256": "1dba06bd0d4a649e3614a03459c5a44de457f3bc75de8f24c23b304fb48ecb01",
+      "bytes": 1705
+    },
+    "assets/exported/icons/track_copper_mesa.svg.import": {
+      "sha256": "2586f69bfe440933de9eef16cce75c402e3c3a214a9be88a4f733be6c50d6057",
+      "bytes": 1073
+    },
+    "assets/exported/icons/track_coral_causeway.svg": {
+      "sha256": "d6586e7ff83f491fa95f3ad5f981cecd5ee3aef9c07a374f8a9ce1a2af0de472",
+      "bytes": 1696
+    },
+    "assets/exported/icons/track_coral_causeway.svg.import": {
+      "sha256": "f77765e193338def38a35b6705827a2278078c48f58f395e60a7d7446e2b64a0",
+      "bytes": 1082
+    },
+    "assets/exported/icons/track_crystal_chasm.svg": {
+      "sha256": "221479dd48dac364b5beadca49ee1cbe4b6d618e6e98cd1a58e13f7b40c54062",
+      "bytes": 1718
+    },
+    "assets/exported/icons/track_crystal_chasm.svg.import": {
+      "sha256": "cbc56901562ec331c5b016bfd9ba3a429bac15d39d0da785df1e396b6eb5f4ef",
+      "bytes": 1079
+    },
+    "assets/exported/icons/track_dune_serpent.svg": {
+      "sha256": "bfc6d569b5951f5aa67645600ca93233ecacc8da5f4df5274b02df537decde01",
+      "bytes": 1693
+    },
+    "assets/exported/icons/track_dune_serpent.svg.import": {
+      "sha256": "a4edfccfdc47f07926627bd700078a89bdbe8d77481b0cd78137c25e9acadaec",
+      "bytes": 1076
+    },
+    "assets/exported/icons/track_festival_speedway.svg": {
+      "sha256": "e6cd75c857975514fbac45c6821ee6f6e27af888fc9b8d41136d96f954accc5f",
+      "bytes": 1709
+    },
+    "assets/exported/icons/track_festival_speedway.svg.import": {
+      "sha256": "2a043881ed48c7f3d0b3e7cc2ffe4a156702c8f4547635bfa0fb22e1d5861b1e",
+      "bytes": 1091
+    },
+    "assets/exported/icons/track_frostbite_fjord.svg": {
+      "sha256": "cec9bd81f25bd1ec2d259ae6a2a78a1c6f5ec27f29554e34c80279096225664b",
+      "bytes": 1701
+    },
+    "assets/exported/icons/track_frostbite_fjord.svg.import": {
+      "sha256": "9350d4877d73db68f769bd2bec4d855d283a5c66fa4fc5759580ce13f7a2b4ee",
+      "bytes": 1085
+    },
+    "assets/exported/icons/track_glacier_ridge.svg": {
+      "sha256": "1d5ae9859f0a90bdcfc4402c5d7ecc3672c2160755cd78eedff7f5fd7d919346",
+      "bytes": 1718
+    },
+    "assets/exported/icons/track_glacier_ridge.svg.import": {
+      "sha256": "8d69dd54db68b70de38dce926790ab3d3783fa4a517d1ec1bf1377d942c7891d",
+      "bytes": 1079
+    },
+    "assets/exported/icons/track_lantern_market.svg": {
+      "sha256": "c8a04ac040d3530a4d4c68ca0bed619103cac766b0558b969912277bd4b273fe",
+      "bytes": 1722
+    },
+    "assets/exported/icons/track_lantern_market.svg.import": {
+      "sha256": "a9f358cf202bb86610e0c004b0290fa2eaf795288a4015f0b1f1178f6f7d4831",
+      "bytes": 1082
+    },
+    "assets/exported/icons/track_lunar_freight.svg": {
+      "sha256": "2e688e98a0717ff5c2ee380d437b8f250a7b4c07a12de70f02b92a6d6afbba48",
+      "bytes": 1723
+    },
+    "assets/exported/icons/track_lunar_freight.svg.import": {
+      "sha256": "9418f603a991ba7376a309406d569ded4f55a8946fc71129e3b82c10ab613a10",
+      "bytes": 1079
+    },
+    "assets/exported/icons/track_mangrove_maze.svg": {
+      "sha256": "6cba807f119a3cf165709ebfc2adf636d425de2646bf9db087075faf7fbeefc5",
+      "bytes": 1693
+    },
+    "assets/exported/icons/track_mangrove_maze.svg.import": {
+      "sha256": "2733c97770e3e15610af306ce4c59fa88dedb203028e54e6b06f71b17ea6dbff",
+      "bytes": 1078
+    },
+    "assets/exported/icons/track_mars_badlands.svg": {
+      "sha256": "14297d82685e277f008514de993b3ec3d8144c133fca12d15485e2d4b8701d1e",
+      "bytes": 1714
+    },
+    "assets/exported/icons/track_mars_badlands.svg.import": {
+      "sha256": "04732244d2e11730015f185ea400ba4f98f59951ef1530377284a7979f86defe",
+      "bytes": 1079
+    },
+    "assets/exported/icons/track_monsoon_delta.svg": {
+      "sha256": "1dd24996f6b85d67a89e7a72785470f5feaffaf95029bc5e3d8bbb22ccab15e8",
+      "bytes": 1722
+    },
+    "assets/exported/icons/track_monsoon_delta.svg.import": {
+      "sha256": "85dab863f761137514fbc296bc2961c524fef4e7507fae5af554d556e7b0f5af",
+      "bytes": 1079
+    },
+    "assets/exported/icons/track_neon_underpass.svg": {
+      "sha256": "5a177a24997742505c10347006b62ce22b0c8a910dccfb6ab783f9958923e42c",
+      "bytes": 1723
+    },
+    "assets/exported/icons/track_neon_underpass.svg.import": {
+      "sha256": "b062d0f3e4fba0a6f4e2584064ce81e3d34251fd7387abaad88a59d3df87709d",
+      "bytes": 1081
+    },
+    "assets/exported/icons/track_oasis_citadel.svg": {
+      "sha256": "6823c238dd78255a67e65c3469777d5a14f72cee7d3ebc9844212d1858f04fdf",
+      "bytes": 1735
+    },
+    "assets/exported/icons/track_oasis_citadel.svg.import": {
+      "sha256": "99eac061034912f86be49e005dbd66af312c9262bf66f0eee8c303b9cd6b6cb9",
+      "bytes": 1079
+    },
+    "assets/exported/icons/track_orbital_gardens.svg": {
+      "sha256": "f7c6cc46d54f281d15346436b34047deb7f7da466a947e75e342bbaae863a100",
+      "bytes": 1699
+    },
+    "assets/exported/icons/track_orbital_gardens.svg.import": {
+      "sha256": "18fd5e35272afa05f035a3ae28cec0e687cb4866fc880422065ff7e5a0b3612e",
+      "bytes": 1085
+    },
+    "assets/exported/icons/track_rainforest_ruins.svg": {
+      "sha256": "331a6610eeae77e76f814e181f0e6d95653ea35e7bfda8a8c61b287f6439b6b0",
+      "bytes": 1701
+    },
+    "assets/exported/icons/track_rainforest_ruins.svg.import": {
+      "sha256": "3f41396aa6555e537bca6dfee7b53a2f6627a9ddc904bd52e36bde8fc791d137",
+      "bytes": 1088
+    },
+    "assets/exported/icons/track_reactor_rift.svg": {
+      "sha256": "b6bd275698dd7028362deaf1aaf297b1417e359772a8417f03957ff90f07e98c",
+      "bytes": 1696
+    },
+    "assets/exported/icons/track_reactor_rift.svg.import": {
+      "sha256": "6e04dc8c5ca63abddaf7f2ca18478346025923988ea95c226555be5c40a09f25",
+      "bytes": 1076
+    },
+    "assets/exported/icons/track_sakura_ring.svg": {
+      "sha256": "d07335eb66ee8d5269af0db200f5d32e2c63e0edf832a8c93557202f4f055d4e",
+      "bytes": 1700
+    },
+    "assets/exported/icons/track_sakura_ring.svg.import": {
+      "sha256": "10db0d53db4cecb972310a76dda785771b1fdd31b57bebb89cf2623ad2231b82",
+      "bytes": 1073
+    },
+    "assets/exported/icons/track_saltflat_velocity.svg": {
+      "sha256": "16072a3f6fd3fb5933674360fc2ab726d243d79f6d1f0133fadb7f291906b80d",
+      "bytes": 1703
+    },
+    "assets/exported/icons/track_saltflat_velocity.svg.import": {
+      "sha256": "39676b37098a1b42b0dd35d02231040d77995cb459ef45916566830450104307",
+      "bytes": 1090
+    },
+    "assets/exported/icons/track_steelworks_sprint.svg": {
+      "sha256": "2a5a91b5c49a8299dd1422b791094b9137493bef7bcb26f5c5bc0157057cf64d",
+      "bytes": 1708
+    },
+    "assets/exported/icons/track_steelworks_sprint.svg.import": {
+      "sha256": "96faf0212107d24ceb4cb227ee3c4a880c397d521b1d50cc781fd7b63efa84e1",
+      "bytes": 1091
+    },
+    "assets/exported/icons/track_storm_chase.svg": {
+      "sha256": "28a708f94239890239dd07caa825ddf4390bf64f885450210b86ada7f8a584c4",
+      "bytes": 1696
+    },
+    "assets/exported/icons/track_storm_chase.svg.import": {
+      "sha256": "e89e8729beb8ab3b49a5b081a0abd007b5ea35b0aa9ba714cf76d4a209f2526a",
+      "bytes": 1073
+    },
+    "assets/exported/icons/track_temple_coast.svg": {
+      "sha256": "b090d670e0942e49a4c978f456d52628b10608fe0cc759687ed6f0dbdd3f9bd0",
+      "bytes": 1708
+    },
+    "assets/exported/icons/track_temple_coast.svg.import": {
+      "sha256": "3b68784f6a0687adb72cfbcb5d2be2c5a3565bb5cdba53e20db7eb52136d29ce",
+      "bytes": 1076
+    },
+    "assets/exported/icons/track_terrace_touge.svg": {
+      "sha256": "77680f55195a4ab68c36388ed7548f04a897af288871e7cface3e8192037399e",
+      "bytes": 1734
+    },
+    "assets/exported/icons/track_terrace_touge.svg.import": {
+      "sha256": "c9a947c94184ea409cdc8e2534bb3cc7cd74c8b3115e8acca2eb6b24ea757e34",
+      "bytes": 1079
+    },
+    "assets/exported/icons/track_tundra_pipeline.svg": {
+      "sha256": "b321f08f3e53285fbb3a26df855bb46c0b266530a24b59bd8315cd5b09707d8b",
+      "bytes": 1713
+    },
+    "assets/exported/icons/track_tundra_pipeline.svg.import": {
+      "sha256": "38beefafe8fced083d72940573b90380ccec04be3fc03d22b2aef2a4c8d12af9",
+      "bytes": 1085
+    },
+    "assets/exported/icons/track_windfarm_run.svg": {
+      "sha256": "c4d265ed51ff417895c94c360a2ddb3d218ecd65f8d0c8c03893ce06001339ca",
+      "bytes": 1703
+    },
+    "assets/exported/icons/track_windfarm_run.svg.import": {
+      "sha256": "2fcadaf97431b78e840c945e6f67f9487356eb74094cc94a05fbcedf3b5d5ec1",
+      "bytes": 1076
+    },
+    "assets/exported/scenery/alpine_meadow_terrain.glb": {
+      "sha256": "82b7bbd6d5e03b43c4377e875b31bed55256766282e4763aef0a13b536bc342b",
+      "bytes": 1894144
+    },
+    "assets/exported/scenery/alpine_meadow_terrain.glb.import": {
+      "sha256": "dae33b543153fa0ddf5a613428e959ac2b74c20061303539e8855c73264e5505",
+      "bytes": 1093
+    },
+    "assets/exported/scenery/aurora_harbor_terrain.glb": {
+      "sha256": "0ee6e827cd3355ab11a004ca6ccc62b0e16e199f871d9d127842608719ecd425",
+      "bytes": 1269924
+    },
+    "assets/exported/scenery/aurora_harbor_terrain.glb.import": {
+      "sha256": "b3ef301723f595097b379dad9a5fd1db5c1c1ec4b6e9279532d26e5f4136d618",
+      "bytes": 1093
+    },
+    "assets/exported/scenery/bamboo_gorge_terrain.glb": {
+      "sha256": "2584150660d6496d4b69278a4e83b7c05ea03ba60a424eb4e173b6f447f1ed0f",
+      "bytes": 2214720
+    },
+    "assets/exported/scenery/bamboo_gorge_terrain.glb.import": {
+      "sha256": "d0e8a1bf660ab47cafdd9924518ed63799622f463c7f6248a6fca78f173e1e39",
+      "bytes": 1090
+    },
+    "assets/exported/scenery/cloudforest_climb_terrain.glb": {
+      "sha256": "0a2927f8512640034d15652fc0d5fc6429a0fe676f18b41820820f3249838eb7",
+      "bytes": 2453724
+    },
+    "assets/exported/scenery/cloudforest_climb_terrain.glb.import": {
+      "sha256": "c6d46201d0fa4edf39f0b6ce846d15b516e0327dda0e644a63c6efdd783060fd",
+      "bytes": 1105
+    },
+    "assets/exported/scenery/container_corkscrew_terrain.glb": {
+      "sha256": "dabaef55bc3c1ed8607b89beecea4963fe5798ce3bf721ff1eb3190cb26fde77",
+      "bytes": 1400540
+    },
+    "assets/exported/scenery/container_corkscrew_terrain.glb.import": {
+      "sha256": "1a4d68b9775eeca1e893ced3ee93c041d9bcee02d32cca37cc0b944a5857cdae",
+      "bytes": 1111
+    },
+    "assets/exported/scenery/copper_mesa_terrain.glb": {
+      "sha256": "93ad0c751acf496611fa8c01a7c191aa381520aa0c0d9f3d2bd7ad52add83135",
+      "bytes": 2180120
+    },
+    "assets/exported/scenery/copper_mesa_terrain.glb.import": {
+      "sha256": "d90ca1206ae26bf708bb2c1d43a768a571428ba25fdce858ae0e1ed5a1de9507",
+      "bytes": 1086
+    },
+    "assets/exported/scenery/coral_causeway_terrain.glb": {
+      "sha256": "99e2b447c1ef0343ec7754d7dc27ff1188aaa1ebbfbfabc9f2ce8455671b157d",
+      "bytes": 1813564
+    },
+    "assets/exported/scenery/coral_causeway_terrain.glb.import": {
+      "sha256": "8a4b9418d8874f0362bd76339f75208a0f63391442fb8856ce1ee014cd25fd9c",
+      "bytes": 1095
+    },
+    "assets/exported/scenery/courses.json": {
+      "sha256": "9821d1659840ca1f7f8edea8271bb7375134ab5ada9f2de1acf5c9178cff55c2",
+      "bytes": 42496
+    },
+    "assets/exported/scenery/crystal_chasm_terrain.glb": {
+      "sha256": "c95b2abd28e6b6f9d6e4a67eeb589dfc87798e0d3c5082b64299d0c03f04fd8e",
+      "bytes": 2683428
+    },
+    "assets/exported/scenery/crystal_chasm_terrain.glb.import": {
+      "sha256": "cf1908cff01b2eac0283beb5e0713e54089b0c8786cbb69da836e17102d8ca00",
+      "bytes": 1093
+    },
+    "assets/exported/scenery/dune_serpent_terrain.glb": {
+      "sha256": "01cfa0676e15d6200564b0cf74adce1c0dd891112d8ffff3ff16fdcd42cf0b02",
+      "bytes": 2438484
+    },
+    "assets/exported/scenery/dune_serpent_terrain.glb.import": {
+      "sha256": "1ef0671139c8a5c7a90570a97e924f58eb31aab8bbc95146cc5a6df03314abf9",
+      "bytes": 1090
+    },
+    "assets/exported/scenery/festival_speedway_terrain.glb": {
+      "sha256": "4eede683a64d466284f5c2d52a149325594f93167f31ce2238937f1af9bf510e",
+      "bytes": 2266772
+    },
+    "assets/exported/scenery/festival_speedway_terrain.glb.import": {
+      "sha256": "3f3df155017224c4bb8aef2cc63b1454047fc58782dc88e5aace3a4de6f08b18",
+      "bytes": 1105
+    },
+    "assets/exported/scenery/frostbite_fjord_terrain.glb": {
+      "sha256": "c4731350bd0ced7810ba0fac0144b1bbbec02342c3ba0eebf62d5fbc8e7593fa",
+      "bytes": 1237652
+    },
+    "assets/exported/scenery/frostbite_fjord_terrain.glb.import": {
+      "sha256": "f66f67af1c6e46b6be8efd4a01ab16b1811a8468bd690cdd9e042981b56b2f03",
+      "bytes": 1099
+    },
+    "assets/exported/scenery/glacier_ridge_terrain.glb": {
+      "sha256": "d4466b55661ca9dad67412ed391091c8dfe8480395cc88bbca1c692584580644",
+      "bytes": 1466060
+    },
+    "assets/exported/scenery/glacier_ridge_terrain.glb.import": {
+      "sha256": "ccd30f6b0c23bef27b4a0528a86b3b912262b11c17e2ac1b97016165ed152625",
+      "bytes": 1092
+    },
+    "assets/exported/scenery/lantern_market_terrain.glb": {
+      "sha256": "6a94b4728377f81995538b0bf4a4f5ffec44324025f4aaf0fc17d0042d15621a",
+      "bytes": 1837824
+    },
+    "assets/exported/scenery/lantern_market_terrain.glb.import": {
+      "sha256": "ef69d36ede1752d22a6892b6aa7b5707265cece0cf378b27ea585b685483ea71",
+      "bytes": 1096
+    },
+    "assets/exported/scenery/lunar_freight_terrain.glb": {
+      "sha256": "cdcec5833a2977edc0ce33be66401d7eabadbff6df25a50626e5d9c2f1449b72",
+      "bytes": 2176660
+    },
+    "assets/exported/scenery/lunar_freight_terrain.glb.import": {
+      "sha256": "9a792da99b686f7704df088a36153db385701885eea31a10ddccf11bb4ca67ae",
+      "bytes": 1093
+    },
+    "assets/exported/scenery/mangrove_maze_terrain.glb": {
+      "sha256": "3742dab7528b69f3d3b0b4af6af6b078648d402ef6c9dd987537c54e0d142dee",
+      "bytes": 1195140
+    },
+    "assets/exported/scenery/mangrove_maze_terrain.glb.import": {
+      "sha256": "b404f781fbaa859a0eae98812a74e5b2dfebd5851f94f1aa1b6695131c2e9a20",
+      "bytes": 1093
+    },
+    "assets/exported/scenery/mars_badlands_terrain.glb": {
+      "sha256": "c1d9ceaa1c63dd06586a6ca87c7560bdae0983b2eecd1d542ce7f6dfe7060d3e",
+      "bytes": 2684436
+    },
+    "assets/exported/scenery/mars_badlands_terrain.glb.import": {
+      "sha256": "b771900a944b05699ec62e8ab18148e99e5965f74ad499875b62f87b31ea6f4e",
+      "bytes": 1093
+    },
+    "assets/exported/scenery/monsoon_delta_terrain.glb": {
+      "sha256": "34d5e9254c5c9c9ad06182ce3eb696889b5dd6134df8ae5c210ac4b2d9d1276e",
+      "bytes": 1771548
+    },
+    "assets/exported/scenery/monsoon_delta_terrain.glb.import": {
+      "sha256": "b2df3409839b45ed7f417cf98bb10e91bf70d2d508dd049372e2becdd2f0b327",
+      "bytes": 1093
+    },
+    "assets/exported/scenery/neon_underpass_terrain.glb": {
+      "sha256": "8f2545279bc8169c37ddc51cce31fc8d9d754922ba34a755024a6ca0379fcf48",
+      "bytes": 2166732
+    },
+    "assets/exported/scenery/neon_underpass_terrain.glb.import": {
+      "sha256": "652781edaebab32251edd30cf8069ad592e2cdb3762680e659bfd1db7c74c334",
+      "bytes": 1096
+    },
+    "assets/exported/scenery/oasis_citadel_terrain.glb": {
+      "sha256": "3ca90c41cf69a59adb671cdb50702f8ec69898772e97d712a838e949b4399f99",
+      "bytes": 2083316
+    },
+    "assets/exported/scenery/oasis_citadel_terrain.glb.import": {
+      "sha256": "cfc877a0670d416ad84d9b884f6d8273c918be35d0c5f6aa52699f23355c19dd",
+      "bytes": 1093
+    },
+    "assets/exported/scenery/orbital_gardens_terrain.glb": {
+      "sha256": "b5cc39a688a37228c23c2c618f1e71404469dea6e547ea3578195da583dcd6ee",
+      "bytes": 2198180
+    },
+    "assets/exported/scenery/orbital_gardens_terrain.glb.import": {
+      "sha256": "2668aa3f580859ed7c021d43ba89ef4824042379b6d3046675cce252075632f0",
+      "bytes": 1099
+    },
+    "assets/exported/scenery/rainforest_ruins_terrain.glb": {
+      "sha256": "3d8252735ef4b184b52920472dde517fa304569d07a2f18ed991c56ca0c681f6",
+      "bytes": 1863112
+    },
+    "assets/exported/scenery/rainforest_ruins_terrain.glb.import": {
+      "sha256": "878c9ac0e7cd7a9ee35198b70e6d89e140046b5ee21fa37ddb7537c8a62f7907",
+      "bytes": 1102
+    },
+    "assets/exported/scenery/reactor_rift_terrain.glb": {
+      "sha256": "c6becf27e01094d960b93ff6c71ed7e9854eb3436a8957c362593ee983a8420f",
+      "bytes": 2195680
+    },
+    "assets/exported/scenery/reactor_rift_terrain.glb.import": {
+      "sha256": "d470194ceae709d52ab7dd80592763352731702ab7ff3772fd7b92462c757a18",
+      "bytes": 1089
+    },
+    "assets/exported/scenery/sakura_ring_terrain.glb": {
+      "sha256": "fad4f153ca907ba9000404833253dfbfe6b7444206d4bd88eeeb7ab232ea1504",
+      "bytes": 1864432
+    },
+    "assets/exported/scenery/sakura_ring_terrain.glb.import": {
+      "sha256": "ae192e2e3c0da1f9dbd1dd1d1c06767e565e8177bf9ca1db141080ff68bbf1ed",
+      "bytes": 1087
+    },
+    "assets/exported/scenery/saltflat_velocity_terrain.glb": {
+      "sha256": "803004d9ba669866168893f29cca92a4133337baa917378131b0a81150c6e6b3",
+      "bytes": 2280136
+    },
+    "assets/exported/scenery/saltflat_velocity_terrain.glb.import": {
+      "sha256": "32bb477fd41664966a6c90dc424bb451c7de8f543dd4c5bfba3cc3d8c50533bd",
+      "bytes": 1104
+    },
+    "assets/exported/scenery/steelworks_sprint_terrain.glb": {
+      "sha256": "70b31a64df8cf25cf3417ceb79ff6c85af030887e382c42f90584f583ff3b055",
+      "bytes": 1734676
+    },
+    "assets/exported/scenery/steelworks_sprint_terrain.glb.import": {
+      "sha256": "a01ea3717d7c0580f6a34cfda3c35589e75d966d320a642fff8d4e534abf4a1b",
+      "bytes": 1105
+    },
+    "assets/exported/scenery/storm_chase_terrain.glb": {
+      "sha256": "4aadf34bde7db1a93ca6af53c571304270f4fe71029c00c69bb0f12fd43868d1",
+      "bytes": 2284696
+    },
+    "assets/exported/scenery/storm_chase_terrain.glb.import": {
+      "sha256": "fd4319feb63c18f3fdeefc5f62bf1525e0428d61e995c5e0986f8c76d104156b",
+      "bytes": 1087
+    },
+    "assets/exported/scenery/temple_coast_terrain.glb": {
+      "sha256": "5723e0ab1b72768ac670e3f5e865f6dcf027f34fc3ed1847c144bd958e5223fb",
+      "bytes": 1646044
+    },
+    "assets/exported/scenery/temple_coast_terrain.glb.import": {
+      "sha256": "25cd5112fa646c3b4f22d89ee2041664fd1a9677e344601d2038b153caf72b97",
+      "bytes": 1090
+    },
+    "assets/exported/scenery/terrace_touge_terrain.glb": {
+      "sha256": "906b7d0500aad967436a31cf5007c4565950c464972123082d72ceddba8dd14a",
+      "bytes": 2178240
+    },
+    "assets/exported/scenery/terrace_touge_terrain.glb.import": {
+      "sha256": "c555ea478f0d3148e8efdf169c3a6a0a9f45c906fd2555d7a4331098ae32aee5",
+      "bytes": 1093
+    },
+    "assets/exported/scenery/terrain.json": {
+      "sha256": "983b06017ac9f2b5eab6ab2787ddaf45aee00afb94270538554a348543a50906",
+      "bytes": 19847
+    },
+    "assets/exported/scenery/tundra_pipeline_terrain.glb": {
+      "sha256": "c9797e477733898bcea81bd8570ff93c99151beb643c59c6bd78dc9dfbacc161",
+      "bytes": 1659072
+    },
+    "assets/exported/scenery/tundra_pipeline_terrain.glb.import": {
+      "sha256": "f15bc51186aa96c42870c23343ae0074e5ddbd95a942c5a758e196439aee4f02",
+      "bytes": 1098
+    },
+    "assets/exported/scenery/windfarm_run_terrain.glb": {
+      "sha256": "ee8720d9b80b3c59a9f2a5f88f36bfcd534b0b4d0af93fd5972a3b93c7461e83",
+      "bytes": 2309192
+    },
+    "assets/exported/scenery/windfarm_run_terrain.glb.import": {
+      "sha256": "ce291175b1e3acd8644bb533e04129ed3b60964d815ad5e2184b11ac1898ffcc",
+      "bytes": 1090
+    },
+    "assets/exported/shaders/expansion_sky.gdshader": {
+      "sha256": "289942a2b1cbaa1944f98829ce6e8a7e8d7280e13a0ff8cefcfe0db93a1f64b2",
+      "bytes": 1294
+    },
+    "assets/exported/shaders/expansion_sky.gdshader.uid": {
+      "sha256": "c788c94d615519e1647896f4b0e5e555a97ef60250beb9d087238915b8e65769",
+      "bytes": 20
+    },
+    "assets/exported/thumbnails/alpine_meadow.png": {
+      "sha256": "8f27e493bdd84cd582aba7c132c61414eea72330642702e56d69bcb37f20fa40",
+      "bytes": 133454
+    },
+    "assets/exported/thumbnails/alpine_meadow.png.import": {
+      "sha256": "f90a382e6644ba5e42a4174a0b3e49541ca19ef4ef423fb3a411b3f7ec35149c",
+      "bytes": 969
+    },
+    "assets/exported/thumbnails/aurora_harbor.png": {
+      "sha256": "9fddefde6f6c573ed05bbd19ce9ab785e16fa11265cabd5c79f798b8898dca3e",
+      "bytes": 161812
+    },
+    "assets/exported/thumbnails/aurora_harbor.png.import": {
+      "sha256": "6db56939772d214f615a5fbf56d93587cf4caff5501ab83c8158128bf3ab0c86",
+      "bytes": 970
+    },
+    "assets/exported/thumbnails/bamboo_gorge.png": {
+      "sha256": "685cca49d10489d6de801b91376d917ac01b4bd0b49b89b021d7cb4ef0a6f7c3",
+      "bytes": 183703
+    },
+    "assets/exported/thumbnails/bamboo_gorge.png.import": {
+      "sha256": "b6f126d145358606f530f6cfb47e8130fdcf3ae3dfeda2f862627f0bfade85c5",
+      "bytes": 967
+    },
+    "assets/exported/thumbnails/cloudforest_climb.png": {
+      "sha256": "6a92e5b85a5a3af1f15b5f80097c3c21c563954f0cd20c089e21401fc00bf511",
+      "bytes": 147561
+    },
+    "assets/exported/thumbnails/cloudforest_climb.png.import": {
+      "sha256": "adce2ff6cd8924f431f2c0443df59c59459f19d0fd335ced72cac719a422e017",
+      "bytes": 982
+    },
+    "assets/exported/thumbnails/container_corkscrew.png": {
+      "sha256": "28944d8db952511688d15913a554389c6759649147cd6ca2ecc83692452a109b",
+      "bytes": 119093
+    },
+    "assets/exported/thumbnails/container_corkscrew.png.import": {
+      "sha256": "929453e7b45d9bc9c3e1569263fb8218c31cabbc0afc37f7a9dea1161631fd54",
+      "bytes": 988
+    },
+    "assets/exported/thumbnails/copper_mesa.png": {
+      "sha256": "887bc0f2186bd7056144b640f44273e8122e6a2b1d76ac2b248464210991d9a8",
+      "bytes": 145092
+    },
+    "assets/exported/thumbnails/copper_mesa.png.import": {
+      "sha256": "889c56e9bba75ab97f1b96caa69fde81b10a36c05583a991473ee76e86e11af4",
+      "bytes": 964
+    },
+    "assets/exported/thumbnails/coral_causeway.png": {
+      "sha256": "1719589767cec01a7c21985771210902c329b8c8af8188e11a1d0781d9b8821b",
+      "bytes": 141950
+    },
+    "assets/exported/thumbnails/coral_causeway.png.import": {
+      "sha256": "978fde57af81cb13465948bdb8c464523b64db8e7a95c950eb637da9ba588d7a",
+      "bytes": 972
+    },
+    "assets/exported/thumbnails/crystal_chasm.png": {
+      "sha256": "513837e5a9eb6a4174bee42691c191eed7b789224dda35c239ae111948bdfb94",
+      "bytes": 197426
+    },
+    "assets/exported/thumbnails/crystal_chasm.png.import": {
+      "sha256": "fc4250402531b51a197fb86c37fafbc6d604ac62bc7f240c9ddad5503a843409",
+      "bytes": 970
+    },
+    "assets/exported/thumbnails/dune_serpent.png": {
+      "sha256": "f2337297aaa62a7b17798b24a4a6af898c94545381a053d6687d3c5eea0ede99",
+      "bytes": 179151
+    },
+    "assets/exported/thumbnails/dune_serpent.png.import": {
+      "sha256": "420170d1b4a3fa60025b0fffcc5a45dc817f874389ac6a54fe71e88c378ef67a",
+      "bytes": 967
+    },
+    "assets/exported/thumbnails/festival_speedway.png": {
+      "sha256": "db9bc85108f77a1794c7ae5aa3609a259c4582d6b16856e577800081b34dc0f9",
+      "bytes": 141304
+    },
+    "assets/exported/thumbnails/festival_speedway.png.import": {
+      "sha256": "c18d4afcc75b489b41caa2279272b7e9c009b6682689e10f292b3a6422466f6f",
+      "bytes": 982
+    },
+    "assets/exported/thumbnails/frostbite_fjord.png": {
+      "sha256": "a7186f0e2702e6c0f100179abfccc02ab202cc46b3132377504056450f039fb6",
+      "bytes": 158682
+    },
+    "assets/exported/thumbnails/frostbite_fjord.png.import": {
+      "sha256": "06082156130d9dd7fc80bdc80e6896fd2c2675f21c98bda0b4e443e8970e2451",
+      "bytes": 975
+    },
+    "assets/exported/thumbnails/glacier_ridge.png": {
+      "sha256": "396b4121d30cc4e81249343be74d3ffabeec19a1c63c79e30eedd68f17e14b7e",
+      "bytes": 150766
+    },
+    "assets/exported/thumbnails/glacier_ridge.png.import": {
+      "sha256": "984d7bbe80928d0222196c175d6ba229113568d410ec474b1980e7359049b0cd",
+      "bytes": 969
+    },
+    "assets/exported/thumbnails/lantern_market.png": {
+      "sha256": "09ddffb863af3080cd2eccfe230e2917f486eea71b6bacc62d532f8c8ff680f5",
+      "bytes": 130585
+    },
+    "assets/exported/thumbnails/lantern_market.png.import": {
+      "sha256": "e4016c3d6684997ed1f8c6ebbd4ca181751745f79b7b0a70e397511dd169d7a4",
+      "bytes": 973
+    },
+    "assets/exported/thumbnails/lunar_freight.png": {
+      "sha256": "15e23fdc772a3ba5fa1b2928221583b3135d485ea0954f91fc95c2f5458bd66d",
+      "bytes": 113294
+    },
+    "assets/exported/thumbnails/lunar_freight.png.import": {
+      "sha256": "dfd0492bd64b37d6d09c1d650627a3c9c6e84d6ee52e5342356109d2ddd4cbca",
+      "bytes": 970
+    },
+    "assets/exported/thumbnails/mangrove_maze.png": {
+      "sha256": "68810456792edaad1fda54d226cf457a110a4b5deac99fe1f819fe3eaf6e59d9",
+      "bytes": 147125
+    },
+    "assets/exported/thumbnails/mangrove_maze.png.import": {
+      "sha256": "df7f192f7c13d46cf0d38c62c11c79df7069ad7a606e262cf60c9796902873df",
+      "bytes": 969
+    },
+    "assets/exported/thumbnails/mars_badlands.png": {
+      "sha256": "0f118c86cc13f31b2d3c3317c59311053ba60f194e2343794e2faa5a0f0ac59d",
+      "bytes": 177078
+    },
+    "assets/exported/thumbnails/mars_badlands.png.import": {
+      "sha256": "86ef3df55f32b5e62ed5137ddf73476b2df1fe627bc64309024abf056973d892",
+      "bytes": 970
+    },
+    "assets/exported/thumbnails/monsoon_delta.png": {
+      "sha256": "99656731aa2a96afc805d1de98a65c71de7604693623dc84b5d4297bbed9fd89",
+      "bytes": 147999
+    },
+    "assets/exported/thumbnails/monsoon_delta.png.import": {
+      "sha256": "e91a66b8d8626fefa57c95a259ba15e338675f3a71424d31a0befe6b0c0eccb7",
+      "bytes": 970
+    },
+    "assets/exported/thumbnails/neon_underpass.png": {
+      "sha256": "6489a32c13ef7aec1dad7ff7104bc0e23603e26c5db61c48555de64039cacdb3",
+      "bytes": 111356
+    },
+    "assets/exported/thumbnails/neon_underpass.png.import": {
+      "sha256": "12bfff2ec220b409e41b28f668501e17080f9e5749a4cb29911b90bcb9ea660c",
+      "bytes": 972
+    },
+    "assets/exported/thumbnails/oasis_citadel.png": {
+      "sha256": "cc35699084db56088d1f97dd018cf608296c91b26f1855dcd0ba8dc82c908c42",
+      "bytes": 124084
+    },
+    "assets/exported/thumbnails/oasis_citadel.png.import": {
+      "sha256": "aa8788cc7a34b86c19dab51a3161ace2a5b722c31ae3e16df9ed3abb63fdef2b",
+      "bytes": 970
+    },
+    "assets/exported/thumbnails/orbital_gardens.png": {
+      "sha256": "0c145c109d46678917c82cdd4362e3b18e739e8f4f6a9d918a9466f6b562f395",
+      "bytes": 158433
+    },
+    "assets/exported/thumbnails/orbital_gardens.png.import": {
+      "sha256": "7141e2c79eafb1d96e8ced4533304c50341c08a5d633ad228c66c99d005a33bd",
+      "bytes": 975
+    },
+    "assets/exported/thumbnails/rainforest_ruins.png": {
+      "sha256": "37bc3fa54bec9847d044face978ab49520ea54cb2d3c8ebd2c3b5eac9baa1bd5",
+      "bytes": 150081
+    },
+    "assets/exported/thumbnails/rainforest_ruins.png.import": {
+      "sha256": "37ea3db547692c71476c8441722a6f15389cab81b673f54155d1c935d3c21e77",
+      "bytes": 978
+    },
+    "assets/exported/thumbnails/reactor_rift.png": {
+      "sha256": "7e3fc5941f8743cae643a711dd257d7102eb8b512a340b4c6b2c7ef8a07abca7",
+      "bytes": 146371
+    },
+    "assets/exported/thumbnails/reactor_rift.png.import": {
+      "sha256": "2426563bdc468ca5856897d3e4b5332c9adc84235918f2419b5776ebeccd8e7f",
+      "bytes": 966
+    },
+    "assets/exported/thumbnails/sakura_ring.png": {
+      "sha256": "ee73c4a1b702aa8e9af34c7824412e2cc075fa5c2c72b36124df1ec128f69681",
+      "bytes": 140143
+    },
+    "assets/exported/thumbnails/sakura_ring.png.import": {
+      "sha256": "385970830db2710b2ae0390f079d12458ee6ba164f1dbc3cbb46bb9a5e48c162",
+      "bytes": 964
+    },
+    "assets/exported/thumbnails/saltflat_velocity.png": {
+      "sha256": "155aa32af989e911ce185d2c8fa2e0ae4357c7aad48cc14d92a25abdd40fbb8f",
+      "bytes": 124220
+    },
+    "assets/exported/thumbnails/saltflat_velocity.png.import": {
+      "sha256": "ad64a72f878be9e9971fecffd2d58e3eb3cdcf890b26311be001dc09dd45209b",
+      "bytes": 982
+    },
+    "assets/exported/thumbnails/steelworks_sprint.png": {
+      "sha256": "1169e1fc1b991e23a573031cd59f26a9f27a563d80c81bb5b1233a8fe5111069",
+      "bytes": 128488
+    },
+    "assets/exported/thumbnails/steelworks_sprint.png.import": {
+      "sha256": "e50f980855d3ce2231d2efadc1e7dfe6fd4bbc6ae980ea0455083d803c245679",
+      "bytes": 982
+    },
+    "assets/exported/thumbnails/storm_chase.png": {
+      "sha256": "4209229efa79fca72671607764401adfd004013b540a5c59b63b354227b37aa5",
+      "bytes": 105156
+    },
+    "assets/exported/thumbnails/storm_chase.png.import": {
+      "sha256": "32f704c69da96a07fe2afdd5dbdbe6a1283af6365b589b81e5a5956a5dd49d64",
+      "bytes": 963
+    },
+    "assets/exported/thumbnails/temple_coast.png": {
+      "sha256": "d165ab38f065fbe15e051a9531171489a8d2e9c270fb40fed632a69a9459ac7e",
+      "bytes": 146720
+    },
+    "assets/exported/thumbnails/temple_coast.png.import": {
+      "sha256": "7510a34d6ee8083ffbfaef4b9c1ed35a5e331e80fdc9b58b02ee96fc8f9d0fcd",
+      "bytes": 966
+    },
+    "assets/exported/thumbnails/terrace_touge.png": {
+      "sha256": "cbb0c29fa6ad45bdefe09069a11b50db71f46df8a0f5b7b170967be646525798",
+      "bytes": 169846
+    },
+    "assets/exported/thumbnails/terrace_touge.png.import": {
+      "sha256": "da263418bf6887f0474265110b114113dd47b9a0643c7f8c5c396e2838ace2cd",
+      "bytes": 970
+    },
+    "assets/exported/thumbnails/tundra_pipeline.png": {
+      "sha256": "1af3a2bf12f05ee8c40c971605016eb8ae104c6934ea5500a6fca20ac9dda6c1",
+      "bytes": 139610
+    },
+    "assets/exported/thumbnails/tundra_pipeline.png.import": {
+      "sha256": "e486c51dba912178cf08bb847d70ce262b5ecd1ae1d949a9bd7a2771dd68eba7",
+      "bytes": 976
+    },
+    "assets/exported/thumbnails/windfarm_run.png": {
+      "sha256": "e0df827cf422b4b5aa6e7436af3177ae66d365c6b09f182a0a27ea0833e575a0",
+      "bytes": 130812
+    },
+    "assets/exported/thumbnails/windfarm_run.png.import": {
+      "sha256": "2ac2db3fd0010fd394fc54fac06a9f3454fe3d3ac22ef50eade8625f8e864a84",
+      "bytes": 967
+    },
+    "assets/licenses/CC0-1.0.txt": {
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+      "bytes": 7048
+    },
+    "assets/licenses/CC0-Music.txt": {
+      "sha256": "ce662de74a3abb26381e632fed15cd8c794021252f1fb7c096e0d58647f5ddf1",
+      "bytes": 1891
+    },
+    "assets/manifest.json": {
+      "sha256": "145030ba7066d310ca187bc96e30f3bbaa77e0c00c6a83ab06f9cc30b9918c11",
+      "bytes": 36741
+    },
+    "assets/source/README.md": {
+      "sha256": "aaff00dc19900dacce4bd41fb4bd6a23ea7c045830f0ec21c3640137af439ebb",
+      "bytes": 11568
+    },
+    "assets/source/course_specs.json": {
+      "sha256": "9821d1659840ca1f7f8edea8271bb7375134ab5ada9f2de1acf5c9178cff55c2",
+      "bytes": 42496
+    },
+    "assets/source/describe_expansion40.py": {
+      "sha256": "88d38879e78fb76a020480bd14732a43a168a456094cce0b0bf6694266b32b84",
+      "bytes": 7007
+    },
+    "assets/source/expansion40/desert-prompt.txt": {
+      "sha256": "c6de71b4d0eeaa8be7a9beb910084061eebb0d33fb9ea2b1d143bff62f7469bf",
+      "bytes": 1224
+    },
+    "assets/source/expansion40/desert-v1.png": {
+      "sha256": "7cf45dbd42f2d9ec8c7b47dfee6ee24c4bd44bc0f96b35435b193fa4e2302855",
+      "bytes": 2638178
+    },
+    "assets/source/expansion40/east-asia-prompt.txt": {
+      "sha256": "f91f6aa96e3ed871dfb35475902f49967e76d199252aab9373d0c7122225ed8e",
+      "bytes": 1364
+    },
+    "assets/source/expansion40/east-asia-v1.png": {
+      "sha256": "7532b5d64fe8775651458a2e5ae1c7421299a51c6a2aaba8bd44a29ed714847c",
+      "bytes": 3039155
+    },
+    "assets/source/expansion40/generation.json": {
+      "sha256": "4820e490169034472cc52129af94a0a7a039e54dd3b9c0d76cd99baf35395156",
+      "bytes": 11679
+    },
+    "assets/source/expansion40/industry-prompt.txt": {
+      "sha256": "634d13baa5c57f21bbd36a7fb621586ef14836db132f1c23658630a699c510e4",
+      "bytes": 1491
+    },
+    "assets/source/expansion40/industry-v1.png": {
+      "sha256": "b9f7b8ba5b8b041311adb95d6c1b2ce4cbea31ed7197f13b219b91f8cd8fed85",
+      "bytes": 2235573
+    },
+    "assets/source/expansion40/polar-v1.png": {
+      "sha256": "71961514a46f56bc8c9c030bb111c68760a780be9895fe9ea8f16ad93430bd8d",
+      "bytes": 2638860
+    },
+    "assets/source/expansion40/sakura-prompt.txt": {
+      "sha256": "ac19b0552f687bc01c4fb305b2c6c7e8eb6ed010100b29b423a35e33e6d7b661",
+      "bytes": 1028
+    },
+    "assets/source/expansion40/sakura-v1.png": {
+      "sha256": "0a9bce1c5446c441b816340a6dedc76f26c5b10e83df06eeee3411dcea8069a2",
+      "bytes": 2194679
+    },
+    "assets/source/expansion40/space-prompt.txt": {
+      "sha256": "3903206ae57b0288e09357e3d4522a16f18d436052dea5aa0051f13ed8e88e88",
+      "bytes": 1362
+    },
+    "assets/source/expansion40/space-v1.png": {
+      "sha256": "8f345b202a608e445444e00f3dc48f7da1411fea681079f1b2e201ad1f6f4524",
+      "bytes": 2775511
+    },
+    "assets/source/expansion40/tropical-prompt.txt": {
+      "sha256": "577d3c0d93a0db5945c70e653702477c030fb54645ebf6fc48c97c5f1ab3fe6d",
+      "bytes": 1276
+    },
+    "assets/source/expansion40/tropical-v1.png": {
+      "sha256": "b4174ff532253bbf0e2ebe624cfd65bacab9598b48fe7916549a4f147dd2c393",
+      "bytes": 3240963
+    },
+    "assets/source/generate_audio.py": {
+      "sha256": "366797e1cc9fa5d11a8afbdf899841216808986c770e49936280b8d41e45f7af",
+      "bytes": 11477
+    },
+    "assets/source/import_cc0_music.py": {
+      "sha256": "56f944d175183bf823d95c792b9f628a674ccb9261ca0e22822b34557cc21e5c",
+      "bytes": 4523
+    },
+    "assets/source/music/03_-_hammer_of_the_berserker.ogg": {
+      "sha256": "91dbf70479afa13115b01a6c17ae0e27300b0d5a07275e4279bbce612a0a3deb",
+      "bytes": 2929424
+    },
+    "assets/source/music/04_-_artificial_devil.ogg": {
+      "sha256": "ab5d88e73b5c36c827a6770d27d8233f41156fd1e06df120cc5d6a02decf3f35",
+      "bytes": 3987401
+    },
+    "assets/source/music/05_-_plutonian_thrash.ogg": {
+      "sha256": "ef87704eb65630cb295270a6bc8e3068cb73bb6e31788289b1693c8bfa7bcf13",
+      "bytes": 6729647
+    },
+    "assets/source/music/07_-_downtown_destruction.ogg": {
+      "sha256": "810c1c88604e24e3e4e03afb4c8ed80b59505c83fd8fb58c55a7b5f7845f24a7",
+      "bytes": 3285328
+    },
+    "assets/source/music/29_-_cheap_speed_think_fast.ogg": {
+      "sha256": "8c1afef641513d214941d3cc32123a628deb3a0c931642fe8ec83b963752b4be",
+      "bytes": 4762588
+    },
+    "assets/source/music/cc0-sources.json": {
+      "sha256": "eecc08b189814fcc76acaf8444951c4a393c0d71e9217e54ac227680f959b70b",
+      "bytes": 4427
+    },
+    "assets/source/music/fight-for-better-future-rockmetal.html": {
+      "sha256": "fa9b2539533537a89e556c866298d392aed4e9c5309cd8e63becddf559991acc",
+      "bytes": 33305
+    },
+    "assets/source/music/fight_for_better_future.wav": {
+      "sha256": "d1ac9def24045a9a1f53054350ee6ec60abc71e707cf935d3a379f1dc6fd153a",
+      "bytes": 12018106
+    },
+    "assets/source/music/once-more-metal.html": {
+      "sha256": "128b34b4141ee9bafd93f75ede3ab3db0d94e8226284a4431690aa02843ee513",
+      "bytes": 24929
+    },
+    "assets/source/music/once_more_metal.wav": {
+      "sha256": "ae26bbdf270f0dccb75409a5f3552e43fad64a28b05c30111a74cfa73ced0d02",
+      "bytes": 7527806
+    },
+    "assets/source/music/rock-music-pack.html": {
+      "sha256": "d05bfd00c3db5dc95449a4efaccd12fdd050c1d046f680c8265e1336b14a683e",
+      "bytes": 54604
+    },
+    "docs/COURSE_ROSTER_40.md": {
+      "sha256": "ddcb54f9bd125ec70f8a5f6777ef43213344810240556cf9998afe7919b47d88",
+      "bytes": 9950
+    },
+    "docs/RELEASE.md": {
+      "sha256": "c064794caa3ba7350b3b34789024baa0473b405ec1daeb8248472e7ef8b6d3d7",
+      "bytes": 1678
+    },
+    "docs/STATUS.md": {
+      "sha256": "21a92942b804912b77b7cf49a277986b38879da41d3fc6a3cdbd35f140db0e43",
+      "bytes": 246348
+    },
+    "docs/evidence/arcade-tracks/geometry.json": {
+      "sha256": "ab9650430046f9454267d1d1573892416047c25b853a7e1503e7fd6f7f8750f9",
+      "bytes": 9158
+    },
+    "docs/evidence/arcade-tracks/layouts.svg": {
+      "sha256": "fdb066416c729772c411a4dcd701a87def21d325a21d5d797326cf67b0856693",
+      "bytes": 892346
+    },
+    "docs/evidence/expansion40/README.md": {
+      "sha256": "d77f1bea41a59a2ad33280a9a796d7aea35f88fb7feca55c224478e90bc8c977",
+      "bytes": 3350
+    },
+    "docs/evidence/expansion40/ai-fields.json": {
+      "sha256": "543785dc4d17dde3fe4d592b143f8559988fd03f26bba2ced9dc4fe32b78a7f9",
+      "bytes": 253334
+    },
+    "docs/evidence/expansion40/ai-summary.json": {
+      "sha256": "b0fca2a4d5a2a48a54befd62c957359307b8db50ff47d35d970b7be3a0c3823a",
+      "bytes": 1141
+    },
+    "docs/evidence/expansion40/asset-check-final.log": {
+      "sha256": "c5360ad88007df15c16aa83572d600fd8b129f2e3b404d39cef104465bd8bfae",
+      "bytes": 844
+    },
+    "docs/evidence/expansion40/assets-final.log": {
+      "sha256": "c5360ad88007df15c16aa83572d600fd8b129f2e3b404d39cef104465bd8bfae",
+      "bytes": 844
+    },
+    "docs/evidence/expansion40/audio.json": {
+      "sha256": "06d13e97262fec70f156a895736e429ae6b656a52ccba8dfcd89926eaa917bd7",
+      "bytes": 5327
+    },
+    "docs/evidence/expansion40/billboards-final.log": {
+      "sha256": "dde7f53a22611ac94e0c97dde0599d3801c6470dd4058f6bbed86c1534c4ce73",
+      "bytes": 341
+    },
+    "docs/evidence/expansion40/billboards-native.json": {
+      "sha256": "4c24a09120fabaa2804874a3917978768fc4f473f9955119d3c3145ff5e417cc",
+      "bytes": 19288
+    },
+    "docs/evidence/expansion40/cameras.json": {
+      "sha256": "de3e9f0e22d1cf55c25df51e0c3916e3c9635ec9549de4f6ea87f378bf1a6680",
+      "bytes": 89587
+    },
+    "docs/evidence/expansion40/desert.png": {
+      "sha256": "625c2e693004fabc7e070df61a6a02c225719554acd5ec43cf705c62e56bcecd",
+      "bytes": 1404209
+    },
+    "docs/evidence/expansion40/east-asian.png": {
+      "sha256": "5b9c6c2024675e9784f0ce3afce61e8efd86abf2038c85ce180b92c4ee76e52b",
+      "bytes": 1659010
+    },
+    "docs/evidence/expansion40/exported-gameplay/pacific_summit.log": {
+      "sha256": "4ccf835f2eda8793b5aaa08db8bdfa8a3bbae2e4a14063589d3e98a071c455ec",
+      "bytes": 375
+    },
+    "docs/evidence/expansion40/exported-gameplay/pacific_summit.png": {
+      "sha256": "9b23a8f8606095f5fbe20f5be6991b9b3e3119ad4e75a954221eb68238443921",
+      "bytes": 1615475
+    },
+    "docs/evidence/expansion40/exported-gameplay/pacific_summit.png.json": {
+      "sha256": "982dd9f1fa463cf343b4bc3a8fe3b94daa713d0e5473501633e05ca3716fd4bb",
+      "bytes": 3337
+    },
+    "docs/evidence/expansion40/exported-gameplay/reactor_rift.log": {
+      "sha256": "0ef3377cb0c18733150fb8e6fc2d04ce83524b03b06048d187cd80ee209bbebd",
+      "bytes": 374
+    },
+    "docs/evidence/expansion40/exported-gameplay/reactor_rift.png": {
+      "sha256": "052ef3e659b5b643680cc1dadce6e0f09b52e59b928c52a54aa37db723085fd6",
+      "bytes": 1092684
+    },
+    "docs/evidence/expansion40/exported-gameplay/reactor_rift.png.json": {
+      "sha256": "b259be0f5f5adf4c27466637c3ca77f72f6f7751b7895beedef361f0b4e834d1",
+      "bytes": 3329
+    },
+    "docs/evidence/expansion40/exported-gameplay/sakura_ring.log": {
+      "sha256": "0ef3377cb0c18733150fb8e6fc2d04ce83524b03b06048d187cd80ee209bbebd",
+      "bytes": 374
+    },
+    "docs/evidence/expansion40/exported-gameplay/sakura_ring.png": {
+      "sha256": "cfa183ba35e21ad6d43542ce95af6dea9d1497caffc0e054551a17db8b3a85c3",
+      "bytes": 1136993
+    },
+    "docs/evidence/expansion40/exported-gameplay/sakura_ring.png.json": {
+      "sha256": "026dd28e5ec97a034475e0322f594e4dcf06ba7dc21c631e880027d8afeb9e84",
+      "bytes": 3333
+    },
+    "docs/evidence/expansion40/exported-gameplay/summary.json": {
+      "sha256": "c398a17c671df3feb6a74ecf22acc9f255189c0e9dd5f3c84fbeeb5b17a6e198",
+      "bytes": 12465
+    },
+    "docs/evidence/expansion40/industrial.png": {
+      "sha256": "7bc907809b479c469dcaf8fbee3d027af6de9c3ee823a4d626f98f2dc9ab4e5d",
+      "bytes": 1067096
+    },
+    "docs/evidence/expansion40/initial-source-checks.json": {
+      "sha256": "a38bfe35a6da8244d85615edfacb86e5398d7056dc6d52fdd24368922306c19a",
+      "bytes": 229553
+    },
+    "docs/evidence/expansion40/layout-native.log": {
+      "sha256": "b1a4d49823188da00c5ab07801d3b4341eb6a1f6268e7f7d035eaf9704a1c938",
+      "bytes": 353
+    },
+    "docs/evidence/expansion40/native-macos.json": {
+      "sha256": "a13ab7f097295aeb0567c298fbfdfd77254c7e8ab270481ac0e54540cc75cf77",
+      "bytes": 2401
+    },
+    "docs/evidence/expansion40/native-references.json": {
+      "sha256": "5a19cc1edc603a2c5406cc67f986d44830e0823433d9218fb3f62b80b0550103",
+      "bytes": 46022
+    },
+    "docs/evidence/expansion40/native-smoke.log": {
+      "sha256": "d3099625de5a0d773207c4b52de94599e4cbe39d8551c14f17e49a8e92369925",
+      "bytes": 435
+    },
+    "docs/evidence/expansion40/network-client0.json": {
+      "sha256": "e2be84cc96d548199e5f54f1c5dab14d2bef8327ed26b7d661100b35523f829a",
+      "bytes": 1920
+    },
+    "docs/evidence/expansion40/network-client1.json": {
+      "sha256": "3374d99f3b4beae0e628662a1f948e50931e02b9231e50df451c7f59f0d52c3c",
+      "bytes": 1922
+    },
+    "docs/evidence/expansion40/network-summary.json": {
+      "sha256": "777501b7ea2b7470b050b89dcd1acc116098e69d0ef8c1d272cfd4c551483278",
+      "bytes": 5908
+    },
+    "docs/evidence/expansion40/parse-final.log": {
+      "sha256": "09f7b8ea3aa00f2771db51ce05da925c534d5af221d17317c772d00e2fe76c0f",
+      "bytes": 238
+    },
+    "docs/evidence/expansion40/partitions-final.log": {
+      "sha256": "bcf84cb603eefbe169844c9018a78d51e97d8b8acd63fb90cf0748999d44b220",
+      "bytes": 434
+    },
+    "docs/evidence/expansion40/partitions-native.log": {
+      "sha256": "4677217bb856ff6dd113138f266aee23a97d5d313c2256bac42bf387f858924b",
+      "bytes": 515
+    },
+    "docs/evidence/expansion40/polar.png": {
+      "sha256": "a85406f68490cd9627c6e2b679b7869d09845dbb0e326cd3c2ce8c2237642eda",
+      "bytes": 1555653
+    },
+    "docs/evidence/expansion40/selection-layout.json": {
+      "sha256": "5862d0b4ee8e127147ad218e1bce18712e349af57ffd8e426ef37c291e37f7ab",
+      "bytes": 12975
+    },
+    "docs/evidence/expansion40/source-checks.json": {
+      "sha256": "6783e72ea45398904c4769ba8e3e4a0d35d938b8a75cf90939b022b9edce7540",
+      "bytes": 232220
+    },
+    "docs/evidence/expansion40/space.png": {
+      "sha256": "e960f8143e754af2d68806e78cb6e21a438e87886f7b204dabdbae20f2db0058",
+      "bytes": 977841
+    },
+    "docs/evidence/expansion40/summit-frames-batched.json": {
+      "sha256": "ed3346f08a972a27cbd320caf823f05fd67b8ffb0aedee56a9604e490e9baca9",
+      "bytes": 75518
+    },
+    "docs/evidence/expansion40/summit-frames-before.json": {
+      "sha256": "8a658cd29b021fbeb9076d29261db51c3dff90fac37be61ba5f700c8d286b793",
+      "bytes": 75792
+    },
+    "docs/evidence/expansion40/summit-high-after.json": {
+      "sha256": "fd3a8f9d892438110d6f3ab2a6c97113495c8b0a4f4a8f8b35ab50af7bc610c3",
+      "bytes": 75603
+    },
+    "docs/evidence/expansion40/summit-high-before.json": {
+      "sha256": "ed3914fdfb2dfec7b74a2a0907914de9386e40be62c22566670ea6e991967ccc",
+      "bytes": 75858
+    },
+    "docs/evidence/expansion40/summit-live-after.json.gz": {
+      "sha256": "74350c21a8cc68fbab85145c2f15ae5d4480cb274a3144a7445d1d5af6634b74",
+      "bytes": 85475
+    },
+    "docs/evidence/expansion40/summit-live-before.json.gz": {
+      "sha256": "b8fbc49763dbb5bcc4d2e31f7724406e71a95d0d9f4b28903d121072bb682fbf",
+      "bytes": 85434
+    },
+    "docs/evidence/expansion40/summit-summary.json": {
+      "sha256": "4d689ffcd52d694555fe1889b9eea4c22d6a88e320d5165356300c808127f682",
+      "bytes": 17956
+    },
+    "docs/evidence/expansion40/trials.json": {
+      "sha256": "dc16db1378c02b55eb9c8294146b58084fcf91ba7baf0ace2e6c3aa5df208196",
+      "bytes": 88275
+    },
+    "docs/evidence/expansion40/tropical.png": {
+      "sha256": "9d0c5c4438b6a282853d97be38c497644b247cdc25ee6e53867cdc7ed4edc3f5",
+      "bytes": 1975477
+    },
+    "docs/evidence/expansion40/worlds.json": {
+      "sha256": "d9d4cc97b40e044feeb200c1a3e60d62215eaf82c39021851bc3195a16b080c5",
+      "bytes": 5701
+    },
+    "game/audio/game_audio.gd": {
+      "sha256": "6eaba3dd512eea7aca6dcdfd702c8f1e4d773be1258cc01deb38f41d73c766c4",
+      "bytes": 5455
+    },
+    "game/client_app.gd": {
+      "sha256": "655a6e1c5105caf40aca91e1dc346850027eccff1b7e543c88b62e580dd1bf9a",
+      "bytes": 55329
+    },
+    "game/content/baked/alpine_meadow.json": {
+      "sha256": "c035f357b5c977dc938e87f94cc08b8896b41004469dd34ac544c29297cbe6e5",
+      "bytes": 437314
+    },
+    "game/content/baked/aurora_harbor.json": {
+      "sha256": "44df8cc1f0e5daf3bbde5cf3a3982201b9b944cc1ec5feafe339cf4bd6aa3216",
+      "bytes": 472535
+    },
+    "game/content/baked/bamboo_gorge.json": {
+      "sha256": "bb7d4ff22e92ded99e31bf7dd97e7176b5b297ec9003fcc2e2beed5795367d3a",
+      "bytes": 514069
+    },
+    "game/content/baked/cloudforest_climb.json": {
+      "sha256": "207a59653aa86196fe42e8d6a842b81b559efbc0d60bb2b2f5a576e057bbabd0",
+      "bytes": 526510
+    },
+    "game/content/baked/container_corkscrew.json": {
+      "sha256": "505061cf9f7521a57b32c69a3899d71e11fd180ad0f6fda1bfb785234cb5b618",
+      "bytes": 536270
+    },
+    "game/content/baked/copper_mesa.json": {
+      "sha256": "b59e04dac1479935270babd1cb46aa72b235bcefa19f9aed177d8e93b58a97e5",
+      "bytes": 517128
+    },
+    "game/content/baked/coral_causeway.json": {
+      "sha256": "44ee7c59d47c75e07880b35b7d4e85902b89dd57b0283de3dc5ab4ebda2703cf",
+      "bytes": 423970
+    },
+    "game/content/baked/crystal_chasm.json": {
+      "sha256": "7ab0b494590015178121ca06c146eff78f37dde678f974df316664a72d83fb1c",
+      "bytes": 575436
+    },
+    "game/content/baked/dune_serpent.json": {
+      "sha256": "45871de7263d31a7ffc0e4e740bfc5643a343b2d961b35d3ab3262f3e37a1112",
+      "bytes": 532060
+    },
+    "game/content/baked/festival_speedway.json": {
+      "sha256": "084b2ec8e9f6d1cbdfea5398a0bcb2c18e8932de8fe3c837c426270ad2079eae",
+      "bytes": 520279
+    },
+    "game/content/baked/frostbite_fjord.json": {
+      "sha256": "bad1b56fc0a14d2eef11d8b0cea62608824671f2642c1a3d1e97522b095687a7",
+      "bytes": 488082
+    },
+    "game/content/baked/glacier_ridge.json": {
+      "sha256": "c6798b5084d0e912e88ca591bae40d541311b1f1c5da9d6614c35d6941e5be7c",
+      "bytes": 369789
+    },
+    "game/content/baked/lantern_market.json": {
+      "sha256": "7e0cd5870de5fe40375cd89e2fddeaf9118212bb8d9469b256d55458542162b8",
+      "bytes": 450967
+    },
+    "game/content/baked/lunar_freight.json": {
+      "sha256": "2da5db41154e6e0187ef3e191b0956949494eae20794bb594eef71548752323e",
+      "bytes": 508378
+    },
+    "game/content/baked/mangrove_maze.json": {
+      "sha256": "dba6e90b06779a8a0d776e49d226a722b9935806dfda4c926abecdc0d8b32f77",
+      "bytes": 477430
+    },
+    "game/content/baked/mars_badlands.json": {
+      "sha256": "e8bca8526c447aff92f528de2bba24e488a3c0d4528b9ab1f0dab77991ce35da",
+      "bytes": 561016
+    },
+    "game/content/baked/monsoon_delta.json": {
+      "sha256": "3e764ef2f96b35fa987957dc4cd160b4c115d37500b6add0a85000abadf3b2d0",
+      "bytes": 488968
+    },
+    "game/content/baked/neon_underpass.json": {
+      "sha256": "6d6f3b1438a32f6bf59003074a02cc0bf47ca40e4ba119161a4bbbf7f6c83ebd",
+      "bytes": 510762
+    },
+    "game/content/baked/oasis_citadel.json": {
+      "sha256": "d1ed40d9975c9801012dd112adfca4a87b79dc6f9d3597b1550eff95cd95c4d5",
+      "bytes": 502619
+    },
+    "game/content/baked/orbital_gardens.json": {
+      "sha256": "443b2a47a92d6f39227bb66ccc175f6bafc61e32d49276239ea60193ecf35b40",
+      "bytes": 516750
+    },
+    "game/content/baked/rainforest_ruins.json": {
+      "sha256": "0a7d9670fc81b797186069a985bad2bed2b8a246fb6f64051c2d1de80faf55aa",
+      "bytes": 433976
+    },
+    "game/content/baked/reactor_rift.json": {
+      "sha256": "ba62ccb607b636e7299855605aeb86f79fe496971798db4ee04d63fa26739c5d",
+      "bytes": 525135
+    },
+    "game/content/baked/sakura_ring.json": {
+      "sha256": "7e55e1362539bdbe98f66c132eac02a0427fb149be734758a963ba51cd7d293c",
+      "bytes": 418604
+    },
+    "game/content/baked/saltflat_velocity.json": {
+      "sha256": "58355774d8c79d2ef0a7645e957b88b1a4f31900fe12e7ae386803106d186222",
+      "bytes": 474870
+    },
+    "game/content/baked/steelworks_sprint.json": {
+      "sha256": "6b0a89f913c15e6a30c47d382ba7f81b14de72be662734e8a6abdd51775ce842",
+      "bytes": 533107
+    },
+    "game/content/baked/storm_chase.json": {
+      "sha256": "95726f8d32dd9b8b197aff1dada2a1d7df648d6ee05ff1beb9d91af886ee1df2",
+      "bytes": 503982
+    },
+    "game/content/baked/temple_coast.json": {
+      "sha256": "dcc09b4336dd9ecc149ea3a58a2491dd74db4b4894559b76d4488b92b3925853",
+      "bytes": 530834
+    },
+    "game/content/baked/terrace_touge.json": {
+      "sha256": "912c011eb97d66db002b00b466cacfff5759fb67c8f4511cc706dc943dd67442",
+      "bytes": 494696
+    },
+    "game/content/baked/tundra_pipeline.json": {
+      "sha256": "a9ad96613fd8b17e5e3eff73a765081add92499770a3aeaa1e938fb87a7a1be0",
+      "bytes": 388367
+    },
+    "game/content/baked/windfarm_run.json": {
+      "sha256": "80a2ccb728cda1e87be698359718f402f86ee8e6243283f0e04cafd1203d4e45",
+      "bytes": 488552
+    },
+    "game/content/compatibility.json": {
+      "sha256": "2270612c5543f9794c310ece1ba40b8d0c438c3adf7388cdbe49a9bfa39585e6",
+      "bytes": 6893
+    },
+    "game/content/rules.json": {
+      "sha256": "15727ee377363cdf27923d81dbacee540853d218a66cf4b90d82144ebbe76271",
+      "bytes": 313
+    },
+    "game/content/settings_definitions.json": {
+      "sha256": "8cace27103e7c905f3d4bab93068a2089dc4c7e319cec9c3b711b31f7b64c321",
+      "bytes": 9500
+    },
+    "game/content/tracks.json": {
+      "sha256": "b76c91816012c29aed9514aa1b3f3284bba22d6fdcca17688a74066c3c17d791",
+      "bytes": 165835
+    },
+    "game/ui/text/en.json": {
+      "sha256": "ffb41b9439ed615e74b9081530a814aace841a589c6aba3b785477976f055786",
+      "bytes": 34289
+    },
+    "game/world/billboard_art.gd": {
+      "sha256": "e07bb4854b8ab379311cb0691fb2a9ea0266b9e767fb355d886559d50834a703",
+      "bytes": 4554
+    },
+    "game/world/chase_camera.gd": {
+      "sha256": "fe5d680c7fcc380540f5885ff718ca4ec8550edcdc049b1310221c2e4d0ebdd2",
+      "bytes": 4833
+    },
+    "game/world/course_art.gd": {
+      "sha256": "bbdddbee39069b2c4b0879f3fe3f1e267e5a8ee9ed7c3b5c89acbeddd4c039db",
+      "bytes": 7141
+    },
+    "game/world/course_landscape.gd": {
+      "sha256": "281a7e50e2f5da4667ca39a0a6a0cc6fde214d0b58035198845b11450899e791",
+      "bytes": 8403
+    },
+    "game/world/course_road_mesh.gd": {
+      "sha256": "089c91c978de28c6fd03e7ffd670f8dff33ec6161b5882bd6b8c7409d8282427",
+      "bytes": 11223
+    },
+    "game/world/course_set_pieces.gd": {
+      "sha256": "818657933309febd2c6774f6b4829e9bab2fd2a33cfd3feff640e5e8180145cf",
+      "bytes": 4553
+    },
+    "game/world/expansion_course_art.gd": {
+      "sha256": "dcd2e1cf9e769434906fc0b019aca88e4a3436a57aee772f377b02be157b6cf6",
+      "bytes": 6119
+    },
+    "game/world/expansion_course_art.gd.uid": {
+      "sha256": "2c84274b9f4008207b408fe43c8d8a378a27f21ce78fab47babb26319162dce8",
+      "bytes": 20
+    },
+    "game/world/roadside_poster_art.gd": {
+      "sha256": "7202c8f37ef37b684ee41d23631923b2fe581f7b4a55dffb764080991b18a071",
+      "bytes": 4978
+    },
+    "game/world/track_world.gd": {
+      "sha256": "6e9d70e7fd20ae50610d681e8c469f4134afee217e0d0b18f03971ffa2a8d460",
+      "bytes": 23541
+    },
+    "schemas/rules.schema.json": {
+      "sha256": "6cc1b278cf9865a39985dd992be7bca39a3ad750b8a23f685af95c45ba8e5209",
+      "bytes": 1428
+    },
+    "schemas/tracks.schema.json": {
+      "sha256": "e5ffd97fa317177dd613748e3382c76def3f84eff44a098348b270af645f97a9",
+      "bytes": 5176
+    },
+    "tests/billboard_tests.gd": {
+      "sha256": "79ffdf57838ad0c0e40edaf28379b2b97278296ef522674833b911bf80d2d644",
+      "bytes": 4376
+    },
+    "tests/content10_transition_tests.gd": {
+      "sha256": "70f880afbc5ac403fc805be2af33b2487bb9712881b730a8aa0bab0618f6dec3",
+      "bytes": 3501
+    },
+    "tests/content11_transition_tests.gd": {
+      "sha256": "5f5f4619e8e992354980ad0e0a213a57ff0a02f3a385cde927403e0726f7eace",
+      "bytes": 3504
+    },
+    "tests/content11_transition_tests.gd.uid": {
+      "sha256": "1fd05d51246c1c832b0102ab629ab9eab0c01feaae3317a4591364b8715c5537",
+      "bytes": 20
+    },
+    "tests/content5_transition_tests.gd": {
+      "sha256": "702cad4d6f5c5e0a800ff5269b183b4eaad9f28106e4e8e5725a7eeb5088bec9",
+      "bytes": 3555
+    },
+    "tests/content6_transition_tests.gd": {
+      "sha256": "71804db701ffc7a96d7cb4eb85853aa0d09382a70d9abe638bfa884ddcb848f9",
+      "bytes": 3521
+    },
+    "tests/content7_transition_tests.gd": {
+      "sha256": "1a910082152469bca8bdaabce9b10ca41e20d13442028db165006c09bb61d773",
+      "bytes": 3523
+    },
+    "tests/content8_transition_tests.gd": {
+      "sha256": "3ea14b3416bfa22688c3a7344437ef18d8b27f089ab1db0a4035b231697e9615",
+      "bytes": 3523
+    },
+    "tests/content9_transition_tests.gd": {
+      "sha256": "37d47a2d0393d821f017fb67b28da6d79663d5b6d22e4db08a7cd542173fed44",
+      "bytes": 3522
+    },
+    "tests/content_tests.gd": {
+      "sha256": "173c539fe3bf059bef0d092177d790daeb4afe0058b934ce7f78cd8930d97815",
+      "bytes": 891
+    },
+    "tests/content_transition_tests.gd": {
+      "sha256": "ab853455aef8eaa31e02fe21778de72642510f651cf6db02e858433f99adfafc",
+      "bytes": 3531
+    },
+    "tests/course_camera_acceptance.gd": {
+      "sha256": "40b6414a3bd4fc19f6aca685c0459a644a8028f97db1561e49f524e64ed051c0",
+      "bytes": 5740
+    },
+    "tests/course_frame_profile.gd": {
+      "sha256": "41c45cc96b9c84853fb7082088f15c233adcbc47d603ac3156da5dff4f539f9f",
+      "bytes": 3405
+    },
+    "tests/course_frame_profile.gd.uid": {
+      "sha256": "a303cf7395f6c4bdc854ab321d553982ba57d3ba224775910aab7fdad5069c85",
+      "bytes": 20
+    },
+    "tests/course_reference_evidence.gd": {
+      "sha256": "3289734a866621b8dbf8e0d7074a94158ec4bd145eefb4bf3a6cc5bbaade49e3",
+      "bytes": 5011
+    },
+    "tests/course_variety_tests.gd": {
+      "sha256": "51c89db99e681e92c94ac2311661b79fab98bd63ec0de0971796653fedf23aa3",
+      "bytes": 9138
+    },
+    "tests/event_layout_tests.gd": {
+      "sha256": "7f5a584c3cd163078e6e19062bf88576d6ba7f20e8e2f936cef662eaf1fa110b",
+      "bytes": 4073
+    },
+    "tests/expansion40_tests.gd": {
+      "sha256": "70f3e2c922e0e87bbe938a89faa2d40004b1686e3b086d47c0416d7b0afc8f7b",
+      "bytes": 4029
+    },
+    "tests/expansion40_tests.gd.uid": {
+      "sha256": "d6b4df507c5dbfcb7d5bbee57321c1a1730b05a891c6399f3670a638b1d00101",
+      "bytes": 20
+    },
+    "tests/fixtures/content11/README.md": {
+      "sha256": "a7c70107d2bd05f59cd33251915a342624ba17af1544e3bb02be3de10b5bdbc6",
+      "bytes": 681
+    },
+    "tests/fixtures/content11/cars.json": {
+      "sha256": "36c6e14ceac551871467f236fcda1ff7e4b18059771a5b3a6f09a9923a054a60",
+      "bytes": 1464
+    },
+    "tests/fixtures/content11/compatibility.json": {
+      "sha256": "66b9869e4430315931141396717a350daf712199f5f7442fc149564ce5c1dc2b",
+      "bytes": 3480
+    },
+    "tests/fixtures/content11/cup.json": {
+      "sha256": "fe1c41e3afdbc8b7452b8c36bcd79b81fe41236d0f98564295196109460c65b1",
+      "bytes": 1235
+    },
+    "tests/fixtures/content11/ghost.bin": {
+      "sha256": "fbcb4aa8ac33dfee575180bdeec28c324df372eec6baaa2946046502be2dddc8",
+      "bytes": 139
+    },
+    "tests/fixtures/content11/manifest.json": {
+      "sha256": "f9e8d94547ea6d1a81e872b2935501e9ec55e9ef1336504b49e0caa6a946f6e1",
+      "bytes": 730
+    },
+    "tests/fixtures/content11/profile.json": {
+      "sha256": "e8d45fa6b40af9bd004c1f9683abf1c11896f2f719dd3b020986cef4250da3d3",
+      "bytes": 506
+    },
+    "tests/fixtures/content11/records.json": {
+      "sha256": "3c08bad71e153964795070b049ea2ea2d025b39de21672255ed0451a928e6f72",
+      "bytes": 439
+    },
+    "tests/fixtures/content11/rules.json": {
+      "sha256": "1e9573699a04745324ebdabdbad42170eb668ff5f5c0f62ecfd0eceb96141857",
+      "bytes": 313
+    },
+    "tests/fixtures/content11/suspended_race.json": {
+      "sha256": "20374b7ff138a9aa00a584b4d1cbe75539dbdb20cb859b78d25089d7d1d362d7",
+      "bytes": 24454
+    },
+    "tests/fixtures/content11/tracks.json": {
+      "sha256": "653ef14f3c88bdf7e1848b9c400be9da507df11dd00504b0470b2868317077a6",
+      "bytes": 28868
+    },
+    "tests/freeze_content11.gd": {
+      "sha256": "85d3a9ad3903f4b503c9bef9c972b5c7756705af647cee1d939c8c1d30aa2fcc",
+      "bytes": 3123
+    },
+    "tests/freeze_content11.gd.uid": {
+      "sha256": "c6ecf6764df41b9aa09716abab59c88fa5e43f233c69338ee7bf2f4c67163fed",
+      "bytes": 20
+    },
+    "tests/hill_presentation_tests.gd": {
+      "sha256": "2314d0c7a2ddb04248c791189074ebb6da49c8a2bc8df6277d94960cfe72df16",
+      "bytes": 2426
+    },
+    "tests/interface_icon_tests.gd": {
+      "sha256": "419a209cc16651ed6c576cf91f885a36b94c60e677d4be88d0771c5556e40370",
+      "bytes": 4913
+    },
+    "tests/landscape_sightline_tests.gd": {
+      "sha256": "a357d598ff458bf57846c5a8e954b871fe858263328c3242dd06feb38d0e66e7",
+      "bytes": 2446
+    },
+    "tests/mobile_runtime_tests.gd": {
+      "sha256": "88b71a0250f3e22296e20e13e382f415b81fe3f32da81628c59b6bc248d4bd18",
+      "bytes": 6205
+    },
+    "tests/render_soak_evidence.gd": {
+      "sha256": "f3db4f7c4db97d33250f830bf2b6c7d41f33743869d23e4f9dabe2f1c0eecb9c",
+      "bytes": 6506
+    },
+    "tests/road_partition_tests.gd": {
+      "sha256": "d0d27e22b54054b9015ade451fee5300b8d79fdf4a89114352d3b1857ca829b3",
+      "bytes": 3886
+    },
+    "tests/road_partition_tests.gd.uid": {
+      "sha256": "ac385c0298d7ee447d068a64f049ce9f745a660c2d0c8ab08f6fb3bf33cdcb94",
+      "bytes": 19
+    },
+    "tests/roadside_poster_tests.gd": {
+      "sha256": "34ba9fcab32779b453d1626b379dee999220e225f25f8632bf0d7e07dfe3c9a2",
+      "bytes": 4010
+    },
+    "tests/scenery_contract_tests.gd": {
+      "sha256": "d56c02aac5d7d34df80d1f894466ca746fc0fdc8867db1cb55e89a328bdbf35b",
+      "bytes": 8216
+    },
+    "tests/summit_legacy_render.gd": {
+      "sha256": "da14ff31f8e0889b2f66a154d2c5f40d4d04cff8f28d42fe31c7372a28894de2",
+      "bytes": 5341
+    },
+    "tests/summit_legacy_render.gd.uid": {
+      "sha256": "ec42da1c50758eb37626f775923bb52492773927d606e31c727671945a32fc96",
+      "bytes": 20
+    },
+    "tests/surface_version_tests.gd": {
+      "sha256": "c0d3b93aa2ffdbe9f1cdf94460e1752a47c9fdfd48224ae436bc08aa3c8f667d",
+      "bytes": 4605
+    },
+    "tests/world_presentation_tests.gd": {
+      "sha256": "3426a9e1550cb3aeeba6f4f90805c1f99ddac0ef83c9edffe4813bab50d80c91",
+      "bytes": 3873
+    },
+    "tools/asset_hash.py": {
+      "sha256": "747dcb6a546fc3bd9f309eb0722aa427f33d52f6330ba2f99b71dbfb35d9485a",
+      "bytes": 14914
+    },
+    "tools/author_expansion40.py": {
+      "sha256": "f28209ac731d0de3fef51ea16338c179074080e7dc692a6ac0e008765d97dd24",
+      "bytes": 14151
+    },
+    "tools/check.py": {
+      "sha256": "6bb1893c12878237968bf687cf4d5b2c92688148b39a723e64e7e999672f8e0e",
+      "bytes": 11222
+    },
+    "tools/course_layout_preview.py": {
+      "sha256": "336eee09081e053cee29c04f6616854d19ba18f9c556acefa8b4540a81eb5153",
+      "bytes": 3866
+    }
+  }
+}

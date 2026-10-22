@@ -2,7 +2,7 @@ extends SceneTree
 func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
-	assert(UIIcons.entries().size()==64)
+	assert(UIIcons.entries().size()==94)
 	for row: Dictionary in UIIcons.entries().values():
 		var texture := UIIcons.texture(row.id)
 		assert(texture.get_size()==Vector2(64,64) and texture.get_image().has_mipmaps(),row.id)
@@ -57,7 +57,7 @@ func run() -> void:
 	app.events.mode = "trial"
 	app.events.show_event()
 	assert(app.events.medal_icons[0].texture==UIIcons.texture("medal_gold"))
-	assert(app.events.buttons.size()==10)
+	assert(app.events.buttons.size()==40)
 	app.events.buttons[9].pressed.emit()
 	assert(app.events.track_index==9 and Catalog.tracks[app.events.track_index].id=="caldera_crosscut","the last course's actual UI button selects the new route")
 	app.events.select_track(2)

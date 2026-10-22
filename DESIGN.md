@@ -226,7 +226,7 @@ Eight colors: coral #F16B50, turquoise #20BFC5, sunshine #F3CD48, violet #8465CC
 
 ## 9 Camera and sensation of speed
 
-Default Near Chase: anchor 5.0 m behind chassis center and 1.65 m above road; aim at a point 10 m ahead and 0.8 m above the chassis base. Far Chase: 8.2 m behind, 3.4 m high, aim 12 m ahead. Hood: eye 1.15 m above road, with approximately 10% visible hood at screen bottom; no interior cockpit. Derive its forward offset from the actual car's cached centreline silhouette and current vertical FOV, rather than one fixed offset that fills the view on longer cars or hides shorter bonnets. Look-back uses the rear silhouette. The lower Near anchor is the owner's approved arcade-speed presentation revision.
+Near Chase: anchor 5.0 m behind chassis center and 1.65 m above road; aim at a point 10 m ahead and 0.8 m above the chassis base. Default Far Chase: 8.2 m behind, 3.4 m high, aim 12 m ahead. Hood: eye 1.15 m above road, with approximately 10% visible hood at screen bottom; no interior cockpit. Derive its forward offset from the actual car's cached centreline silhouette and current vertical FOV, rather than one fixed offset that fills the view on longer cars or hides shorter bonnets. Look-back uses the rear silhouette. The lower Near anchor is the owner's approved arcade-speed presentation revision.
 
 Chase translation follows with exponential rate 10/s; yaw with 8/s. Frame-rate-independent coefficient is 1-exp(-rate*render_dt). Camera may lag yaw at most 12 degrees behind vehicle heading. Look-ahead shifts laterally by up to 1.0 m in steering direction, smoothing at 4/s. Chase collision sphere radius 0.25 m shortens boom against scenery and restores over 0.3 seconds. Camera never goes below the local road. Look Back uses a front-facing equivalent mount with a 0.12-second blend; release restores prior camera.
 
@@ -522,7 +522,7 @@ Settings has tabs Display, Graphics, Audio, Controls, Accessibility, Gameplay, a
 | Graphics | Draw distance | 400, 700 default, 1000 m; road collision and signs unaffected |
 | Graphics | Effects | Off, Reduced, Full default |
 | Graphics | Anisotropic filtering | 2×, 4× default, 8×, 16× |
-| Graphics | Retro presentation | Off default, 640×360 internal world render, letterboxed outside 16:9; UI stays native |
+| Graphics | Retro presentation | On default, 640×360 internal world render, letterboxed outside 16:9; UI stays native |
 | Audio | Master / music / engine / effects / announcer | 0–100%, step 5; defaults 80/60/80/80/60 |
 | Audio | Dynamic range | Standard default, Night; Night compresses loud peaks |
 | Audio | Background audio | Off default, On |
@@ -537,7 +537,7 @@ Settings has tabs Display, Graphics, Audio, Controls, Accessibility, Gameplay, a
 | Accessibility | Announcer captions | On default, Off |
 | Accessibility | Hold assistance | Off default, On; press Recover to arm, press it again to confirm, Back/Pause cancels; no deadline; same 30-tick (0.5-second) minimum |
 | Gameplay | Speed units | mph default, km/h; distance follows miles/km |
-| Gameplay | Camera | Near Chase default, Far Chase, Hood |
+| Gameplay | Camera | Far Chase default, Near Chase, Hood |
 | Gameplay | Base vertical FOV | 55–85°, default 65°, step 1° |
 | Gameplay | Dynamic FOV | On default, Off; forced off by Reduce Motion |
 | Gameplay | Collision camera shake | 0–100%, default 50%; forced zero by Reduce Motion |
@@ -563,11 +563,11 @@ Driving assistance is limited to the common arcade handling model; there is no h
 
 ## 17 Audio direction
 
-Music: upbeat instrumental surf rock, breakbeat, and sunny synth-pop, 125–145 BPM. Six loopable race tracks, one per course, each 120–180 seconds; one 90-second menu loop; one short results cue. No copyrighted soundalikes or recognizable borrowed melodies. Music must loop without a click or abrupt bar discontinuity. Pause offline ducks music by 8 dB and suspends engine movement; online overlay ducks by 4 dB but preserves race audio.
+Music: human-authored heavy rock/metal recordings dedicated under CC0, with driving guitars, bass and drums. Seven loopable selections cover the menu and course music families; courses may share a selection. Preserve original recordings, composer credits, source URLs and license-page evidence in `assets/source/music/`. Do not synthesize procedural replacement songs. Keep the original arrangements and tempo, normalizing gain and applying only a short loop seam. No copyrighted soundalikes or recognizable borrowed melodies. Music must loop without a click or abrupt bar discontinuity. Pause offline ducks music by 8 dB and suspends engine movement; online overlay ducks by 4 dB but preserves race audio.
 
 Each car has idle, low-load, high-load, and coast engine loops crossfaded by virtual RPM and throttle. Four virtual gears with upshift speed thresholds 12, 25, 40 m/s; downshift hysteresis 3 m/s. Gear changes only affect sound and tachometer, never acceleration. Pitch maps virtual RPM from 0.8× to 1.6×; shifts dip pitch for 0.10 seconds. Other car engines use distance attenuation to silence by 120 m, maximum seven audible rivals, panned spatially. Own engine stays centered with slight stereo width; no extreme Doppler on own car.
 
-Effects: asphalt squeal, sand/grass rumble, light/heavy wall scrape, light bump, landing, recovery swoosh, countdown ticks/GO, lap/finish cue, UI move/confirm/back/error. Events have cooldowns to avoid machine-gun repetition: wall 0.15 seconds, bump 0.2 seconds per pair, landing 0.5 seconds. Mix voice/music lower by 3 dB for a countdown or finish cue, then restore over 0.3 seconds.
+Effects: broadband asphalt tire scrub without pitched siren modulation, sand/grass rumble, light/heavy wall scrape, light bump, landing, recovery swoosh, countdown ticks/GO, lap/finish cue, UI move/confirm/back/error. Events have cooldowns to avoid machine-gun repetition: wall 0.15 seconds, bump 0.2 seconds per pair, landing 0.5 seconds. Mix voice/music lower by 3 dB for a countdown or finish cue, then restore over 0.3 seconds.
 
 Announcer fixed English lines only: “Three”, “Two”, “One”, “Go”, “Final lap”, “Wrong way”, “New best time”, “Finish”. No taunts, player-name synthesis, incessant overtaking callouts, or dynamic voice chat. Wrong way voice plays once per continuous episode, at most once every 10 seconds. Announcer volume zero does not hide captions. Race announcer captions appear only during active driving; pause menus and their settings pages suppress them so a live GO line cannot cover navigation. Results retain saved-record captions. Master output must not clip under eight engines plus impacts; validate true peak ≤-1 dBFS on captured worst-case mix.
 
@@ -1029,3 +1029,33 @@ last-safe progress remain authority-only state, preserved at full precision in
 offline archives. Save schema stays 1. Frozen content-10 and earlier player
 records, ghosts, Cups and checkpoints remain preserved with incompatible
 continuation disabled.
+
+
+## Forty-course expansion (owner revision, 21 October 2026)
+
+The playable roster contains forty courses. `docs/COURSE_ROSTER_40.md` specifies
+the retained ten and thirty additions, including their route shapes, surfaces,
+relief and landmark direction. `tools/author_expansion40.py` authors the new
+canonical controls; the existing baker validates every route. New scenery uses
+six original, untouched imagegen atlases plus a standalone blossom tree (52 alpha-bounded sprites), thirty
+terrain exports and static themed 3D gates. Snow/wet/alien appearances retain the
+existing asphalt/dirt physics. All forty courses are immediately available in
+Quick Race, Trial and online selection; Coast Cup retains its six-event sequence.
+
+Gameplay content advances to 12; protocol remains 7 because the wire format and
+its dynamic track-index bounds already support the expanded roster. Save schema
+remains 1. Frozen content-11 profile, record, ghost, Cup and active-race bytes are
+preserved; incompatible continuation/comparison is disabled. New profiles default
+to Far Chase and Retro presentation. Explicit saved preferences remain respected.
+
+Road rendering partitions exact original triangles into local spatial chunks,
+with exact positions/UVs, finite unit normals and no distance limit on the road. Pavement/markings
+receive shadows; guardrails and elevated deck undersides cast them. Collision
+continues using the original unsplit canonical meshes. This reduces whole-lap
+triangle submission without changing driving physics.
+
+Summit groups roadside instances by species in 256 m spatial cells instead of
+80 m route intervals. Every instance keeps its exact world transform; dense
+inward views submit fewer separate batches. Road chunks span 640 m to balance
+triangle rejection against submission overhead. Native render evidence and its
+limits are recorded in `docs/STATUS.md`.

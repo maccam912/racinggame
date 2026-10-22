@@ -52,6 +52,8 @@ func _process(_dt: float) -> void:
 	if app.page=="installation_error": return
 	var active := is_instance_valid(app.drive)
 	var id: String = "music_"+str(app.drive.track.definition.environment_id) if active and app.page!="results" else "music_menu"
+	if active and app.page!="results" and CourseArt.spec(app.drive.track.id).has("music_family"):
+		id = "music_"+str(CourseArt.spec(app.drive.track.id).music_family)
 	set_music(id)
 	if app.page=="results" and app.result_receipt!=null:
 		var race_id: String = app.result_receipt.session.race_uuid

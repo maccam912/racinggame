@@ -1,0 +1,229 @@
+{
+  "passed": true,
+  "content_hash": "c1be6354edf13e4c0b5b9a611e01843fa404dcab09ee1c60ed8e73a7e9176c4a",
+  "laps": 1,
+  "seconds": 210.0,
+  "track": "reactor_rift",
+  "track_index": 39,
+  "one_way_latency_ms": 50,
+  "jitter_ms": 10,
+  "loss": 0.02,
+  "contacts": false,
+  "degraded_tier": false,
+  "away_seconds": 0,
+  "client_hitch_seconds": 0,
+  "protocol": 7,
+  "transport": "UDP proxy including ENet handshake/ACK/reliable packets",
+  "clients": [
+    {
+      "acknowledged_sequence": 8993,
+      "clear_corrections": {
+        "count": 2886,
+        "max": 0.14260858297348,
+        "p95": 0.029991190880537
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 0,
+      "connected": true,
+      "contact_corrections": {
+        "count": 34,
+        "max": 1.39348804950714,
+        "p95": 0.355781048536301
+      },
+      "dropped_packets": 0,
+      "finish_time": 150.014907836914,
+      "hitch_done": false,
+      "initial_slot": 1,
+      "laps": 1,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 69.9832000732422,
+      "permanent_error": "",
+      "predicted_contacts": 260,
+      "quality_observations": {
+        "active_samples": 1399,
+        "levels": [
+          773,
+          626,
+          0
+        ],
+        "max_delivery_loss_percent": 6.0,
+        "max_rtt_ms": 143.666666666667
+      },
+      "received_bytes": 659955,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 2166,
+      "remote_brake_on": 895,
+      "remote_extrapolation": {
+        "capped_samples": 57,
+        "max_buffer_samples": 20,
+        "max_distance_m": 10.5028429031372,
+        "max_requested_seconds": 0.25,
+        "samples": 1381
+      },
+      "results": [
+        {
+          "best_lap": 149.862302654257,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 8515.75305247586,
+          "dnf": "",
+          "id": "ecc5339b-6985-48c0-bc67-1cad6cc9042b",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 149.862302654257
+        },
+        {
+          "best_lap": 150.014912953297,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 8515.43257782888,
+          "dnf": "",
+          "id": "6a4a2506-8e9d-4734-b268-2869fb117994",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 150.014912953297
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 118.0,
+      "sent_bytes": 379218,
+      "sequence": 8999,
+      "slot": 1,
+      "snapshots": 2965,
+      "terminal_corrections": {
+        "count": 38,
+        "max": 4.40027809143066,
+        "p95": 4.26074552536011
+      },
+      "track_id": "reactor_rift",
+      "track_index": 39
+    },
+    {
+      "acknowledged_sequence": 8983,
+      "clear_corrections": {
+        "count": 2905,
+        "max": 0.138890191912651,
+        "p95": 0.0296459421515465
+      },
+      "clock_rebase_count": 0,
+      "clock_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "coalesced_snapshots": 0,
+      "connected": true,
+      "contact_corrections": {
+        "count": 34,
+        "max": 1.39452958106995,
+        "p95": 0.367961317300797
+      },
+      "dropped_packets": 0,
+      "finish_time": 149.8623046875,
+      "hitch_done": false,
+      "initial_slot": 0,
+      "laps": 1,
+      "large_racing_events": 0,
+      "last_gate": 0,
+      "max_speed": 69.9858551025391,
+      "permanent_error": "",
+      "predicted_contacts": 254,
+      "quality_observations": {
+        "active_samples": 1403,
+        "levels": [
+          1127,
+          276,
+          0
+        ],
+        "max_delivery_loss_percent": 6.06060606060606,
+        "max_rtt_ms": 143.9
+      },
+      "received_bytes": 664937,
+      "reconnect_done": false,
+      "reconnect_restores": {
+        "count": 0,
+        "max": 0,
+        "p95": 0
+      },
+      "recoveries": 0,
+      "remote_brake_off": 2180,
+      "remote_brake_on": 905,
+      "remote_extrapolation": {
+        "capped_samples": 36,
+        "max_buffer_samples": 20,
+        "max_distance_m": 10.5043420791626,
+        "max_requested_seconds": 0.2,
+        "samples": 1384
+      },
+      "results": [
+        {
+          "best_lap": 149.862302654257,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 8515.75305247586,
+          "dnf": "",
+          "id": "ecc5339b-6985-48c0-bc67-1cad6cc9042b",
+          "name": "Driver1",
+          "paint": 0.0,
+          "slot": 0.0,
+          "time": 149.862302654257
+        },
+        {
+          "best_lap": 150.014912953297,
+          "bot": false,
+          "car": 0.0,
+          "distance_m": 8515.43257782888,
+          "dnf": "",
+          "id": "6a4a2506-8e9d-4734-b268-2869fb117994",
+          "name": "Driver0",
+          "paint": 0.0,
+          "slot": 1.0,
+          "time": 150.014912953297
+        }
+      ],
+      "resume_count": 0,
+      "rtt_ms": 137.0,
+      "sent_bytes": 378854,
+      "sequence": 8989,
+      "slot": 0,
+      "snapshots": 2989,
+      "terminal_corrections": {
+        "count": 43,
+        "max": 3.07319784164429,
+        "p95": 2.97242450714111
+      },
+      "track_id": "reactor_rift",
+      "track_index": 39
+    }
+  ],
+  "wire_metrics": {
+    "upstream_bytes": 846766,
+    "downstream_bytes": 1403043,
+    "upstream_packets": 10478,
+    "downstream_packets": 7811,
+    "dropped_packets": 364,
+    "offered_upstream_bytes": 863113,
+    "offered_downstream_bytes": 1432639,
+    "offered_upstream_packets": 10680,
+    "offered_downstream_packets": 7973
+  },
+  "contact_events": 1,
+  "elapsed_seconds": 158.49637733399868,
+  "engine_error_logs": [],
+  "cleanup_errors": [],
+  "source_manifest_unchanged": true
+}

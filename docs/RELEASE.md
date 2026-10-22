@@ -1,4 +1,10 @@
-Pacific Rush development checkpoint. This is an incomplete implementation of DESIGN.md.
+Pacific Rush development checkpoint: forty courses, Far Chase and Retro defaults,
+noise-based tire scrub, and seven recorded CC0 rock/metal songs. Thirty
+new routes span polar, tropical, East Asian, desert, industrial and space settings.
+Pacific Summit uses spatial roadside batching and partitioned road rendering.
+See docs/COURSE_ROSTER_40.md for the complete roster. Content is 12, protocol 7,
+save schema 1; older saves remain archived with incompatible continuation disabled.
+This is an incomplete implementation of DESIGN.md.
 
 Desktop packages, Android ARM64 APK/AAB, and Linux dedicated worker are published together with build metadata and SHA-256 checksums. macOS is ad-hoc signed; publisher signing and notarization are pending. Android release-mode packages use a stable development certificate, not a store publisher certificate.
 

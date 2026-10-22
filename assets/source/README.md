@@ -40,25 +40,25 @@ python3 tools/check.py
 python3 tools/godot.py --max-fps 60 --script tests/scenery_library_evidence.gd
 ```
 
-The postcard command renders ten 512×288 images from the original scenes; ordinary reference/CI runs do not replace shipped postcards. Historical M1 videos use frozen `GrayboxTrackWorld` and `GrayboxCarVisual` source fixtures, so regenerating them keeps the pre-art composition.
+The postcard command renders forty 512×288 images from the original scenes; ordinary reference/CI runs do not replace shipped postcards. Historical M1 videos use frozen `GrayboxTrackWorld` and `GrayboxCarVisual` source fixtures, so regenerating them keeps the pre-art composition.
 
-`generate_audio.py` is the editable source for all 48 original Vorbis assets. It
-contains the seven compositions, arrangement, additive/FM/plucked instruments,
-seeded synthetic percussion, four engine harmonic profiles, effects and eight
-fixed formant/noise annunciations. No speaker recording, trained voice model,
-downloaded song or sample bank is used. The formant implementation is original;
-Klatt's 1980 paper (doi:10.1121/1.383940) informed the general synthesis concept.
-The checked-in audio and source use the project's MIT license.
+`generate_audio.py` authors the four engine profiles, filtered-noise tire scrub,
+effects and fixed formant/noise annunciations under MIT. The seven music streams
+are human-authored rock/metal recordings imported by `import_cc0_music.py` under
+CC0; the original recordings, creator pages and license evidence live in
+`music/`, with packaged attribution in `assets/licenses/CC0-Music.txt`.
 
 Authoring requires Python 3.14.7, NumPy 2.5.2, ffmpeg 9.0.1 and oggenc 1.4.3 /
-libvorbis 1.3.7. Ordinary game builds require none of these audio authoring tools.
-Run `python3 assets/source/generate_audio.py` (or `--only music`, `engines`,
-`effects`, `voice`), reimport in Godot and run `python3 tools/asset_hash.py`.
-Preserve the checked-in Ogg import flags: music, engines and surface loops loop
-from zero; music includes exact BPM/beat/bar counts. Gain is fixed per asset from
-R128 integrated loudness and oversampled true peak, with peak-only normalization
-for transients shorter than the R128 gate. Circular synthesis/delay tails preserve
-music loop boundaries. The catalog records duration, loudness, true peak and SHA256.
+libvorbis 1.3.7. Ordinary builds require none of these authoring tools. Run
+`python3 assets/source/generate_audio.py --only skid` for tire scrub, or
+`--only engines`, `effects`, `voice`. Run `python3 assets/source/import_cc0_music.py`
+to rebuild recorded music from the retained originals; `--download` is only for
+initial sourcing. Music processing applies a 25 ms circular seam, R128 gain
+normalization and Vorbis encoding, preserving tempo and arrangement. BPM/beat/bar
+metadata is zero because these recordings are not generated metronomic loops.
+Reimport in Godot and run `python3 tools/asset_hash.py`. Preserve loop flags for
+music/engines/surfaces. The catalog records source/license, duration, loudness,
+true peak and SHA256.
 
 `python3 tools/audio_acceptance.py --capture` captures actual Godot decoding and
 bus DSP with all seven music streams, eight four-layer engines, eight simultaneous
@@ -78,7 +78,7 @@ views; headless numerical tests do not establish shader compilation. Recovery
 covers the world while relocating the chase camera and preserves the existing
 simulation freeze/ghost timers.
 
-`generate_icons.py` creates the 64 original 64×64 SVG interface assets and catalog
+`generate_icons.py` creates the 94 original 64×64 SVG interface assets and catalog
 using only Python's standard library. Course outlines come from the canonical
 baked routes, and swatches use the actual eight car paints. No external icon
 set is used. Regenerate with `python3 assets/source/generate_icons.py`, preserve
@@ -130,3 +130,25 @@ preserve each silhouette's aspect ratio. `ArcadeSpriteVariety` mixes species by
 course and lap sector and places props beyond road and poster clearances.
 `painted_sky.gdshader` blends the panorama wrap and poles, with a night tint for
 city courses; the orbital course keeps its dedicated sky.
+
+
+## Forty-course expansion and recorded music
+
+`tools/author_expansion40.py` contains thirty separate authored polygons and
+course palettes/landmark arrangements. Run it, then `tools/bake_tracks.py`,
+then Blender's `generate_terrain.py -- --tracks=<selected IDs>`. The original
+ten routes and terrain bytes are retained. `expansion40/generation.json`
+records the six atlas prompts and one standalone cherry-tree prompt from built-in image_gen, source/output paths and checksums.
+`describe_expansion40.py` catalogs 52 alpha-bounded UV cells without editing
+the PNGs. `game/world/expansion_course_art.gd` supplies static, spatially batched
+roadside scenery and original 3D gates. Course reference captures author native
+512×288 postcards; icons use the existing SVG generator.
+
+Music is no longer synthesized. `import_cc0_music.py --download` obtains the
+seven named CC0 recordings and source-page snapshots; subsequent rebuilds omit
+`--download` and use the retained originals. `music/cc0-sources.json` records
+composers, title/source/download/license URLs and exact source hashes. Processing
+preserves tempo and arrangement, with a 25 ms circular seam, gain normalization
+and Vorbis encoding. `generate_audio.py --only music` calls that importer.
+Other generator modes preserve the recorded catalog entries. `--only skid`
+rebuilds only the broadband, non-tonal tire-friction loop.

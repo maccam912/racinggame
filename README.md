@@ -2,12 +2,16 @@
 
 Original colorful 3D arcade circuit racer for desktop and Android. [DESIGN.md](DESIGN.md) is the authoritative launch specification; [docs/STATUS.md](docs/STATUS.md) separates implemented work from acceptance evidence.
 
-Four cars race ten distinct arcade courses: coastal highway, sharp downtown
-blocks, orchard and forest dirt rallies, a desert jump stadium and a mountain
-rollercoaster. Skyline Splice adds a layered harbor crossing, Quarry Switchback
-linked hairpins, Spillway Sprint a trefoil waterworks and Caldera Crosscut a
-neon volcanic moon beneath a ringed planet. [Course maps and elevation profiles](docs/evidence/arcade-tracks/layouts.svg)
-and [native views](docs/evidence/arcade-tracks/lineup.jpg) show the current lineup.
+Four cars race forty distinct arcade courses. The original ten retain their
+coastal highways, downtown blocks, forest/dirt rallies, mountain rollercoaster,
+layered crossings, reservoir and volcanic moon. Thirty additions bring glaciers,
+aurora harbors, jungle ruins, coral causeways, blossom streets, dune rallies,
+steelworks, festival speedways and lunar/crystal landscapes. Each has an authored
+route, terrain, five landmark beats and three 3D course structures. The full
+[forty-course roster and driving briefs](docs/COURSE_ROSTER_40.md) describe them.
+Far Chase and Retro presentation are the defaults for new profiles; saved
+preferences remain available in Settings. Music uses recorded CC0 heavy rock and
+metal by Ragnar Random and nene, with retained source/license evidence.
 Original rocks, logs, waterfalls, painted travel signs and
 illustrated foliage mix with 3D cars, buildings, bridges and crest structures.
 The interface uses original arcade lettering and glossy chrome; car paint,
@@ -100,7 +104,7 @@ unrelated profiles, records exact authority/Android/native result agreement,
 streams logs across buffer rotation and samples Android process RSS. Its output
 is automated emulator evidence, separate from human touch or hardware performance.
 
-The four original car meshes have explicit 35/90 m LODs, a shared 1024² atlas, all eight paint choices and independently animated wheels. Editable Blender source and regeneration instructions are in [assets/source/README.md](assets/source/README.md). Run `python3 tools/asset_hash.py` after changing cosmetic exports; this identity is separate from gameplay content and appears in build metadata. Six original scenery kits now supply all 30 named landmarks, with shared vegetation, neighborhood buildings, road furniture and rendered course postcards. The 48 original audio assets include six course compositions, menu/results music, four engine profiles, effects and fixed synthetic announcer cues. Run `python3 tools/audio_acceptance.py --capture` (ffmpeg required) for the actual eight-engine mix gate, or add `--native-output` for a rendered final-output/Master-mute check. Bounded smoke/dust/sparks/skid batches, contact opacity, recovery transitions and camera feedback are implemented. Sixty-two original editable interface icons, real Garage stat bars, car-specific medals and responsive selection panes are implemented. Authoritative lap clocks, saved-ghost live delta and bounded visible rival labels complete the main racing HUD. The dated status report records current release checkpoints and remaining owner usability, hosting and publisher inputs; physical-device testing is optional owner follow-up. Native save barriers, profile ownership and deletion recovery are documented in [docs/SAVE_DURABILITY.md](docs/SAVE_DURABILITY.md).
+The four original car meshes have explicit 35/90 m LODs, a shared 1024² atlas, all eight paint choices and independently animated wheels. Editable Blender source and regeneration instructions are in [assets/source/README.md](assets/source/README.md). Run `python3 tools/asset_hash.py` after changing cosmetic exports; this identity is separate from gameplay content and appears in build metadata. Six original scenery kits now supply all 30 named landmarks, with shared vegetation, neighborhood buildings, road furniture and rendered course postcards. The 48 audio assets include seven recorded CC0 rock/metal selections, four original engine profiles, effects and fixed synthetic announcer cues. Run `python3 tools/audio_acceptance.py --capture` (ffmpeg required) for the actual eight-engine mix gate, or add `--native-output` for a rendered final-output/Master-mute check. Bounded smoke/dust/sparks/skid batches, contact opacity, recovery transitions and camera feedback are implemented. Sixty-two original editable interface icons, real Garage stat bars, car-specific medals and responsive selection panes are implemented. Authoritative lap clocks, saved-ghost live delta and bounded visible rival labels complete the main racing HUD. The dated status report records current release checkpoints and remaining owner usability, hosting and publisher inputs; physical-device testing is optional owner follow-up. Native save barriers, profile ownership and deletion recovery are documented in [docs/SAVE_DURABILITY.md](docs/SAVE_DURABILITY.md).
 
 
 Touch layout editing is under Settings → Touch → Edit Layout on Android. Drag the outlines, or focus one and press Confirm to move it with keyboard/controller directions; Back stops moving it. Save validates target sizes, safe margins and overlap. Preview runs a separate 30-second practice drive and returns to the draft. Cancel preserves saved positions, and Restore Layout resets only the current device/orientation/control profile. Layout geometry cannot be changed during an online race.

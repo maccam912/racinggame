@@ -5,14 +5,14 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	Catalog.load_all()
-	assert(Catalog.tracks.size()==10 and Catalog.tracks[6].id=="skyline_splice" and Catalog.tracks[7].id=="quarry_switchback")
+	assert(Catalog.tracks.size()==40 and Catalog.tracks[6].id=="skyline_splice" and Catalog.tracks[7].id=="quarry_switchback")
 	assert(LobbyState.valid_rules({"track":9,"laps":1,"bot_fill":true,"difficulty":1,"contact":true}))
-	assert(not LobbyState.valid_rules({"track":10,"laps":1,"bot_fill":true,"difficulty":1,"contact":true}))
+	assert(not LobbyState.valid_rules({"track":40,"laps":1,"bot_fill":true,"difficulty":1,"contact":true}))
 	var frozen: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/content5/tracks.json"))
 	for index in range(6):
 		assert(Catalog.tracks[index].definition.ordered_control_points!=frozen.tracks[index].ordered_control_points,"the six classic courses now have individually authored layouts")
 	var records: Array[Dictionary] = []
-	for track: TrackDefinition in Catalog.tracks:
+	for track: TrackDefinition in Catalog.tracks.slice(0,10):
 		var world := TrackWorld.new()
 		world.build(track)
 		root.add_child(world)
@@ -50,7 +50,9 @@ func run() -> void:
 			check_elevated_details(world)
 			assert(counts.Tower>=40)
 			assert(world.has_node("ElevatedDeck") and not world.has_node("Road_verges"))
-			var deck: Array = world.get_node("ElevatedDeck").mesh.surface_get_arrays(0)
+			# Rendering now partitions this source without changing its faces;
+			# road_partition_tests checks the actual assembled render geometry.
+			var deck: Array = CourseRoadMesh.elevated_deck(track).surface_get_arrays(0)
 			var normals: PackedVector3Array = deck[Mesh.ARRAY_NORMAL]
 			assert(normals.size()==track.points.size()*18)
 			for index in range(track.points.size()):

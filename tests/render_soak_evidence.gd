@@ -3,6 +3,8 @@ extends SceneTree
 
 var app: Node
 var frames: Array[float] = []
+var spatial_frames: Array[Dictionary] = []
+var record_spatial: bool = false
 var races: Array[Dictionary] = []
 var output: String
 var began_us: int
@@ -20,6 +22,8 @@ func drawn() -> void:
 	var now := Time.get_ticks_usec()
 	if last_draw_us>0 and is_instance_valid(app) and app.page=="race" and is_instance_valid(app.drive) and not app.drive.paused and app.drive.session.phase in [RaceSession.Phase.RACING,RaceSession.Phase.GRACE]:
 		frames.append((now-last_draw_us)/1000.0)
+		if record_spatial:
+			spatial_frames.append({"track":app.drive.track.id,"s":app.drive.state.route_s,"frame_ms":frames[-1],"physics_ms":Performance.get_monitor(Performance.TIME_PHYSICS_PROCESS)*1000,"process_ms":Performance.get_monitor(Performance.TIME_PROCESS)*1000,"draw_calls":Performance.get_monitor(Performance.RENDER_TOTAL_DRAW_CALLS_IN_FRAME)})
 	last_draw_us = now
 
 
@@ -47,7 +51,9 @@ func report(passed: bool, final: bool = false) -> void:
 		"renderer":RenderingServer.get_current_rendering_method(),"gpu":RenderingServer.get_video_adapter_name(),
 		"platform":snapshot["platform.json"],"settings":snapshot["settings.json"],"last_60_seconds":snapshot["performance.json"],
 		"boundary":"Live source client, normally paced eight-car races on the recorded courses, production loading/HUD/render-scale path, ordinary diagnostic AI inputs. Repeated scene lifetime exercise on this host; not exported-template, minimum-hardware, human driving, physical Android or thermal acceptance."}
-	if final: value["racing_frame_times"] = stats()
+	if final:
+		value["racing_frame_times"] = stats()
+		if record_spatial: value["spatial_frames"] = spatial_frames
 	var file := FileAccess.open(output,FileAccess.WRITE)
 	assert(file!=null)
 	file.store_string(JSON.stringify(value,"\t")+"\n")
@@ -67,7 +73,8 @@ func run() -> void:
 	var profile := ""
 	var course_ids := ""
 	for argument: String in OS.get_cmdline_user_args():
-		if argument.begins_with("--report="): output = argument.trim_prefix("--report=")
+		if argument=="--spatial": record_spatial = true
+		elif argument.begins_with("--report="): output = argument.trim_prefix("--report=")
 		elif argument.begins_with("--seconds="): duration = clampi(int(argument.trim_prefix("--seconds=")),1,3600)
 		elif argument.begins_with("--profile="): profile = argument.trim_prefix("--profile=")
 		elif argument.begins_with("--tracks="): course_ids = argument.trim_prefix("--tracks=")
@@ -93,6 +100,7 @@ func run() -> void:
 	assert(not planned_tracks.is_empty())
 	app.data.profile.first_run_complete = true
 	app.data.apply_preset("medium")
+	if record_spatial: app.data.settings.retro = false
 	app.data.settings.frame_cap = 60
 	app.data.settings.vsync = false
 	SettingsRuntime.apply(app,app.data.settings,false)

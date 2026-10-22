@@ -1,0 +1,48 @@
+{
+  "target": "macos",
+  "host": "Darwin-arm64",
+  "kind": "exported binary headless startup; graphical/device performance not measured",
+  "artifact": "pacific-rush-00121-macos.zip",
+  "artifact_sha256": "3054de69fc4971868bba8bdb0abf289a97a515e225d10931cf26f873a95108d6",
+  "binary_sha256": "814802ad30546d9f12e6f54d296a9fca4ce1868958ae4b64d366e4b6ad0f2e0d",
+  "packaged_build": {
+    "version": "0.0.121-dev",
+    "build_number": 121,
+    "working_tree_dirty": true,
+    "commit": "373c970cc39c5d69022dcb564888365232d93039",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 7,
+    "save_schema": 1,
+    "content_hash": "c1be6354edf13e4c0b5b9a611e01843fa404dcab09ee1c60ed8e73a7e9176c4a",
+    "asset_hash": "86df1f62b2e79fa64b27a4243bfd3f0cd1547e4d8c15c3f5b57c5277eaa488b2",
+    "target_platform": "macos",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "macos",
+      "architecture": "universal",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "bb12ad6297015e90294ce414d08bb057374f822de6cda0c256af51c707ab9799",
+      "sha256": "3f114e0879af03e00644f5f5dd4c50278be5412e11e397a8064e6784e0404a3b"
+    },
+    "iroh_adapter": {
+      "platform": "macos",
+      "targets": [
+        "aarch64-apple-darwin",
+        "x86_64-apple-darwin"
+      ],
+      "source_hash": "3bb322ef757e235e03789582f2105ca6ddced8b0d0bf19d901d33ad5c8b9bf8b",
+      "sha256": "820ad5e57d5fb3b99e50ca020fb712cc847b1ecfc43d8818063ff2e4f726fa9c",
+      "iroh": "1.2.0",
+      "gdext": "0.5.5",
+      "upstream": "153979fc02f86b10802358ae38fb74204fbf179a"
+    }
+  },
+  "passed": true,
+  "platform_probe": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_PLATFORM_READY Keychain\n",
+  "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nPACIFIC_RUSH_DRIVING_READY\nPACIFIC_RUSH_CLIENT_READY\n"
+}

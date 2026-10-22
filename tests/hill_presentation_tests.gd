@@ -25,6 +25,7 @@ func run() -> void:
 		await physics_frame
 		for fps in [30,60,120]:
 			var camera := ChaseCamera.new()
+			camera.mode = 0 # This fixture checks the explicit Near Chase envelope.
 			scene.add_child(camera)
 			camera.current = true
 			var visual := CarVisual.new()

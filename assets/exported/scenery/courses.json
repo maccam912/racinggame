@@ -496,6 +496,1587 @@
       "elevated": true,
       "terrain_margin_m": 1000,
       "space": true
+    },
+    {
+      "id": "glacier_ridge",
+      "ground": "C9DFE8",
+      "sky_top": "A8CFE6",
+      "horizon": "E4EFF1",
+      "sun": "F4F6FF",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -35,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "ice_spires",
+      "landmarks": [
+        {
+          "id": "ice_spires",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "ice_spires",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "gondola",
+          "u": 0.49,
+          "lateral": -72
+        },
+        {
+          "id": "research_base",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "ice_spires",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "polar",
+      "emission": 0,
+      "soil": "998B71",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "57CDE0",
+      "music_family": "pacific_summit"
+    },
+    {
+      "id": "aurora_harbor",
+      "ground": "C9DFE8",
+      "sky_top": "252449",
+      "horizon": "635B8A",
+      "sun": "F4F6FF",
+      "sun_energy": 0.25,
+      "ambient": 0.52,
+      "sun_rotation": [
+        -42,
+        -28,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.08,
+        0.86
+      ],
+      "vegetation": "spruce_snow",
+      "landmarks": [
+        {
+          "id": "cargo_ship",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "cargo_crane",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "radar_station",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "polar_huts",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "research_base",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "polar",
+      "emission": 0.4,
+      "soil": "998B71",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "57CDE0",
+      "music_family": "pacific_summit"
+    },
+    {
+      "id": "alpine_meadow",
+      "ground": "789C66",
+      "sky_top": "A8CFE6",
+      "horizon": "E4EFF1",
+      "sun": "F4F6FF",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -21,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "alpine_fir",
+      "landmarks": [
+        {
+          "id": "chalet",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "alpine_fir",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "wind_turbine",
+          "u": 0.49,
+          "lateral": -72
+        },
+        {
+          "id": "barn_silos",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "gondola",
+          "u": 0.85,
+          "lateral": -72
+        }
+      ],
+      "expansion40": true,
+      "theme": "polar",
+      "emission": 0,
+      "soil": "998B71",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "57CDE0",
+      "music_family": "pacific_summit"
+    },
+    {
+      "id": "frostbite_fjord",
+      "ground": "C9DFE8",
+      "sky_top": "A8CFE6",
+      "horizon": "E4EFF1",
+      "sun": "F4F6FF",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -14,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.08,
+        0.86
+      ],
+      "vegetation": "spruce_snow",
+      "landmarks": [
+        {
+          "id": "ice_spires",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "polar_huts",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "gondola",
+          "u": 0.49,
+          "lateral": -72
+        },
+        {
+          "id": "ice_spires",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "research_base",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "polar",
+      "emission": 0,
+      "soil": "998B71",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "57CDE0",
+      "music_family": "pacific_summit"
+    },
+    {
+      "id": "tundra_pipeline",
+      "ground": "A49475",
+      "sky_top": "A8CFE6",
+      "horizon": "E4EFF1",
+      "sun": "F4F6FF",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -7,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "spruce_snow",
+      "landmarks": [
+        {
+          "id": "pump_station",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "pump_station",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "radar_station",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "research_base",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "pump_station",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "polar",
+      "emission": 0,
+      "soil": "998B71",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "57CDE0",
+      "music_family": "pacific_summit"
+    },
+    {
+      "id": "rainforest_ruins",
+      "ground": "4D8975",
+      "sky_top": "56B7D1",
+      "horizon": "B6E8D7",
+      "sun": "FFF0C0",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        0,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "kapok",
+      "landmarks": [
+        {
+          "id": "jungle_temple",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "stone_face",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "kapok",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "stone_face",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "jungle_temple",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "tropical",
+      "emission": 0,
+      "soil": "8A6848",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F6CF72",
+      "music_family": "redwood_run"
+    },
+    {
+      "id": "monsoon_delta",
+      "ground": "4D8975",
+      "sky_top": "56B7D1",
+      "horizon": "B6E8D7",
+      "sun": "FFF0C0",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        7,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.08,
+        0.86
+      ],
+      "vegetation": "mangrove",
+      "landmarks": [
+        {
+          "id": "stilt_village",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "cargo_ship",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "mangrove",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "pump_station",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "radar_station",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "tropical",
+      "emission": 0,
+      "soil": "8A6848",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F6CF72",
+      "music_family": "redwood_run"
+    },
+    {
+      "id": "coral_causeway",
+      "ground": "4D8975",
+      "sky_top": "56B7D1",
+      "horizon": "B6E8D7",
+      "sun": "FFF0C0",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        14,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.08,
+        0.86
+      ],
+      "vegetation": "oasis_palm",
+      "landmarks": [
+        {
+          "id": "coral_arch",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "island_resort",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "coral_arch",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "island_resort",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "coral_arch",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "tropical",
+      "emission": 0,
+      "soil": "8A6848",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F6CF72",
+      "music_family": "redwood_run"
+    },
+    {
+      "id": "mangrove_maze",
+      "ground": "4D8975",
+      "sky_top": "56B7D1",
+      "horizon": "B6E8D7",
+      "sun": "FFF0C0",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        21,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.08,
+        0.86
+      ],
+      "vegetation": "mangrove",
+      "landmarks": [
+        {
+          "id": "mangrove",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "stilt_village",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "kapok",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "stilt_village",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "stone_face",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "tropical",
+      "emission": 0,
+      "soil": "8A6848",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F6CF72",
+      "music_family": "redwood_run"
+    },
+    {
+      "id": "cloudforest_climb",
+      "ground": "4D8975",
+      "sky_top": "56B7D1",
+      "horizon": "B6E8D7",
+      "sun": "FFF0C0",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        28,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "tree_fern",
+      "landmarks": [
+        {
+          "id": "tree_fern",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "stone_face",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "stilt_village",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "jungle_temple",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "stone_face",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "tropical",
+      "emission": 0,
+      "soil": "8A6848",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F6CF72",
+      "music_family": "redwood_run"
+    },
+    {
+      "id": "sakura_ring",
+      "ground": "759878",
+      "sky_top": "739BC9",
+      "horizon": "EFD6CB",
+      "sun": "FFE1BA",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        35,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "sakura",
+      "landmarks": [
+        {
+          "id": "sakura",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "torii",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "pagoda",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "lantern_market",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "waterwheel_house",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "east_asia",
+      "emission": 0,
+      "soil": "9C795A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F29EB5",
+      "music_family": "marina_lights"
+    },
+    {
+      "id": "bamboo_gorge",
+      "ground": "759878",
+      "sky_top": "739BC9",
+      "horizon": "EFD6CB",
+      "sun": "FFE1BA",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        42,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "bamboo",
+      "landmarks": [
+        {
+          "id": "bamboo",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "torii",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "waterwheel_house",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "waterwheel_house",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "sea_shrine",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "east_asia",
+      "emission": 0,
+      "soil": "9C795A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F29EB5",
+      "music_family": "marina_lights"
+    },
+    {
+      "id": "lantern_market",
+      "ground": "759878",
+      "sky_top": "252449",
+      "horizon": "635B8A",
+      "sun": "FFE1BA",
+      "sun_energy": 0.25,
+      "ambient": 0.52,
+      "sun_rotation": [
+        -42,
+        49,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "sakura",
+      "landmarks": [
+        {
+          "id": "torii",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "lantern_market",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "pagoda",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "lantern_market",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "sea_shrine",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "east_asia",
+      "emission": 0.4,
+      "soil": "9C795A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F29EB5",
+      "music_family": "marina_lights"
+    },
+    {
+      "id": "terrace_touge",
+      "ground": "759878",
+      "sky_top": "739BC9",
+      "horizon": "EFD6CB",
+      "sun": "FFE1BA",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -34,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "bamboo",
+      "landmarks": [
+        {
+          "id": "tea_terrace",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "sea_shrine",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "torii",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "pagoda",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "waterwheel_house",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "east_asia",
+      "emission": 0,
+      "soil": "9C795A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F29EB5",
+      "music_family": "marina_lights"
+    },
+    {
+      "id": "temple_coast",
+      "ground": "759878",
+      "sky_top": "739BC9",
+      "horizon": "EFD6CB",
+      "sun": "FFE1BA",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -27,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.08,
+        0.86
+      ],
+      "vegetation": "sakura",
+      "landmarks": [
+        {
+          "id": "sea_shrine",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "torii",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "cargo_ship",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "sakura",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "torii",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "east_asia",
+      "emission": 0,
+      "soil": "9C795A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "F29EB5",
+      "music_family": "marina_lights"
+    },
+    {
+      "id": "saltflat_velocity",
+      "ground": "E5E5D9",
+      "sky_top": "618BC2",
+      "horizon": "EBC9A1",
+      "sun": "FFE4B5",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -20,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "salt_spires",
+      "landmarks": [
+        {
+          "id": "salt_spires",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "salt_spires",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "pump_station",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "radar_station",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "salt_spires",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "desert",
+      "emission": 0,
+      "soil": "B58456",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "EFAD6B",
+      "music_family": "sunstone_canyon"
+    },
+    {
+      "id": "dune_serpent",
+      "ground": "D2A370",
+      "sky_top": "618BC2",
+      "horizon": "EBC9A1",
+      "sun": "FFE4B5",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -13,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "dune_spires",
+      "landmarks": [
+        {
+          "id": "dune_spires",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "citadel",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "citadel",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "dune_spires",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "oasis_palm",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "desert",
+      "emission": 0,
+      "soil": "B58456",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "EFAD6B",
+      "music_family": "sunstone_canyon"
+    },
+    {
+      "id": "oasis_citadel",
+      "ground": "D2A370",
+      "sky_top": "618BC2",
+      "horizon": "EBC9A1",
+      "sun": "FFE4B5",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -6,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "oasis_palm",
+      "landmarks": [
+        {
+          "id": "citadel",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "oasis_palm",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "citadel",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "waterwheel_house",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "citadel",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "desert",
+      "emission": 0,
+      "soil": "B58456",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "EFAD6B",
+      "music_family": "sunstone_canyon"
+    },
+    {
+      "id": "copper_mesa",
+      "ground": "D2A370",
+      "sky_top": "618BC2",
+      "horizon": "EBC9A1",
+      "sun": "FFE4B5",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        1,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "dune_spires",
+      "landmarks": [
+        {
+          "id": "dune_spires",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "mine_headframe",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "mine_headframe",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "gondola",
+          "u": 0.67,
+          "lateral": 72
+        },
+        {
+          "id": "dune_spires",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "desert",
+      "emission": 0,
+      "soil": "B58456",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "EFAD6B",
+      "music_family": "sunstone_canyon"
+    },
+    {
+      "id": "storm_chase",
+      "ground": "D2A370",
+      "sky_top": "536477",
+      "horizon": "ABB49C",
+      "sun": "FFE4B5",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        8,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "alpine_fir",
+      "landmarks": [
+        {
+          "id": "barn_silos",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "barn_silos",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "wind_turbine",
+          "u": 0.49,
+          "lateral": -72
+        },
+        {
+          "id": "radar_station",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "barn_silos",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "desert",
+      "emission": 0,
+      "soil": "B58456",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "EFAD6B",
+      "music_family": "sunstone_canyon"
+    },
+    {
+      "id": "steelworks_sprint",
+      "ground": "727C86",
+      "sky_top": "50638A",
+      "horizon": "BDC5D7",
+      "sun": "E9D5B5",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        15,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "steel_pylon",
+      "landmarks": [
+        {
+          "id": "furnace",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "cooling_towers",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "cargo_crane",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "steel_pylon",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "furnace",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "industry",
+      "emission": 0,
+      "soil": "8F897A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "43E2DD",
+      "music_family": "citrus_pass"
+    },
+    {
+      "id": "container_corkscrew",
+      "ground": "727C86",
+      "sky_top": "50638A",
+      "horizon": "BDC5D7",
+      "sun": "E9D5B5",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        22,
+        0
+      ],
+      "water": true,
+      "coast_interval": [
+        0.08,
+        0.86
+      ],
+      "vegetation": "containers",
+      "landmarks": [
+        {
+          "id": "containers",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "cargo_crane",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "cargo_ship",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "radar_station",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "dry_dock",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "industry",
+      "emission": 0,
+      "soil": "8F897A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "43E2DD",
+      "music_family": "citrus_pass"
+    },
+    {
+      "id": "neon_underpass",
+      "ground": "727C86",
+      "sky_top": "252449",
+      "horizon": "635B8A",
+      "sun": "E9D5B5",
+      "sun_energy": 0.25,
+      "ambient": 0.52,
+      "sun_rotation": [
+        -42,
+        29,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "neon_gate",
+      "landmarks": [
+        {
+          "id": "neon_gate",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "steel_pylon",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "lantern_market",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "ventilation_station",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "neon_gate",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "industry",
+      "emission": 0.4,
+      "soil": "8F897A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "43E2DD",
+      "music_family": "citrus_pass"
+    },
+    {
+      "id": "windfarm_run",
+      "ground": "727C86",
+      "sky_top": "50638A",
+      "horizon": "BDC5D7",
+      "sun": "E9D5B5",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        36,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "alpine_fir",
+      "landmarks": [
+        {
+          "id": "wind_turbine",
+          "u": 0.13,
+          "lateral": -72
+        },
+        {
+          "id": "steel_pylon",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "radar_station",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "barn_silos",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "steel_pylon",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "industry",
+      "emission": 0,
+      "soil": "8F897A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "43E2DD",
+      "music_family": "citrus_pass"
+    },
+    {
+      "id": "festival_speedway",
+      "ground": "727C86",
+      "sky_top": "252449",
+      "horizon": "635B8A",
+      "sun": "E9D5B5",
+      "sun_energy": 0.25,
+      "ambient": 0.52,
+      "sun_rotation": [
+        -42,
+        43,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "festival_stage",
+      "landmarks": [
+        {
+          "id": "grandstand",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "festival_stage",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "ferris_wheel",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "festival_stage",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "grandstand",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "industry",
+      "emission": 0.4,
+      "soil": "8F897A",
+      "terrain_margin_m": 360,
+      "space": false,
+      "accent": "43E2DD",
+      "music_family": "citrus_pass"
+    },
+    {
+      "id": "lunar_freight",
+      "ground": "8C8B96",
+      "sky_top": "171C3A",
+      "horizon": "967BB4",
+      "sun": "99E4EF",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        50,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "lunar_base",
+      "landmarks": [
+        {
+          "id": "lunar_base",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "space_dish",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "rocket",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "mars_hoodoo",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "lunar_base",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "space",
+      "emission": 0,
+      "soil": "7A5D85",
+      "terrain_margin_m": 360,
+      "space": true,
+      "accent": "B0F67C",
+      "music_family": "marina_lights"
+    },
+    {
+      "id": "orbital_gardens",
+      "ground": "6D5B81",
+      "sky_top": "171C3A",
+      "horizon": "967BB4",
+      "sun": "99E4EF",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -33,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "greenhouse",
+      "landmarks": [
+        {
+          "id": "greenhouse",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "reactor_rings",
+          "u": 0.31,
+          "lateral": 72
+        },
+        {
+          "id": "solar_array",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "greenhouse",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "reactor_rings",
+          "u": 0.85,
+          "lateral": -72
+        }
+      ],
+      "expansion40": true,
+      "theme": "space",
+      "emission": 0,
+      "soil": "7A5D85",
+      "terrain_margin_m": 360,
+      "space": true,
+      "accent": "B0F67C",
+      "music_family": "marina_lights"
+    },
+    {
+      "id": "crystal_chasm",
+      "ground": "6D5B81",
+      "sky_top": "171C3A",
+      "horizon": "967BB4",
+      "sun": "99E4EF",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -26,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "crystal_cluster",
+      "landmarks": [
+        {
+          "id": "crystal_cluster",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "reactor_rings",
+          "u": 0.31,
+          "lateral": 72
+        },
+        {
+          "id": "lunar_base",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "crystal_cluster",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "crystal_cluster",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "space",
+      "emission": 0,
+      "soil": "7A5D85",
+      "terrain_margin_m": 360,
+      "space": true,
+      "accent": "B0F67C",
+      "music_family": "marina_lights"
+    },
+    {
+      "id": "mars_badlands",
+      "ground": "B46149",
+      "sky_top": "171C3A",
+      "horizon": "967BB4",
+      "sun": "99E4EF",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -19,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "mars_hoodoo",
+      "landmarks": [
+        {
+          "id": "mars_hoodoo",
+          "u": 0.13,
+          "lateral": -52
+        },
+        {
+          "id": "lunar_base",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "greenhouse",
+          "u": 0.49,
+          "lateral": -52
+        },
+        {
+          "id": "space_dish",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "mars_hoodoo",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "space",
+      "emission": 0,
+      "soil": "AF6452",
+      "terrain_margin_m": 360,
+      "space": true,
+      "accent": "B0F67C",
+      "music_family": "marina_lights"
+    },
+    {
+      "id": "reactor_rift",
+      "ground": "363E48",
+      "sky_top": "171C3A",
+      "horizon": "75AB88",
+      "sun": "99E4EF",
+      "sun_energy": 0.6,
+      "ambient": 0.42,
+      "sun_rotation": [
+        -42,
+        -12,
+        0
+      ],
+      "water": false,
+      "coast_interval": [],
+      "vegetation": "crystal_cluster",
+      "landmarks": [
+        {
+          "id": "reactor_rings",
+          "u": 0.13,
+          "lateral": -72
+        },
+        {
+          "id": "solar_array",
+          "u": 0.31,
+          "lateral": 52
+        },
+        {
+          "id": "reactor_rings",
+          "u": 0.49,
+          "lateral": -72
+        },
+        {
+          "id": "lunar_base",
+          "u": 0.67,
+          "lateral": 52
+        },
+        {
+          "id": "crystal_cluster",
+          "u": 0.85,
+          "lateral": -52
+        }
+      ],
+      "expansion40": true,
+      "theme": "space",
+      "emission": 0,
+      "soil": "7A5D85",
+      "terrain_margin_m": 360,
+      "space": true,
+      "accent": "B0F67C",
+      "music_family": "marina_lights"
     }
   ]
 }

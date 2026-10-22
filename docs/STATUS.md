@@ -1,5 +1,59 @@
 # Implementation status
 
+## 21 October — forty courses, recorded music and presentation defaults
+
+The roster now contains **40 courses**: the retained ten plus thirty individually
+authored layouts across polar, tropical, East Asian, desert, industrial and space
+settings. [The roster and per-course briefs](COURSE_ROSTER_40.md) describe route
+shape, surface, relief and landmark direction. New content includes thirty
+terrains/postcards, forty map icons, 52 generated illustrated scenery sprites
+from six atlases plus a standalone tree, and ninety open 3D gates. Original image
+pixels and [built-in imagegen prompts](../assets/source/expansion40/generation.json)
+are retained. All forty are available in Quick Race, Trial and online selection;
+Coast Cup retains its established six-event sequence.
+
+Far Chase and Retro are the new-profile defaults; explicit saved choices remain
+respected. The tire scrub uses irregular filtered noise instead of pitched siren
+modulation. Seven human-authored CC0 rock/metal recordings replace procedural
+music, with original recordings, creator-page license evidence, packaged credits
+and reversible normalization/loop-seam authoring. The actual decoded eight-engine
+mix passes at **-2.75 dBFS** true peak: [audio evidence](evidence/expansion40/audio.json).
+
+All **191 local source commands pass**:
+[source gate](evidence/expansion40/source-checks.json). The first run's two failures
+remain [retained](evidence/expansion40/initial-source-checks.json), followed by
+corrected geometry assumptions and focused final checks. **480 eight-car races**
+produce **3,840 finishers and zero recoveries** across three difficulties and four
+reference-car choices; all **160 car/course Gold trials** and **240 camera laps**
+pass. Native evidence covers **160 course views**, **69 sprites from four
+approaches** and **80 selection layouts** that focus course forty. A real ENet/UDP
+race on Reactor Rift, index 39, passes with **50±10 ms one-way delay and 2% loss**.
+See the [evidence guide](evidence/expansion40/README.md) for reports and boundaries.
+
+Summit groups roadside instances into 256 m spatial cells and partitions exact
+road triangles into 640 m chunks. Pavement receives shadows without duplicating
+the complete lap into the shadow atlas. Collision remains unchanged; native
+instance readback preserves every roadside pose. The low-shadow sweep submits
+**80% fewer median primitives** and **14% fewer median draw calls**. An eight-car
+native 1080p race sustains **60 fps**, p95 **17.77 ms**, p99 **18.64 ms**, with no
+frames over 33 ms. Severe reported stalls were not reproduced; the pre-balloon
+band and high-shadow comparison do not establish a consistent uncapped timing
+improvement. The change reduces submitted work; other GPUs and the original
+human driving case remain unverified. [Full comparison](evidence/expansion40/summit-summary.json).
+
+Local **Build 121** exports successfully and passes native-adapter/startup smoke.
+The exported Mac app renders ordinary eight-car races on Sakura Ring, Reactor
+Rift and Summit at 1080p, Far Chase, Retro on; the captures use actual race state
+at tick 1,200. [Package evidence](evidence/expansion40/native-macos.json) and
+[exported gameplay](evidence/expansion40/exported-gameplay/summary.json) retain
+artifact/binary/content/asset hashes. This local package records its pre-commit
+dirty source provenance; remote packages are a separate build.
+
+Content/protocol/save versions are **12/7/1**. Frozen content-11 bytes remain
+preserved, with incompatible record comparison and continuation disabled. New
+courses use the established asphalt/dirt physics. Local verification does not
+establish physical Android or remote CI acceptance.
+
 ## 20 October — remote-car and contact prediction validated locally
 
 Active online drivers now see remote cars estimated on the local input timeline,

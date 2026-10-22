@@ -1097,7 +1097,7 @@ func show_credits() -> void:
 	back_action = show_menu
 	var body := menu.reset(I18n.t("credits.title"))
 	var list := menu.scroll_column(body)
-	for key in ["creator", "software", "fonts", "inspiration", "licenses"]:
+	for key in ["creator", "software", "fonts", "music", "inspiration", "licenses"]:
 		list.add_child(menu.ui.paragraph(I18n.t("credits." + key)))
 	list.add_child(menu.ui.label(build_name()))
 	menu.add_back(show_menu)

@@ -9,6 +9,9 @@ static func noise_at(x: float, z: float, seed: float) -> float:
 
 
 static func build(world: TrackWorld) -> void:
+	if world.art.get("expansion40",false):
+		ExpansionCourseArt.landscape(world)
+		return
 	var low := Vector2(INF,INF)
 	var high := Vector2(-INF,-INF)
 	for cell: Vector2i in world.terrain_grid:

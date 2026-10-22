@@ -14,7 +14,7 @@ jobs:
 
   verify:
     runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
         with:
@@ -43,6 +43,9 @@ jobs:
             reports/m5-packet-faults.json
             reports/m6-trial-gold.json
             reports/m6-course-cameras.json
+            reports/course_camera_acceptance-*.json
+            reports/trial_medal_acceptance-*.json
+            reports/expansion40-worlds.json
             reports/car-lamp-attachment.json
             reports/worker-retirement-*/
           if-no-files-found: error
@@ -54,7 +57,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        track: [palm_bay, citrus_pass, marina_lights, redwood_run, sunstone_canyon, pacific_summit, skyline_splice, quarry_switchback, spillway_sprint, caldera_crosscut]
+        track: [palm_bay, citrus_pass, marina_lights, redwood_run, sunstone_canyon, pacific_summit, skyline_splice, quarry_switchback, spillway_sprint, caldera_crosscut, glacier_ridge, aurora_harbor, alpine_meadow, frostbite_fjord, tundra_pipeline, rainforest_ruins, monsoon_delta, coral_causeway, mangrove_maze, cloudforest_climb, sakura_ring, bamboo_gorge, lantern_market, terrace_touge, temple_coast, saltflat_velocity, dune_serpent, oasis_citadel, copper_mesa, storm_chase, steelworks_sprint, container_corkscrew, neon_underpass, windfarm_run, festival_speedway, lunar_freight, orbital_gardens, crystal_chasm, mars_badlands, reactor_rift]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -95,7 +98,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        scenario: [race-reconnect, race-expiry, contacts, degraded, skyline, quarry, bonus-field, new-courses]
+        scenario: [race-reconnect, race-expiry, contacts, degraded, skyline, quarry, bonus-field, new-courses, expansion]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -134,6 +137,9 @@ jobs:
       - name: Eight clients retain late snapshots and clear-road coverage through Spillway and Caldera
         if: matrix.scenario == 'new-courses'
         run: python tools/soak_acceptance.py --port 27510 --races 2 --laps 2 --seconds 840 --minimum-seconds 0 --tracks spillway_sprint,caldera_crosscut
+      - name: Final catalog index through a full expansion race under real UDP faults
+        if: matrix.scenario == 'expansion'
+        run: python tools/network_integration.py --track reactor_rift --laps 1 --seconds 210 --latency 50 --jitter 10 --loss .02
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -146,7 +152,7 @@ jobs:
   render:
     needs: verify
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 45
     defaults:
       run:
         shell: bash
@@ -188,7 +194,7 @@ jobs:
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: xvfb-run -a python tools/godot.py --audio-driver Dummy --max-fps 60 --script tests/results_visibility_tests.gd -- --profile=ci_tests 2>&1 | tee reports/results-visibility.log
-      - name: Render all original scenery silhouettes and 40 course references
+      - name: Render all original scenery silhouettes and 160 course references
         env:
           LIBGL_ALWAYS_SOFTWARE: '1'
         run: |

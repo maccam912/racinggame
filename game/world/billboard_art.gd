@@ -18,6 +18,8 @@ static func load_catalog() -> void:
 	if not rows.is_empty(): return
 	var value: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/exported/billboards/catalog.json"))
 	for row: Dictionary in value.assets: rows[row.id] = row
+	var expansion: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://assets/exported/billboards/expansion40/catalog.json"))
+	for row: Dictionary in expansion.assets: rows[row.id] = row
 
 static func supports(id: String) -> bool:
 	load_catalog()

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Render the actual baked routes and elevation profiles as a reviewable SVG."""
 import json
+import math
 from html import escape
 from pathlib import Path
 
@@ -8,10 +9,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
-    parts = ['<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100">',
-             '<rect width="1600" height="1100" fill="#101525"/>',
+    tracks = json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']
+    height = 110+math.ceil(len(tracks)/5)*500
+    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="{height}" viewBox="0 0 1600 {height}">',
+             f'<rect width="1600" height="{height}" fill="#101525"/>',
              '<g font-family="sans-serif" fill="#f6eedb">',
-             '<text x="30" y="38" font-size="25" font-weight="bold">PACIFIC RUSH — TEN DIFFERENT DRIVES</text>',
+             f'<text x="30" y="38" font-size="25" font-weight="bold">PACIFIC RUSH — {len(tracks)} DIFFERENT DRIVES</text>',
              '<text x="30" y="65" font-size="14" fill="#bac9dd">Actual baked centerlines • each card scaled to fit • yellow dots are launch ramps • elevation strip below each route</text>']
     tracks = json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']
     metrics = []

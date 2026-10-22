@@ -7,9 +7,15 @@ func run() -> void:
 	root.size = Vector2i(1280,720)
 	var cases: Array[Dictionary] = []
 	var failures: Array[Dictionary] = []
+	var selected := ""
+	var output := "res://reports/m6-course-cameras.json"
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--track="): selected = argument.trim_prefix("--track=")
+		elif argument.begins_with("--report="): output = argument.trim_prefix("--report=")
 	var sphere := SphereShape3D.new()
 	sphere.radius = .23 # 2 cm tolerance inside the production 25 cm cast sphere.
 	for track: TrackDefinition in Catalog.tracks:
+		if not selected.is_empty() and track.id!=selected: continue
 		var scene := Node3D.new()
 		root.add_child(scene)
 		var world := TrackWorld.new()
@@ -85,11 +91,12 @@ func run() -> void:
 		scene.queue_free()
 		await process_frame
 	var passed := cases.all(func(row: Dictionary) -> bool: return row.passed)
-	var file := FileAccess.open("res://reports/m6-course-cameras.json",FileAccess.WRITE)
+	assert(cases.size()==(Catalog.tracks.size() if selected.is_empty() else 1))
+	var file := FileAccess.open(output,FileAccess.WRITE)
 	assert(file!=null)
 	file.store_string(JSON.stringify({"passed":passed,"content_hash":Compatibility.content_hash(),"cases":cases,"failures":failures,
 		"boundary":"Six real standing-start Needle laps, ordinary Medium inputs, full static world/camera bounds and actual exported cosmetic terrain triangles. All three cameras with alternating four-second look-back phases, 60 Hz updates and 10 Hz clearance samples. No synthetic vehicle poses or saved records. Numeric camera/static-clearance coverage; not human preference, rendered occlusion, every off-road pose or live frame timing."},"\t")+"\n")
 	file.close()
-	if passed: print("ALL_TEN_FAST_COURSES_NEAR_FAR_HOOD_LOOKBACK_STATIC_TERRAIN_CLEAR_PASS")
+	if passed: print("SELECTED_COURSES_NEAR_FAR_HOOD_LOOKBACK_STATIC_TERRAIN_CLEAR_PASS")
 	else: print("TEST FAIL: course-camera clearance; inspect raw report")
 	quit(0 if passed else 1)

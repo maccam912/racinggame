@@ -4,6 +4,13 @@ func run() -> void:
 	assert(SettingsCatalog.sanitize(42,false)==SettingsCatalog.defaults(false))
 	assert(SettingsCatalog.sanitize(null,true)==SettingsCatalog.defaults(true))
 	var values := SettingsCatalog.defaults(false)
+	assert(values.retro and values.camera=="far","new desktop profiles use Retro and Far Chase")
+	var mobile := SettingsCatalog.defaults(true)
+	assert(mobile.retro and mobile.camera=="far","new mobile profiles use Retro and Far Chase")
+	var default_camera := ChaseCamera.new()
+	assert(default_camera.mode==1)
+	default_camera.free()
+	values.retro = false
 	assert(WorldPresentation.render_size(Vector2i(1920,1080),values)==Vector2i(1920,1080))
 	values.render_scale = 70
 	assert(WorldPresentation.render_size(Vector2i(1920,1080),values)==Vector2i(1344,756))
@@ -11,6 +18,7 @@ func run() -> void:
 	values.retro = true
 	assert(WorldPresentation.render_size(Vector2i(3440,1440),values)==Vector2i(640,360))
 	var fullscreen := SettingsCatalog.defaults(false)
+	fullscreen.retro = false
 	fullscreen.resolution = "1280x720"
 	fullscreen.render_scale = 80
 	assert(WorldPresentation.render_size(Vector2i(3440,1440),fullscreen)==Vector2i(1024,576),"fullscreen world resolution precedes render scale while HUD stays native")

@@ -16,6 +16,9 @@ const SPECS: Dictionary = {
 
 
 static func build(world: TrackWorld) -> void:
+	if world.art.get("expansion40",false):
+		ExpansionCourseArt.structures(world)
+		return
 	var spec: Dictionary = SPECS[world.track.id]
 	var center := CourseArt.original_s(world.track,float(spec.u))
 	for index in range(int(spec.count)):

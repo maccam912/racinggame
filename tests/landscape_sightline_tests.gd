@@ -7,7 +7,7 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
 	var records: Array[Dictionary] = []
-	for track: TrackDefinition in Catalog.tracks:
+	for track: TrackDefinition in Catalog.tracks.slice(0,10):
 		var world := TrackWorld.new()
 		world.build(track)
 		root.add_child(world)

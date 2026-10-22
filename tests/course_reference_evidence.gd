@@ -7,6 +7,7 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
 	root.size = Vector2i(1920,1080)
+	DisplayServer.window_move_to_foreground()
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	root.msaa_3d = Viewport.MSAA_4X
 	root.anisotropic_filtering_level = Viewport.ANISOTROPY_4X
@@ -24,6 +25,7 @@ func run() -> void:
 	if draw_distance!=700: prefix += "-distance"+str(int(draw_distance))
 	for track: TrackDefinition in Catalog.tracks:
 		if not selected.is_empty() and not track.id in selected.split(","): continue
+		print("COURSE_REFERENCE_BEGIN ",track.id)
 		var world := TrackWorld.new()
 		world.build(track)
 		root.add_child(world)
@@ -47,7 +49,7 @@ func run() -> void:
 		for light: DirectionalLight3D in world.find_children("*","DirectionalLight3D",true,false):
 			light.shadow_enabled = true
 			light.directional_shadow_max_distance = 80
-		var anchors: Array = [float(CourseSetPieces.SPECS[track.id].u)-.02] if structures else [.10,.35,.60,.85]
+		var anchors: Array = [float(CourseSetPieces.SPECS[track.id].u)-.02 if CourseSetPieces.SPECS.has(track.id) else .19] if structures else [.10,.35,.60,.85]
 		if decorations: anchors = [.22,.72] if track.id in ["redwood_run","pacific_summit","quarry_switchback"] else [.12,.35]
 		for u: float in anchors:
 			var s := CourseArt.original_s(track,u)
@@ -65,7 +67,7 @@ func run() -> void:
 			assert(root.get_texture().get_image().save_png(output+"/"+filename)==OK)
 			records.append({"track":track.id,"u":u,"s":s,"image":filename,"sha256":FileAccess.get_sha256(output+"/"+filename),"route_hash":track.content_hash})
 		if "--write-thumbnails" in OS.get_cmdline_user_args():
-			var anchor: Dictionary = CourseArt.spec(track.id).landmarks[[1,3,1,1,1,1,0,2,0,2][Catalog.tracks.find(track)]]
+			var anchor: Dictionary = CourseArt.spec(track.id).landmarks[[1,3,1,1,1,1,0,2,0,2][Catalog.tracks.find(track)] if Catalog.tracks.find(track)<10 else 0]
 			var s := CourseArt.original_s(track,float(anchor.u))-75
 			var pose := track.pose(s)
 			var state := VehicleState.new()
@@ -80,11 +82,12 @@ func run() -> void:
 			DirAccess.make_dir_recursive_absolute("res://assets/exported/thumbnails")
 			root.get_texture().get_image().save_png("res://assets/exported/thumbnails/"+track.id+".png")
 			root.size = Vector2i(1920,1080)
+		print("COURSE_REFERENCE_COMPLETE ",track.id)
 		query = null
 		world.queue_free()
 		for frame in range(8): await process_frame
 	var file := FileAccess.open(output+"/"+prefix+"-references.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"resolution":[1920,1080],"camera":"Near Chase","fov":65,"hud":false,"preset":"Medium: 100%%, 4x MSAA, Low shadows 80 m, %d m scenery, 4x anisotropic"%int(draw_distance),"exposure":"Authored fixed course lighting; brightness/exposure 1.0","content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"renderer":RenderingServer.get_current_rendering_method(),"physical_device":false,"records":records},"\t")+"\n")
+	file.store_string(JSON.stringify({"resolution":[1920,1080],"camera":"Far Chase","fov":65,"hud":false,"preset":"Medium: 100%%, 4x MSAA, Low shadows 80 m, %d m scenery, 4x anisotropic"%int(draw_distance),"exposure":"Authored fixed course lighting; brightness/exposure 1.0","content_hash":Compatibility.content_hash(),"asset_hash":JSON.parse_string(FileAccess.get_file_as_string("res://assets/checksums.json")).asset_hash,"renderer":RenderingServer.get_current_rendering_method(),"physical_device":false,"records":records},"\t")+"\n")
 	file.close()
-	print("TEN_COURSE_NATIVE_REFERENCE_VIEWS_PASS count=",records.size())
+	print("COURSE_NATIVE_REFERENCE_VIEWS_PASS count=",records.size())
 	quit()

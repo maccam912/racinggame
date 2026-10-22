@@ -33,6 +33,7 @@ static func poster_material(id: String) -> StandardMaterial3D:
 
 static func plan(world: TrackWorld) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
+	if world.art.get("expansion40",false): return result
 	for index in range(3):
 		var s := CourseArt.original_s(world.track,[.105,.405,.805][index])
 		var edge := float(world.track.bake.samples[world.track.sample_index(s)][8])*.5

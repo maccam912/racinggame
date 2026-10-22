@@ -7,6 +7,7 @@ var materials: Dictionary = {}
 var build_stage: int = 0
 var scenery_cursor: int = 0
 var pending_geometry: Dictionary = {}
+var scenery_batches: Dictionary = {}
 var art: Dictionary = {}
 var landmark_cursor: int = 0
 var start_lamps: Array[MeshInstance3D] = []
@@ -43,6 +44,7 @@ func begin_build(data: TrackDefinition) -> void:
 	build_stage = 0
 	scenery_cursor = 0
 	landmark_cursor = 0
+	scenery_batches.clear()
 
 
 func build_steps() -> int:
@@ -62,6 +64,9 @@ func advance_build() -> bool:
 				place_landmark(art.landmarks[landmark_cursor])
 				landmark_cursor += 1
 			else:
+				for bucket: Dictionary in scenery_batches.values():
+					CourseArt.batch(bucket.id,bucket.poses,self,float(art.get("emission",0)))
+				scenery_batches.clear()
 				CourseLandscape.build(self)
 				gantry()
 				build_direction_signs()
@@ -89,6 +94,15 @@ func build_environment() -> void:
 			var orbital := ShaderMaterial.new()
 			orbital.shader = load("res://assets/exported/shaders/orbital_sky.gdshader")
 			shared_sky.sky_material = orbital
+		elif art.get("expansion40",false):
+			var themed := ShaderMaterial.new()
+			themed.shader = load("res://assets/exported/shaders/expansion_sky.gdshader")
+			themed.set_shader_parameter("sky_top",Color.html(art.sky_top))
+			themed.set_shader_parameter("horizon",Color.html(art.horizon))
+			themed.set_shader_parameter("night",float(art.emission)>0)
+			themed.set_shader_parameter("aurora",track.id=="aurora_harbor")
+			themed.set_shader_parameter("storm",track.id in ["storm_chase","monsoon_delta"])
+			shared_sky.sky_material = themed
 		else:
 			var sky_material := ShaderMaterial.new()
 			sky_material.shader = load("res://assets/exported/shaders/painted_sky.gdshader")
@@ -98,6 +112,10 @@ func build_environment() -> void:
 			sky_material.set_shader_parameter("tint",tint)
 			shared_sky.sky_material = sky_material
 		skies[track.id] = shared_sky
+		# Forty courses must not retain forty radiance cubemaps indefinitely.
+		# Active environments own their Sky, so evicting an old cache entry
+		# cannot retire resources still used by a race or loading preview.
+		while skies.size()>6: skies.erase(skies.keys()[0])
 	settings.sky = skies[track.id]
 	settings.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	settings.ambient_light_color = Color.html(art.horizon)
@@ -149,6 +167,10 @@ func build_road() -> void:
 				mat.emission_enabled = true
 				mat.emission = Color("36C6DF")
 			instance.material_override = mat
+		# Pavement/paint receive scenery shadows but do not need to cast an
+		# entire duplicate road into the sun atlas. Elevated decks cast below.
+		instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		CourseRoadMesh.partition(instance)
 		add_child(instance)
 	var shoulders := CourseRoadMesh.shoulders(track)
 	for surface: String in shoulders:
@@ -157,17 +179,21 @@ func build_road() -> void:
 		instance.mesh = shoulders[surface]
 		var color := Color("646B75") if surface=="asphalt" else Color("D8BD83") if surface=="sand" and track.definition.surface!="sand" else Color(art.ground)
 		instance.material_override = paving_material(true) if surface=="asphalt" else material(color)
+		instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		CourseRoadMesh.partition(instance)
 		add_child(instance)
 	var barrier := MeshInstance3D.new()
 	barrier.name = "RoadsideBarriers"
 	barrier.mesh = CourseRoadMesh.barriers(track,art)
 	barrier.material_override = material(Color.html("F3E4C4"))
+	CourseRoadMesh.partition(barrier)
 	add_child(barrier)
 	if art.get("elevated",false):
 		var deck := MeshInstance3D.new()
 		deck.name = "ElevatedDeck"
 		deck.mesh = CourseRoadMesh.elevated_deck(track)
 		deck.material_override = material(Color("677C8A"))
+		CourseRoadMesh.partition(deck)
 		add_child(deck)
 
 
@@ -245,6 +271,9 @@ func verge_height(s: float, lateral: float, point: Vector3) -> float:
 
 
 func build_scenery_batch(first: int, last: int) -> void:
+	if art.get("expansion40",false):
+		ExpansionCourseArt.build_batch(self,first,last)
+		return
 	if art.get("space",false): return
 	var batches: Dictionary = {}
 	var species: String = art.vegetation
@@ -294,7 +323,16 @@ func build_scenery_batch(first: int, last: int) -> void:
 		var retained: Array[Transform3D] = []
 		for pose: Transform3D in batches[id]:
 			if decoration_allowed(pose.origin): retained.append(pose)
-		CourseArt.batch(id,retained,self,float(art.get("emission",0)))
+		if track.id=="pacific_summit":
+			# Route-distance batches overlap heavily in views into the infield.
+			# Keep every pose, but submit each species once per spatial cell.
+			for pose: Transform3D in retained:
+				var cell := Vector2i(floori(pose.origin.x/256),floori(pose.origin.z/256))
+				var key := id+str(cell)
+				if not scenery_batches.has(key): scenery_batches[key] = {"id":id,"poses":[] as Array[Transform3D]}
+				scenery_batches[key].poses.append(pose)
+		else:
+			CourseArt.batch(id,retained,self,float(art.get("emission",0)))
 
 
 func decoration_allowed(at: Vector3) -> bool:
@@ -316,10 +354,20 @@ func place_landmark(description: Dictionary) -> void:
 	var s := CourseArt.original_s(track,float(description.u))
 	var lateral := float(description.lateral)
 	var pose := scenery_pose(s,lateral) if art.get("elevated",false) else ground_pose(s,lateral)
+	if art.get("expansion40",false):
+		var radius: float = float(BillboardArt.rows[description.id].size_m[0])*.55
+		for offset: float in [lateral,-lateral,lateral*1.5,-lateral*1.5,lateral*2.2,-lateral*2.2]:
+			var candidate := scenery_pose(s,offset)
+			if clear_of_road(candidate.origin,radius+3):
+				pose = candidate
+				lateral = offset
+				break
+		assert(clear_of_road(pose.origin,radius+3),"new landmark must clear every road branch")
 	if description.get("align", "roadside")=="roadside": pose.basis = pose.basis.rotated(Vector3.UP,-signf(lateral)*PI/2)
 	pose.origin.y += float(description.get("height_offset",0))
 	result.transform = pose
 	if description.id in ["timber_bridge","viaduct"]: RouteLandmark.conform(result,track,s,pose)
+	if art.get("expansion40",false): result.name += "_"+str(roundi(float(description.u)*100))
 	result.set_meta("anchor_u",description.u)
 	result.set_meta("anchor_s",s)
 	result.set_meta("anchor_lateral",lateral)
