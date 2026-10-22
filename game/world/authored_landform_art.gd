@@ -6,6 +6,7 @@ static func emit(tool: SurfaceTool, kind: String, variant: int) -> void:
 	var basalt := kind=="basalt_crag"
 	var martian := kind=="martian_butte"
 	var moon := kind=="crater_outcrop"
+	var limestone := kind=="limestone_bluff"
 	var width := (38.0+variant*5) if terraces else (30.0+variant*4)
 	var depth := (27.0+variant*3) if terraces else (23.0+variant*3)
 	var height := (32.0 if moon else 65.0 if basalt else 46.0)+variant*13
@@ -14,6 +15,8 @@ static func emit(tool: SurfaceTool, kind: String, variant: int) -> void:
 		rings.assign([Vector2(1,-64),Vector2(1,-40),Vector2(.93,-40),Vector2(.93,-24),Vector2(.84,-24),Vector2(.84,-10),Vector2(.75,-10),Vector2(.75,0),Vector2(.65,0),Vector2(.65,7),Vector2(.50,7),Vector2(.50,14),Vector2(.35,14),Vector2(.35,21)])
 	elif basalt:
 		rings.assign([Vector2(1,-64),Vector2(1,0),Vector2(.95,height*.42),Vector2(.67,height*.75),Vector2(.38,height)])
+	elif limestone:
+		rings.assign([Vector2(1,-64),Vector2(1,0),Vector2(.90,height*.14),Vector2(.72,height*.48),Vector2(.65,height*.80),Vector2(.38,height)])
 	elif moon:
 		rings.assign([Vector2(1,-64),Vector2(1,0),Vector2(.80,height*.28),Vector2(.57,height*.68),Vector2(.18,height)])
 	else:
@@ -35,6 +38,7 @@ static func emit(tool: SurfaceTool, kind: String, variant: int) -> void:
 		var inside := Vector3(0,rings[ring].y-1 if level else (rings[ring].y+rings[ring+1].y)*.5,0)
 		var color: Color
 		if terraces: color = Color("839D48").lerp(Color("B3BD61"),(ring%4)*.19) if level else Color("B8A46D")
+		elif limestone: color = [Color("C7C2A9"),Color("DFD7BD"),Color("B7B5A0"),Color("EEE5CE")][ring%4]
 		elif basalt: color = [Color("394B52"),Color("465B60"),Color("53696B"),Color("3B515B")][ring%4]
 		elif moon: color = [Color("777F89"),Color("9299A2"),Color("687783"),Color("A4A8AD")][ring%4]
 		elif martian: color = [Color("9C573D"),Color("C87B50"),Color("DE9B6D"),Color("AD6046")][ring%4]
@@ -62,5 +66,5 @@ static func emit(tool: SurfaceTool, kind: String, variant: int) -> void:
 	for side in range(10):
 		var next := (side+1)%10
 		var last := points.size()-1
-		ExpansionWatercraftArt.outward(tool,points[last][side],points[last][next],centers[last]+Vector3.UP*rings[last].y,Vector3(0,rings[last].y-1,0),Color("A5B85B") if terraces else Color("5C7475") if basalt else Color("A9AEB6") if moon else Color("D5A371"))
+		ExpansionWatercraftArt.outward(tool,points[last][side],points[last][next],centers[last]+Vector3.UP*rings[last].y,Vector3(0,rings[last].y-1,0),Color("86A872") if limestone else Color("A5B85B") if terraces else Color("5C7475") if basalt else Color("A9AEB6") if moon else Color("D5A371"))
 		ExpansionWatercraftArt.outward(tool,points[0][side],centers[0]+Vector3.UP*rings[0].y,points[0][next],Vector3(0,rings[0].y+1,0),Color("846846"))

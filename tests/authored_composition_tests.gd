@@ -32,10 +32,10 @@ func run() -> void:
 			assert(world.clear_of_road(site.at,site.radius),"full scenery footprints clear all road branches")
 			if site.has("module"):
 				physical_modules += 1
-				assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","ice_wall","glacial_erratic"] else 16))
+				assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff","ice_wall","glacial_erratic"] else 16))
 		for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
 			if not node.has_meta("module"): continue
-			if node.get_meta("module") in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","ice_wall","glacial_erratic"]: check_natural_foundation(world,node)
+			if node.get_meta("module") in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff","ice_wall","glacial_erratic"]: check_natural_foundation(world,node)
 			var key := node.mesh.get_instance_id()
 			if modules.has(key): continue
 			modules[key] = true
@@ -47,6 +47,7 @@ func run() -> void:
 			assert(node.visibility_range_end==700 and node.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF)
 		if track.id in ["neon_underpass","marina_lights"]: check_city_blocks(world)
 		if track.id=="marina_lights": check_marina(world,landscape)
+		if track.id in ["coral_causeway","monsoon_delta","mangrove_maze"]: check_coastal(world,landscape)
 		if track.id in ["glacier_ridge","frostbite_fjord"]:
 			var ice_walls := 0
 			var erratics := 0
@@ -136,3 +137,47 @@ func check_marina(world: TrackWorld, landscape: Node3D) -> void:
 	for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
 		if not node.has_meta("module"): continue
 		assert(is_equal_approx(float(node.material_override.get_shader_parameter("window_glow")),.7))
+
+func check_coastal(world: TrackWorld, landscape: Node3D) -> void:
+	var kinds: Dictionary = {}
+	var polygons: Array[PackedVector2Array] = []
+	var names: Array[String] = []
+	for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
+		if not node.has_meta("module"): continue
+		var kind: String = node.get_meta("module")
+		kinds[kind] = int(kinds.get(kind,0))+1
+		if kind=="limestone_bluff": continue
+		var bounds := node.mesh.get_aabb()
+		var polygon := PackedVector2Array()
+		for at: Vector3 in [bounds.position,Vector3(bounds.end.x,0,bounds.position.z),bounds.end,Vector3(bounds.position.x,0,bounds.end.z)]:
+			var point := node.global_transform*at
+			polygon.append(Vector2(point.x,point.z))
+		polygons.append(polygon)
+		names.append(str(node.get_parent().name)+"/"+str(node.name))
+	var overlaps: Array[String] = []
+	for a in range(polygons.size()):
+		for b in range(a+1,polygons.size()):
+			for polygon: PackedVector2Array in Geometry2D.intersect_polygons(polygons[a],polygons[b]):
+				var area := 0.0
+				for i in range(polygon.size()): area += polygon[i].cross(polygon[(i+1)%polygon.size()])*.5
+				if absf(area)>.01: overlaps.append(names[a]+" and "+names[b])
+	assert(overlaps.is_empty(),"coastal buildings overlap: "+str(overlaps))
+	if world.track.id=="coral_causeway":
+		assert(int(kinds.get("beach_bungalow",0))>=10 and int(kinds.get("limestone_bluff",0))>=8 and int(kinds.get("boat_shed",0))>=2)
+	else:
+		assert(int(kinds.get("stilt_house",0))>=(10 if world.track.id=="monsoon_delta" else 3))
+		assert(int(kinds.get("fishing_pier",0))>=1 and int(kinds.get("boat_shed",0))>=1)
+	var ocean := 0
+	for node: MeshInstance3D in world.find_children("*","MeshInstance3D",false,false):
+		if not node.mesh is PlaneMesh or node.mesh.size!=Vector2(9000,9000): continue
+		ocean += 1
+		assert(node.material_override.get_shader_parameter("sea_color")==Color.html(world.art.water_color))
+		assert(node.material_override.get_shader_parameter("horizon_color")==Color.html(world.art.water_horizon))
+	assert(ocean==1)
+	var sites: Array = landscape.get_meta("sites")
+	for site: Dictionary in sites:
+		if site.has("module"): continue
+		for building: Dictionary in sites:
+			if not building.has("module"): continue
+			var delta: Vector3 = site.at-building.at
+			assert(Vector2(delta.x,delta.z).length()>=float(site.radius)+float(building.radius),"coastal canopies reserve the solid building and rock footprints")

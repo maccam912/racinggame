@@ -47,11 +47,13 @@ static func mesh(kind: String, variant: int = 0) -> ArrayMesh:
 	var t := ExpansionSetPieces.tool()
 	var color: Color = [Color("D4976D"),Color("8DACA6"),Color("7B8CA6"),Color("B77F92")][posmod(variant,4)]
 	match kind:
+		"beach_bungalow","stilt_house","boat_shed","fishing_pier":
+			CoastalSettlementArt.emit(t,kind,variant)
 		"ice_wall","glacial_erratic":
 			GlacierArt.emit(t,kind,variant)
 		"botanical_court","freight_lander","survey_rover":
 			SpaceSettlementArt.emit(t,kind,variant)
-		"mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop":
+		"mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff":
 			AuthoredLandformArt.emit(t,kind,variant)
 		"festival_tent","festival_stall":
 			ExpansionDistrictDetail.roof(t,color,kind=="festival_tent")

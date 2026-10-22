@@ -29,6 +29,16 @@ unchanged by this city pass. All **209 source commands pass**, with four updated
 legacy expectations rerun under their exact gate commands; the initial report
 and passing rechecks are retained separately.
 
+The coastal pass adds three limestone headlands and four beach settlements at
+Coral, three wooded stilt villages at Monsoon, and a fishing settlement and
+deeper canopy at Mangrove. Their water, sky and ground palettes differ. The
+actual coastal and Marina course photographs have been refreshed after correcting
+road-facing building fronts. All **14 focused source commands pass**, with full
+building and canopy reservations and unchanged terrain/gameplay identity.
+[Coastal native views and timing comparison](evidence/coastal-places14/README.md)
+retain eleven views per coastal course before and after and three eight-car races
+in each timing run.
+
 ## 21 October — forty courses, recorded music and presentation defaults
 
 The roster now contains **40 courses**: the retained ten plus thirty individually

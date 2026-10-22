@@ -159,6 +159,8 @@ func build_environment() -> void:
 		water.position = Vector3(500,float(CourseArt.terrain_info[track.id].sea_level),-200)
 		var surface := ShaderMaterial.new()
 		surface.shader = load("res://assets/exported/shaders/water.gdshader")
+		if art.has("water_color"): surface.set_shader_parameter("sea_color",Color.html(art.water_color))
+		if art.has("water_horizon"): surface.set_shader_parameter("horizon_color",Color.html(art.water_horizon))
 		water.material_override = surface
 		water.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		water.add_to_group("scenery_motion")

@@ -14,7 +14,7 @@ const STYLES := {
 	"glacier_ridge":[1,"7EA8BA"],"aurora_harbor":[1,"8CB9C5"],
 	"alpine_meadow":[0,"A6AC71"],"frostbite_fjord":[1,"6DACC1"],"tundra_pipeline":[0,"78866A"],
 	"rainforest_ruins":[9,"655543"],"monsoon_delta":[9,"827157"],
-	"coral_causeway":[2,"E5D5AC"],"mangrove_maze":[9,"655F43"],"cloudforest_climb":[0,"719C80"],
+	"coral_causeway":[2,"C5BDA6"],"mangrove_maze":[9,"655F43"],"cloudforest_climb":[0,"719C80"],
 	"sakura_ring":[0,"A1A47A"],"bamboo_gorge":[0,"466E62"],"lantern_market":[3,"A48478"],
 	"terrace_touge":[0,"91A865"],"temple_coast":[0,"A8AC7F"],
 	"saltflat_velocity":[4,"AFAD9F"],"dune_serpent":[2,"EBC88B"],"oasis_citadel":[2,"D1BA87"],

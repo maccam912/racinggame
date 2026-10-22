@@ -1398,3 +1398,15 @@ masks limit building emission to the panes. Existing terrain exports, route,
 landmark tunnel collision and gameplay compatibility remain unchanged. Native
 views and isolated eight-car comparison evidence live in
 `docs/evidence/marina-places14`.
+
+Coral Causeway, Monsoon Delta and Mangrove Maze use distinct coastal palettes
+and settlements. Coral has three limestone headlands and four beach-cottage
+groups. Monsoon has three stilt villages, open boat sheds and broad mixed
+riverbank forests beneath an overcast sky. Mangrove adds a fishing settlement
+and deeper root canopy, retaining open water views. Solid pitched roofs,
+verandas, stairs and boats distinguish these modules from city blocks. Full
+building footprints stay disjoint, with canopy reservations; limestone bases
+extend into the unchanged terrain. Main water planes take optional course
+colors. Selected road-facing building fronts, including Marina's, face the
+approach rather than presenting blank backs. Evidence and timing boundaries
+are retained in `docs/evidence/coastal-places14`.
