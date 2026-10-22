@@ -1,0 +1,50 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("run")
+func run() -> void:
+	Catalog.load_all()
+	root.size = Vector2i(1280,720)
+	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
+	root.msaa_3d = Viewport.MSAA_4X
+	DirAccess.make_dir_recursive_absolute("/tmp/pacific-ice14")
+	for id: String in ["glacier_ridge","frostbite_fjord"]:
+		var track: TrackDefinition
+		for candidate: TrackDefinition in Catalog.tracks:
+			if candidate.id==id: track = candidate
+		var world := TrackWorld.new()
+		world.build(track)
+		root.add_child(world)
+		var settings := SettingsCatalog.defaults(false)
+		settings.draw_distance = 700
+		settings.reduce_motion = true
+		SettingsRuntime.apply(world,settings)
+		var landscape := world.get_node("ExpansionLandscape" if world.art.get("expansion40",false) else "LandscapeDistricts")
+		print("AUTHORED_REGIONS ",id," ",JSON.stringify(landscape.get_meta("regions")))
+		print("AUTHORED_SITES ",id," ",landscape.get_meta("sites").size())
+		var camera := ChaseCamera.new()
+		camera.reduce_motion = true
+		camera.dynamic_fov = false
+		camera.base_fov = 65
+		camera.current = true
+		camera.far = 3000
+		world.add_child(camera)
+		var car := CarVisual.new()
+		car.build(Catalog.paints[0],"comet")
+		world.add_child(car)
+		for u: float in [.05,.16,.22,.35,.48,.57,.69,.79,.90]:
+			var s := CourseArt.original_s(track,u)
+			var pose := track.pose(s)
+			var state := VehicleState.new()
+			state.position = RouteGeometry.point(track,track.sample_index(s),0)+Vector3.UP*.35
+			state.yaw = atan2(-pose.basis.z.x,pose.basis.z.z)
+			var query := WorldQuery.new(world.get_world_3d(),track,s)
+			state.ground_normal = query.ground(state).normal
+			car.present(state,InputFrame.make(),.016)
+			camera.initialized = false
+			camera.follow(state,.016)
+			for frame in range(8): await process_frame
+			await RenderingServer.frame_post_draw
+			root.get_texture().get_image().save_png("/tmp/pacific-ice14/"+id+"-"+str(roundi(u*1000))+".png")
+		world.queue_free()
+		for frame in range(8): await process_frame
+	print("AUTHORED_COMPOSITION_NATIVE_PILOT_COMPLETE")
+	quit()

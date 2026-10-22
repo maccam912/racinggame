@@ -1038,9 +1038,9 @@
           "name": "Lower spruce basin",
           "u": 0.045,
           "side": -1,
-          "setback": 95,
-          "along": 260,
-          "depth": 130,
+          "setback": 145,
+          "along": 400,
+          "depth": 230,
           "plants": [
             "spruce_snow",
             "snow_pine"
@@ -1052,23 +1052,39 @@
           "name": "Glacier flank",
           "u": 0.23,
           "side": -1,
-          "setback": 250,
-          "along": 360,
-          "depth": 160,
-          "plants": [
-            "ice_spires",
-            "snow_pine"
-          ],
-          "spacing": 64,
-          "kind": "grove"
+          "setback": 145,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -140,
+              0,
+              1.45
+            ],
+            [
+              "ice_wall",
+              -18,
+              0,
+              2,
+              1.65
+            ],
+            [
+              "ice_wall",
+              10,
+              145,
+              1,
+              1.4
+            ]
+          ]
         },
         {
           "name": "Wind-sheltered pine pocket",
           "u": 0.32,
           "side": 1,
-          "setback": 90,
-          "along": 130,
-          "depth": 70,
+          "setback": 105,
+          "along": 180,
+          "depth": 110,
           "plants": [
             "snow_pine",
             "spruce_snow"
@@ -1080,9 +1096,9 @@
           "name": "Sheltered saddle",
           "u": 0.37,
           "side": 1,
-          "setback": 120,
-          "along": 220,
-          "depth": 100,
+          "setback": 150,
+          "along": 310,
+          "depth": 180,
           "plants": [
             "snow_pine",
             "spruce_snow"
@@ -1094,22 +1110,46 @@
           "name": "High ice amphitheater",
           "u": 0.61,
           "side": -1,
-          "setback": 320,
-          "along": 400,
-          "depth": 180,
-          "plants": [
-            "ice_spires"
-          ],
-          "spacing": 82,
-          "kind": "grove"
+          "setback": 180,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -150,
+              2,
+              1.7
+            ],
+            [
+              "ice_wall",
+              -35,
+              0,
+              3,
+              1.45
+            ],
+            [
+              "ice_wall",
+              -10,
+              155,
+              1,
+              1.6
+            ],
+            [
+              "glacial_erratic",
+              65,
+              50,
+              1,
+              0.2
+            ]
+          ]
         },
         {
           "name": "Treeline descent",
           "u": 0.91,
           "side": 1,
-          "setback": 140,
-          "along": 280,
-          "depth": 150,
+          "setback": 180,
+          "along": 420,
+          "depth": 230,
           "plants": [
             "spruce_snow",
             "alpine_fir"
@@ -1121,13 +1161,59 @@
           "name": "Lower glacial moraine",
           "u": 0.8,
           "side": -1,
-          "setback": 210,
-          "along": 210,
-          "depth": 130,
+          "setback": 155,
+          "kind": "landforms",
+          "modules": [
+            [
+              "glacial_erratic",
+              0,
+              0,
+              2,
+              0.5
+            ],
+            [
+              "glacial_erratic",
+              -60,
+              -70,
+              0,
+              -0.3
+            ],
+            [
+              "glacial_erratic",
+              55,
+              75,
+              1,
+              0.8
+            ],
+            [
+              "glacial_erratic",
+              -35,
+              130,
+              3,
+              -0.6
+            ],
+            [
+              "glacial_erratic",
+              70,
+              -105,
+              0,
+              0.4
+            ]
+          ]
+        },
+        {
+          "name": "South saddle snow forest",
+          "u": 0.49,
+          "side": 1,
+          "setback": 170,
+          "along": 240,
+          "depth": 170,
           "plants": [
-            "ice_spires"
+            "snow_pine",
+            "spruce_snow",
+            "alpine_fir"
           ],
-          "spacing": 83,
+          "spacing": 35,
           "kind": "grove"
         }
       ],
@@ -1182,7 +1268,7 @@
           ]
         }
       ],
-      "preview_u": 0.19
+      "preview_u": 0.22
     },
     {
       "id": "aurora_harbor",
@@ -1730,9 +1816,9 @@
           "name": "Pine shoreline",
           "u": 0.06,
           "side": -1,
-          "setback": 100,
-          "along": 290,
-          "depth": 120,
+          "setback": 160,
+          "along": 410,
+          "depth": 210,
           "plants": [
             "snow_pine",
             "spruce_snow"
@@ -1744,23 +1830,53 @@
           "name": "Outer glacier",
           "u": 0.19,
           "side": -1,
-          "setback": 310,
-          "along": 470,
-          "depth": 200,
-          "plants": [
-            "ice_spires",
-            "snow_pine"
-          ],
-          "spacing": 65,
-          "kind": "grove"
+          "setback": 170,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -210,
+              0,
+              1.65
+            ],
+            [
+              "ice_wall",
+              -20,
+              -70,
+              2,
+              1.55
+            ],
+            [
+              "ice_wall",
+              -10,
+              85,
+              3,
+              1.3
+            ],
+            [
+              "ice_wall",
+              15,
+              250,
+              1,
+              1.6
+            ],
+            [
+              "glacial_erratic",
+              85,
+              20,
+              1,
+              0.4
+            ]
+          ]
         },
         {
           "name": "Inlet promontory",
           "u": 0.4,
           "side": 1,
-          "setback": 170,
-          "along": 280,
-          "depth": 125,
+          "setback": 180,
+          "along": 330,
+          "depth": 185,
           "plants": [
             "spruce_snow",
             "snow_pine"
@@ -1772,22 +1888,39 @@
           "name": "Blue ice wall",
           "u": 0.72,
           "side": -1,
-          "setback": 240,
-          "along": 360,
-          "depth": 170,
-          "plants": [
-            "ice_spires"
-          ],
-          "spacing": 78,
-          "kind": "grove"
+          "setback": 140,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -140,
+              1,
+              1.5
+            ],
+            [
+              "ice_wall",
+              -25,
+              10,
+              2,
+              1.8
+            ],
+            [
+              "ice_wall",
+              10,
+              155,
+              0,
+              1.6
+            ]
+          ]
         },
         {
           "name": "Return spruce bay",
           "u": 0.94,
           "side": -1,
-          "setback": 95,
-          "along": 310,
-          "depth": 135,
+          "setback": 150,
+          "along": 410,
+          "depth": 205,
           "plants": [
             "spruce_snow",
             "snow_pine",
@@ -1795,6 +1928,51 @@
           ],
           "spacing": 31,
           "kind": "grove"
+        },
+        {
+          "name": "Sheltered waterfall approach",
+          "u": 0.54,
+          "side": 1,
+          "setback": 170,
+          "along": 220,
+          "depth": 150,
+          "plants": [
+            "spruce_snow",
+            "snow_pine",
+            "alpine_fir"
+          ],
+          "spacing": 34,
+          "kind": "grove"
+        },
+        {
+          "name": "Fjord upland erratics",
+          "u": 0.84,
+          "side": -1,
+          "setback": 160,
+          "kind": "landforms",
+          "modules": [
+            [
+              "glacial_erratic",
+              0,
+              0,
+              1,
+              0.3
+            ],
+            [
+              "glacial_erratic",
+              -60,
+              -70,
+              3,
+              -0.4
+            ],
+            [
+              "glacial_erratic",
+              50,
+              65,
+              0,
+              0.6
+            ]
+          ]
         }
       ],
       "light_sections": [],
@@ -1839,7 +2017,7 @@
           ]
         }
       ],
-      "preview_u": 0.37
+      "preview_u": 0.16
     },
     {
       "id": "tundra_pipeline",

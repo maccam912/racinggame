@@ -344,8 +344,10 @@ static func conform_bases(world: TrackWorld, parent: Node3D) -> void:
 	parent.set_meta("grounded_base_vertices",grounded)
 
 static func waterworks(solid: SurfaceTool, water: SurfaceTool, kind: String, stone: Color, accent: Color) -> void:
-	var frozen := kind=="frozen_falls"
-	var rock := Color("B7D7E1") if frozen else Color("6B8173")
+	if kind=="frozen_falls":
+		GlacierArt.frozen_falls(solid,water)
+		return
+	var rock := Color("6B8173")
 	CourseDecor.stone(solid,Vector3(0,-10,-12),Vector3(43,82,24),rock,4)
 	for side: float in [-1.0,1.0]:
 		box(solid,Vector3(side*21,27,0),Vector3(11,66,16),stone if kind=="sluice" else rock)
@@ -353,7 +355,7 @@ static func waterworks(solid: SurfaceTool, water: SurfaceTool, kind: String, sto
 	box(solid,Vector3(0,62,-3),Vector3(53,5,18),stone)
 	for band in range(9):
 		var x := -13.5+band*3.0
-		var color := Color("B4E9F0") if frozen else Color("77C3C6")
+		var color := Color("77C3C6")
 		box(water,Vector3(x,31,9),Vector3(2.7,60-(band%3)*2,.5),color.lightened((band%3)*.06))
 	cylinder(water,Vector3(0,1,9),27,27,1,Color("7DBFC5"),24)
 	if kind=="canopy_falls":

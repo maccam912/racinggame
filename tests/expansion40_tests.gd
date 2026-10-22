@@ -45,7 +45,7 @@ func run() -> void:
 		for site: Dictionary in sites:
 			if not site.has("module"):
 				assert(absf(site.at.y-AuthoredCourseScenery.height(world,site.at,site))<.001)
-			else: assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop"] else 16))
+			else: assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","ice_wall","glacial_erratic"] else 16))
 			assert(world.clear_of_road(site.at,site.radius) and world.decoration_allowed(site.at,site.radius))
 			if site.distance>220: far_sites += 1
 			species[site.id] = true

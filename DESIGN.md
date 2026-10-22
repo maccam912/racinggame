@@ -1367,3 +1367,12 @@ band, with planets and rings masking the stars; Mars keeps its dusty atmosphere.
 The refreshed selection photographs and multi-view source evidence live in
 `docs/evidence/space-places14`. These are cosmetic changes; route/collision and
 frozen terrain geometry remain unchanged.
+
+Glacier Ridge and Frostbite Fjord have distinct blue ice faces and squat glacial
+erratics in individually positioned sections, alternating with broader sheltered
+forests and open high ground. Their frozen terrain exports remain exact. The
+Fjord waterfall now emerges from a solid natural headwall, without the sluice's
+rectangular pylons; independent rays verify that its upper ice sheets meet the
+actual cliff. Natural-mesh bases, complete road footprints and hero reservations
+retain their existing checks. See `docs/evidence/ice-places14` for native views
+and the focused validation results.
