@@ -1059,3 +1059,31 @@ Summit groups roadside instances by species in 256 m spatial cells instead of
 inward views submit fewer separate batches. Road chunks span 640 m to balance
 triangle rejection against submission overhead. Native render evidence and its
 limits are recorded in `docs/STATUS.md`.
+
+### Expansion route and landscape revision, 21 October 2026
+
+Content 13 replaces the thirty additions' route geometry while retaining the
+first ten definitions and bakes. Protocol 7 and save schema 1 remain unchanged.
+Content-12 profile, record, ghost, Cup and suspended-race bytes are frozen and
+preserved; incompatible comparison and continuation remain disabled.
+
+Sixteen additions use individually drawn continuous spline curves. The remaining
+street, freight and utility courses use circular corner fillets with individually
+chosen radii and block lengths. Laps range from 3.20 km to 10.58 km; nearly straight
+sections occupy 8–74 percent of a lap, with longest straights from 136 m to 2,688 m.
+The shared minimum 28 m radius, maximum 24 percent grade, separation and standing
+grid requirements still apply. `docs/evidence/course-variety13/` records the
+actual baked layouts and metrics.
+
+Expansion scenery mixes at least three silhouettes per landscape and fills
+groves, districts and infields beyond 220 m from the road. Near scenery uses
+224 m spatial cells, with road clearance, actual terrain grounding, open-water
+exclusion and existing clearings respected. Urban routes have 3D streetlights
+and themed facades; horizon silhouettes persist beyond detail culling. Each
+course has an authored Sky with its own palette and orientation, clouds,
+sun/moon, stars, aurora/storm treatment or a planet and nebula.
+
+Quick Race and Time Trial expose Random Track in the fixed footer. It chooses
+uniformly among all other courses, then updates the focused card, preview,
+description and race configuration. Painted trackside signs use 768×512 runtime
+PNGs, retaining the original 1536×1024 sources and their separate hashes.

@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 """Render the actual baked routes and elevation profiles as a reviewable SVG."""
+import argparse
 import json
 import math
 from html import escape
@@ -9,6 +10,9 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--output',default='docs/evidence/arcade-tracks')
+    args = parser.parse_args()
     tracks = json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']
     height = 110+math.ceil(len(tracks)/5)*500
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="{height}" viewBox="0 0 1600 {height}">',
@@ -46,11 +50,17 @@ def main():
         label = f'{bake["length"]/1000:.2f} km · {track["road_surface"].title()} · {high-low:.0f} m rise/fall'
         parts.append(f'<text x="{x+16}" y="{y+440}" font-size="14">{label}</text>')
         parts.append(f'<text x="{x+16}" y="{y+463}" font-size="13" fill="#bac9dd">{len(track["ramp_markers"])} launches · min radius {bake["validation"]["min_radius"]:.0f} m</text>')
+        longest_straight=run=0.0
+        # Walk twice so a straight split by the start line is measured whole.
+        for row in rows+rows:
+            run=run+2 if abs(row[6])<.001 else 0
+            longest_straight=max(longest_straight,min(run,bake['length']))
         metrics.append({'track':track['id'],'length_m':bake['length'],'surface':track['road_surface'],
                         'elevation_range_m':round(high-low,3),'launches':len(track['ramp_markers']),
+                        'longest_straight_m':round(longest_straight,1),
                         'straight_fraction':round(sum(abs(r[6])<.001 for r in rows)/len(rows),3),**bake['validation']})
     parts.append('</g></svg>')
-    folder = ROOT/'docs/evidence/arcade-tracks'
+    folder = ROOT/args.output
     folder.mkdir(parents=True,exist_ok=True)
     (folder/'layouts.svg').write_text('\n'.join(parts)+'\n')
     (folder/'geometry.json').write_text(json.dumps(metrics,indent=2)+'\n')

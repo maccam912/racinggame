@@ -152,3 +152,16 @@ preserves tempo and arrangement, with a 25 ms circular seam, gain normalization
 and Vorbis encoding. `generate_audio.py --only music` calls that importer.
 Other generator modes preserve the recorded catalog entries. `--only skid`
 rebuilds only the broadband, non-tonal tire-friction loop.
+
+The content-13 revision of `author_expansion40.py` mixes sixteen individually
+drawn flowing splines with fourteen circular-fillet street/utility layouts.
+Regenerate canonical bakes before terrain, SVG course outlines and native
+postcards. `course_specs.json` now includes three-species planting palettes,
+district identities and sky variations. Regenerate only the thirty additions
+with `generate_terrain.py -- --tracks=<comma-separated IDs>` to preserve the
+original ten terrain exports.
+
+`describe_roadside_posters.py` resamples runtime signs to 768×512 with Pillow's
+Lanczos filter and optimized RGB PNG output. The original 1536×1024 source PNGs
+are preserved; the catalog records both hashes and dimensions. The ten runtime
+posters total 7,918,411 bytes, down from 30,986,371 bytes.

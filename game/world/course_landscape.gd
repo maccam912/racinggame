@@ -115,10 +115,22 @@ static func city_block(world: TrackWorld, parent: Node3D, poses: Array[Transform
 		var seed := noise_at(pose.origin.x,pose.origin.z,7)
 		var height := 22+seed*85
 		var color := Color("45657D").lerp(Color("849197"),seed)
+		var district: String = world.art.get("district","")
+		if district in ["harbor","port","works"]:
+			height = 12+seed*38
+			color = Color("596875").lerp(Color("AD7462"),seed)
+		elif district in ["market","citadel","festival"]:
+			height = 8+seed*24
+			color = Color("A3534B").lerp(Color.html(world.art.ground).lightened(.25),seed)
 		# Grid-aligned blocks read as a neighborhood from the elevated road.
 		var base := Transform3D(Basis.IDENTITY,pose.origin)
 		CourseDecor.facade_box(tool,base*Transform3D(Basis.IDENTITY,Vector3(0,height*.5,0)),Vector3(23,height,27),color,pose.origin.y+height,true)
 		CourseDecor.facade_box(tool,base*Transform3D(Basis.IDENTITY,Vector3(0,height+1,0)),Vector3(25,2,29),Color("BECAD0"),pose.origin.y+height,false)
+		if district=="market":
+			for tier in range(3):
+				CourseDecor.facade_box(tool,base*Transform3D(Basis.IDENTITY,Vector3(0,height+2+tier*1.3,0)),Vector3(31-tier*6,1.4,35-tier*6),Color("5D3A54"),pose.origin.y+height,false)
+		elif district=="works":
+			CourseDecor.facade_box(tool,base*Transform3D(Basis.IDENTITY,Vector3(6,height+12,0)),Vector3(5,24,5),Color("AD806D"),pose.origin.y+height,false)
 		for floor_index in range(6,int(height)-3,9):
 			CourseDecor.facade_box(tool,base*Transform3D(Basis.IDENTITY,Vector3(0,floor_index,0)),Vector3(23.15,1.1,27.15),Color("B6C9CD"),pose.origin.y+height,false)
 	var node := MeshInstance3D.new()
@@ -150,9 +162,10 @@ static func horizon(world: TrackWorld) -> void:
 	base_y -= 16
 	var tool := SurfaceTool.new()
 	tool.begin(Mesh.PRIMITIVE_TRIANGLES)
-	var dry := world.track.id in ["sunstone_canyon","quarry_switchback"]
+	var dry: bool = world.track.id in ["sunstone_canyon","quarry_switchback"] or world.art.get("theme","") in ["desert","space"]
 	var coast := world.track.id in ["palm_bay","marina_lights"]
 	var tint := Color("AF8A81") if dry else Color("69898B")
+	if world.art.get("expansion40",false): tint = Color.html(world.art.ground).darkened(.22)
 	tint = tint.lerp(Color.html(world.art.horizon),.30)
 	for index in range(44):
 		# Leave the seaward side open; coastlines retain their broad ocean view.
@@ -162,6 +175,7 @@ static func horizon(world: TrackWorld) -> void:
 		at.y = base_y
 		var seed := noise_at(index,0,11)
 		var height := 100+seed*180+(90 if world.track.id=="pacific_summit" else 0)
+		if world.art.get("theme","")=="polar": height += 110
 		CourseDecor.stone(tool,at+Vector3(0,-height*.12,0),Vector3(220+seed*90,height,180+seed*80),tint,index)
 	var node := MeshInstance3D.new()
 	node.name = "LandscapeHorizon"

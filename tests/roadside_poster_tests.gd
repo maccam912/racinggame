@@ -15,13 +15,13 @@ func run() -> void:
 	var content_before := Compatibility.content_hash()
 	for track: TrackDefinition in Catalog.tracks.slice(0,10):
 		var row: Dictionary = RoadsidePosterArt.rows[track.id]
-		assert(FileAccess.get_sha256("res://"+str(row.source))==row.sha256)
+		assert(FileAccess.get_sha256("res://"+str(row.source))==row.source_sha256)
 		assert(FileAccess.get_sha256("res://"+str(row.path))==row.sha256)
 		var texture: Texture2D = load("res://"+str(row.path))
 		var pixels := texture.get_image()
-		assert(pixels.get_size()==Vector2i(1536,1024) and pixels.has_mipmaps())
-		for y in range(0,1024,32):
-			for x in range(0,1536,32): assert(pixels.get_pixel(x,y).a>.999)
+		assert(pixels.get_size()==Vector2i(768,512) and pixels.has_mipmaps())
+		for y in range(0,512,32):
+			for x in range(0,768,32): assert(pixels.get_pixel(x,y).a>.999)
 		var world := TrackWorld.new()
 		world.build(track)
 		root.add_child(world)

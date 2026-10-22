@@ -46,8 +46,16 @@ func run() -> void:
 					assert(details.position.x>=left-1 and details.end.x<=right+1,"event detail panel escapes safe frame: mobile=%s size=%s scale=%s rect=%s right=%s"%[mobile,size,scale,details,right])
 					var button: Rect2 = app.events.buttons[Catalog.tracks.size()-1].get_global_rect()
 					assert(button.position.x>=left-1 and button.end.x<=right+1,"highest course button must fit horizontally")
+					for footer_button: Button in app.menu.footer.find_children("*","Button",true,false):
+						assert(root.get_visible_rect().encloses(footer_button.get_global_rect()),"Random Track and Start remain usable inside every supported viewport")
 					assert(app.events.track_index==Catalog.tracks.size()-1 and app.events.buttons[Catalog.tracks.size()-1].has_focus())
 					cases.append({"mobile":mobile,"viewport":[size.x,size.y],"ui_scale":scale,"mode":mode,"detail_right":details.end.x,"safe_right":right})
+					if "--capture" in OS.get_cmdline_user_args() and size in [Vector2i(1280,720),Vector2i(960,720)] and scale==150 and mode=="quick":
+						app.menu.footer.get_node("RandomTrack").pressed.emit()
+						for frame in range(8): await process_frame
+						await RenderingServer.frame_post_draw
+						var path := "res://reports/random-track-%s-%dx%d.png"%["mobile" if mobile else "desktop",size.x,size.y]
+						assert(root.get_texture().get_image().save_png(path)==OK)
 	assert(cases.size()==(2 if "--narrow-probe" in OS.get_cmdline_user_args() else 80))
 	app.queue_free()
 	await create_timer(.5).timeout

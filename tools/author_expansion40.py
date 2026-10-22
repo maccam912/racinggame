@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Thirty individually drawn course polygons for the forty-course roster.
+"""Thirty individually drawn routes for the forty-course roster.
 
 See docs/COURSE_ROSTER_40.md. This authors canonical JSON; bake_tracks.py remains
 the only route baker. Existing ten routes and their asset bytes are retained.
@@ -8,7 +8,6 @@ import copy
 import json
 import math
 from pathlib import Path
-from author_arcade_tracks import rounded
 
 ROOT=Path(__file__).resolve().parents[1]
 # ID, theme, surface, width, relief, explicit polygon. Each polygon is authored
@@ -97,6 +96,116 @@ TREES={'glacier_ridge':'ice_spires','aurora_harbor':'spruce_snow','alpine_meadow
  'festival_speedway':'festival_stage','lunar_freight':'lunar_base','orbital_gardens':'greenhouse',
  'crystal_chasm':'crystal_cluster','mars_badlands':'mars_hoodoo','reactor_rift':'crystal_cluster'}
 
+# Flowing routes are sparse spline controls, not rounded polygon vertices. Long
+# arcs, changing radii and linked esses deliberately occupy most of these laps.
+# The collinear first/last controls preserve a flat, readable standing grid.
+FLOW={
+ 'glacier_ridge':[(0,0),(0,-180),(0,-360),(80,-620),(290,-870),(570,-1020),(850,-960),(1020,-770),(960,-550),(740,-400),(820,-180),(1070,10),(1140,250),(980,480),(690,550),(450,410),(230,350),(45,180),(0,65)],
+ 'alpine_meadow':[(0,0),(0,-140),(0,-300),(100,-510),(320,-620),(540,-520),(620,-280),(820,-220),(1000,-390),(1240,-370),(1380,-130),(1260,100),(1020,160),(980,380),(780,570),(520,540),(390,340),(160,300),(0,150),(0,55)],
+ 'rainforest_ruins':[(0,0),(0,-160),(0,-330),(130,-550),(360,-610),(550,-470),(490,-260),(700,-110),(900,-260),(1140,-200),(1230,30),(1080,230),(820,370),(640,590),(390,640),(150,440),(20,210),(0,60)],
+ 'monsoon_delta':[(0,0),(0,-200),(0,-440),(140,-720),(410,-850),(690,-700),(790,-410),(610,-150),(740,100),(1040,170),(1260,20),(1500,170),(1530,470),(1260,720),(940,660),(700,450),(410,490),(130,340),(0,160),(0,60)],
+ 'coral_causeway':[(0,0),(0,-200),(0,-450),(170,-730),(480,-900),(780,-800),(980,-530),(1280,-490),(1540,-660),(1820,-560),(1960,-290),(1840,-40),(1540,100),(1310,310),(1120,600),(820,730),(530,600),(360,350),(140,300),(0,150),(0,55)],
+ 'cloudforest_climb':[(0,0),(0,-200),(0,-450),(160,-730),(460,-870),(750,-710),(790,-440),(600,-230),(760,0),(1080,0),(1320,-170),(1560,0),(1610,300),(1390,540),(1070,560),(830,790),(520,830),(260,620),(70,350),(0,140),(0,55)],
+ 'sakura_ring':[(0,0),(0,-140),(0,-320),(100,-540),(350,-660),(620,-570),(770,-350),(690,-140),(480,-50),(450,140),(650,230),(850,170),(1000,350),(900,570),(650,680),(390,560),(260,350),(65,230),(0,90),(0,45)],
+ 'bamboo_gorge':[(0,0),(0,-160),(0,-340),(120,-580),(360,-700),(580,-560),(530,-340),(740,-190),(940,-350),(1160,-230),(1190,30),(980,190),(800,410),(540,500),(320,370),(130,300),(0,150),(0,55)],
+ 'terrace_touge':[(0,0),(0,-170),(0,-370),(130,-650),(420,-820),(720,-740),(840,-510),(680,-280),(860,-80),(1160,-150),(1340,70),(1250,340),(960,430),(790,650),(520,730),(270,530),(70,310),(0,130),(0,50)],
+ 'temple_coast':[(0,0),(0,-180),(0,-380),(120,-660),(390,-810),(700,-770),(980,-570),(1110,-270),(1060,60),(850,330),(540,450),(330,340),(340,130),(580,30),(650,-180),(480,-350),(260,-270),(180,-40),(140,170),(20,180),(0,60)],
+ 'dune_serpent':[(0,0),(0,-170),(0,-360),(150,-610),(400,-710),(630,-570),(590,-320),(800,-150),(1040,-300),(1290,-140),(1340,140),(1130,390),(830,520),(570,430),(370,260),(140,270),(0,140),(0,55)],
+ 'windfarm_run':[(0,0),(0,-240),(0,-530),(180,-860),(510,-1080),(870,-990),(1130,-730),(1080,-400),(810,-180),(920,100),(1240,260),(1320,580),(1070,860),(730,900),(480,680),(300,400),(80,270),(0,120),(0,55)],
+ 'festival_speedway':[(0,0),(0,-180),(0,-400),(100,-650),(350,-820),(680,-840),(960,-670),(1100,-400),(1030,-140),(800,-30),(590,-100),(460,70),(560,250),(810,300),(940,500),(770,710),(460,760),(200,580),(25,300),(0,130),(0,55)],
+ 'orbital_gardens':[(0,0),(0,-220),(0,-470),(160,-790),(490,-980),(870,-960),(1220,-730),(1390,-390),(1350,-20),(1120,300),(950,550),(1100,800),(950,1050),(650,1100),(400,950),(200,700),(30,400),(0,180),(0,60)],
+ 'crystal_chasm':[(0,0),(0,-170),(0,-360),(130,-620),(390,-770),(650,-620),(600,-350),(850,-200),(1100,-390),(1380,-230),(1470,70),(1280,370),(980,500),(730,740),(420,780),(150,530),(20,260),(0,60)],
+ 'mars_badlands':[(0,0),(0,-220),(0,-480),(180,-800),(510,-970),(820,-800),(1030,-550),(1310,-720),(1600,-580),(1710,-280),(1520,-20),(1250,110),(1410,380),(1240,680),(920,830),(620,640),(330,620),(90,350),(0,140),(0,55)],
+}
+
+# Individual dimensions and corner cuts create genuinely different pacing even
+# on the angular street/utility courses. Cuts are in final metres, not scaled.
+PROFILES={
+ 'glacier_ridge':(1.10,160),'aurora_harbor':(.62,68),'alpine_meadow':(.72,120),
+ 'frostbite_fjord':(.72,105),'tundra_pipeline':(1.05,195),'rainforest_ruins':(.86,120),
+ 'monsoon_delta':(.90,155),'coral_causeway':(1.22,210),'mangrove_maze':(.72,[110]*11+[187]),
+ 'cloudforest_climb':(1.15,160),'sakura_ring':(.75,110),'bamboo_gorge':(.82,100),
+ 'lantern_market':(.53,62),'terrace_touge':(1.00,140),'temple_coast':(1.10,130),
+ 'saltflat_velocity':(1.35,[270,95,170,230,120,210,300,200]),
+ 'dune_serpent':(.95,150),'oasis_citadel':(.76,[115]*7+[207]+[115]*2),'copper_mesa':(.90,95),
+ 'storm_chase':(1.10,[250,140,210,180,100,170,220,260]),
+ 'steelworks_sprint':(.68,[105]*8+[230]+[105]*2),
+ 'container_corkscrew':(.68,140),'neon_underpass':(.64,110),'windfarm_run':(1.12,180),
+ 'festival_speedway':(.80,130),'lunar_freight':(.82,[95]*7+[280]+[95]*2),
+ 'orbital_gardens':(1.10,180),'crystal_chasm':(.90,110),'mars_badlands':(1.17,160),
+ 'reactor_rift':(.88,[220,100,180,140,85,130,160,100,130]),
+}
+
+PLANTINGS={
+ 'glacier_ridge':['ice_spires','spruce_snow','snow_pine'],
+ 'aurora_harbor':['spruce_snow','snow_pine','ice_spires'],
+ 'alpine_meadow':['alpine_fir','autumn_maple','coastal_cypress'],
+ 'frostbite_fjord':['spruce_snow','ice_spires','snow_pine'],
+ 'tundra_pipeline':['shrub','snow_pine','spruce_snow'],
+ 'rainforest_ruins':['kapok','tree_fern','mangrove'],
+ 'monsoon_delta':['mangrove','kapok','coconut_palm'],
+ 'coral_causeway':['oasis_palm','fan_palm','coconut_palm'],
+ 'mangrove_maze':['mangrove','tree_fern','kapok'],
+ 'cloudforest_climb':['tree_fern','kapok','coastal_cypress'],
+ 'sakura_ring':['sakura','bamboo','autumn_maple'],
+ 'bamboo_gorge':['bamboo','coastal_cypress','tree_fern'],
+ 'lantern_market':['sakura','bamboo','coastal_cypress'],
+ 'terrace_touge':['bamboo','coastal_cypress','sakura'],
+ 'temple_coast':['sakura','fan_palm','coastal_cypress'],
+ 'saltflat_velocity':['salt_spires','shrub','hoodoo_cluster'],
+ 'dune_serpent':['dune_spires','flowering_cactus','shrub'],
+ 'oasis_citadel':['oasis_palm','fan_palm','flowering_cactus'],
+ 'copper_mesa':['hoodoo_cluster','dune_spires','flowering_cactus'],
+ 'storm_chase':['shrub','autumn_maple','coastal_cypress'],
+ 'steelworks_sprint':['steel_pylon','containers','pump_station'],
+ 'container_corkscrew':['containers','steel_pylon','dry_dock'],
+ 'neon_underpass':['neon_gate','ventilation_station','steel_pylon'],
+ 'windfarm_run':['shrub','alpine_fir','coastal_cypress'],
+ 'festival_speedway':['fan_palm','festival_stage','grandstand'],
+ 'lunar_freight':['lunar_base','mars_hoodoo','space_dish'],
+ 'orbital_gardens':['greenhouse','crystal_cluster','solar_array'],
+ 'crystal_chasm':['crystal_cluster','mars_hoodoo','ice_spires'],
+ 'mars_badlands':['mars_hoodoo','dune_spires','lunar_base'],
+ 'reactor_rift':['crystal_cluster','solar_array','steel_pylon'],
+}
+DISTRICTS={'aurora_harbor':'harbor','lantern_market':'market','steelworks_sprint':'works',
+ 'container_corkscrew':'port','neon_underpass':'city','festival_speedway':'festival',
+ 'oasis_citadel':'citadel','lunar_freight':'base','orbital_gardens':'habitat','reactor_rift':'reactor'}
+
+
+def street_controls(vertices, cuts, height):
+    """Circular fillets with tangents, including compact city blocks."""
+    cuts=[max(85,c) for c in cuts] if isinstance(cuts,list) else [max(85,cuts)]*len(vertices)
+    points=[]
+    for i,corner in enumerate(vertices):
+        before,after=vertices[i-1],vertices[(i+1)%len(vertices)]
+        incoming=[before[j]-corner[j] for j in range(2)]
+        outgoing=[after[j]-corner[j] for j in range(2)]
+        a,b=math.hypot(*incoming),math.hypot(*outgoing)
+        incoming=[v/a for v in incoming];outgoing=[v/b for v in outgoing]
+        cut=cuts[i]
+        dot=sum(x*y for x,y in zip(incoming,outgoing))
+        if dot<-.999:
+            continue  # A redundant collinear polygon vertex is not a corner.
+        entry=[corner[j]+incoming[j]*cut for j in range(2)]
+        exit=[corner[j]+outgoing[j]*cut for j in range(2)]
+        center=[corner[j]+(incoming[j]+outgoing[j])*cut/(1+dot) for j in range(2)]
+        radius=math.dist(center,entry)
+        lo=math.atan2(entry[1]-center[1],entry[0]-center[0])
+        hi=math.atan2(exit[1]-center[1],exit[0]-center[0])
+        turn=(hi-lo+math.pi)%(2*math.pi)-math.pi
+        steps=max(2,math.ceil(abs(turn)/.9))
+        # One tangent point on each side keeps long straight sections straight.
+        run=min(60,(a-cut-cuts[i-1])*.28,(b-cut-cuts[(i+1)%len(vertices)])*.28)
+        assert run>0, (i,corner,cuts)
+        arc=[[center[0]+math.cos(lo+turn*k/steps)*radius,
+              center[1]+math.sin(lo+turn*k/steps)*radius] for k in range(steps+1)]
+        for x,z in [[entry[j]+incoming[j]*run for j in range(2)],*arc,
+                    [exit[j]+outgoing[j]*run for j in range(2)]]:
+            points.append([round(x,4),round(height(x,z),4),round(z,4)])
+    assert len(points)<=64
+    return points
+
 
 def main():
     path=ROOT/'game/content/tracks.json'
@@ -107,20 +216,22 @@ def main():
     briefs={line.split('`')[1]:line.split('|')[3].strip() for line in (ROOT/'docs/COURSE_ROSTER_40.md').read_text().splitlines() if line.startswith('| ') and '` / ' in line}
     for index,(identifier,theme,surface,width,relief,polygon) in enumerate(ROUTES):
         name=identifier.replace('_',' ').title()
-        if identifier=='steelworks_sprint': polygon=[(x*.94,z*.94) for x,z in polygon]
-        if identifier=='frostbite_fjord': polygon=[(x*.89,z*.89) for x,z in polygon]
+        scale,cuts=PROFILES[identifier]
+        polygon=[(x*scale,z*scale) for x,z in FLOW.get(identifier,polygon)]
         max_x=max(x for x,z in polygon)
         # The initial x=0 straight remains level, keeping an honest legal grid.
         def height(x,z):
-            return 12+relief*math.sin(math.pi*max(0,min(1,x/max_x)))**2
-        cuts={
-            'mangrove_maze':[110]*11+[170],
-            'oasis_citadel':240,
-            'steelworks_sprint':[110]*8+[300]+[110]*2,
-            'container_corkscrew':160,
-            'lunar_freight':[110]*7+[340]+[110]*2,
-        }.get(identifier,110)
-        controls=rounded(polygon,cuts,height)
+            return 12+min(relief,max_x*.052)*math.sin(math.pi*max(0,min(1,x/max_x)))**2
+        controls=([[round(x,4),round(height(x,z),4),round(z,4)] for x,z in polygon]
+                  if identifier in FLOW else street_controls(polygon,cuts,height))
+        if identifier in FLOW:
+            distances=[0.0]
+            for a,b in zip(polygon,polygon[1:]+polygon[:1]):
+                distances.append(distances[-1]+math.dist(a,b))
+            waves=2 if identifier in ['cloudforest_climb','terrace_touge','mars_badlands'] else 1
+            for point,distance in zip(controls,distances):
+                u=max(0,min(1,(distance-350)/(distances[-1]-700)))
+                point[1]=round(12+relief*math.sin(math.pi*u*waves)**2,4)
         track={'id':identifier,'name':name,'display_name_key':'track.'+identifier,
             'ordered_control_points':controls,'width':width,'shoulder':3,'surface':'sand' if theme in ['desert','space'] else 'grass',
             'difficulty':'Hard' if width==14 or relief>=80 else 'Easy' if width==20 and relief<=30 else 'Medium',
@@ -150,6 +261,8 @@ def main():
             'expansion40':True,'theme':theme,'emission':.4 if night else 0,
             'soil':{'polar':'998B71','tropical':'8A6848','east_asia':'9C795A','desert':'B58456','industry':'8F897A','space':'AF6452' if identifier=='mars_badlands' else '7A5D85'}[theme],
             'terrain_margin_m':360,'space':theme=='space',
+            'plantings':PLANTINGS[identifier],'district':DISTRICTS.get(identifier,''),
+            'sky_seed':index*.73,'sky_style':{'polar':0,'tropical':1,'east_asia':2,'desert':3,'industry':4,'space':5}[theme],
             'accent':['57CDE0','F6CF72','F29EB5','EFAD6B','43E2DD','B0F67C'][index//5],
             'music_family':['pacific_summit','redwood_run','marina_lights','sunstone_canyon','citrus_pass','marina_lights'][index//5]}
         art['courses'].append(spec)

@@ -1541,3 +1541,52 @@ Owner-requested **documentation-only** iroh follow-up is recorded in DESIGN §19
 after inspecting `mega-chamomile` (`a3f5f99`) and `iroh-rendezvous`. It identifies
 the existing code-lookup/endpoint flow and a future adapter investigation; no
 multiplayer code or service configuration is changed.
+
+
+### Expansion course variety revision — content 13, 21 October 2026
+
+The thirty additions now have sixteen individually drawn flowing spline routes
+and fourteen street/utility courses with circular corner fillets and individual
+corner/straight dimensions. Laps range from **3.20 to 10.58 km**, nearly straight
+fractions from **8 to 74 percent**, and longest straights from **136 to 2,688 m**.
+All forty bakes retain the 28 m radius, 24 percent grade, separation and legal-grid
+checks. The original ten route definitions, bakes and terrain exports are exact.
+[Layouts and elevation profiles](evidence/course-variety13/layouts.svg).
+
+Expansion landscapes mix three silhouettes and add groves and districts across
+the infields and outer terrain. Each has **254–3,921 landscape instances**,
+including scenery beyond 220 m; spatial billboard submissions remain at most
+**635** per complete world. Cities use real streetlights, harbor warehouses,
+market roofs or chimneys. Permanent horizon silhouettes and a low ground skirt
+close the distant view. Every addition uses its own sky palette/orientation,
+clouds, sun/moon, stars, aurora/storm or planetary backdrop.
+[Native comparisons](evidence/course-variety13/native-landscapes.png).
+
+Quick Race and Time Trial now have Random Track, uniformly selecting another
+course from all forty and updating focus, preview and launch selection. Short
+mobile labels preserve a single footer row at large text sizes.
+[Mobile reference](evidence/course-variety13/random-track-mobile.png).
+Runtime posters are **768×512** optimized PNGs: **30,986,371 → 7,918,411 bytes**,
+a **74.4 percent reduction**. Full-resolution sources remain unchanged, with
+separate source/export hashes. [Rendered sign](evidence/course-variety13/resized-poster-native.png).
+
+The replacement comprehensive local gate passes **192/192 commands**, including
+all four cars' valid Gold standing-start trials and six-camera clearance on all
+forty routes. The first run passed 191/192: three cars on Mangrove Maze finished
+cleanly but missed Gold. Increasing its route dimensions fixed the failure;
+medal targets and tests remain unchanged. Native layout checks pass all **80**
+configurations; native sign checks pass all ten courses/30 frames. All thirty
+landscapes pass depth, species, grounding, road/open-water clearance and batch
+bounds. New postcards and 120 course views were rendered, followed by 28 final
+representative views and eight storm views. Final source/menu/world/asset checks
+also pass after the ground-skirt and mobile footer refinements.
+[Evidence and limits](evidence/course-variety13/validation.json).
+
+Content is **13**, protocol **7**, save schema **1**. The new content-12 fixture
+exactly matches the prior committed catalog/rules/cars/compatibility bytes and
+retains profile, record, ghost, Cup and an actual 600-tick race checkpoint. Opening
+old saves preserves their bytes with incompatible continuation disabled. These
+are local source/render checks; remote CI and Android APK/device evidence remain
+separate. The owner authorizes continued polish/content until weekly usage drops
+below 50 percent remaining, then finishing, committing/pushing the current chunk
+and stopping.

@@ -65,7 +65,10 @@ func advance_build() -> bool:
 				landmark_cursor += 1
 			else:
 				for bucket: Dictionary in scenery_batches.values():
-					CourseArt.batch(bucket.id,bucket.poses,self,float(art.get("emission",0)))
+					if art.get("expansion40",false) and BillboardArt.supports(bucket.id):
+						BillboardArt.batch(bucket.id,bucket.poses,self,float(art.get("emission",0)),false)
+					else:
+						CourseArt.batch(bucket.id,bucket.poses,self,float(art.get("emission",0)))
 				scenery_batches.clear()
 				CourseLandscape.build(self)
 				gantry()
@@ -90,7 +93,7 @@ func build_environment() -> void:
 	settings.background_mode = Environment.BG_SKY
 	if not skies.has(track.id):
 		var shared_sky := Sky.new()
-		if art.get("space",false):
+		if art.get("space",false) and not art.get("expansion40",false):
 			var orbital := ShaderMaterial.new()
 			orbital.shader = load("res://assets/exported/shaders/orbital_sky.gdshader")
 			shared_sky.sky_material = orbital
@@ -102,6 +105,9 @@ func build_environment() -> void:
 			themed.set_shader_parameter("night",float(art.emission)>0)
 			themed.set_shader_parameter("aurora",track.id=="aurora_harbor")
 			themed.set_shader_parameter("storm",track.id in ["storm_chase","monsoon_delta"])
+			themed.set_shader_parameter("space",bool(art.space))
+			themed.set_shader_parameter("sky_seed",float(art.sky_seed))
+			themed.set_shader_parameter("style",int(art.sky_style))
 			shared_sky.sky_material = themed
 		else:
 			var sky_material := ShaderMaterial.new()

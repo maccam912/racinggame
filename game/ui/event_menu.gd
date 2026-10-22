@@ -119,7 +119,11 @@ func show_event() -> void:
 			app.data.set_setting("trial_ghost",value))
 		list.add_child(toggle)
 	shell.add_back(func() -> void: app.show_garage(mode))
-	shell.footer.add_child(shell.ui.button(I18n.t("event.start_trial" if mode == "trial" else "event.start_race"), start))
+	var random_button := shell.ui.button(I18n.t("event.random_short" if app.data.mobile else "event.random_track"),select_random_track)
+	random_button.name = "RandomTrack"
+	shell.ui.help(random_button,I18n.t("event.random_help"))
+	shell.footer.add_child(random_button)
+	shell.footer.add_child(shell.ui.button(I18n.t("button.start" if app.data.mobile else "event.start_trial" if mode == "trial" else "event.start_race"), start))
 	var fit := fit_columns.bind(grid,workspace,list.get_parent())
 	workspace.resized.connect(fit)
 	fit.call_deferred()
@@ -137,6 +141,12 @@ func fit_columns(grid: GridContainer, workspace: HBoxContainer, list_scroll: Men
 	var count := maximum
 	while count>1 and widest*count+gap*(count-1)+reserved>app.menu.safe_frame_width(): count -= 1
 	if grid.columns!=count: grid.columns = count
+
+
+func select_random_track() -> void:
+	if Catalog.tracks.size()<2: return
+	select_track((track_index+randi_range(1,Catalog.tracks.size()-1))%Catalog.tracks.size())
+	buttons[track_index].grab_focus()
 
 
 func select_track(index: int) -> void:

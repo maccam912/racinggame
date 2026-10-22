@@ -20,6 +20,19 @@ func run() -> void:
 		app.events.show_event()
 		await process_frame
 		assert(app.events.buttons.size() == Catalog.tracks.size())
+		var random_button := app.menu.footer.get_node("RandomTrack") as Button
+		assert(random_button!=null and random_button.focus_mode==Control.FOCUS_ALL)
+		var seen := {}
+		seed(4213)
+		for roll in range(240):
+			var previous: int = app.events.track_index
+			random_button.pressed.emit()
+			var selected: int = app.events.track_index
+			assert(selected!=previous and selected>=0 and selected<Catalog.tracks.size())
+			assert(app.events.preview.track==Catalog.tracks[selected])
+			assert(app.events.detail_title.text==I18n.t("track."+Catalog.tracks[selected].id))
+			seen[selected] = true
+		assert(seen.size()==40,"random choice reaches both the classic and expansion roster")
 	for tab in ["display", "graphics", "audio", "controls", "accessibility", "gameplay", "data"]:
 		app.settings_page.show_tab(tab, app.show_menu)
 		await process_frame
