@@ -1659,4 +1659,28 @@ remain unavailable; these phone images are native desktop layout overrides.
 Gameplay/content/protocol/save identities are unchanged. The preceding 3D
 set-piece revision's remote CI
 [39724113106](https://github.com/maccam912/racinggame/actions/runs/39724113106)
-passed; this UI revision's CI is checked separately after push.
+passed. The picker revision's remote CI [39728295727](https://github.com/maccam912/racinggame/actions/runs/39728295727) also passed.
+
+
+### Festival, citadel and night-road lighting
+
+Festival Speedway's broad districts now contain colorful striped open stalls and
+round pavilions instead of office blocks. Oasis Citadel has sandstone facades,
+arched windows, domes, corner towers and crenellations, with grounded foundations
+and a simpler 210–700 m silhouette mesh. Neighborhoods remain local spatial
+batches. [Festival](evidence/district-polish/festival_speedway-neighborhood.png),
+[citadel](evidence/district-polish/oasis_citadel-neighborhood.png).
+
+Aurora Harbor, Lantern Market, Neon Underpass and Festival Speedway have soft,
+static, ground-conforming streetlight pools with different tints. The pools use
+small local meshes, fade between 70 and 115 m and cull at 120 m, including after
+settings changes. They add no dynamic lights, shadows, collision or per-frame
+scene callbacks. [Night road](evidence/district-polish/neon_underpass-lit.png).
+Native lit/unlit comparisons isolate over 9,000 brighter sampled pixels in each
+of the four cities. Seven world cases check geometry, LOD/batch limits, original
+course/daytime exclusions and compatibility. All **195/195** source commands and
+all **40** native loading/GPU/readback/ENet preparation cases pass. A separate
+180-second minimum live native run finishes actual eight-car races on both
+changed districts; [timing, memory and boundaries](evidence/district-polish/live-render.json)
+are reported independently from source/native correctness.
+[Evidence and boundaries](evidence/district-polish/validation.json).

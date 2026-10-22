@@ -109,6 +109,9 @@ static func islets(world: TrackWorld, parent: Node3D, poses: Array[Transform3D],
 
 
 static func city_block(world: TrackWorld, parent: Node3D, poses: Array[Transform3D], key: String) -> void:
+	if world.art.get("district","") in ["festival","citadel"]:
+		ExpansionDistrictDetail.blocks(world,parent,poses,key)
+		return
 	var tool := SurfaceTool.new()
 	tool.begin(Mesh.PRIMITIVE_TRIANGLES)
 	for pose: Transform3D in poses:

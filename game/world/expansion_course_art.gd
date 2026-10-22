@@ -43,6 +43,8 @@ static func build_batch(world: TrackWorld, first: int, last: int) -> void:
 				if world.clear_of_road(pose.origin,1) and world.decoration_allowed(pose.origin):
 					pose.basis = pose.basis.rotated(Vector3.UP,0 if side<0 else PI)
 					lamps.append(pose)
+					if float(world.art.emission)>0:
+						world.lamp_glow_sites.append({"s":float(s),"side":side,"at":pose.origin})
 			if not lamps.is_empty():
 				var key := "lamps:"+str(first/224)
 				if not world.scenery_batches.has(key): world.scenery_batches[key] = {"id":"streetlight","poses":[] as Array[Transform3D]}

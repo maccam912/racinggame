@@ -1,0 +1,38 @@
+{
+	"boundary": "Native macOS rendering of actual worlds and fixed road cameras. Every second pixel; >0.012 mean RGB brightness increase. Other moving scenery frozen with Reduce Motion. Not Android runtime or performance acceptance.",
+	"cases": [
+		{
+			"track": "oasis_citadel"
+		},
+		{
+			"brighter_samples": 9528,
+			"mean_delta": 0.0756797992668443,
+			"route_s": 120.0,
+			"track": "festival_speedway"
+		},
+		{
+			"brighter_samples": 9111,
+			"mean_delta": 0.0766243201945944,
+			"route_s": 120.0,
+			"track": "aurora_harbor"
+		},
+		{
+			"brighter_samples": 9131,
+			"mean_delta": 0.0675239074788022,
+			"route_s": 120.0,
+			"track": "lantern_market"
+		},
+		{
+			"brighter_samples": 9182,
+			"mean_delta": 0.0685616788752398,
+			"route_s": 120.0,
+			"track": "neon_underpass"
+		}
+	],
+	"passed": true,
+	"renderer": "gl_compatibility",
+	"resolution": [
+		1280,
+		720
+	]
+}

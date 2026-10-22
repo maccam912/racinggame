@@ -1123,3 +1123,14 @@ postcards. Focus scrolling exposes the name/facts target. Race configuration and
 trial-ghost controls belong in the selected-track detail panel, not at the end of
 the complete roster. Fixed footer controls, filtered focus and minimum touch rows
 must fit supported phone/tablet/desktop scales, including 884×398 at 150 percent.
+
+
+### Expansion neighborhood and lighting identity
+
+Festival districts use a mix of round pavilions and striped open stalls. The oasis
+uses domed sandstone blocks, arched windows, towers and crenellations, with simpler
+distant silhouettes beyond 210 m. Both use spatial batches and foundations sunk
+to the real terrain. Other districts and the established ten retain their paths.
+Night streetlight pools follow the actual banked road and terrain verge, fade at
+70–115 m and cull at 120 m even when draw distance changes. Their static additive
+meshes add no dynamic lights, collision, shadow maps or per-frame callbacks.

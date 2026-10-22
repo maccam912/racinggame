@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "source_commands": 195,
+  "previous_remote_ci": {
+    "commit": "206a4d38746f84cfecd9b5cc22246f21f0810e7c",
+    "run": 39728295727,
+    "conclusion": "success"
+  },
+  "live_frame_times": {
+    "max_ms": 34.291,
+    "mean_ms": 16.6651981243741,
+    "over_33ms": 5,
+    "p95_ms": 23.936,
+    "p99_ms": 26.661,
+    "samples": 10983
+  },
+  "peak_rss_bytes": 939917312,
+  "content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+  "asset_hash": "4cfa0da9b9ad9eec2963745640ecb17574f675e668dd6f89b8c0360e658f6fa0",
+  "source_sha256": {
+    "game/world/expansion_district_detail.gd": "b5f7e2df2072fcb6021dbc312d4e0534c78d3ff019f1eef9446934ea02b46180",
+    "game/world/streetlight_pools.gd": "25feb401e61b73964415ed5f6d7737211e3182e4ff5b44f12821610ebd85f3ac",
+    "game/world/expansion_course_art.gd": "32a04d23223ae4129aeb374e84f182078e27fcb3deeb18fbde7807b5e99c5e28",
+    "game/world/course_landscape.gd": "01d404c8a915fa244698d71221bdd49c573eb3cb9bc3d0c33917ec166b0ec1ae",
+    "game/world/track_world.gd": "73cbb49f8b4df67b9d60b696cf1db0607e03aa1d1242d77e403e432b2b03620d",
+    "assets/exported/shaders/lamp_pool.gdshader": "c64043e520af8182e0dc36415367c02849726fa494fa8d11eb243f78f11d5206",
+    "tests/district_detail_tests.gd": "73a67dfc1b2a918d279044874c007ad55ae59dabc6fa6ffea4440ebab6fa16a1",
+    "tests/district_detail_evidence.gd": "a34b872ee9d7b2887a77c0b69c9bbc6330bb6dbacd119f3d93916cc344c1f072"
+  },
+  "boundary": "Seven actual-world geometry cases, five native scene captures including four lit/unlit road pairs, all forty native loading/GPU/readback and ENet gates, full source validation. Native macOS Compatibility; not Android runtime, physical hardware or a universal frame-time guarantee. First-ten visual paths and all gameplay identities retained.",
+  "artifacts_sha256": {
+    "aurora_harbor-lit.png": "504097caa1377c3771167d59ce30f67d60d706a2a0196744ce402ad58fdaebd8",
+    "geometry.json": "2fbec9d414db2a078799fd94fba31c7ed7cc8adfef718b9a66c1b8889366a92e",
+    "aurora_harbor-unlit.png": "931136cec146fbc6139ac871fb0e375df02cde6ad10ac49534503277554a07c1",
+    "neon_underpass-lit.png": "b45f1eecb1bef15ca7bf5fdcc2b386e201f5047c0b8e7b274f405ca94c758e35",
+    "lantern_market-unlit.png": "05ea5bef4471d47b7ced9ed73688aa27051cdaaf3f66763bca574924494988b3",
+    "festival_speedway-neighborhood.png": "d0d30d76e0fb00e36087aa2830d7f5af19224b2ee66fe10e0503cc78375bfafb",
+    "native.json": "1af93460431d6106ea2ca2f443eae0d9f5c656d3e4c7f6b97b05eb50987ff1aa",
+    "neon_underpass-unlit.png": "2bbcfa8826577cce9236f33fd0cc90889c34c20d776a582c8a8111d00deca4a6",
+    "live-render.json": "697a55653d54c03d66bf405e9b45291b92f30adb5bd69dc5e2267033c1ed1a27",
+    "warmup.json": "32e2f002be74bd0e858adb9207cc73fd436ebf4d4669e9b049ef2179984a43ac",
+    "lantern_market-lit.png": "1123e35e155520ad87e09664783591316f7ba8ceb952919c02106cc412947b24",
+    "oasis_citadel-neighborhood.png": "a3f2d688278529f78eea83a7ad64cfe4c2aaed570ffae38f003dc62b77f94360",
+    "festival_speedway-unlit.png": "8942b7eaafe3564cede5e31fb371885f9fd5e239a61df08fda80afc1ad2e7ead",
+    "festival_speedway-lit.png": "5c449831153959253f3b63b0e86dd4211fc23a308668e54f387b6bb31edaaeeb"
+  }
+}

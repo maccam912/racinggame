@@ -19,6 +19,7 @@ var scenery_clearings: Array[Dictionary] = []
 var decor_sites: Array[Dictionary] = []
 var spectacle_sites: Array[Dictionary] = []
 var hero_sites: Array[Dictionary] = []
+var lamp_glow_sites: Array[Dictionary] = []
 static var skies: Dictionary = {}
 
 
@@ -46,6 +47,7 @@ func begin_build(data: TrackDefinition) -> void:
 	scenery_cursor = 0
 	landmark_cursor = 0
 	scenery_batches.clear()
+	lamp_glow_sites.clear()
 
 
 func build_steps() -> int:
@@ -71,6 +73,7 @@ func advance_build() -> bool:
 					else:
 						CourseArt.batch(bucket.id,bucket.poses,self,float(art.get("emission",0)))
 				scenery_batches.clear()
+				StreetlightPools.build(self)
 				CourseLandscape.build(self)
 				gantry()
 				build_direction_signs()
