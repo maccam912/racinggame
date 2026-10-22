@@ -10,6 +10,8 @@ from mathutils.kdtree import KDTree
 
 ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'assets/exported/scenery'
+sys.path.insert(0,str(Path(__file__).resolve().parent))
+from terrain_profiles import relief as distant_relief, PROFILES
 
 
 def smooth(a,b,x):
@@ -60,6 +62,7 @@ def main():
                         wave=math.sin(x*.009+z*.006)*.55+math.cos(z*.013-x*.003)*.45
                         height=row[1]-2.8+smooth(62,180,distance)*(8+wave*(21 if spec['id']=='sunstone_canyon' else 12))
                         if spec.get('terrain_mode')=='flat': height=float(spec['terrain_height'])+wave*.6
+                        if spec['id'] in PROFILES: height += distant_relief(spec['id'],x,z,distance)
                         coast=spec['coast_interval']
                         if coast and coast[0]<=row[7]<=coast[1] and signed>24:
                             weight=smooth(24,60,signed)
@@ -80,7 +83,10 @@ def main():
         bpy.ops.object.select_all(action='SELECT')
         path=OUT/(spec['id']+'_terrain.glb')
         bpy.ops.export_scene.gltf(filepath=str(path),export_format='GLB',export_yup=True,export_materials='NONE',export_vertex_color='NAME',export_vertex_color_name='PacificTerrain',export_all_vertex_colors=False)
-        reports.append({'id':spec['id'],'path':path.relative_to(ROOT).as_posix(),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'chunks':len(chunks),'triangles':len(chunks)*50,'chunk_width_m':160,'grid_step_m':32,'sea_level':sea_level,'route_hash':bake['content_hash'],'bounds_xz_m':[low_x,low_z,high_x,high_z]})
+        report={'id':spec['id'],'path':path.relative_to(ROOT).as_posix(),'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'chunks':len(chunks),'triangles':len(chunks)*50,'chunk_width_m':160,'grid_step_m':32,'sea_level':sea_level,'route_hash':bake['content_hash'],'bounds_xz_m':[low_x,low_z,high_x,high_z]}
+        if spec['id'] in PROFILES:
+            report.update(relief_profile=PROFILES[spec['id']][0],protected_road_band_m=240,protected_vertex_band_m=286,relief_source='assets/source/terrain_profiles.py',relief_source_sha256=hashlib.sha256((ROOT/'assets/source/terrain_profiles.py').read_bytes()).hexdigest())
+        reports.append(report)
     (OUT/'terrain.json').write_text(json.dumps({'schema_version':1,'source':'assets/source/generate_terrain.py','license':'MIT','courses':reports},indent=2)+'\n')
     (OUT/'courses.json').write_text(json.dumps(courses,indent=2)+'\n')
     print('PACIFIC_COSMETIC_TERRAIN_EXPORTED',len(reports))

@@ -129,6 +129,7 @@ def main():
     commands = [[sys.executable,'tools/validate_content.py'], [sys.executable,'tools/bake_tracks.py','--check'],
                 [sys.executable,'tools/generate_graphemes.py','--check'],
                 [sys.executable,'tools/content_hash.py','--check'], [sys.executable,'tools/asset_hash.py','--check'],
+                [sys.executable,'tools/terrain_contracts.py'],
                 [sys.executable,'tools/app_icons.py','--check'],
                 [sys.executable,'-m','unittest','discover','-s','tests','-p','test_*.py'],
                 [sys.executable,'tools/godot.py','--headless','--editor','--import','--quit']]

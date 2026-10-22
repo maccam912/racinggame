@@ -1168,3 +1168,15 @@ approaches. The planting exclusion includes wide sprite footprints, not only
 sprite roots. Local small-object batches cull at 180 m even after settings
 changes, with no collision, shadows or per-frame callbacks. The established ten
 retain their existing props and placement paths.
+
+
+### Distant terrain profiles and protected road surface
+
+The thirty additions use fourteen deterministic distant landform families with
+course-specific amplitude, frequency and phase. Relief begins beyond a 286 m
+vertex guard and blends in by 436 m, preserving every triangle intersecting the
+240 m road band. Coastal flattening follows relief so open-water levels remain
+intact. Salt flats, wetlands and cities remain comparatively flat. The original
+ten terrain exports/metadata and every course's chunk/triangle budget remain
+unchanged. Frozen version-13 original vertex hashes and sea runs audit the actual
+GLBs, including the original grid diagonal and absence of duplicate faces.

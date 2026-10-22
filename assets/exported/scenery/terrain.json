@@ -164,7 +164,7 @@
     {
       "id": "glacier_ridge",
       "path": "assets/exported/scenery/glacier_ridge_terrain.glb",
-      "sha256": "fad9aefb99d3b9a71b7609e54f8dc356c5086cf9b4ee5e69a8e5cde0db300950",
+      "sha256": "ac473ae39f2f0775e35b1fdbaa48cad71e97eb564b25ffc7d0b8d7903ad74268",
       "chunks": 238,
       "triangles": 11900,
       "chunk_width_m": 160,
@@ -176,12 +176,17 @@
         -1600,
         1760,
         1120
-      ]
+      ],
+      "relief_profile": "ridge",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "aurora_harbor",
       "path": "assets/exported/scenery/aurora_harbor_terrain.glb",
-      "sha256": "f9588af868e1349fd2344411f629c250e6b6e4c5edbf2cb3082a773e65bf806b",
+      "sha256": "e2153b5d1d4c3d23fb5500cebcf79b072f8cf5f5a569a455e239a30db63390e9",
       "chunks": 144,
       "triangles": 7200,
       "chunk_width_m": 160,
@@ -193,12 +198,17 @@
         -1120,
         1440,
         800
-      ]
+      ],
+      "relief_profile": "coastal",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "alpine_meadow",
       "path": "assets/exported/scenery/alpine_meadow_terrain.glb",
-      "sha256": "414b3c5d6bf25cafc973b46d6e7da8a6a5f1740d667ad8faa1993614ec123359",
+      "sha256": "a7285f6b0145cadd44d4f451f9cb19cfe517ebc029c6275b746cecc2c36cb03f",
       "chunks": 132,
       "triangles": 6600,
       "chunk_width_m": 160,
@@ -210,12 +220,17 @@
         -960,
         1440,
         800
-      ]
+      ],
+      "relief_profile": "hills",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "frostbite_fjord",
       "path": "assets/exported/scenery/frostbite_fjord_terrain.glb",
-      "sha256": "8f1adca6508426dba9e3f50700148ac076296203f6e581a3bbbe5f4a3d01ff47",
+      "sha256": "8b50314813f8ff3df67b907df6d949f2c18199c028bf24506900d93c5b3e3050",
       "chunks": 195,
       "triangles": 9750,
       "chunk_width_m": 160,
@@ -227,12 +242,17 @@
         -1440,
         1600,
         960
-      ]
+      ],
+      "relief_profile": "ridge",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "tundra_pipeline",
       "path": "assets/exported/scenery/tundra_pipeline_terrain.glb",
-      "sha256": "2bcb08f9ab930ae621307cc7b25fb4022eca0e2a5b25d152941d575739f6cfb5",
+      "sha256": "82ec487f4a90c2d471ba181f9840efce76c585d04cf8099681a7fb44ce702176",
       "chunks": 306,
       "triangles": 15300,
       "chunk_width_m": 160,
@@ -244,12 +264,17 @@
         -1600,
         2400,
         1120
-      ]
+      ],
+      "relief_profile": "tundra",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "rainforest_ruins",
       "path": "assets/exported/scenery/rainforest_ruins_terrain.glb",
-      "sha256": "429f51d531bacce5c64d0f5f4b94bd3fcce1ed62c2cce1514dec6616c4bc3644",
+      "sha256": "8e172235f4e3050b514c99f9ffcfe558d87e1d38ee8c229b53d88775433d2058",
       "chunks": 144,
       "triangles": 7200,
       "chunk_width_m": 160,
@@ -261,12 +286,17 @@
         -960,
         1440,
         960
-      ]
+      ],
+      "relief_profile": "karst",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "monsoon_delta",
       "path": "assets/exported/scenery/monsoon_delta_terrain.glb",
-      "sha256": "1649b4d7fd1381d7ef4dcef8bf2458d9a3abc7739ab1b261725b4eaf098fd5a4",
+      "sha256": "943d142cabd74b44b8d47f32d5e845a740661fd72945bc83058cc493348a71a9",
       "chunks": 210,
       "triangles": 10500,
       "chunk_width_m": 160,
@@ -278,12 +308,17 @@
         -1280,
         1760,
         1120
-      ]
+      ],
+      "relief_profile": "wetland",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "coral_causeway",
       "path": "assets/exported/scenery/coral_causeway_terrain.glb",
-      "sha256": "7843aa346194e2cb4e087753495940016497ea13fa1936558c2a66f006db41ef",
+      "sha256": "e1dacfb5d90301ebb9fd3bec5128c24f9383f744e63f43c3d8d0ac1d6589a5d8",
       "chunks": 378,
       "triangles": 18900,
       "chunk_width_m": 160,
@@ -295,12 +330,17 @@
         -1600,
         2880,
         1280
-      ]
+      ],
+      "relief_profile": "coastal",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "mangrove_maze",
       "path": "assets/exported/scenery/mangrove_maze_terrain.glb",
-      "sha256": "51f2d30af18dfdcfc657d1ed38c859600ae2d7d45d92658f69ef0b3aec59cdf4",
+      "sha256": "47910aecd980a3a13a45c510c50f24f62a4858c7d98b558ce64b8b0ca77c40dc",
       "chunks": 156,
       "triangles": 7800,
       "chunk_width_m": 160,
@@ -312,12 +352,17 @@
         -1120,
         1600,
         800
-      ]
+      ],
+      "relief_profile": "wetland",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "cloudforest_climb",
       "path": "assets/exported/scenery/cloudforest_climb_terrain.glb",
-      "sha256": "70a0d0d52b283e43890351cb36a77b8742af32fdaecdfbf0d0e3d64ed1c9305f",
+      "sha256": "cf21bba472e8f9d14a040cfcd027587a68a8c1dec6b9ec2dd268c7c30cdc36d7",
       "chunks": 306,
       "triangles": 15300,
       "chunk_width_m": 160,
@@ -329,12 +374,17 @@
         -1440,
         2240,
         1440
-      ]
+      ],
+      "relief_profile": "ridge",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "sakura_ring",
       "path": "assets/exported/scenery/sakura_ring_terrain.glb",
-      "sha256": "19a97e19177c11bf316b823c178bd84ddebe9aa2e5ec3ea201104bd4a68c8585",
+      "sha256": "8713670d11d0f0868a4390e6c820a2449671afe6f95b6ebad29cf382a26b8cf8",
       "chunks": 120,
       "triangles": 6000,
       "chunk_width_m": 160,
@@ -346,12 +396,17 @@
         -960,
         1120,
         960
-      ]
+      ],
+      "relief_profile": "hills",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "bamboo_gorge",
       "path": "assets/exported/scenery/bamboo_gorge_terrain.glb",
-      "sha256": "5af2d8c6c464782761d4dda51fbc5f6e2f257e091fcc1f736af2666b35654738",
+      "sha256": "255130e6fb45be0ab234d12757c180b0673b3b6a5449bf85c1d5fd6b641bccb1",
       "chunks": 132,
       "triangles": 6600,
       "chunk_width_m": 160,
@@ -363,12 +418,17 @@
         -960,
         1440,
         800
-      ]
+      ],
+      "relief_profile": "karst",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "lantern_market",
       "path": "assets/exported/scenery/lantern_market_terrain.glb",
-      "sha256": "405f2915bca7d4f9a78c171141e549a551c1f47c6d937e55a26e49e92d58aa7e",
+      "sha256": "f9ce320a96a98817f7f049ce2f719ddeeab6025a3d04267e85c72438e5898983",
       "chunks": 156,
       "triangles": 7800,
       "chunk_width_m": 160,
@@ -380,12 +440,17 @@
         -1120,
         1440,
         960
-      ]
+      ],
+      "relief_profile": "city",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "terrace_touge",
       "path": "assets/exported/scenery/terrace_touge_terrain.glb",
-      "sha256": "600112ca482f99d0821ace6336bd54ed5b8198866cf98acf89caffb863949e51",
+      "sha256": "5092187d83e36897ae7c8c513423243b2dd158d152f80b7c9dd20d4421c6694e",
       "chunks": 210,
       "triangles": 10500,
       "chunk_width_m": 160,
@@ -397,12 +462,17 @@
         -1280,
         1760,
         1120
-      ]
+      ],
+      "relief_profile": "terrace",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "temple_coast",
       "path": "assets/exported/scenery/temple_coast_terrain.glb",
-      "sha256": "697915a71efccc5b0f830a145260bf1648844a75fde9de54b0591c0d5892593c",
+      "sha256": "05e15ff6029d0c482ea9d2164804d1a29d5872ad38c7109c1b4a0f2910c60048",
       "chunks": 182,
       "triangles": 9100,
       "chunk_width_m": 160,
@@ -414,12 +484,17 @@
         -1280,
         1600,
         960
-      ]
+      ],
+      "relief_profile": "coastal",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "saltflat_velocity",
       "path": "assets/exported/scenery/saltflat_velocity_terrain.glb",
-      "sha256": "b05924db362b37ace2462741c072796cad87993f2a40f187a3443e79405a85d3",
+      "sha256": "e516c8a60b6cf07aa243f16ac4b7f7acd7d25183077a338110686b1f95d432b4",
       "chunks": 616,
       "triangles": 30800,
       "chunk_width_m": 160,
@@ -431,12 +506,17 @@
         -3040,
         3040,
         1440
-      ]
+      ],
+      "relief_profile": "salt",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "dune_serpent",
       "path": "assets/exported/scenery/dune_serpent_terrain.glb",
-      "sha256": "5232b8a6f5bee9508afd912a3dfa686ce727bf6c7ccc791f3005f24d0e974410",
+      "sha256": "ee1e911a7019939067e3e02491a73ab275be9c3e4c9cae2c9d9a71409e296344",
       "chunks": 182,
       "triangles": 9100,
       "chunk_width_m": 160,
@@ -448,12 +528,17 @@
         -1120,
         1760,
         960
-      ]
+      ],
+      "relief_profile": "dune",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "oasis_citadel",
       "path": "assets/exported/scenery/oasis_citadel_terrain.glb",
-      "sha256": "dabebca15027c95cda2bc36d85d6ab8642c119155a7622e48c10ae84d4090c7c",
+      "sha256": "1203e0528fb4146f706b32e62987b520880954c3e0677e45af3cecde984bdae0",
       "chunks": 238,
       "triangles": 11900,
       "chunk_width_m": 160,
@@ -465,12 +550,17 @@
         -1440,
         1760,
         1280
-      ]
+      ],
+      "relief_profile": "dune",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "copper_mesa",
       "path": "assets/exported/scenery/copper_mesa_terrain.glb",
-      "sha256": "92388b27e23235a71c865032c057f92b4872361820fe37253e014f5c8551069a",
+      "sha256": "7a4a076a977d84e98232f601a73e7e0d560b8f673de516c89482e3ad56b3d02b",
       "chunks": 320,
       "triangles": 16000,
       "chunk_width_m": 160,
@@ -482,12 +572,17 @@
         -1920,
         2080,
         1280
-      ]
+      ],
+      "relief_profile": "mesa",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "storm_chase",
       "path": "assets/exported/scenery/storm_chase_terrain.glb",
-      "sha256": "c5bce379f41828c58d1ac1442c28a7ba29252300df5575b62a19f2a7efb10bde",
+      "sha256": "87d2b5ee30ae3e6e561293f57cc3a64679e4b40ccddaf3b9b5eb6d19fdbc61c8",
       "chunks": 418,
       "triangles": 20900,
       "chunk_width_m": 160,
@@ -499,12 +594,17 @@
         -1920,
         2560,
         1600
-      ]
+      ],
+      "relief_profile": "tundra",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "steelworks_sprint",
       "path": "assets/exported/scenery/steelworks_sprint_terrain.glb",
-      "sha256": "9dbb231daebb0e8d17da4fe5a8797d58052babdd60d2dda566669341c5678e12",
+      "sha256": "77f2d31b9b34c40f3345c0dd1b38b92423c46a9df5b32de44d5ddd53b49736e0",
       "chunks": 195,
       "triangles": 9750,
       "chunk_width_m": 160,
@@ -516,12 +616,17 @@
         -1280,
         1600,
         1120
-      ]
+      ],
+      "relief_profile": "city",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "container_corkscrew",
       "path": "assets/exported/scenery/container_corkscrew_terrain.glb",
-      "sha256": "42567624c983c9352cede65c29b9a2c68948a9aa8d721393969d69d686a39d4e",
+      "sha256": "35467c02232501e17729ee096af1c7bb18163ab1f7e54e08b4597219fb94ef34",
       "chunks": 182,
       "triangles": 9100,
       "chunk_width_m": 160,
@@ -533,12 +638,17 @@
         -1280,
         1600,
         960
-      ]
+      ],
+      "relief_profile": "city",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "neon_underpass",
       "path": "assets/exported/scenery/neon_underpass_terrain.glb",
-      "sha256": "feae4d631a1e3aeb5cb1dd73b10caccb33fb6edaede0550762c4197cdadb1948",
+      "sha256": "bcf7af7539c5ec713942eb569e921dc8dadc7e178008735b1f1880eb17d999dd",
       "chunks": 208,
       "triangles": 10400,
       "chunk_width_m": 160,
@@ -550,12 +660,17 @@
         -1440,
         1600,
         1120
-      ]
+      ],
+      "relief_profile": "city",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "windfarm_run",
       "path": "assets/exported/scenery/windfarm_run_terrain.glb",
-      "sha256": "429899feabe91393c0c9e92531f4af4a2cf30a961148d2e13fedf9301930a5ef",
+      "sha256": "c1fc448ffc50653f098ad649c671befcafabd6c130470a3057704103b7c292b0",
       "chunks": 285,
       "triangles": 14250,
       "chunk_width_m": 160,
@@ -567,12 +682,17 @@
         -1600,
         1920,
         1440
-      ]
+      ],
+      "relief_profile": "hills",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "festival_speedway",
       "path": "assets/exported/scenery/festival_speedway_terrain.glb",
-      "sha256": "499e8d740b32b6fc79e48a5bb4bcdb7bae004d3c0398eaba9b6dce4236a0bfa9",
+      "sha256": "c32fc03febe9f7766b253a28c8352eb0164a7a229d929dd275b27c5bd8202078",
       "chunks": 154,
       "triangles": 7700,
       "chunk_width_m": 160,
@@ -584,12 +704,17 @@
         -1120,
         1280,
         1120
-      ]
+      ],
+      "relief_profile": "hills",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "lunar_freight",
       "path": "assets/exported/scenery/lunar_freight_terrain.glb",
-      "sha256": "369b76e61523f452b442e74f9fe8eb59b23caf8a1f5fa03cc6b823cf828a60ac",
+      "sha256": "269da6aebab48b9230a4f777d5bbc5dbd0be8f04c65590fc3b769900bca6fda1",
       "chunks": 270,
       "triangles": 13500,
       "chunk_width_m": 160,
@@ -601,12 +726,17 @@
         -1600,
         1920,
         1280
-      ]
+      ],
+      "relief_profile": "crater",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "orbital_gardens",
       "path": "assets/exported/scenery/orbital_gardens_terrain.glb",
-      "sha256": "032a120f6b95a5b4606ed714433b9249c8c63b476e7c1ff7ffb08f5dc72f24bb",
+      "sha256": "a61b37eea36f2a6fed058b208a534d4c34e724451d3aeeb9e5142acaa72de6b9",
       "chunks": 300,
       "triangles": 15000,
       "chunk_width_m": 160,
@@ -618,12 +748,17 @@
         -1600,
         1920,
         1600
-      ]
+      ],
+      "relief_profile": "hills",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "crystal_chasm",
       "path": "assets/exported/scenery/crystal_chasm_terrain.glb",
-      "sha256": "ed6236b91247e9f92aea385384c952cf70c80c63a11e0b01b44958a6ff3e66fe",
+      "sha256": "513509e54834cbe54fff497b166eef9c5fc676a2a0de7fa65c9dcf483bcdf85a",
       "chunks": 196,
       "triangles": 9800,
       "chunk_width_m": 160,
@@ -635,12 +770,17 @@
         -1120,
         1760,
         1120
-      ]
+      ],
+      "relief_profile": "crystal",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "mars_badlands",
       "path": "assets/exported/scenery/mars_badlands_terrain.glb",
-      "sha256": "599d7990b69a005d6066c448b38ba0fc205785b8f60fdea823a89d98ca5f174a",
+      "sha256": "74307e332728926d798ef9b9eff87cb09c9c9a217cfd4691de5884b0f9cf4feb",
       "chunks": 342,
       "triangles": 17100,
       "chunk_width_m": 160,
@@ -652,12 +792,17 @@
         -1600,
         2400,
         1440
-      ]
+      ],
+      "relief_profile": "mesa",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     },
     {
       "id": "reactor_rift",
       "path": "assets/exported/scenery/reactor_rift_terrain.glb",
-      "sha256": "26ddbcdeb0ee729ac5760562ab177393ce49cfcbbc561d68a71fb62c4dbbd2ce",
+      "sha256": "17ffba64fe91ff06de4af272649e44c6b963dcd3bd2aa54699edd3622ab2f1eb",
       "chunks": 306,
       "triangles": 15300,
       "chunk_width_m": 160,
@@ -669,7 +814,12 @@
         -1600,
         2240,
         1280
-      ]
+      ],
+      "relief_profile": "basalt",
+      "protected_road_band_m": 240,
+      "protected_vertex_band_m": 286,
+      "relief_source": "assets/source/terrain_profiles.py",
+      "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68"
     }
   ]
 }

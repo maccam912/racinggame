@@ -1771,3 +1771,34 @@ refreshed. All **40** native loading/GPU/readback/ENet and all **seven**
 motion/Reduce Motion cases pass. The preceding transport revision passed remote
 CI [39733354943](https://github.com/maccam912/racinggame/actions/runs/39733354943).
 [Evidence and boundaries](evidence/roadside-life-polish/validation.json).
+
+
+### Distant landforms that close the flat-world view
+
+The thirty additions now have actual terrain relief beyond the protected road
+band, using **14** families of ridges, coastal bluffs, rolling hills, tundra,
+karst, wetlands, city ground, terraces, salt flats, dunes, mesas, lunar bowls,
+crystal ridges and basalt benches. Cities/wetlands/salt retain low relief; the
+mountain and badland courses get stronger silhouettes behind their scenery.
+[Glacier](evidence/terrain-landforms/glacier_ridge-after.png),
+[copper mesa](evidence/terrain-landforms/copper_mesa-after.png),
+[lunar bowls](evidence/terrain-landforms/lunar_freight-after.png).
+
+The exporter leaves all vertices within **286 m** of any road sample unchanged.
+That 46 m guard exceeds a 32 m grid cell's diagonal, preserving the complete
+**240 m** road-side surface, its original triangulation and near scenery.
+The actual GLB audit confirms **91,638** guard vertices unchanged, all ten
+original files/metadata unchanged, original sea levels intact, regular nonduplicate
+faces and identical chunk/triangle budgets. Gameplay/content identities remain
+unchanged. The frozen original grids and byte fingerprints are retained in the
+version-13 terrain foundation.
+
+All **199/199** source commands pass, with final tightened export-verifier and
+parser rejection checks also re-run. Thirty paired native diagnostic overlooks
+compare restored original grids with the new exports, with water held at the
+same phase; six pairs and a lossless baseline snapshot are archived. Sixty normal
+Far Chase hero views and all thirty postcards were refreshed. All **40** native
+loading/GPU/readback/ENet and all **seven** motion/Reduce Motion cases pass.
+The preceding roadside revision passed remote CI
+[39736386230](https://github.com/maccam912/racinggame/actions/runs/39736386230).
+[Evidence, reproduction data and boundaries](evidence/terrain-landforms/validation.json).

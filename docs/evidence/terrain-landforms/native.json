@@ -1,0 +1,524 @@
+{
+	"baseline_sha256": "c07f7122acf6175f5738c2cbc73829bc94780dbb3f3760552c423af296e11337",
+	"boundary": "Thirty paired native landscape views from a fixed diagnostic overlook 32 m above the road, targeting a changed point inside 550 m. Before restores exact prior float32 terrain grids before scenery is constructed, so distant scenery is re-grounded consistently; all other current world code is shared. Existing water waves are held at the same zero-time phase for both images, and other motion is reduced. This isolates landform changes, not a historical-build comparison. Ordinary Far Chase approaches are separate. Native macOS Compatibility, not Android runtime or frame-time acceptance.",
+	"cases": [
+		{
+			"camera_position": [
+				1255.14672851562,
+				110.962837219238,
+				209.558639526367
+			],
+			"camera_target": [
+				1728.0,
+				164.107559204102,
+				160.0
+			],
+			"changed_samples": 12915,
+			"road_route_s": 3359.993406,
+			"target_delta_m": 82.0939788818359,
+			"target_distance_m": 475.44324713892,
+			"track": "glacier_ridge"
+		},
+		{
+			"camera_position": [
+				779.213439941406,
+				50.4002494812012,
+				279.987609863281
+			],
+			"camera_target": [
+				800.0,
+				68.1269683837891,
+				800.0
+			],
+			"changed_samples": 9075,
+			"road_route_s": 3333.972214,
+			"target_delta_m": 40.853796005249,
+			"target_distance_m": 520.427678693207,
+			"track": "aurora_harbor"
+		},
+		{
+			"camera_position": [
+				938.453796386719,
+				95.6576080322266,
+				40.5256767272949
+			],
+			"camera_target": [
+				1280.0,
+				129.556304931641,
+				320.0
+			],
+			"changed_samples": 24601,
+			"road_route_s": 1791.988595,
+			"target_delta_m": 42.5128479003906,
+			"target_distance_m": 441.315894513216,
+			"track": "alpine_meadow"
+		},
+		{
+			"camera_position": [
+				0.0,
+				44.0,
+				-767.839599609375
+			],
+			"camera_target": [
+				-416.0,
+				105.276931762695,
+				-768.0
+			],
+			"changed_samples": 22714,
+			"road_route_s": 6541.978525,
+			"target_delta_m": 90.0441613197327,
+			"target_distance_m": 416.000037560094,
+			"track": "frostbite_fjord"
+		},
+		{
+			"camera_position": [
+				1777.74084472656,
+				46.0473327636719,
+				-818.88818359375
+			],
+			"camera_target": [
+				2112.0,
+				30.1010894775391,
+				-1216.0
+			],
+			"changed_samples": 12824,
+			"road_route_s": 3069.997303,
+			"target_delta_m": 13.1682367324829,
+			"target_distance_m": 519.063549818324,
+			"track": "tundra_pipeline"
+		},
+		{
+			"camera_position": [
+				932.445068359375,
+				113.233131408691,
+				-201.491348266602
+			],
+			"camera_target": [
+				1152.0,
+				168.552337646484,
+				-704.0
+			],
+			"changed_samples": 13821,
+			"road_route_s": 1715.987395,
+			"target_delta_m": 69.6395492553711,
+			"target_distance_m": 548.378803839098,
+			"track": "rainforest_ruins"
+		},
+		{
+			"camera_position": [
+				405.015777587891,
+				49.2561798095703,
+				-760.738159179688
+			],
+			"camera_target": [
+				512.0,
+				36.2545127868652,
+				-1280.0
+			],
+			"changed_samples": 2060,
+			"road_route_s": 993.998788,
+			"target_delta_m": 2.03658866882324,
+			"target_distance_m": 530.168340010982,
+			"track": "monsoon_delta"
+		},
+		{
+			"camera_position": [
+				928.526000976562,
+				57.9959297180176,
+				-991.990905761719
+			],
+			"camera_target": [
+				1184.0,
+				73.1966857910156,
+				-1376.0
+			],
+			"changed_samples": 11221,
+			"road_route_s": 1757.998891,
+			"target_delta_m": 34.143087387085,
+			"target_distance_m": 461.226574608402,
+			"track": "coral_causeway"
+		},
+		{
+			"camera_position": [
+				341.646362304688,
+				53.236026763916,
+				381.036529541016
+			],
+			"camera_target": [
+				576.0,
+				34.9706573486328,
+				736.0
+			],
+			"changed_samples": 3145,
+			"road_route_s": 4787.962457,
+			"target_delta_m": 1.60968780517578,
+			"target_distance_m": 425.347725396528,
+			"track": "mangrove_maze"
+		},
+		{
+			"camera_position": [
+				1555.54541015625,
+				44.1328353881836,
+				-190.342010498047
+			],
+			"camera_target": [
+				1664.0,
+				117.535163879395,
+				-608.0
+			],
+			"changed_samples": 32122,
+			"road_route_s": 3431.991305,
+			"target_delta_m": 93.3317260742188,
+			"target_distance_m": 431.509668199914,
+			"track": "cloudforest_climb"
+		},
+		{
+			"camera_position": [
+				491.432312011719,
+				55.6071281433105,
+				-405.005157470703
+			],
+			"camera_target": [
+				864.0,
+				56.3423385620117,
+				-800.0
+			],
+			"changed_samples": 12502,
+			"road_route_s": 873.998319,
+			"target_delta_m": 13.5290794372559,
+			"target_distance_m": 542.980317322829,
+			"track": "sakura_ring"
+		},
+		{
+			"camera_position": [
+				397.950042724609,
+				50.3308792114258,
+				395.658966064453
+			],
+			"camera_target": [
+				192.0,
+				90.3555374145508,
+				800.0
+			],
+			"changed_samples": 12093,
+			"road_route_s": 2739.981716,
+			"target_delta_m": 62.2003345489502,
+			"target_distance_m": 453.769868711002,
+			"track": "bamboo_gorge"
+		},
+		{
+			"camera_position": [
+				931.489013671875,
+				44.03759765625,
+				-25.5199680328369
+			],
+			"camera_target": [
+				1344.0,
+				20.4226608276367,
+				-384.0
+			],
+			"changed_samples": 4504,
+			"road_route_s": 3483.223085,
+			"target_delta_m": 2.52671241760254,
+			"target_distance_m": 546.510063951251,
+			"track": "lantern_market"
+		},
+		{
+			"camera_position": [
+				44.0153617858887,
+				52.0397758483887,
+				-508.009765625
+			],
+			"camera_target": [
+				-416.0,
+				63.3726272583008,
+				-704.0
+			],
+			"changed_samples": 6797,
+			"road_route_s": 515.999761,
+			"target_delta_m": 36.9599838256836,
+			"target_distance_m": 500.026296183511,
+			"track": "terrace_touge"
+		},
+		{
+			"camera_position": [
+				380.130218505859,
+				52.1044540405273,
+				-878.772888183594
+			],
+			"camera_target": [
+				256.0,
+				79.1100616455078,
+				-1280.0
+			],
+			"changed_samples": 10723,
+			"road_route_s": 1041.99937,
+			"target_delta_m": 39.9103507995605,
+			"target_distance_m": 419.989880830479,
+			"track": "temple_coast"
+		},
+		{
+			"camera_position": [
+				2074.93408203125,
+				47.053466796875,
+				-1166.31506347656
+			],
+			"camera_target": [
+				2496.0,
+				22.2094421386719,
+				-1088.0
+			],
+			"changed_samples": 1753,
+			"road_route_s": 6217.994889,
+			"target_delta_m": 0.503468513488771,
+			"target_distance_m": 428.286994899448,
+			"track": "saltflat_velocity"
+		},
+		{
+			"camera_position": [
+				1226.78186035156,
+				104.308486938477,
+				222.880172729492
+			],
+			"camera_target": [
+				1664.0,
+				106.730911254883,
+				544.0
+			],
+			"changed_samples": 8142,
+			"road_route_s": 2607.988441,
+			"target_delta_m": 27.6333465576172,
+			"target_distance_m": 542.473616869982,
+			"track": "dune_serpent"
+		},
+		{
+			"camera_position": [
+				0.0,
+				44.0,
+				63.5155982971191
+			],
+			"camera_target": [
+				-480.0,
+				47.7094421386719,
+				64.0
+			],
+			"changed_samples": 11865,
+			"road_route_s": 90.0,
+			"target_delta_m": 21.2844257354736,
+			"target_distance_m": 480.000244140563,
+			"track": "oasis_citadel"
+		},
+		{
+			"camera_position": [
+				0.0,
+				44.0,
+				-160.613967895508
+			],
+			"camera_target": [
+				-448.0,
+				109.495941162109,
+				-160.0
+			],
+			"changed_samples": 30866,
+			"road_route_s": 400.0,
+			"target_delta_m": 73.9500026702881,
+			"target_distance_m": 448.00041852659,
+			"track": "copper_mesa"
+		},
+		{
+			"camera_position": [
+				1827.740234375,
+				51.9209861755371,
+				-410.014343261719
+			],
+			"camera_target": [
+				1504.0,
+				46.2980499267578,
+				-704.0
+			],
+			"changed_samples": 13560,
+			"road_route_s": 5285.994791,
+			"target_delta_m": 9.97348403930664,
+			"target_distance_m": 437.304599221184,
+			"track": "storm_chase"
+		},
+		{
+			"camera_position": [
+				84.5784149169922,
+				44.8056602478027,
+				442.663635253906
+			],
+			"camera_target": [
+				-320.0,
+				37.1082763671875,
+				800.0
+			],
+			"changed_samples": 2479,
+			"road_route_s": 5798.521864,
+			"target_delta_m": 2.97632789611816,
+			"target_distance_m": 539.789773893504,
+			"track": "steelworks_sprint"
+		},
+		{
+			"camera_position": [
+				1175.75695800781,
+				44.7068786621094,
+				441.282440185547
+			],
+			"camera_target": [
+				1504.0,
+				31.9834747314453,
+				864.0
+			],
+			"changed_samples": 4900,
+			"road_route_s": 3757.97615,
+			"target_delta_m": 2.03631210327148,
+			"target_distance_m": 535.194941119589,
+			"track": "container_corkscrew"
+		},
+		{
+			"camera_position": [
+				993.15185546875,
+				49.3340835571289,
+				-437.904876708984
+			],
+			"camera_target": [
+				1504.0,
+				21.549861907959,
+				-384.0
+			],
+			"changed_samples": 7415,
+			"road_route_s": 2125.996058,
+			"target_delta_m": 2.81523895263672,
+			"target_distance_m": 513.684302368682,
+			"track": "neon_underpass"
+		},
+		{
+			"camera_position": [
+				1138.46643066406,
+				125.595359802246,
+				175.487823486328
+			],
+			"camera_target": [
+				992.0,
+				139.228591918945,
+				576.0
+			],
+			"changed_samples": 10383,
+			"road_route_s": 3569.99462,
+			"target_delta_m": 34.7050933837891,
+			"target_distance_m": 426.453305620909,
+			"track": "windfarm_run"
+		},
+		{
+			"camera_position": [
+				668.557861328125,
+				49.7398834228516,
+				529.52685546875
+			],
+			"camera_target": [
+				992.0,
+				50.4223785400391,
+				896.0
+			],
+			"changed_samples": 15470,
+			"road_route_s": 3081.986422,
+			"target_delta_m": 16.9150123596191,
+			"target_distance_m": 488.791750134963,
+			"track": "festival_speedway"
+		},
+		{
+			"camera_position": [
+				42.4716567993164,
+				44.4242706298828,
+				415.923034667969
+			],
+			"camera_target": [
+				-416.0,
+				-6.46021461486816,
+				704.0
+			],
+			"changed_samples": 6825,
+			"road_route_s": 6264.470976,
+			"target_delta_m": -32.102912902832,
+			"target_distance_m": 541.465228569665,
+			"track": "lunar_freight"
+		},
+		{
+			"camera_position": [
+				0.0,
+				43.9720764160156,
+				-128.0
+			],
+			"camera_target": [
+				448.0,
+				39.4916305541992,
+				-128.0
+			],
+			"changed_samples": 6108,
+			"road_route_s": 128.0,
+			"target_delta_m": 20.4773111343384,
+			"target_distance_m": 448.0,
+			"track": "orbital_gardens"
+		},
+		{
+			"camera_position": [
+				996.348999023438,
+				131.761474609375,
+				-351.235443115234
+			],
+			"camera_target": [
+				992.0,
+				163.456024169922,
+				-800.0
+			],
+			"changed_samples": 8697,
+			"road_route_s": 1955.989575,
+			"target_delta_m": 52.274528503418,
+			"target_distance_m": 448.785618363601,
+			"track": "crystal_chasm"
+		},
+		{
+			"camera_position": [
+				336.538421630859,
+				60.5695648193359,
+				694.246459960938
+			],
+			"camera_target": [
+				64.0,
+				120.045867919922,
+				1056.0
+			],
+			"changed_samples": 33572,
+			"road_route_s": 6201.982364,
+			"target_delta_m": 71.3400039672852,
+			"target_distance_m": 452.926939472582,
+			"track": "mars_badlands"
+		},
+		{
+			"camera_position": [
+				49.271800994873,
+				44.5568351745605,
+				-1172.38293457031
+			],
+			"camera_target": [
+				-160.0,
+				72.6601409912109,
+				-1600.0
+			],
+			"changed_samples": 24611,
+			"road_route_s": 1787.997425,
+			"target_delta_m": 39.7688255310059,
+			"target_distance_m": 476.078824224519,
+			"track": "reactor_rift"
+		}
+	],
+	"passed": true,
+	"profiles_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+	"renderer": "gl_compatibility",
+	"resolution": [
+		1280,
+		720
+	],
+	"water_time_frozen": true
+}
