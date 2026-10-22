@@ -135,10 +135,14 @@ static func terrain(track_id: String) -> Node3D:
 	var heights: Dictionary = {}
 	collect_terrain_heights(result,Transform3D.IDENTITY,heights)
 	terrain_heights[track_id] = heights
-	var ground := StandardMaterial3D.new()
-	ground.albedo_color = Color.html(courses[track_id].ground)
-	ground.vertex_color_use_as_albedo = true
-	ground.roughness = .95
+	var ground: Material
+	if courses[track_id].get("expansion40",false): ground = ExpansionBiome.material(track_id)
+	else:
+		var flat := StandardMaterial3D.new()
+		flat.albedo_color = Color.html(courses[track_id].ground)
+		flat.vertex_color_use_as_albedo = true
+		flat.roughness = .95
+		ground = flat
 	for node: MeshInstance3D in result.find_children("*","MeshInstance3D",true,false):
 		node.material_override = ground
 		node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

@@ -111,6 +111,7 @@ func build_environment() -> void:
 			themed.set_shader_parameter("aurora",track.id=="aurora_harbor")
 			themed.set_shader_parameter("storm",track.id in ["storm_chase","monsoon_delta"])
 			themed.set_shader_parameter("space",bool(art.space))
+			themed.set_shader_parameter("space_view",ExpansionBiome.SPACE_VIEWS.get(track.id,0))
 			themed.set_shader_parameter("sky_seed",float(art.sky_seed))
 			themed.set_shader_parameter("style",int(art.sky_style))
 			shared_sky.sky_material = themed
@@ -179,6 +180,7 @@ func build_road() -> void:
 				mat.emission_enabled = true
 				mat.emission = Color("36C6DF")
 			instance.material_override = mat
+		if key=="verges" and art.get("expansion40",false): instance.material_override = ExpansionBiome.material(track.id)
 		# Pavement/paint receive scenery shadows but do not need to cast an
 		# entire duplicate road into the sun atlas. Elevated decks cast below.
 		instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

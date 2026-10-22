@@ -1134,3 +1134,16 @@ to the real terrain. Other districts and the established ten retain their paths.
 Night streetlight pools follow the actual banked road and terrain verge, fade at
 70–115 m and cull at 120 m even when draw distance changes. Their static additive
 meshes add no dynamic lights, collision, shadow maps or per-frame callbacks.
+
+
+### Expansion ground and sky identity
+
+The thirty additions share one world-space ground material between their terrain,
+verge and distant skirt, with a palette and seed per course. Ten static treatments
+cover meadow, snow/ice, dunes, concrete, salt, craters, crystal, red strata, basalt
+and wet soil. Fine detail fades with pixel footprint. These materials change no
+road surface, grip, geometry or collision. The established ten keep their path.
+The five space courses have distinct celestial settings: homeworld, ringed giant,
+binary moons/nebula, dusty Mars with small moons, and reactor eclipse. Cloud-bank
+shapes also differ among the five terrestrial regions. No flashing or automatic
+camera effects are added by the sky/ground shaders.

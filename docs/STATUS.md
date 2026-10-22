@@ -1684,3 +1684,35 @@ all **40** native loading/GPU/readback/ENet preparation cases pass. A separate
 changed districts; [timing, memory and boundaries](evidence/district-polish/live-render.json)
 are reported independently from source/native correctness.
 [Evidence and boundaries](evidence/district-polish/validation.json).
+
+
+### Ground and sky identity across the thirty additions
+
+The additions now share world-space ground materials between actual terrain,
+verges and the distant ground skirt. Ten treatments include broad meadow/moss
+clearings, snow and ice seams, dune ripples, concrete slabs, salt cracks, lunar
+craters, crystal veins, red strata, reactor basalt and wet-soil patches. Each
+course has its own palette/seed; these static shaders add no geometry or driving
+surface changes. Close detail fades with pixel footprint to reduce distant noise.
+[Ice route](evidence/biome-sky-polish/glacier_ridge-route.png),
+[salt flats](evidence/biome-sky-polish/saltflat_velocity-route.png),
+[Mars](evidence/biome-sky-polish/mars_badlands-route.png).
+
+Space skies now distinguish a blue homeworld above Lunar Freight, a ringed giant
+above Orbital Gardens, binary moons and a nebula above Crystal Chasm, a dusty sky
+with small moons on Mars, and an eclipse/corona over Reactor Rift. Ground and sky
+remain static under fixed cameras. The other five regions have distinct cloud
+bank shapes, while their authored lighting and skies remain course-specific.
+[Ringed sky](evidence/biome-sky-polish/orbital_gardens-sky.png),
+[eclipse](evidence/biome-sky-polish/reactor_rift-sky.png).
+
+The established ten keep their terrain/material paths. All **196/196** source
+commands pass. Native checks cover all thirty worlds, five sky views and ten
+ground treatments with visible pattern pixels and zero static-camera changes.
+All **40** native loading/GPU/readback/ENet preparation cases pass, and **60**
+ordinary Far Chase hero views were refreshed along with all thirty menu postcards.
+The preceding district revision passed remote CI
+[39730150613](https://github.com/maccam912/racinggame/actions/runs/39730150613).
+A separate live eight-car run covers Glacier Ridge and Lunar Freight;
+[timing and memory](evidence/biome-sky-polish/live-render.json) are independent
+of source/native correctness. [Evidence and boundaries](evidence/biome-sky-polish/validation.json).

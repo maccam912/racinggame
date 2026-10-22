@@ -72,7 +72,7 @@ static func landscape(world: TrackWorld) -> void:
 	floor_node.name = "LandscapeGroundSkirt"
 	floor_node.mesh = floor_mesh
 	floor_node.position = Vector3((float(bounds[0])+float(bounds[2]))*.5,floor_y-15,(float(bounds[1])+float(bounds[3]))*.5)
-	floor_node.material_override = world.material(Color.html(world.art.ground).darkened(.10))
+	floor_node.material_override = ExpansionBiome.material(world.track.id)
 	floor_node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	parent.add_child(floor_node)
 	var buckets: Dictionary = {}
