@@ -46,6 +46,8 @@ static func mesh(kind: String, variant: int = 0) -> ArrayMesh:
 	var t := ExpansionSetPieces.tool()
 	var color: Color = [Color("D4976D"),Color("8DACA6"),Color("7B8CA6"),Color("B77F92")][posmod(variant,4)]
 	match kind:
+		"mesa_outcrop","terraced_field":
+			AuthoredLandformArt.emit(t,kind,variant)
 		"festival_tent","festival_stall":
 			ExpansionDistrictDetail.roof(t,color,kind=="festival_tent")
 		"citadel":
@@ -167,6 +169,7 @@ static func mesh(kind: String, variant: int = 0) -> ArrayMesh:
 static func layout(kind: String) -> Array:
 	# kind, local x/z, variant, yaw. Distinct footprints form a recognizable place.
 	match kind:
+		"landforms": return []
 		"moon_base": return [["habitat",-27,-30,0,0],["habitat",28,-20,1,-.5],["hangar",18,35,0,PI],["tank",-32,30,0,0],["solar",-50,68,0,0],["solar",-24,68,0,0],["antenna",58,35,0,0]]
 		"biosphere": return [["conservatory",-25,-20,0,0],["conservatory",25,24,1,PI*.5],["habitat",-30,36,0,PI],["tank",42,-29,0,0],["solar",8,-62,0,.4]]
 		"lunar_survey": return [["habitat",-18,0,0,0],["antenna",25,15,0,0],["solar",12,-30,0,-.3]]

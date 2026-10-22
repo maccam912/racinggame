@@ -32,9 +32,10 @@ func run() -> void:
 			assert(world.clear_of_road(site.at,site.radius),"full scenery footprints clear all road branches")
 			if site.has("module"):
 				physical_modules += 1
-				assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=16)
+				assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field"] else 16))
 		for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
 			if not node.has_meta("module"): continue
+			if node.get_meta("module") in ["mesa_outcrop","terraced_field"]: check_natural_foundation(world,node)
 			var key := node.mesh.get_instance_id()
 			if modules.has(key): continue
 			modules[key] = true
@@ -77,3 +78,23 @@ func check_city_blocks(world: TrackWorld) -> void:
 				var area := 0.0
 				for i in range(polygon.size()): area += polygon[i].cross(polygon[(i+1)%polygon.size()])*.5
 				assert(absf(area)<.01,"independently authored city blocks cannot intersect one another")
+
+func check_natural_foundation(world: TrackWorld, node: MeshInstance3D) -> void:
+	# Inspect the actual closed bottom triangles against the exported terrain,
+	# independently of the placement helper's five support samples.
+	var bounds := node.mesh.get_aabb()
+	assert(is_equal_approx(bounds.position.y,-64))
+	var faces := node.mesh.get_faces()
+	for first in range(0,faces.size(),3):
+		var a := faces[first]
+		var b := faces[first+1]
+		var c := faces[first+2]
+		if is_equal_approx(a.y,b.y) and is_equal_approx(a.y,c.y):
+			var facing := -(b-a).cross(c-a).normalized()
+			assert(facing.y<-.999 if is_equal_approx(a.y,-64) else facing.y>.999,"exposed shelves face upward, including below the hill crest")
+		if not (is_equal_approx(a.y,-64) and is_equal_approx(b.y,-64) and is_equal_approx(c.y,-64)): continue
+		for i in range(5):
+			for j in range(5-i):
+				var at := node.global_transform*(a+(b-a)*(i/4.0)+(c-a)*(j/4.0))
+				var floor_y := CourseArt.height_from_grid(world.terrain_grid,at,-INF)
+				assert(is_finite(floor_y) and at.y<floor_y-.05,"closed natural bases must remain buried under the actual ground")

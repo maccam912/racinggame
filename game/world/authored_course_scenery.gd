@@ -136,6 +136,8 @@ static func compound(world: TrackWorld, parent: Node3D, region: Dictionary, pose
 	for entry: Array in region.get("modules",CourseCompoundArt.layout(region.kind)):
 		var mesh := CourseCompoundArt.mesh(entry[0],int(entry[3]))
 		var bounds := mesh.get_aabb()
+		var natural: bool = entry[0] in ["mesa_outcrop","terraced_field"]
+		var foundation_limit := 60.0 if natural else 16.0
 		var radius := Vector2(maxf(absf(bounds.position.x),absf(bounds.end.x)),maxf(absf(bounds.position.z),absf(bounds.end.z))).length()+2
 		var at := pose*Vector3(float(entry[1]),0,float(entry[2]))
 		var basis := pose.basis*Basis(Vector3.UP,float(entry[4]))
@@ -151,7 +153,7 @@ static func compound(world: TrackWorld, parent: Node3D, region: Dictionary, pose
 					floor_y = maxf(floor_y,y)
 					minimum_y = minf(minimum_y,y)
 		at.y = floor_y
-		if not is_finite(minimum_y) or floor_y-minimum_y>16 or not clear(world,at,radius): continue
+		if not is_finite(minimum_y) or floor_y-minimum_y>foundation_limit or not clear(world,at,radius): continue
 		var node := MeshInstance3D.new()
 		node.name = str(entry[0]).to_pascal_case()+str(cluster.get_child_count())
 		node.mesh = mesh
@@ -162,17 +164,19 @@ static func compound(world: TrackWorld, parent: Node3D, region: Dictionary, pose
 		node.visibility_range_end = 700
 		node.add_to_group("scenery_distance")
 		cluster.add_child(node)
-		var pad := MeshInstance3D.new()
-		var plinth := BoxMesh.new()
-		plinth.size = Vector3(bounds.size.x+1,floor_y-minimum_y+2,bounds.size.z+1)
-		pad.mesh = plinth
-		pad.material_override = world.material(Color.html(world.art.ground).darkened(.23))
-		pad.transform = Transform3D(basis,at+basis*Vector3(bounds.get_center().x,-plinth.size.y*.5,bounds.get_center().z))
-		pad.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-		pad.visibility_range_end = 700
-		pad.add_to_group("scenery_distance")
-		cluster.add_child(pad)
-		sites.append({"at":at,"id":str(region.kind)+"/"+str(entry[0]),"radius":radius,"distance":road.distance,"s":road.s,"lateral":road.lateral,"region":region.name,"foundation_min":minimum_y,"module":entry[0]})
+		# Geological bases and descending field steps extend 64 m below the crest.
+		if not natural:
+			var pad := MeshInstance3D.new()
+			var plinth := BoxMesh.new()
+			plinth.size = Vector3(bounds.size.x+1,floor_y-minimum_y+2,bounds.size.z+1)
+			pad.mesh = plinth
+			pad.material_override = world.material(Color.html(world.art.ground).darkened(.23))
+			pad.transform = Transform3D(basis,at+basis*Vector3(bounds.get_center().x,-plinth.size.y*.5,bounds.get_center().z))
+			pad.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			pad.visibility_range_end = 700
+			pad.add_to_group("scenery_distance")
+			cluster.add_child(pad)
+		sites.append({"at":at,"id":str(region.kind)+"/"+str(entry[0]),"radius":radius,"distance":road.distance,"s":road.s,"lateral":road.lateral,"region":region.name,"foundation_min":minimum_y,"foundation_limit":foundation_limit,"module":entry[0]})
 
 static func floor_skirt(world: TrackWorld, parent: Node3D) -> void:
 	var bounds: Array = CourseArt.terrain_info[world.track.id].bounds_xz_m

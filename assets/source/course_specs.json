@@ -3693,6 +3693,97 @@
           ],
           "spacing": 31,
           "kind": "grove"
+        },
+        {
+          "name": "Switchback tea terraces",
+          "u": 0.48,
+          "side": 1,
+          "setback": 85,
+          "kind": "landforms",
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              "terraced_field",
+              100,
+              20,
+              1,
+              0.2
+            ],
+            [
+              "terraced_field",
+              170,
+              110,
+              2,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "name": "Valley rice steps",
+          "u": 0.58,
+          "side": -1,
+          "setback": 165,
+          "kind": "landforms",
+          "modules": [
+            [
+              "terraced_field",
+              60,
+              -18,
+              3,
+              0.25
+            ]
+          ]
+        },
+        {
+          "name": "Home hillside fields",
+          "u": 0.86,
+          "side": 1,
+          "setback": 145,
+          "kind": "landforms",
+          "modules": [
+            [
+              "terraced_field",
+              -20,
+              -50,
+              1,
+              0.1
+            ],
+            [
+              "terraced_field",
+              63,
+              20,
+              2,
+              -0.3
+            ],
+            [
+              "terraced_field",
+              -25,
+              90,
+              0,
+              0.4
+            ]
+          ]
+        },
+        {
+          "name": "Switchback outer forest",
+          "u": 0.475,
+          "side": -1,
+          "setback": 165,
+          "kind": "grove",
+          "along": 280,
+          "depth": 155,
+          "plants": [
+            "coastal_cypress",
+            "bamboo",
+            "autumn_maple"
+          ],
+          "spacing": 29
         }
       ],
       "light_sections": [],
@@ -4430,6 +4521,96 @@
           ],
           "spacing": 42,
           "kind": "grove"
+        },
+        {
+          "name": "Redstone hairpin walls",
+          "u": 0.245,
+          "side": 1,
+          "setback": 150,
+          "kind": "landforms",
+          "modules": [
+            [
+              "mesa_outcrop",
+              -25,
+              -95,
+              1,
+              0.3
+            ],
+            [
+              "mesa_outcrop",
+              40,
+              -30,
+              3,
+              -0.2
+            ],
+            [
+              "mesa_outcrop",
+              -8,
+              70,
+              2,
+              0.5
+            ],
+            [
+              "mesa_outcrop",
+              85,
+              110,
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Twin mesa pass",
+          "u": 0.43,
+          "side": -1,
+          "setback": 125,
+          "kind": "landforms",
+          "modules": [
+            [
+              "mesa_outcrop",
+              0,
+              -65,
+              3,
+              0.5
+            ],
+            [
+              "mesa_outcrop",
+              18,
+              46,
+              1,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "name": "Prospector escarpment",
+          "u": 0.69,
+          "side": -1,
+          "setback": 170,
+          "kind": "landforms",
+          "modules": [
+            [
+              "mesa_outcrop",
+              -35,
+              -110,
+              0,
+              0.3
+            ],
+            [
+              "mesa_outcrop",
+              12,
+              -15,
+              2,
+              -0.1
+            ],
+            [
+              "mesa_outcrop",
+              68,
+              84,
+              3,
+              0.4
+            ]
+          ]
         }
       ],
       "light_sections": [],

@@ -1335,3 +1335,11 @@ Persistent city silhouettes use broad tangential fronts, keeping the existing
 single-mesh 5,000-triangle ceiling and 550 m enclosing-road-circle separation.
 Native multi-view and isolated before/after timing evidence is retained in
 `docs/evidence/city-districts14`; it does not establish mobile performance.
+
+Terrace Touge's cultivated hills and Copper Mesa's layered outcrops are authored
+solid scenery meshes. Their closed bases descend 64 m and allow at most 60 m of
+local ground relief; building foundations retain the 16 m limit. Actual base
+triangle samples must remain below exported terrain, horizontal shelves must
+face upward, and the full bounds must clear every road branch. The ordinary
+700 m scenery culling, no shadows and no driving collision apply. Native views
+and focused checks are retained in `docs/evidence/mountain-places14`.
