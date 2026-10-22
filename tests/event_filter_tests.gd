@@ -55,17 +55,57 @@ func run() -> void:
 					if key=="space": assert(CourseArt.spec(track.id).get("space",false))
 				var random_button := app.menu.footer.get_node("RandomTrack") as Button
 				assert(not random_button.disabled)
-				for roll in range(64):
+				app.events.track_shuffle = TrackShuffle.new(2000+filter)
+				var seen: Array[int] = [app.events.track_index]
+				var rolls := maxi(64,included.size()*2+5)
+				for roll in range(rolls):
+					if seen.size()==included.size(): seen.clear()
 					var before: int = app.events.track_index
 					random_button.pressed.emit()
 					assert(app.events.track_index in included and app.events.track_index!=before)
+					assert(not app.events.track_index in seen,"Random completes the visible roster before repeating")
+					seen.append(app.events.track_index)
 					assert(app.events.preview.track==Catalog.tracks[app.events.track_index])
-				reports.append({"mobile":mobile,"mode":mode,"filter":key,"tracks":included.size()})
+				for frame in range(4): await process_frame
+				var selected_button: Button = app.events.buttons[app.events.track_index]
+				var list_scroll: MenuScroll = app.events.detail_scroll.get_parent().get_child(0)
+				var shown := selected_button.get_global_rect().intersection(list_scroll.get_global_rect())
+				var minimum_visible := minf(list_scroll.size.y,minf(selected_button.size.y,app.menu.ui.row_height()))
+				if not selected_button.has_focus() or shown.size.y<minimum_visible-1:
+					print("RANDOM_FOCUS_DIAGNOSTIC ",{"mobile":mobile,"mode":mode,"filter":key,"selected":app.events.track_index,"focus":selected_button.has_focus(),"button":selected_button.get_global_rect(),"scroll":list_scroll.get_global_rect(),"scroll_y":list_scroll.scroll_vertical,"max":list_scroll.get_v_scroll_bar().max_value,"page":list_scroll.get_v_scroll_bar().page,"shown":shown})
+				assert(selected_button.has_focus() and shown.size.y>=minimum_visible-1,"random selection stays focused and visible after layout/focus scrolling")
+				assert(app.events.info.text.contains(I18n.t("route.description."+Catalog.tracks[app.events.track_index].id)))
+				reports.append({"mobile":mobile,"mode":mode,"filter":key,"tracks":included.size(),"random_picks":rolls,"random_selected_visible":true})
 				if "--capture" in OS.get_cmdline_user_args() and mode=="quick" and key in ["new","space","dirt"]:
 					for frame in range(8): await process_frame
 					await RenderingServer.frame_post_draw
 					var path := "res://reports/filter-%s-%s.png"%["phone" if mobile else "desktop",key]
 					assert(root.get_texture().get_image().save_png(path)==OK)
+	# Actual menu/filter/mode rebuilds retain an unfinished tour.
+	app.events.track_shuffle = TrackShuffle.new(405)
+	app.events.filter_index = EventMenu.FILTERS.find("classic")
+	app.events.show_event()
+	app.events.select_random_track()
+	app.events.select_random_track()
+	var classic: Array[int] = app.events.visible_tracks.duplicate()
+	var key: String = str(app.events.track_shuffle.normalized(classic))
+	var pending: Array[int] = app.events.track_shuffle.remaining[key].duplicate()
+	pick(app.events.filter_picker,EventMenu.FILTERS.find("new"))
+	app.events.select_random_track()
+	pick(app.events.filter_picker,EventMenu.FILTERS.find("classic"))
+	assert(app.events.track_shuffle.remaining[key]==pending,"returning from another filter retains the unfinished classic tour")
+	app.events.mode = "trial"
+	app.events.show_event()
+	assert(app.events.track_shuffle.remaining[key]==pending,"Quick/Trial share the same session tour")
+	app.events.select_random_track()
+	assert(app.events.track_index==pending[-1])
+	pending.pop_back()
+	var manual: int = pending[0]
+	app.events.buttons[manual].pressed.emit()
+	pending.erase(manual)
+	assert(app.events.track_shuffle.remaining[key]==pending,"manual card selection counts as a visit")
+	app.events.select_random_track()
+	assert(app.events.track_index==pending[-1])
 	root.size = Vector2i(1280,720)
 	app.data.settings.ui_scale = 100
 	app.data.mobile = false
@@ -93,7 +133,7 @@ func run() -> void:
 	await create_timer(.5).timeout
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
 	var file := FileAccess.open("res://reports/event-filters.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":true,"cases":reports,"filtered_start_track":Catalog.tracks[expected].id,"boundary":"Actual desktop/mobile-mode widgets, seven filters in Quick Race and Trial, 64 random picks per case and a real filtered dirt launch with changed race options. Native captures use a desktop renderer with phone layout overrides."},"\t")+"\n")
+	file.store_string(JSON.stringify({"passed":true,"cases":reports,"filtered_start_track":Catalog.tracks[expected].id,"boundary":"Actual desktop/mobile-mode widgets, seven filters in Quick Race and Trial, 64 or more random picks per case, complete nonrepeating tours, preserved filter/mode queues and manual visits, visible random focus after layout and a real filtered dirt launch with changed race options. Native captures use a desktop renderer with phone layout overrides."},"\t")+"\n")
 	file.close()
-	print("EVENT_FILTERS_RANDOM_SUBSETS_COMPACT_PHONE_AND_FILTERED_LAUNCH_PASS cases=",reports.size())
+	print("EVENT_FILTERS_SHUFFLED_TOURS_MANUAL_VISITS_COMPACT_PHONE_AND_FILTERED_LAUNCH_PASS cases=",reports.size())
 	quit()

@@ -1835,3 +1835,34 @@ frame-time acceptance. Gameplay/content identity remains unchanged.
 The preceding terrain revision passed remote CI
 [39741586075](https://github.com/maccam912/racinggame/actions/runs/39741586075).
 [Evidence, original failure and boundaries](evidence/regional-motion/validation.json).
+
+
+### Random Track tours and current course briefs
+
+Random now tours the visible list without repeats before shuffling again. The
+initial selection counts as visited; a fresh cycle includes every member and
+avoids an immediate repeat at its boundary. Each distinct filter list keeps its
+unfinished tour across Quick Race/Trial changes for the app session. Manual
+selections count toward the current list's existing tour. The menu has a private
+random generator and writes no profile/save data.
+
+All thirty addition descriptions now pair the revised driving rhythm with a
+recognizable scene, such as compact dirt sweepers beneath the chairlift, a
+salt-flat speed run, temple-bell inner loop or lunar cargo spur. The original ten
+briefs remain unchanged, and the authoring roster supplies the new UI text.
+Native review also exposed an offscreen random card: rapid focus requests used
+stale layout positions. Coalescing the final scroll request now reveals the
+selection after layout settles.
+[Before](evidence/track-tours/selection-before.png),
+[after](evidence/track-tours/selection-after.png).
+
+All **201/201** commands pass in the final source gate. Tests cover **6,860**
+seeded picks across **100** sessions, complete tours/cycle boundaries, manual
+visits, preserved/reordered filter queues, empty/singleton lists and isolation
+from global RNG. Native UI checks pass **28** filter/mode cases, actual random
+selection visibility, a real dirt-race launch and all **90** supported layouts.
+The interrupted initial gate and failed visibility diagnostic are retained.
+World/assets/gameplay identities are unchanged. The preceding regional motion
+revision passed remote CI
+[39746822706](https://github.com/maccam912/racinggame/actions/runs/39746822706).
+[Evidence and boundaries](evidence/track-tours/validation.json).

@@ -3,12 +3,15 @@ extends RefCounted
 
 const FILTERS := ["all","new","classic","asphalt","dirt","space","night"]
 
+var track_shuffle := TrackShuffle.new()
 var filter_index: int = 0
 var visible_tracks: Array[int] = []
 var track_cards: Array[Control] = []
 var filter_picker: Variant
 var adjust_columns: Callable
 var random_button: Button
+var track_list: MenuScroll
+var reveal_generation: int = 0
 var app: Node
 var track_index: int = 0
 var laps: int = 2
@@ -39,6 +42,7 @@ func show_event() -> void:
 	workspace.size_flags_vertical = Control.SIZE_EXPAND_FILL
 	body.add_child(workspace)
 	var list := shell.scroll_column(workspace)
+	track_list = list.get_parent()
 	filter_picker = shell.ui.choice_picker(I18n.t("event.filter"))
 	filter_picker.name = "TrackFilter"
 	if app.data.mobile: filter_picker.add_theme_font_size_override("font_size",shell.ui.font_size(14))
@@ -216,19 +220,31 @@ func apply_filter() -> void:
 	if not track_index in visible_tracks: track_index = visible_tracks[0]
 	select_track(track_index)
 	buttons[track_index].grab_focus()
+	reveal_selection()
 
 
 func select_random_track() -> void:
-	var candidates: Array[int] = []
-	for index: int in visible_tracks:
-		if index!=track_index: candidates.append(index)
-	if candidates.is_empty(): return
-	select_track(candidates[randi_range(0,candidates.size()-1)])
+	var selected := track_shuffle.choose(visible_tracks,track_index)
+	if selected<0: return
+	select_track(selected)
 	buttons[track_index].grab_focus()
+	reveal_selection()
+
+
+func reveal_selection() -> void:
+	# Coalesce rapid rolls; old scroll requests use stale pre-layout positions.
+	reveal_generation += 1
+	var token := reveal_generation
+	await app.get_tree().process_frame
+	await app.get_tree().process_frame
+	if token!=reveal_generation or app.page!="event" or not is_instance_valid(track_list): return
+	var button := buttons[track_index]
+	if is_instance_valid(button) and button.is_inside_tree(): track_list.ensure_control_visible(button)
 
 
 func select_track(index: int) -> void:
 	track_index = index
+	track_shuffle.note_visit(visible_tracks,index)
 	var track: TrackDefinition = Catalog.tracks[index]
 	detail_title.text = I18n.t("track."+track.id)
 	preview.track = track

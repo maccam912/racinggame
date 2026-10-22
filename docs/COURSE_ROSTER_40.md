@@ -28,36 +28,36 @@ alien surfaces are visual themes, not undocumented changes to tire grip.
 
 | # | ID / name | Authored route shape and handling | Surface / relief | Five landmark beats and art direction |
 |---|---|---|---|---|
-| 11 | `glacier_ridge` / Glacier Ridge | Long triangular ascent, hooked summit turn, downhill esses | Asphalt / 95 m | Ice teeth, blue glacier wall, cable station, research dome, frozen waterfall; ice-blue/white |
-| 12 | `aurora_harbor` / Aurora Harbor | Rectangular wharf loop with two offset chicanes | Asphalt / 12 m | Icebreaker, polar cranes, radio mast, warehouses, aurora beacon; violet/teal night |
-| 13 | `alpine_meadow` / Alpine Meadow | Clover-like three-lobe valley circuit; medium sweepers | Dirt / 55 m | Chalet, flower slopes, wind farm, stone barn, chairlift; green/gold |
-| 14 | `frostbite_fjord` / Frostbite Fjord | Long fjord fingers; fast coastal straights and tight inland turnarounds | Asphalt / 80 m | Fjord cliffs, fishing sheds, suspension towers, ice arch, lighthouse; cold sunset |
-| 15 | `tundra_pipeline` / Tundra Pipeline | Long octagonal utility loop, fast straight then tight service spur | Dirt / 30 m | Pipeline, pumping station, dishes, weather tower, tracked depot; ochre tundra |
-| 16 | `rainforest_ruins` / Rainforest Ruins | Broken zigzag outward route around a temple, broad outside return | Dirt / 70 m | Stepped temple, stone faces, kapok grove, broken arch, waterfall; emerald/coral |
-| 17 | `monsoon_delta` / Monsoon Delta | Broad river S, compact levee corners, fast bridge approach | Asphalt / 25 m | Stilt village, river barges, reed islands, sluice, radio tower; storm-blue/gold |
-| 18 | `coral_causeway` / Coral Causeway | Island-to-island elongated diamond with two narrow necks | Asphalt / 35 m | Coral stacks, beach cabanas, sail rock, resort tower, sea arch; turquoise/pink |
-| 19 | `mangrove_maze` / Mangrove Maze | Alternating short straights and six tight corners; precision rally | Dirt / 15 m | Root groves, boardwalk huts, bird roost, fishing boat, lookout; dark green/amber |
-| 20 | `cloudforest_climb` / Cloudforest Climb | Two sweeping highland lobes joined by an uphill dogleg | Dirt / 110 m | Fern trees, cloud escarpment, canopy station, orchid arch, falls; jade/lavender |
-| 21 | `sakura_ring` / Sakura Ring | Asymmetric teardrop with a technical double-apex infield | Asphalt / 30 m | Blossom grove, red gate, pagoda, lantern street, garden bridge; blush/ink |
-| 22 | `bamboo_gorge` / Bamboo Gorge | Long river-bend course with three alternating cutbacks | Dirt / 65 m | Bamboo walls, stone lanterns, suspension walkway, waterwheel, cliff shrine; green/cream |
-| 23 | `lantern_market` / Lantern Market | Downtown staircase of short blocks and one long avenue | Asphalt / 8 m | Lantern gates, market roofs, drum tower, neon arcade, station; red/purple night |
-| 24 | `terrace_touge` / Terrace Touge | Wide mountain Z with a summit bowl and valley return | Asphalt / 100 m | Tea terraces, hill shrine, torii, observatory, stone bridge; moss/sunset |
-| 25 | `temple_coast` / Temple Coast | Coastal horseshoe around a temple peninsula, inland sweepers | Asphalt / 45 m | Sea shrine, giant bell, fishing quay, blossom bluff, stone gate; ultramarine/vermilion |
-| 26 | `saltflat_velocity` / Saltflat Velocity | Very long drag straight and asymmetric three-corner return | Asphalt / 8 m | Timing gantry, salt pinnacles, land-speed camp, radar dishes, mirage tower; white/cobalt |
-| 27 | `dune_serpent` / Dune Serpent | Five flowing dune bends, a launch crest and broad turnaround | Dirt / 75 m | Dune fins, caravan camp, buried arch, fossil ribs, oasis; amber/indigo |
-| 28 | `oasis_citadel` / Oasis Citadel | Pentagon with an inward palace dogleg and fast garden straight | Asphalt / 35 m | Citadel, palms, bazaar arch, aqueduct, minaret silhouette; sandstone/turquoise |
-| 29 | `copper_mesa` / Copper Mesa | Long bluff-side loop with hard braking into stacked direction changes | Dirt / 90 m | Copper buttes, mine lift, ore bins, rail bridge, rock needle; rust/teal |
-| 30 | `storm_chase` / Storm Chase | Great-plains rectangle broken by a sweeping hooked farm section | Asphalt / 25 m | Storm shelf, grain silos, wind turbines, storm radar, old barn; slate/yellow |
-| 31 | `steelworks_sprint` / Steelworks Sprint | Industrial C with an inner loading-yard zigzag | Asphalt / 20 m | Furnaces, cooling towers, ladle crane, pipe bridge, rail depot; charcoal/orange |
-| 32 | `container_corkscrew` / Container Corkscrew | Alternating dock fingers and a long outer harbor run | Asphalt / 40 m | Container stacks, gantry cranes, cargo ship, control tower, dry dock; cyan/rust |
-| 33 | `neon_underpass` / Neon Underpass | Compressed city loop with two long diagonals and tight block corners | Asphalt / 18 m | Neon gates, elevated railway, signs, ventilation fans, tunnel mouth; magenta/cyan |
-| 34 | `windfarm_run` / Windfarm Run | Exposed ridge triangle with a climbing dogleg and downhill sweep | Dirt / 85 m | Turbine ranks, substation, ridge antenna, maintenance barn, transmission arch; sage/white |
-| 35 | `festival_speedway` / Festival Speedway | Flowing stadium perimeter with a compact double-apex infield | Asphalt / 15 m | Grandstands, stage, illuminated wheel, festival tents, checker tower; saturated carnival night |
-| 36 | `lunar_freight` / Lunar Freight | Angular lunar cargo perimeter and hooked launchpad spur | Asphalt / 60 m | Cargo domes, dish array, landed rocket, crater rim, freight gantry; silver/orange, black sky |
-| 37 | `orbital_gardens` / Orbital Gardens | Long curved station perimeter and broad habitat-bowl esses | Asphalt / 50 m | Greenhouse domes, ring towers, solar wings, habitat arch, planet rise; mint/violet |
-| 38 | `crystal_chasm` / Crystal Chasm | Deep gem-valley W, long ascending outside return | Dirt / 95 m | Crystal clusters, geode arch, mining dais, giant amethyst, luminous pillars; violet/teal |
-| 39 | `mars_badlands` / Mars Badlands | Jagged canyon rally with a high plateau and double launch | Dirt / 85 m | Red hoodoos, rover base, pressure domes, antenna ridge, canyon bridge; red/cyan |
-| 40 | `reactor_rift` / Reactor Rift | Angular reactor perimeter with a fast back straight and four linked cuts | Asphalt / 70 m | Reactor rings, energy pylons, containment arch, cooling ducts, alien spires; acid-green/black |
+| 11 | `glacier_ridge` / Glacier Ridge | Climb through flowing ice-blue bends, curl around the summit and dive beneath the glacier gallery. | Asphalt / 95 m | Ice teeth, blue glacier wall, cable station, research dome, frozen waterfall; ice-blue/white |
+| 12 | `aurora_harbor` / Aurora Harbor | Brake for offset wharf chicanes, then stretch out beside polar cranes under the aurora. | Asphalt / 12 m | Icebreaker, polar cranes, radio mast, warehouses, aurora beacon; violet/teal night |
+| 13 | `alpine_meadow` / Alpine Meadow | A short dirt clover of linked sweepers, flower slopes and a moving chairlift overhead. | Dirt / 55 m | Chalet, flower slopes, wind farm, stone barn, chairlift; green/gold |
+| 14 | `frostbite_fjord` / Frostbite Fjord | Long fjord-side straights end in sharp inland turnarounds, with frozen falls beyond the road. | Asphalt / 80 m | Fjord cliffs, fishing sheds, suspension towers, ice arch, lighthouse; cold sunset |
+| 15 | `tundra_pipeline` / Tundra Pipeline | A broad tundra dirt run: fast utility straights, a service-road dogleg and a huge pipe crossing. | Dirt / 30 m | Pipeline, pumping station, dishes, weather tower, tracked depot; ochre tundra |
+| 16 | `rainforest_ruins` / Rainforest Ruins | Weave through flowing jungle bends, rounded temple loops and a towering stone portal. | Dirt / 70 m | Stepped temple, stone faces, kapok grove, broken arch, waterfall; emerald/coral |
+| 17 | `monsoon_delta` / Monsoon Delta | Link broad river esses around reed islands and a working sluice beneath storm-blue skies. | Asphalt / 25 m | Stilt village, river barges, reed islands, sluice, radio tower; storm-blue/gold |
+| 18 | `coral_causeway` / Coral Causeway | A long chain of open island sweepers, turquoise water and giant coral hoops. | Asphalt / 35 m | Coral stacks, beach cabanas, sail rock, resort tower, sea arch; turquoise/pink |
+| 19 | `mangrove_maze` / Mangrove Maze | Narrow dirt lanes, tight dock-style turns and a tangled root bridge reward careful corner exits. | Dirt / 15 m | Root groves, boardwalk huts, bird roost, fishing boat, lookout; dark green/amber |
+| 20 | `cloudforest_climb` / Cloudforest Climb | Two big dirt climbs join rolling jungle esses, fern slopes and a falling canopy cascade. | Dirt / 110 m | Fern trees, cloud escarpment, canopy station, orchid arch, falls; jade/lavender |
+| 21 | `sakura_ring` / Sakura Ring | A short garden circuit of curving lobes and quick direction changes beneath swaying lanterns. | Asphalt / 30 m | Blossom grove, red gate, pagoda, lantern street, garden bridge; blush/ink |
+| 22 | `bamboo_gorge` / Bamboo Gorge | Carry a rhythm through compact dirt esses, bamboo groves and a high suspension walkway. | Dirt / 65 m | Bamboo walls, stone lanterns, suspension walkway, waterwheel, cliff shrine; green/cream |
+| 23 | `lantern_market` / Lantern Market | Short city blocks demand quick braking before a long avenue beneath glowing market roofs. | Asphalt / 8 m | Lantern gates, market roofs, drum tower, neon arcade, station; red/purple night |
+| 24 | `terrace_touge` / Terrace Touge | A flowing mountain climb and descent, with linked bends winding past tea terraces and a hilltop house. | Asphalt / 100 m | Tea terraces, hill shrine, torii, observatory, stone bridge; moss/sunset |
+| 25 | `temple_coast` / Temple Coast | A broad coastal sweep curls into a tight inner loop beneath a gently swinging temple bell. | Asphalt / 45 m | Sea shrine, giant bell, fishing quay, blossom bluff, stone gate; ultramarine/vermilion |
+| 26 | `saltflat_velocity` / Saltflat Velocity | The longest lap: huge salt-flat straights, hard braking zones and a land-speed timing gantry. | Asphalt / 8 m | Timing gantry, salt pinnacles, land-speed camp, radar dishes, mirage tower; white/cobalt |
+| 27 | `dune_serpent` / Dune Serpent | Surf rolling dirt esses, launch from a dune crest and thread beneath enormous fossil ribs. | Dirt / 75 m | Dune fins, caravan camp, buried arch, fossil ribs, oasis; amber/indigo |
+| 28 | `oasis_citadel` / Oasis Citadel | Fast garden straights break into palace doglegs beneath a turquoise aqueduct and sandstone domes. | Asphalt / 35 m | Citadel, palms, bazaar arch, aqueduct, minaret silhouette; sandstone/turquoise |
+| 29 | `copper_mesa` / Copper Mesa | A long dirt bluff run with hard braking, stacked direction changes and moving ore overhead. | Dirt / 90 m | Copper buttes, mine lift, ore bins, rail bridge, rock needle; rust/teal |
+| 30 | `storm_chase` / Storm Chase | Open prairie straights feed a hooked farm section as a distant funnel turns under the storm shelf. | Asphalt / 25 m | Storm shelf, grain silos, wind turbines, storm radar, old barn; slate/yellow |
+| 31 | `steelworks_sprint` / Steelworks Sprint | Thread a tight loading-yard zigzag between fast industrial straights and a towering blast furnace. | Asphalt / 20 m | Furnaces, cooling towers, ladle crane, pipe bridge, rail depot; charcoal/orange |
+| 32 | `container_corkscrew` / Container Corkscrew | Repeated dock fingers test braking and exits before the long harbor run under a container lift. | Asphalt / 40 m | Container stacks, gantry cranes, cargo ship, control tower, dry dock; cyan/rust |
+| 33 | `neon_underpass` / Neon Underpass | Long city diagonals meet tight block corners, glowing streetlights and a moving overhead metro. | Asphalt / 18 m | Neon gates, elevated railway, signs, ventilation fans, tunnel mouth; magenta/cyan |
+| 34 | `windfarm_run` / Windfarm Run | Broad dirt ridge sweepers tighten and open again beside ranks of turning wind turbines. | Dirt / 85 m | Turbine ranks, substation, ridge antenna, maintenance barn, transmission arch; sage/white |
+| 35 | `festival_speedway` / Festival Speedway | Flowing stadium bends curl through a compact infield beside striped stalls and a turning wheel. | Asphalt / 15 m | Grandstands, stage, illuminated wheel, festival tents, checker tower; saturated carnival night |
+| 36 | `lunar_freight` / Lunar Freight | Angular cargo roads and a hooked launchpad spur pass a giant rocket under the rising homeworld. | Asphalt / 60 m | Cargo domes, dish array, landed rocket, crater rim, freight gantry; silver/orange, black sky |
+| 37 | `orbital_gardens` / Orbital Gardens | Long orbital sweepers curl into habitat-bowl esses beneath an armillary and a ringed giant. | Asphalt / 50 m | Greenhouse domes, ring towers, solar wings, habitat arch, planet rise; mint/violet |
+| 38 | `crystal_chasm` / Crystal Chasm | A climbing dirt ribbon of linked bends, glowing crystal ridges and a huge geode arch. | Dirt / 95 m | Crystal clusters, geode arch, mining dais, giant amethyst, luminous pillars; violet/teal |
+| 39 | `mars_badlands` / Mars Badlands | Rolling canyon esses, two dirt launches and a high bridge beneath dusty Martian skies. | Dirt / 85 m | Red hoodoos, rover base, pressure domes, antenna ridge, canyon bridge; red/cyan |
+| 40 | `reactor_rift` / Reactor Rift | Fast reactor straights end in linked angular cuts beside turning containment rings and an eclipse. | Asphalt / 70 m | Reactor rings, energy pylons, containment arch, cooling ducts, alien spires; acid-green/black |
 
 ## Build and acceptance sequence
 
@@ -142,9 +142,11 @@ clearance, actual terrain grounding, spatial culling and bounded submissions
 remain required. Every course has a persistent horizon and ground skirt.
 
 Skies vary their palette, orientation, clouds, sun/moon, stars, aurora, storm
-shelf or planetary backdrop. Random Track in Quick Race and Time Trial chooses
-from the complete roster, avoids immediately repeating the selection, and shows
-the selected card and preview before starting. Runtime poster PNGs are 74.4
+shelf or planetary backdrop. Random Track in Quick Race and Time Trial shuffles
+the current filtered list into a nonrepeating tour. Each list keeps its unfinished
+tour for the session, and manual choices count toward that list's existing tour.
+Fresh cycles include every member and avoid a repeat across their boundary.
+The selected card and preview appear before starting. Runtime poster PNGs are 74.4
 percent smaller; the original artwork and source hashes are retained.
 
 

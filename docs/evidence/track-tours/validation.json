@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "source_commands": 201,
+  "content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+  "asset_hash": "543a2f6e9528607b9fb1939d089591b958dca53c9a37e8b7147d391746a50e21",
+  "source_sha256": {
+    "game/ui/track_shuffle.gd": "7d81ef4fe6a75657eb59e057212a72ba933bb53c236aef0a1ab220fb143bd17f",
+    "game/ui/event_menu.gd": "c885f9c25283a67c9b78665842d8ad1056522e52cd1dd1b01cb37818bd3d6ffb",
+    "game/ui/text/en.json": "6ffe2f1709659382bd27183d3104e8dc40f86dc402eba1d24f571f93f4653b81",
+    "tests/track_shuffle_tests.gd": "668f8f5a413fc68cc3eadbce24ab9394c23a1a5b826487eb79677a89be78ca77",
+    "tests/event_filter_tests.gd": "32692e758976f70dbb1d12ecd9fb4f9beed836221168fd59f6a8cc2b341ffb1f",
+    "tests/event_layout_tests.gd": "c304492cfe0374d717f483c08cd0eb61eb5a8d20d7232cf0ab34eb668cc14236",
+    "docs/COURSE_ROSTER_40.md": "3ad47156675968df12682b0dd09b55c91aba789f98859e00fce4add9fb2955f5"
+  },
+  "seeded_sessions": 100,
+  "seeded_picks": 6860,
+  "native_filter_mode_cases": 28,
+  "native_random_widget_picks": 1880,
+  "native_layouts": 90,
+  "revised_course_briefs": 30,
+  "original_course_briefs_unchanged": 10,
+  "previous_remote_ci": {
+    "commit": "12eda0cfe0c6a4ce146b3701a00853cc45e38ee7",
+    "run": 39746822706,
+    "conclusion": "success"
+  },
+  "initial_issue": "Native captures and a visibility assertion exposed an offscreen random selection. The first source gate was interrupted for the fix. Coalesced scroll requests wait for layout and reveal the final selection; all 28 final cases assert focus and at least the available name/touch-row area is visible. Failed diagnostic and interrupted run retained.",
+  "boundary": "Session-local shuffled tours per distinct filtered roster, complete first tour and three cycles across 100 seeded sessions; actual widget tours, filter/mode returns, manual selections and a native dirt race launch. Actual native macOS Compatibility UI with phone layout overrides, 90 supported layouts and revised brief text. No APK runtime acceptance. World, assets and gameplay unchanged from the preceding revision; no repeated world GPU sweep was needed. Menu RNG leaves global RNG unchanged.",
+  "artifacts_sha256": {
+    "filter-desktop-dirt.png": "d90429475a1b13cb30ab134f6854c76a73b53b6cd69d62a20384f245480b39f3",
+    "filter-desktop-new.png": "75df457f33f9d5273984305b9af7576e690fa40b7a14128bf918c2693d163230",
+    "filter-desktop-space.png": "f63479217a059fa4c080b957957bc5fa9e3a5ae858859a2eba314abb54035f8b",
+    "filter-phone-dirt.png": "247ad8af2831a30a1990d77b06ad40a4af8767aaba62624d21a61433cdfcbf47",
+    "filter-phone-new.png": "6807a453f59fdbd5eaa22877764e890ef6b635b9c9bd1492456a4a0fb07176cc",
+    "filter-phone-space.png": "3c7333dd64527e52370e13ff02d0ebb104481868ed58864a55038899a9574996",
+    "initial-offscreen-focus.log": "c3578aadc0a47253936ba472c8644db29e5c860bffe74c0b813084f4d47602bb",
+    "interrupted-source-checks.json": "9716b12747631e8c1b6dd7cecbf8eb11f13a1f7bb07c0dccdee0c9874688726b",
+    "native-filters.json": "69311dc7ef919ac03c1c2a29296ed8afae53e39638af809964896367bfcf8229",
+    "native-filters.log": "91f0c51e94f13f285131766e92d0e9fc179b6ab828e378133d164140b829e608",
+    "native-layouts.json": "ababc1f5865ddfe9782af2063c971d6b555319071b525913b24c5fc41a66b5c6",
+    "native-layouts.log": "12aa5c9bcce93fb0a6fe918d3952ead8937c4eddeec08aab66dc8324ee178248",
+    "random-track-desktop-1280x720.png": "dd524d0e25a731ec30bdef381584f8cd4daa6624a016fab6f17f465f388941d6",
+    "random-track-mobile-884x398-scale150.png": "f603c001eec47688b40761dfbad88367edef6065ee9629e81450d2f378bba453",
+    "selection-after.png": "c432ad98790557e5793d22042e508bf4debbdf5b56ef72dfbb1805767321defa",
+    "selection-before.png": "003001ac0cf378deaecba74e6b826a52175e4c63d94f94355fa73529b43a32b2",
+    "shuffle.json": "bcec9c8d64bc074e8eb08952f0432ecfe5dcceee92e969c08e8e22db51482739",
+    "source-checks.json": "ff520bd2706f43069a742120c3a26abfc8a4727d04c331d59739b7f2cef7bb8b"
+  }
+}

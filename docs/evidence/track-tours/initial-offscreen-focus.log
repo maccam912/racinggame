@@ -1,0 +1,10 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+OpenGL API 4.1 Metal - 90.5 - Compatibility - Using Device: Apple - Apple M5 Pro
+
+PACIFIC_RUSH_CLIENT_READY
+SHUFFLE_FOCUS_DIAGNOSTIC { "mobile": false, "filter": "new", "selected": 30, "focus": true, "button": [P: (635.0, 1524.0), S: (230.0, 60.0)], "scroll": [P: (64.0, 132.0), S: (823.0, 485.0)], "scroll_y": 0, "shown": [P: (0.0, 0.0), S: (0.0, 0.0)] }
+SCRIPT ERROR: Assertion failed: random selection remains visible after focus scrolling
+          at: run (/tmp/pacific_shuffle_focus_probe.gd:76)
+          GDScript backtrace (most recent call first):
+              [0] run (/tmp/pacific_shuffle_focus_probe.gd:76)

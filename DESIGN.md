@@ -1114,9 +1114,16 @@ The fixed footer exposes an All/New/Classic/Asphalt/Dirt/Space/Night filter with
 its available count. New means additions after the established ten; Classic
 means the established ten. Asphalt/Dirt refer to actual tire surface rather than
 verge appearance. Space follows the authored space setting; Night includes dark
-space environments. Random uniformly chooses another member of the current list,
-and selecting a filter that excludes the current course selects a valid member.
-The preview, description and actual race launch always use that selected index.
+space environments. Random shuffles the current list into a nonrepeating tour,
+counting the current selection as visited on first use. A new cycle includes
+every member and avoids repeating the previous selection at its boundary.
+Each distinct list retains its unfinished tour for the app session, across
+filter and Quick/Trial changes. Manual selections count toward the current
+list's existing tour. This private menu RNG does not consume gameplay RNG or
+write profile/save data. Selecting a filter that excludes the current course
+selects a valid member. The preview, description and actual race launch always
+use that selected index. Addition descriptions explain the current route's
+driving rhythm and a recognizable scene, using the roster's authoring text.
 
 Phone cards prioritize readable names and distance/difficulty facts beside small
 postcards. Focus scrolling exposes the name/facts target. Race configuration and
