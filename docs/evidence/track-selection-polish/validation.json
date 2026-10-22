@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+  "asset_hash": "7959522bf53f9402a5261a214a20c61a3a4ead01ce83c833ff6239ef76a09012",
+  "source_checks": {
+    "commands": 194,
+    "passed": true,
+    "base_commit": "3e187b5d236bc3d82d9f7228f1b4a9eb35744fa3",
+    "dirty_tree": true
+  },
+  "native_layout_cases": 90,
+  "filter_cases_per_pass": 28,
+  "random_choices_per_filter_case": 64,
+  "filtered_start_track": "mangrove_maze",
+  "android_export": {
+    "passed": true,
+    "diagnostic_build_number": 999001,
+    "source_sha256": {
+      "game/ui/event_menu.gd": "70eba963856e64985a3bd988df17c2daaba1c8305d50d0fdcc5e29a99ebdc54b",
+      "game/ui/text/en.json": "408e4f150376fd9aa2c3095f98b084a7a9536d4286fbf93f7d726863e3dfe7a3"
+    },
+    "apk_sha256": "4525ebed9293ee7e1ec531105ad2b2c04c8648ee93f4eb573f97d153f69428a5",
+    "build_metadata": {
+      "version": "0.0.999001-dev",
+      "build_number": 999001,
+      "working_tree_dirty": true,
+      "commit": "3e187b5d236bc3d82d9f7228f1b4a9eb35744fa3",
+      "engine_version": "4.6.3-stable",
+      "engine_checksum": "30630f3e9b11e10b35c1f90ba8814185dcec43fae1a48345159be7552c64bfe8",
+      "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+      "protocol_version": 7,
+      "save_schema": 1,
+      "content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+      "asset_hash": "7959522bf53f9402a5261a214a20c61a3a4ead01ce83c833ff6239ef76a09012",
+      "target_platform": "android",
+      "distribution": "development",
+      "public_signing": "not configured",
+      "native_adapter": {
+        "platform": "android",
+        "architecture": "arm64",
+        "api_floor": "4.5",
+        "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+        "scons": "4.11.1",
+        "source_hash": "bb12ad6297015e90294ce414d08bb057374f822de6cda0c256af51c707ab9799",
+        "sha256": "454cc58b61467a74619871c2db148eb45e5449d8d40b1f6f4c56d60f521104a2"
+      },
+      "iroh_adapter": {
+        "platform": "android",
+        "targets": [
+          "aarch64-linux-android"
+        ],
+        "source_hash": "3bb322ef757e235e03789582f2105ca6ddced8b0d0bf19d901d33ad5c8b9bf8b",
+        "sha256": "ff93a67bb109663fdf5696f0901842226c68db7a94c4d0cab7b12627d4593731",
+        "iroh": "1.2.0",
+        "gdext": "0.5.5",
+        "upstream": "153979fc02f86b10802358ae38fb74204fbf179a"
+      },
+      "android_services": {
+        "source_hash": "6d85475bbffafa5189282c70259765610d47ba09b4559d20e9973635bceba646",
+        "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+        "android_api": 36,
+        "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+        "java_release": 17,
+        "compiler": "javac 17.0.20.1",
+        "sha256": "d99f0e6f66a23efa443d2faebd8f874705933a0264398d0f920ea37265bcee27"
+      }
+    },
+    "runtime_performed": false
+  },
+  "android_runtime": {
+    "performed": false,
+    "reason": "The owned read-only Android emulator refused to boot because the host had only about 1.4 GiB free; its disk-space prerequisite failed. No physical device was used.",
+    "boot_log_sha256": "a2e4b5f0084d9192ff1b3674f50ddd2a5b9f1f76720dcdb468da0085e1d66746"
+  },
+  "source_sha256": {
+    "game/ui/event_menu.gd": "70eba963856e64985a3bd988df17c2daaba1c8305d50d0fdcc5e29a99ebdc54b",
+    "game/ui/text/en.json": "408e4f150376fd9aa2c3095f98b084a7a9536d4286fbf93f7d726863e3dfe7a3",
+    "tests/event_filter_tests.gd": "c477c8f03f21a711026e3c6b19e32430013198f2950f8b9433dcec9b8164d24a",
+    "tests/event_layout_tests.gd": "c304492cfe0374d717f483c08cd0eb61eb5a8d20d7232cf0ab34eb668cc14236"
+  },
+  "previous_remote_ci": {
+    "commit": "3e187b5d236bc3d82d9f7228f1b4a9eb35744fa3",
+    "run": 39724113106,
+    "conclusion": "success"
+  },
+  "boundary": "Actual desktop and mobile-mode controls, fixed-footer filters, no-repeat random subsets and a real filtered-race launch. Native desktop rendering with explicit 884x398 phone layouts at 100/150 percent is not an Android APK runtime or physical-device test. Android export/manifest/DEX verification passed; runtime verification was unavailable because the emulator could not boot.",
+  "artifacts_sha256": {
+    "phone-space.png": "5f6cb2e63a5c1a7eaf07d334a4350d011131a3ce4440daa87c28bb159c28852e",
+    "desktop-space.png": "da10980f21c80ee83ca0a706413b49abc359a1d941cf74afcdcbf6ac8775dd20",
+    "phone-new.png": "08727e80452cdeddfd78fcd302d16512792111ac59502fbab3d0f3569793bc23",
+    "phone-default.png": "ca80fbb911f321ba94daee79da8f0fd45b175ce8ae0ffd2d651721e6b1d36718",
+    "phone-large-text.png": "a6919982979e3aebb26673cd888b7c048e43d35e679a02714a8249851354577f",
+    "filters.json": "58875982288d5fc6435a34f005f10826207f8160556c39843438cee409c27bd6",
+    "layout-native.json": "ababc1f5865ddfe9782af2063c971d6b555319071b525913b24c5fc41a66b5c6",
+    "desktop-dirt.png": "2c094fa44acf5058cdb10575cd1389d2d59a01f1b4b78c669554a53fcb751227"
+  }
+}

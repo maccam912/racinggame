@@ -1629,3 +1629,34 @@ Gameplay content remains **13**, protocol **7**, save schema **1**; only cosmeti
 identity changes. The preceding route revision's remote CI
 [39719513393](https://github.com/maccam912/racinggame/actions/runs/39719513393)
 passed. This set-piece revision's remote result is tracked separately after push.
+
+
+### Filtered random selection and compact phone cards
+
+Track selection now exposes **All, New, Classic, Asphalt, Dirt, Space and Night**
+with actual counts in a fixed-footer picker. Random chooses another course from
+that visible list and keeps the selected card/preview/launch consistent. The
+filter remains visible after scrolling, so a constrained random choice is clear.
+Desktop grids refit the visible cards. [Desktop example](evidence/track-selection-polish/desktop-space.png).
+
+Phone cards put a small postcard beside a readable course-name button, with
+separate difficulty/distance facts. Focus scrolling keeps the selected name and
+facts in view. Laps, opponents, difficulty, contact and trial-ghost controls now
+live with the selected-track preview instead of below forty course cards.
+[Phone default](evidence/track-selection-polish/phone-default.png),
+[large text](evidence/track-selection-polish/phone-large-text.png),
+[new routes](evidence/track-selection-polish/phone-new.png).
+
+The final comprehensive source gate passes **194/194 commands**. Actual native
+Control geometry passes **90** layouts, including 884×398 phone views through
+150 percent scale. Seven filters pass in Quick Race and Trial in both desktop
+and mobile mode (**28 cases**, 64 random picks each), followed by a real filtered
+dirt-race launch with changed options. A local Android **999001 diagnostic APK**
+exports successfully and passes manifest/DEX verification. The read-only owned
+emulator could not boot with only about **1.4 GiB** free, so APK runtime checks
+remain unavailable; these phone images are native desktop layout overrides.
+[Evidence and boundaries](evidence/track-selection-polish/validation.json).
+Gameplay/content/protocol/save identities are unchanged. The preceding 3D
+set-piece revision's remote CI
+[39724113106](https://github.com/maccam912/racinggame/actions/runs/39724113106)
+passed; this UI revision's CI is checked separately after push.

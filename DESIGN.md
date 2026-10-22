@@ -1106,3 +1106,20 @@ no per-frame scene callbacks. Spatial distance culling and bounded mesh budgets
 remain required. Large display-font signs warm their actual font, size and
 course-name glyphs during loading. Geometry, compatibility and source/asset
 identities remain separate; this revision preserves content 13/protocol 7/save 1.
+
+
+### Selection browsing with the expanded roster
+
+The fixed footer exposes an All/New/Classic/Asphalt/Dirt/Space/Night filter with
+its available count. New means additions after the established ten; Classic
+means the established ten. Asphalt/Dirt refer to actual tire surface rather than
+verge appearance. Space follows the authored space setting; Night includes dark
+space environments. Random uniformly chooses another member of the current list,
+and selecting a filter that excludes the current course selects a valid member.
+The preview, description and actual race launch always use that selected index.
+
+Phone cards prioritize readable names and distance/difficulty facts beside small
+postcards. Focus scrolling exposes the name/facts target. Race configuration and
+trial-ghost controls belong in the selected-track detail panel, not at the end of
+the complete roster. Fixed footer controls, filtered focus and minimum touch rows
+must fit supported phone/tablet/desktop scales, including 884×398 at 150 percent.

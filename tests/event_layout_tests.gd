@@ -18,11 +18,12 @@ func run() -> void:
 	app.data.settings.reduce_motion = true
 	var cases: Array[Dictionary] = []
 	for mobile: bool in [false,true]:
-		for size: Vector2i in [Vector2i(1280,720),Vector2i(1280,800),Vector2i(1680,720),Vector2i(960,720)]:
+		for size: Vector2i in [Vector2i(1280,720),Vector2i(1280,800),Vector2i(1680,720),Vector2i(960,720),Vector2i(884,398)]:
+			if not mobile and size==Vector2i(884,398): continue
 			root.size = size
 			app.data.mobile = mobile
 			app.menu.mobile_override = mobile
-			app.menu.logical_unit_override = 1.5 if mobile else 1.0
+			app.menu.logical_unit_override = 1.5 if mobile and size.y>=500 else 1.0
 			for scale: int in [90,100,110,125,150]:
 				app.data.settings.ui_scale = scale
 				for mode: String in ["quick","trial"]:
@@ -46,17 +47,22 @@ func run() -> void:
 					assert(details.position.x>=left-1 and details.end.x<=right+1,"event detail panel escapes safe frame: mobile=%s size=%s scale=%s rect=%s right=%s"%[mobile,size,scale,details,right])
 					var button: Rect2 = app.events.buttons[Catalog.tracks.size()-1].get_global_rect()
 					assert(button.position.x>=left-1 and button.end.x<=right+1,"highest course button must fit horizontally")
+					var list_scroll := app.events.detail_scroll.get_parent().get_child(0) as MenuScroll
+					var shown := button.intersection(list_scroll.get_global_rect())
+					assert(list_scroll.size.y>=48*app.menu.ui.unit,"the course list retains at least one full touch row")
+					assert(shown.size.y>=minf(button.size.y,app.menu.ui.row_height())-1,"the selected course button must remain visible after focus scrolling")
 					for footer_button: Button in app.menu.footer.find_children("*","Button",true,false):
 						assert(root.get_visible_rect().encloses(footer_button.get_global_rect()),"Random Track and Start remain usable inside every supported viewport")
 					assert(app.events.track_index==Catalog.tracks.size()-1 and app.events.buttons[Catalog.tracks.size()-1].has_focus())
 					cases.append({"mobile":mobile,"viewport":[size.x,size.y],"ui_scale":scale,"mode":mode,"detail_right":details.end.x,"safe_right":right})
-					if "--capture" in OS.get_cmdline_user_args() and size in [Vector2i(1280,720),Vector2i(960,720)] and scale==150 and mode=="quick":
+					if "--capture" in OS.get_cmdline_user_args() and mode=="quick" and (size in [Vector2i(1280,720),Vector2i(960,720)] and scale==150 or size==Vector2i(884,398) and scale in [100,150]):
 						app.menu.footer.get_node("RandomTrack").pressed.emit()
 						for frame in range(8): await process_frame
 						await RenderingServer.frame_post_draw
 						var path := "res://reports/random-track-%s-%dx%d.png"%["mobile" if mobile else "desktop",size.x,size.y]
+						if size==Vector2i(884,398): path = path.trim_suffix(".png")+"-scale"+str(scale)+".png"
 						assert(root.get_texture().get_image().save_png(path)==OK)
-	assert(cases.size()==(2 if "--narrow-probe" in OS.get_cmdline_user_args() else 80))
+	assert(cases.size()==(2 if "--narrow-probe" in OS.get_cmdline_user_args() else 90))
 	app.queue_free()
 	await create_timer(.5).timeout
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
