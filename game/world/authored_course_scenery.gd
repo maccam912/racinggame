@@ -1,14 +1,15 @@
 class_name AuthoredCourseScenery
 extends RefCounted
 ## Named area parcels replace continuous rows along both sides of every road.
-static var compound_surface: ShaderMaterial
+static var compound_surfaces: Dictionary = {}
 
-static func material() -> ShaderMaterial:
-	if compound_surface==null:
-		compound_surface = ShaderMaterial.new()
-		compound_surface.shader = load("res://assets/exported/shaders/set_piece_motion.gdshader")
-		compound_surface.set_shader_parameter("animation_enabled",0.0)
-	return compound_surface
+static func material(window_glow: float = 0.0) -> ShaderMaterial:
+	if not compound_surfaces.has(window_glow):
+		var surface := ShaderMaterial.new()
+		surface.shader = load("res://assets/exported/shaders/compound_surface.gdshader")
+		surface.set_shader_parameter("window_glow",window_glow)
+		compound_surfaces[window_glow] = surface
+	return compound_surfaces[window_glow]
 
 static func nearest(world: TrackWorld, at: Vector3) -> Dictionary:
 	var best := INF
@@ -71,7 +72,13 @@ static func build(world: TrackWorld) -> void:
 	var regions: Array[Dictionary] = []
 	var buckets: Dictionary = {}
 	var occupied: Dictionary = {}
-	for region: Dictionary in world.art.scenery_regions:
+	var ordered: Array = world.art.scenery_regions
+	if ordered.any(func(region: Dictionary) -> bool: return region.get("avoid_buildings",false)):
+		# Plant reservations must see every building, regardless of catalog order.
+		var buildings := ordered.filter(func(region: Dictionary) -> bool: return not region.kind in ["grove","rocks"])
+		buildings.append_array(ordered.filter(func(region: Dictionary) -> bool: return region.kind in ["grove","rocks"]))
+		ordered = buildings
+	for region: Dictionary in ordered:
 		var s := CourseArt.original_s(world.track,float(region.u))
 		var pose := world.track.pose(s,float(region.side)*float(region.setback))
 		pose.basis = Basis(Vector3.UP,pose.basis.get_euler().y)
@@ -105,6 +112,14 @@ static func grove(world: TrackWorld, region: Dictionary, pose: Transform3D, buck
 			var id: String = plants[mini(plants.size()-1,int(CourseLandscape.noise_at(x,z,seed+2)*plants.size()))]
 			var scale := lerpf(float(size_range[0]),float(size_range[1]),CourseLandscape.noise_at(x,z,seed+3))
 			var radius := (22.0 if id=="moon_rock" else float(BillboardArt.card(id).size.x)*.55)*scale+2
+			if region.get("avoid_buildings",false):
+				var blocked := false
+				for site: Dictionary in sites:
+					if not site.has("module"): continue
+					if Vector2(at.x-site.at.x,at.z-site.at.z).length()<radius+float(site.radius):
+						blocked = true
+						break
+				if blocked: continue
 			var road := nearest(world,at)
 			at.y = height(world,at,road)
 			if not clear(world,at,radius): continue
@@ -134,7 +149,7 @@ static func compound(world: TrackWorld, parent: Node3D, region: Dictionary, pose
 	cluster.set_meta("region",region.name)
 	cluster.set_meta("kind",region.kind)
 	parent.add_child(cluster)
-	var surface := material()
+	var surface := material(float(world.art.get("emission",0)))
 	for entry: Array in region.get("modules",CourseCompoundArt.layout(region.kind)):
 		var mesh := CourseCompoundArt.mesh(entry[0],int(entry[3]))
 		var bounds := mesh.get_aabb()
@@ -190,6 +205,6 @@ static func floor_skirt(world: TrackWorld, parent: Node3D) -> void:
 	node.name = "LandscapeGroundSkirt"
 	node.mesh = mesh
 	node.position = Vector3((float(bounds[0])+float(bounds[2]))*.5,floor_y-15,(float(bounds[1])+float(bounds[3]))*.5)
-	node.material_override = ExpansionBiome.material(world.track.id) if world.art.get("expansion40",false) else world.material(Color.html(world.art.ground))
+	node.material_override = MarinaGround.material(world.track) if world.track.id=="marina_lights" else ExpansionBiome.material(world.track.id) if world.art.get("expansion40",false) else world.material(Color.html(world.art.ground))
 	node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	parent.add_child(node)

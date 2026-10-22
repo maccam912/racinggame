@@ -8,15 +8,15 @@ ROOT=Path(__file__).resolve().parents[1]
 def apply(catalog):
     designs=json.loads((ROOT/'assets/source/course_compositions14.json').read_text())
     by_id={row['id']:row for row in designs['courses']}
-    assert len(by_id)==33
+    assert len(by_id)==34
     for course in catalog['courses']:
         if course['id'] not in by_id: continue
         row=by_id[course['id']]
         course.update(composition_version=14, scenery_regions=row['regions'],
                       landmarks=row['landmarks'], light_sections=row['light_sections'],
-                      road_gates=row['road_gates'], landform_regions=row['landform_regions'],
+                      road_gates=row['road_gates'],
                       service_scenes=row['service_scenes'], preview_u=row['preview_u'])
-        for field in ['verge_extent','ground','sun']:
+        for field in ['verge_extent','ground','sun','landform_regions','district']:
             if field in row: course[field]=row[field]
     return catalog
 
@@ -32,6 +32,6 @@ def main():
     else:
         path.write_text(value)
         export.write_text(value)
-    print('THIRTY_THREE_AUTHORED_COURSE_COMPOSITIONS')
+    print('THIRTY_FOUR_AUTHORED_COURSE_COMPOSITIONS')
 
 if __name__=='__main__':main()

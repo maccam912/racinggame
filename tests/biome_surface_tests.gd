@@ -17,8 +17,16 @@ func run() -> void:
 		var terrain_meshes := terrain.find_children("*","MeshInstance3D",true,false)
 		assert(not terrain_meshes.is_empty())
 		var ground: Material = terrain_meshes[0].material_override
-		if index<10:
-			assert(ground is StandardMaterial3D,"established ten keep their terrain path")
+		if track.id=="marina_lights":
+			assert(ground is ShaderMaterial and ground==MarinaGround.material(track))
+			assert(ground.shader.resource_path=="res://assets/exported/shaders/marina_ground.gdshader")
+			assert(int(ground.get_shader_parameter("garden_count"))==14)
+			for node: MeshInstance3D in terrain_meshes: assert(node.material_override==ground)
+			var verge: MeshInstance3D = world.get_node("Road_verges")
+			assert(verge.material_override==ground,"Marina garden and paving colors cross the verge without a seam")
+			for node: MeshInstance3D in verge.find_children("*","MeshInstance3D",true,false): assert(node.material_override==ground)
+		elif index<10:
+			assert(ground is StandardMaterial3D,"the other nine classics retain their terrain material path")
 		else:
 			assert(ground is ShaderMaterial)
 			var surface := ground as ShaderMaterial

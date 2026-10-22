@@ -45,7 +45,8 @@ func run() -> void:
 			for vertex: Vector3 in faces: assert(vertex.is_finite())
 			for normal: Vector3 in arrays[Mesh.ARRAY_NORMAL]: assert(normal.is_finite() and absf(normal.length()-1)<.01)
 			assert(node.visibility_range_end==700 and node.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF)
-		if track.id=="neon_underpass": check_city_blocks(world)
+		if track.id in ["neon_underpass","marina_lights"]: check_city_blocks(world)
+		if track.id=="marina_lights": check_marina(world,landscape)
 		if track.id in ["glacier_ridge","frostbite_fjord"]:
 			var ice_walls := 0
 			var erratics := 0
@@ -65,15 +66,15 @@ func run() -> void:
 		print("AUTHORED_COMPOSITION ",track.id," places=",places," modules=",physical_modules)
 		world.queue_free()
 		await process_frame
-	assert(rows.size()==33 and modules.size()>20)
+	assert(rows.size()==34 and modules.size()>20)
 	FileAccess.open("res://reports/authored-compositions14.json",FileAccess.WRITE).store_string(JSON.stringify({"passed":true,"content_hash":Compatibility.content_hash(),"cases":rows,"distinct_module_meshes":modules.size(),"boundary":"Actual world composition, full footprint road reservations, finite bounded model meshes and pavement-edge terrain samples. Native aesthetic review is separate."},"\t")+"\n")
-	print("THIRTY_THREE_AUTHORED_PLACES_COMPOUNDS_AND_ROAD_TERRAIN_CLEARANCE_PASS")
+	print("THIRTY_FOUR_AUTHORED_PLACES_COMPOUNDS_AND_ROAD_TERRAIN_CLEARANCE_PASS")
 	quit()
 
 func check_city_blocks(world: TrackWorld) -> void:
 	var nodes: Array[MeshInstance3D] = []
 	var polygons: Array[PackedVector2Array] = []
-	for node: MeshInstance3D in world.get_node("ExpansionLandscape").find_children("*","MeshInstance3D",true,false):
+	for node: MeshInstance3D in world.get_node("ExpansionLandscape" if world.art.get("expansion40",false) else "LandscapeDistricts").find_children("*","MeshInstance3D",true,false):
 		if not node.has_meta("module"): continue
 		nodes.append(node)
 		var bounds := node.mesh.get_aabb()
@@ -82,17 +83,19 @@ func check_city_blocks(world: TrackWorld) -> void:
 			var at := node.global_transform*point
 			polygon.append(Vector2(at.x,at.z))
 		polygons.append(polygon)
-	assert(nodes.size()>=100,"city districts must survive road and foundation culling")
+	assert(nodes.size()>=(100 if world.track.id=="neon_underpass" else 100),"city districts must survive road and foundation culling")
 	var kinds: Dictionary = {}
 	for node: MeshInstance3D in nodes: kinds[node.get_meta("module")] = true
 	for kind: String in ["cinema","arcade","apartment","parking"]: assert(kinds.has(kind))
+	var overlaps: Array[String] = []
 	for a in range(nodes.size()):
 		for b in range(a+1,nodes.size()):
 			if nodes[a].position.distance_to(nodes[b].position)>120: continue
 			for polygon: PackedVector2Array in Geometry2D.intersect_polygons(polygons[a],polygons[b]):
 				var area := 0.0
 				for i in range(polygon.size()): area += polygon[i].cross(polygon[(i+1)%polygon.size()])*.5
-				assert(absf(area)<.01,"independently authored city blocks cannot intersect one another")
+				if absf(area)>=.01: overlaps.append("%s/%s and %s/%s"%[nodes[a].get_parent().name,nodes[a].name,nodes[b].get_parent().name,nodes[b].name])
+	assert(overlaps.is_empty(),"city blocks overlap: "+str(overlaps))
 
 func check_natural_foundation(world: TrackWorld, node: MeshInstance3D) -> void:
 	# Inspect the actual closed bottom triangles against the exported terrain,
@@ -113,3 +116,23 @@ func check_natural_foundation(world: TrackWorld, node: MeshInstance3D) -> void:
 				var at := node.global_transform*(a+(b-a)*(i/4.0)+(c-a)*(j/4.0))
 				var floor_y := CourseArt.height_from_grid(world.terrain_grid,at,-INF)
 				assert(is_finite(floor_y) and at.y<floor_y-.05,"closed natural bases must remain buried under the actual ground")
+
+func check_marina(world: TrackWorld, landscape: Node3D) -> void:
+	assert(not world.has_node("DowntownBlocks") and not world.has_node("DowntownWindows"),"authored districts replace the old uniform roadside rows")
+	assert(world.lamp_glow_sites.size()>60)
+	assert(world.find_children("StreetlightPools_*","MeshInstance3D",true,false).size()>10)
+	assert(world.find_children("IllustratedWaterfall","MeshInstance3D",true,false).is_empty(),"city utility props cannot fall through to the legacy waterfall")
+	var gardens := 0
+	for region: Dictionary in landscape.get_meta("regions"):
+		if region.kind=="grove": gardens += 1
+	assert(int(MarinaGround.material(world.track).get_shader_parameter("garden_count"))==gardens)
+	var sites: Array = landscape.get_meta("sites")
+	for site: Dictionary in sites:
+		if site.has("module"): continue
+		for building: Dictionary in sites:
+			if not building.has("module"): continue
+			var delta: Vector3 = site.at-building.at
+			assert(Vector2(delta.x,delta.z).length()>=float(site.radius)+float(building.radius),"park canopies cannot clip through city blocks")
+	for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
+		if not node.has_meta("module"): continue
+		assert(is_equal_approx(float(node.material_override.get_shader_parameter("window_glow")),.7))

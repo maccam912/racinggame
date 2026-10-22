@@ -1288,7 +1288,8 @@ Content version 14 preserves protocol 7 and save schema 1. The frozen content-13
 archive retains its records, ghosts, Cup and race bytes; those incompatible runs
 do not resume or compete against current records.
 
-All thirty additions and the three revised classics have named area parcels in
+All thirty additions and four classics (Palm Bay, Citrus Pass, Redwood Run and
+Marina Lights) have named area parcels in
 `assets/source/course_compositions14.json`. Trees occupy irregular groves with
 mixed species and sizes. Building settlements use bounded solid 3D modules with
 individual foundations, including one Lunar freight base, a separate survey
@@ -1383,3 +1384,17 @@ vertices must meet actual cliff triangles and its entire silhouette must remain
 inside the existing standalone clearing. Native before/after pixels in
 `docs/evidence/canopy-falls14` confirm visible water motion and zero changed
 samples under Reduce Motion; the course and lobby photograph shows this place.
+
+
+Marina Lights retains its classic route and five original landmark anchors, with
+thirteen separately composed cinema, apartment, shop, gallery and harbor groups
+and fourteen mixed gardens. Full building footprints remain disjoint, and garden
+canopies reserve those footprints. Selected streets have light poles and light
+pools; small shelter, cart and utility models have explicit classic renderer
+support. The distant city is one persistent 1,584-triangle mesh with windows and
+varied roof heights. World-space garden and paving materials span the existing
+terrain and verge, adding no coplanar surface or driving collision. Opaque window
+masks limit building emission to the panes. Existing terrain exports, route,
+landmark tunnel collision and gameplay compatibility remain unchanged. Native
+views and isolated eight-car comparison evidence live in
+`docs/evidence/marina-places14`.

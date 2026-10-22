@@ -20,7 +20,10 @@ func run() -> void:
 			var at: Vector3 = site.at
 			assert(world.clear_of_road(at,site.radius),"every instance clears every road branch")
 			assert(world.decoration_allowed(at) and not RoadsidePosterArt.blocks_sightline(world.poster_sites,at))
-			assert(absf(at.y-(AuthoredCourseScenery.height(world,at,site) if world.art.get("composition_version",0)>=14 else CourseArt.height_from_grid(world.terrain_grid,at,INF)))<.001,"landscape roots meet actual terrain")
+			if site.has("module"):
+				assert(at.y>=site.foundation_min and at.y-site.foundation_min<=16,"city foundations reach the actual ground")
+			else:
+				assert(absf(at.y-(AuthoredCourseScenery.height(world,at,site) if world.art.get("composition_version",0)>=14 else CourseArt.height_from_grid(world.terrain_grid,at,INF)))<.001,"landscape roots meet actual terrain")
 			if world.art.water and site.id!="islet": assert(at.y>float(CourseArt.terrain_info[track.id].sea_level)+1.49,"no groves or buildings in open water")
 			if site.distance>220: far_sites += 1
 		assert(far_sites>20,"decoration extends well beyond the roadside band")

@@ -18,7 +18,7 @@ func run() -> void:
 		root.add_child(world)
 		await physics_frame
 		await physics_frame
-		var counts := {"Rocks":0,"Logs":0,"Waterfall":0,"Tower":0,"Bluff":0,"SurfHut":0,"BeachUmbrellas":0,"PackingCrates":0,"HarborCargo":0}
+		var counts := {"Rocks":0,"Logs":0,"Waterfall":0,"Tower":0,"Bluff":0,"SurfHut":0,"BeachUmbrellas":0,"PackingCrates":0,"HarborCargo":0,"bus_shelter":0,"snack_cart":0,"service_cabinet":0}
 		for site: Dictionary in world.decor_sites:
 			assert(world.clear_of_road(site.pose.origin,float(site.radius)))
 			assert(not RoadsidePosterArt.blocks_sightline(world.poster_sites,site.pose.origin))
@@ -27,9 +27,10 @@ func run() -> void:
 		for node: MeshInstance3D in world.find_children("*","MeshInstance3D",false,false):
 			if not node.has_meta("kind"): continue
 			decor_nodes += 1
-			assert(node.mesh.get_faces().size()/3<500 and node.find_children("*","CollisionObject3D",true,false).is_empty())
+			var limit := 1500 if node.get_meta("kind") in ["bus_shelter","snack_cart","service_cabinet"] else 500
+			assert(node.mesh.get_faces().size()/3<limit and node.find_children("*","CollisionObject3D",true,false).is_empty())
 			assert(node.is_in_group("scenery_distance") and node.get_aabb().size.length()<(300 if node.get_meta("kind")=="Tower" else 60))
-			if node.get_meta("kind") in RoadsideLife.KINDS:
+			if node.get_meta("kind") in RoadsideLife.KINDS or node.get_meta("kind") in ["bus_shelter","snack_cart","service_cabinet"]:
 				assert(node.mesh.get_surface_count()==1,"roadside scenes retain one existing submission/material")
 				for point: Vector3 in node.mesh.get_faces():
 					assert(point.is_finite() and Vector2(point.x,point.z).length()<=7 and point.y>=-1.25 and point.y<=7,"every new detail stays inside the reserved roadside envelope")
@@ -40,7 +41,10 @@ func run() -> void:
 			if node.get_meta("kind")=="Tower":
 				assert(node.material_override is ShaderMaterial and node.material_override.get_shader_parameter("city_facade")==true)
 		assert(decor_nodes==world.decor_sites.size(),"both roadside instances remain checked even when Godot auto-renames duplicate node names")
-		if world.art.get("composition_version",0)>=14:
+		if track.id=="marina_lights":
+			assert(world.decor_sites.size()>=4 and world.decor_sites.size()<=6)
+			assert(counts.bus_shelter>=1 and counts.snack_cart>=1 and counts.HarborCargo==1 and counts.Waterfall==0)
+		elif world.art.get("composition_version",0)>=14:
 			assert(world.decor_sites.size()>=2 and world.decor_sites.size()<=3,"classic roadside details occupy specific places")
 		else:
 			if not world.art.get("elevated",false): assert(counts.Rocks>=8)

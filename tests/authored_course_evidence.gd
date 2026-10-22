@@ -59,7 +59,7 @@ func run() -> void:
 		world.queue_free()
 		root.size = Vector2i(1280,720)
 		for frame in range(4): await process_frame
-	assert(records.size()==(33 if selected.is_empty() else selected.size()))
+	assert(records.size()==(34 if selected.is_empty() else selected.size()))
 	FileAccess.open(output+"/native.json",FileAccess.WRITE).store_string(JSON.stringify({"content_hash":Compatibility.content_hash(),"renderer":RenderingServer.get_current_rendering_method(),"cases":records,"boundary":"Native macOS Compatibility Far Chase photographs, 65 degree FOV, 700 metre scenery. Actual shipped 512x288 images plus 1280x720 evidence. Static rendered composition; not a human driving or Android performance claim."},"\t")+"\n")
 	print("AUTHORED_NATIVE_PHOTOGRAPHS_COMPLETE count=",records.size())
 	quit()

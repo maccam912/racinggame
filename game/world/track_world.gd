@@ -191,6 +191,7 @@ func build_road() -> void:
 				mat.emission_energy_multiplier = .22 if art.get("expansion40",false) else 1.0
 			instance.material_override = mat
 		if key=="verges" and art.get("expansion40",false): instance.material_override = ExpansionBiome.material(track.id)
+		if key=="verges" and track.id=="marina_lights" and art.get("composition_version",0)>=14: instance.material_override = MarinaGround.material(track)
 		# Pavement/paint receive scenery shadows but do not need to cast an
 		# entire duplicate road into the sun atlas. Elevated decks cast below.
 		instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF

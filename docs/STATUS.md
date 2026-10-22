@@ -1,5 +1,34 @@
 # Implementation status
 
+## 22 October — authored routes, course selection and Marina city places
+
+Content is now **14**, with protocol/save versions **7/1**. Twenty-eight routes
+use continuous cubic curves with individually chosen sweepers, hairpins and
+straights; selected street and dock circuits retain their angular character.
+[Route and scenery evidence](evidence/authored-courses14/README.md) records the
+actual worlds. Random is the first course-picker option, with a real selected
+course photo and map in offline and lobby selection. The main-menu apron no
+longer overlaps the road. Runtime posters are reduced to 768×512 while originals
+remain preserved.
+
+Marina Lights keeps its classic route and five landmark anchors but replaces
+uniform roadside rows with **13 city quarters, 106 buildings and 14 gardens**.
+Selected streets have lamps and light pools. Garden canopies reserve building
+footprints; a continuous windowed skyline remains beyond culled scenery. The
+new ground treatment shares one material across terrain and verges without
+adding overlapping planes. Building emission applies only to window faces.
+[Native before/after views and validation](evidence/marina-places14/README.md)
+retain the eight-camera comparison, refreshed course photographs and timings.
+
+Two isolated eight-car races before and after each produced **12,862 racing
+frames**, all eight finishers and one frame above 33 ms. Frame p95 changed from
+**17.626 to 17.674 ms**, p99 from **18.502 to 18.664 ms** on this Mac at Medium,
+1920×1080 and a 60 fps cap. This does not establish Android, exported-build or
+human driving performance. All terrain exports and gameplay identity remain
+unchanged by this city pass. All **209 source commands pass**, with four updated
+legacy expectations rerun under their exact gate commands; the initial report
+and passing rechecks are retained separately.
+
 ## 21 October — forty courses, recorded music and presentation defaults
 
 The roster now contains **40 courses**: the retained ten plus thirty individually

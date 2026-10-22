@@ -136,7 +136,10 @@ static func terrain(track_id: String) -> Node3D:
 	collect_terrain_heights(result,Transform3D.IDENTITY,heights)
 	terrain_heights[track_id] = heights
 	var ground: Material
-	if courses[track_id].get("expansion40",false): ground = ExpansionBiome.material(track_id)
+	if track_id=="marina_lights" and courses[track_id].get("composition_version",0)>=14:
+		for track: TrackDefinition in Catalog.tracks:
+			if track.id==track_id: ground = MarinaGround.material(track)
+	elif courses[track_id].get("expansion40",false): ground = ExpansionBiome.material(track_id)
 	else:
 		var flat := StandardMaterial3D.new()
 		flat.albedo_color = Color.html(courses[track_id].ground)

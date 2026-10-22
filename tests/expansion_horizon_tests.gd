@@ -27,6 +27,9 @@ func run() -> void:
 			if node==null:
 				assert(track.id in ["spillway_sprint","caldera_crosscut"])
 				classics.append({"track":track.id,"horizon":false})
+			elif track.id=="marina_lights":
+				check_marina_horizon(world,node)
+				classics.append({"track":track.id,"horizon":true,"authored_city":true,"mesh_sha256":fingerprint(node),"triangles":node.mesh.get_faces().size()/3})
 			else:
 				assert(not node.has_meta("profile"))
 				var before := fingerprint(node)
@@ -94,7 +97,33 @@ func run() -> void:
 	assert(rows.size()==30 and classics.size()==10 and families.size()>=16)
 	assert(content==Compatibility.content_hash())
 	var file := FileAccess.open("res://reports/expansion-horizons.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":true,"content_hash":content,"families":families.size(),"cases":rows,"original_ten":classics,"boundary":"Actual forty worlds. Eight established generic horizons match the frozen helper exactly; two retain their spectacle skyline exclusion. All thirty new single-mesh skylines have finite clockwise unit normals, bounded triangles, distinct closed profiles, full-face separation from the circle enclosing all road branches, no collision/shadows and persistence at low/high draw settings. Native visual quality and camera-frustum coverage are separate."},"\t")+"\n")
+	file.store_string(JSON.stringify({"passed":true,"content_hash":content,"families":families.size(),"cases":rows,"original_ten":classics,"boundary":"Actual forty worlds. Seven established generic horizons match the immutable frozen helper exactly; Marina has a bounded persistent city skyline and two retain their spectacle skyline exclusion. All thirty new single-mesh skylines have finite clockwise unit normals, bounded triangles, distinct closed profiles, full-face separation from the circle enclosing all road branches, no collision/shadows and persistence at low/high draw settings. Native visual quality and camera-frustum coverage are separate."},"\t")+"\n")
 	file.close()
-	print("THIRTY_REGIONAL_PERSISTENT_SKYLINES_FIRST_TEN_EXACT_ROAD_CLEAR_MESHES_PASS families=",families.size())
+	print("THIRTY_REGIONAL_PERSISTENT_SKYLINES_NINE_CLASSICS_RETAINED_MARINA_CITY_ROAD_CLEAR_MESHES_PASS families=",families.size())
 	quit()
+
+func check_marina_horizon(world: TrackWorld, node: MeshInstance3D) -> void:
+	assert(node!=null and not node.is_in_group("scenery_distance") and node.visibility_range_end==0)
+	assert(node.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF)
+	assert(node.find_children("*","CollisionObject3D",true,false).is_empty())
+	assert(node.material_override is ShaderMaterial and node.material_override.shader.resource_path=="res://assets/exported/shaders/city_horizon.gdshader")
+	var arrays := node.mesh.surface_get_arrays(0)
+	var points: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+	var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+	assert(points.size()/3==1584 and points.size()==normals.size())
+	var low := Vector3(INF,INF,INF)
+	var high := Vector3(-INF,-INF,-INF)
+	for at: Vector3 in world.track.points:
+		low = low.min(at)
+		high = high.max(at)
+	var center := Vector2((low.x+high.x)*.5,(low.z+high.z)*.5)
+	var radius := 0.0
+	for at: Vector3 in world.track.points: radius = maxf(radius,Vector2(at.x,at.z).distance_to(center))
+	for first in range(0,points.size(),3):
+		var expected := -(points[first+1]-points[first]).cross(points[first+2]-points[first]).normalized()
+		for corner in range(3):
+			var at := points[first+corner]
+			var next := points[first+(corner+1)%3]
+			assert(at.is_finite() and expected.is_finite() and normals[first+corner].dot(expected)>.999)
+			var nearest := Geometry2D.get_closest_point_to_segment(center,Vector2(at.x,at.z),Vector2(next.x,next.z))
+			assert(nearest.distance_to(center)-radius>500,"entire city skyline faces remain outside every road branch")

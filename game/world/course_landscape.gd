@@ -172,7 +172,8 @@ static func horizon(world: TrackWorld) -> void:
 	var tool := SurfaceTool.new()
 	tool.begin(Mesh.PRIMITIVE_TRIANGLES)
 	var dry: bool = world.track.id in ["sunstone_canyon","quarry_switchback"] or world.art.get("theme","") in ["desert","space"]
-	var coast := world.track.id in ["palm_bay","marina_lights"]
+	var city: bool = world.track.id=="marina_lights" and world.art.get("composition_version",0)>=14
+	var coast: bool = world.track.id=="palm_bay" or (world.track.id=="marina_lights" and not city)
 	var tint := Color("AF8A81") if dry else Color("69898B")
 	if world.art.get("expansion40",false): tint = Color.html(world.art.ground).darkened(.22)
 	tint = tint.lerp(Color.html(world.art.horizon),.30)
@@ -183,6 +184,18 @@ static func horizon(world: TrackWorld) -> void:
 		var at := center+Vector3(cos(angle)*radius,0,sin(angle)*radius)
 		at.y = base_y
 		var seed := noise_at(index,0,11)
+		if city:
+			# A low-cost, continuous town silhouette survives detail culling.
+			# Broad fronts face inward; varying roofs break the horizon rhythm.
+			var pose := Transform3D(Basis(Vector3.UP,-angle+PI*.5),at)
+			var height := 65+seed*125
+			var width := radius*TAU/44*1.07
+			var color := Color("424C69").lerp(Color("77708D"),seed)
+			CourseDecor.facade_box(tool,pose*Transform3D(Basis.IDENTITY,Vector3(-width*.25,height*.5,0)),Vector3(width*.52,height,55),color,height,true)
+			var neighbor_height := height*(.52+noise_at(index,1,17)*.45)
+			CourseDecor.facade_box(tool,pose*Transform3D(Basis.IDENTITY,Vector3(width*.25,neighbor_height*.5,-18)),Vector3(width*.53,neighbor_height,55),color.darkened(.13),neighbor_height,true)
+			CourseDecor.facade_box(tool,pose*Transform3D(Basis.IDENTITY,Vector3(-width*.25,height+5,0)),Vector3(width*.32,10,38),color.lightened(.06),height,false)
+			continue
 		var height := 100+seed*180+(90 if world.track.id=="pacific_summit" else 0)
 		if world.art.get("theme","")=="polar": height += 110
 		CourseDecor.stone(tool,at+Vector3(0,-height*.12,0),Vector3(220+seed*90,height,180+seed*80),tint,index)
@@ -193,5 +206,9 @@ static func horizon(world: TrackWorld) -> void:
 	surface.vertex_color_use_as_albedo = true
 	surface.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	node.material_override = surface
+	if city:
+		var city_surface := ShaderMaterial.new()
+		city_surface.shader = load("res://assets/exported/shaders/city_horizon.gdshader")
+		node.material_override = city_surface
 	node.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	world.add_child(node)

@@ -25,6 +25,7 @@ static func dome(t: SurfaceTool, at: Vector3, radius: float, height: float, colo
 			if ring<4: ExpansionWatercraftArt.outward(t,p,r,s,at,color)
 
 static func window(t: SurfaceTool, center: Vector3, right: Vector3, up: Vector3, interior: Vector3, color: Color) -> void:
+	color.a = .5 # Opaque window emission mask; the surface never uses alpha blending.
 	var a := center-right-up
 	var b := center+right-up
 	var c := center+right+up

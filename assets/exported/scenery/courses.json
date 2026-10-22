@@ -440,7 +440,1167 @@
           "u": 0.81,
           "lateral": -24
         }
-      ]
+      ],
+      "composition_version": 14,
+      "scenery_regions": [
+        {
+          "name": "Cinema boulevard",
+          "u": 0.12,
+          "side": -1,
+          "setback": 100,
+          "kind": "city",
+          "modules": [
+            [
+              "cinema",
+              0,
+              0,
+              3,
+              1.5707963267948966
+            ],
+            [
+              "arcade",
+              35,
+              -80,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "apartment",
+              -60,
+              -95,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "parking",
+              -75,
+              -10,
+              0,
+              0
+            ],
+            [
+              "tower",
+              -148,
+              -48,
+              3,
+              0
+            ],
+            [
+              "tower",
+              -145,
+              55,
+              1,
+              0
+            ],
+            [
+              "apartment",
+              -55,
+              88,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "house",
+              25,
+              95,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "tower",
+              -230,
+              -110,
+              2,
+              0
+            ],
+            [
+              "tower",
+              -235,
+              5,
+              3,
+              0
+            ],
+            [
+              "apartment",
+              -225,
+              110,
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Start square",
+          "u": 0.073,
+          "side": -1,
+          "setback": 72,
+          "kind": "city",
+          "modules": [
+            [
+              "house",
+              0,
+              0,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "arcade",
+              -65,
+              73,
+              1,
+              0
+            ],
+            [
+              "apartment",
+              -72,
+              -55,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "parking",
+              -150,
+              15,
+              1,
+              0
+            ],
+            [
+              "tower",
+              -156,
+              -90,
+              2,
+              0
+            ],
+            [
+              "tower",
+              -165,
+              110,
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Garden apartments",
+          "u": 0.17,
+          "side": 1,
+          "setback": 110,
+          "kind": "city",
+          "modules": [
+            [
+              "apartment",
+              0,
+              -88,
+              1,
+              -1.5707963267948966
+            ],
+            [
+              "apartment",
+              5,
+              25,
+              0,
+              -1.5707963267948966
+            ],
+            [
+              "arcade",
+              -48,
+              118,
+              2,
+              -1.5707963267948966
+            ],
+            [
+              "apartment",
+              95,
+              -66,
+              2,
+              3.141592653589793
+            ],
+            [
+              "apartment",
+              93,
+              64,
+              1,
+              0
+            ],
+            [
+              "pavilion",
+              37,
+              -25,
+              1,
+              0
+            ],
+            [
+              "tower",
+              180,
+              -100,
+              1,
+              0
+            ],
+            [
+              "parking",
+              183,
+              5,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "tower",
+              175,
+              104,
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "North station",
+          "u": 0.265,
+          "side": -1,
+          "setback": 130,
+          "kind": "city",
+          "modules": [
+            [
+              "arcade",
+              0,
+              0,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "parking",
+              -78,
+              0,
+              1,
+              0
+            ],
+            [
+              "tower",
+              -145,
+              -50,
+              3,
+              0
+            ],
+            [
+              "tower",
+              -146,
+              50,
+              2,
+              0
+            ],
+            [
+              "apartment",
+              -62,
+              100,
+              2,
+              0
+            ],
+            [
+              "house",
+              8,
+              100,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              -220,
+              0,
+              1,
+              0
+            ],
+            [
+              "apartment",
+              -205,
+              113,
+              3,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "West terraces",
+          "u": 0.205,
+          "side": -1,
+          "setback": 88,
+          "kind": "city",
+          "modules": [
+            [
+              "arcade",
+              18,
+              -75,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "apartment",
+              10,
+              35,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "house",
+              25,
+              112,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "tower",
+              -65,
+              -105,
+              1,
+              0
+            ],
+            [
+              "parking",
+              -72,
+              -20,
+              0,
+              0
+            ],
+            [
+              "apartment",
+              -70,
+              80,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "tower",
+              -155,
+              -70,
+              3,
+              0
+            ],
+            [
+              "tower",
+              -158,
+              55,
+              2,
+              0
+            ],
+            [
+              "apartment",
+              -230,
+              0,
+              1,
+              1.5707963267948966
+            ]
+          ]
+        },
+        {
+          "name": "Wheel gardens shops",
+          "u": 0.335,
+          "side": 1,
+          "setback": 135,
+          "kind": "city",
+          "modules": [
+            [
+              "market",
+              -38,
+              -66,
+              1,
+              0
+            ],
+            [
+              "market",
+              30,
+              -68,
+              0,
+              0
+            ],
+            [
+              "pavilion",
+              0,
+              5,
+              2,
+              0
+            ],
+            [
+              "arcade",
+              82,
+              24,
+              3,
+              -1.5707963267948966
+            ],
+            [
+              "house",
+              -55,
+              73,
+              1,
+              0
+            ],
+            [
+              "house",
+              12,
+              96,
+              2,
+              0
+            ],
+            [
+              "apartment",
+              100,
+              120,
+              1,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Underpass offices",
+          "u": 0.425,
+          "side": -1,
+          "setback": 150,
+          "kind": "city",
+          "modules": [
+            [
+              "tower",
+              -32,
+              -80,
+              3,
+              0
+            ],
+            [
+              "tower",
+              37,
+              -75,
+              1,
+              0
+            ],
+            [
+              "arcade",
+              5,
+              3,
+              2,
+              0
+            ],
+            [
+              "parking",
+              -78,
+              40,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "tower",
+              77,
+              40,
+              2,
+              0
+            ],
+            [
+              "apartment",
+              -13,
+              105,
+              3,
+              0
+            ],
+            [
+              "tower",
+              -145,
+              -58,
+              2,
+              0
+            ],
+            [
+              "tower",
+              -154,
+              74,
+              1,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Harbor service yard",
+          "u": 0.555,
+          "side": -1,
+          "setback": 110,
+          "kind": "harbor",
+          "modules": [
+            [
+              "warehouse",
+              -25,
+              -70,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "warehouse",
+              -28,
+              17,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "container_stack",
+              37,
+              -75,
+              0,
+              0
+            ],
+            [
+              "container_stack",
+              35,
+              -35,
+              1,
+              0
+            ],
+            [
+              "container_stack",
+              40,
+              23,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "house",
+              -35,
+              95,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "warehouse",
+              -110,
+              30,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tank",
+              -110,
+              -50,
+              0,
+              0
+            ],
+            [
+              "antenna",
+              -95,
+              98,
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Sailboat clubhouse",
+          "u": 0.64,
+          "side": -1,
+          "setback": 140,
+          "kind": "harbor",
+          "modules": [
+            [
+              "house",
+              0,
+              0,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "pavilion",
+              -55,
+              10,
+              0,
+              0
+            ],
+            [
+              "market",
+              0,
+              70,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "house",
+              -115,
+              25,
+              2,
+              0
+            ],
+            [
+              "warehouse",
+              -75,
+              -65,
+              1,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Canal bend homes",
+          "u": 0.705,
+          "side": 1,
+          "setback": 95,
+          "kind": "city",
+          "modules": [
+            [
+              "house",
+              -30,
+              -60,
+              0,
+              0
+            ],
+            [
+              "arcade",
+              30,
+              5,
+              1,
+              0
+            ],
+            [
+              "apartment",
+              105,
+              -60,
+              2,
+              0
+            ],
+            [
+              "pavilion",
+              -25,
+              55,
+              1,
+              0
+            ],
+            [
+              "house",
+              45,
+              80,
+              3,
+              0
+            ],
+            [
+              "tower",
+              125,
+              40,
+              1,
+              0
+            ],
+            [
+              "parking",
+              110,
+              120,
+              0,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Diner neighborhood",
+          "u": 0.81,
+          "side": -1,
+          "setback": 120,
+          "kind": "city",
+          "modules": [
+            [
+              "house",
+              20,
+              -86,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "apartment",
+              -55,
+              -80,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "arcade",
+              5,
+              0,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "parking",
+              -90,
+              15,
+              1,
+              0
+            ],
+            [
+              "house",
+              12,
+              95,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "apartment",
+              -65,
+              104,
+              3,
+              1.5707963267948966
+            ],
+            [
+              "tower",
+              -170,
+              -78,
+              2,
+              0
+            ],
+            [
+              "tower",
+              -169,
+              35,
+              1,
+              0
+            ],
+            [
+              "apartment",
+              -158,
+              130,
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Promenade return",
+          "u": 0.91,
+          "side": -1,
+          "setback": 140,
+          "kind": "city",
+          "modules": [
+            [
+              "apartment",
+              0,
+              -95,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "arcade",
+              45,
+              0,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "house",
+              0,
+              96,
+              3,
+              0
+            ],
+            [
+              "parking",
+              -75,
+              -60,
+              0,
+              0
+            ],
+            [
+              "tower",
+              -150,
+              -110,
+              3,
+              0
+            ],
+            [
+              "tower",
+              -155,
+              0,
+              2,
+              0
+            ],
+            [
+              "apartment",
+              -80,
+              64,
+              1,
+              0
+            ],
+            [
+              "tower",
+              -155,
+              120,
+              1,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Promenade gallery",
+          "u": 0.958,
+          "side": -1,
+          "setback": 68,
+          "kind": "city",
+          "modules": [
+            [
+              "arcade",
+              0,
+              -102,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "house",
+              10,
+              -35,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "apartment",
+              -8,
+              45,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "house",
+              10,
+              116,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "tower",
+              -100,
+              -75,
+              2,
+              0
+            ],
+            [
+              "parking",
+              -95,
+              20,
+              0,
+              0
+            ],
+            [
+              "apartment",
+              -100,
+              108,
+              1,
+              0
+            ],
+            [
+              "tower",
+              -192,
+              -95,
+              3,
+              0
+            ],
+            [
+              "tower",
+              -190,
+              12,
+              2,
+              0
+            ],
+            [
+              "tower",
+              -190,
+              124,
+              1,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Start garden",
+          "u": 0.065,
+          "side": 1,
+          "setback": 90,
+          "along": 105,
+          "depth": 70,
+          "plants": [
+            "fan_palm",
+            "coastal_cypress"
+          ],
+          "spacing": 34,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Arcade pocket park",
+          "u": 0.095,
+          "side": -1,
+          "setback": 62,
+          "along": 65,
+          "depth": 32,
+          "plants": [
+            "fan_palm",
+            "palm"
+          ],
+          "spacing": 28,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Station greenbelt",
+          "u": 0.23,
+          "side": 1,
+          "setback": 210,
+          "along": 135,
+          "depth": 130,
+          "plants": [
+            "coastal_cypress",
+            "fan_palm",
+            "autumn_maple"
+          ],
+          "spacing": 34,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Wheel park",
+          "u": 0.33,
+          "side": -1,
+          "setback": 220,
+          "along": 140,
+          "depth": 160,
+          "plants": [
+            "coastal_cypress",
+            "autumn_maple"
+          ],
+          "spacing": 32,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Office court trees",
+          "u": 0.395,
+          "side": 1,
+          "setback": 170,
+          "along": 110,
+          "depth": 100,
+          "plants": [
+            "fan_palm",
+            "coastal_cypress"
+          ],
+          "spacing": 34,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Harbor boundary shelterbelt",
+          "u": 0.59,
+          "side": 1,
+          "setback": 240,
+          "along": 115,
+          "depth": 165,
+          "plants": [
+            "coastal_cypress",
+            "fan_palm"
+          ],
+          "spacing": 32,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Clubhouse grove",
+          "u": 0.675,
+          "side": -1,
+          "setback": 195,
+          "along": 100,
+          "depth": 125,
+          "plants": [
+            "coastal_cypress",
+            "palm"
+          ],
+          "spacing": 34,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "South neighborhood park",
+          "u": 0.85,
+          "side": 1,
+          "setback": 200,
+          "along": 130,
+          "depth": 130,
+          "plants": [
+            "fan_palm",
+            "coastal_cypress",
+            "autumn_maple"
+          ],
+          "spacing": 34,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Promenade gardens",
+          "u": 0.965,
+          "side": 1,
+          "setback": 135,
+          "along": 125,
+          "depth": 95,
+          "plants": [
+            "palm",
+            "fan_palm",
+            "coastal_cypress"
+          ],
+          "spacing": 30,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Cinema street garden",
+          "u": 0.145,
+          "side": -1,
+          "setback": 45,
+          "along": 70,
+          "depth": 24,
+          "plants": [
+            "fan_palm",
+            "coastal_cypress"
+          ],
+          "spacing": 24,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Underpass street garden",
+          "u": 0.4,
+          "side": 1,
+          "setback": 48,
+          "along": 65,
+          "depth": 28,
+          "plants": [
+            "fan_palm",
+            "palm"
+          ],
+          "spacing": 24,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Dockside screen",
+          "u": 0.525,
+          "side": 1,
+          "setback": 70,
+          "along": 65,
+          "depth": 35,
+          "plants": [
+            "coastal_cypress",
+            "fan_palm"
+          ],
+          "spacing": 26,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Diner corner garden",
+          "u": 0.845,
+          "side": -1,
+          "setback": 85,
+          "along": 105,
+          "depth": 65,
+          "plants": [
+            "fan_palm",
+            "coastal_cypress"
+          ],
+          "spacing": 28,
+          "kind": "grove",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Harbor verge garden",
+          "u": 0.565,
+          "side": 1,
+          "setback": 55,
+          "along": 90,
+          "depth": 32,
+          "plants": [
+            "fan_palm",
+            "coastal_cypress"
+          ],
+          "spacing": 26,
+          "kind": "grove",
+          "avoid_buildings": true
+        }
+      ],
+      "light_sections": [
+        [
+          0.065,
+          0.22,
+          -1
+        ],
+        [
+          0.265,
+          0.4,
+          1
+        ],
+        [
+          0.405,
+          0.46,
+          -1
+        ],
+        [
+          0.51,
+          0.59,
+          -1
+        ],
+        [
+          0.69,
+          0.85,
+          1
+        ],
+        [
+          0.88,
+          0.99,
+          -1
+        ]
+      ],
+      "road_gates": [],
+      "service_scenes": [
+        {
+          "u": 0.1,
+          "side": 1,
+          "setback": 27,
+          "kinds": [
+            "bus_shelter"
+          ]
+        },
+        {
+          "u": 0.29,
+          "side": -1,
+          "setback": 30,
+          "kinds": [
+            "snack_cart"
+          ]
+        },
+        {
+          "u": 0.535,
+          "side": -1,
+          "setback": 35,
+          "kinds": [
+            "HarborCargo"
+          ]
+        },
+        {
+          "u": 0.575,
+          "side": -1,
+          "setback": 35,
+          "kinds": [
+            "service_cabinet"
+          ]
+        },
+        {
+          "u": 0.79,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "bus_shelter"
+          ]
+        },
+        {
+          "u": 0.925,
+          "side": -1,
+          "setback": 30,
+          "kinds": [
+            "snack_cart"
+          ]
+        }
+      ],
+      "preview_u": 0.25,
+      "district": "city"
     },
     {
       "id": "redwood_run",

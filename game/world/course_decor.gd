@@ -19,7 +19,7 @@ static func plan(world: TrackWorld) -> Array[Dictionary]:
 		if world.track.id=="palm_bay" and variant%2==1: kind = "SurfHut" if variant%4==1 else "BeachUmbrellas"
 		elif world.track.id=="citrus_pass" and not logs and variant%4==0: kind = "PackingCrates"
 		elif world.track.id=="marina_lights" and variant%2==1: kind = "HarborCargo"
-		if kind in RoadsideLife.KINDS: pose.basis = pose.basis*Basis(Vector3.UP,-side*PI*.5)
+		if kind in RoadsideLife.KINDS or kind in ["bus_shelter","snack_cart","service_cabinet"]: pose.basis = pose.basis*Basis(Vector3.UP,-side*PI*.5)
 		result.append({"kind":kind,"pose":pose,"s":s,"radius":7.0})
 	if world.track.id in ["skyline_splice","quarry_switchback"]:
 		for s in range(40,int(world.track.length),80 if world.track.id=="skyline_splice" else 320):
@@ -51,7 +51,7 @@ static func authored_plan(world: TrackWorld) -> Array[Dictionary]:
 		var kind: String = scene.kinds[0]
 		var radius := 22.0 if kind=="Waterfall" else 7.0
 		if not world.clear_of_road(pose.origin,radius) or not world.decoration_allowed(pose.origin,radius) or RoadsidePosterArt.blocks_sightline(world.poster_sites,pose.origin): continue
-		if kind in RoadsideLife.KINDS: pose.basis = pose.basis*Basis(Vector3.UP,-side*PI*.5)
+		if kind in RoadsideLife.KINDS or kind in ["bus_shelter","snack_cart","service_cabinet"]: pose.basis = pose.basis*Basis(Vector3.UP,-side*PI*.5)
 		result.append({"kind":kind,"pose":pose,"s":s,"radius":radius})
 		world.scenery_clearings.append({"center":pose.origin,"radius":radius+3})
 	return result
@@ -159,10 +159,14 @@ static func build(world: TrackWorld) -> void:
 		elif site.kind=="Bluff":
 			for index in range(3):
 				stone(tool,Vector3((index-1)*6,-1,index%2*2),Vector3(7,24+index*5,7),Color("7E8E89"),index+int(site.s))
-		else:
+		elif site.kind in ["bus_shelter","snack_cart","service_cabinet"]:
+			tool.append_from(ExpansionLifeProps.mesh(site.kind),0,Transform3D.IDENTITY)
+		elif site.kind=="Waterfall":
 			for index in range(3):
 				stone(tool,Vector3((index-1)*8,-.3,0),Vector3(2.0,2.4,2.1),Color("6D817C"),index)
 			waterfall(world,node)
+		else:
+			assert(false,"Unknown classic roadside scene: "+str(site.kind))
 		node.mesh = tool.commit()
 		node.material_override = city_surface if site.kind=="Tower" else surface
 		node.add_to_group("scenery_distance")

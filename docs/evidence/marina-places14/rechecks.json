@@ -1,0 +1,100 @@
+{
+  "platform": "Darwin-arm64",
+  "engine": "4.6.3-stable",
+  "commit": "0cd727f11a782aa4cfc8ee8cd2a9a71fa8325d87",
+  "working_tree_dirty": true,
+  "folder": "/tmp/pacific-marina14-final-checks/checks-022cd672eb",
+  "command_count": 4,
+  "passed": true,
+  "status": "complete",
+  "results": [
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/district_detail_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/district_detail_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T16:27:35.493244+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-marina14-final-checks/checks-022cd672eb/001.log",
+      "seconds": 2.765,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nTHEMED_FESTIVAL_CITADEL_DISTRICTS_BOUNDED_LOCAL_NIGHT_POOLS_MARINA_QUARTERS_PASS\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/biome_surface_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/biome_surface_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T16:27:38.259350+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-marina14-final-checks/checks-022cd672eb/002.log",
+      "seconds": 8.587,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nTHIRTY_COURSE_BIOMES_TEN_GROUND_TREATMENTS_FIVE_SPACE_SKIES_SHARED_VERGE_MATERIAL_PASS\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion_horizon_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/expansion_horizon_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T16:27:46.847108+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-marina14-final-checks/checks-022cd672eb/003.log",
+      "seconds": 15.535,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nTHIRTY_REGIONAL_PERSISTENT_SKYLINES_NINE_CLASSICS_RETAINED_MARINA_CITY_ROAD_CLEAR_MESHES_PASS families=21\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_variety_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/course_variety_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T16:28:02.383022+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-marina14-final-checks/checks-022cd672eb/004.log",
+      "seconds": 6.196,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nTEN_ROUTES_DISTINCT_CLASSICS_LAYERED_CROSSING_DECK_SUPPORTS_ROCKS_LOGS_WATERFALLS_PASS\n"
+    }
+  ]
+}

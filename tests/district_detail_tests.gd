@@ -26,12 +26,12 @@ func run() -> void:
 			assert(node.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF and node.visibility_range_end==700)
 		if id=="festival_speedway": assert(buildings>10 and archetypes.has("festival_tent") and archetypes.has("festival_stall"))
 		elif id=="oasis_citadel": assert(buildings>=8 and archetypes.has("citadel"))
-		elif id=="marina_lights": assert(buildings==0)
+		elif id=="marina_lights": assert(buildings>=100 and archetypes.has("cinema") and archetypes.has("warehouse"))
 		else: assert(buildings>=8)
 		assert(buildings==0 or float(triangles)/buildings<700,"bounded district geometry per building")
 		var pools := world.find_children("StreetlightPools_*","MeshInstance3D",false,false)
-		if id in ["festival_speedway","aurora_harbor","lantern_market","neon_underpass"]: assert(pools.size()>2 and world.lamp_glow_sites.size()>8)
-		else: assert(pools.is_empty(),"daytime and original courses retain their existing lighting")
+		if id in ["festival_speedway","aurora_harbor","lantern_market","neon_underpass","marina_lights"]: assert(pools.size()>2 and world.lamp_glow_sites.size()>8)
+		else: assert(pools.is_empty(),"daytime courses do not add night lighting")
 		var settings := SettingsCatalog.defaults(false)
 		settings.draw_distance = 700
 		settings.vsync = false
@@ -49,5 +49,5 @@ func run() -> void:
 	var file := FileAccess.open("res://reports/district-detail.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":true,"content_hash":hash_before,"cases":rows},"\t")+"\n")
 	file.close()
-	print("THEMED_FESTIVAL_CITADEL_DISTRICTS_BOUNDED_LOCAL_NIGHT_POOLS_CLASSIC_PRESERVED_PASS")
+	print("THEMED_FESTIVAL_CITADEL_DISTRICTS_BOUNDED_LOCAL_NIGHT_POOLS_MARINA_QUARTERS_PASS")
 	quit()
