@@ -1232,3 +1232,19 @@ Initial and random selections reveal the current card after the header/grid
 layout settles. Generation tokens cancel stale requests, and a bounded visibility
 check corrects a later container adjustment. This applies to interior selections
 as well as the final card, without changing shuffled tours or race configuration.
+
+
+### Anchored coastal watercraft
+
+Aurora Harbor has an icebreaker, Monsoon Delta has two cargo barges, Coral
+Causeway has three outrigger sailboats with different cloth colors, and Container
+Corkscrew has a harbor tug. Seven authored sites use actual ocean levels and
+reserve narrow planting windows along their road approaches. Complete swept
+footprints clear all road branches, visible verges, submerged terrain, existing
+landmarks and hero/poster approaches. The original ten receive no new boats.
+
+Each original faceted model has 160–292 triangles. Slow GPU roll and vertical bob
+use complete swept culling bounds, with no collision, shadows or scene-frame
+callbacks. They cull at 700 m, including after draw-distance settings change.
+Reduce Motion freezes a level waterline pose. Actual Far Chase visibility is
+checked separately from close views that demonstrate geometry and motion.

@@ -10,6 +10,7 @@ uniform bool water_flow = false;
 uniform int flow_axis = 1;
 uniform float sway_angle = 0.1;
 uniform float sway_phase = 0.0;
+uniform float bob_height = 0.22;
 uniform float travel_start = 0.0;
 uniform vec2 travel_extent = vec2(38.0,6.0);
 uniform float travel_phase = 0.0;
@@ -65,6 +66,14 @@ void vertex() {
     } else if (motion == 7) {
         float across = -travel_distance + mod(angle + travel_phase, travel_distance * 2.0);
         p.x += across - travel_start;
+    }
+    if (motion == 8) {
+        float roll = sin(TIME * motion_speed + sway_phase) * sway_angle * animation_enabled;
+        float rc = cos(roll);
+        float rs = sin(roll);
+        p.xy = mat2(vec2(rc,rs),vec2(-rs,rc)) * p.xy;
+        NORMAL.xy = mat2(vec2(rc,rs),vec2(-rs,rc)) * NORMAL.xy;
+        p.y += sin(TIME * motion_speed * 0.71 + sway_phase) * bob_height * animation_enabled;
     }
     VERTEX = p + pivot;
     local_at = VERTEX;

@@ -19,6 +19,7 @@ var scenery_clearings: Array[Dictionary] = []
 var decor_sites: Array[Dictionary] = []
 var spectacle_sites: Array[Dictionary] = []
 var hero_sites: Array[Dictionary] = []
+var watercraft_sites: Array[Dictionary] = []
 var lamp_glow_sites: Array[Dictionary] = []
 static var skies: Dictionary = {}
 
@@ -84,6 +85,7 @@ func advance_build() -> bool:
 				CourseSpectacles.build(self)
 				ArcadeCourseDetail.build(self)
 				ExpansionSetPieces.build(self,hero_sites)
+				ExpansionWatercraft.build(self,watercraft_sites)
 				if art.get("elevated",false): CourseRoadMesh.elevated_supports(self)
 				RoadsidePosterArt.build(self)
 				build_stage += 1
@@ -147,6 +149,8 @@ func build_environment() -> void:
 	spectacle_sites = CourseSpectacles.plan(self)
 	hero_sites = ExpansionSetPieces.plan(self)
 	if art.get("expansion40",false): ExpansionRoadsideLife.protect_heroes(self)
+	watercraft_sites = ExpansionWatercraft.plan(self)
+	ExpansionWatercraft.protect_views(self,watercraft_sites)
 	if art.water:
 		var water := MeshInstance3D.new()
 		var plane := PlaneMesh.new()

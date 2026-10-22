@@ -1927,3 +1927,30 @@ World, assets and gameplay/save identities are unchanged. The preceding skyline
 revision passed remote CI
 [39756548480](https://github.com/maccam912/racinggame/actions/runs/39756548480).
 [Evidence and boundaries](evidence/course-browser-readability/validation.json).
+
+
+### Coastal boats with readable road approaches
+
+Aurora Harbor now has an icebreaker, Monsoon Delta two cargo barges, Coral
+Causeway three differently colored outrigger sailboats, and Container Corkscrew
+a harbor tug. The seven authored placements include planting windows and clear
+existing hero/poster approaches. Native Far Chase comparisons confirm that each
+is visible while driving; close views separately show the four original faceted
+models. [Driving views](evidence/coastal-watercraft/ordinary-road-views.png),
+[all seven models](evidence/coastal-watercraft/all-seven-models.png).
+
+The models have **160–292 triangles** each. Gentle roll and bob run on the GPU,
+with complete swept culling bounds, no driving collision, shadows or scene-frame
+callbacks, and a **700 m** visibility cap. Full wet footprints and every road
+branch/verge are checked against actual geometry. Reduce Motion leaves level,
+still boats. The original ten receive no boats; terrain, routes, gameplay and
+save identities remain unchanged.
+
+All **203/203** source commands pass. Native checks cover seven driving views,
+seven isolated boat-motion cases, all thirteen existing motion/water cases,
+eight refreshed hero approaches and all forty loading/GPU/readback/ENet cases.
+Both Reduce Motion comparisons have zero changed samples. These are native
+macOS Compatibility checks, not Android runtime or frame-time acceptance.
+The preceding browser-polish revision passed remote CI
+[39761842246](https://github.com/maccam912/racinggame/actions/runs/39761842246).
+[Evidence and boundaries](evidence/coastal-watercraft/validation.json).
