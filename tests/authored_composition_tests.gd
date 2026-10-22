@@ -44,6 +44,7 @@ func run() -> void:
 			for vertex: Vector3 in faces: assert(vertex.is_finite())
 			for normal: Vector3 in arrays[Mesh.ARRAY_NORMAL]: assert(normal.is_finite() and absf(normal.length()-1)<.01)
 			assert(node.visibility_range_end==700 and node.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF)
+		if track.id=="neon_underpass": check_city_blocks(world)
 		rows.append({"track":track.id,"named_places":places,"actual_building_modules":physical_modules,"minimum_pavement_terrain_gap_m":min_gap})
 		print("AUTHORED_COMPOSITION ",track.id," places=",places," modules=",physical_modules)
 		world.queue_free()
@@ -52,3 +53,27 @@ func run() -> void:
 	FileAccess.open("res://reports/authored-compositions14.json",FileAccess.WRITE).store_string(JSON.stringify({"passed":true,"content_hash":Compatibility.content_hash(),"cases":rows,"distinct_module_meshes":modules.size(),"boundary":"Actual world composition, full footprint road reservations, finite bounded model meshes and pavement-edge terrain samples. Native aesthetic review is separate."},"\t")+"\n")
 	print("THIRTY_THREE_AUTHORED_PLACES_COMPOUNDS_AND_ROAD_TERRAIN_CLEARANCE_PASS")
 	quit()
+
+func check_city_blocks(world: TrackWorld) -> void:
+	var nodes: Array[MeshInstance3D] = []
+	var polygons: Array[PackedVector2Array] = []
+	for node: MeshInstance3D in world.get_node("ExpansionLandscape").find_children("*","MeshInstance3D",true,false):
+		if not node.has_meta("module"): continue
+		nodes.append(node)
+		var bounds := node.mesh.get_aabb()
+		var polygon := PackedVector2Array()
+		for point: Vector3 in [bounds.position,Vector3(bounds.end.x,0,bounds.position.z),bounds.end,Vector3(bounds.position.x,0,bounds.end.z)]:
+			var at := node.global_transform*point
+			polygon.append(Vector2(at.x,at.z))
+		polygons.append(polygon)
+	assert(nodes.size()>=100,"city districts must survive road and foundation culling")
+	var kinds: Dictionary = {}
+	for node: MeshInstance3D in nodes: kinds[node.get_meta("module")] = true
+	for kind: String in ["cinema","arcade","apartment","parking"]: assert(kinds.has(kind))
+	for a in range(nodes.size()):
+		for b in range(a+1,nodes.size()):
+			if nodes[a].position.distance_to(nodes[b].position)>120: continue
+			for polygon: PackedVector2Array in Geometry2D.intersect_polygons(polygons[a],polygons[b]):
+				var area := 0.0
+				for i in range(polygon.size()): area += polygon[i].cross(polygon[(i+1)%polygon.size()])*.5
+				assert(absf(area)<.01,"independently authored city blocks cannot intersect one another")

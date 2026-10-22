@@ -77,6 +77,43 @@ static func mesh(kind: String, variant: int = 0) -> ArrayMesh:
 			for y: float in [2,4,6,8,10]: box(t,Vector3(0,y,-19.25),Vector3(width*.58,.2,.2),GLASS if kind=="hangar" else WALL)
 			for x: float in [-10,10]: box(t,Vector3(x,13,-19.15),Vector3(4,2,.2),GLASS)
 			box(t,Vector3(8,19,8),Vector3(6,5,8),DARK)
+		"apartment":
+			var height := 24.0+variant*6
+			box(t,Vector3(0,height*.5,0),Vector3(52,height,28),color)
+			windows(t,52,height,28,DARK.lightened(.15))
+			box(t,Vector3(0,height+.8,0),Vector3(55,1.6,31),WALL)
+			for x: float in [-18,0,18]:
+				box(t,Vector3(x,4,-14.3),Vector3(7,8,.4),DARK)
+				box(t,Vector3(x,8,-16),Vector3(9,.6,5),RUST)
+			for y in range(11,int(height),6):
+				box(t,Vector3(0,y,-15.6),Vector3(53,.45,3.6),WALL)
+				box(t,Vector3(0,y+1,-17.3),Vector3(53,1.2,.3),GLASS.darkened(.3))
+		"arcade":
+			box(t,Vector3(0,7,0),Vector3(62,14,25),color)
+			box(t,Vector3(0,14.7,0),Vector3(65,1.4,28),DARK)
+			windows(t,62,14,25,DARK)
+			for x: float in [-24,-12,0,12,24]:
+				box(t,Vector3(x,3.5,-12.7),Vector3(9,6,.3),GLASS)
+				box(t,Vector3(x,7.5,-15),Vector3(11,.8,6),Color("E0B553") if int(x)%24==0 else RUST)
+				box(t,Vector3(x,10,-12.8),Vector3(8,2,.5),WALL)
+		"parking":
+			var height := 5.0*(3+variant%2)
+			box(t,Vector3(0,height*.5,0),Vector3(48,height,40),DARK)
+			for y in range(0,int(height)+1,5):
+				box(t,Vector3(0,y+.6,0),Vector3(51,1.2,43),WALL)
+			for x: float in [-22,-11,0,11,22]:
+				for z: float in [-20.2,20.2]: box(t,Vector3(x,height*.5,z),Vector3(1.7,height,1.5),WALL)
+			box(t,Vector3(20, height*.5,0),Vector3(7,height+2,43),color)
+			box(t,Vector3(-14,4,-21),Vector3(12,6,.4),GLASS)
+		"cinema":
+			box(t,Vector3(0,10,0),Vector3(44,20,38),color.darkened(.22))
+			box(t,Vector3(0,20.8,0),Vector3(47,1.6,41),DARK)
+			box(t,Vector3(0,6,-20),Vector3(36,10,3),GLASS.darkened(.6))
+			box(t,Vector3(0,12,-23),Vector3(40,3,10),Color("F0C966"))
+			box(t,Vector3(0,14,-23),Vector3(41,.7,10.5),RUST)
+			for x: float in [-13,-6.5,0,6.5,13]: box(t,Vector3(x,5,-21.6),Vector3(.7,10,.3),WALL)
+			box(t,Vector3(0,26,0),Vector3(27,11,3),Color("C26CB1"))
+			for x: float in [-9,-3,3,9]: box(t,Vector3(x,26,-1.7),Vector3(3.5,6,.3),WALL)
 		"tower":
 			var height := 36.0+variant*13
 			box(t,Vector3(0,height*.5,0),Vector3(24,height,28),color)
@@ -84,14 +121,12 @@ static func mesh(kind: String, variant: int = 0) -> ArrayMesh:
 			box(t,Vector3(0,height+1,0),Vector3(26,2,30),DARK)
 			box(t,Vector3(-4,height+4,3),Vector3(9,6,11),WALL)
 		"house","market":
-			box(t,Vector3(0,7,0),Vector3(20,14,24),Color("D5A376") if kind=="citadel" else color)
+			box(t,Vector3(0,7,0),Vector3(20,14,24),color)
 			windows(t,20,15,24,DARK)
 			box(t,Vector3(0,3,-12.1),Vector3(4,6,.2),DARK)
-			if kind=="citadel": dome(t,Vector3(0,14,0),11,9,Color("D9BE7C"))
-			else:
-				for tier in range(2 if kind=="market" else 1): box(t,Vector3(0,14+tier*1.5,0),Vector3(25-tier*6,1.6,29-tier*6),RUST if kind=="house" else DARK)
-				box(t,Vector3(0,7,-15),Vector3(24,.7,7),Color("E1B35E"))
-				for side: float in [-1,1]: box(t,Vector3(side*10,3.5,-17),Vector3(.6,7,.6),DARK)
+			for tier in range(2 if kind=="market" else 1): box(t,Vector3(0,14+tier*1.5,0),Vector3(25-tier*6,1.6,29-tier*6),RUST if kind=="house" else DARK)
+			box(t,Vector3(0,7,-15),Vector3(24,.7,7),Color("E1B35E"))
+			for side: float in [-1,1]: box(t,Vector3(side*10,3.5,-17),Vector3(.6,7,.6),DARK)
 		"pavilion":
 			for x: float in [-11,11]:
 				for z: float in [-9,9]: box(t,Vector3(x,5,z),Vector3(.8,10,.8),WALL)

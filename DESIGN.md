@@ -1327,3 +1327,11 @@ sand triangles and z-fighting on the road. The fix is confined to MenuStage; a
 separate fixture intersects the actual apron footprint with every pavement
 triangle and verifies four cars and eight preview angles without changing the
 racing mesh.
+
+The content-14 cosmetic city pass gives Neon Underpass five additional named
+quarters with separate cinema, apartment, arcade and parking meshes. Full
+transformed building footprints must not intersect neighbouring compounds.
+Persistent city silhouettes use broad tangential fronts, keeping the existing
+single-mesh 5,000-triangle ceiling and 550 m enclosing-road-circle separation.
+Native multi-view and isolated before/after timing evidence is retained in
+`docs/evidence/city-districts14`; it does not establish mobile performance.

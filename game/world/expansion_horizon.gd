@@ -185,8 +185,9 @@ static func build(world: TrackWorld) -> void:
 			quad(tool,s,r,v,u,top*shade,base*shade)
 	# Low ridges carry the skyline below distant built silhouettes.
 	if kind in ["harbor","works","city","roofs","domes","pavilions"]:
-		for index in range(36):
-			var angle := TAU*index/36
+		var buildings := 96 if kind=="city" else 36
+		for index in range(buildings):
+			var angle := TAU*index/buildings
 			var seed := CourseLandscape.noise_at(index,phase,91)
 			var outward := Vector2(cos(angle),sin(angle))
 			if shore!=Vector2.ZERO and outward.dot(shore)>.55: continue
@@ -195,21 +196,32 @@ static func build(world: TrackWorld) -> void:
 			var width := 28+seed*42
 			var color := tint.darkened(.12).lerp(haze,.23)
 			if kind=="roofs": color = Color("71516A").lerp(haze,.35)
-			var pose := Transform3D(Basis(Vector3.UP,-angle),at)
+			# City blocks overlap in silhouette, with their frontage tangential to the ring.
+			# The former narrow radial boxes read as isolated posts in an empty field.
+			var depth := 36.0
+			if kind=="city":
+				width = TAU*(radius+210)/buildings*(.90+seed*.35)
+				depth = 58+seed*30
+				height *= .70+wave(angle,4,phase)*.50
+			elif kind=="roofs":
+				width = TAU*(radius+210)/buildings*.96
+				depth = 70
+				height *= .42
+			var pose := Transform3D(Basis(Vector3.UP,PI*.5-angle if kind in ["city","roofs"] else -angle),at)
 			if kind=="domes":
 				if index%3==0: dome(tool,at,width*.9,height*.65,Color("8AB8B0").lerp(haze,.25))
 				continue
 			if kind=="pavilions":
 				if index%2==0: dome(tool,at,width*1.1,height*.43,Color("D1B69C" if index%4==0 else "B69EB5").lerp(haze,.25))
 				continue
-			CourseSetPieces.cuboid(tool,pose*Transform3D(Basis.IDENTITY,Vector3(0,height*.5,0)),Vector3(width,height,36),color)
+			CourseSetPieces.cuboid(tool,pose*Transform3D(Basis.IDENTITY,Vector3(0,height*.5,0)),Vector3(width,height,depth),color)
 			if kind=="works": CourseSetPieces.cuboid(tool,pose*Transform3D(Basis.IDENTITY,Vector3(width*.2,height+14,0)),Vector3(9,28+seed*30,9),color)
 			elif kind=="roofs":
-				for tier in range(3): CourseSetPieces.cuboid(tool,pose*Transform3D(Basis.IDENTITY,Vector3(0,height+tier*3,0)),Vector3(width+10-tier*7,3,44-tier*7),color.lightened(.04))
+				for tier in range(3): CourseSetPieces.cuboid(tool,pose*Transform3D(Basis.IDENTITY,Vector3(0,height+tier*3,0)),Vector3(width+10-tier*7,3,depth+8-tier*7),color.lightened(.04))
 			elif kind=="city" and index%3==0: CourseSetPieces.beam(tool,at+Vector3.UP*height,at+Vector3.UP*(height+28),1.8,color)
 			if float(world.art.emission)>0:
 				# Broad, static window bands remain legible at skyline scale.
-				CourseSetPieces.cuboid(tool,pose*Transform3D(Basis.IDENTITY,Vector3(0,height*.72,0)),Vector3(width+.3,2.3,36.3),Color("D4BF85").lerp(haze,.5))
+				CourseSetPieces.cuboid(tool,pose*Transform3D(Basis.IDENTITY,Vector3(0,height*.72,0)),Vector3(width+.3,2.3,depth+.3),Color("D4BF85").lerp(haze,.5))
 	var settlement_count := settlements(tool,world,center,radius,base_y,phase,haze)
 	var node := MeshInstance3D.new()
 	node.name = "LandscapeHorizon"

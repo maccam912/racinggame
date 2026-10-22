@@ -2,15 +2,21 @@ extends SceneTree
 ## Native scene photographs from explicitly chosen route locations.
 func _initialize() -> void: call_deferred("run")
 func run() -> void:
+	assert(DisplayServer.get_name()!="headless")
 	Catalog.load_all()
 	root.size = Vector2i(1280,720)
 	root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
 	root.msaa_3d = Viewport.MSAA_4X
 	root.anisotropic_filtering_level = Viewport.ANISOTROPY_4X
 	var output := "res://docs/evidence/authored-courses14"
+	var selected := PackedStringArray()
+	for argument: String in OS.get_cmdline_user_args():
+		if argument.begins_with("--output="): output = argument.trim_prefix("--output=")
+		elif argument.begins_with("--tracks="): selected = argument.trim_prefix("--tracks=").split(",")
 	DirAccess.make_dir_recursive_absolute(output)
 	var records: Array[Dictionary] = []
 	for track: TrackDefinition in Catalog.tracks:
+		if not selected.is_empty() and not track.id in selected: continue
 		var art := CourseArt.spec(track.id)
 		if art.get("composition_version",0)!=14: continue
 		var world := TrackWorld.new()
@@ -53,7 +59,7 @@ func run() -> void:
 		world.queue_free()
 		root.size = Vector2i(1280,720)
 		for frame in range(4): await process_frame
-	assert(records.size()==33)
+	assert(records.size()==(33 if selected.is_empty() else selected.size()))
 	FileAccess.open(output+"/native.json",FileAccess.WRITE).store_string(JSON.stringify({"content_hash":Compatibility.content_hash(),"renderer":RenderingServer.get_current_rendering_method(),"cases":records,"boundary":"Native macOS Compatibility Far Chase photographs, 65 degree FOV, 700 metre scenery. Actual shipped 512x288 images plus 1280x720 evidence. Static rendered composition; not a human driving or Android performance claim."},"\t")+"\n")
-	print("THIRTY_THREE_AUTHORED_NATIVE_PHOTOGRAPHS_COMPLETE")
+	print("AUTHORED_NATIVE_PHOTOGRAPHS_COMPLETE count=",records.size())
 	quit()
