@@ -40,12 +40,13 @@ func run() -> void:
 			if node.get_meta("kind")=="Tower":
 				assert(node.material_override is ShaderMaterial and node.material_override.get_shader_parameter("city_facade")==true)
 		assert(decor_nodes==world.decor_sites.size(),"both roadside instances remain checked even when Godot auto-renames duplicate node names")
-		if not world.art.get("elevated",false): assert(counts.Rocks>=8)
-		if track.id=="palm_bay": assert(counts.SurfHut>=3 and counts.BeachUmbrellas>=3)
-		if track.id=="citrus_pass": assert(counts.PackingCrates>=3)
-		if track.id=="marina_lights": assert(counts.HarborCargo>=3)
-		if track.id in ["citrus_pass","redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Logs>=3)
-		if track.id in ["redwood_run","pacific_summit","quarry_switchback"]: assert(counts.Waterfall==2)
+		if world.art.get("composition_version",0)>=14:
+			assert(world.decor_sites.size()>=2 and world.decor_sites.size()<=3,"classic roadside details occupy specific places")
+		else:
+			if not world.art.get("elevated",false): assert(counts.Rocks>=8)
+			if track.id=="marina_lights": assert(counts.HarborCargo>=3)
+			if track.id in ["pacific_summit","quarry_switchback"]:
+				assert(counts.Logs>=3 and counts.Waterfall==2)
 		if track.id=="skyline_splice":
 			check_elevated_details(world)
 			assert(counts.Tower>=40)
@@ -88,7 +89,7 @@ func run() -> void:
 			var pixels := texture.get_image()
 			assert(pixels.has_mipmaps() and pixels.get_pixel(0,0).a==0 and pixels.get_pixel(600,600).a>.9)
 			var cutouts := world.find_children("IllustratedWaterfall","MeshInstance3D",true,false)
-			assert(cutouts.size()==2)
+			assert(cutouts.size()==counts.Waterfall)
 			for cutout: MeshInstance3D in cutouts:
 				assert(cutout.custom_aabb.size==Vector3(27,26,27) and cutout.material_override.billboard_mode==BaseMaterial3D.BILLBOARD_FIXED_Y)
 		records.append({"track":track.id,"decorations":counts})

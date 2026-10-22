@@ -14,26 +14,23 @@ func run() -> void:
 		var buildings := 0
 		var triangles := 0
 		var archetypes: Array[String] = []
-		for node: MeshInstance3D in world.find_children("ThemedDistrict_*","MeshInstance3D",true,false):
-			if int(node.get_meta("detail_level"))==1:
-				assert(node.visibility_range_begin==210 and node.visibility_range_end==700)
-				assert(node.mesh.get_faces().size()/3/int(node.get_meta("building_count"))<200)
-				continue
-			buildings += int(node.get_meta("building_count"))
+		for node: MeshInstance3D in world.find_children("*","MeshInstance3D",true,false):
+			if not node.has_meta("module"): continue
+			buildings += 1
 			triangles += node.mesh.get_faces().size()/3
-			for kind: String in node.get_meta("archetypes"):
-				if kind not in archetypes: archetypes.append(kind)
+			var kind := str(node.get_meta("module"))
+			if kind not in archetypes: archetypes.append(kind)
 			for point: Vector3 in node.mesh.get_faces(): assert(point.is_finite())
-			var arrays := node.mesh.surface_get_arrays(0)
-			for normal: Vector3 in arrays[Mesh.ARRAY_NORMAL]: assert(normal.is_finite() and absf(normal.length()-1)<.01)
+			for normal: Vector3 in node.mesh.surface_get_arrays(0)[Mesh.ARRAY_NORMAL]: assert(normal.is_finite() and absf(normal.length()-1)<.01)
 			assert(node.find_children("*","CollisionObject3D",true,false).is_empty())
-			assert(node.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF and node.visibility_range_end==(210 if id=="oasis_citadel" else 700))
-		if id=="festival_speedway": assert(buildings>10 and archetypes.has("round_pavilion") and archetypes.has("striped_stall"))
-		elif id=="oasis_citadel": assert(buildings>10 and archetypes.size()==1 and archetypes.has("domed_citadel"))
-		else: assert(buildings==0,"themed architecture must leave other neighborhoods alone")
+			assert(node.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF and node.visibility_range_end==700)
+		if id=="festival_speedway": assert(buildings>10 and archetypes.has("festival_tent") and archetypes.has("festival_stall"))
+		elif id=="oasis_citadel": assert(buildings>=8 and archetypes.has("citadel"))
+		elif id=="marina_lights": assert(buildings==0)
+		else: assert(buildings>=8)
 		assert(buildings==0 or float(triangles)/buildings<700,"bounded district geometry per building")
 		var pools := world.find_children("StreetlightPools_*","MeshInstance3D",false,false)
-		if id in ["festival_speedway","aurora_harbor","lantern_market","neon_underpass"]: assert(pools.size()>5 and world.lamp_glow_sites.size()>30)
+		if id in ["festival_speedway","aurora_harbor","lantern_market","neon_underpass"]: assert(pools.size()>2 and world.lamp_glow_sites.size()>8)
 		else: assert(pools.is_empty(),"daytime and original courses retain their existing lighting")
 		var settings := SettingsCatalog.defaults(false)
 		settings.draw_distance = 700

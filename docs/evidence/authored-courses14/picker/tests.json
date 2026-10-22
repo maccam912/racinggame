@@ -1,0 +1,38 @@
+{
+	"boundary": "Actual widgets, all courses and full random tours, exact host command capture and LobbyState validation, cancel and lobby presentation. Native captures use desktop renderer; network transport covered separately.",
+	"cases": [
+		{
+			"cancel_preserves_track": true,
+			"confirmed": 33,
+			"manual": 40,
+			"mobile": false,
+			"random": 40,
+			"scale": 100
+		},
+		{
+			"cancel_preserves_track": true,
+			"confirmed": 30,
+			"manual": 40,
+			"mobile": false,
+			"random": 40,
+			"scale": 150
+		},
+		{
+			"cancel_preserves_track": true,
+			"confirmed": 29,
+			"manual": 40,
+			"mobile": true,
+			"random": 40,
+			"scale": 100
+		},
+		{
+			"cancel_preserves_track": true,
+			"confirmed": 24,
+			"manual": 40,
+			"mobile": true,
+			"random": 40,
+			"scale": 150
+		}
+	],
+	"passed": true
+}

@@ -9,6 +9,9 @@ static func noise_at(x: float, z: float, seed: float) -> float:
 
 
 static func build(world: TrackWorld) -> void:
+	if world.art.get("composition_version",0)>=14:
+		AuthoredCourseScenery.build(world)
+		return
 	if world.art.get("expansion40",false):
 		ExpansionCourseArt.landscape(world)
 		return

@@ -291,6 +291,9 @@ func verge_height(s: float, lateral: float, point: Vector3) -> float:
 
 
 func build_scenery_batch(first: int, last: int) -> void:
+	if art.get("composition_version",0)>=14:
+		AuthoredCourseScenery.roadside(self,first,last)
+		return
 	if art.get("expansion40",false):
 		ExpansionCourseArt.build_batch(self,first,last)
 		return

@@ -1,0 +1,18 @@
+from PIL import Image,ImageDraw,ImageFont
+import json
+tracks=json.load(open('game/content/tracks.json'))['tracks']
+image=Image.new('RGB',(1800,2160),'#101E2D');draw=ImageDraw.Draw(image)
+f=ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial.ttf',20);small=ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial.ttf',16);title=ImageFont.truetype('/System/Library/Fonts/Supplemental/Arial Bold.ttf',30)
+draw.text((26,16),'PACIFIC RUSH  /  CONTENT 14 CANONICAL ROADS',font=title,fill='#F8F4E8')
+draw.text((26,55),'Blue: continuous cubic curves   •   Gold: retained routes   •   Individual panels fitted to their own extent',font=small,fill='#C5D7E1')
+for n,t in enumerate(tracks):
+ b=json.load(open('game/content/baked/'+t['id']+'.json'));points=[(r[0],r[2]) for r in b['samples']];lowx=min(p[0] for p in points);highx=max(p[0] for p in points);lowz=min(p[1] for p in points);highz=max(p[1] for p in points)
+ x,y=18+(n%5)*358,100+(n//5)*256
+ draw.rounded_rectangle((x,y,x+342,y+242),radius=9,fill='#1D3448',outline='#365066')
+ draw.text((x+12,y+9),t['id'].replace('_',' ').title(),font=f,fill='#F8F4E8')
+ draw.text((x+12,y+35),f"{b['length']/1000:.2f} km",font=small,fill='#B9CBD7')
+ scale=min(300/(highx-lowx),170/(highz-lowz));cx=x+171;cy=y+144
+ xy=[(cx+(px-(lowx+highx)/2)*scale,cy+(pz-(lowz+highz)/2)*scale) for px,pz in points]
+ draw.line(xy+[xy[0]],fill='#6FD3E0' if t.get('spline')=='bspline' else '#F5C567',width=3)
+ sx,sy=xy[0];draw.ellipse((sx-4,sy-4,sx+4,sy+4),fill='#FFFFFF')
+image.save('docs/evidence/authored-courses14/canonical-routes.png')

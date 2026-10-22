@@ -1,6 +1,6 @@
 class_name ExpansionRoadsideLife
 extends RefCounted
-## Three recognizable roadside prop types per course; locally batched and bounded.
+## Small authored service areas and stopping places; locally batched and bounded.
 const KINDS := {
 	"glacier_ridge":["weather_station","rescue_sled","fuel_locker"],
 	"aurora_harbor":["harbor_catch","fjord_buoy","fuel_locker"],
@@ -38,23 +38,22 @@ static func plan(world: TrackWorld) -> Array[Dictionary]:
 	var sites: Array[Dictionary] = []
 	var landmarks: Array[Dictionary] = []
 	for description: Dictionary in world.art.landmarks: landmarks.append(ExpansionCourseArt.landmark_site(world,description))
-	for s in range(95,int(world.track.length),180):
-		var seed := CourseLandscape.noise_at(s,0,53)
-		var side := -1.0 if int(s/180)%2==0 else 1.0
-		var edge := float(world.track.bake.samples[world.track.sample_index(s)][8])*.5
-		var lateral := side*(edge+16+seed*14)
-		var pose := world.scenery_pose(s,lateral)
-		if not world.clear_of_road(pose.origin,7.5) or not world.decoration_allowed(pose.origin,7.5): continue
-		if not landmark_clear(landmarks,pose.origin,world.track.pose(s-36).origin): continue
-		if RoadsidePosterArt.blocks_sightline(world.poster_sites,pose.origin): continue
-		if world.art.water and pose.origin.y<float(CourseArt.terrain_info[world.track.id].sea_level)+1: continue
-		var facing := world.track.pose(s).origin-pose.origin
-		facing.y = 0
-		pose.basis = Basis.looking_at(facing.normalized(),Vector3.UP)
-		var kinds: Array = KINDS[world.track.id]
-		var kind: String = kinds[sites.size()%kinds.size()]
-		sites.append({"kind":kind,"pose":pose,"s":s,"lateral":lateral,"radius":7.5})
-		world.scenery_clearings.append({"center":pose.origin,"radius":10.5,"roadside_life_s":s})
+	for scene: Dictionary in world.art.service_scenes:
+		var anchor := CourseArt.original_s(world.track,float(scene.u))
+		for index in range(scene.kinds.size()):
+			var s := fposmod(anchor+index*19,world.track.length)
+			var side := float(scene.side)
+			var lateral := side*(float(scene.setback)+(5 if index%2 else 0))
+			var pose := world.scenery_pose(s,lateral)
+			if not world.clear_of_road(pose.origin,7.5) or not world.decoration_allowed(pose.origin,7.5): continue
+			if not landmark_clear(landmarks,pose.origin,world.track.pose(s-36).origin): continue
+			if RoadsidePosterArt.blocks_sightline(world.poster_sites,pose.origin): continue
+			if world.art.water and pose.origin.y<float(CourseArt.terrain_info[world.track.id].sea_level)+1: continue
+			var facing := world.track.pose(s).origin-pose.origin
+			facing.y = 0
+			pose.basis = Basis.looking_at(facing.normalized(),Vector3.UP)
+			sites.append({"kind":str(scene.kinds[index]),"pose":pose,"s":s,"lateral":lateral,"radius":7.5,"scene_u":scene.u})
+			world.scenery_clearings.append({"center":pose.origin,"radius":10.5,"roadside_life_s":s})
 	return sites
 
 static func landmark_clear(landmarks: Array[Dictionary], at: Vector3, approach: Vector3) -> bool:

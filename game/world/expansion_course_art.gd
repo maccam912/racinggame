@@ -130,8 +130,9 @@ static func structures(world: TrackWorld) -> void:
 	var theme: String = world.art.theme
 	var accent := Color.html(world.art.accent)
 	var stone := Color.html(world.art.ground).lightened(.17)
-	for gate in range(3):
-		var s := CourseArt.original_s(world.track,[.21,.53,.78][gate])
+	var anchors: Array = world.art.get("road_gates",[.21,.53,.78])
+	for gate in range(anchors.size()):
+		var s := CourseArt.original_s(world.track,float(anchors[gate]))
 		var pose := world.ground_pose(s,0)
 		pose.basis = Basis(Vector3.UP,pose.basis.get_euler().y)
 		var half := float(world.track.bake.samples[world.track.sample_index(s)][8])*.5+8

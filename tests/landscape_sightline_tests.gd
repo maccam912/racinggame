@@ -20,7 +20,7 @@ func run() -> void:
 			var at: Vector3 = site.at
 			assert(world.clear_of_road(at,site.radius),"every instance clears every road branch")
 			assert(world.decoration_allowed(at) and not RoadsidePosterArt.blocks_sightline(world.poster_sites,at))
-			assert(absf(at.y-CourseArt.height_from_grid(world.terrain_grid,at,INF))<.001,"landscape roots meet actual terrain")
+			assert(absf(at.y-(AuthoredCourseScenery.height(world,at,site) if world.art.get("composition_version",0)>=14 else CourseArt.height_from_grid(world.terrain_grid,at,INF)))<.001,"landscape roots meet actual terrain")
 			if world.art.water and site.id!="islet": assert(at.y>float(CourseArt.terrain_info[track.id].sea_level)+1.49,"no groves or buildings in open water")
 			if site.distance>220: far_sites += 1
 		assert(far_sites>20,"decoration extends well beyond the roadside band")
@@ -28,6 +28,7 @@ func run() -> void:
 		var batches := districts.find_children("*","GeometryInstance3D",true,false)
 		assert(batches.size()<650,"spatial batches keep submissions bounded")
 		for batch: GeometryInstance3D in batches:
+			if batch.name=="LandscapeGroundSkirt": continue
 			assert(batch.is_in_group("scenery_distance") and batch.visibility_range_end<=700)
 		if world.has_node("LandscapeHorizon"):
 			var horizon := world.get_node("LandscapeHorizon") as MeshInstance3D

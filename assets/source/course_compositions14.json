@@ -1,0 +1,5956 @@
+{
+  "schema_version": 1,
+  "description": "Named asymmetric parcels, isolated building compounds and open views. No repeated roadside building sprites.",
+  "courses": [
+    {
+      "id": "palm_bay",
+      "regions": [
+        {
+          "name": "Promenade palms",
+          "u": 0.035,
+          "side": -1,
+          "setback": 72,
+          "along": 190,
+          "depth": 60,
+          "plants": [
+            "fan_palm",
+            "palm"
+          ],
+          "spacing": 30,
+          "kind": "grove"
+        },
+        {
+          "name": "Cypress headland",
+          "u": 0.19,
+          "side": -1,
+          "setback": 145,
+          "along": 310,
+          "depth": 130,
+          "plants": [
+            "coastal_cypress",
+            "fan_palm"
+          ],
+          "spacing": 36,
+          "kind": "grove"
+        },
+        {
+          "name": "Sheltered bay grove",
+          "u": 0.42,
+          "side": 1,
+          "setback": 110,
+          "along": 230,
+          "depth": 100,
+          "plants": [
+            "coconut_palm",
+            "palm"
+          ],
+          "spacing": 32,
+          "kind": "grove"
+        },
+        {
+          "name": "Inland wooded ridge",
+          "u": 0.66,
+          "side": -1,
+          "setback": 300,
+          "along": 400,
+          "depth": 180,
+          "plants": [
+            "coastal_cypress",
+            "autumn_maple"
+          ],
+          "spacing": 38,
+          "kind": "grove"
+        },
+        {
+          "name": "Return beach palms",
+          "u": 0.91,
+          "side": -1,
+          "setback": 85,
+          "along": 180,
+          "depth": 70,
+          "plants": [
+            "palm",
+            "coconut_palm"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "surf_shop",
+          "u": 0.12,
+          "lateral": -25
+        },
+        {
+          "id": "lighthouse",
+          "u": 0.28,
+          "lateral": 45
+        },
+        {
+          "id": "pier",
+          "u": 0.42,
+          "lateral": 0,
+          "align": "route",
+          "extends_to_right_m": 120
+        },
+        {
+          "id": "beach_hotel",
+          "u": 0.65,
+          "lateral": -40
+        },
+        {
+          "id": "sun_sign",
+          "u": 0.82,
+          "lateral": 25
+        }
+      ],
+      "light_sections": [
+        [
+          0.01,
+          0.1,
+          -1
+        ]
+      ],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Inland wooded ridge",
+          "u": 0.66,
+          "side": -1,
+          "setback": 345,
+          "along": 520.0,
+          "depth": 225.0,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.04,
+          "side": -1,
+          "setback": 33,
+          "kinds": [
+            "SurfHut"
+          ]
+        },
+        {
+          "u": 0.4,
+          "side": -1,
+          "setback": 33,
+          "kinds": [
+            "BeachUmbrellas"
+          ]
+        },
+        {
+          "u": 0.87,
+          "side": -1,
+          "setback": 33,
+          "kinds": [
+            "SurfHut"
+          ]
+        }
+      ],
+      "preview_u": 0.22
+    },
+    {
+      "id": "citrus_pass",
+      "regions": [
+        {
+          "name": "Orange orchard parcel",
+          "u": 0.06,
+          "side": -1,
+          "setback": 110,
+          "along": 260,
+          "depth": 160,
+          "plants": [
+            "orchard",
+            "orchard"
+          ],
+          "spacing": 24,
+          "kind": "grove"
+        },
+        {
+          "name": "Creek willows",
+          "u": 0.23,
+          "side": 1,
+          "setback": 85,
+          "along": 180,
+          "depth": 90,
+          "plants": [
+            "autumn_maple",
+            "coastal_cypress"
+          ],
+          "spacing": 26,
+          "kind": "grove"
+        },
+        {
+          "name": "Second orchard parcel",
+          "u": 0.37,
+          "side": -1,
+          "setback": 165,
+          "along": 340,
+          "depth": 150,
+          "plants": [
+            "orchard",
+            "orchard"
+          ],
+          "spacing": 25,
+          "kind": "grove"
+        },
+        {
+          "name": "Windbreak on the ridge",
+          "u": 0.65,
+          "side": 1,
+          "setback": 260,
+          "along": 460,
+          "depth": 120,
+          "plants": [
+            "coastal_cypress",
+            "alpine_fir"
+          ],
+          "spacing": 28,
+          "kind": "grove"
+        },
+        {
+          "name": "Farmhouse shade",
+          "u": 0.94,
+          "side": -1,
+          "setback": 75,
+          "along": 130,
+          "depth": 70,
+          "plants": [
+            "autumn_maple",
+            "orchard"
+          ],
+          "spacing": 30,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "fruit_stand",
+          "u": 0.15,
+          "lateral": -25
+        },
+        {
+          "id": "water_tower",
+          "u": 0.32,
+          "lateral": 45
+        },
+        {
+          "id": "packing_shed",
+          "u": 0.49,
+          "lateral": -30
+        },
+        {
+          "id": "orange_arch",
+          "u": 0.68,
+          "lateral": 0,
+          "align": "route",
+          "clearance": 8
+        },
+        {
+          "id": "windmill",
+          "u": 0.86,
+          "lateral": 35
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Windbreak on the ridge",
+          "u": 0.65,
+          "side": 1,
+          "setback": 305,
+          "along": 598.0,
+          "depth": 150.0,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.16,
+          "side": -1,
+          "setback": 33,
+          "kinds": [
+            "PackingCrates"
+          ]
+        },
+        {
+          "u": 0.58,
+          "side": 1,
+          "setback": 33,
+          "kinds": [
+            "Logs"
+          ]
+        },
+        {
+          "u": 0.82,
+          "side": -1,
+          "setback": 33,
+          "kinds": [
+            "PackingCrates"
+          ]
+        }
+      ],
+      "preview_u": 0.15
+    },
+    {
+      "id": "redwood_run",
+      "regions": [
+        {
+          "name": "Old growth entrance",
+          "u": 0.03,
+          "side": -1,
+          "setback": 90,
+          "along": 300,
+          "depth": 130,
+          "plants": [
+            "redwood",
+            "alpine_fir"
+          ],
+          "spacing": 26,
+          "kind": "grove"
+        },
+        {
+          "name": "Inside fern hollow",
+          "u": 0.16,
+          "side": 1,
+          "setback": 115,
+          "along": 230,
+          "depth": 140,
+          "plants": [
+            "tree_fern",
+            "redwood"
+          ],
+          "spacing": 24,
+          "kind": "grove"
+        },
+        {
+          "name": "High forest wall",
+          "u": 0.31,
+          "side": -1,
+          "setback": 270,
+          "along": 420,
+          "depth": 180,
+          "plants": [
+            "redwood",
+            "alpine_fir",
+            "coastal_cypress"
+          ],
+          "spacing": 31,
+          "kind": "grove"
+        },
+        {
+          "name": "Clearcut edge",
+          "u": 0.58,
+          "side": 1,
+          "setback": 190,
+          "along": 320,
+          "depth": 140,
+          "plants": [
+            "alpine_fir",
+            "autumn_maple"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Lone meadow copse",
+          "u": 0.66,
+          "side": -1,
+          "setback": 170,
+          "along": 100,
+          "depth": 85,
+          "plants": [
+            "autumn_maple",
+            "coastal_cypress"
+          ],
+          "spacing": 36,
+          "kind": "grove"
+        },
+        {
+          "name": "Shaded descent",
+          "u": 0.74,
+          "side": -1,
+          "setback": 95,
+          "along": 270,
+          "depth": 120,
+          "plants": [
+            "redwood",
+            "redwood",
+            "alpine_fir"
+          ],
+          "spacing": 25,
+          "kind": "grove"
+        },
+        {
+          "name": "Distant return forest",
+          "u": 0.92,
+          "side": 1,
+          "setback": 300,
+          "along": 390,
+          "depth": 170,
+          "plants": [
+            "redwood",
+            "coastal_cypress"
+          ],
+          "spacing": 32,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "ranger_kiosk",
+          "u": 0.13,
+          "lateral": -24
+        },
+        {
+          "id": "giant_tree",
+          "u": 0.3,
+          "lateral": 28,
+          "trunk_diameter": 7
+        },
+        {
+          "id": "timber_bridge",
+          "u": 0.47,
+          "lateral": 0,
+          "align": "route",
+          "shoulder_width": 3
+        },
+        {
+          "id": "visitor_center",
+          "u": 0.63,
+          "lateral": -40
+        },
+        {
+          "id": "tree_display",
+          "u": 0.82,
+          "lateral": 25
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "High forest wall",
+          "u": 0.31,
+          "side": -1,
+          "setback": 315,
+          "along": 546.0,
+          "depth": 225.0,
+          "height": 65
+        },
+        {
+          "name": "Distant return forest",
+          "u": 0.92,
+          "side": 1,
+          "setback": 345,
+          "along": 507.0,
+          "depth": 212.5,
+          "height": 65
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.15,
+          "side": -1,
+          "setback": 33,
+          "kinds": [
+            "Logs"
+          ]
+        },
+        {
+          "u": 0.46,
+          "side": 1,
+          "setback": 33,
+          "kinds": [
+            "Rocks"
+          ]
+        },
+        {
+          "u": 0.73,
+          "side": -1,
+          "setback": 52,
+          "kinds": [
+            "Waterfall"
+          ]
+        }
+      ],
+      "preview_u": 0.29
+    },
+    {
+      "id": "glacier_ridge",
+      "regions": [
+        {
+          "name": "Lower spruce basin",
+          "u": 0.045,
+          "side": -1,
+          "setback": 95,
+          "along": 260,
+          "depth": 130,
+          "plants": [
+            "spruce_snow",
+            "snow_pine"
+          ],
+          "spacing": 31,
+          "kind": "grove"
+        },
+        {
+          "name": "Glacier flank",
+          "u": 0.23,
+          "side": -1,
+          "setback": 250,
+          "along": 360,
+          "depth": 160,
+          "plants": [
+            "ice_spires",
+            "snow_pine"
+          ],
+          "spacing": 64,
+          "kind": "grove"
+        },
+        {
+          "name": "Wind-sheltered pine pocket",
+          "u": 0.32,
+          "side": 1,
+          "setback": 90,
+          "along": 130,
+          "depth": 70,
+          "plants": [
+            "snow_pine",
+            "spruce_snow"
+          ],
+          "spacing": 33,
+          "kind": "grove"
+        },
+        {
+          "name": "Sheltered saddle",
+          "u": 0.37,
+          "side": 1,
+          "setback": 120,
+          "along": 220,
+          "depth": 100,
+          "plants": [
+            "snow_pine",
+            "spruce_snow"
+          ],
+          "spacing": 34,
+          "kind": "grove"
+        },
+        {
+          "name": "High ice amphitheater",
+          "u": 0.61,
+          "side": -1,
+          "setback": 320,
+          "along": 400,
+          "depth": 180,
+          "plants": [
+            "ice_spires"
+          ],
+          "spacing": 82,
+          "kind": "grove"
+        },
+        {
+          "name": "Treeline descent",
+          "u": 0.91,
+          "side": 1,
+          "setback": 140,
+          "along": 280,
+          "depth": 150,
+          "plants": [
+            "spruce_snow",
+            "alpine_fir"
+          ],
+          "spacing": 32,
+          "kind": "grove"
+        },
+        {
+          "name": "Lower glacial moraine",
+          "u": 0.8,
+          "side": -1,
+          "setback": 210,
+          "along": 210,
+          "depth": 130,
+          "plants": [
+            "ice_spires"
+          ],
+          "spacing": 83,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "ice_spires",
+          "u": 0.24,
+          "lateral": -145
+        },
+        {
+          "id": "research_base",
+          "u": 0.73,
+          "lateral": 100
+        },
+        {
+          "id": "polar_huts",
+          "u": 0.91,
+          "lateral": -70
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Glacier flank",
+          "u": 0.23,
+          "side": -1,
+          "setback": 295,
+          "along": 468.0,
+          "depth": 200.0,
+          "height": 65
+        },
+        {
+          "name": "High ice amphitheater",
+          "u": 0.61,
+          "side": -1,
+          "setback": 365,
+          "along": 520.0,
+          "depth": 225.0,
+          "height": 65
+        },
+        {
+          "name": "Lower glacial moraine",
+          "u": 0.8,
+          "side": -1,
+          "setback": 255,
+          "along": 273.0,
+          "depth": 162.5,
+          "height": 65
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.12,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "weather_station",
+            "rescue_sled"
+          ]
+        },
+        {
+          "u": 0.63,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "rescue_sled",
+            "fuel_locker"
+          ]
+        }
+      ],
+      "preview_u": 0.19
+    },
+    {
+      "id": "aurora_harbor",
+      "regions": [
+        {
+          "name": "Warehouse quay",
+          "u": 0.035,
+          "side": -1,
+          "setback": 100,
+          "kind": "harbor",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              1,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              2,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              0,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Harbor park",
+          "u": 0.19,
+          "side": -1,
+          "setback": 110,
+          "along": 180,
+          "depth": 90,
+          "plants": [
+            "spruce_snow",
+            "snow_pine"
+          ],
+          "spacing": 38,
+          "kind": "grove"
+        },
+        {
+          "name": "Dock service yard",
+          "u": 0.46,
+          "side": -1,
+          "setback": 140,
+          "kind": "logistics",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              2,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              3,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              0,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              2,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Outer snowbreak",
+          "u": 0.73,
+          "side": -1,
+          "setback": 320,
+          "along": 430,
+          "depth": 150,
+          "plants": [
+            "snow_pine",
+            "ice_spires"
+          ],
+          "spacing": 48,
+          "kind": "grove"
+        },
+        {
+          "name": "Waterfront housing",
+          "u": 0.94,
+          "side": 1,
+          "setback": 110,
+          "kind": "city"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "cargo_crane",
+          "u": 0.16,
+          "lateral": -100
+        },
+        {
+          "id": "polar_huts",
+          "u": 0.38,
+          "lateral": 75
+        },
+        {
+          "id": "research_base",
+          "u": 0.82,
+          "lateral": -115
+        }
+      ],
+      "light_sections": [
+        [
+          0.015,
+          0.16,
+          -1
+        ],
+        [
+          0.43,
+          0.57,
+          -1
+        ],
+        [
+          0.84,
+          0.98,
+          1
+        ]
+      ],
+      "road_gates": [],
+      "landform_regions": [],
+      "service_scenes": [
+        {
+          "u": 0.08,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "harbor_catch",
+            "fuel_locker"
+          ]
+        },
+        {
+          "u": 0.46,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "fjord_buoy",
+            "harbor_catch"
+          ]
+        },
+        {
+          "u": 0.83,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "fuel_locker"
+          ]
+        }
+      ],
+      "preview_u": 0.12
+    },
+    {
+      "id": "alpine_meadow",
+      "regions": [
+        {
+          "name": "Start woodland",
+          "u": 0.04,
+          "side": -1,
+          "setback": 85,
+          "along": 150,
+          "depth": 85,
+          "plants": [
+            "alpine_fir",
+            "coastal_cypress"
+          ],
+          "spacing": 29,
+          "kind": "grove"
+        },
+        {
+          "name": "Aspen hollow",
+          "u": 0.21,
+          "side": 1,
+          "setback": 130,
+          "along": 190,
+          "depth": 110,
+          "plants": [
+            "autumn_maple",
+            "alpine_fir"
+          ],
+          "spacing": 33,
+          "kind": "grove"
+        },
+        {
+          "name": "Upper fir slope",
+          "u": 0.38,
+          "side": -1,
+          "setback": 280,
+          "along": 330,
+          "depth": 180,
+          "plants": [
+            "alpine_fir",
+            "snow_pine"
+          ],
+          "spacing": 32,
+          "kind": "grove"
+        },
+        {
+          "name": "Far meadow edge",
+          "u": 0.68,
+          "side": 1,
+          "setback": 230,
+          "along": 240,
+          "depth": 110,
+          "plants": [
+            "coastal_cypress",
+            "autumn_maple"
+          ],
+          "spacing": 41,
+          "kind": "grove"
+        },
+        {
+          "name": "Shaded home bend",
+          "u": 0.92,
+          "side": -1,
+          "setback": 75,
+          "along": 140,
+          "depth": 80,
+          "plants": [
+            "alpine_fir",
+            "autumn_maple"
+          ],
+          "spacing": 28,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "chalet",
+          "u": 0.16,
+          "lateral": -85
+        },
+        {
+          "id": "polar_huts",
+          "u": 0.74,
+          "lateral": 80
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Upper fir slope",
+          "u": 0.38,
+          "side": -1,
+          "setback": 325,
+          "along": 429.0,
+          "depth": 225.0,
+          "height": 32
+        },
+        {
+          "name": "Far meadow edge",
+          "u": 0.68,
+          "side": 1,
+          "setback": 275,
+          "along": 312.0,
+          "depth": 137.5,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.18,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "ski_rack",
+            "weather_station"
+          ]
+        },
+        {
+          "u": 0.73,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "weather_station",
+            "rescue_sled"
+          ]
+        }
+      ],
+      "preview_u": 0.23
+    },
+    {
+      "id": "frostbite_fjord",
+      "regions": [
+        {
+          "name": "Pine shoreline",
+          "u": 0.06,
+          "side": -1,
+          "setback": 100,
+          "along": 290,
+          "depth": 120,
+          "plants": [
+            "snow_pine",
+            "spruce_snow"
+          ],
+          "spacing": 34,
+          "kind": "grove"
+        },
+        {
+          "name": "Outer glacier",
+          "u": 0.19,
+          "side": -1,
+          "setback": 310,
+          "along": 470,
+          "depth": 200,
+          "plants": [
+            "ice_spires",
+            "snow_pine"
+          ],
+          "spacing": 65,
+          "kind": "grove"
+        },
+        {
+          "name": "Inlet promontory",
+          "u": 0.4,
+          "side": 1,
+          "setback": 170,
+          "along": 280,
+          "depth": 125,
+          "plants": [
+            "spruce_snow",
+            "snow_pine"
+          ],
+          "spacing": 37,
+          "kind": "grove"
+        },
+        {
+          "name": "Blue ice wall",
+          "u": 0.72,
+          "side": -1,
+          "setback": 240,
+          "along": 360,
+          "depth": 170,
+          "plants": [
+            "ice_spires"
+          ],
+          "spacing": 78,
+          "kind": "grove"
+        },
+        {
+          "name": "Return spruce bay",
+          "u": 0.94,
+          "side": -1,
+          "setback": 95,
+          "along": 310,
+          "depth": 135,
+          "plants": [
+            "spruce_snow",
+            "snow_pine",
+            "alpine_fir"
+          ],
+          "spacing": 31,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "ice_spires",
+          "u": 0.21,
+          "lateral": -160
+        },
+        {
+          "id": "polar_huts",
+          "u": 0.49,
+          "lateral": -85
+        },
+        {
+          "id": "research_base",
+          "u": 0.86,
+          "lateral": 120
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Outer glacier",
+          "u": 0.19,
+          "side": -1,
+          "setback": 355,
+          "along": 611.0,
+          "depth": 250.0,
+          "height": 65
+        },
+        {
+          "name": "Blue ice wall",
+          "u": 0.72,
+          "side": -1,
+          "setback": 285,
+          "along": 468.0,
+          "depth": 212.5,
+          "height": 65
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.08,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "fjord_buoy",
+            "harbor_catch"
+          ]
+        },
+        {
+          "u": 0.61,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "weather_station",
+            "harbor_catch"
+          ]
+        }
+      ],
+      "preview_u": 0.37
+    },
+    {
+      "id": "tundra_pipeline",
+      "regions": [
+        {
+          "name": "Low willow scrub",
+          "u": 0.04,
+          "side": -1,
+          "setback": 90,
+          "along": 230,
+          "depth": 110,
+          "plants": [
+            "shrub"
+          ],
+          "spacing": 31,
+          "kind": "grove"
+        },
+        {
+          "name": "Pipeline service camp",
+          "u": 0.17,
+          "side": 1,
+          "setback": 120,
+          "kind": "utility"
+        },
+        {
+          "name": "Far taiga fringe",
+          "u": 0.42,
+          "side": -1,
+          "setback": 320,
+          "along": 480,
+          "depth": 200,
+          "plants": [
+            "spruce_snow",
+            "snow_pine"
+          ],
+          "spacing": 39,
+          "kind": "grove"
+        },
+        {
+          "name": "Sheltered birch hollow",
+          "u": 0.7,
+          "side": 1,
+          "setback": 145,
+          "along": 250,
+          "depth": 110,
+          "plants": [
+            "autumn_maple",
+            "shrub"
+          ],
+          "spacing": 41,
+          "kind": "grove"
+        },
+        {
+          "name": "Exposed ridge scrub",
+          "u": 0.9,
+          "side": -1,
+          "setback": 170,
+          "along": 370,
+          "depth": 140,
+          "plants": [
+            "shrub",
+            "snow_pine"
+          ],
+          "spacing": 46,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "pump_station",
+          "u": 0.15,
+          "lateral": 95
+        },
+        {
+          "id": "radar_station",
+          "u": 0.55,
+          "lateral": -150
+        },
+        {
+          "id": "research_base",
+          "u": 0.86,
+          "lateral": -95
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Far taiga fringe",
+          "u": 0.42,
+          "side": -1,
+          "setback": 365,
+          "along": 624.0,
+          "depth": 250.0,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.24,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "fuel_locker",
+            "weather_station"
+          ]
+        },
+        {
+          "u": 0.81,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "rescue_sled",
+            "fuel_locker"
+          ]
+        }
+      ],
+      "preview_u": 0.51
+    },
+    {
+      "id": "rainforest_ruins",
+      "regions": [
+        {
+          "name": "Dense kapok entrance",
+          "u": 0.035,
+          "side": -1,
+          "setback": 80,
+          "along": 230,
+          "depth": 130,
+          "plants": [
+            "kapok",
+            "tree_fern"
+          ],
+          "spacing": 25,
+          "kind": "grove"
+        },
+        {
+          "name": "Fern ravine",
+          "u": 0.17,
+          "side": 1,
+          "setback": 100,
+          "along": 180,
+          "depth": 120,
+          "plants": [
+            "tree_fern",
+            "bamboo"
+          ],
+          "spacing": 23,
+          "kind": "grove"
+        },
+        {
+          "name": "Temple forest backdrop",
+          "u": 0.44,
+          "side": -1,
+          "setback": 290,
+          "along": 360,
+          "depth": 190,
+          "plants": [
+            "kapok",
+            "mangrove"
+          ],
+          "spacing": 30,
+          "kind": "grove"
+        },
+        {
+          "name": "Sunlit clearing edge",
+          "u": 0.72,
+          "side": 1,
+          "setback": 190,
+          "along": 250,
+          "depth": 150,
+          "plants": [
+            "tree_fern",
+            "kapok"
+          ],
+          "spacing": 30,
+          "kind": "grove"
+        },
+        {
+          "name": "Closing canopy",
+          "u": 0.92,
+          "side": -1,
+          "setback": 95,
+          "along": 220,
+          "depth": 125,
+          "plants": [
+            "kapok",
+            "tree_fern",
+            "mangrove"
+          ],
+          "spacing": 25,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "stone_face",
+          "u": 0.17,
+          "lateral": 90
+        },
+        {
+          "id": "jungle_temple",
+          "u": 0.39,
+          "lateral": -130
+        },
+        {
+          "id": "stone_face",
+          "u": 0.78,
+          "lateral": -95
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Temple forest backdrop",
+          "u": 0.44,
+          "side": -1,
+          "setback": 335,
+          "along": 468.0,
+          "depth": 237.5,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.22,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "stone_idol"
+          ]
+        },
+        {
+          "u": 0.56,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "trail_camp",
+            "coffee_crates"
+          ]
+        },
+        {
+          "u": 0.88,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "stone_idol",
+            "coffee_crates"
+          ]
+        }
+      ],
+      "preview_u": 0.39
+    },
+    {
+      "id": "monsoon_delta",
+      "regions": [
+        {
+          "name": "Inland rainforest",
+          "u": 0.05,
+          "side": -1,
+          "setback": 160,
+          "along": 330,
+          "depth": 170,
+          "plants": [
+            "kapok",
+            "tree_fern"
+          ],
+          "spacing": 33,
+          "kind": "grove"
+        },
+        {
+          "name": "Floodplain grove",
+          "u": 0.19,
+          "side": -1,
+          "setback": 85,
+          "along": 260,
+          "depth": 100,
+          "plants": [
+            "mangrove",
+            "coconut_palm"
+          ],
+          "spacing": 31,
+          "kind": "grove"
+        },
+        {
+          "name": "Village landing",
+          "u": 0.37,
+          "side": -1,
+          "setback": 125,
+          "kind": "river_village"
+        },
+        {
+          "name": "Distant jungle bank",
+          "u": 0.7,
+          "side": -1,
+          "setback": 330,
+          "along": 450,
+          "depth": 190,
+          "plants": [
+            "kapok",
+            "mangrove"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Home delta palms",
+          "u": 0.91,
+          "side": -1,
+          "setback": 120,
+          "along": 230,
+          "depth": 95,
+          "plants": [
+            "coconut_palm",
+            "mangrove"
+          ],
+          "spacing": 34,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "stilt_village",
+          "u": 0.34,
+          "lateral": -105
+        },
+        {
+          "id": "pump_station",
+          "u": 0.68,
+          "lateral": -120
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [],
+      "service_scenes": [
+        {
+          "u": 0.13,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "river_gauge",
+            "fishing_rack"
+          ]
+        },
+        {
+          "u": 0.67,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "fishing_rack",
+            "trail_camp"
+          ]
+        }
+      ],
+      "preview_u": 0.18
+    },
+    {
+      "id": "coral_causeway",
+      "regions": [
+        {
+          "name": "Lagoon palm grove",
+          "u": 0.04,
+          "side": -1,
+          "setback": 110,
+          "along": 210,
+          "depth": 110,
+          "plants": [
+            "coconut_palm",
+            "fan_palm"
+          ],
+          "spacing": 37,
+          "kind": "grove"
+        },
+        {
+          "name": "Headland scrub",
+          "u": 0.23,
+          "side": -1,
+          "setback": 280,
+          "along": 350,
+          "depth": 160,
+          "plants": [
+            "coastal_cypress",
+            "shrub"
+          ],
+          "spacing": 43,
+          "kind": "grove"
+        },
+        {
+          "name": "Resort cove",
+          "u": 0.41,
+          "side": -1,
+          "setback": 145,
+          "kind": "resort"
+        },
+        {
+          "name": "Sheltered coconut island",
+          "u": 0.74,
+          "side": -1,
+          "setback": 140,
+          "along": 270,
+          "depth": 140,
+          "plants": [
+            "coconut_palm",
+            "oasis_palm"
+          ],
+          "spacing": 38,
+          "kind": "grove"
+        },
+        {
+          "name": "Far green coastline",
+          "u": 0.92,
+          "side": -1,
+          "setback": 320,
+          "along": 420,
+          "depth": 160,
+          "plants": [
+            "coastal_cypress",
+            "fan_palm"
+          ],
+          "spacing": 42,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "island_resort",
+          "u": 0.38,
+          "lateral": -125
+        },
+        {
+          "id": "coral_arch",
+          "u": 0.77,
+          "lateral": -110
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Headland scrub",
+          "u": 0.23,
+          "side": -1,
+          "setback": 325,
+          "along": 455.0,
+          "depth": 200.0,
+          "height": 32
+        },
+        {
+          "name": "Far green coastline",
+          "u": 0.92,
+          "side": -1,
+          "setback": 365,
+          "along": 546.0,
+          "depth": 200.0,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.08,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "surf_rack",
+            "trail_camp"
+          ]
+        },
+        {
+          "u": 0.76,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "fishing_rack",
+            "surf_rack"
+          ]
+        }
+      ],
+      "preview_u": 0.2
+    },
+    {
+      "id": "mangrove_maze",
+      "regions": [
+        {
+          "name": "First root island",
+          "u": 0.04,
+          "side": -1,
+          "setback": 80,
+          "along": 180,
+          "depth": 125,
+          "plants": [
+            "mangrove",
+            "tree_fern"
+          ],
+          "spacing": 25,
+          "kind": "grove"
+        },
+        {
+          "name": "Inside marsh tongue",
+          "u": 0.19,
+          "side": 1,
+          "setback": 120,
+          "along": 240,
+          "depth": 150,
+          "plants": [
+            "mangrove",
+            "kapok"
+          ],
+          "spacing": 27,
+          "kind": "grove"
+        },
+        {
+          "name": "Outer swamp canopy",
+          "u": 0.35,
+          "side": -1,
+          "setback": 290,
+          "along": 360,
+          "depth": 190,
+          "plants": [
+            "mangrove",
+            "kapok"
+          ],
+          "spacing": 29,
+          "kind": "grove"
+        },
+        {
+          "name": "Deep infield canopy",
+          "u": 0.48,
+          "side": 1,
+          "setback": 300,
+          "along": 260,
+          "depth": 170,
+          "plants": [
+            "kapok",
+            "mangrove"
+          ],
+          "spacing": 28,
+          "kind": "grove"
+        },
+        {
+          "name": "Fern tunnel bend",
+          "u": 0.66,
+          "side": -1,
+          "setback": 95,
+          "along": 230,
+          "depth": 100,
+          "plants": [
+            "tree_fern",
+            "mangrove"
+          ],
+          "spacing": 23,
+          "kind": "grove"
+        },
+        {
+          "name": "Last wooded island",
+          "u": 0.91,
+          "side": 1,
+          "setback": 180,
+          "along": 270,
+          "depth": 160,
+          "plants": [
+            "mangrove",
+            "tree_fern",
+            "kapok"
+          ],
+          "spacing": 28,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "stilt_village",
+          "u": 0.15,
+          "lateral": -110
+        },
+        {
+          "id": "stone_face",
+          "u": 0.48,
+          "lateral": 100
+        },
+        {
+          "id": "stilt_village",
+          "u": 0.83,
+          "lateral": -95
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [],
+      "service_scenes": [
+        {
+          "u": 0.18,
+          "side": -1,
+          "setback": 30,
+          "kinds": [
+            "fishing_rack",
+            "river_gauge"
+          ]
+        },
+        {
+          "u": 0.72,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "stone_idol",
+            "fishing_rack"
+          ]
+        }
+      ],
+      "preview_u": 0.46
+    },
+    {
+      "id": "cloudforest_climb",
+      "regions": [
+        {
+          "name": "Coffee valley edge",
+          "u": 0.05,
+          "side": -1,
+          "setback": 115,
+          "along": 280,
+          "depth": 130,
+          "plants": [
+            "tree_fern",
+            "coastal_cypress"
+          ],
+          "spacing": 30,
+          "kind": "grove"
+        },
+        {
+          "name": "Cliff canopy",
+          "u": 0.18,
+          "side": -1,
+          "setback": 250,
+          "along": 380,
+          "depth": 190,
+          "plants": [
+            "kapok",
+            "tree_fern"
+          ],
+          "spacing": 31,
+          "kind": "grove"
+        },
+        {
+          "name": "Summit cloud trees",
+          "u": 0.39,
+          "side": 1,
+          "setback": 145,
+          "along": 220,
+          "depth": 120,
+          "plants": [
+            "coastal_cypress",
+            "alpine_fir"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Dark forest wall",
+          "u": 0.68,
+          "side": -1,
+          "setback": 310,
+          "along": 470,
+          "depth": 190,
+          "plants": [
+            "kapok",
+            "coastal_cypress"
+          ],
+          "spacing": 33,
+          "kind": "grove"
+        },
+        {
+          "name": "Summit fern bowl",
+          "u": 0.53,
+          "side": 1,
+          "setback": 135,
+          "along": 190,
+          "depth": 110,
+          "plants": [
+            "tree_fern",
+            "bamboo"
+          ],
+          "spacing": 28,
+          "kind": "grove"
+        },
+        {
+          "name": "Lower fern basin",
+          "u": 0.93,
+          "side": 1,
+          "setback": 100,
+          "along": 290,
+          "depth": 150,
+          "plants": [
+            "tree_fern",
+            "kapok"
+          ],
+          "spacing": 26,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "stone_face",
+          "u": 0.17,
+          "lateral": -110
+        },
+        {
+          "id": "jungle_temple",
+          "u": 0.55,
+          "lateral": -140
+        },
+        {
+          "id": "stilt_village",
+          "u": 0.89,
+          "lateral": 95
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Cliff canopy",
+          "u": 0.18,
+          "side": -1,
+          "setback": 295,
+          "along": 494.0,
+          "depth": 237.5,
+          "height": 65
+        },
+        {
+          "name": "Dark forest wall",
+          "u": 0.68,
+          "side": -1,
+          "setback": 355,
+          "along": 611.0,
+          "depth": 237.5,
+          "height": 65
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.31,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "coffee_crates",
+            "trail_camp"
+          ]
+        },
+        {
+          "u": 0.78,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "stone_idol",
+            "trail_camp"
+          ]
+        }
+      ],
+      "preview_u": 0.3
+    },
+    {
+      "id": "sakura_ring",
+      "regions": [
+        {
+          "name": "Cherry entrance garden",
+          "u": 0.035,
+          "side": -1,
+          "setback": 80,
+          "along": 170,
+          "depth": 90,
+          "plants": [
+            "sakura",
+            "sakura"
+          ],
+          "spacing": 29,
+          "kind": "grove"
+        },
+        {
+          "name": "Temple bamboo screen",
+          "u": 0.2,
+          "side": 1,
+          "setback": 135,
+          "along": 220,
+          "depth": 95,
+          "plants": [
+            "bamboo",
+            "coastal_cypress"
+          ],
+          "spacing": 26,
+          "kind": "grove"
+        },
+        {
+          "name": "Small shrine garden",
+          "u": 0.29,
+          "side": -1,
+          "setback": 90,
+          "along": 95,
+          "depth": 60,
+          "plants": [
+            "sakura"
+          ],
+          "spacing": 36,
+          "kind": "grove"
+        },
+        {
+          "name": "Maple hillside",
+          "u": 0.42,
+          "side": -1,
+          "setback": 290,
+          "along": 330,
+          "depth": 170,
+          "plants": [
+            "autumn_maple",
+            "sakura"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Open pond border",
+          "u": 0.69,
+          "side": 1,
+          "setback": 155,
+          "along": 170,
+          "depth": 90,
+          "plants": [
+            "sakura",
+            "coastal_cypress"
+          ],
+          "spacing": 40,
+          "kind": "grove"
+        },
+        {
+          "name": "Cherry return grove",
+          "u": 0.93,
+          "side": -1,
+          "setback": 90,
+          "along": 180,
+          "depth": 105,
+          "plants": [
+            "sakura",
+            "autumn_maple"
+          ],
+          "spacing": 28,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "pagoda",
+          "u": 0.29,
+          "lateral": -95
+        },
+        {
+          "id": "waterwheel_house",
+          "u": 0.75,
+          "lateral": 95
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Maple hillside",
+          "u": 0.42,
+          "side": -1,
+          "setback": 335,
+          "along": 429.0,
+          "depth": 212.5,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.12,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "cycle_rack",
+            "stone_lantern"
+          ]
+        },
+        {
+          "u": 0.49,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "wayside_shrine"
+          ]
+        },
+        {
+          "u": 0.87,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "stone_lantern",
+            "cycle_rack"
+          ]
+        }
+      ],
+      "preview_u": 0.16
+    },
+    {
+      "id": "bamboo_gorge",
+      "regions": [
+        {
+          "name": "First bamboo stand",
+          "u": 0.04,
+          "side": -1,
+          "setback": 85,
+          "along": 230,
+          "depth": 100,
+          "plants": [
+            "bamboo",
+            "bamboo",
+            "tree_fern"
+          ],
+          "spacing": 23,
+          "kind": "grove"
+        },
+        {
+          "name": "Ravine cypress wall",
+          "u": 0.18,
+          "side": -1,
+          "setback": 270,
+          "along": 340,
+          "depth": 180,
+          "plants": [
+            "coastal_cypress",
+            "bamboo"
+          ],
+          "spacing": 29,
+          "kind": "grove"
+        },
+        {
+          "name": "Inside bamboo island",
+          "u": 0.41,
+          "side": 1,
+          "setback": 120,
+          "along": 190,
+          "depth": 120,
+          "plants": [
+            "bamboo",
+            "tree_fern"
+          ],
+          "spacing": 24,
+          "kind": "grove"
+        },
+        {
+          "name": "High ridge forest",
+          "u": 0.7,
+          "side": 1,
+          "setback": 300,
+          "along": 370,
+          "depth": 170,
+          "plants": [
+            "coastal_cypress",
+            "autumn_maple"
+          ],
+          "spacing": 33,
+          "kind": "grove"
+        },
+        {
+          "name": "Last fern hollow",
+          "u": 0.92,
+          "side": -1,
+          "setback": 90,
+          "along": 170,
+          "depth": 110,
+          "plants": [
+            "tree_fern",
+            "bamboo"
+          ],
+          "spacing": 23,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "waterwheel_house",
+          "u": 0.34,
+          "lateral": -95
+        },
+        {
+          "id": "sea_shrine",
+          "u": 0.76,
+          "lateral": 110
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Ravine cypress wall",
+          "u": 0.18,
+          "side": -1,
+          "setback": 315,
+          "along": 442.0,
+          "depth": 225.0,
+          "height": 32
+        },
+        {
+          "name": "High ridge forest",
+          "u": 0.7,
+          "side": 1,
+          "setback": 345,
+          "along": 481.0,
+          "depth": 212.5,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.19,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "bamboo_cart",
+            "wayside_shrine"
+          ]
+        },
+        {
+          "u": 0.72,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "stone_lantern",
+            "wayside_shrine"
+          ]
+        }
+      ],
+      "preview_u": 0.35
+    },
+    {
+      "id": "lantern_market",
+      "regions": [
+        {
+          "name": "Entrance shop quarter",
+          "u": 0.04,
+          "side": -1,
+          "setback": 105,
+          "kind": "market",
+          "modules": [
+            [
+              "market",
+              -40,
+              -125,
+              0,
+              0
+            ],
+            [
+              "market",
+              8,
+              -125,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              56,
+              -110,
+              2,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -43,
+              -65,
+              3,
+              0
+            ],
+            [
+              "market",
+              35,
+              -52,
+              0,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -38,
+              0,
+              1,
+              0
+            ],
+            [
+              "market",
+              38,
+              12,
+              2,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -39,
+              75,
+              3,
+              0
+            ],
+            [
+              "market",
+              11,
+              82,
+              0,
+              3.141592653589793
+            ],
+            [
+              "market",
+              59,
+              69,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -12,
+              138,
+              2,
+              0
+            ],
+            [
+              "market",
+              45,
+              140,
+              3,
+              3.141592653589793
+            ],
+            [
+              "pavilion",
+              0,
+              16,
+              0,
+              0
+            ],
+            [
+              "house",
+              102,
+              -80,
+              1,
+              0
+            ],
+            [
+              "house",
+              108,
+              70,
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Canal merchants",
+          "u": 0.17,
+          "side": 1,
+          "setback": 130,
+          "kind": "market",
+          "modules": [
+            [
+              "market",
+              -40,
+              -125,
+              1,
+              0
+            ],
+            [
+              "market",
+              8,
+              -125,
+              2,
+              3.141592653589793
+            ],
+            [
+              "market",
+              56,
+              -110,
+              3,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -43,
+              -65,
+              0,
+              0
+            ],
+            [
+              "market",
+              35,
+              -52,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -38,
+              0,
+              2,
+              0
+            ],
+            [
+              "market",
+              38,
+              12,
+              3,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -39,
+              75,
+              0,
+              0
+            ],
+            [
+              "market",
+              11,
+              82,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              59,
+              69,
+              2,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -12,
+              138,
+              3,
+              0
+            ],
+            [
+              "market",
+              45,
+              140,
+              0,
+              3.141592653589793
+            ],
+            [
+              "pavilion",
+              0,
+              16,
+              1,
+              0
+            ],
+            [
+              "house",
+              102,
+              -80,
+              1,
+              0
+            ],
+            [
+              "house",
+              108,
+              70,
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Temple garden",
+          "u": 0.41,
+          "side": -1,
+          "setback": 170,
+          "along": 220,
+          "depth": 120,
+          "plants": [
+            "sakura",
+            "bamboo"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Dense old town",
+          "u": 0.73,
+          "side": -1,
+          "setback": 150,
+          "kind": "market",
+          "modules": [
+            [
+              "market",
+              -40,
+              -125,
+              3,
+              0
+            ],
+            [
+              "market",
+              8,
+              -125,
+              0,
+              3.141592653589793
+            ],
+            [
+              "market",
+              56,
+              -110,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -43,
+              -65,
+              2,
+              0
+            ],
+            [
+              "market",
+              35,
+              -52,
+              3,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -38,
+              0,
+              0,
+              0
+            ],
+            [
+              "market",
+              38,
+              12,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -39,
+              75,
+              2,
+              0
+            ],
+            [
+              "market",
+              11,
+              82,
+              3,
+              3.141592653589793
+            ],
+            [
+              "market",
+              59,
+              69,
+              0,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -12,
+              138,
+              1,
+              0
+            ],
+            [
+              "market",
+              45,
+              140,
+              2,
+              3.141592653589793
+            ],
+            [
+              "pavilion",
+              0,
+              16,
+              3,
+              0
+            ],
+            [
+              "house",
+              102,
+              -80,
+              1,
+              0
+            ],
+            [
+              "house",
+              108,
+              70,
+              2,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Food court square",
+          "u": 0.92,
+          "side": 1,
+          "setback": 105,
+          "kind": "market",
+          "modules": [
+            [
+              "market",
+              -40,
+              -125,
+              0,
+              0
+            ],
+            [
+              "market",
+              8,
+              -125,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              56,
+              -110,
+              2,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -43,
+              -65,
+              3,
+              0
+            ],
+            [
+              "market",
+              35,
+              -52,
+              0,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -38,
+              0,
+              1,
+              0
+            ],
+            [
+              "market",
+              38,
+              12,
+              2,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -39,
+              75,
+              3,
+              0
+            ],
+            [
+              "market",
+              11,
+              82,
+              0,
+              3.141592653589793
+            ],
+            [
+              "market",
+              59,
+              69,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -12,
+              138,
+              2,
+              0
+            ],
+            [
+              "market",
+              45,
+              140,
+              3,
+              3.141592653589793
+            ],
+            [
+              "pavilion",
+              0,
+              16,
+              0,
+              0
+            ],
+            [
+              "house",
+              102,
+              -80,
+              1,
+              0
+            ],
+            [
+              "house",
+              108,
+              70,
+              2,
+              0
+            ]
+          ]
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "pagoda",
+          "u": 0.33,
+          "lateral": -100
+        },
+        {
+          "id": "lantern_market",
+          "u": 0.77,
+          "lateral": 90
+        },
+        {
+          "id": "sea_shrine",
+          "u": 0.91,
+          "lateral": -85
+        }
+      ],
+      "light_sections": [
+        [
+          0.02,
+          0.23,
+          -1
+        ],
+        [
+          0.05,
+          0.18,
+          1
+        ],
+        [
+          0.67,
+          0.9,
+          1
+        ]
+      ],
+      "road_gates": [
+        0.12
+      ],
+      "landform_regions": [],
+      "service_scenes": [
+        {
+          "u": 0.09,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "market_cart",
+            "cycle_rack"
+          ]
+        },
+        {
+          "u": 0.38,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "market_cart",
+            "stone_lantern"
+          ]
+        },
+        {
+          "u": 0.79,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "cycle_rack"
+          ]
+        }
+      ],
+      "verge_extent": 24,
+      "preview_u": 0.12
+    },
+    {
+      "id": "terrace_touge",
+      "regions": [
+        {
+          "name": "Bamboo foothills",
+          "u": 0.055,
+          "side": -1,
+          "setback": 100,
+          "along": 270,
+          "depth": 120,
+          "plants": [
+            "bamboo",
+            "coastal_cypress"
+          ],
+          "spacing": 29,
+          "kind": "grove"
+        },
+        {
+          "name": "Ridge windbreak",
+          "u": 0.19,
+          "side": 1,
+          "setback": 250,
+          "along": 330,
+          "depth": 150,
+          "plants": [
+            "coastal_cypress",
+            "alpine_fir"
+          ],
+          "spacing": 34,
+          "kind": "grove"
+        },
+        {
+          "name": "Terrace cherry grove",
+          "u": 0.43,
+          "side": -1,
+          "setback": 145,
+          "along": 180,
+          "depth": 95,
+          "plants": [
+            "sakura",
+            "autumn_maple"
+          ],
+          "spacing": 38,
+          "kind": "grove"
+        },
+        {
+          "name": "High cypress forest",
+          "u": 0.65,
+          "side": -1,
+          "setback": 310,
+          "along": 420,
+          "depth": 190,
+          "plants": [
+            "coastal_cypress",
+            "bamboo"
+          ],
+          "spacing": 32,
+          "kind": "grove"
+        },
+        {
+          "name": "Lower tea grove",
+          "u": 0.94,
+          "side": 1,
+          "setback": 120,
+          "along": 270,
+          "depth": 130,
+          "plants": [
+            "bamboo",
+            "sakura"
+          ],
+          "spacing": 31,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "tea_terrace",
+          "u": 0.22,
+          "lateral": -125
+        },
+        {
+          "id": "pagoda",
+          "u": 0.59,
+          "lateral": 100
+        },
+        {
+          "id": "waterwheel_house",
+          "u": 0.87,
+          "lateral": -95
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Ridge windbreak",
+          "u": 0.19,
+          "side": 1,
+          "setback": 295,
+          "along": 429.0,
+          "depth": 187.5,
+          "height": 32
+        },
+        {
+          "name": "High cypress forest",
+          "u": 0.65,
+          "side": -1,
+          "setback": 355,
+          "along": 546.0,
+          "depth": 237.5,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.25,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "tea_baskets",
+            "bamboo_cart"
+          ]
+        },
+        {
+          "u": 0.67,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "wayside_shrine",
+            "tea_baskets"
+          ]
+        }
+      ],
+      "preview_u": 0.4692
+    },
+    {
+      "id": "temple_coast",
+      "regions": [
+        {
+          "name": "Shrine cherry grove",
+          "u": 0.04,
+          "side": -1,
+          "setback": 95,
+          "along": 240,
+          "depth": 120,
+          "plants": [
+            "sakura",
+            "coastal_cypress"
+          ],
+          "spacing": 32,
+          "kind": "grove"
+        },
+        {
+          "name": "Distant headland",
+          "u": 0.23,
+          "side": -1,
+          "setback": 300,
+          "along": 410,
+          "depth": 175,
+          "plants": [
+            "coastal_cypress",
+            "fan_palm"
+          ],
+          "spacing": 38,
+          "kind": "grove"
+        },
+        {
+          "name": "Fishing village",
+          "u": 0.44,
+          "side": -1,
+          "setback": 130,
+          "kind": "river_village"
+        },
+        {
+          "name": "Hill shrine woods",
+          "u": 0.72,
+          "side": 1,
+          "setback": 210,
+          "along": 260,
+          "depth": 140,
+          "plants": [
+            "sakura",
+            "bamboo"
+          ],
+          "spacing": 31,
+          "kind": "grove"
+        },
+        {
+          "name": "Last coastal garden",
+          "u": 0.94,
+          "side": -1,
+          "setback": 100,
+          "along": 240,
+          "depth": 115,
+          "plants": [
+            "sakura",
+            "fan_palm"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "sea_shrine",
+          "u": 0.18,
+          "lateral": -120
+        },
+        {
+          "id": "torii",
+          "u": 0.73,
+          "lateral": -85
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [
+        0.11
+      ],
+      "landform_regions": [
+        {
+          "name": "Distant headland",
+          "u": 0.23,
+          "side": -1,
+          "setback": 345,
+          "along": 533.0,
+          "depth": 218.75,
+          "height": 32
+        },
+        {
+          "name": "Hill shrine woods",
+          "u": 0.72,
+          "side": 1,
+          "setback": 255,
+          "along": 338.0,
+          "depth": 175.0,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.14,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "stone_lantern",
+            "wayside_shrine"
+          ]
+        },
+        {
+          "u": 0.83,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "tea_baskets",
+            "stone_lantern"
+          ]
+        }
+      ],
+      "preview_u": 0.1
+    },
+    {
+      "id": "saltflat_velocity",
+      "regions": [
+        {
+          "name": "Salt needles at the paddock",
+          "u": 0.025,
+          "side": -1,
+          "setback": 150,
+          "along": 130,
+          "depth": 110,
+          "plants": [
+            "salt_spires"
+          ],
+          "spacing": 75,
+          "kind": "grove"
+        },
+        {
+          "name": "Timing station",
+          "u": 0.34,
+          "side": -1,
+          "setback": 120,
+          "kind": "utility"
+        },
+        {
+          "name": "Remote escarpment",
+          "u": 0.53,
+          "side": -1,
+          "setback": 330,
+          "along": 510,
+          "depth": 180,
+          "plants": [
+            "hoodoo_cluster",
+            "salt_spires"
+          ],
+          "spacing": 90,
+          "kind": "grove"
+        },
+        {
+          "name": "Return survey camp",
+          "u": 0.96,
+          "side": 1,
+          "setback": 110,
+          "kind": "utility"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "salt_spires",
+          "u": 0.12,
+          "lateral": -180
+        },
+        {
+          "id": "radar_station",
+          "u": 0.61,
+          "lateral": 170
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [],
+      "service_scenes": [
+        {
+          "u": 0.04,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "timing_booth",
+            "survey_tripod"
+          ]
+        },
+        {
+          "u": 0.56,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "weather_probe",
+            "survey_tripod"
+          ]
+        }
+      ],
+      "preview_u": 0.1
+    },
+    {
+      "id": "dune_serpent",
+      "regions": [
+        {
+          "name": "Cactus wash",
+          "u": 0.04,
+          "side": -1,
+          "setback": 120,
+          "along": 230,
+          "depth": 130,
+          "plants": [
+            "flowering_cactus",
+            "shrub"
+          ],
+          "spacing": 38,
+          "kind": "grove"
+        },
+        {
+          "name": "Dune spine",
+          "u": 0.22,
+          "side": -1,
+          "setback": 280,
+          "along": 380,
+          "depth": 170,
+          "plants": [
+            "dune_spires",
+            "hoodoo_cluster"
+          ],
+          "spacing": 73,
+          "kind": "grove"
+        },
+        {
+          "name": "Oasis hollow",
+          "u": 0.39,
+          "side": 1,
+          "setback": 170,
+          "along": 190,
+          "depth": 110,
+          "plants": [
+            "oasis_palm",
+            "fan_palm"
+          ],
+          "spacing": 34,
+          "kind": "grove"
+        },
+        {
+          "name": "Far sandstone islands",
+          "u": 0.72,
+          "side": 1,
+          "setback": 320,
+          "along": 380,
+          "depth": 190,
+          "plants": [
+            "dune_spires"
+          ],
+          "spacing": 85,
+          "kind": "grove"
+        },
+        {
+          "name": "Desert scrub return",
+          "u": 0.94,
+          "side": -1,
+          "setback": 100,
+          "along": 230,
+          "depth": 110,
+          "plants": [
+            "shrub",
+            "flowering_cactus"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "dune_spires",
+          "u": 0.19,
+          "lateral": -180
+        },
+        {
+          "id": "citadel",
+          "u": 0.72,
+          "lateral": -170
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Dune spine",
+          "u": 0.22,
+          "side": -1,
+          "setback": 325,
+          "along": 494.0,
+          "depth": 212.5,
+          "height": 32
+        },
+        {
+          "name": "Far sandstone islands",
+          "u": 0.72,
+          "side": 1,
+          "setback": 365,
+          "along": 494.0,
+          "depth": 237.5,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.23,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "water_tank",
+            "shade_shelter"
+          ]
+        },
+        {
+          "u": 0.79,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "shade_shelter",
+            "survey_tripod"
+          ]
+        }
+      ],
+      "preview_u": 0.3911
+    },
+    {
+      "id": "oasis_citadel",
+      "regions": [
+        {
+          "name": "Outer palm garden",
+          "u": 0.035,
+          "side": -1,
+          "setback": 100,
+          "along": 190,
+          "depth": 115,
+          "plants": [
+            "oasis_palm",
+            "fan_palm"
+          ],
+          "spacing": 32,
+          "kind": "grove"
+        },
+        {
+          "name": "Citadel quarter",
+          "u": 0.18,
+          "side": 1,
+          "setback": 140,
+          "kind": "citadel"
+        },
+        {
+          "name": "Palm-lined spring",
+          "u": 0.4,
+          "side": -1,
+          "setback": 130,
+          "along": 260,
+          "depth": 140,
+          "plants": [
+            "oasis_palm",
+            "coconut_palm"
+          ],
+          "spacing": 31,
+          "kind": "grove"
+        },
+        {
+          "name": "Distant desert ridge",
+          "u": 0.74,
+          "side": -1,
+          "setback": 320,
+          "along": 430,
+          "depth": 180,
+          "plants": [
+            "dune_spires",
+            "flowering_cactus"
+          ],
+          "spacing": 78,
+          "kind": "grove"
+        },
+        {
+          "name": "Palace market",
+          "u": 0.93,
+          "side": 1,
+          "setback": 130,
+          "kind": "citadel"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "citadel",
+          "u": 0.23,
+          "lateral": 130
+        },
+        {
+          "id": "waterwheel_house",
+          "u": 0.73,
+          "lateral": -100
+        }
+      ],
+      "light_sections": [
+        [
+          0.15,
+          0.31,
+          1
+        ],
+        [
+          0.84,
+          0.96,
+          -1
+        ]
+      ],
+      "road_gates": [
+        0.8
+      ],
+      "landform_regions": [
+        {
+          "name": "Distant desert ridge",
+          "u": 0.74,
+          "side": -1,
+          "setback": 365,
+          "along": 559.0,
+          "depth": 225.0,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.1,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "shade_shelter",
+            "water_tank"
+          ]
+        },
+        {
+          "u": 0.72,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "timing_booth",
+            "shade_shelter"
+          ]
+        }
+      ],
+      "preview_u": 0.15
+    },
+    {
+      "id": "copper_mesa",
+      "regions": [
+        {
+          "name": "Lower desert wash",
+          "u": 0.04,
+          "side": -1,
+          "setback": 140,
+          "along": 260,
+          "depth": 130,
+          "plants": [
+            "flowering_cactus",
+            "shrub"
+          ],
+          "spacing": 37,
+          "kind": "grove"
+        },
+        {
+          "name": "First mesa wall",
+          "u": 0.16,
+          "side": 1,
+          "setback": 300,
+          "along": 370,
+          "depth": 170,
+          "plants": [
+            "hoodoo_cluster",
+            "dune_spires"
+          ],
+          "spacing": 72,
+          "kind": "grove"
+        },
+        {
+          "name": "Mine service terrace",
+          "u": 0.36,
+          "side": -1,
+          "setback": 130,
+          "kind": "quarry"
+        },
+        {
+          "name": "Upper rock amphitheater",
+          "u": 0.63,
+          "side": 1,
+          "setback": 270,
+          "along": 400,
+          "depth": 180,
+          "plants": [
+            "dune_spires",
+            "hoodoo_cluster"
+          ],
+          "spacing": 83,
+          "kind": "grove"
+        },
+        {
+          "name": "Long descent scrub",
+          "u": 0.91,
+          "side": -1,
+          "setback": 160,
+          "along": 430,
+          "depth": 150,
+          "plants": [
+            "shrub",
+            "flowering_cactus"
+          ],
+          "spacing": 42,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "mine_headframe",
+          "u": 0.38,
+          "lateral": -120
+        },
+        {
+          "id": "dune_spires",
+          "u": 0.69,
+          "lateral": 180
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "First mesa wall",
+          "u": 0.16,
+          "side": 1,
+          "setback": 345,
+          "along": 481.0,
+          "depth": 212.5,
+          "height": 65
+        },
+        {
+          "name": "Upper rock amphitheater",
+          "u": 0.63,
+          "side": 1,
+          "setback": 315,
+          "along": 520.0,
+          "depth": 225.0,
+          "height": 65
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.17,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "core_samples",
+            "survey_tripod"
+          ]
+        },
+        {
+          "u": 0.71,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "weather_probe",
+            "core_samples"
+          ]
+        }
+      ],
+      "preview_u": 0.2226
+    },
+    {
+      "id": "storm_chase",
+      "regions": [
+        {
+          "name": "Farm windbreak",
+          "u": 0.035,
+          "side": -1,
+          "setback": 110,
+          "along": 310,
+          "depth": 100,
+          "plants": [
+            "coastal_cypress",
+            "autumn_maple"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Weather station",
+          "u": 0.18,
+          "side": 1,
+          "setback": 120,
+          "kind": "utility"
+        },
+        {
+          "name": "Far wooded ridge",
+          "u": 0.45,
+          "side": -1,
+          "setback": 310,
+          "along": 450,
+          "depth": 180,
+          "plants": [
+            "autumn_maple",
+            "coastal_cypress"
+          ],
+          "spacing": 43,
+          "kind": "grove"
+        },
+        {
+          "name": "Return field edge",
+          "u": 0.94,
+          "side": -1,
+          "setback": 240,
+          "along": 370,
+          "depth": 110,
+          "plants": [
+            "shrub",
+            "autumn_maple"
+          ],
+          "spacing": 47,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "barn_silos",
+          "u": 0.15,
+          "lateral": -160
+        },
+        {
+          "id": "radar_station",
+          "u": 0.7,
+          "lateral": 130
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Far wooded ridge",
+          "u": 0.45,
+          "side": -1,
+          "setback": 355,
+          "along": 585.0,
+          "depth": 225.0,
+          "height": 32
+        },
+        {
+          "name": "Return field edge",
+          "u": 0.94,
+          "side": -1,
+          "setback": 285,
+          "along": 481.0,
+          "depth": 137.5,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.12,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "weather_probe",
+            "survey_tripod"
+          ]
+        },
+        {
+          "u": 0.58,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "water_tank",
+            "weather_probe"
+          ]
+        }
+      ],
+      "preview_u": 0.38
+    },
+    {
+      "id": "steelworks_sprint",
+      "regions": [
+        {
+          "name": "Foundry quarter",
+          "u": 0.03,
+          "side": -1,
+          "setback": 140,
+          "kind": "industry",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              1,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              2,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              0,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Cooling plant",
+          "u": 0.19,
+          "side": 1,
+          "setback": 175,
+          "kind": "industry",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              1,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              3,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              1,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Old rail embankment",
+          "u": 0.43,
+          "side": -1,
+          "setback": 250,
+          "along": 260,
+          "depth": 110,
+          "plants": [
+            "shrub",
+            "coastal_cypress"
+          ],
+          "spacing": 48,
+          "kind": "grove"
+        },
+        {
+          "name": "Freight sorting yard",
+          "u": 0.74,
+          "side": -1,
+          "setback": 175,
+          "kind": "logistics",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              3,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              0,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              1,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              3,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Shift gate workshops",
+          "u": 0.92,
+          "side": 1,
+          "setback": 100,
+          "kind": "industry",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              1,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              2,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              0,
+              3.141592653589793
+            ]
+          ]
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "cooling_towers",
+          "u": 0.25,
+          "lateral": 160
+        },
+        {
+          "id": "cargo_crane",
+          "u": 0.71,
+          "lateral": -130
+        }
+      ],
+      "light_sections": [
+        [
+          0.025,
+          0.19,
+          -1
+        ],
+        [
+          0.25,
+          0.36,
+          1
+        ],
+        [
+          0.81,
+          0.96,
+          1
+        ]
+      ],
+      "road_gates": [],
+      "landform_regions": [],
+      "service_scenes": [
+        {
+          "u": 0.09,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "steel_rack",
+            "cargo_pallet"
+          ]
+        },
+        {
+          "u": 0.44,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "service_cabinet",
+            "steel_rack"
+          ]
+        },
+        {
+          "u": 0.82,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "cargo_pallet"
+          ]
+        }
+      ],
+      "preview_u": 0.16
+    },
+    {
+      "id": "container_corkscrew",
+      "regions": [
+        {
+          "name": "Quayside containers",
+          "u": 0.04,
+          "side": -1,
+          "setback": 125,
+          "kind": "logistics",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              1,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              0,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              2,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              0,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Maintenance dock",
+          "u": 0.2,
+          "side": -1,
+          "setback": 175,
+          "kind": "harbor",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              1,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              3,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              1,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Warehouse block",
+          "u": 0.39,
+          "side": -1,
+          "setback": 140,
+          "kind": "harbor",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              2,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              3,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              2,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              0,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              2,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Far port windbreak",
+          "u": 0.71,
+          "side": -1,
+          "setback": 320,
+          "along": 390,
+          "depth": 150,
+          "plants": [
+            "coastal_cypress",
+            "shrub"
+          ],
+          "spacing": 44,
+          "kind": "grove"
+        },
+        {
+          "name": "Return freight yard",
+          "u": 0.94,
+          "side": 1,
+          "setback": 150,
+          "kind": "logistics",
+          "modules": [
+            [
+              "warehouse",
+              -36,
+              -85,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              30,
+              -92,
+              1,
+              0
+            ],
+            [
+              "container_stack",
+              -40,
+              -18,
+              1,
+              1.5707963267948966
+            ],
+            [
+              "tank",
+              43,
+              -13,
+              0,
+              0
+            ],
+            [
+              "tank",
+              66,
+              -13,
+              0,
+              0
+            ],
+            [
+              "warehouse",
+              -22,
+              70,
+              2,
+              3.141592653589793
+            ],
+            [
+              "container_stack",
+              38,
+              65,
+              2,
+              0
+            ],
+            [
+              "container_stack",
+              58,
+              65,
+              1,
+              0
+            ],
+            [
+              "antenna",
+              80,
+              103,
+              0,
+              0
+            ],
+            [
+              "house",
+              -67,
+              125,
+              0,
+              3.141592653589793
+            ]
+          ]
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "cargo_crane",
+          "u": 0.18,
+          "lateral": -130
+        },
+        {
+          "id": "dry_dock",
+          "u": 0.61,
+          "lateral": -130
+        },
+        {
+          "id": "radar_station",
+          "u": 0.88,
+          "lateral": 130
+        }
+      ],
+      "light_sections": [
+        [
+          0.02,
+          0.16,
+          -1
+        ],
+        [
+          0.34,
+          0.48,
+          -1
+        ],
+        [
+          0.83,
+          0.96,
+          1
+        ]
+      ],
+      "road_gates": [],
+      "landform_regions": [],
+      "service_scenes": [
+        {
+          "u": 0.15,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "cargo_pallet",
+            "service_cabinet"
+          ]
+        },
+        {
+          "u": 0.68,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "tire_stack",
+            "cargo_pallet"
+          ]
+        }
+      ],
+      "preview_u": 0.13
+    },
+    {
+      "id": "neon_underpass",
+      "regions": [
+        {
+          "name": "Downtown approach",
+          "u": 0.035,
+          "side": -1,
+          "setback": 95,
+          "kind": "city",
+          "modules": [
+            [
+              "house",
+              -53,
+              -260,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              3,
+              -260,
+              1,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              73,
+              -260,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              143,
+              -260,
+              3,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              -48,
+              -185,
+              3,
+              0
+            ],
+            [
+              "tower",
+              8,
+              -185,
+              0,
+              0
+            ],
+            [
+              "tower",
+              78,
+              -185,
+              1,
+              0
+            ],
+            [
+              "tower",
+              148,
+              -185,
+              2,
+              0
+            ],
+            [
+              "tower",
+              -43,
+              -108,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              83,
+              -108,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              153,
+              -108,
+              1,
+              3.141592653589793
+            ],
+            [
+              "house",
+              -53,
+              -28,
+              1,
+              0
+            ],
+            [
+              "tower",
+              143,
+              -28,
+              0,
+              0
+            ],
+            [
+              "tower",
+              -48,
+              53,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              8,
+              53,
+              1,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              78,
+              53,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              148,
+              53,
+              3,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              -43,
+              137,
+              3,
+              0
+            ],
+            [
+              "tower",
+              13,
+              137,
+              0,
+              0
+            ],
+            [
+              "tower",
+              83,
+              137,
+              1,
+              0
+            ],
+            [
+              "tower",
+              153,
+              137,
+              2,
+              0
+            ],
+            [
+              "house",
+              -53,
+              225,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              3,
+              225,
+              3,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              73,
+              225,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              143,
+              225,
+              1,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Station district",
+          "u": 0.22,
+          "side": 1,
+          "setback": 110,
+          "kind": "city",
+          "modules": [
+            [
+              "tower",
+              8,
+              -260,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              78,
+              -260,
+              3,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              148,
+              -260,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              -43,
+              -185,
+              0,
+              0
+            ],
+            [
+              "tower",
+              13,
+              -185,
+              1,
+              0
+            ],
+            [
+              "tower",
+              83,
+              -185,
+              2,
+              0
+            ],
+            [
+              "tower",
+              153,
+              -185,
+              3,
+              0
+            ],
+            [
+              "tower",
+              -53,
+              -108,
+              3,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              3,
+              -108,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              73,
+              -108,
+              1,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              143,
+              -108,
+              2,
+              3.141592653589793
+            ],
+            [
+              "house",
+              -48,
+              -28,
+              2,
+              0
+            ],
+            [
+              "tower",
+              8,
+              -28,
+              3,
+              0
+            ],
+            [
+              "tower",
+              78,
+              -28,
+              0,
+              0
+            ],
+            [
+              "tower",
+              148,
+              -28,
+              1,
+              0
+            ],
+            [
+              "tower",
+              -43,
+              53,
+              1,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              13,
+              53,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              153,
+              53,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              -53,
+              137,
+              0,
+              0
+            ],
+            [
+              "tower",
+              3,
+              137,
+              1,
+              0
+            ],
+            [
+              "tower",
+              143,
+              137,
+              3,
+              0
+            ],
+            [
+              "tower",
+              8,
+              225,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              78,
+              225,
+              1,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              148,
+              225,
+              2,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Riverside park",
+          "u": 0.4,
+          "side": -1,
+          "setback": 180,
+          "along": 270,
+          "depth": 140,
+          "plants": [
+            "coastal_cypress",
+            "autumn_maple"
+          ],
+          "spacing": 36,
+          "kind": "grove"
+        },
+        {
+          "name": "Apartment skyline",
+          "u": 0.72,
+          "side": -1,
+          "setback": 175,
+          "kind": "city",
+          "modules": [
+            [
+              "tower",
+              3,
+              -260,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              73,
+              -260,
+              1,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              143,
+              -260,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              -48,
+              -185,
+              2,
+              0
+            ],
+            [
+              "tower",
+              8,
+              -185,
+              3,
+              0
+            ],
+            [
+              "tower",
+              78,
+              -185,
+              0,
+              0
+            ],
+            [
+              "tower",
+              148,
+              -185,
+              1,
+              0
+            ],
+            [
+              "tower",
+              -43,
+              -108,
+              1,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              13,
+              -108,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              83,
+              -108,
+              3,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              153,
+              -108,
+              0,
+              3.141592653589793
+            ],
+            [
+              "house",
+              -53,
+              -28,
+              0,
+              0
+            ],
+            [
+              "tower",
+              3,
+              -28,
+              1,
+              0
+            ],
+            [
+              "tower",
+              73,
+              -28,
+              2,
+              0
+            ],
+            [
+              "tower",
+              143,
+              -28,
+              3,
+              0
+            ],
+            [
+              "tower",
+              -48,
+              53,
+              3,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              8,
+              53,
+              0,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              148,
+              53,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              -43,
+              137,
+              2,
+              0
+            ],
+            [
+              "tower",
+              13,
+              137,
+              3,
+              0
+            ],
+            [
+              "tower",
+              153,
+              137,
+              1,
+              0
+            ],
+            [
+              "tower",
+              3,
+              225,
+              2,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              73,
+              225,
+              3,
+              3.141592653589793
+            ],
+            [
+              "tower",
+              143,
+              225,
+              0,
+              3.141592653589793
+            ]
+          ]
+        },
+        {
+          "name": "Night market exit",
+          "u": 0.92,
+          "side": 1,
+          "setback": 130,
+          "kind": "market",
+          "modules": [
+            [
+              "market",
+              -40,
+              -125,
+              0,
+              0
+            ],
+            [
+              "market",
+              8,
+              -125,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              56,
+              -110,
+              2,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -43,
+              -65,
+              3,
+              0
+            ],
+            [
+              "market",
+              35,
+              -52,
+              0,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -38,
+              0,
+              1,
+              0
+            ],
+            [
+              "market",
+              38,
+              12,
+              2,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -39,
+              75,
+              3,
+              0
+            ],
+            [
+              "market",
+              11,
+              82,
+              0,
+              3.141592653589793
+            ],
+            [
+              "market",
+              59,
+              69,
+              1,
+              3.141592653589793
+            ],
+            [
+              "market",
+              -12,
+              138,
+              2,
+              0
+            ],
+            [
+              "market",
+              45,
+              140,
+              3,
+              3.141592653589793
+            ],
+            [
+              "pavilion",
+              0,
+              16,
+              0,
+              0
+            ],
+            [
+              "house",
+              102,
+              -80,
+              1,
+              0
+            ],
+            [
+              "house",
+              108,
+              70,
+              2,
+              0
+            ]
+          ]
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "neon_gate",
+          "u": 0.21,
+          "lateral": -100
+        },
+        {
+          "id": "ventilation_station",
+          "u": 0.77,
+          "lateral": 95
+        }
+      ],
+      "light_sections": [
+        [
+          0.02,
+          0.28,
+          -1
+        ],
+        [
+          0.18,
+          0.34,
+          1
+        ],
+        [
+          0.61,
+          0.79,
+          -1
+        ],
+        [
+          0.83,
+          0.97,
+          1
+        ]
+      ],
+      "road_gates": [],
+      "landform_regions": [],
+      "service_scenes": [
+        {
+          "u": 0.07,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "bus_shelter",
+            "snack_cart"
+          ]
+        },
+        {
+          "u": 0.54,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "bus_shelter",
+            "service_cabinet"
+          ]
+        }
+      ],
+      "verge_extent": 24,
+      "preview_u": 0.2
+    },
+    {
+      "id": "windfarm_run",
+      "regions": [
+        {
+          "name": "Farm lane shelterbelt",
+          "u": 0.035,
+          "side": -1,
+          "setback": 100,
+          "along": 310,
+          "depth": 90,
+          "plants": [
+            "coastal_cypress",
+            "shrub"
+          ],
+          "spacing": 34,
+          "kind": "grove"
+        },
+        {
+          "name": "Distant forest margin",
+          "u": 0.2,
+          "side": 1,
+          "setback": 330,
+          "along": 480,
+          "depth": 180,
+          "plants": [
+            "alpine_fir",
+            "coastal_cypress"
+          ],
+          "spacing": 39,
+          "kind": "grove"
+        },
+        {
+          "name": "Turbine service yard",
+          "u": 0.44,
+          "side": -1,
+          "setback": 120,
+          "kind": "utility"
+        },
+        {
+          "name": "Grazing ridge trees",
+          "u": 0.7,
+          "side": -1,
+          "setback": 260,
+          "along": 300,
+          "depth": 140,
+          "plants": [
+            "alpine_fir",
+            "autumn_maple"
+          ],
+          "spacing": 43,
+          "kind": "grove"
+        },
+        {
+          "name": "Home cypress bend",
+          "u": 0.94,
+          "side": 1,
+          "setback": 115,
+          "along": 210,
+          "depth": 100,
+          "plants": [
+            "coastal_cypress",
+            "shrub"
+          ],
+          "spacing": 36,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "barn_silos",
+          "u": 0.18,
+          "lateral": -160
+        },
+        {
+          "id": "radar_station",
+          "u": 0.73,
+          "lateral": 130
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Distant forest margin",
+          "u": 0.2,
+          "side": 1,
+          "setback": 375,
+          "along": 624.0,
+          "depth": 225.0,
+          "height": 32
+        },
+        {
+          "name": "Grazing ridge trees",
+          "u": 0.7,
+          "side": -1,
+          "setback": 305,
+          "along": 390.0,
+          "depth": 175.0,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.16,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "service_cabinet",
+            "tire_stack"
+          ]
+        },
+        {
+          "u": 0.81,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "steel_rack",
+            "service_cabinet"
+          ]
+        }
+      ],
+      "preview_u": 0.41
+    },
+    {
+      "id": "festival_speedway",
+      "regions": [
+        {
+          "name": "Fan village",
+          "u": 0.04,
+          "side": -1,
+          "setback": 125,
+          "kind": "festival"
+        },
+        {
+          "name": "Campground palms",
+          "u": 0.21,
+          "side": 1,
+          "setback": 150,
+          "along": 240,
+          "depth": 130,
+          "plants": [
+            "fan_palm",
+            "coconut_palm"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Stage plaza",
+          "u": 0.43,
+          "side": -1,
+          "setback": 150,
+          "kind": "festival"
+        },
+        {
+          "name": "Distant park tree line",
+          "u": 0.73,
+          "side": 1,
+          "setback": 300,
+          "along": 360,
+          "depth": 170,
+          "plants": [
+            "coastal_cypress",
+            "autumn_maple"
+          ],
+          "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Final grandstand grove",
+          "u": 0.94,
+          "side": -1,
+          "setback": 95,
+          "along": 180,
+          "depth": 100,
+          "plants": [
+            "fan_palm",
+            "coastal_cypress"
+          ],
+          "spacing": 37,
+          "kind": "grove"
+        },
+        {
+          "name": "Finish celebration lawn",
+          "u": 0.9,
+          "side": 1,
+          "setback": 125,
+          "kind": "festival"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "grandstand",
+          "u": 0.12,
+          "lateral": -120
+        },
+        {
+          "id": "festival_stage",
+          "u": 0.43,
+          "lateral": -140
+        },
+        {
+          "id": "grandstand",
+          "u": 0.88,
+          "lateral": 120
+        }
+      ],
+      "light_sections": [
+        [
+          0.025,
+          0.14,
+          -1
+        ],
+        [
+          0.39,
+          0.51,
+          -1
+        ],
+        [
+          0.85,
+          0.96,
+          1
+        ]
+      ],
+      "road_gates": [
+        0.91
+      ],
+      "landform_regions": [],
+      "service_scenes": [
+        {
+          "u": 0.12,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "snack_cart",
+            "bus_shelter"
+          ]
+        },
+        {
+          "u": 0.49,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "tire_stack"
+          ]
+        },
+        {
+          "u": 0.87,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "snack_cart",
+            "tire_stack"
+          ]
+        }
+      ],
+      "preview_u": 0.4
+    },
+    {
+      "id": "lunar_freight",
+      "regions": [
+        {
+          "name": "Single freight base",
+          "u": 0.045,
+          "side": -1,
+          "setback": 135,
+          "kind": "moon_base"
+        },
+        {
+          "name": "Crater north rim",
+          "u": 0.23,
+          "side": -1,
+          "setback": 300,
+          "along": 530,
+          "depth": 210,
+          "plants": [
+            "moon_rock"
+          ],
+          "spacing": 65,
+          "kind": "rocks"
+        },
+        {
+          "name": "Far ejecta field",
+          "u": 0.44,
+          "side": 1,
+          "setback": 260,
+          "along": 340,
+          "depth": 200,
+          "plants": [
+            "moon_rock"
+          ],
+          "spacing": 65,
+          "kind": "rocks"
+        },
+        {
+          "name": "Survey outpost",
+          "u": 0.62,
+          "side": 1,
+          "setback": 155,
+          "kind": "lunar_survey"
+        },
+        {
+          "name": "Inner crater minerals",
+          "u": 0.82,
+          "side": -1,
+          "setback": 180,
+          "along": 270,
+          "depth": 150,
+          "plants": [
+            "moon_rock"
+          ],
+          "spacing": 65,
+          "kind": "rocks"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "mars_hoodoo",
+          "u": 0.36,
+          "lateral": -190
+        },
+        {
+          "id": "space_dish",
+          "u": 0.68,
+          "lateral": 145
+        }
+      ],
+      "light_sections": [
+        [
+          0.015,
+          0.09,
+          -1
+        ]
+      ],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Crater north rim",
+          "u": 0.23,
+          "side": -1,
+          "setback": 345,
+          "along": 689.0,
+          "depth": 262.5,
+          "height": 85
+        },
+        {
+          "name": "Far ejecta field",
+          "u": 0.44,
+          "side": 1,
+          "setback": 305,
+          "along": 442.0,
+          "depth": 250.0,
+          "height": 85
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.035,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "cargo_pod",
+            "rover_battery"
+          ]
+        },
+        {
+          "u": 0.62,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "antenna_dish",
+            "rover_battery"
+          ]
+        }
+      ],
+      "preview_u": 0.025
+    },
+    {
+      "id": "orbital_gardens",
+      "regions": [
+        {
+          "name": "Arrival biosphere",
+          "u": 0.04,
+          "side": -1,
+          "setback": 160,
+          "kind": "biosphere"
+        },
+        {
+          "name": "Terrarium crystal hill",
+          "u": 0.22,
+          "side": 1,
+          "setback": 250,
+          "along": 310,
+          "depth": 160,
+          "plants": [
+            "crystal_cluster"
+          ],
+          "spacing": 73,
+          "kind": "grove"
+        },
+        {
+          "name": "Botanical conservatory",
+          "u": 0.43,
+          "side": -1,
+          "setback": 190,
+          "kind": "biosphere"
+        },
+        {
+          "name": "Mineral ridge beyond gardens",
+          "u": 0.71,
+          "side": -1,
+          "setback": 330,
+          "along": 430,
+          "depth": 180,
+          "plants": [
+            "crystal_cluster",
+            "mars_hoodoo"
+          ],
+          "spacing": 85,
+          "kind": "grove"
+        },
+        {
+          "name": "Solar service garden",
+          "u": 0.94,
+          "side": 1,
+          "setback": 125,
+          "kind": "solar_farm"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "crystal_cluster",
+          "u": 0.3,
+          "lateral": 160
+        },
+        {
+          "id": "space_dish",
+          "u": 0.81,
+          "lateral": -155
+        }
+      ],
+      "light_sections": [
+        [
+          0.025,
+          0.09,
+          -1
+        ],
+        [
+          0.39,
+          0.47,
+          -1
+        ]
+      ],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Terrarium crystal hill",
+          "u": 0.22,
+          "side": 1,
+          "setback": 295,
+          "along": 403.0,
+          "depth": 200.0,
+          "height": 32
+        },
+        {
+          "name": "Mineral ridge beyond gardens",
+          "u": 0.71,
+          "side": -1,
+          "setback": 375,
+          "along": 559.0,
+          "depth": 225.0,
+          "height": 32
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.1,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "hydroponic_tray",
+            "coolant_station"
+          ]
+        },
+        {
+          "u": 0.58,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "survey_beacon",
+            "hydroponic_tray"
+          ]
+        }
+      ],
+      "preview_u": 0.12
+    },
+    {
+      "id": "crystal_chasm",
+      "regions": [
+        {
+          "name": "Violet crystal grove",
+          "u": 0.035,
+          "side": -1,
+          "setback": 140,
+          "along": 250,
+          "depth": 140,
+          "plants": [
+            "crystal_cluster"
+          ],
+          "spacing": 65,
+          "kind": "grove"
+        },
+        {
+          "name": "Outer mineral buttress",
+          "u": 0.19,
+          "side": 1,
+          "setback": 300,
+          "along": 410,
+          "depth": 190,
+          "plants": [
+            "crystal_cluster",
+            "ice_spires"
+          ],
+          "spacing": 81,
+          "kind": "grove"
+        },
+        {
+          "name": "Narrow crystal valley",
+          "u": 0.4,
+          "side": -1,
+          "setback": 115,
+          "along": 240,
+          "depth": 120,
+          "plants": [
+            "crystal_cluster",
+            "mars_hoodoo"
+          ],
+          "spacing": 66,
+          "kind": "grove"
+        },
+        {
+          "name": "Survey ledge",
+          "u": 0.73,
+          "side": 1,
+          "setback": 140,
+          "kind": "lunar_survey"
+        },
+        {
+          "name": "Return crystal cathedral",
+          "u": 0.92,
+          "side": -1,
+          "setback": 270,
+          "along": 390,
+          "depth": 180,
+          "plants": [
+            "crystal_cluster",
+            "ice_spires"
+          ],
+          "spacing": 77,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "crystal_cluster",
+          "u": 0.21,
+          "lateral": -170
+        },
+        {
+          "id": "space_dish",
+          "u": 0.74,
+          "lateral": 140
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Outer mineral buttress",
+          "u": 0.19,
+          "side": 1,
+          "setback": 345,
+          "along": 533.0,
+          "depth": 237.5,
+          "height": 65
+        },
+        {
+          "name": "Return crystal cathedral",
+          "u": 0.92,
+          "side": -1,
+          "setback": 315,
+          "along": 507.0,
+          "depth": 225.0,
+          "height": 65
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.18,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "survey_beacon",
+            "rover_battery"
+          ]
+        },
+        {
+          "u": 0.78,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "antenna_dish",
+            "survey_beacon"
+          ]
+        }
+      ],
+      "preview_u": 0.2607
+    },
+    {
+      "id": "mars_badlands",
+      "regions": [
+        {
+          "name": "Red hoodoo wash",
+          "u": 0.04,
+          "side": -1,
+          "setback": 160,
+          "along": 330,
+          "depth": 150,
+          "plants": [
+            "mars_hoodoo",
+            "dune_spires"
+          ],
+          "spacing": 70,
+          "kind": "grove"
+        },
+        {
+          "name": "Rover service outpost",
+          "u": 0.17,
+          "side": 1,
+          "setback": 135,
+          "kind": "lunar_survey"
+        },
+        {
+          "name": "Canyon wall",
+          "u": 0.42,
+          "side": -1,
+          "setback": 300,
+          "along": 460,
+          "depth": 210,
+          "plants": [
+            "mars_hoodoo"
+          ],
+          "spacing": 85,
+          "kind": "grove"
+        },
+        {
+          "name": "High sandstone basin",
+          "u": 0.72,
+          "side": 1,
+          "setback": 250,
+          "along": 390,
+          "depth": 180,
+          "plants": [
+            "dune_spires",
+            "mars_hoodoo"
+          ],
+          "spacing": 79,
+          "kind": "grove"
+        },
+        {
+          "name": "Return mineral scar",
+          "u": 0.93,
+          "side": -1,
+          "setback": 180,
+          "along": 330,
+          "depth": 150,
+          "plants": [
+            "mars_hoodoo",
+            "crystal_cluster"
+          ],
+          "spacing": 76,
+          "kind": "grove"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "mars_hoodoo",
+          "u": 0.14,
+          "lateral": -160
+        },
+        {
+          "id": "space_dish",
+          "u": 0.62,
+          "lateral": 150
+        }
+      ],
+      "light_sections": [],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Canyon wall",
+          "u": 0.42,
+          "side": -1,
+          "setback": 345,
+          "along": 598.0,
+          "depth": 262.5,
+          "height": 65
+        },
+        {
+          "name": "High sandstone basin",
+          "u": 0.72,
+          "side": 1,
+          "setback": 295,
+          "along": 507.0,
+          "depth": 225.0,
+          "height": 65
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.07,
+          "side": -1,
+          "setback": 29,
+          "kinds": [
+            "rover_battery",
+            "cargo_pod"
+          ]
+        },
+        {
+          "u": 0.73,
+          "side": 1,
+          "setback": 38,
+          "kinds": [
+            "survey_beacon",
+            "rover_battery"
+          ]
+        }
+      ],
+      "preview_u": 0.24
+    },
+    {
+      "id": "reactor_rift",
+      "regions": [
+        {
+          "name": "Reactor service compound",
+          "u": 0.035,
+          "side": -1,
+          "setback": 145,
+          "kind": "reactor_yard"
+        },
+        {
+          "name": "Basalt wall",
+          "u": 0.22,
+          "side": 1,
+          "setback": 310,
+          "along": 430,
+          "depth": 190,
+          "plants": [
+            "mars_hoodoo",
+            "crystal_cluster"
+          ],
+          "spacing": 83,
+          "kind": "grove"
+        },
+        {
+          "name": "Power collector field",
+          "u": 0.41,
+          "side": -1,
+          "setback": 180,
+          "kind": "solar_farm"
+        },
+        {
+          "name": "Rift mineral shelf",
+          "u": 0.71,
+          "side": -1,
+          "setback": 220,
+          "along": 300,
+          "depth": 160,
+          "plants": [
+            "crystal_cluster"
+          ],
+          "spacing": 74,
+          "kind": "grove"
+        },
+        {
+          "name": "Return coolant station",
+          "u": 0.93,
+          "side": 1,
+          "setback": 125,
+          "kind": "reactor_yard"
+        }
+      ],
+      "landmarks": [
+        {
+          "id": "space_dish",
+          "u": 0.32,
+          "lateral": -150
+        },
+        {
+          "id": "crystal_cluster",
+          "u": 0.77,
+          "lateral": 170
+        }
+      ],
+      "light_sections": [
+        [
+          0.025,
+          0.11,
+          -1
+        ],
+        [
+          0.86,
+          0.94,
+          1
+        ]
+      ],
+      "road_gates": [],
+      "landform_regions": [
+        {
+          "name": "Basalt wall",
+          "u": 0.22,
+          "side": 1,
+          "setback": 355,
+          "along": 559.0,
+          "depth": 237.5,
+          "height": 65
+        },
+        {
+          "name": "Rift mineral shelf",
+          "u": 0.71,
+          "side": -1,
+          "setback": 265,
+          "along": 390.0,
+          "depth": 200.0,
+          "height": 65
+        }
+      ],
+      "service_scenes": [
+        {
+          "u": 0.13,
+          "side": 1,
+          "setback": 29,
+          "kinds": [
+            "coolant_station",
+            "cargo_pod"
+          ]
+        },
+        {
+          "u": 0.64,
+          "side": -1,
+          "setback": 38,
+          "kinds": [
+            "antenna_dish",
+            "cargo_pod"
+          ]
+        }
+      ],
+      "preview_u": 0.54
+    }
+  ]
+}

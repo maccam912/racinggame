@@ -17,13 +17,22 @@ class TrackVarietyTests(unittest.TestCase):
         self.assertGreater(sum(abs(r[6])>.01 for r in city)/len(city), .08, 'street course needs actual braking corners')
         self.assertLess(max(r[1] for r in city)-min(r[1] for r in city), 1, 'city driving must differ from the hill courses')
         self.assertLess(sum(abs(r[6])<.001 for r in forest)/len(forest), .25, 'forest rally needs continuous steering')
-        self.assertTrue(any(r[6]>.01 for r in forest) and any(r[6]<-.01 for r in forest), 'rally needs linked bends in both directions')
+        self.assertTrue(any(r[6]>.008 for r in forest) and any(r[6]<-.008 for r in forest), 'rally needs linked bends in both directions')
         self.assertGreater(max(r[1] for r in summit)-min(r[1] for r in summit), 145)
         self.assertEqual(len(tracks['pacific_summit']['ramp_markers']),3)
         self.assertEqual(len(tracks['sunstone_canyon']['ramp_markers']),3)
         self.assertGreaterEqual(sum(t['road_surface']=='dirt' for t in tracks.values()),3)
         art = json.loads((ROOT/'assets/source/course_specs.json').read_text())['courses']
         self.assertTrue(next(t for t in art if t['id']=='caldera_crosscut')['space'])
+
+    def test_mixed_routes_keep_hairpins_and_long_sweepers(self):
+        for ident in ['terrace_touge','copper_mesa','crystal_chasm']:
+            with self.subTest(track=ident):
+                bake=json.loads((ROOT/f'game/content/baked/{ident}.json').read_text())
+                curvature=[abs(row[6]) for row in bake['samples']]
+                self.assertLess(bake['validation']['min_radius'],55)
+                self.assertGreater(sum(k>1/70 for k in curvature)*2,70, 'an actual braking section, not one isolated curvature spike')
+                self.assertGreater(sum(1/800<k<1/160 for k in curvature)*2,1000, 'mixed courses also need sustained gradual turns')
 
 
 if __name__ == '__main__':

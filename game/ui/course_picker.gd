@@ -24,7 +24,6 @@ func configure(ui: UIFactory, settings: Dictionary, index: int, tour: TrackShuff
 	picker.selected = selected+1
 	picker.item_selected.connect(choose)
 	add_child(picker)
-	ui.help(picker,I18n.t("course.random_help"))
 	showcase = CourseShowcase.new()
 	showcase.configure(ui,settings,Catalog.tracks[selected])
 	add_child(showcase)

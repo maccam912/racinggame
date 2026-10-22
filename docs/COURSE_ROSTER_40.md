@@ -1,7 +1,7 @@
 # Forty-course roster
 
 Owner request, 21 October 2026: expand the game to forty courses, with varied
-settings, route shapes and driving experiences. Retain the ten existing routes.
+settings, route shapes and driving experiences. The later content-14 follow-up permits revising Palm Bay, Citrus Pass and Redwood Run.
 Every addition below needs its own authored control polygon, not a recolored
 copy. The table is the implementation brief; it is not a completion claim.
 
@@ -9,8 +9,8 @@ copy. The table is the implementation brief; it is not a completion claim.
 
 | # | Course | Shape and driving identity | Setting and landmarks |
 |---|---|---|---|
-| 1 | Palm Bay | Broad seaside pentagon; long throttle sections and sweepers | Beach, pier, lighthouse, surf shop, hotel |
-| 2 | Citrus Pass | Angular farm rally; dirt, alternating cuts and two launches | Orchards, fruit stand, water tower, packing shed, windmill |
+| 1 | Palm Bay | Compact continuous coastal bends and a short promenade | Beach, pier, lighthouse, surf shop, hotel |
+| 2 | Citrus Pass | Flowing orchard rally; dirt, linked bends and two launches | Orchards, fruit stand, water tower, packing shed, windmill |
 | 3 | Marina Lights | Docklands block circuit with a right-angle dogleg | Night harbor, wheel, arcade, sailboats, diner |
 | 4 | Redwood Run | Serpentine outward leg and sweeping dirt return | Giant forest, ranger station, bridge, logging scenery |
 | 5 | Sunstone Canyon | Launch straight into rolling dirt infield | Desert stadium, mesas, fossil, roadside motel |
@@ -190,3 +190,54 @@ approach sightlines. The course still uses the canonical road/collision bake.
 | Reactor Rift | Reactor Core |
 
 [Geometry, approach views, native motion and loading evidence](evidence/expansion-set-pieces/validation.json).
+
+## Content 14 course measurements
+
+These lengths come from the current canonical bakes. The continuous-curve plans
+use the editable control polygons and individual elevation stations in
+`assets/source/curved_courses14.json`. Named landscape places are authored in
+`assets/source/course_compositions14.json`; the older five-beat brief above is
+historical and does not prescribe repeated gates or building sprites.
+
+| Course | Lap length | Route basis |
+|---|---:|---|
+| Palm Bay | 2.65 km | bspline |
+| Citrus Pass | 3.65 km | bspline |
+| Marina Lights | 5.27 km | centripetal |
+| Redwood Run | 4.58 km | bspline |
+| Sunstone Canyon | 5.08 km | centripetal |
+| Pacific Summit | 5.60 km | centripetal |
+| Skyline Splice | 4.83 km | uniform |
+| Quarry Switchback | 6.41 km | uniform |
+| Spillway Sprint | 7.46 km | uniform |
+| Caldera Crosscut | 8.87 km | uniform |
+| Glacier Ridge | 4.85 km | bspline |
+| Aurora Harbor | 4.66 km | centripetal |
+| Alpine Meadow | 2.90 km | bspline |
+| Frostbite Fjord | 6.20 km | bspline |
+| Tundra Pipeline | 4.45 km | bspline |
+| Rainforest Ruins | 3.31 km | bspline |
+| Monsoon Delta | 4.54 km | bspline |
+| Coral Causeway | 6.71 km | bspline |
+| Mangrove Maze | 3.74 km | bspline |
+| Cloudforest Climb | 6.21 km | bspline |
+| Sakura Ring | 2.94 km | bspline |
+| Bamboo Gorge | 3.04 km | bspline |
+| Lantern Market | 3.91 km | centripetal |
+| Terrace Touge | 5.93 km | bspline |
+| Temple Coast | 5.27 km | bspline |
+| Saltflat Velocity | 10.58 km | centripetal |
+| Dune Serpent | 6.08 km | bspline |
+| Oasis Citadel | 4.82 km | bspline |
+| Copper Mesa | 7.82 km | bspline |
+| Storm Chase | 4.45 km | bspline |
+| Steelworks Sprint | 6.10 km | centripetal |
+| Container Corkscrew | 5.64 km | centripetal |
+| Neon Underpass | 4.39 km | bspline |
+| Windfarm Run | 5.94 km | bspline |
+| Festival Speedway | 3.85 km | bspline |
+| Lunar Freight | 8.64 km | bspline |
+| Orbital Gardens | 6.02 km | bspline |
+| Crystal Chasm | 5.55 km | bspline |
+| Mars Badlands | 6.35 km | bspline |
+| Reactor Rift | 4.41 km | bspline |

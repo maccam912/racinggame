@@ -13,14 +13,27 @@ var interactive: bool = false
 
 
 func _ready() -> void:
-	center = Catalog.tracks[0].pose(45,15).origin
+	center = Catalog.tracks[0].pose(45,27).origin
 	var world := TrackWorld.new()
 	# Exclude source placements before creating either billboard faces or their
 	# footprints. No GPU instance readback, shared meshes or driving world edits.
 	world.scenery_clearings = [{"center":center,"radius":14.0}]
 	world.build(Catalog.tracks[0])
 	add_child(world)
-	world.box(center - Vector3.UP * .1, Vector3(20, .2, 20), Color("d8bd86"))
+	# The display apron sits beside the road. Its old 15 m offset put
+	# five metres of coplanar sand on the asphalt, causing visible z-fighting.
+	var floor_y := -INF
+	var bottom_y := INF
+	for x: float in [-10,0,10]:
+		for z: float in [-10,0,10]:
+			var at := center+Vector3(x,0,z)
+			var y := AuthoredCourseScenery.height(world,at,AuthoredCourseScenery.nearest(world,at))
+			floor_y = maxf(floor_y,y)
+			bottom_y = minf(bottom_y,y)
+	center.y = floor_y+.12
+	var depth := maxf(.4,center.y-bottom_y+.25)
+	var apron := world.box(center-Vector3.UP*depth*.5,Vector3(20,depth,20),Color("d8bd86"))
+	apron.name = "ShowroomApron"
 	add_child(camera)
 	camera.current = true
 	camera.fov = 48

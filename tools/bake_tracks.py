@@ -41,6 +41,16 @@ def catmull(p0, p1, p2, p3, t):
                  for a, b, c, d in zip(p0, p1, p2, p3))
 
 
+def bspline(p0, p1, p2, p3, t):
+    """Uniform cubic B-spline: shared position, tangent AND curvature at joins.
+
+    Authored controls shape the road instead of forcing it through each anchor.
+    Four collinear controls produce a true straight for grids and boulevards.
+    """
+    weights = ((1-t)**3, 3*t**3-6*t*t+4, -3*t**3+3*t*t+3*t+1, t**3)
+    return tuple(sum(w*p[axis] for w, p in zip(weights, (p0,p1,p2,p3)))/6
+                 for axis in range(3))
+
 def centripetal(p0, p1, p2, p3, fraction):
     # Unequal street-block lengths must not make the curve loop back on itself.
     times = [0.0]
@@ -64,7 +74,7 @@ def bake(track):
     controls = track['ordered_control_points']
     count = len(controls)
     assert 16 <= count <= 64, f"{track['id']}: expected 16 to 64 route points"
-    curve = centripetal if track.get('spline') == 'centripetal' else catmull
+    curve = {'centripetal':centripetal, 'bspline':bspline}.get(track.get('spline'),catmull)
     points = [curve(controls[(i-1)%count], controls[i], controls[(i+1)%count], controls[(i+2)%count], j/256)
               for i in range(count) for j in range(256)]
     points.append(points[0])

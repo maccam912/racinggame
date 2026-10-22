@@ -3,10 +3,10 @@ extends RefCounted
 ## Authored coastal silhouettes, with bounded GPU motion and planting windows.
 # Site rows: canonical route distance, lateral offset, road approach distance.
 const SPECS := {
-	"aurora_harbor":{"kind":"icebreaker","radius":31.0,"sites":[[733.991297,140.0,560.0]]},
-	"monsoon_delta":{"kind":"river_barge","radius":25.0,"sites":[[647.999624,140.0,560.0],[4167.987349,180.0,240.0]]},
-	"coral_causeway":{"kind":"outrigger","radius":18.0,"sites":[[779.99964,100.0,560.0],[1377.999497,100.0,400.0],[623.999052,100.0,560.0]]},
-	"container_corkscrew":{"kind":"harbor_tug","radius":27.0,"sites":[[374.0,140.0,400.0]]},
+	"aurora_harbor":{"kind":"icebreaker","radius":31.0,"sites":[[580,145.0,160.0]]},
+	"monsoon_delta":{"kind":"river_barge","radius":25.0,"sites":[[980,145.0,160.0],[3220,145.0,400.0]]},
+	"coral_causeway":{"kind":"outrigger","radius":18.0,"sites":[[1300,145.0,160.0],[2740,145.0,160.0],[4980,185.0,160.0]]},
+	"container_corkscrew":{"kind":"harbor_tug","radius":27.0,"sites":[[740,145.0,160.0]]},
 }
 
 static var bounds_cache: Dictionary = {}

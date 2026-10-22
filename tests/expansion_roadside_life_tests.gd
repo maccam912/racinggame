@@ -34,7 +34,7 @@ func run() -> void:
 			continue
 		var parent := world.get_node("ExpansionRoadsideLife")
 		var sites: Array = parent.get_meta("sites")
-		assert(sites.size()>4 and sites.size()<100)
+		assert(sites.size()>=2 and sites.size()<=6,"small service scenes replace a lap-long repeated row")
 		var seen: Dictionary = {}
 		var expected_triangles := 0
 		var landmarks: Array[Dictionary] = []
@@ -66,7 +66,8 @@ func run() -> void:
 			toward.y = 0
 			assert((-site.pose.basis.z).dot(toward.normalized())>.99,"front panels face the road")
 			expected_triangles += ExpansionLifeProps.mesh(site.kind).get_faces().size()/3
-		assert(seen.size()==3,"all three authored object types appear on every course")
+		assert(seen.size()>=2,"service scenes combine useful objects")
+		for site: Dictionary in sites: assert(site.has("scene_u"))
 		assert(parent.find_children("*","CollisionObject3D",true,false).is_empty())
 		var actual_triangles := 0
 		var settings := SettingsCatalog.defaults(false)

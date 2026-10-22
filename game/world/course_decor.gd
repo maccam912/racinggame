@@ -5,6 +5,7 @@ extends RefCounted
 
 static func plan(world: TrackWorld) -> Array[Dictionary]:
 	if world.art.get("expansion40",false): return ExpansionRoadsideLife.plan(world)
+	if world.art.get("composition_version",0)>=14: return authored_plan(world)
 	var result: Array[Dictionary] = []
 	for s in range(75,int(world.track.length),145):
 		var edge := float(world.track.bake.samples[world.track.sample_index(s)][8])*.5
@@ -38,6 +39,21 @@ static func plan(world: TrackWorld) -> Array[Dictionary]:
 				break
 	for site: Dictionary in result:
 		world.scenery_clearings.append({"center":site.pose.origin,"radius":site.radius+3})
+	return result
+
+
+static func authored_plan(world: TrackWorld) -> Array[Dictionary]:
+	var result: Array[Dictionary] = []
+	for scene: Dictionary in world.art.service_scenes:
+		var s := CourseArt.original_s(world.track,float(scene.u))
+		var side := float(scene.side)
+		var pose := world.scenery_pose(s,side*float(scene.setback))
+		var kind: String = scene.kinds[0]
+		var radius := 22.0 if kind=="Waterfall" else 7.0
+		if not world.clear_of_road(pose.origin,radius) or not world.decoration_allowed(pose.origin,radius) or RoadsidePosterArt.blocks_sightline(world.poster_sites,pose.origin): continue
+		if kind in RoadsideLife.KINDS: pose.basis = pose.basis*Basis(Vector3.UP,-side*PI*.5)
+		result.append({"kind":kind,"pose":pose,"s":s,"radius":radius})
+		world.scenery_clearings.append({"center":pose.origin,"radius":radius+3})
 	return result
 
 

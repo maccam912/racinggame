@@ -1267,3 +1267,63 @@ Room Settings keep the selector in the header; compact lobby headers show the
 course name, with shorter footer captions and host Kick in the scrollable body.
 At 150% phone text size, both views remain above the fixed footer. Photographs
 are static native scene renders; they add no live world loading to the menu.
+
+
+### Content 14: continuous curves and composed landscapes
+
+The owner's follow-up authorizes refining selected established courses too.
+Palm Bay, Citrus Pass and Redwood Run, plus 25 of the expansion courses, now use
+individually drawn uniform cubic B-spline plans. The basis is continuous through
+second derivatives at control joins, so longer bends do not become straight
+segments with abrupt corners. Each revised course has its own elevation stations.
+Seven established routes and Aurora Harbor, Lantern Market, Saltflat Velocity,
+Steelworks Sprint and Container Corkscrew retain their previous route definitions.
+The roster spans approximately 2.65–10.58 km; speed circuits, compact flowing
+courses, linked switchbacks and long crater circuits retain different demands.
+
+`assets/source/curved_courses14.json` is the editable plan/elevation source. Run
+`tools/author_curved_courses.py` after any older base roster authoring tool, then
+`tools/bake_tracks.py` and `tools/content_hash.py`. Never edit a bake manually.
+Content version 14 preserves protocol 7 and save schema 1. The frozen content-13
+archive retains its records, ghosts, Cup and race bytes; those incompatible runs
+do not resume or compete against current records.
+
+All thirty additions and the three revised classics have named area parcels in
+`assets/source/course_compositions14.json`. Trees occupy irregular groves with
+mixed species and sizes. Building settlements use bounded solid 3D modules with
+individual foundations, including one Lunar freight base, a separate survey
+outpost, urban blocks, market squares and industrial yards. Lunar boulder fields
+are solid geometry. Streetlights belong to specified street sections. Small
+roadside props occupy authored service scenes instead of an every-180-metre row.
+Only four expansion roads retain a selected generic overhead gate; their unique
+hero set pieces remain. Nearby terrain ridges and persistent regional horizons
+provide depth behind these places. All forty courses retain sky environments.
+
+Run `tools/author_course_compositions.py` to apply placement changes to the source
+and runtime presentation catalogs. Terrain changes additionally require Blender
+`assets/source/generate_terrain.py -- --tracks=<ids>`. The additional midground
+relief uses a 128 m vertex guard around every road branch, protecting the road
+and visible verge across 32 m terrain triangles. The version-14 foundation pins
+the reviewed actual exports; the older version-13 foundation remains historical.
+Seven unchanged classic terrain exports retain their exact bytes. Native captures
+and independent pavement/terrain clearance checks complement that byte contract.
+
+`tests/authored_course_evidence.gd` renders the explicitly selected `preview_u`
+locations into current in-game photographs for the course and lobby selectors.
+The layout map continues to use the complete canonical route and elevation data.
+This revision does not claim physical Android acceptance or human playtest feel
+from headless fixtures or macOS still images.
+
+
+The mixed courses retain actual braking sections: Terrace Touge, Copper Mesa and
+Crystal Chasm combine long sweepers with approximately 50 m, 52 m and 41 m minimum
+radii respectively. Dune Serpent uses a longer chain of broad esses. Street and
+dock circuits still include straight blocks and square corners; continuous
+curvature is an authoring option, not a requirement for every turn in the roster.
+
+The menu display apron now sits wholly beside Palm Bay's pavement, with a raised
+surface above its local ground. Its previous coplanar overlap produced visible
+sand triangles and z-fighting on the road. The fix is confined to MenuStage; a
+separate fixture intersects the actual apron footprint with every pavement
+triangle and verifies four cars and eight preview angles without changing the
+racing mesh.
