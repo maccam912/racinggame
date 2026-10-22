@@ -70,14 +70,14 @@
           "name": "Cypress headland",
           "u": 0.19,
           "side": -1,
-          "setback": 145,
-          "along": 310,
-          "depth": 130,
+          "setback": 155,
+          "along": 400,
+          "depth": 230,
           "plants": [
             "coastal_cypress",
             "fan_palm"
           ],
-          "spacing": 36,
+          "spacing": 34,
           "kind": "grove"
         },
         {
@@ -98,14 +98,14 @@
           "name": "Inland wooded ridge",
           "u": 0.66,
           "side": -1,
-          "setback": 300,
-          "along": 400,
-          "depth": 180,
+          "setback": 270,
+          "along": 520,
+          "depth": 280,
           "plants": [
             "coastal_cypress",
             "autumn_maple"
           ],
-          "spacing": 38,
+          "spacing": 36,
           "kind": "grove"
         },
         {
@@ -120,6 +120,35 @@
             "coconut_palm"
           ],
           "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Infield coastal park",
+          "u": 0.31,
+          "side": 1,
+          "setback": 190,
+          "along": 320,
+          "depth": 230,
+          "spacing": 33,
+          "plants": [
+            "coastal_cypress",
+            "fan_palm",
+            "palm"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Hillside return canopy",
+          "u": 0.77,
+          "side": -1,
+          "setback": 165,
+          "along": 280,
+          "depth": 190,
+          "spacing": 31,
+          "plants": [
+            "coastal_cypress",
+            "coconut_palm"
+          ],
           "kind": "grove"
         }
       ],
@@ -222,14 +251,14 @@
           "name": "Orange orchard parcel",
           "u": 0.06,
           "side": -1,
-          "setback": 110,
-          "along": 260,
-          "depth": 160,
+          "setback": 145,
+          "along": 330,
+          "depth": 240,
           "plants": [
             "orchard",
             "orchard"
           ],
-          "spacing": 24,
+          "spacing": 25,
           "kind": "grove"
         },
         {
@@ -250,9 +279,9 @@
           "name": "Second orchard parcel",
           "u": 0.37,
           "side": -1,
-          "setback": 165,
-          "along": 340,
-          "depth": 150,
+          "setback": 185,
+          "along": 420,
+          "depth": 250,
           "plants": [
             "orchard",
             "orchard"
@@ -264,14 +293,14 @@
           "name": "Windbreak on the ridge",
           "u": 0.65,
           "side": 1,
-          "setback": 260,
-          "along": 460,
-          "depth": 120,
+          "setback": 220,
+          "along": 560,
+          "depth": 210,
           "plants": [
             "coastal_cypress",
             "alpine_fir"
           ],
-          "spacing": 28,
+          "spacing": 29,
           "kind": "grove"
         },
         {
@@ -286,6 +315,36 @@
             "orchard"
           ],
           "spacing": 30,
+          "kind": "grove"
+        },
+        {
+          "name": "Upper orchard bowl",
+          "u": 0.49,
+          "side": -1,
+          "setback": 175,
+          "along": 350,
+          "depth": 250,
+          "spacing": 26,
+          "plants": [
+            "orchard",
+            "orchard",
+            "autumn_maple"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Farm creek screen",
+          "u": 0.79,
+          "side": -1,
+          "setback": 115,
+          "along": 250,
+          "depth": 170,
+          "spacing": 30,
+          "plants": [
+            "coastal_cypress",
+            "autumn_maple",
+            "orchard"
+          ],
           "kind": "grove"
         }
       ],
@@ -437,14 +496,14 @@
           "name": "Old growth entrance",
           "u": 0.03,
           "side": -1,
-          "setback": 90,
-          "along": 300,
-          "depth": 130,
+          "setback": 135,
+          "along": 420,
+          "depth": 230,
           "plants": [
             "redwood",
             "alpine_fir"
           ],
-          "spacing": 26,
+          "spacing": 27,
           "kind": "grove"
         },
         {
@@ -465,16 +524,20 @@
           "name": "High forest wall",
           "u": 0.31,
           "side": -1,
-          "setback": 270,
-          "along": 420,
-          "depth": 180,
+          "setback": 245,
+          "along": 560,
+          "depth": 310,
           "plants": [
             "redwood",
             "alpine_fir",
             "coastal_cypress"
           ],
-          "spacing": 31,
-          "kind": "grove"
+          "spacing": 29,
+          "kind": "grove",
+          "size_range": [
+            0.85,
+            1.5
+          ]
         },
         {
           "name": "Clearcut edge",
@@ -508,30 +571,69 @@
           "name": "Shaded descent",
           "u": 0.74,
           "side": -1,
-          "setback": 95,
-          "along": 270,
-          "depth": 120,
+          "setback": 140,
+          "along": 380,
+          "depth": 240,
           "plants": [
             "redwood",
             "redwood",
             "alpine_fir"
           ],
-          "spacing": 25,
+          "spacing": 27,
           "kind": "grove"
         },
         {
           "name": "Distant return forest",
           "u": 0.92,
           "side": 1,
-          "setback": 300,
-          "along": 390,
-          "depth": 170,
+          "setback": 245,
+          "along": 480,
+          "depth": 290,
           "plants": [
             "redwood",
             "coastal_cypress"
           ],
-          "spacing": 32,
+          "spacing": 31,
           "kind": "grove"
+        },
+        {
+          "name": "Deep creek forest",
+          "u": 0.44,
+          "side": 1,
+          "setback": 170,
+          "along": 440,
+          "depth": 300,
+          "spacing": 29,
+          "plants": [
+            "redwood",
+            "redwood",
+            "tree_fern",
+            "alpine_fir"
+          ],
+          "kind": "grove",
+          "size_range": [
+            0.85,
+            1.5
+          ]
+        },
+        {
+          "name": "Ravine fern understory",
+          "u": 0.23,
+          "side": -1,
+          "setback": 125,
+          "along": 260,
+          "depth": 170,
+          "spacing": 27,
+          "plants": [
+            "tree_fern",
+            "alpine_fir",
+            "redwood"
+          ],
+          "kind": "grove",
+          "size_range": [
+            0.55,
+            1.05
+          ]
         }
       ],
       "light_sections": [],
@@ -1457,28 +1559,28 @@
           "name": "Upper fir slope",
           "u": 0.38,
           "side": -1,
-          "setback": 280,
-          "along": 330,
-          "depth": 180,
+          "setback": 245,
+          "along": 430,
+          "depth": 290,
           "plants": [
             "alpine_fir",
             "snow_pine"
           ],
-          "spacing": 32,
+          "spacing": 33,
           "kind": "grove"
         },
         {
           "name": "Far meadow edge",
           "u": 0.68,
           "side": 1,
-          "setback": 230,
-          "along": 240,
-          "depth": 110,
+          "setback": 210,
+          "along": 320,
+          "depth": 200,
           "plants": [
             "coastal_cypress",
             "autumn_maple"
           ],
-          "spacing": 41,
+          "spacing": 39,
           "kind": "grove"
         },
         {
@@ -1493,6 +1595,36 @@
             "autumn_maple"
           ],
           "spacing": 28,
+          "kind": "grove"
+        },
+        {
+          "name": "Rocky saddle fir grove",
+          "u": 0.51,
+          "side": -1,
+          "setback": 145,
+          "along": 260,
+          "depth": 180,
+          "spacing": 35,
+          "plants": [
+            "alpine_fir",
+            "snow_pine",
+            "autumn_maple"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Lower valley woodland",
+          "u": 0.8,
+          "side": 1,
+          "setback": 185,
+          "along": 280,
+          "depth": 230,
+          "spacing": 34,
+          "plants": [
+            "autumn_maple",
+            "coastal_cypress",
+            "alpine_fir"
+          ],
           "kind": "grove"
         }
       ],
@@ -1913,14 +2045,14 @@
           "name": "Dense kapok entrance",
           "u": 0.035,
           "side": -1,
-          "setback": 80,
-          "along": 230,
-          "depth": 130,
+          "setback": 120,
+          "along": 340,
+          "depth": 230,
           "plants": [
             "kapok",
             "tree_fern"
           ],
-          "spacing": 25,
+          "spacing": 27,
           "kind": "grove"
         },
         {
@@ -1941,15 +2073,19 @@
           "name": "Temple forest backdrop",
           "u": 0.44,
           "side": -1,
-          "setback": 290,
-          "along": 360,
-          "depth": 190,
+          "setback": 250,
+          "along": 520,
+          "depth": 320,
           "plants": [
             "kapok",
             "mangrove"
           ],
-          "spacing": 30,
-          "kind": "grove"
+          "spacing": 31,
+          "kind": "grove",
+          "size_range": [
+            0.85,
+            1.45
+          ]
         },
         {
           "name": "Sunlit clearing edge",
@@ -1969,15 +2105,60 @@
           "name": "Closing canopy",
           "u": 0.92,
           "side": -1,
-          "setback": 95,
-          "along": 220,
-          "depth": 125,
+          "setback": 125,
+          "along": 340,
+          "depth": 230,
           "plants": [
             "kapok",
             "tree_fern",
             "mangrove"
           ],
-          "spacing": 25,
+          "spacing": 27,
+          "kind": "grove"
+        },
+        {
+          "name": "Ruined courtyard jungle",
+          "u": 0.3,
+          "side": -1,
+          "setback": 150,
+          "along": 330,
+          "depth": 250,
+          "spacing": 29,
+          "plants": [
+            "kapok",
+            "mangrove",
+            "tree_fern"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Canopy ravine crossing",
+          "u": 0.57,
+          "side": 1,
+          "setback": 165,
+          "along": 390,
+          "depth": 280,
+          "spacing": 28,
+          "plants": [
+            "kapok",
+            "tree_fern",
+            "bamboo"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Outer lagoon woods",
+          "u": 0.81,
+          "side": -1,
+          "setback": 200,
+          "along": 300,
+          "depth": 230,
+          "spacing": 30,
+          "plants": [
+            "mangrove",
+            "kapok",
+            "tree_fern"
+          ],
           "kind": "grove"
         }
       ],
@@ -2539,23 +2720,23 @@
           "name": "Coffee valley edge",
           "u": 0.05,
           "side": -1,
-          "setback": 115,
-          "along": 280,
-          "depth": 130,
+          "setback": 150,
+          "along": 370,
+          "depth": 230,
           "plants": [
             "tree_fern",
             "coastal_cypress"
           ],
-          "spacing": 30,
+          "spacing": 31,
           "kind": "grove"
         },
         {
           "name": "Cliff canopy",
           "u": 0.18,
           "side": -1,
-          "setback": 250,
-          "along": 380,
-          "depth": 190,
+          "setback": 225,
+          "along": 500,
+          "depth": 300,
           "plants": [
             "kapok",
             "tree_fern"
@@ -2581,15 +2762,19 @@
           "name": "Dark forest wall",
           "u": 0.68,
           "side": -1,
-          "setback": 310,
-          "along": 470,
-          "depth": 190,
+          "setback": 260,
+          "along": 590,
+          "depth": 320,
           "plants": [
             "kapok",
             "coastal_cypress"
           ],
           "spacing": 33,
-          "kind": "grove"
+          "kind": "grove",
+          "size_range": [
+            0.8,
+            1.5
+          ]
         },
         {
           "name": "Summit fern bowl",
@@ -2609,14 +2794,59 @@
           "name": "Lower fern basin",
           "u": 0.93,
           "side": 1,
-          "setback": 100,
-          "along": 290,
-          "depth": 150,
+          "setback": 150,
+          "along": 360,
+          "depth": 250,
           "plants": [
             "tree_fern",
             "kapok"
           ],
-          "spacing": 26,
+          "spacing": 29,
+          "kind": "grove"
+        },
+        {
+          "name": "Climbing fern amphitheater",
+          "u": 0.29,
+          "side": 1,
+          "setback": 155,
+          "along": 370,
+          "depth": 270,
+          "spacing": 30,
+          "plants": [
+            "tree_fern",
+            "kapok",
+            "coastal_cypress"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "High cloud canopy",
+          "u": 0.44,
+          "side": -1,
+          "setback": 175,
+          "along": 330,
+          "depth": 230,
+          "spacing": 32,
+          "plants": [
+            "coastal_cypress",
+            "alpine_fir",
+            "tree_fern"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Waterfall approach woods",
+          "u": 0.79,
+          "side": 1,
+          "setback": 180,
+          "along": 350,
+          "depth": 260,
+          "spacing": 30,
+          "plants": [
+            "kapok",
+            "tree_fern",
+            "bamboo"
+          ],
           "kind": "grove"
         }
       ],
@@ -2728,14 +2958,14 @@
           "name": "Temple bamboo screen",
           "u": 0.2,
           "side": 1,
-          "setback": 135,
-          "along": 220,
-          "depth": 95,
+          "setback": 145,
+          "along": 280,
+          "depth": 190,
           "plants": [
             "bamboo",
             "coastal_cypress"
           ],
-          "spacing": 26,
+          "spacing": 29,
           "kind": "grove"
         },
         {
@@ -2755,14 +2985,14 @@
           "name": "Maple hillside",
           "u": 0.42,
           "side": -1,
-          "setback": 290,
-          "along": 330,
-          "depth": 170,
+          "setback": 245,
+          "along": 440,
+          "depth": 270,
           "plants": [
             "autumn_maple",
             "sakura"
           ],
-          "spacing": 35,
+          "spacing": 33,
           "kind": "grove"
         },
         {
@@ -2783,14 +3013,43 @@
           "name": "Cherry return grove",
           "u": 0.93,
           "side": -1,
-          "setback": 90,
-          "along": 180,
-          "depth": 105,
+          "setback": 120,
+          "along": 280,
+          "depth": 180,
           "plants": [
             "sakura",
             "autumn_maple"
           ],
-          "spacing": 28,
+          "spacing": 30,
+          "kind": "grove"
+        },
+        {
+          "name": "Shrine ridge blossom wood",
+          "u": 0.53,
+          "side": -1,
+          "setback": 165,
+          "along": 300,
+          "depth": 220,
+          "spacing": 32,
+          "plants": [
+            "sakura",
+            "autumn_maple",
+            "coastal_cypress"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Pond approach bamboo",
+          "u": 0.81,
+          "side": 1,
+          "setback": 140,
+          "along": 220,
+          "depth": 160,
+          "spacing": 31,
+          "plants": [
+            "bamboo",
+            "sakura"
+          ],
           "kind": "grove"
         }
       ],
@@ -2887,29 +3146,29 @@
           "name": "First bamboo stand",
           "u": 0.04,
           "side": -1,
-          "setback": 85,
-          "along": 230,
-          "depth": 100,
+          "setback": 120,
+          "along": 340,
+          "depth": 210,
           "plants": [
             "bamboo",
             "bamboo",
             "tree_fern"
           ],
-          "spacing": 23,
+          "spacing": 26,
           "kind": "grove"
         },
         {
           "name": "Ravine cypress wall",
           "u": 0.18,
           "side": -1,
-          "setback": 270,
-          "along": 340,
-          "depth": 180,
+          "setback": 230,
+          "along": 460,
+          "depth": 280,
           "plants": [
             "coastal_cypress",
             "bamboo"
           ],
-          "spacing": 29,
+          "spacing": 30,
           "kind": "grove"
         },
         {
@@ -2930,28 +3189,73 @@
           "name": "High ridge forest",
           "u": 0.7,
           "side": 1,
-          "setback": 300,
-          "along": 370,
-          "depth": 170,
+          "setback": 260,
+          "along": 510,
+          "depth": 300,
           "plants": [
             "coastal_cypress",
             "autumn_maple"
           ],
-          "spacing": 33,
+          "spacing": 32,
           "kind": "grove"
         },
         {
           "name": "Last fern hollow",
           "u": 0.92,
           "side": -1,
-          "setback": 90,
-          "along": 170,
-          "depth": 110,
+          "setback": 125,
+          "along": 260,
+          "depth": 190,
           "plants": [
             "tree_fern",
             "bamboo"
           ],
-          "spacing": 23,
+          "spacing": 26,
+          "kind": "grove"
+        },
+        {
+          "name": "Inside ravine canopy",
+          "u": 0.3,
+          "side": 1,
+          "setback": 155,
+          "along": 340,
+          "depth": 250,
+          "spacing": 27,
+          "plants": [
+            "bamboo",
+            "tree_fern",
+            "coastal_cypress"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Waterfall cypress screen",
+          "u": 0.54,
+          "side": -1,
+          "setback": 165,
+          "along": 370,
+          "depth": 260,
+          "spacing": 29,
+          "plants": [
+            "coastal_cypress",
+            "bamboo",
+            "tree_fern"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Outer bamboo shelf",
+          "u": 0.81,
+          "side": -1,
+          "setback": 140,
+          "along": 260,
+          "depth": 190,
+          "spacing": 26,
+          "plants": [
+            "bamboo",
+            "bamboo",
+            "tree_fern"
+          ],
           "kind": "grove"
         }
       ],
@@ -3897,14 +4201,14 @@
           "name": "Distant headland",
           "u": 0.23,
           "side": -1,
-          "setback": 300,
-          "along": 410,
-          "depth": 175,
+          "setback": 250,
+          "along": 500,
+          "depth": 280,
           "plants": [
             "coastal_cypress",
             "fan_palm"
           ],
-          "spacing": 38,
+          "spacing": 36,
           "kind": "grove"
         },
         {
@@ -3918,9 +4222,9 @@
           "name": "Hill shrine woods",
           "u": 0.72,
           "side": 1,
-          "setback": 210,
-          "along": 260,
-          "depth": 140,
+          "setback": 185,
+          "along": 370,
+          "depth": 230,
           "plants": [
             "sakura",
             "bamboo"
@@ -3940,6 +4244,36 @@
             "fan_palm"
           ],
           "spacing": 35,
+          "kind": "grove"
+        },
+        {
+          "name": "Temple peninsula wood",
+          "u": 0.34,
+          "side": 1,
+          "setback": 170,
+          "along": 300,
+          "depth": 230,
+          "spacing": 33,
+          "plants": [
+            "coastal_cypress",
+            "sakura",
+            "bamboo"
+          ],
+          "kind": "grove"
+        },
+        {
+          "name": "Village inland grove",
+          "u": 0.56,
+          "side": -1,
+          "setback": 150,
+          "along": 290,
+          "depth": 210,
+          "spacing": 34,
+          "plants": [
+            "sakura",
+            "fan_palm",
+            "coastal_cypress"
+          ],
           "kind": "grove"
         }
       ],

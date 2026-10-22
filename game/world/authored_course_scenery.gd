@@ -88,6 +88,8 @@ static func build(world: TrackWorld) -> void:
 
 static func grove(world: TrackWorld, region: Dictionary, pose: Transform3D, buckets: Dictionary, sites: Array[Dictionary], occupied: Dictionary) -> void:
 	var spacing := int(region.spacing)
+	var size_range: Array = region.get("size_range",[.68,1.30])
+	assert(size_range.size()==2 and float(size_range[0])>0 and float(size_range[1])>=float(size_range[0]))
 	var seed := float(posmod(str(region.name).hash(),1009))
 	for x in range(-int(region.depth),int(region.depth)+1,spacing):
 		for z in range(-int(region.along),int(region.along)+1,spacing):
@@ -101,7 +103,7 @@ static func grove(world: TrackWorld, region: Dictionary, pose: Transform3D, buck
 			if occupied.has(cell): continue
 			var plants: Array = region.plants
 			var id: String = plants[mini(plants.size()-1,int(CourseLandscape.noise_at(x,z,seed+2)*plants.size()))]
-			var scale := .68+CourseLandscape.noise_at(x,z,seed+3)*.62
+			var scale := lerpf(float(size_range[0]),float(size_range[1]),CourseLandscape.noise_at(x,z,seed+3))
 			var radius := (22.0 if id=="moon_rock" else float(BillboardArt.card(id).size.x)*.55)*scale+2
 			var road := nearest(world,at)
 			at.y = height(world,at,road)

@@ -1343,3 +1343,11 @@ triangle samples must remain below exported terrain, horizontal shelves must
 face upward, and the full bounds must clear every road branch. The ordinary
 700 m scenery culling, no shadows and no driving collision apply. Native views
 and focused checks are retained in `docs/evidence/mountain-places14`.
+
+Nine wooded courses now use deeper, named forest parcels with mixed species and
+explicit tall-tree or understory size ranges where appropriate. Open beaches,
+meadows and shrine approaches remain part of each composition. Existing road
+reservations, spatial batches and culling apply to every enlarged tree. The
+forest pass retains all frozen terrain and gameplay bytes; its 209-command gate,
+native multi-view photographs and isolated before/after render timings are in
+`docs/evidence/forest-places14`.
