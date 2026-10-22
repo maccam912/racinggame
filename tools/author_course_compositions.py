@@ -16,7 +16,8 @@ def apply(catalog):
                       landmarks=row['landmarks'], light_sections=row['light_sections'],
                       road_gates=row['road_gates'], landform_regions=row['landform_regions'],
                       service_scenes=row['service_scenes'], preview_u=row['preview_u'])
-        if 'verge_extent' in row: course['verge_extent']=row['verge_extent']
+        for field in ['verge_extent','ground','sun']:
+            if field in row: course[field]=row[field]
     return catalog
 
 def main():

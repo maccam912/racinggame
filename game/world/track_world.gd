@@ -182,9 +182,13 @@ func build_road() -> void:
 			var mat: StandardMaterial3D = material(Color.html("F3E4C4")) if key == "markings" else sand
 			mat.cull_mode = BaseMaterial3D.CULL_BACK
 			if key=="markings" and art.get("space",false):
-				mat.albedo_color = Color("65F6ED")
+				# Paint has its own material; mutating the cached cream material
+				# also recolored every rail and unrelated cream object.
+				mat = mat.duplicate()
+				mat.albedo_color = Color(ExpansionBiome.SPACE_ROADS[track.id][1]) if ExpansionBiome.SPACE_ROADS.has(track.id) else Color("65F6ED")
 				mat.emission_enabled = true
-				mat.emission = Color("36C6DF")
+				mat.emission = mat.albedo_color if art.get("expansion40",false) else Color("36C6DF")
+				mat.emission_energy_multiplier = .22 if art.get("expansion40",false) else 1.0
 			instance.material_override = mat
 		if key=="verges" and art.get("expansion40",false): instance.material_override = ExpansionBiome.material(track.id)
 		# Pavement/paint receive scenery shadows but do not need to cast an
@@ -205,7 +209,12 @@ func build_road() -> void:
 	var barrier := MeshInstance3D.new()
 	barrier.name = "RoadsideBarriers"
 	barrier.mesh = CourseRoadMesh.barriers(track,art)
-	barrier.material_override = material(Color.html("F3E4C4"))
+	barrier.material_override = material(Color(ExpansionBiome.SPACE_ROADS[track.id][2]) if ExpansionBiome.SPACE_ROADS.has(track.id) else Color("F3E4C4"))
+	if art.get("space",false) and not art.get("expansion40",false):
+		var legacy := material(Color("65F6ED")).duplicate() as StandardMaterial3D
+		legacy.emission_enabled = true
+		legacy.emission = Color("36C6DF")
+		barrier.material_override = legacy
 	CourseRoadMesh.partition(barrier)
 	add_child(barrier)
 	if art.get("elevated",false):
@@ -227,7 +236,7 @@ func paving_material(shoulder: bool = false) -> ShaderMaterial:
 	else:
 		result.shader = load("res://assets/exported/shaders/asphalt.gdshader")
 		result.set_shader_parameter("lane_wear",0.0 if shoulder else 0.13)
-		if art.get("space",false): result.set_shader_parameter("paving_color",Color("33304D"))
+		if art.get("space",false): result.set_shader_parameter("paving_color",Color(ExpansionBiome.SPACE_ROADS[track.id][0]) if ExpansionBiome.SPACE_ROADS.has(track.id) else Color("33304D"))
 	materials[key] = result
 	return result
 

@@ -1,0 +1,82 @@
+{
+  "passed": true,
+  "cases": [
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/source_script_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 0.81
+    },
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/authored_composition_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 12.29
+    },
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/expansion40_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 10.74
+    },
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/course_spectacle_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 2.33
+    },
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/biome_surface_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 8.69
+    },
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/scenery_contract_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 6.71
+    },
+    {
+      "command": [
+        "python3",
+        "tools/godot.py",
+        "--headless",
+        "--script",
+        "tests/road_partition_tests.gd"
+      ],
+      "exit_code": 0,
+      "seconds": 1.84
+    }
+  ]
+}

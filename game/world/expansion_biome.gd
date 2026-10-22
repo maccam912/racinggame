@@ -2,6 +2,14 @@ class_name ExpansionBiome
 extends RefCounted
 ## Cosmetic world-space ground treatments; road grip and geometry are unchanged.
 const SPACE_VIEWS := {"lunar_freight":1,"orbital_gardens":2,"crystal_chasm":3,"mars_badlands":4,"reactor_rift":5}
+# Road, paint and rail colors follow the place rather than one space preset.
+const SPACE_ROADS := {
+	"lunar_freight":["444950","EEE5B7","A2ACB5"],
+	"orbital_gardens":["314B4B","A8F1CC","93BBB2"],
+	"crystal_chasm":["40394F","E0B5F4","AFA0CA"],
+	"mars_badlands":["51433E","FFE2A0","C5A689"],
+	"reactor_rift":["303F46","D1F0A3","8DAAA1"]
+}
 const STYLES := {
 	"glacier_ridge":[1,"7EA8BA"],"aurora_harbor":[1,"8CB9C5"],
 	"alpine_meadow":[0,"A6AC71"],"frostbite_fjord":[1,"6DACC1"],"tundra_pipeline":[0,"78866A"],

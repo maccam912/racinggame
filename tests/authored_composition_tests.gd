@@ -32,10 +32,10 @@ func run() -> void:
 			assert(world.clear_of_road(site.at,site.radius),"full scenery footprints clear all road branches")
 			if site.has("module"):
 				physical_modules += 1
-				assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field"] else 16))
+				assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop"] else 16))
 		for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
 			if not node.has_meta("module"): continue
-			if node.get_meta("module") in ["mesa_outcrop","terraced_field"]: check_natural_foundation(world,node)
+			if node.get_meta("module") in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop"]: check_natural_foundation(world,node)
 			var key := node.mesh.get_instance_id()
 			if modules.has(key): continue
 			modules[key] = true
@@ -46,6 +46,14 @@ func run() -> void:
 			for normal: Vector3 in arrays[Mesh.ARRAY_NORMAL]: assert(normal.is_finite() and absf(normal.length()-1)<.01)
 			assert(node.visibility_range_end==700 and node.cast_shadow==GeometryInstance3D.SHADOW_CASTING_SETTING_OFF)
 		if track.id=="neon_underpass": check_city_blocks(world)
+		if track.id in ["orbital_gardens","lunar_freight","mars_badlands"]:
+			var present: Dictionary = {}
+			for site: Dictionary in landscape.get_meta("sites"):
+				if site.has("module"): present[site.module] = int(present.get(site.module,0))+1
+			if track.id=="orbital_gardens": assert(int(present.get("botanical_court",0))>=3,"all three individually placed botanical courts must survive clearance checks")
+			else:
+				assert(int(present.get("survey_rover",0))>=1)
+				if track.id=="lunar_freight": assert(int(present.get("freight_lander",0))==1)
 		rows.append({"track":track.id,"named_places":places,"actual_building_modules":physical_modules,"minimum_pavement_terrain_gap_m":min_gap})
 		print("AUTHORED_COMPOSITION ",track.id," places=",places," modules=",physical_modules)
 		world.queue_free()

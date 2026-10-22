@@ -61,6 +61,7 @@ func run() -> void:
 				assert(minf(absf(ground.s-s),track.length-absf(ground.s-s))<3)
 				query = null
 		if track.id=="caldera_crosscut":
+			assert(world.has_node("OrbitalSpeedGates") and world.has_node("MoonCrystals"),"the original orbital spectacle retains its authored legacy appearance")
 			assert(world.clear_of_road(Vector3.ZERO,300) and world.has_node("CalderaCrater") and world.has_node("CraterLava"))
 			await assert_crater_channels(world)
 		evidence.append({"track":track.id,"structures":structures,"crossings":CROSSINGS[track.id].size(),"sites":world.spectacle_sites.size()})

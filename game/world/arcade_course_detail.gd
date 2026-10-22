@@ -21,7 +21,7 @@ static func finish(world: TrackWorld, tool: SurfaceTool, name: String, glow: flo
 
 static func build(world: TrackWorld) -> void:
 	if world.track.id=="marina_lights": city(world)
-	if world.art.get("space",false): orbital(world)
+	if world.art.get("space",false) and not world.art.get("expansion40",false): orbital(world)
 	if not world.track.definition.ramp_markers.is_empty(): launches(world)
 
 

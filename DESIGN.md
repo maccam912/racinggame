@@ -1351,3 +1351,19 @@ reservations, spatial batches and culling apply to every enlarged tree. The
 forest pass retains all frozen terrain and gameplay bytes; its 209-command gate,
 native multi-view photographs and isolated before/after render timings are in
 `docs/evidence/forest-places14`.
+
+The five expansion space courses do not inherit Caldera's periodic speed gates
+and crystal rows. Caldera retains those legacy details. Lunar freight and survey
+sites have a single landing apron and bounded rover models; Orbital Gardens has
+three planted courts with separate conservatory layouts and surrounding oxygen
+groves. Martian buttes, crater outcrops and reactor basalt formations use solid
+buried-base meshes with the same full-road and terrain clearance contract as
+the other natural formations. Illustrated landmarks now complement these places
+rather than being required to supply every landmark on their own.
+
+Space-road paint and rails have separate materials and individual course colors.
+Four airless expansion skies have static filtered stars and a subtle galactic
+band, with planets and rings masking the stars; Mars keeps its dusty atmosphere.
+The refreshed selection photographs and multi-view source evidence live in
+`docs/evidence/space-places14`. These are cosmetic changes; route/collision and
+frozen terrain geometry remain unchanged.

@@ -138,7 +138,7 @@ static func compound(world: TrackWorld, parent: Node3D, region: Dictionary, pose
 	for entry: Array in region.get("modules",CourseCompoundArt.layout(region.kind)):
 		var mesh := CourseCompoundArt.mesh(entry[0],int(entry[3]))
 		var bounds := mesh.get_aabb()
-		var natural: bool = entry[0] in ["mesa_outcrop","terraced_field"]
+		var natural: bool = entry[0] in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop"]
 		var foundation_limit := 60.0 if natural else 16.0
 		var radius := Vector2(maxf(absf(bounds.position.x),absf(bounds.end.x)),maxf(absf(bounds.position.z),absf(bounds.end.z))).length()+2
 		var at := pose*Vector3(float(entry[1]),0,float(entry[2]))

@@ -6288,7 +6288,37 @@
           "u": 0.62,
           "side": 1,
           "setback": 155,
-          "kind": "lunar_survey"
+          "kind": "lunar_survey",
+          "modules": [
+            [
+              "habitat",
+              -18,
+              0,
+              0,
+              0
+            ],
+            [
+              "antenna",
+              25,
+              15,
+              0,
+              0
+            ],
+            [
+              "solar",
+              12,
+              -30,
+              0,
+              -0.3
+            ],
+            [
+              "survey_rover",
+              -18,
+              -32,
+              0,
+              0.7
+            ]
+          ]
         },
         {
           "name": "Inner crater minerals",
@@ -6302,14 +6332,99 @@
           ],
           "spacing": 65,
           "kind": "rocks"
+        },
+        {
+          "name": "Freight landing apron",
+          "u": 0.075,
+          "side": -1,
+          "setback": 110,
+          "kind": "moon_base",
+          "modules": [
+            [
+              "freight_lander",
+              0,
+              0,
+              0,
+              -0.2
+            ],
+            [
+              "survey_rover",
+              42,
+              -20,
+              0,
+              0.5
+            ],
+            [
+              "container_stack",
+              40,
+              25,
+              1,
+              0
+            ]
+          ]
+        },
+        {
+          "name": "Crater shoulder",
+          "u": 0.27,
+          "side": -1,
+          "setback": 170,
+          "kind": "landforms",
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              0,
+              1,
+              0.1
+            ],
+            [
+              "crater_outcrop",
+              90,
+              65,
+              2,
+              0.4
+            ],
+            [
+              "crater_outcrop",
+              -75,
+              90,
+              0,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Far rim ledges",
+          "u": 0.48,
+          "side": 1,
+          "setback": 160,
+          "kind": "landforms",
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              0,
+              2,
+              -0.4
+            ],
+            [
+              "crater_outcrop",
+              100,
+              -65,
+              1,
+              0.4
+            ],
+            [
+              "crater_outcrop",
+              -80,
+              90,
+              0,
+              0.8
+            ]
+          ]
         }
       ],
       "landmarks": [
-        {
-          "id": "mars_hoodoo",
-          "u": 0.36,
-          "lateral": -190
-        },
         {
           "id": "space_dish",
           "u": 0.68,
@@ -6364,7 +6479,7 @@
           ]
         }
       ],
-      "preview_u": 0.025
+      "preview_u": 0.055
     },
     {
       "id": "orbital_gardens",
@@ -6373,8 +6488,45 @@
           "name": "Arrival biosphere",
           "u": 0.04,
           "side": -1,
-          "setback": 160,
-          "kind": "biosphere"
+          "setback": 100,
+          "kind": "biosphere",
+          "modules": [
+            [
+              "botanical_court",
+              15,
+              -38,
+              0,
+              0
+            ],
+            [
+              "conservatory",
+              -38,
+              23,
+              0,
+              0
+            ],
+            [
+              "habitat",
+              25,
+              32,
+              0,
+              0
+            ],
+            [
+              "tank",
+              -65,
+              -28,
+              0,
+              0
+            ],
+            [
+              "solar",
+              -30,
+              -88,
+              0,
+              0.4
+            ]
+          ]
         },
         {
           "name": "Terrarium crystal hill",
@@ -6384,17 +6536,58 @@
           "along": 310,
           "depth": 160,
           "plants": [
-            "crystal_cluster"
+            "moon_rock"
           ],
-          "spacing": 73,
-          "kind": "grove"
+          "spacing": 85,
+          "kind": "rocks",
+          "size_range": [
+            0.45,
+            0.95
+          ]
         },
         {
           "name": "Botanical conservatory",
           "u": 0.43,
           "side": -1,
-          "setback": 190,
-          "kind": "biosphere"
+          "setback": 110,
+          "kind": "biosphere",
+          "modules": [
+            [
+              "botanical_court",
+              0,
+              -24,
+              1,
+              0.15
+            ],
+            [
+              "conservatory",
+              -48,
+              28,
+              1,
+              1.57
+            ],
+            [
+              "conservatory",
+              38,
+              42,
+              0,
+              0
+            ],
+            [
+              "tank",
+              60,
+              -26,
+              0,
+              0
+            ],
+            [
+              "solar",
+              -20,
+              -70,
+              0,
+              0
+            ]
+          ]
         },
         {
           "name": "Mineral ridge beyond gardens",
@@ -6404,11 +6597,14 @@
           "along": 430,
           "depth": 180,
           "plants": [
-            "crystal_cluster",
-            "mars_hoodoo"
+            "moon_rock"
           ],
           "spacing": 85,
-          "kind": "grove"
+          "kind": "rocks",
+          "size_range": [
+            0.45,
+            0.95
+          ]
         },
         {
           "name": "Solar service garden",
@@ -6416,14 +6612,96 @@
           "side": 1,
           "setback": 125,
           "kind": "solar_farm"
+        },
+        {
+          "name": "Ringworld arboretum",
+          "u": 0.66,
+          "side": 1,
+          "setback": 120,
+          "kind": "biosphere",
+          "modules": [
+            [
+              "botanical_court",
+              0,
+              0,
+              2,
+              -0.2
+            ],
+            [
+              "conservatory",
+              -48,
+              25,
+              0,
+              0.4
+            ],
+            [
+              "habitat",
+              35,
+              44,
+              0,
+              3.14
+            ]
+          ]
+        },
+        {
+          "name": "Arrival oxygen grove",
+          "u": 0.042,
+          "side": -1,
+          "setback": 240,
+          "along": 240,
+          "depth": 120,
+          "plants": [
+            "bamboo",
+            "tree_fern",
+            "coastal_cypress"
+          ],
+          "spacing": 31,
+          "kind": "grove",
+          "size_range": [
+            0.8,
+            1.2
+          ]
+        },
+        {
+          "name": "Canopy research garden",
+          "u": 0.44,
+          "side": -1,
+          "setback": 245,
+          "along": 220,
+          "depth": 110,
+          "plants": [
+            "kapok",
+            "tree_fern",
+            "bamboo"
+          ],
+          "spacing": 31,
+          "kind": "grove",
+          "size_range": [
+            0.8,
+            1.2
+          ]
+        },
+        {
+          "name": "Arboretum shelter belt",
+          "u": 0.635,
+          "side": 1,
+          "setback": 245,
+          "along": 230,
+          "depth": 115,
+          "plants": [
+            "coastal_cypress",
+            "bamboo",
+            "tree_fern"
+          ],
+          "spacing": 31,
+          "kind": "grove",
+          "size_range": [
+            0.8,
+            1.2
+          ]
         }
       ],
       "landmarks": [
-        {
-          "id": "crystal_cluster",
-          "u": 0.3,
-          "lateral": 160
-        },
         {
           "id": "space_dish",
           "u": 0.81,
@@ -6483,7 +6761,9 @@
           ]
         }
       ],
-      "preview_u": 0.12
+      "preview_u": 0.4,
+      "ground": "527B6C",
+      "sun": "D4EFDB"
     },
     {
       "id": "crystal_chasm",
@@ -6615,62 +6895,213 @@
           "u": 0.04,
           "side": -1,
           "setback": 160,
-          "along": 330,
-          "depth": 150,
-          "plants": [
-            "mars_hoodoo",
-            "dune_spires"
-          ],
-          "spacing": 70,
-          "kind": "grove"
+          "kind": "landforms",
+          "modules": [
+            [
+              "martian_butte",
+              0,
+              0,
+              2,
+              0.2
+            ],
+            [
+              "martian_butte",
+              -90,
+              -60,
+              0,
+              -0.5
+            ],
+            [
+              "martian_butte",
+              85,
+              85,
+              3,
+              0.8
+            ],
+            [
+              "martian_butte",
+              -35,
+              135,
+              1,
+              -0.9
+            ],
+            [
+              "martian_butte",
+              130,
+              -80,
+              0,
+              0.3
+            ]
+          ]
         },
         {
           "name": "Rover service outpost",
           "u": 0.17,
           "side": 1,
           "setback": 135,
-          "kind": "lunar_survey"
+          "kind": "lunar_survey",
+          "modules": [
+            [
+              "habitat",
+              -18,
+              0,
+              0,
+              0
+            ],
+            [
+              "antenna",
+              25,
+              15,
+              0,
+              0
+            ],
+            [
+              "solar",
+              12,
+              -30,
+              0,
+              -0.3
+            ],
+            [
+              "survey_rover",
+              -22,
+              -33,
+              0,
+              -0.6
+            ]
+          ]
         },
         {
           "name": "Canyon wall",
           "u": 0.42,
           "side": -1,
-          "setback": 300,
-          "along": 460,
-          "depth": 210,
-          "plants": [
-            "mars_hoodoo"
-          ],
-          "spacing": 85,
-          "kind": "grove"
+          "setback": 180,
+          "kind": "landforms",
+          "modules": [
+            [
+              "martian_butte",
+              0,
+              0,
+              3,
+              -0.1
+            ],
+            [
+              "martian_butte",
+              105,
+              30,
+              1,
+              0.5
+            ],
+            [
+              "martian_butte",
+              -100,
+              70,
+              2,
+              -0.6
+            ],
+            [
+              "martian_butte",
+              40,
+              150,
+              0,
+              0.9
+            ],
+            [
+              "martian_butte",
+              -70,
+              -120,
+              1,
+              0.4
+            ]
+          ]
         },
         {
           "name": "High sandstone basin",
           "u": 0.72,
           "side": 1,
-          "setback": 250,
-          "along": 390,
-          "depth": 180,
-          "plants": [
-            "dune_spires",
-            "mars_hoodoo"
-          ],
-          "spacing": 79,
-          "kind": "grove"
+          "setback": 175,
+          "kind": "landforms",
+          "modules": [
+            [
+              "martian_butte",
+              0,
+              0,
+              1,
+              0.3
+            ],
+            [
+              "martian_butte",
+              -90,
+              25,
+              3,
+              -0.8
+            ],
+            [
+              "martian_butte",
+              85,
+              -65,
+              0,
+              0.6
+            ],
+            [
+              "martian_butte",
+              30,
+              130,
+              2,
+              0.1
+            ],
+            [
+              "martian_butte",
+              -130,
+              -100,
+              0,
+              0.9
+            ]
+          ]
         },
         {
           "name": "Return mineral scar",
           "u": 0.93,
           "side": -1,
           "setback": 180,
-          "along": 330,
-          "depth": 150,
-          "plants": [
-            "mars_hoodoo",
-            "crystal_cluster"
-          ],
-          "spacing": 76,
-          "kind": "grove"
+          "kind": "landforms",
+          "modules": [
+            [
+              "martian_butte",
+              0,
+              0,
+              2,
+              -0.7
+            ],
+            [
+              "martian_butte",
+              90,
+              80,
+              1,
+              0.3
+            ],
+            [
+              "martian_butte",
+              -100,
+              -45,
+              0,
+              0.8
+            ],
+            [
+              "martian_butte",
+              -40,
+              135,
+              3,
+              -0.4
+            ],
+            [
+              "martian_butte",
+              120,
+              -90,
+              0,
+              0.5
+            ]
+          ]
         }
       ],
       "landmarks": [
@@ -6727,7 +7158,7 @@
           ]
         }
       ],
-      "preview_u": 0.24
+      "preview_u": 0.38
     },
     {
       "id": "reactor_rift",
@@ -6743,15 +7174,45 @@
           "name": "Basalt wall",
           "u": 0.22,
           "side": 1,
-          "setback": 310,
-          "along": 430,
-          "depth": 190,
-          "plants": [
-            "mars_hoodoo",
-            "crystal_cluster"
-          ],
-          "spacing": 83,
-          "kind": "grove"
+          "setback": 175,
+          "kind": "landforms",
+          "modules": [
+            [
+              "basalt_crag",
+              0,
+              0,
+              2,
+              0.2
+            ],
+            [
+              "basalt_crag",
+              -90,
+              -60,
+              0,
+              -0.5
+            ],
+            [
+              "basalt_crag",
+              85,
+              85,
+              3,
+              0.8
+            ],
+            [
+              "basalt_crag",
+              -35,
+              135,
+              1,
+              -0.9
+            ],
+            [
+              "basalt_crag",
+              130,
+              -80,
+              0,
+              0.3
+            ]
+          ]
         },
         {
           "name": "Power collector field",
@@ -6764,14 +7225,45 @@
           "name": "Rift mineral shelf",
           "u": 0.71,
           "side": -1,
-          "setback": 220,
-          "along": 300,
-          "depth": 160,
-          "plants": [
-            "crystal_cluster"
-          ],
-          "spacing": 74,
-          "kind": "grove"
+          "setback": 145,
+          "kind": "landforms",
+          "modules": [
+            [
+              "basalt_crag",
+              0,
+              0,
+              3,
+              -0.1
+            ],
+            [
+              "basalt_crag",
+              105,
+              30,
+              1,
+              0.5
+            ],
+            [
+              "basalt_crag",
+              -100,
+              70,
+              2,
+              -0.6
+            ],
+            [
+              "basalt_crag",
+              40,
+              150,
+              0,
+              0.9
+            ],
+            [
+              "basalt_crag",
+              -70,
+              -120,
+              1,
+              0.4
+            ]
+          ]
         },
         {
           "name": "Return coolant station",
@@ -6786,11 +7278,6 @@
           "id": "space_dish",
           "u": 0.32,
           "lateral": -150
-        },
-        {
-          "id": "crystal_cluster",
-          "u": 0.77,
-          "lateral": 170
         }
       ],
       "light_sections": [
@@ -6846,7 +7333,7 @@
           ]
         }
       ],
-      "preview_u": 0.54
+      "preview_u": 0.6
     }
   ]
 }

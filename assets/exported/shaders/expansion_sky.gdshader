@@ -44,6 +44,16 @@ void sky() {
     color = mix(color, night ? vec3(0.8, 0.87, 1.0) : vec3(1.0, 0.91, 0.65), sun_disc);
     if (space) {
         color = mix(horizon*0.12,sky_top*0.045,smoothstep(-0.05,0.35,EYEDIR.y));
+        // A fixed galactic band gives the airless views depth even when their
+        // planet is behind the driver. No scrolling noise or twinkling pulses.
+        if (space_view != 4) {
+            vec3 axis = normalize(vec3(0.42,0.78,-0.46));
+            float latitude = abs(dot(EYEDIR,axis));
+            float dust = sky_field(EYEDIR.xz*5.0+vec2(sky_seed,2.7))*0.65+sky_field(EYEDIR.xy*7.0+vec2(7.3,sky_seed))*0.35;
+            float galaxy = exp(-pow(latitude/0.17,2.0))*(0.38+dust*0.62);
+            vec3 ink = space_view == 2 ? vec3(0.045,0.075,0.064) : space_view == 3 ? vec3(0.09,0.045,0.12) : vec3(0.043,0.054,0.082);
+            color += ink*galaxy*smoothstep(-0.08,0.12,EYEDIR.y);
+        }
         vec3 center = normalize(vec3(cos(sky_seed),0.55,sin(sky_seed)));
         vec3 right = normalize(cross(vec3(0.0,1.0,0.0),center));
         vec3 above = cross(center,right);
@@ -69,6 +79,7 @@ void sky() {
             float gap = 1.0-smoothstep(0.004,0.009,abs(ring_radius-0.35));
             vec3 ring_ink = vec3(0.63,0.70,0.51)*(0.67+sin(ring_radius*480.0)*0.13);
             color = mix(color,ring_ink,rings*(1.0-gap*0.8)*0.7);
+            obscured = max(disc,rings*(1.0-gap*0.8)*0.7);
             float bands = sin(q.y*94.0+sin(q.x*15.0)*0.45)*0.08;
             color = mix(color,(vec3(0.50,0.65,0.50)+bands)*sunlight,disc);
         } else if (space_view == 3) {
@@ -101,10 +112,22 @@ void sky() {
         }
     }
     if (night || space) {
-        vec2 star_cell = floor(SKY_COORDS * vec2(850.0, 450.0));
-        float star = fract(sin(dot(star_cell, vec2(12.9898, 78.233))) * 43758.5453);
-        float star_visibility = space_view == 4 ? smoothstep(0.65,0.95,up)*0.13 : smoothstep(0.1,0.4,up)*0.5;
-        color += vec3(step(0.9992,star)*star_visibility*(1.0-obscured));
+        if (space && space_view != 4) {
+            vec2 field = SKY_COORDS*vec2(400.0,200.0);
+            vec2 cell = floor(field);
+            float seed = sky_hash(cell+vec2(sky_seed,0.0));
+            vec2 center = vec2(sky_hash(cell+7.2),sky_hash(cell+29.1))*0.5+0.25;
+            float radius = mix(0.07,0.18,sky_hash(cell+41.0));
+            float edge = max(length(fwidth(field))*0.5,0.025);
+            float star = step(0.988,seed)*(1.0-smoothstep(max(0.0,radius-edge),radius+edge,length(fract(field)-center)));
+            vec3 tint = mix(vec3(0.64,0.78,1.0),vec3(1.0,0.86,0.66),sky_hash(cell+61.0));
+            color += tint*star*smoothstep(-0.02,0.12,up)*(1.0-obscured)*0.9;
+        } else {
+            vec2 star_cell = floor(SKY_COORDS * vec2(850.0, 450.0));
+            float star = fract(sin(dot(star_cell, vec2(12.9898, 78.233))) * 43758.5453);
+            float star_visibility = space_view == 4 ? smoothstep(0.65,0.95,up)*0.13 : smoothstep(0.1,0.4,up)*0.5;
+            color += vec3(step(0.9992,star)*star_visibility*(1.0-obscured));
+        }
     }
     if (aurora) {
         float ribbon = 0.32 + sin(SKY_COORDS.x * 18.0) * 0.07;

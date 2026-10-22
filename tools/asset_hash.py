@@ -229,7 +229,11 @@ def validate_scenery():
     assert {r['id'] for r in courses['courses']}=={r['id'] for r in terrain['courses']}=={r['id'] for r in json.loads((ROOT/'game/content/tracks.json').read_text())['tracks']}
     by_id={row['id']:row for row in assets}
     for row in courses['courses']:
-        assert 2<=len(row['landmarks'])<=5 if row.get('composition_version')==14 else len(row['landmarks'])==5
+        if row.get('composition_version')==14:
+            assert 1<=len(row['landmarks'])<=5
+            places=sum(region['kind'] not in ['grove','rocks'] for region in row['scenery_regions'])
+            assert len(row['landmarks'])+places>=2, 'Landmark identity includes authored solid places, not just billboard count'
+        else: assert len(row['landmarks'])==5
         if not row.get('expansion40'):
             assert all(by_id[landmark['id']]['category']=='landmark' and 0<=landmark['u']<1 for landmark in row['landmarks'])
         else:

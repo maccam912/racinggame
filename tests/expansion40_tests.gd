@@ -45,7 +45,7 @@ func run() -> void:
 		for site: Dictionary in sites:
 			if not site.has("module"):
 				assert(absf(site.at.y-AuthoredCourseScenery.height(world,site.at,site))<.001)
-			else: assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field"] else 16))
+			else: assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop"] else 16))
 			assert(world.clear_of_road(site.at,site.radius) and world.decoration_allowed(site.at,site.radius))
 			if site.distance>220: far_sites += 1
 			species[site.id] = true
@@ -56,6 +56,15 @@ func run() -> void:
 			if region.sites>0: occupied += 1
 		assert(occupied>=3,"each course needs several actual places, not one cosmetic cluster")
 		assert(species.size()>=3,"groves and districts mix distinct silhouettes")
+		if world.art.space:
+			assert(not world.has_node("OrbitalSpeedGates") and not world.has_node("MoonCrystals"),"authored space places must not inherit regular legacy decoration rows")
+			var rail := world.get_node("RoadsideBarriers").material_override as StandardMaterial3D
+			assert(not rail.emission_enabled)
+			if world.has_node("Road_markings"):
+				var paint := world.get_node("Road_markings").material_override as StandardMaterial3D
+				assert(paint!=rail and paint.emission_enabled,"road paint cannot mutate the shared rail material")
+				assert(rail.albedo_color!=paint.albedo_color)
+			else: assert(track.road_surface()=="dirt")
 		assert(world.has_node("LandscapeHorizon"),"persistent silhouettes mask the terrain cutoff, including space courses")
 		if not world.art.light_sections.is_empty():
 			assert(not world.find_children("streetlight_Batch_*","MultiMeshInstance3D",true,false).is_empty(),"urban districts use real streetlight models")
