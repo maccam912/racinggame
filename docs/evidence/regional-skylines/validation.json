@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "source_commands": 202,
+  "content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+  "asset_hash": "456d8d8fce820aba422129de71eb012192e2267a7933213d2d01ea9ae6c0fee3",
+  "source_sha256": {
+    "game/world/expansion_horizon.gd": "f839308eb2464fa2906cd58958737c7f0eda09a64025a4484e0220ecb8f4d695",
+    "game/world/course_landscape.gd": "71b2d2cb052df73c5c277970e9a2c8472a1c9a5da30bc23b94b820a7146674c2",
+    "tests/expansion_horizon_tests.gd": "9c71e3a7da33209fb9a0571e456222e3b8a392afa3d689281da2123dcf25fb80",
+    "tests/expansion_horizon_evidence.gd": "4f121053db0cf6cc499727995d5b04e8bf65ba2ca90e5671631b4a1988fa3e7a",
+    "tests/fixtures/presentation13/legacy_horizon.gd": "da82efdda9ca5e197addbd2a21ac9b49fe14414be9e3ee2e786ecb4740440529"
+  },
+  "skyline_families": 21,
+  "new_course_skylines": 30,
+  "original_course_records_exact": 10,
+  "far_settlement_sites": 36,
+  "triangles_per_skyline": [
+    2304,
+    4464
+  ],
+  "minimum_outside_road_circle_m": 619.622314453125,
+  "paired_native_courses": 30,
+  "ordinary_approaches": 60,
+  "native_loading_cases": 40,
+  "native_motion_and_water_cases": 13,
+  "previous_remote_ci": {
+    "commit": "5dc1197d0620fae636f7c941e2eb651cd5656f09",
+    "run": 39750068401,
+    "conclusion": "success"
+  },
+  "boundary": "Actual forty-world geometry and exact original-ten pre/post horizon records; frozen legacy helper independently matched all 38 old generic horizons before integration. Thirty paired native comparisons select from four fixed diagnostic road approaches with the actual 3000 m far plane; eight pairs and all-thirty contact sheets archived. Sixty ordinary Far Chase views and thirty refreshed postcards, all forty native loading/GPU/readback/ENet and thirteen motion/Reduce Motion comparisons. Reference captures precede postcard-manifest refresh; final loading uses the final asset identity. Native macOS Compatibility, not Android runtime or frame-time acceptance. Gameplay and terrain exports unchanged.",
+  "artifacts_sha256": {
+    "all-thirty-normal-approaches.png": "595d4f0004aa4bb18f721a60c2daa8b01b9355505f815797bb98097f20e87be2",
+    "all-thirty-skylines.png": "31253489f4fd147f880e069538d9f40f4e072de223a3faee039b32a466691688",
+    "approaches.json": "a6d0787ef45659a3c3ecf8099e3a6a60cecc35ac5dce16d61f77e084587036c7",
+    "coral_causeway-after.png": "ad0ddc4ab53cd6b5965a2fb6045f36976929aa8beb11b515e1a24399ded1d5c0",
+    "coral_causeway-before.png": "ea63a903a0850b4367228c1651d53103b8dd36815e39a195f5104e9927d6f244",
+    "dune_serpent-after.png": "117a5dc3fd58c97743cd785c1065bad49eee9555186c691f87047f2b264a707a",
+    "dune_serpent-before.png": "3f96bbb804aac9a94ca107c77db82ada2dbf9d338d6d40b3c214d1d0607b2d0a",
+    "geometry.json": "1119b740731a5b014012715be97549eae52e30c22301130bcf0a4d2d440b4246",
+    "glacier_ridge-after.png": "6949c6bf3bd4720b129c10b85e0a368a3fe35410076f235305d91f2c9a790520",
+    "glacier_ridge-before.png": "81fc20a7f59ae2daf8ff3871c7b76dd4e43f1176aafc0b051602972139ae1fc0",
+    "lantern_market-after.png": "9fc1f28a8fa64afda91da40584649482f34e65fba2de557839a3b964bc27165d",
+    "lantern_market-before.png": "e83843ae1a668fa7cb135e3c5a964e386bc16c913d6dc02a14717b9f6f6aeeac",
+    "motion.json": "10e5a895e76fe4332ba130c63bd48684bbcf782fcdacd006a184c1111f1d1afc",
+    "native.json": "572c58496b571a35e40f474c67a39eb714ae08fafd8122950ffa9afff3957948",
+    "neon_underpass-after.png": "00c8933195ff96955e3b6c6cceb4812cf7473c33922f8075bfb50befbb040218",
+    "neon_underpass-before.png": "65e3e02469a58f6805948d9586a28133cccb5de8d6023e8b1e22c65aa6433777",
+    "normal-approach-coral_causeway.png": "f8d8b87505a4251a05ed4c1bd024a8efa62a0fa2995bc7eee9dbf342d7662068",
+    "normal-approach-glacier_ridge.png": "011ab080d3f8e0d015c4be21f5c5a6470373ef12f4d74884e7b17b751da22ceb",
+    "normal-approach-neon_underpass.png": "008447124b6395335604c2e5adc9a928545b85899407b5ecefc12b0d65c542c2",
+    "normal-approach-storm_chase.png": "c11665194575a6f08d2ab3a330cc9fe18ebffafeeeb9cb40ba73df1a1c575d8c",
+    "orbital_gardens-after.png": "4d46d8886c0446f78d574191b8a834e0ff6e05e70d243046bf427515a5c31030",
+    "orbital_gardens-before.png": "de428eb682b4feb59cac1eaab36fc0f1ac666eec74425841cb7464f50b059837",
+    "prechange.json": "2040d79109bc11cf1d469d386af416253e02e1da28cb919efbd5164ea079bd51",
+    "rainforest_ruins-after.png": "21bca3151b548e608595d3a5e641b21511833be12e341d6933686d6cfc95cacf",
+    "rainforest_ruins-before.png": "21ee610c1b56c01ee9bb3fbe11c667d3958cf2b0c973d5b906f17a90295dc12b",
+    "source-checks.json": "737153c9635e85eecc9c0cc4a4f37fe57bc86562ad3fcae8705f4b48bd9f8eed",
+    "storm_chase-after.png": "b26970819ccd1b1d426d2d584c0289f1b3a98442d64640b8947fa6d92d34310b",
+    "storm_chase-before.png": "a470a87d537bf80606876b20b40e426b6458c13e02d025000ffa05d2f65d8f17",
+    "warmup.json": "7cb04b037e13320b7db6879baff2a95f7bf9f43dece2352f746889e8858c5c62"
+  }
+}

@@ -153,6 +153,9 @@ static func city_block(world: TrackWorld, parent: Node3D, poses: Array[Transform
 
 
 static func horizon(world: TrackWorld) -> void:
+	if world.art.get("expansion40",false):
+		ExpansionHorizon.build(world)
+		return
 	var low := Vector3(INF,INF,INF)
 	var high := Vector3(-INF,-INF,-INF)
 	for at: Vector3 in world.track.points:

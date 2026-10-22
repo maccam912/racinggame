@@ -1866,3 +1866,36 @@ World/assets/gameplay identities are unchanged. The preceding regional motion
 revision passed remote CI
 [39746822706](https://github.com/maccam912/racinggame/actions/runs/39746822706).
 [Evidence and boundaries](evidence/track-tours/validation.json).
+
+
+### Regional skylines beyond the local scenery
+
+The thirty additions now use **21** distant skyline families instead of the
+shared ring of angular rocks. Snowy ridges, green karst, low islands, rolling
+dunes, mesa tops, crater rims and crystal spires give the natural courses
+different profiles. Cities have distant buildings, the market has tiered roofs,
+the festival has round pavilions and the orbital habitat has domes. Coastal
+heights soften toward the authored seaward side. **36** distant farm/utility
+sites give the tundra, prairie and salt-flat courses inhabited horizons while
+retaining their open views.
+[All thirty skylines](evidence/regional-skylines/all-thirty-skylines.png),
+[ordinary driving approaches](evidence/regional-skylines/all-thirty-normal-approaches.png).
+
+Two static faceted layers and their built silhouettes share one unshaded mesh per
+course, **2,304–4,464 triangles**, with no shadows, collision or frame callbacks.
+They remain present when local scenery culls. Full faces clear the circle
+containing every road branch by at least **619 m**. The original ten pre/post
+horizon records match exactly; their implementation body is unchanged, and two
+retain their existing spectacle skyline exclusion. Gameplay and terrain-export
+identities remain unchanged.
+
+All **202/202** source commands pass. Native comparisons cover all thirty new
+skylines using four fixed road-approach candidates and the actual **3,000 m**
+camera far plane; eight pairs are archived. All **60** normal Far Chase hero
+approaches and all thirty postcards were refreshed. All **40** native
+loading/GPU/readback/ENet cases and all **13** motion/water comparisons pass,
+with zero changed samples in both Reduce Motion comparisons. This is native
+macOS Compatibility evidence, not Android runtime or frame-time acceptance.
+The preceding track-tour revision passed remote CI
+[39750068401](https://github.com/maccam912/racinggame/actions/runs/39750068401).
+[Evidence, original geometry and boundaries](evidence/regional-skylines/validation.json).

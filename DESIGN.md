@@ -1199,3 +1199,22 @@ shared GPU material with no scene-frame callbacks or driving collision.
 Oasis Citadel's aqueduct has a slow horizontal surface flow. Reduce Motion
 freezes all of these and the shared ocean/waterfall-pool normal waves, retaining
 the original moving water by default.
+
+
+### Regional distant skylines
+
+The thirty additions use 21 persistent skyline families: snowy peaks, alpine
+ridges, tundra, karst, low islands, canopy, hills, terraces, dunes, salt flats,
+mesas, prairie, crater rims, crystal spires, basalt benches, domes, harbor,
+works, city, market roofs and festival pavilions. Two faceted layers use authored
+height/phase values and haze colors per course. Coastal relief lowers toward the
+authored seaward side. Distant built silhouettes and static window bands match
+urban settings; thirty-six farm/utility sites punctuate the three open plains.
+
+Each skyline is one unshaded mesh, 2,304–4,464 triangles, without shadows,
+collision, frame callbacks or local-distance culling. Complete triangles stay
+outside the circle enclosing every road branch, with at least 619 m additional
+clearance in the current roster. The established ten retain their original
+horizon geometry or spectacle skyline exclusion. The existing 3,000 m camera
+far plane remains the rendering boundary; ordinary driving views complement
+diagnostic landscape comparisons.

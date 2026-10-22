@@ -1,0 +1,137 @@
+{
+	"ambient_source_sha256": "dfe3e96414648e1d509b270cd9ff77f6de00f56a9da72923e1d09eefbd62955f",
+	"boundary": "Native macOS fixed-camera pixels, every second pixel. Three samples separated by 45 then 37 frames (plus eight settling frames per capture) avoid a periodic sway returning to the same pose. Max of two comparisons, 0.015 channel tolerance for landmarks and 0.003 for subtle water normals. Reduce Motion must yield zero changed samples in both comparisons, including ocean and waterfall pools. Not APK/physical-device or frame-time acceptance.",
+	"cases": [
+		{
+			"best_moving_frame": "after",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 2716,
+			"moving_changed_samples": 2716,
+			"moving_later_changed_samples": 2700,
+			"reduced_changed_samples": 0,
+			"track": "windfarm_run"
+		},
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 3448,
+			"moving_changed_samples": 4118,
+			"moving_later_changed_samples": 4118,
+			"reduced_changed_samples": 0,
+			"track": "festival_speedway"
+		},
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 670,
+			"moving_changed_samples": 786,
+			"moving_later_changed_samples": 786,
+			"reduced_changed_samples": 0,
+			"track": "reactor_rift"
+		},
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 2839,
+			"moving_changed_samples": 3022,
+			"moving_later_changed_samples": 3022,
+			"reduced_changed_samples": 0,
+			"track": "storm_chase"
+		},
+		{
+			"best_moving_frame": "after",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 3756,
+			"moving_changed_samples": 3756,
+			"moving_later_changed_samples": 3598,
+			"reduced_changed_samples": 0,
+			"track": "cloudforest_climb"
+		},
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 1221,
+			"moving_changed_samples": 1698,
+			"moving_later_changed_samples": 1698,
+			"reduced_changed_samples": 0,
+			"track": "alpine_meadow"
+		},
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 23,
+			"moving_changed_samples": 222,
+			"moving_later_changed_samples": 222,
+			"reduced_changed_samples": 0,
+			"track": "neon_underpass"
+		},
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 3347,
+			"moving_changed_samples": 4898,
+			"moving_later_changed_samples": 4898,
+			"reduced_changed_samples": 0,
+			"track": "temple_coast"
+		},
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 124,
+			"moving_changed_samples": 175,
+			"moving_later_changed_samples": 175,
+			"reduced_changed_samples": 0,
+			"track": "sakura_ring"
+		},
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 284,
+			"moving_changed_samples": 315,
+			"moving_later_changed_samples": 315,
+			"reduced_changed_samples": 0,
+			"track": "copper_mesa"
+		},
+		{
+			"best_moving_frame": "after",
+			"channel_tolerance": 0.015,
+			"moving_after_changed_samples": 821,
+			"moving_changed_samples": 821,
+			"moving_later_changed_samples": 650,
+			"reduced_changed_samples": 0,
+			"track": "oasis_citadel"
+		}
+	],
+	"content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+	"passed": true,
+	"renderer": "gl_compatibility",
+	"resolution": [
+		960,
+		540
+	],
+	"shader_sha256": "29405275e7d03b7cce649e03cae418ec1b4d4a538a878771902752c3988ae6a2",
+	"source_sha256": "74ff705558e5b0a8a8f97d6460868db7442cd1a11e5873a1ac3f3bcb4d6043f7",
+	"water_cases": [
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.003,
+			"kind": "ocean",
+			"moving_after_changed_samples": 68645,
+			"moving_changed_samples": 70886,
+			"moving_later_changed_samples": 70886,
+			"reduced_changed_samples": 0,
+			"track": "palm_bay"
+		},
+		{
+			"best_moving_frame": "later",
+			"channel_tolerance": 0.003,
+			"kind": "waterfall_pool",
+			"moving_after_changed_samples": 2593,
+			"moving_changed_samples": 2594,
+			"moving_later_changed_samples": 2594,
+			"reduced_changed_samples": 0,
+			"track": "redwood_run"
+		}
+	],
+	"water_shader_sha256": "f15890ee4711a14f95980bf931c75b9d05b7c6ae3f865e0dfaa762f26a869489"
+}
