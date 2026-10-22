@@ -90,18 +90,19 @@ func collect(source: Node) -> void:
 		var mesh: Mesh = node.multimesh.mesh
 		for surface in range(mesh.get_surface_count()):
 			add_variant(mesh,node.material_override if node.material_override else mesh.surface_get_material(surface),true,node.multimesh.use_colors,node.multimesh.use_custom_data,node.cast_shadow)
-	# One number label populates the entire slot-glyph atlas before the grid.
-	if not variants.has("slot_label"):
-		for label: Label3D in source.find_children("*","Label3D",true,false):
-			var copy := label.duplicate(0) as Label3D
-			copy.text = "12345678"
-			copy.transform = Transform3D.IDENTITY
-			copy.position = cell()
-			copy.show()
-			scene.add_child(copy)
-			variants["slot_label"] = true
-			submissions += 1
-			break
+	# Warm each authored 3D font/size as well as the complete slot-number atlas.
+	# A large display-font track sign must not first build glyphs mid-race.
+	for label: Label3D in source.find_children("*","Label3D",true,false):
+		var key := "label:"+str(label.font.get_instance_id() if label.font!=null else 0)+":"+str(label.font_size)
+		if variants.has(key): continue
+		var copy := label.duplicate(0) as Label3D
+		copy.text = label.text+" 12345678"
+		copy.transform = Transform3D.IDENTITY
+		copy.position = cell()
+		copy.show()
+		scene.add_child(copy)
+		variants[key] = true
+		submissions += 1
 
 func cell() -> Vector3:
 	return Vector3((submissions%8-3.5)*3.0,0,(submissions/8-3.5)*3.0)

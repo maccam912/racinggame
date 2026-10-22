@@ -24,6 +24,11 @@ func run() -> void:
 			for resource: Resource in warm.retained_resources:
 				if resource is ShaderMaterial and resource.shader!=null and resource.shader.resource_path=="res://assets/exported/shaders/scenery.gdshader" and resource.get_shader_parameter("city_facade")==true: facade = true
 			assert(facade,"the procedural city material must be submitted before Grid")
+		if track.id=="saltflat_velocity":
+			var warmed_sign := false
+			for label: Label3D in warm.scene.find_children("*","Label3D",true,false):
+				if label.font_size==160 and label.text.contains(I18n.t("track."+track.id).to_upper()): warmed_sign = true
+			assert(warmed_sign,"the large display-font course sign must warm its actual glyphs before Grid")
 		for path: String in warm.shader_paths: shaders[path] = true
 		maximum = maxi(maximum,warm.submissions)
 		warm.cancel()

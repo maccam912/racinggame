@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+  "asset_hash": "7959522bf53f9402a5261a214a20c61a3a4ead01ce83c833ff6239ef76a09012",
+  "gameplay_unchanged_from": "406b491604809be5effc1598f1d66f50432979a0",
+  "source_checks": {
+    "passed": true,
+    "commands": 193,
+    "base_commit": "406b491604809be5effc1598f1d66f50432979a0",
+    "dirty_tree": true
+  },
+  "native_approach_views": 60,
+  "native_moving_and_reduced_pixel_cases": [
+    {
+      "moving_changed_samples": 2619,
+      "reduced_changed_samples": 0,
+      "track": "windfarm_run"
+    },
+    {
+      "moving_changed_samples": 3604,
+      "reduced_changed_samples": 0,
+      "track": "festival_speedway"
+    },
+    {
+      "moving_changed_samples": 778,
+      "reduced_changed_samples": 0,
+      "track": "reactor_rift"
+    },
+    {
+      "moving_changed_samples": 2447,
+      "reduced_changed_samples": 0,
+      "track": "storm_chase"
+    },
+    {
+      "moving_changed_samples": 5712,
+      "reduced_changed_samples": 0,
+      "track": "cloudforest_climb"
+    }
+  ],
+  "native_gpu_worlds": 40,
+  "minimum_approach_alignment": 0.879543423652649,
+  "total_authored_triangles": 20588,
+  "maximum_single_feature_triangles": 2328,
+  "source_sha256": {
+    "game/world/expansion_set_pieces.gd": "50af59ce5d0f44e43f71fdb717978773139b8f854e30998ee186e5d749a02aac",
+    "assets/exported/shaders/set_piece_motion.gdshader": "fa9db281b0a17bfa0172c1d78f96bfef391e643f33b3eea9c048a0649a1f9b89",
+    "game/world/track_world.gd": "9e9ce66861af526a8705d3afc01483ac676c57c5bf167a5b72bec51e55b14ee3",
+    "game/world/shader_warmup.gd": "940274dfb105cab896bad3081b33fd65b3fb5e01f8ad5612bbc311b27112e836",
+    "game/platform/settings_runtime.gd": "e86215a800fbdb68ca541bfe08e10e9f1d96c7dcdd158669c5d3c82f58d24793"
+  },
+  "boundary": "Local macOS Compatibility rendering; actual meshes/camera-corridor rays/terrain foundations, ordinary fixed forward approach views, diagnostic native motion pixels and all-forty real loading/GPU/ENet fixtures. Not Android APK/physical-device, human preference or thermal/frame-time certification. Approach-capture metadata read the asset manifest before postcard authoring; the final manifest was regenerated and validated afterward. Remote CI is separate.",
+  "artifacts_sha256": {
+    "geometry.json": "0e26e0866ca596871ceb8778fe66f50d64a09955c7386e3fa9bbbc02479fd3fb",
+    "references.json": "2b941e43c604b802ef21d9007261b2d34f9dd3fe3d966832ce4ec559274932f4",
+    "windfarm_run-native.png": "d805915c1a863170a39af53c5c2f010ad7e8d7f51babdfe90d11224f6293ca75",
+    "reactor_rift-native.png": "d6b869bc65d0e22602108022b9fc1fa0a4f5b05a989d4c3d5bd6fb8002cb5caf",
+    "courses-3.png": "bf1dba42f961555f5d12178d7dc15bebc3721ec1331a21e859dfdf0d353904ae",
+    "courses-2.png": "db00f48aa1403a79bb8343812b1cb4591763d915296a3924db81d92521f8c06c",
+    "courses-1.png": "9f88e06d0c5a28c6f0f98c92d9570d55039cc28d017c6e89b48b1995a61313cc",
+    "storm_chase-native.png": "3acbc83367a49dccd71288417654d2380993f22e5ac3a8d3c729c9f1ced284d1",
+    "shader-warmup-native.json": "b8cbdeb79c1b1d74681e8bdac39e6fc53a9076a6b696c16e5e44b47bdd76d335",
+    "motion-native.json": "98ce314f55a23435eca13260ad99a59fd63958945284b01a3605e61703957a63",
+    "cloudforest_climb-native.png": "3438b82ed0bf23b69d7d4512ccf9c511152dd5cabf8c3d93e13f90bda3a7d067",
+    "festival_speedway-native.png": "3b3d9e94caaabf3510a10df1a5e7b618ac4230728c0d6023e4f8036659f9a0ce"
+  }
+}

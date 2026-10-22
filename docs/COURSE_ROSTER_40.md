@@ -144,3 +144,45 @@ shelf or planetary backdrop. Random Track in Quick Race and Time Trial chooses
 from the complete roster, avoids immediately repeating the selection, and shows
 the selected card and preview before starting. Runtime poster PNGs are 74.4
 percent smaller; the original artwork and source hashes are retained.
+
+
+## Individually composed 3D landmarks
+
+The following actual mesh landmarks supplement the five painted beats and
+setting architecture. They have deterministic, road-clear placement and reserved
+approach sightlines. The course still uses the canonical road/collision bake.
+
+| Course | 3D landmark |
+|---|---|
+| Glacier Ridge | Glacial Gallery |
+| Aurora Harbor | Polar Crane |
+| Alpine Meadow | Chairlift |
+| Frostbite Fjord | Frozen Falls |
+| Tundra Pipeline | Pipeline |
+| Rainforest Ruins | Temple Portal |
+| Monsoon Delta | Sluice |
+| Coral Causeway | Coral Hoops |
+| Mangrove Maze | Root Bridge |
+| Cloudforest Climb | Canopy Falls |
+| Sakura Ring | Lantern Torii |
+| Bamboo Gorge | Suspension Walk |
+| Lantern Market | Market Canopy |
+| Terrace Touge | Tea House |
+| Temple Coast | Temple Bell |
+| Saltflat Velocity | Timing Gantry |
+| Dune Serpent | Fossil Ribs |
+| Oasis Citadel | Aqueduct |
+| Copper Mesa | Mine Conveyor |
+| Storm Chase | Storm Funnel |
+| Steelworks Sprint | Blast Furnace |
+| Container Corkscrew | Container Lift |
+| Neon Underpass | Metro Viaduct |
+| Windfarm Run | Wind Turbines |
+| Festival Speedway | Festival Wheel |
+| Lunar Freight | Rocket Pad |
+| Orbital Gardens | Armillary |
+| Crystal Chasm | Crystal Arch |
+| Mars Badlands | Canyon Bridge |
+| Reactor Rift | Reactor Core |
+
+[Geometry, approach views, native motion and loading evidence](evidence/expansion-set-pieces/validation.json).

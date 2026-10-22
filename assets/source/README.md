@@ -165,3 +165,17 @@ original ten terrain exports.
 Lanczos filter and optimized RGB PNG output. The original 1536×1024 source PNGs
 are preserved; the catalog records both hashes and dimensions. The ten runtime
 posters total 7,918,411 bytes, down from 30,986,371 bytes.
+
+
+`game/world/expansion_set_pieces.gd` is the editable source for thirty original
+3D course landmarks. `SPECS` defines the course-specific composition and intended
+beat; the planner chooses a road-clear, readable nearby site and reserves its
+footprint and tree-canopy view. Meshes are built once during loading, with no
+runtime Blender or per-frame scene callback. The shared
+`set_piece_motion.gdshader` turns rotors/rings, keeps wheel cabins upright as
+they orbit, and animates waterfall streaks. Reduce Motion freezes every effect.
+Run `tests/expansion_set_piece_tests.gd` for geometry/grounding/road-clearance and
+`tests/set_piece_motion_evidence.gd` with a native renderer for actual motion
+pixels. `tests/course_reference_evidence.gd -- --ci --expansion-heroes
+--write-thumbnails` captures two actual approaches per addition and authors new
+postcards; regenerate `tools/asset_hash.py` afterward.

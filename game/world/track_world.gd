@@ -18,6 +18,7 @@ var poster_sites: Array[Dictionary] = []
 var scenery_clearings: Array[Dictionary] = []
 var decor_sites: Array[Dictionary] = []
 var spectacle_sites: Array[Dictionary] = []
+var hero_sites: Array[Dictionary] = []
 static var skies: Dictionary = {}
 
 
@@ -79,6 +80,7 @@ func advance_build() -> bool:
 				CourseDecor.build(self)
 				CourseSpectacles.build(self)
 				ArcadeCourseDetail.build(self)
+				ExpansionSetPieces.build(self,hero_sites)
 				if art.get("elevated",false): CourseRoadMesh.elevated_supports(self)
 				RoadsidePosterArt.build(self)
 				build_stage += 1
@@ -139,6 +141,7 @@ func build_environment() -> void:
 	poster_sites = RoadsidePosterArt.plan(self)
 	decor_sites = CourseDecor.plan(self)
 	spectacle_sites = CourseSpectacles.plan(self)
+	hero_sites = ExpansionSetPieces.plan(self)
 	if art.water:
 		var water := MeshInstance3D.new()
 		var plane := PlaneMesh.new()
@@ -342,6 +345,7 @@ func build_scenery_batch(first: int, last: int) -> void:
 
 
 func decoration_allowed(at: Vector3) -> bool:
+	if ExpansionSetPieces.blocks_sightline(hero_sites,at): return false
 	for clearing: Dictionary in scenery_clearings:
 		var center: Vector3 = clearing.center
 		if Vector2(at.x-center.x,at.z-center.z).length()<float(clearing.radius): return false

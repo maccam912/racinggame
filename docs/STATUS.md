@@ -1590,3 +1590,42 @@ are local source/render checks; remote CI and Android APK/device evidence remain
 separate. The owner authorizes continued polish/content until weekly usage drops
 below 50 percent remaining, then finishing, committing/pushing the current chunk
 and stopping.
+
+
+### Thirty original 3D course set pieces
+
+Every expansion course now has an individually composed actual 3D landmark,
+including an ice cavern, crane, chairlift, frozen cascade, pipeline, temple,
+sluice, coral hoops, root bridge, canopy falls, torii, suspension walk, lantern
+market, tea terraces, temple bell, timing board, fossil ribs, aqueduct, conveyor,
+storm funnel, furnace, cargo lift, metro crossing, turbines, festival wheel,
+rocket pad, armillary habitat, crystal arch, Mars bridge and reactor.
+[Courses 11–20](evidence/expansion-set-pieces/courses-1.png),
+[courses 21–30](evidence/expansion-set-pieces/courses-2.png),
+[courses 31–40](evidence/expansion-set-pieces/courses-3.png).
+
+Sites reserve their full footprints and tree-canopy view corridors. They avoid
+other named landmarks, choose a readable approach and face it. The worst selected
+forward alignment is **0.880**, keeping the landmark center within about
+29 degrees of forward view. Foundations extend into the actual surrounding
+terrain. Features contain **172–2,328 triangles** and no driving collision;
+real road/camera-corridor rays, finite unit normals and standalone bounds pass
+on all thirty. The original ten courses and all gameplay bytes remain unchanged.
+
+Three wind turbines turn independently. The festival wheel rotates with upright
+orbiting cabins; reactor rings and a dust funnel move through a shared vertex
+shader, and water cascades have flowing streaks. No per-frame scene callback is
+added. Reduce Motion freezes geometry and waterfall animation. Native comparisons
+on all five cases measure real changed pixels when enabled and **zero** changed
+samples when reduced. [Motion evidence](evidence/expansion-set-pieces/motion-native.json).
+
+The complete local gate passes **193/193 commands** on the final source. Native
+captures cover **60** ordinary approach views, and all thirty postcards are
+refreshed. The actual loading/GPU fixture passes all **40** courses, plus failure,
+retry, cancel, background and real ENet Loaded ordering. Shader preparation now
+warms each authored 3D font/size and the sign's actual glyphs before Grid.
+[Evidence and limits](evidence/expansion-set-pieces/validation.json).
+Gameplay content remains **13**, protocol **7**, save schema **1**; only cosmetic
+identity changes. The preceding route revision's remote CI
+[39719513393](https://github.com/maccam912/racinggame/actions/runs/39719513393)
+passed. This set-piece revision's remote result is tracked separately after push.

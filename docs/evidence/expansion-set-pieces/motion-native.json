@@ -1,0 +1,39 @@
+{
+	"boundary": "Native macOS pixels at a fixed diagnostic camera, every second pixel with 0.015 channel tolerance, 45 frames between samples. Moving and reduced captures share the same scene/settings; Reduce Motion freezes the three turbines, wheel and upright cabins, reactor rings and storm funnel. Not APK/physical-device or frame-time acceptance.",
+	"cases": [
+		{
+			"moving_changed_samples": 2619,
+			"reduced_changed_samples": 0,
+			"track": "windfarm_run"
+		},
+		{
+			"moving_changed_samples": 3604,
+			"reduced_changed_samples": 0,
+			"track": "festival_speedway"
+		},
+		{
+			"moving_changed_samples": 778,
+			"reduced_changed_samples": 0,
+			"track": "reactor_rift"
+		},
+		{
+			"moving_changed_samples": 2447,
+			"reduced_changed_samples": 0,
+			"track": "storm_chase"
+		},
+		{
+			"moving_changed_samples": 5712,
+			"reduced_changed_samples": 0,
+			"track": "cloudforest_climb"
+		}
+	],
+	"content_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+	"passed": true,
+	"renderer": "gl_compatibility",
+	"resolution": [
+		960,
+		540
+	],
+	"shader_sha256": "fa9db281b0a17bfa0172c1d78f96bfef391e643f33b3eea9c048a0649a1f9b89",
+	"source_sha256": "50af59ce5d0f44e43f71fdb717978773139b8f854e30998ee186e5d749a02aac"
+}

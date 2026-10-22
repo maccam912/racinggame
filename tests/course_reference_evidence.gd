@@ -16,7 +16,9 @@ func run() -> void:
 	var records: Array[Dictionary] = []
 	var structures := "--crest-structures" in OS.get_cmdline_user_args()
 	var decorations := "--decorations" in OS.get_cmdline_user_args()
+	var heroes := "--expansion-heroes" in OS.get_cmdline_user_args()
 	var prefix := "content6-decor" if decorations else "content6-set-piece" if structures else "m4-course"
+	if heroes: prefix = "expansion-hero"
 	var selected := ""
 	var draw_distance := 700.0
 	for arg: String in OS.get_cmdline_user_args():
@@ -24,6 +26,7 @@ func run() -> void:
 		if arg.begins_with("--draw-distance="): draw_distance = clampf(float(arg.trim_prefix("--draw-distance=")),400,1000)
 	if draw_distance!=700: prefix += "-distance"+str(int(draw_distance))
 	for track: TrackDefinition in Catalog.tracks:
+		if heroes and not ExpansionSetPieces.SPECS.has(track.id): continue
 		if not selected.is_empty() and not track.id in selected.split(","): continue
 		print("COURSE_REFERENCE_BEGIN ",track.id)
 		var world := TrackWorld.new()
@@ -50,6 +53,10 @@ func run() -> void:
 			light.shadow_enabled = true
 			light.directional_shadow_max_distance = 80
 		var anchors: Array = [float(CourseSetPieces.SPECS[track.id].u)-.02 if CourseSetPieces.SPECS.has(track.id) else .19] if structures else [.10,.35,.60,.85]
+		if heroes:
+			assert(world.hero_sites.size()==1)
+			var original_u: float = track.bake.samples[track.sample_index(float(world.hero_sites[0].s))][7]
+			anchors = [original_u-(130 if world.hero_sites[0].spanning else 220)/track.length,original_u-(65 if world.hero_sites[0].spanning else 130)/track.length]
 		if decorations: anchors = [.22,.72] if track.id in ["redwood_run","pacific_summit","quarry_switchback"] else [.12,.35]
 		for u: float in anchors:
 			var s := CourseArt.original_s(track,u)
@@ -64,11 +71,13 @@ func run() -> void:
 			for frame in range(8): await process_frame
 			await RenderingServer.frame_post_draw
 			var filename := "%s-%s-u%02d.png"%[prefix,track.id,roundi(u*100)]
+			if heroes: filename = filename.trim_suffix(".png")+"-s"+str(roundi(s))+".png"
 			assert(root.get_texture().get_image().save_png(output+"/"+filename)==OK)
 			records.append({"track":track.id,"u":u,"s":s,"image":filename,"sha256":FileAccess.get_sha256(output+"/"+filename),"route_hash":track.content_hash})
 		if "--write-thumbnails" in OS.get_cmdline_user_args():
 			var anchor: Dictionary = CourseArt.spec(track.id).landmarks[[1,3,1,1,1,1,0,2,0,2][Catalog.tracks.find(track)] if Catalog.tracks.find(track)<10 else 0]
 			var s := CourseArt.original_s(track,float(anchor.u))-75
+			if heroes: s = CourseArt.original_s(track,float(anchors[0]))
 			var pose := track.pose(s)
 			var state := VehicleState.new()
 			state.position = RouteGeometry.point(track,track.sample_index(s),0)+Vector3.UP*.35

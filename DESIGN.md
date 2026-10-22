@@ -1087,3 +1087,22 @@ Quick Race and Time Trial expose Random Track in the fixed footer. It chooses
 uniformly among all other courses, then updates the focused card, preview,
 description and race configuration. Painted trackside signs use 768×512 runtime
 PNGs, retaining the original 1536×1024 sources and their separate hashes.
+
+
+### Original 3D landmarks and motion for the thirty additions
+
+`ExpansionSetPieces.SPECS` assigns a unique landmark composition to every
+addition. Actual meshes, rather than additional painted copies, supply its
+architecture. Deterministic planning avoids the named landmark beats and all
+road branches, scores forward approach visibility, faces standalone landmarks
+toward that approach, and reserves tree-canopy sightlines before scenery batches.
+Spanning features retain a 12 m tested camera/driving corridor; standalone and
+animated silhouettes stay inside conservative road-clear footprints. Foundations
+meet the actual surrounding terrain. Features have no driving collision.
+
+The shared motion material supports turning rotors/rings, upright orbiting wheel
+cabins and flowing water streaks. All effects stop under Reduce Motion; they use
+no per-frame scene callbacks. Spatial distance culling and bounded mesh budgets
+remain required. Large display-font signs warm their actual font, size and
+course-name glyphs during loading. Geometry, compatibility and source/asset
+identities remain separate; this revision preserves content 13/protocol 7/save 1.

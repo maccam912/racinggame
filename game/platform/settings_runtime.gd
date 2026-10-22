@@ -31,5 +31,8 @@ static func apply(owner_node: Node, settings: Dictionary, display: bool = false)
 		item.directional_shadow_max_distance = 160.0 if settings.shadows=="high" else 80.0
 	for item: GeometryInstance3D in owner_node.get_tree().get_nodes_in_group("scenery_distance"):
 		item.visibility_range_end = minf(float(settings.draw_distance),float(item.get_meta("lod_limit",settings.draw_distance)))
+	for item: GeometryInstance3D in owner_node.get_tree().get_nodes_in_group("scenery_motion"):
+		var material := item.material_override as ShaderMaterial
+		if material!=null: material.set_shader_parameter("animation_enabled",0.0 if bool(settings.reduce_motion) else 1.0)
 	if DisplayServer.get_name() != "headless" and not OS.has_feature("mobile"):
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED if settings.vsync else DisplayServer.VSYNC_DISABLED)
