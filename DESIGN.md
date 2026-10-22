@@ -1248,3 +1248,22 @@ use complete swept culling bounds, with no collision, shadows or scene-frame
 callbacks. They cull at 700 m, including after draw-distance settings change.
 Reduce Motion freezes a level waterline pose. Actual Far Chase visibility is
 checked separately from close views that demonstrate geometry and motion.
+
+
+### Course photographs, maps and explicit Random entry
+
+Quick Race and Time Trial put Random first in the course grid and retain the
+footer shortcut. It uses the active filter and existing session shuffle tour.
+Room Settings and Create Room put Random first in their course selector, resolve
+it immediately to one real course, and show that course's shipped in-game
+photograph and canonical map. Confirmation sends that resolved index; cancelling
+leaves authoritative room rules unchanged. Random never becomes a network track
+ID or a hidden second roll when starting the race.
+
+The shared map retains all baked route samples, adds a distance grid, travel
+arrows and checkered start marker, and plots the actual lap elevation profile.
+The waiting lobby shows the same photograph/map to every member. Compact phone
+Room Settings keep the selector in the header; compact lobby headers show the
+course name, with shorter footer captions and host Kick in the scrollable body.
+At 150% phone text size, both views remain above the fixed footer. Photographs
+are static native scene renders; they add no live world loading to the menu.

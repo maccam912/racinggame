@@ -7,6 +7,8 @@ var code_visible: bool = false
 var countdown: Label
 var iroh_code_caption: Label
 var iroh_copy: Button
+var track_shuffle := TrackShuffle.new()
+var course_picker: CoursePicker
 
 
 func _init(owner_app: Node) -> void:
@@ -48,11 +50,13 @@ func show_lobby() -> void:
 	if app.network.official and is_instance_valid(app.guest_service.identity) and app.guest_service.identity.state=="session_only":
 		list.add_child(shell.ui.paragraph(I18n.t("online.session_only")))
 	var rules: Dictionary = state.rules
-	list.add_child(shell.ui.label(I18n.t("track." + Catalog.tracks[int(rules.track)].id) + " • " + I18n.t("event.laps") + ": " + str(int(rules.laps)) + " • " + I18n.t("event.contact") + ": " + I18n.t("choice.on" if rules.contact else "choice.off")))
-	var preview := RoutePreview.new()
-	preview.track = Catalog.tracks[int(rules.track)]
-	preview.custom_minimum_size = Vector2(220, 80) * shell.ui.unit
+
+	var preview := CourseShowcase.new()
+	preview.configure(shell.ui,app.data.settings,Catalog.tracks[int(rules.track)])
 	list.add_child(preview)
+	list.move_child(preview,0)
+	list.add_child(shell.ui.paragraph(I18n.t("event.laps") + ": " + str(int(rules.laps)) + " • " + I18n.t("event.contact") + ": " + I18n.t("choice.on" if rules.contact else "choice.off")))
+	compact_lobby_header(shell,preview,list)
 	var own: Dictionary = {}
 	for member: Dictionary in state.members:
 		if member.id == app.network.guest_id:
@@ -80,19 +84,43 @@ func show_lobby() -> void:
 		list.add_child(row)
 	if own.is_empty():
 		return
-	shell.footer.add_child(shell.ui.button(I18n.t("online.change_car"), func() -> void: app.show_garage("online")))
+	var change_car := shell.ui.button(I18n.t("online.car_short" if shell.ui.mobile else "online.change_car"), func() -> void: app.show_garage("online"))
+	shell.footer.add_child(change_car)
 	shell.footer.add_child(shell.ui.button(I18n.t("online.unready" if own.ready else "online.ready"), func() -> void: app.network.command("ready", {"value":not own.ready})))
 	if state.host == app.network.guest_id:
-		shell.footer.add_child(shell.ui.button(I18n.t("online.settings"), show_rules))
+		shell.footer.add_child(shell.ui.button(I18n.t("online.settings_short" if shell.ui.mobile else "online.settings"), show_rules))
 		var start := shell.ui.button(I18n.t("online.start"), func() -> void: app.network.command("start"))
 		start.disabled = not state.members.all(func(row: Dictionary) -> bool: return row.ready and row.connected)
 		shell.ui.help(start,I18n.t("online.ready_required"),true)
 		if start.disabled:
 			list.add_child(shell.ui.paragraph(I18n.t("online.ready_required")))
 		shell.footer.add_child(start)
-		shell.footer.add_child(shell.ui.button(I18n.t("online.kick"), show_kick))
-	shell.footer.add_child(shell.ui.button(I18n.t("online.leave"), leave))
-	shell.first_focus()
+		list.add_child(shell.ui.button(I18n.t("online.kick"), show_kick))
+	shell.footer.add_child(shell.ui.button(I18n.t("online.leave_short" if shell.ui.mobile else "online.leave"), leave))
+	if shell.ui.mobile:
+		for button: Button in shell.footer.get_children(): button.add_theme_font_size_override("font_size",shell.ui.font_size(14))
+	change_car.call_deferred("grab_focus")
+
+
+func compact_lobby_header(shell: MenuShell, preview: CourseShowcase, list: VBoxContainer) -> void:
+	if not shell.ui.mobile: return
+	var heading := shell.headers[0] as Label
+	var room := shell.headers[1] as Label
+	heading.add_theme_font_size_override("font_size",shell.ui.font_size(20))
+	heading.autowrap_mode = TextServer.AUTOWRAP_OFF
+	preview.title.add_theme_font_size_override("font_size",shell.ui.font_size(20))
+	preview.title.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var header := HBoxContainer.new()
+	shell.column.remove_child(heading)
+	shell.column.remove_child(room)
+	preview.remove_child(preview.title)
+	header.add_child(heading)
+	header.add_child(preview.title)
+	shell.column.add_child(header)
+	shell.column.move_child(header,0)
+	shell.headers.assign([header])
+	preview.move_child(preview.facts,preview.get_child_count()-1)
+	list.add_child(room)
 
 
 func update_countdown() -> void:
@@ -117,10 +145,11 @@ func show_rules() -> void:
 	var shell: MenuShell = app.menu
 	var body := shell.reset(I18n.t("online.settings"))
 	var list := shell.scroll_column(body)
-	var tracks: Array[String] = []
-	for track: TrackDefinition in Catalog.tracks:
-		tracks.append(I18n.t("track." + track.id))
-	app.events.choice(list, "event.title", tracks, int(rules.track), func(index: int) -> void: rules.track = index)
+	course_picker = CoursePicker.new()
+	course_picker.configure(shell.ui,app.data.settings,int(rules.track),track_shuffle)
+	course_picker.track_selected.connect(func(index: int) -> void: rules.track = index)
+	list.add_child(course_picker)
+	course_picker.compact_header(shell)
 	app.events.choice(list, "event.laps", ["1", "2", "3"], int(rules.laps) - 1, func(index: int) -> void: rules.laps = index + 1)
 	app.events.choice(list, "event.difficulty", [I18n.t("difficulty.easy"), I18n.t("difficulty.medium"), I18n.t("difficulty.hard")], int(rules.difficulty), func(index: int) -> void: rules.difficulty = index)
 	for key in ["bot_fill", "contact"]:

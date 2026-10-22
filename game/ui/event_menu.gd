@@ -10,6 +10,8 @@ var track_cards: Array[Control] = []
 var filter_picker: Variant
 var adjust_columns: Callable
 var random_button: Button
+var random_card: Button
+var photograph: TextureRect
 var track_list: MenuScroll
 var reveal_generation: int = 0
 var app: Node
@@ -62,6 +64,21 @@ func show_event() -> void:
 	buttons.clear()
 	medal_icons.clear()
 	track_cards.clear()
+	var surprise := VBoxContainer.new()
+	if not app.data.mobile:
+		var symbol := shell.ui.label("?",true)
+		symbol.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		symbol.custom_minimum_size.y = 90*shell.ui.unit
+		symbol.add_theme_font_size_override("font_size",roundi(72*shell.ui.unit))
+		symbol.add_theme_color_override("font_color",UIFactory.YELLOW)
+		surprise.add_child(symbol)
+	random_card = shell.ui.button(I18n.t("event.random_short"),select_random_track)
+	random_card.name = "RandomTrackCard"
+	surprise.add_child(random_card)
+	var surprise_caption := shell.ui.paragraph(I18n.t("course.random_card"))
+	surprise_caption.add_theme_font_size_override("font_size",shell.ui.font_size(14))
+	surprise.add_child(surprise_caption)
+	grid.add_child(shell.ui.panel(surprise))
 	for index in range(Catalog.tracks.size()):
 		var track: TrackDefinition = Catalog.tracks[index]
 		var card: BoxContainer = HBoxContainer.new() if app.data.mobile else VBoxContainer.new()
@@ -133,8 +150,16 @@ func show_event() -> void:
 	detail_title = shell.ui.paragraph("")
 	detail_title.add_theme_font_size_override("font_size",shell.ui.font_size(22))
 	details.add_child(detail_title)
+	photograph = TextureRect.new()
+	photograph.name = "CoursePhotograph"
+	photograph.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	photograph.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	photograph.custom_minimum_size = Vector2(180,110)*shell.ui.unit
+	photograph.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	details.add_child(photograph)
 	preview = RoutePreview.new()
-	preview.custom_minimum_size = Vector2(180,110)*shell.ui.unit
+	preview.unit = shell.ui.unit
+	preview.custom_minimum_size = Vector2(180,200)*shell.ui.unit
 	details.add_child(preview)
 	info = shell.ui.paragraph("")
 	info.size_flags_horizontal = Control.SIZE_EXPAND_FILL
@@ -263,6 +288,7 @@ func apply_filter() -> void:
 		if included: visible_tracks.append(index)
 	if adjust_columns.is_valid(): adjust_columns.call_deferred()
 	random_button.disabled = visible_tracks.size()<2
+	random_card.disabled = random_button.disabled
 	if visible_tracks.is_empty(): return
 	if not track_index in visible_tracks: track_index = visible_tracks[0]
 	select_track(track_index)
@@ -303,6 +329,8 @@ func select_track(index: int) -> void:
 	track_shuffle.note_visit(visible_tracks,index)
 	var track: TrackDefinition = Catalog.tracks[index]
 	detail_title.text = I18n.t("track."+track.id)
+	photograph.texture = load("res://assets/exported/thumbnails/"+track.id+".png")
+	photograph.accessibility_name = I18n.t("course.photograph",[detail_title.text])
 	preview.track = track
 	preview.queue_redraw()
 	info.text = I18n.t("route.description." + track.id)

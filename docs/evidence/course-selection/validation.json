@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "base_commit": "4a07252f2d6ae5f02d0b3e2da045142949814da5",
+  "source_sha256": {
+    "game/ui/course_picker.gd": "e8554f20c4158af56e052cb1ff168736ee97a518dd1fffc3116618387b63c74f",
+    "game/ui/course_picker.gd.uid": "4dd08559af098ed4dcc4a36c59eccbebc7b6c01f09789635c3fb58648f239c51",
+    "game/ui/course_showcase.gd": "8753db11c5178a846998097bcc3a53ef4a08e98781aff5a017216d0cdf47cd76",
+    "game/ui/course_showcase.gd.uid": "0ffebb30530515601b23069d993243a2e2842aa66bb15ffedae79eac01ff047d",
+    "game/ui/event_menu.gd": "479795f18b8810dcb52decf912084fda061d1b2993d5e6c855b6261201122dd0",
+    "game/ui/lobby_page.gd": "1057860da6222059e350edf2b7abba837171a5a3db5eaadb79aa137bb9453821",
+    "game/ui/online_page.gd": "23ca03a2a63958cb540b3e0e73164a3163dc3b9878a1e001eb27923c66dcb515",
+    "game/ui/route_preview.gd": "1bc21847dbe320e9d3e8ad003a2f3329ec3eef274ba6fc41778bf817ef817157",
+    "game/ui/text/en.json": "e08a254d870b3a579e214ac4f456138efe178c14ca533d166865c3d1cd2e4603",
+    "tests/course_picker_tests.gd": "6dfbeebb0a78cb80f5131f635ee7d7d4f7661f14cafcd25df93ef0f65ad95cd7",
+    "tests/course_picker_tests.gd.uid": "8eb26c099c20ca86c4390fa593fe7bd43e1b04c4b06ec58edb7d1f68d3eb3ad9",
+    "tools/check.py": "e7cef5ef09fed6b6cf1b54fde2e91915d3904b31172c8d66bc3610ded24ae94d"
+  },
+  "source_gate": {
+    "file": "checks.json",
+    "passed": true,
+    "commands": 204
+  },
+  "gameplay_hash": "e351fbfedc288fb5c22bbc5620ac8f970c8fc6904c646920c1804cbbe78d55e9",
+  "asset_hash": "0991b8a95dd40e12ae1aa44f61f9ac43f2acd3a1f96a6aead5afe28300634faa",
+  "native": {
+    "log": "native.log",
+    "renderer": "Compatibility / Apple M5 Pro",
+    "desktop_and_phone_layout_overrides": [
+      100,
+      150
+    ],
+    "screenshots": {
+      "course-picker-phone-event-150.png": "83c2d2bec19d3fb1e96fbc5ec4e8f304aecbccfdc1cf586b58da9beaae083e94",
+      "course-picker-phone-lobby-100.png": "48c84ee40538d90ebc80ba6415b2d40d56d95b897aeca456923bb4f9958d131f",
+      "course-picker-desktop-settings-150.png": "d9c52d7838650bddfa278ff2e43c043ebe027dc3ba18715cf24b36b117b66f82",
+      "course-picker-desktop-event-150.png": "31d18bccb81b924678ae72d45df532d736686abfd7fb132a9f7594a558784663",
+      "course-picker-desktop-lobby-100.png": "c0b9870f43f546d8d9f8cdb630d6a3d45f090fe357775ae100295f2ba4fa28eb",
+      "course-picker-phone-settings-150.png": "0267dc434689cb1123342bc0c2e6ed414ac8d4647309fc2d7419395b5eca5c86",
+      "course-picker-phone-event-100.png": "56a22bb220effd928c87d82223f2eda92c68cb207cd815480025d94549351cdb",
+      "course-picker-phone-lobby-150.png": "c65fb89e4446d0cd30ce302f196a4aae895f9b4df199b8f136c8e8ebe52512cb",
+      "course-picker-phone-settings-100.png": "601d88d4ee8364cced066ed82c50fc9d876d3e0c8b5bc6777bf5614dcc4a7ab5",
+      "course-picker-desktop-settings-100.png": "2a47bd894e3656c8e404250838d40b0c94abf18fde4ccec5163845a2b8393eac",
+      "course-picker-desktop-event-100.png": "e8b7cce1f68e6d5041c61597060c855d379143213c6c319bda0cd0b08aa778db",
+      "course-picker-desktop-lobby-150.png": "da3df2a96d8f22077a8646dd18af6226e54560055018be8a488c771e79b71483"
+    }
+  },
+  "network": {
+    "file": "network.json",
+    "transport": "localhost ENet",
+    "cases": 4
+  },
+  "boundary": "Source gate metrics are headless; twelve native screenshots independently show desktop and phone layout overrides, including hosted-room sharing controls. Real two-client manual/random propagation is separate. No Android runtime or physical-device claim. Earlier full pass retained before the final hosted-room ordering fix."
+}

@@ -1,0 +1,55 @@
+extends SceneTree
+func _initialize() -> void: call_deferred("run")
+func run() -> void:
+	var probe := PacketPeerUDP.new()
+	assert(probe.bind(0,"127.0.0.1")==OK)
+	var port := probe.get_local_port()
+	probe.close()
+	var server := RoomServer.new()
+	server.port = port
+	root.add_child(server)
+	var app: Node = load("res://game/client_app.gd").new()
+	app.capture_path = "user://unused-live-picker.png"
+	app.capture_frame = 1000000000
+	root.add_child(app)
+	await process_frame
+	var folder := "user://tests/live-picker-"+RaceSetup.uuid()
+	app.data = AppData.new(folder,false)
+	app.menu.settings = app.data.settings
+	app.data.profile.first_run_complete = true
+	app.show_connection_form()
+	app.connect_address("127.0.0.1:"+str(port))
+	var deadline := Time.get_ticks_msec()+4000
+	while app.network.lobby.is_empty() and Time.get_ticks_msec()<deadline: await process_frame
+	assert(app.page=="lobby" and not app.network.lobby.is_empty())
+	var peer := NetworkClient.new()
+	root.add_child(peer)
+	assert(peer.connect_to("127.0.0.1",port,"Preview Guest")==OK)
+	deadline = Time.get_ticks_msec()+4000
+	while (peer.lobby.is_empty() or app.network.lobby.members.size()!=2) and Time.get_ticks_msec()<deadline: await process_frame
+	assert(app.network.lobby.members.size()==2)
+	var records: Array[Dictionary] = []
+	for selection: int in [40,0,13,0]:
+		app.lobby_page.show_rules()
+		app.lobby_page.course_picker.choose(selection)
+		var selected: int = app.lobby_page.course_picker.selected
+		for button: Button in app.menu.footer.find_children("*","Button",true,false):
+			if button.text==I18n.t("button.confirm"): button.pressed.emit()
+		deadline = Time.get_ticks_msec()+4000
+		while (int(peer.lobby.rules.track)!=selected or int(app.network.lobby.rules.track)!=selected) and Time.get_ticks_msec()<deadline: await process_frame
+		assert(int(peer.lobby.rules.track)==selected and int(server.lobby.rules.track)==selected)
+		assert(app.page=="lobby")
+		var view: CourseShowcase = app.menu.root.find_child("CourseShowcase",true,false)
+		assert(view.track==Catalog.tracks[selected] and view.map.track==Catalog.tracks[selected])
+		assert(view.photograph.texture.resource_path.ends_with(Catalog.tracks[selected].id+".png"))
+		records.append({"selection":"random" if selection==0 else "manual","resolved":selected,"server":server.lobby.rules.track,"guest":peer.lobby.rules.track,"photograph":view.photograph.texture.resource_path})
+	app.queue_free()
+	peer.queue_free()
+	server.queue_free()
+	await create_timer(.5).timeout
+	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
+	var file := FileAccess.open("/tmp/pacific-picker-network.json",FileAccess.WRITE)
+	file.store_string(JSON.stringify({"passed":true,"transport":"real localhost ENet","cases":records},"\t")+"\n")
+	file.close()
+	print("REAL_TWO_CLIENT_RANDOM_MANUAL_SERVER_GUEST_AND_LOBBY_PREVIEW_PASS")
+	quit()
