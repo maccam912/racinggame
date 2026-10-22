@@ -39,6 +39,14 @@ building and canopy reservations and unchanged terrain/gameplay identity.
 retain eleven views per coastal course before and after and three eight-car races
 in each timing run.
 
+Oasis Citadel now has five adobe/market/caravan settlements with seven palm
+gardens. Dune Serpent has four sandstone ridge groups and two desert rest stops.
+Actual placement retains **27/20 solid modules**, with disjoint buildings,
+reserved canopy footprints and buried rock bases. Twelve focused commands pass;
+both eight-car comparison races complete before and after.
+[Desert views, photographs and host timings](evidence/desert-places14/README.md)
+retain the source and boundaries.
+
 ## 21 October — forty courses, recorded music and presentation defaults
 
 The roster now contains **40 courses**: the retained ten plus thirty individually

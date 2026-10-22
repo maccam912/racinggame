@@ -1,0 +1,251 @@
+{
+  "platform": "Darwin-arm64",
+  "engine": "4.6.3-stable",
+  "commit": "60f6bf63df8b9d46b1cf6207d77086ba34c48b3f",
+  "working_tree_dirty": true,
+  "folder": "/tmp/pacific-desert14-checks/checks-c5108688a9",
+  "command_count": 12,
+  "passed": true,
+  "status": "complete",
+  "results": [
+    {
+      "suite": "tools/author_course_compositions.py --check",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/author_course_compositions.py",
+        "--check"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:04.685732+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/001.log",
+      "seconds": 0.041,
+      "output": "THIRTY_FOUR_AUTHORED_COURSE_COMPOSITIONS\n"
+    },
+    {
+      "suite": "tools/content_hash.py --check",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/content_hash.py",
+        "--check"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:04.727674+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/002.log",
+      "seconds": 0.074,
+      "output": "a3f19386ae963d64bef791556074983f4b45cce689f01e2e270b264b7abb05fd\n"
+    },
+    {
+      "suite": "tools/asset_hash.py --check",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/asset_hash.py",
+        "--check"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:04.802882+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/003.log",
+      "seconds": 0.549,
+      "output": "Validated four original cars, twelve explicit LODs, shared 1024 atlas and editable source\nValidated 30 landmarks, five vegetation models, seven props, forty cosmetic terrains and shared atlases\nValidated 48 Vorbis streams, seven recorded CC0 rock/metal selections, four engine profiles and eight fixed prompts\nValidated 94 original editable SVG interface icons, canonical course outlines, paint swatches and mipmaps\nValidated ten resized runtime posters, preserved originals, provenance, hashes and mipmaps\nValidated original unmodified transparent waterfall artwork, provenance and mipmaps\nValidated arcade sprite and sky provenance, atlas regions, hashes and mipmaps\nValidated six untouched imagegen atlases and one standalone tree, 52 alpha-bounded sprites and original prompts\n17cbf0a415758c826244272127d578d708298627888579b7e623123c43184628\n"
+    },
+    {
+      "suite": "tools/terrain_contracts.py",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/terrain_contracts.py"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:05.352991+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/004.log",
+      "seconds": 3.721,
+      "output": "ACTUAL_FORTY_REVIEWED_TERRAIN_EXPORTS_SEVEN_RETAINED_CLASSICS_WATER_AND_BUDGET_PASS\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/source_script_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/source_script_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:09.074646+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/005.log",
+      "seconds": 0.719,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nALL_SHIPPED_OPTIONAL_AND_MAIN_GDSCRIPTS_COMPILE_PASS count=148\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/authored_composition_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/authored_composition_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:09.795002+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/006.log",
+      "seconds": 13.79,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nAUTHORED_COMPOSITION palm_bay places=7 modules=0\nAUTHORED_COMPOSITION citrus_pass places=7 modules=0\nAUTHORED_COMPOSITION marina_lights places=27 modules=106\nAUTHORED_COMPOSITION redwood_run places=9 modules=0\nAUTHORED_COMPOSITION glacier_ridge places=8 modules=12\nAUTHORED_COMPOSITION aurora_harbor places=5 modules=26\nAUTHORED_COMPOSITION alpine_meadow places=7 modules=0\nAUTHORED_COMPOSITION frostbite_fjord places=7 modules=11\nAUTHORED_COMPOSITION tundra_pipeline places=5 modules=3\nAUTHORED_COMPOSITION rainforest_ruins places=8 modules=0\nAUTHORED_COMPOSITION monsoon_delta places=12 modules=18\nAUTHORED_COMPOSITION coral_causeway places=16 modules=29\nAUTHORED_COMPOSITION mangrove_maze places=9 modules=5\nAUTHORED_COMPOSITION cloudforest_climb places=9 modules=0\nAUTHORED_COMPOSITION sakura_ring places=8 modules=0\nAUTHORED_COMPOSITION bamboo_gorge places=8 modules=0\nAUTHORED_COMPOSITION lantern_market places=5 modules=58\nAUTHORED_COMPOSITION terrace_touge places=9 modules=7\nAUTHORED_COMPOSITION temple_coast places=7 modules=4\nAUTHORED_COMPOSITION saltflat_velocity places=4 modules=6\nAUTHORED_COMPOSITION dune_serpent places=9 modules=20\nAUTHORED_COMPOSITION oasis_citadel places=13 modules=27\nAUTHORED_COMPOSITION copper_mesa places=8 modules=11\nAUTHORED_COMPOSITION storm_chase places=4 modules=3\nAUTHORED_COMPOSITION steelworks_sprint places=5 modules=37\nAUTHORED_COMPOSITION container_corkscrew places=5 modules=38\nAUTHORED_COMPOSITION neon_underpass places=10 modules=119\nAUTHORED_COMPOSITION windfarm_run places=5 modules=3\nAUTHORED_COMPOSITION festival_speedway places=6 modules=15\nAUTHORED_COMPOSITION lunar_freight places=8 modules=20\nAUTHORED_COMPOSITION orbital_gardens places=9 modules=20\nAUTHORED_COMPOSITION crystal_chasm places=5 modules=3\nAUTHORED_COMPOSITION mars_badlands places=5 modules=22\nAUTHORED_COMPOSITION reactor_rift places=5 modules=26\nTHIRTY_FOUR_AUTHORED_PLACES_COMPOUNDS_AND_ROAD_TERRAIN_CLEARANCE_PASS\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/scenery_contract_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/scenery_contract_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:23.585823+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/007.log",
+      "seconds": 6.522,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nSCENERY_47_ASSETS_30_ORIGINAL_U_ANCHORS_LODS_ATLAS_ALPHA_COLLISION_IMMUTABILITY_PASS\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/landscape_sightline_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/landscape_sightline_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:30.109124+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/008.log",
+      "seconds": 8.92,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nLANDSCAPE_SITES palm_bay 749\nLANDSCAPE_SITES citrus_pass 1541\nLANDSCAPE_SITES marina_lights 452\nLANDSCAPE_SITES redwood_run 2182\nLANDSCAPE_SITES sunstone_canyon 653\nLANDSCAPE_SITES pacific_summit 2952\nLANDSCAPE_SITES skyline_splice 419\nLANDSCAPE_SITES quarry_switchback 602\nLANDSCAPE_SITES spillway_sprint 115\nLANDSCAPE_SITES caldera_crosscut 727\nTEN_COURSE_LANDSCAPE_DEPTH_GROUNDING_CLEARANCE_AND_BATCH_BUDGET_PASS\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion_roadside_life_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/expansion_roadside_life_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:39.030013+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/009.log",
+      "seconds": 15.747,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nEXPANSION_ROADSIDE_LIFE glacier_ridge sites=3 kinds=[\"weather_station\", \"rescue_sled\"]\nEXPANSION_ROADSIDE_LIFE aurora_harbor sites=4 kinds=[\"harbor_catch\", \"fuel_locker\", \"fjord_buoy\"]\nEXPANSION_ROADSIDE_LIFE alpine_meadow sites=3 kinds=[\"ski_rack\", \"weather_station\", \"rescue_sled\"]\nEXPANSION_ROADSIDE_LIFE frostbite_fjord sites=3 kinds=[\"harbor_catch\", \"weather_station\"]\nEXPANSION_ROADSIDE_LIFE tundra_pipeline sites=4 kinds=[\"fuel_locker\", \"weather_station\", \"rescue_sled\"]\nEXPANSION_ROADSIDE_LIFE rainforest_ruins sites=4 kinds=[\"stone_idol\", \"trail_camp\", \"coffee_crates\"]\nEXPANSION_ROADSIDE_LIFE monsoon_delta sites=5 kinds=[\"river_gauge\", \"fishing_rack\", \"cargo_pallet\"]\nEXPANSION_ROADSIDE_LIFE coral_causeway sites=5 kinds=[\"surf_rack\", \"snack_cart\", \"fishing_rack\", \"trail_camp\"]\nEXPANSION_ROADSIDE_LIFE mangrove_maze sites=3 kinds=[\"fishing_rack\", \"river_gauge\", \"stone_idol\"]\nEXPANSION_ROADSIDE_LIFE cloudforest_climb sites=4 kinds=[\"coffee_crates\", \"trail_camp\", \"stone_idol\"]\nEXPANSION_ROADSIDE_LIFE sakura_ring sites=5 kinds=[\"cycle_rack\", \"stone_lantern\", \"wayside_shrine\"]\nEXPANSION_ROADSIDE_LIFE bamboo_gorge sites=3 kinds=[\"bamboo_cart\", \"stone_lantern\", \"wayside_shrine\"]\nEXPANSION_ROADSIDE_LIFE lantern_market sites=3 kinds=[\"market_cart\", \"cycle_rack\"]\nEXPANSION_ROADSIDE_LIFE terrace_touge sites=4 kinds=[\"tea_baskets\", \"bamboo_cart\", \"wayside_shrine\"]\nEXPANSION_ROADSIDE_LIFE temple_coast sites=3 kinds=[\"stone_lantern\", \"wayside_shrine\", \"tea_baskets\"]\nEXPANSION_ROADSIDE_LIFE saltflat_velocity sites=4 kinds=[\"timing_booth\", \"survey_tripod\", \"weather_probe\"]\nEXPANSION_ROADSIDE_LIFE dune_serpent sites=3 kinds=[\"water_tank\", \"shade_shelter\", \"survey_tripod\"]\nEXPANSION_ROADSIDE_LIFE oasis_citadel sites=4 kinds=[\"shade_shelter\", \"water_tank\", \"timing_booth\"]\nEXPANSION_ROADSIDE_LIFE copper_mesa sites=4 kinds=[\"core_samples\", \"survey_tripod\", \"weather_probe\"]\nEXPANSION_ROADSIDE_LIFE storm_chase sites=4 kinds=[\"weather_probe\", \"survey_tripod\", \"water_tank\"]\nEXPANSION_ROADSIDE_LIFE steelworks_sprint sites=4 kinds=[\"steel_rack\", \"cargo_pallet\", \"service_cabinet\"]\nEXPANSION_ROADSIDE_LIFE container_corkscrew sites=4 kinds=[\"cargo_pallet\", \"service_cabinet\", \"tire_stack\"]\nEXPANSION_ROADSIDE_LIFE neon_underpass sites=3 kinds=[\"bus_shelter\", \"snack_cart\"]\nEXPANSION_ROADSIDE_LIFE windfarm_run sites=4 kinds=[\"service_cabinet\", \"tire_stack\", \"steel_rack\"]\nEXPANSION_ROADSIDE_LIFE festival_speedway sites=5 kinds=[\"snack_cart\", \"bus_shelter\", \"tire_stack\"]\nEXPANSION_ROADSIDE_LIFE lunar_freight sites=3 kinds=[\"cargo_pod\", \"rover_battery\", \"antenna_dish\"]\nEXPANSION_ROADSIDE_LIFE orbital_gardens sites=4 kinds=[\"hydroponic_tray\", \"coolant_station\", \"survey_beacon\"]\nEXPANSION_ROADSIDE_LIFE crystal_chasm sites=4 kinds=[\"survey_beacon\", \"rover_battery\", \"antenna_dish\"]\nEXPANSION_ROADSIDE_LIFE mars_badlands sites=3 kinds=[\"rover_battery\", \"cargo_pod\", \"survey_beacon\"]\nEXPANSION_ROADSIDE_LIFE reactor_rift sites=2 kinds=[\"coolant_station\", \"antenna_dish\"]\nTHIRTY_COURSES_THIRTY_SIX_ROADSIDE_OBJECTS_REAL_CLEARANCE_GROUNDING_SIGHTLINES_AND_CLASSIC_EXCLUSION_PASS\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/biome_surface_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/biome_surface_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:05:54.778047+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/010.log",
+      "seconds": 8.499,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nTHIRTY_COURSE_BIOMES_TEN_GROUND_TREATMENTS_FIVE_SPACE_SKIES_SHARED_VERGE_MATERIAL_PASS\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion_set_piece_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/expansion_set_piece_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:06:03.278206+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/011.log",
+      "seconds": 10.367,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nHERO_SET_PIECE glacier_ridge triangles=516 corridor_rays=54\nHERO_SET_PIECE aurora_harbor triangles=480 corridor_rays=0\nHERO_SET_PIECE alpine_meadow triangles=1224 corridor_rays=30\nHERO_SET_PIECE frostbite_fjord triangles=314 corridor_rays=0\nHERO_SET_PIECE tundra_pipeline triangles=228 corridor_rays=24\nHERO_SET_PIECE rainforest_ruins triangles=376 corridor_rays=30\nHERO_SET_PIECE monsoon_delta triangles=644 corridor_rays=0\nHERO_SET_PIECE coral_causeway triangles=648 corridor_rays=45\nHERO_SET_PIECE mangrove_maze triangles=744 corridor_rays=39\nHERO_SET_PIECE cloudforest_climb triangles=866 corridor_rays=0\nHERO_SET_PIECE sakura_ring triangles=660 corridor_rays=24\nHERO_SET_PIECE bamboo_gorge triangles=960 corridor_rays=27\nHERO_SET_PIECE lantern_market triangles=2328 corridor_rays=54\nHERO_SET_PIECE terrace_touge triangles=300 corridor_rays=0\nHERO_SET_PIECE temple_coast triangles=276 corridor_rays=30\nHERO_SET_PIECE saltflat_velocity triangles=684 corridor_rays=27\nHERO_SET_PIECE dune_serpent triangles=1020 corridor_rays=48\nHERO_SET_PIECE oasis_citadel triangles=576 corridor_rays=27\nHERO_SET_PIECE copper_mesa triangles=940 corridor_rays=30\nHERO_SET_PIECE storm_chase triangles=1104 corridor_rays=0\nHERO_SET_PIECE steelworks_sprint triangles=1164 corridor_rays=0\nHERO_SET_PIECE container_corkscrew triangles=420 corridor_rays=36\nHERO_SET_PIECE neon_underpass triangles=1236 corridor_rays=39\nHERO_SET_PIECE windfarm_run triangles=684 corridor_rays=0\nHERO_SET_PIECE festival_speedway triangles=1212 corridor_rays=0\nHERO_SET_PIECE lunar_freight triangles=992 corridor_rays=0\nHERO_SET_PIECE orbital_gardens triangles=648 corridor_rays=33\nHERO_SET_PIECE crystal_chasm triangles=308 corridor_rays=33\nHERO_SET_PIECE mars_badlands triangles=172 corridor_rays=36\nHERO_SET_PIECE reactor_rift triangles=800 corridor_rays=0\nTHIRTY_UNIQUE_3D_SET_PIECES_REAL_ROAD_CLEARANCE_BOUNDS_AND_REDUCED_MOTION_PASS\n"
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/shader_warmup_tests.gd -- --profile=ci_tests",
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "tools/godot.py",
+        "--headless",
+        "--fixed-fps",
+        "60",
+        "--script",
+        "tests/shader_warmup_tests.gd",
+        "--",
+        "--profile=ci_tests"
+      ],
+      "passed": true,
+      "started_utc": "2026-10-22T17:06:13.646306+00:00",
+      "timed_out": false,
+      "interrupted": false,
+      "exit_code": 0,
+      "log": "/tmp/pacific-desert14-checks/checks-c5108688a9/012.log",
+      "seconds": 16.652,
+      "output": "Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)\nGodot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org\n\nSHADER_WARM_ALL_TEN_TRACKS_ALL_SHIPPED_SHADERS_FOUR_CAR_RESOURCES_INSTANCING_NO_PHYSICS_CANCEL_HEADLESS_BOUNDARY_PASS shaders=20 max_submissions=69\n"
+    }
+  ]
+}

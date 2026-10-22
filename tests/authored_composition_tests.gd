@@ -32,10 +32,10 @@ func run() -> void:
 			assert(world.clear_of_road(site.at,site.radius),"full scenery footprints clear all road branches")
 			if site.has("module"):
 				physical_modules += 1
-				assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff","ice_wall","glacial_erratic"] else 16))
+				assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff","sandstone_fin","ice_wall","glacial_erratic"] else 16))
 		for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
 			if not node.has_meta("module"): continue
-			if node.get_meta("module") in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff","ice_wall","glacial_erratic"]: check_natural_foundation(world,node)
+			if node.get_meta("module") in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff","sandstone_fin","ice_wall","glacial_erratic"]: check_natural_foundation(world,node)
 			var key := node.mesh.get_instance_id()
 			if modules.has(key): continue
 			modules[key] = true
@@ -48,6 +48,7 @@ func run() -> void:
 		if track.id in ["neon_underpass","marina_lights"]: check_city_blocks(world)
 		if track.id=="marina_lights": check_marina(world,landscape)
 		if track.id in ["coral_causeway","monsoon_delta","mangrove_maze"]: check_coastal(world,landscape)
+		if track.id in ["oasis_citadel","dune_serpent"]: check_desert(world,landscape)
 		if track.id in ["glacier_ridge","frostbite_fjord"]:
 			var ice_walls := 0
 			var erratics := 0
@@ -181,3 +182,37 @@ func check_coastal(world: TrackWorld, landscape: Node3D) -> void:
 			if not building.has("module"): continue
 			var delta: Vector3 = site.at-building.at
 			assert(Vector2(delta.x,delta.z).length()>=float(site.radius)+float(building.radius),"coastal canopies reserve the solid building and rock footprints")
+
+func check_desert(world: TrackWorld, landscape: Node3D) -> void:
+	var kinds: Dictionary = {}
+	var polygons: Array[PackedVector2Array] = []
+	var names: Array[String] = []
+	for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
+		if not node.has_meta("module"): continue
+		var kind: String = node.get_meta("module")
+		kinds[kind] = int(kinds.get(kind,0))+1
+		if kind=="sandstone_fin": continue
+		var bounds := node.mesh.get_aabb()
+		var polygon := PackedVector2Array()
+		for point: Vector3 in [bounds.position,Vector3(bounds.end.x,0,bounds.position.z),bounds.end,Vector3(bounds.position.x,0,bounds.end.z)]:
+			var at := node.global_transform*point
+			polygon.append(Vector2(at.x,at.z))
+		polygons.append(polygon)
+		names.append(str(node.get_parent().name)+"/"+str(node.name))
+	for a in range(polygons.size()):
+		for b in range(a+1,polygons.size()):
+			for polygon: PackedVector2Array in Geometry2D.intersect_polygons(polygons[a],polygons[b]):
+				var area := 0.0
+				for i in range(polygon.size()): area += polygon[i].cross(polygon[(i+1)%polygon.size()])*.5
+				assert(absf(area)<.01,"desert buildings overlap: "+names[a]+" and "+names[b])
+	if world.track.id=="oasis_citadel":
+		assert(int(kinds.get("adobe_house",0))>=12 and int(kinds.get("market_court",0))>=2 and int(kinds.get("caravanserai",0))>=2 and int(kinds.get("wind_tower",0))>=4)
+	else:
+		assert(int(kinds.get("sandstone_fin",0))>=12 and int(kinds.get("caravanserai",0))>=1 and int(kinds.get("wind_tower",0))>=2)
+	var sites: Array = landscape.get_meta("sites")
+	for site: Dictionary in sites:
+		if site.has("module"): continue
+		for building: Dictionary in sites:
+			if not building.has("module"): continue
+			var delta: Vector3 = site.at-building.at
+			assert(Vector2(delta.x,delta.z).length()>=float(site.radius)+float(building.radius),"desert palms reserve the complete courtyard and ridge footprints")

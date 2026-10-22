@@ -17,7 +17,7 @@ const STYLES := {
 	"coral_causeway":[2,"C5BDA6"],"mangrove_maze":[9,"655F43"],"cloudforest_climb":[0,"719C80"],
 	"sakura_ring":[0,"A1A47A"],"bamboo_gorge":[0,"466E62"],"lantern_market":[3,"A48478"],
 	"terrace_touge":[0,"91A865"],"temple_coast":[0,"A8AC7F"],
-	"saltflat_velocity":[4,"AFAD9F"],"dune_serpent":[2,"EBC88B"],"oasis_citadel":[2,"D1BA87"],
+	"saltflat_velocity":[4,"AFAD9F"],"dune_serpent":[2,"D2B18B"],"oasis_citadel":[2,"D5C197"],
 	"copper_mesa":[7,"D99A70"],"storm_chase":[2,"A59578"],
 	"steelworks_sprint":[3,"8B918B"],"container_corkscrew":[3,"888D97"],"neon_underpass":[3,"62637E"],
 	"windfarm_run":[0,"A8A16F"],"festival_speedway":[3,"88829A"],

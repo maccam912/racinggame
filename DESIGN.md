@@ -1410,3 +1410,12 @@ extend into the unchanged terrain. Main water planes take optional course
 colors. Selected road-facing building fronts, including Marina's, face the
 approach rather than presenting blank backs. Evidence and timing boundaries
 are retained in `docs/evidence/coastal-places14`.
+
+Oasis Citadel has five separate adobe, market and caravan-court groups among
+seven mixed palm gardens. Ventilated wind towers and open arcades distinguish
+it from coastal cottages and city blocks. Dune Serpent has four solid sandstone
+blade groups, a well court and a survey rest stop amid long open sweepers.
+All building footprints are disjoint and reserved by canopy placement. Natural
+rock bases are closed and buried beneath the unchanged terrain; all geometry
+remains cosmetic. Native views, course photographs and checks are recorded in
+`docs/evidence/desert-places14`.

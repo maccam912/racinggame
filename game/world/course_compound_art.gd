@@ -47,6 +47,10 @@ static func mesh(kind: String, variant: int = 0) -> ArrayMesh:
 	var t := ExpansionSetPieces.tool()
 	var color: Color = [Color("D4976D"),Color("8DACA6"),Color("7B8CA6"),Color("B77F92")][posmod(variant,4)]
 	match kind:
+		"adobe_house","wind_tower","market_court","caravanserai":
+			DesertSettlementArt.emit(t,kind,variant)
+		"sandstone_fin":
+			DesertLandformArt.emit(t,variant)
 		"beach_bungalow","stilt_house","boat_shed","fishing_pier":
 			CoastalSettlementArt.emit(t,kind,variant)
 		"ice_wall","glacial_erratic":
