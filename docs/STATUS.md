@@ -1,5 +1,27 @@
 # Implementation status
 
+## 22 October — sharper steering and doubled cornering grip
+
+Full lock progressively adds twice the steering target at road speed, with
+twice the lateral grip on every surface. Earlier sideslip yaw reduction keeps
+the skid visible while bringing the rear closer to the direction of travel.
+Small steering corrections retain their yaw response.
+
+All **192 sustained-lock controller cases** and **64 top-speed comparisons**
+pass across eight cars, both directions and four surfaces. The first two seconds
+of full-lock travel turn **1.93–2.10 times as tightly** as content 16; asphalt
+retains **85.6–88.4%** of entry speed. Release, countersteer and snapshot replay
+remain covered. [Evidence and measurement boundaries](evidence/sharper-cornering17/README.md)
+retain the old/new measurements and probe source. Human driving feel and
+physical-device input remain unverified.
+
+All **214 local source commands pass**. All **320 car/course Gold trials**
+pass with zero recoveries. All **240 camera paths** across forty courses pass
+static-world and terrain-clearance checks.
+
+Content/protocol/save versions are **17/8/1**. Frozen content-16 records, ghosts,
+Cup and suspended-race bytes remain archived under the previous gameplay hash.
+
 ## 22 October — authored routes, course selection and Marina city places
 
 Content is now **14**, with protocol/save versions **7/1**. Twenty-eight routes

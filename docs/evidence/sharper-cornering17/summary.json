@@ -1,0 +1,43 @@
+{
+  "passed": true,
+  "content_version": 17,
+  "protocol_version": 8,
+  "save_schema": 1,
+  "content_hash": "0255df695687f538506c6eb447bfd49085a317932250d4226a0cd8f78d29c01b",
+  "grip_multiplier": 2.0,
+  "maximum_road_speed_steering_multiplier": 2.0,
+  "sustained_lock_cases": 192,
+  "top_speed_corner_cases": 64,
+  "two_second_curvature_gain_range": [
+    1.932760990126006,
+    2.0973733324572525
+  ],
+  "two_second_retained_entry_speed_fraction_range": [
+    0.804745845305614,
+    0.893018289045854
+  ],
+  "asphalt_retained_entry_speed_fraction_range": [
+    0.856322137933028,
+    0.88388729095459
+  ],
+  "boundary": "Shared 60 Hz controller on deterministic flat asphalt/sand/grass/dirt; all eight cars, both directions, three approach speeds and ten seconds sustained lock. Top-speed two-second turning radius compared with frozen content-16 measurements. Recovery, countersteering and snapshot replay are numeric checks, separate from human feel and physical-device testing.",
+  "course_trials": {
+    "passed": true,
+    "courses": 40,
+    "car_course_cases": 320,
+    "recoveries": 0,
+    "minimum_gold_margin_seconds": 1.22205865552074
+  },
+  "course_cameras": {
+    "passed": true,
+    "courses": 40,
+    "camera_paths": 240,
+    "static_overlaps": 0,
+    "terrain_clips": 0
+  },
+  "source_checks": {
+    "passed": true,
+    "commands": 214,
+    "report": "source-checks.json"
+  }
+}

@@ -8,6 +8,8 @@ const BOOST_ACCELERATION: float = 14.0
 const BOOST_SPEED_FACTOR: float = 1.14
 const DRIFT_STEER_ENTRY: float = 0.90
 const DRIFT_STEER_HOLD: float = 0.75
+const CORNER_GRIP_MULTIPLIER: float = 2.0
+const FULL_LOCK_TURN_MULTIPLIER: float = 2.0
 
 
 static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, query: Variant) -> void:
@@ -72,13 +74,18 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 		yaw_factor = lerpf(1.20, 1.0, state.drift_timer / 0.4)
 		if state.drift_timer >= 0.4 - 0.00001:
 			state.drift_phase = 0
-	var target_yaw := state.steer_filter * car.turn_factor * lerpf(100.0, 35.0, clampf(absf(vf) / 55.0, 0.0, 1.0)) * clampf(absf(vf) / 5.0, 0.0, 1.0) * yaw_factor
+	# Add authority progressively near full lock at road speed. Small corrections
+	# and parking keep their response; doubled grip lets the travel direction
+	# follow the tighter arc while the existing drift still breaks traction.
+	var full_lock := smoothstep(0.5, 1.0, absf(state.steer_filter)) * smoothstep(15.0, 40.0, absf(vf)) if state.grounded else 0.0
+	var turn_multiplier := lerpf(1.0, FULL_LOCK_TURN_MULTIPLIER, full_lock)
+	var target_yaw := state.steer_filter * car.turn_factor * lerpf(100.0, 35.0, clampf(absf(vf) / 55.0, 0.0, 1.0)) * clampf(absf(vf) / 5.0, 0.0, 1.0) * yaw_factor * turn_multiplier
 	if state.grounded and state.drift_phase != 0 and vf > 0.0:
 		var sideways := state.velocity.dot(forward.cross(state.ground_normal))
 		# Ease rotation into a growing slide so full lock settles into an arc.
 		# Opposite steering keeps its full authority to catch the rear end.
 		var into_slide := -signf(state.steer_filter) * atan2(sideways, vf)
-		target_yaw *= lerpf(1.0, 0.10, smoothstep(deg_to_rad(20.0), deg_to_rad(40.0), into_slide))
+		target_yaw *= lerpf(1.0, 0.10, smoothstep(deg_to_rad(10.0), deg_to_rad(30.0), into_slide))
 	if vf < -0.1:
 		target_yaw = -target_yaw
 	if not state.grounded:
@@ -130,7 +137,7 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 			vf += Vector3.DOWN.dot(forward) * 9.81 * 0.4 * DT
 			vf = minf(vf, car.top_speed * (BOOST_SPEED_FACTOR if car.boost_charges > 0 else 1.08))
 		var surface_grip := 0.78 if state.surface == "dirt" else 0.65 if state.surface == "sand" else 0.70 if state.surface == "grass" else 1.0
-		lateral = move_toward(lateral, 0.0, car.grip * surface_grip * grip_factor * DT)
+		lateral = move_toward(lateral, 0.0, car.grip * CORNER_GRIP_MULTIPLIER * surface_grip * grip_factor * DT)
 		state.velocity = forward * vf + right * lateral
 	else:
 		state.velocity += forward * car.acceleration * frame.throttle * 0.15 * DT

@@ -4,6 +4,7 @@ Original colorful 3D arcade circuit racer for desktop and Android. [DESIGN.md](D
 
 Eight cars race forty distinct arcade courses. Pulse and Meteor each have three
 two-second boosts per race, with no refill (Shift / gamepad X / touch Boost).
+Full-lock steering now turns harder at speed with doubled cornering grip and a controlled skid.
 Trailblazer adds a grippy rally wagon; Corsair adds a fast long GT. The original ten retain their
 coastal highways, downtown blocks, forest/dirt rallies, mountain rollercoaster,
 layered crossings, reservoir and volcanic moon. Thirty additions bring glaciers,

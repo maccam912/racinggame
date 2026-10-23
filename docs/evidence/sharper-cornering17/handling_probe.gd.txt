@@ -1,0 +1,26 @@
+extends SceneTree
+func _initialize() -> void:
+	Catalog.load_all()
+	var rows: Array[Dictionary] = []
+	for car: CarDefinition in Catalog.cars:
+		for surface: String in ["asphalt", "dirt", "sand", "grass"]:
+			var query := FlatQuery.new()
+			query.surface = surface
+			var state := VehicleState.new()
+			state.position.y = .35
+			state.velocity = Vector3.FORWARD * car.top_speed
+			var distance := 0.0
+			var heading := 0.0
+			for tick in range(600):
+				var before := state.velocity
+				VehicleSim.step(state, InputFrame.make(1, 1), car, query)
+				distance += state.speed() * VehicleSim.DT
+				heading += before.signed_angle_to(state.velocity, Vector3.DOWN)
+				if tick in [59, 119, 599]:
+					rows.append({"car":car.id,"surface":surface,"ticks":tick+1,"speed":state.speed(),"heading_degrees":rad_to_deg(heading),"radius":distance/absf(heading),"slip":rad_to_deg(state.forward().angle_to(state.velocity.normalized()))})
+	var path := OS.get_cmdline_user_args()[0]
+	var file := FileAccess.open(path, FileAccess.WRITE)
+	file.store_string(JSON.stringify(rows, "\t")+"\n")
+	file.close()
+	print("HANDLING_PROBE cases=", rows.size(), " report=", path)
+	quit()

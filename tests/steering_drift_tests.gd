@@ -23,7 +23,9 @@ func slip(state: VehicleState) -> float:
 
 func _initialize() -> void:
 	Catalog.load_all()
+	var reference: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/content16/full-lock-reference.json"))
 	var evidence: Array[Dictionary] = []
+	var cornering_evidence: Array[Dictionary] = []
 	for car: CarDefinition in Catalog.cars:
 		for direction: float in [-1.0, 1.0]:
 			for surface: String in ["asphalt", "sand", "grass", "dirt"]:
@@ -32,14 +34,25 @@ func _initialize() -> void:
 				for speed: float in [20.0, 40.0, car.top_speed]:
 					var state := moving(speed)
 					var max_slip := 0.0
+					var distance := 0.0
+					var travel_turn := 0.0
 					var label := "%s %s %.0f m/s steer %.0f" % [car.id, surface, speed, direction]
 					for tick in range(600):
+						var previous_velocity := state.velocity
 						VehicleSim.step(state, InputFrame.make(direction, 1), car, query)
+						distance += state.speed() * VehicleSim.DT
+						travel_turn += previous_velocity.signed_angle_to(state.velocity, Vector3.DOWN)
 						max_slip = maxf(max_slip, slip(state))
 						if tick == 7:
 							check(state.drift_phase == 0, label + ": brief steering tap keeps grip")
 						if tick >= 29:
 							check(state.drift_phase == 1, label + ": sustained lock holds drift without handbrake")
+						if tick == 119 and speed == car.top_speed:
+							var radius := distance / absf(travel_turn)
+							var old_radius: float = reference.radius_m[car.id + ":" + surface]
+							check(radius < old_radius * .60, label + ": full-speed travel turns substantially tighter than content 16: %.1f vs %.1f m" % [radius, old_radius])
+							check(state.speed() > car.top_speed * .80, label + ": two-second full-lock corner retains at least 80 percent of entry speed")
+							cornering_evidence.append({"car":car.id, "surface":surface, "steer":direction, "two_second_radius_m":radius, "previous_radius_m":old_radius, "retained_speed_fraction":state.speed() / car.top_speed})
 					check(max_slip > 20 and max_slip < 50, label + ": visible slide stays below spin angle: %.2f degrees" % max_slip)
 					check(state.velocity.dot(state.forward()) > 15, label + ": slide keeps forward momentum")
 					check(not state.braking, label + ": steering slide does not light brake lamps")
@@ -62,6 +75,11 @@ func _initialize() -> void:
 						VehicleSim.step(state, InputFrame.make(0, 1), car, query)
 					check(slip(state) < 1, label + ": released steering settles back to straight travel")
 		var query := FlatQuery.new()
+		var sideways := moving(40)
+		sideways.velocity.x = 10
+		for tick in range(15):
+			VehicleSim.step(sideways, InputFrame.make(0, 1), car, query)
+		check(absf(sideways.velocity.x) < .1, car.id + ": road grip catches a 10 m/s sideways slide within a quarter second")
 		for speed: float in [0.0, 10.0, -8.0]:
 			var state := moving(speed)
 			for tick in range(60):
@@ -96,7 +114,7 @@ func _initialize() -> void:
 				VehicleSim.step(restored, frame, car, query)
 			check(hysteresis.position.distance_to(restored.position) < .05, car.id + ": snapshot replay through drift and recovery agrees within 5 cm")
 	var output := FileAccess.open("res://reports/steering-drift.json", FileAccess.WRITE)
-	output.store_string(JSON.stringify({"passed":failures == 0, "cases":evidence, "boundary":"Shared 60 Hz controller on deterministic flat asphalt/sand/grass/dirt; all four cars, both directions, three approach speeds and ten seconds sustained lock. Recovery, countersteering and snapshot replay are numeric checks, separate from human feel and physical-device testing."}, "\t") + "\n")
+	output.store_string(JSON.stringify({"passed":failures == 0, "cases":evidence, "cornering_cases":cornering_evidence, "boundary":"Shared 60 Hz controller on deterministic flat asphalt/sand/grass/dirt; all eight cars, both directions, three approach speeds and ten seconds sustained lock. Top-speed two-second turning radius compared with frozen content-16 measurements. Recovery, countersteering and snapshot replay are numeric checks, separate from human feel and physical-device testing."}, "\t") + "\n")
 	output.close()
 	print("STEERING_DRIFT_ALL_CARS_SURFACES_DIRECTIONS_CONTROL_RECOVERY_SNAPSHOT cases=%d failures=%d" % [evidence.size(), failures])
 	quit(1 if failures else 0)
