@@ -1,7 +1,7 @@
 # Forty-course roster
 
 Owner request, 21 October 2026: expand the game to forty courses, with varied
-settings, route shapes and driving experiences. The later content-14 follow-up permits revising Palm Bay, Citrus Pass and Redwood Run.
+settings, route shapes and driving experiences. The content-15 follow-up of 22 October authorizes local detail on all forty routes and additional city layouts.
 Every addition below needs its own authored control polygon, not a recolored
 copy. The table is the implementation brief; it is not a completion claim.
 
@@ -191,9 +191,9 @@ approach sightlines. The course still uses the canonical road/collision bake.
 
 [Geometry, approach views, native motion and loading evidence](evidence/expansion-set-pieces/validation.json).
 
-## Content 14 course measurements
+## Content 14 course measurements (historical)
 
-These lengths come from the current canonical bakes. The continuous-curve plans
+These lengths record the earlier content-14 bakes. The continuous-curve plans
 use the editable control polygons and individual elevation stations in
 `assets/source/curved_courses14.json`. Named landscape places are authored in
 `assets/source/course_compositions14.json`; the older five-beat brief above is
@@ -241,3 +241,46 @@ historical and does not prescribe repeated gates or building sprites.
 | Crystal Chasm | 5.55 km | bspline |
 | Mars Badlands | 6.35 km | bspline |
 | Reactor Rift | 4.41 km | bspline |
+
+## Content 15: city blocks and three scales of local detail
+
+Approved on 22 October 2026 after map previews: retain the broad route identities,
+add fine and medium irregular turns, then add a broader octave above those.
+All forty routes now have explicit authored lateral profiles, using nominal
+48 m, 96 m and 205 m noise-control spacing. These describe three layers of
+geometry, not shader wobble. City corners, starting grids, launch approaches,
+landing corridors and the layered Skyline crossing receive protected sectors.
+Saltflat Velocity retains its long acceleration avenue.
+
+Twelve routes use angular city, market, industrial or freight-block plans:
+Palm Bay, Marina Lights, Aurora Harbor, Sakura Ring, Lantern Market, Oasis
+Citadel, Steelworks Sprint, Container Corkscrew, Neon Underpass, Festival
+Speedway, Lunar Freight and Reactor Rift. Other courses retain their landscape
+identities and get locally tighter steering sequences.
+
+Authoring lives in `assets/source/technical_courses15.json`; apply it with
+`python3 tools/author_technical_courses.py` and then `python3 tools/bake_tracks.py`.
+`tools/author_route_detail.py --tracks=<id>` can explicitly regenerate a selected
+profile, while the stored scalar values allow individual bends to be edited.
+The baker independently checks the final displaced road at 2 m spacing against
+the existing 28 m radius, 24% grade, road separation, grid and checkpoint limits.
+
+`assets/source/course_accents15.json` adds two large silhouette groups and two
+medium compounds per course: ice escarpments and relay sites, coastal headlands
+and settlements, urban towers and transit/service quarters, sandstone ridges
+and caravan courts, and space outcrops and survey annexes. Placement checks the
+whole footprint against all roads, terrain, water, poster views and existing
+buildings. Reservoir service islands have explicitly raised dry plinths.
+These additions retain cosmetic collision and existing motion settings.
+
+The denser corners require geometry-aware Gold targets: use the length-based
+target or the slowest car's baked Medium-pace ideal lap plus a standing-start
+and driving margin, whichever is longer. Silver/Bronze ratios stay unchanged.
+Content 14 records, ghosts, cups and suspended races remain preserved under
+the existing compatibility archive rules; their results are not mixed with the
+changed routes. Protocol 7 and save schema 1 remain current.
+
+[All final route maps and elevations](evidence/track-detail15/layouts.svg),
+[measurements](evidence/track-detail15/geometry.json),
+[approved city preview](evidence/track-detail15/approved-city.png),
+[approved mountain preview](evidence/track-detail15/approved-mountain.png).

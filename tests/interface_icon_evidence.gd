@@ -68,7 +68,7 @@ func run() -> void:
 	app.show_garage("trial")
 	await capture("garage")
 	var track: TrackDefinition = Catalog.tracks[0]
-	app.data.records.times[app.data.record_key("trial",track.id,"comet")] = {"time":Medals.thresholds(track.length)[0]}
+	app.data.records.times[app.data.record_key("trial",track.id,"comet")] = {"time":Medals.thresholds(track.length,track)[0]}
 	app.events.mode = "trial"
 	app.events.show_event()
 	await capture("trial-gold")
@@ -123,11 +123,11 @@ func run() -> void:
 	app.drive.set_physics_process(false)
 	app.drive.result_sent = true
 	app.drive.state.finished = true
-	app.drive.state.finish_time = Medals.thresholds(track.length)[0]-.5
+	app.drive.state.finish_time = Medals.thresholds(track.length,track)[0]-.5
 	app.drive.state.best_lap_time = app.drive.state.finish_time
 	app.drive.session.phase = RaceSession.Phase.RESULTS
 	app.result_receipt = ResultReceipt.capture(app.drive.session,[])
-	app.result_summary = {"saved":true,"new_best":false,"previous":Medals.thresholds(track.length)[0]}
+	app.result_summary = {"saved":true,"new_best":false,"previous":Medals.thresholds(track.length,track)[0]}
 	app.page = "results"
 	app.render_results()
 	await capture("trial-results")

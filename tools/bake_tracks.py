@@ -70,6 +70,30 @@ def interpolate(points, distances, s):
     return add(points[i], mul(sub(points[i+1], points[i]), alpha))
 
 
+def detailed_curve(points, distances, offsets):
+    """Authored periodic lateral profile, before the final common 2 m bake.
+
+    Profile values follow original base-curve arc length. Recompute tangents,
+    length, gates and braking speeds from the displaced road, never at runtime.
+    """
+    total = distances[-1]
+    base = [interpolate(points, distances, s) for s in range(0, math.ceil(total), 2)]
+    detailed = []
+    for i, point in enumerate(base):
+        forward = unit(sub(base[(i+1)%len(base)], base[i-1]))
+        horizontal = math.hypot(forward[0], forward[2])
+        u = i*2/total*len(offsets)
+        index, fraction = math.floor(u), u%1
+        offset = catmull(*[(offsets[(index+j)%len(offsets)],) for j in [-1,0,1,2]], fraction)[0]
+        detailed.append((point[0]-forward[2]/horizontal*offset, point[1],
+                         point[2]+forward[0]/horizontal*offset))
+    detailed.append(detailed[0])
+    lengths = [0.0]
+    for a, b in zip(detailed, detailed[1:]):
+        lengths.append(lengths[-1]+length(sub(b,a)))
+    return detailed, lengths
+
+
 def bake(track):
     controls = track['ordered_control_points']
     count = len(controls)
@@ -81,6 +105,8 @@ def bake(track):
     distances = [0.0]
     for a, b in zip(points, points[1:]):
         distances.append(distances[-1]+length(sub(b, a)))
+    if track.get('detail_offsets'):
+        points, distances = detailed_curve(points, distances, track['detail_offsets'])
     total = distances[-1]
     samples = [interpolate(points, distances, s) for s in range(0, math.ceil(total), 2)]
     n = len(samples)
@@ -167,7 +193,10 @@ def bake(track):
                 segment = length(sub(rotated[(i+1)%n][:3], rotated[i][:3]))
                 line[i] = min(line[i], math.sqrt(line[(i+1)%n]**2+24*segment))
         speeds[car['id']] = [round(x, 6) for x in line]
+    reference = max(sum(length(sub(rotated[(i+1)%n][:3], rotated[i][:3]))/(.90*line[i])
+                        for i in range(n)) for line in speeds.values())
     result = {'schema_version':1, 'track_id':track['id'], 'length':round(total, 6), 'start_sample':start,
+              'medal_reference_seconds':round(reference, 6),
               'columns':['x','y','z','fx','fy','fz','curvature','original_u','width','bank','ramp_height'],
               'samples':[[round(x, 6) for x in row] for row in rotated],
               'distances':[round(x, 6) for x in cumulative], 'gates':gates, 'ai_speeds':speeds,

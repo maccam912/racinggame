@@ -114,7 +114,7 @@ func show_event() -> void:
 			facts.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 			entry.add_child(facts)
 		var best: float = app.data.best("trial",track.id,Catalog.cars[int(app.data.profile.selected_car)].id)
-		var medal := Medals.award(track.length,best,best>0)
+		var medal := Medals.award(track.length,best,best>0,track)
 		var award_row := HBoxContainer.new()
 		var medal_icon := shell.ui.icon(UIIcons.medal_id(medal))
 		medal_icons.append(medal_icon)

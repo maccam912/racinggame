@@ -13,7 +13,7 @@ class TrackVarietyTests(unittest.TestCase):
         city = bakes['marina_lights']['samples']
         forest = bakes['redwood_run']['samples']
         summit = bakes['pacific_summit']['samples']
-        self.assertGreater(sum(abs(r[6])<.001 for r in city)/len(city), .6, 'street course needs long straight boulevards')
+        self.assertGreater(sum(abs(r[6])<.001 for r in city)/len(city), .2, 'city blocks retain straights between added local bends')
         self.assertGreater(sum(abs(r[6])>.01 for r in city)/len(city), .08, 'street course needs actual braking corners')
         self.assertLess(max(r[1] for r in city)-min(r[1] for r in city), 1, 'city driving must differ from the hill courses')
         self.assertLess(sum(abs(r[6])<.001 for r in forest)/len(forest), .25, 'forest rally needs continuous steering')

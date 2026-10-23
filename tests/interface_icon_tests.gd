@@ -53,7 +53,7 @@ func run() -> void:
 	app.data.profile.selected_car = 0
 	var track: TrackDefinition = Catalog.tracks[0]
 	var key: String = app.data.record_key("trial",track.id,"comet")
-	app.data.records.times[key] = {"time":Medals.thresholds(track.length)[0]}
+	app.data.records.times[key] = {"time":Medals.thresholds(track.length,track)[0]}
 	app.events.mode = "trial"
 	app.events.show_event()
 	assert(app.events.medal_icons[0].texture==UIIcons.texture("medal_gold"))

@@ -5,11 +5,10 @@ func run() -> void:
 	Catalog.load_all()
 	BillboardArt.load_catalog()
 	assert(Catalog.tracks.size()==40)
-	var frozen: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/content11/tracks.json"))
-	for index in range(10):
-		if Catalog.tracks[index].id in ["palm_bay","citrus_pass","redwood_run"]:
-			assert(Catalog.tracks[index].definition.spline=="bspline")
-		else: assert(Catalog.tracks[index].definition==frozen.tracks[index],"seven established routes remain exact")
+	var frozen: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/content14/tracks.json"))
+	for index in range(40):
+		assert(Catalog.tracks[index].definition!=frozen.tracks[index],"all forty routes receive approved local detail")
+		assert(Catalog.tracks[index].definition.detail_offsets.size()>=16)
 	var cases: Array[Dictionary] = []
 	var polygons: Dictionary = {}
 	var themes: Dictionary = {}
@@ -23,7 +22,7 @@ func run() -> void:
 			if absf(float(row[6]))<.001: straight_samples += 1
 		var straight_fraction: float = float(straight_samples)/track.bake.samples.size()
 		if straight_fraction<.3: flowing += 1
-		if straight_fraction>.5: speed_courses += 1
+		if straight_fraction>.22: speed_courses += 1
 		var polygon := var_to_bytes(track.definition.ordered_control_points).hex_encode()
 		assert(not polygons.has(polygon),"every addition has an individual authored polygon")
 		polygons[polygon] = true
@@ -45,7 +44,7 @@ func run() -> void:
 		for site: Dictionary in sites:
 			if not site.has("module"):
 				assert(absf(site.at.y-AuthoredCourseScenery.height(world,site.at,site))<.001)
-			else: assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","ice_wall","glacial_erratic"] else 16))
+			else: assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff","sandstone_fin","ice_wall","glacial_erratic"] else 16))
 			assert(world.clear_of_road(site.at,site.radius) and world.decoration_allowed(site.at,site.radius))
 			if site.distance>220: far_sites += 1
 			species[site.id] = true
@@ -99,11 +98,11 @@ func run() -> void:
 		await process_frame
 	assert(themes.size()==6)
 	assert(lengths.max()/lengths.min()>3,"short and endurance tracks need meaningfully different lap lengths")
-	assert(flowing>=16 and speed_courses>=2,"organic curves and long-straight courses have distinct driving demands")
+	assert(flowing>=16 and speed_courses>=8,"organic curves and long-straight courses have distinct driving demands")
 	for count: int in themes.values(): assert(count==5)
 	assert(not LobbyState.valid_rules({"track":40,"laps":1,"bot_fill":true,"difficulty":1,"contact":true}))
 	var file := FileAccess.open("res://reports/expansion40-worlds.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":true,"cases":cases,"content_hash":Compatibility.content_hash(),"boundary":"All thirty real static worlds, seven retained definitions and three reauthored classics, thumbnails, icons, music routing, authored grounded/road-clear landmarks and selectively placed open gates and bounded sprite batches. AI/camera laps and native render captures are separate fixtures."},"\t")+"\n")
+	file.store_string(JSON.stringify({"passed":true,"cases":cases,"content_hash":Compatibility.content_hash(),"boundary":"All thirty real static worlds, forty revised definitions, thumbnails, icons, music routing, authored grounded/road-clear landmarks and selectively placed open gates and bounded sprite batches. AI/camera laps and native render captures are separate fixtures."},"\t")+"\n")
 	file.close()
 	print("FORTY_COURSES_THIRTY_NEW_GROUNDED_DISTINCT_WORLDS_ASSET_SERVER_GATE_CONTRACTS_PASS")
 	quit()

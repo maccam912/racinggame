@@ -1,0 +1,3284 @@
+{
+  "schema_version": 1,
+  "description": "Two large silhouette groups and two medium named compounds per course; road, terrain, water and existing-building clearance are enforced at placement.",
+  "courses": [
+    {
+      "id": "palm_bay",
+      "regions": [
+        {
+          "name": "Limestone headland 1",
+          "kind": "landforms",
+          "u": 0.19,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Limestone headland 2",
+          "kind": "landforms",
+          "u": 0.71,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Village clearing 1",
+          "kind": "resort",
+          "u": 0.4,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Village clearing 2",
+          "kind": "resort",
+          "u": 0.88,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "citrus_pass",
+      "regions": [
+        {
+          "name": "Ridge outcrop 1",
+          "kind": "landforms",
+          "u": 0.203,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -70,
+              1,
+              0.2
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ridge outcrop 2",
+          "kind": "landforms",
+          "u": 0.697,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -70,
+              1,
+              0.2
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ranger clearing 1",
+          "kind": "utility",
+          "u": 0.413,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Ranger clearing 2",
+          "kind": "utility",
+          "u": 0.867,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "marina_lights",
+      "regions": [
+        {
+          "name": "Skyline overlook 1",
+          "kind": "landforms",
+          "u": 0.216,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Skyline overlook 2",
+          "kind": "landforms",
+          "u": 0.684,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Transit quarter 1",
+          "kind": "city",
+          "u": 0.426,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Transit quarter 2",
+          "kind": "city",
+          "u": 0.854,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "redwood_run",
+      "regions": [
+        {
+          "name": "Ridge outcrop 1",
+          "kind": "landforms",
+          "u": 0.229,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -70,
+              1,
+              0.2
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ridge outcrop 2",
+          "kind": "landforms",
+          "u": 0.671,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -70,
+              1,
+              0.2
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ranger clearing 1",
+          "kind": "utility",
+          "u": 0.439,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Ranger clearing 2",
+          "kind": "utility",
+          "u": 0.841,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "sunstone_canyon",
+      "regions": [
+        {
+          "name": "Sandstone ridge 1",
+          "kind": "landforms",
+          "u": 0.242,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Sandstone ridge 2",
+          "kind": "landforms",
+          "u": 0.658,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Caravan court 1",
+          "kind": "citadel",
+          "u": 0.452,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Caravan court 2",
+          "kind": "citadel",
+          "u": 0.828,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "pacific_summit",
+      "regions": [
+        {
+          "name": "Ice escarpment 1",
+          "kind": "landforms",
+          "u": 0.19,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ice escarpment 2",
+          "kind": "landforms",
+          "u": 0.71,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Mountain relay 1",
+          "kind": "utility",
+          "u": 0.4,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Mountain relay 2",
+          "kind": "utility",
+          "u": 0.88,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "skyline_splice",
+      "regions": [
+        {
+          "name": "Skyline overlook 1",
+          "kind": "landforms",
+          "u": 0.203,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Skyline overlook 2",
+          "kind": "landforms",
+          "u": 0.697,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Transit quarter 1",
+          "kind": "city",
+          "u": 0.413,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Transit quarter 2",
+          "kind": "city",
+          "u": 0.867,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "quarry_switchback",
+      "regions": [
+        {
+          "name": "Ridge outcrop 1",
+          "kind": "landforms",
+          "u": 0.216,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "mesa_outcrop",
+              0,
+              -70,
+              1,
+              0.2
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ridge outcrop 2",
+          "kind": "landforms",
+          "u": 0.684,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "mesa_outcrop",
+              0,
+              -70,
+              1,
+              0.2
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ranger clearing 1",
+          "kind": "quarry",
+          "u": 0.426,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Ranger clearing 2",
+          "kind": "quarry",
+          "u": 0.854,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "spillway_sprint",
+      "regions": [
+        {
+          "name": "Reservoir service towers 1",
+          "kind": "landforms",
+          "u": 0.229,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ],
+          "raised_platform_m": 5
+        },
+        {
+          "name": "Reservoir service towers 2",
+          "kind": "landforms",
+          "u": 0.671,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ],
+          "raised_platform_m": 5
+        },
+        {
+          "name": "Transit quarter 1",
+          "kind": "city",
+          "u": 0.439,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true,
+          "raised_platform_m": 5
+        },
+        {
+          "name": "Transit quarter 2",
+          "kind": "city",
+          "u": 0.841,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true,
+          "raised_platform_m": 5
+        }
+      ]
+    },
+    {
+      "id": "caldera_crosscut",
+      "regions": [
+        {
+          "name": "Crater buttress 1",
+          "kind": "landforms",
+          "u": 0.242,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Crater buttress 2",
+          "kind": "landforms",
+          "u": 0.658,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Survey annex 1",
+          "kind": "lunar_survey",
+          "u": 0.452,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Survey annex 2",
+          "kind": "lunar_survey",
+          "u": 0.828,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "glacier_ridge",
+      "regions": [
+        {
+          "name": "Ice escarpment 1",
+          "kind": "landforms",
+          "u": 0.19,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              2,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ice escarpment 2",
+          "kind": "landforms",
+          "u": 0.71,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              2,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Mountain relay 1",
+          "kind": "utility",
+          "u": 0.4,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Mountain relay 2",
+          "kind": "utility",
+          "u": 0.88,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              0,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 1",
+          "scale": "large",
+          "setback": 160.0,
+          "side": -1.0,
+          "u": 0.02
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              1,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 2",
+          "scale": "large",
+          "setback": 160.0,
+          "side": 1.0,
+          "u": 0.02
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              2,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 3",
+          "scale": "large",
+          "setback": 220.0,
+          "side": -1.0,
+          "u": 0.039
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              3,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 4",
+          "scale": "large",
+          "setback": 280.0,
+          "side": 1.0,
+          "u": 0.039
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              0,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 5",
+          "scale": "large",
+          "setback": 160.0,
+          "side": -1.0,
+          "u": 0.058
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              1,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 6",
+          "scale": "large",
+          "setback": 280.0,
+          "side": -1.0,
+          "u": 0.077
+        }
+      ]
+    },
+    {
+      "id": "aurora_harbor",
+      "regions": [
+        {
+          "name": "Ice escarpment 1",
+          "kind": "landforms",
+          "u": 0.203,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              3,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ice escarpment 2",
+          "kind": "landforms",
+          "u": 0.697,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              3,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Mountain relay 1",
+          "kind": "utility",
+          "u": 0.413,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Mountain relay 2",
+          "kind": "utility",
+          "u": 0.867,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "alpine_meadow",
+      "regions": [
+        {
+          "name": "Ice escarpment 1",
+          "kind": "landforms",
+          "u": 0.216,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              0,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ice escarpment 2",
+          "kind": "landforms",
+          "u": 0.684,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              0,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Mountain relay 1",
+          "kind": "utility",
+          "u": 0.426,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Mountain relay 2",
+          "kind": "utility",
+          "u": 0.854,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "frostbite_fjord",
+      "regions": [
+        {
+          "name": "Ice escarpment 1",
+          "kind": "landforms",
+          "u": 0.09,
+          "side": -1,
+          "setback": 160,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ice escarpment 2",
+          "kind": "landforms",
+          "u": 0.93,
+          "side": -1,
+          "setback": 160,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Mountain relay 1",
+          "kind": "utility",
+          "u": 0.13,
+          "side": -1,
+          "setback": 140,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Mountain relay 2",
+          "kind": "utility",
+          "u": 0.85,
+          "side": 1,
+          "setback": 140,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              0,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 1",
+          "scale": "large",
+          "setback": 160.0,
+          "side": -1.0,
+          "u": 0.02
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              1,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 2",
+          "scale": "large",
+          "setback": 160.0,
+          "side": 1.0,
+          "u": 0.02
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              2,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 3",
+          "scale": "large",
+          "setback": 160.0,
+          "side": -1.0,
+          "u": 0.039
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              3,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 4",
+          "scale": "large",
+          "setback": 160.0,
+          "side": 1.0,
+          "u": 0.058
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              0,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 5",
+          "scale": "large",
+          "setback": 220.0,
+          "side": -1.0,
+          "u": 0.077
+        },
+        {
+          "avoid_buildings": true,
+          "kind": "landforms",
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              0,
+              1,
+              0.3
+            ]
+          ],
+          "name": "Glacial ice face 6",
+          "scale": "large",
+          "setback": 280.0,
+          "side": 1.0,
+          "u": 0.096
+        }
+      ]
+    },
+    {
+      "id": "tundra_pipeline",
+      "regions": [
+        {
+          "name": "Ice escarpment 1",
+          "kind": "landforms",
+          "u": 0.242,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              2,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Ice escarpment 2",
+          "kind": "landforms",
+          "u": 0.658,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "ice_wall",
+              0,
+              -80,
+              2,
+              0.2
+            ],
+            [
+              "glacial_erratic",
+              55,
+              70,
+              2,
+              -0.4
+            ]
+          ]
+        },
+        {
+          "name": "Mountain relay 1",
+          "kind": "utility",
+          "u": 0.452,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Mountain relay 2",
+          "kind": "utility",
+          "u": 0.828,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "rainforest_ruins",
+      "regions": [
+        {
+          "name": "Limestone headland 1",
+          "kind": "landforms",
+          "u": 0.19,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Limestone headland 2",
+          "kind": "landforms",
+          "u": 0.71,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Village clearing 1",
+          "kind": "river_village",
+          "u": 0.4,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Village clearing 2",
+          "kind": "river_village",
+          "u": 0.88,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "monsoon_delta",
+      "regions": [
+        {
+          "name": "Limestone headland 1",
+          "kind": "landforms",
+          "u": 0.203,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Limestone headland 2",
+          "kind": "landforms",
+          "u": 0.697,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Village clearing 1",
+          "kind": "river_village",
+          "u": 0.413,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "stilt_house",
+              -38,
+              0,
+              1,
+              0
+            ],
+            [
+              "boat_shed",
+              0,
+              30,
+              2,
+              0.3
+            ],
+            [
+              "fishing_pier",
+              38,
+              -10,
+              0,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "name": "Village clearing 2",
+          "kind": "river_village",
+          "u": 0.867,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "stilt_house",
+              -38,
+              0,
+              1,
+              0
+            ],
+            [
+              "boat_shed",
+              0,
+              30,
+              2,
+              0.3
+            ],
+            [
+              "fishing_pier",
+              38,
+              -10,
+              0,
+              -0.2
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coral_causeway",
+      "regions": [
+        {
+          "name": "Limestone headland 1",
+          "kind": "landforms",
+          "u": 0.216,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Limestone headland 2",
+          "kind": "landforms",
+          "u": 0.684,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Village clearing 1",
+          "kind": "resort",
+          "u": 0.426,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "beach_bungalow",
+              -38,
+              0,
+              1,
+              0
+            ],
+            [
+              "boat_shed",
+              0,
+              30,
+              2,
+              0.3
+            ],
+            [
+              "fishing_pier",
+              38,
+              -10,
+              0,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "name": "Village clearing 2",
+          "kind": "resort",
+          "u": 0.854,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "beach_bungalow",
+              -38,
+              0,
+              1,
+              0
+            ],
+            [
+              "boat_shed",
+              0,
+              30,
+              2,
+              0.3
+            ],
+            [
+              "fishing_pier",
+              38,
+              -10,
+              0,
+              -0.2
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mangrove_maze",
+      "regions": [
+        {
+          "name": "Limestone headland 1",
+          "kind": "landforms",
+          "u": 0.229,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Limestone headland 2",
+          "kind": "landforms",
+          "u": 0.671,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Village clearing 1",
+          "kind": "river_village",
+          "u": 0.439,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "stilt_house",
+              -38,
+              0,
+              1,
+              0
+            ],
+            [
+              "boat_shed",
+              0,
+              30,
+              2,
+              0.3
+            ],
+            [
+              "fishing_pier",
+              38,
+              -10,
+              0,
+              -0.2
+            ]
+          ]
+        },
+        {
+          "name": "Village clearing 2",
+          "kind": "river_village",
+          "u": 0.841,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "stilt_house",
+              -38,
+              0,
+              1,
+              0
+            ],
+            [
+              "boat_shed",
+              0,
+              30,
+              2,
+              0.3
+            ],
+            [
+              "fishing_pier",
+              38,
+              -10,
+              0,
+              -0.2
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cloudforest_climb",
+      "regions": [
+        {
+          "name": "Limestone headland 1",
+          "kind": "landforms",
+          "u": 0.242,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Limestone headland 2",
+          "kind": "landforms",
+          "u": 0.658,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "limestone_bluff",
+              0,
+              -60,
+              1,
+              0.3
+            ],
+            [
+              "limestone_bluff",
+              65,
+              85,
+              3,
+              -0.7
+            ]
+          ]
+        },
+        {
+          "name": "Village clearing 1",
+          "kind": "river_village",
+          "u": 0.452,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Village clearing 2",
+          "kind": "river_village",
+          "u": 0.828,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "sakura_ring",
+      "regions": [
+        {
+          "name": "Terraced hillside 1",
+          "kind": "landforms",
+          "u": 0.19,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Terraced hillside 2",
+          "kind": "landforms",
+          "u": 0.71,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Wayside market 1",
+          "kind": "market",
+          "u": 0.4,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Wayside market 2",
+          "kind": "market",
+          "u": 0.88,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "bamboo_gorge",
+      "regions": [
+        {
+          "name": "Terraced hillside 1",
+          "kind": "landforms",
+          "u": 0.203,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Terraced hillside 2",
+          "kind": "landforms",
+          "u": 0.697,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Wayside market 1",
+          "kind": "market",
+          "u": 0.413,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Wayside market 2",
+          "kind": "market",
+          "u": 0.867,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "lantern_market",
+      "regions": [
+        {
+          "name": "Terraced hillside 1",
+          "kind": "landforms",
+          "u": 0.216,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Terraced hillside 2",
+          "kind": "landforms",
+          "u": 0.684,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Wayside market 1",
+          "kind": "market",
+          "u": 0.426,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Wayside market 2",
+          "kind": "market",
+          "u": 0.854,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "terrace_touge",
+      "regions": [
+        {
+          "name": "Terraced hillside 1",
+          "kind": "landforms",
+          "u": 0.229,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Terraced hillside 2",
+          "kind": "landforms",
+          "u": 0.671,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Wayside market 1",
+          "kind": "market",
+          "u": 0.439,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Wayside market 2",
+          "kind": "market",
+          "u": 0.841,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "temple_coast",
+      "regions": [
+        {
+          "name": "Terraced hillside 1",
+          "kind": "landforms",
+          "u": 0.242,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Terraced hillside 2",
+          "kind": "landforms",
+          "u": 0.658,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "terraced_field",
+              0,
+              -65,
+              2,
+              0
+            ],
+            [
+              "terraced_field",
+              65,
+              80,
+              0,
+              0.2
+            ]
+          ]
+        },
+        {
+          "name": "Wayside market 1",
+          "kind": "market",
+          "u": 0.452,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Wayside market 2",
+          "kind": "market",
+          "u": 0.828,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "saltflat_velocity",
+      "regions": [
+        {
+          "name": "Sandstone ridge 1",
+          "kind": "landforms",
+          "u": 0.19,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Sandstone ridge 2",
+          "kind": "landforms",
+          "u": 0.71,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Caravan court 1",
+          "kind": "citadel",
+          "u": 0.4,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Caravan court 2",
+          "kind": "citadel",
+          "u": 0.88,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "dune_serpent",
+      "regions": [
+        {
+          "name": "Sandstone ridge 1",
+          "kind": "landforms",
+          "u": 0.203,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Sandstone ridge 2",
+          "kind": "landforms",
+          "u": 0.697,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Caravan court 1",
+          "kind": "citadel",
+          "u": 0.413,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Caravan court 2",
+          "kind": "citadel",
+          "u": 0.867,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "oasis_citadel",
+      "regions": [
+        {
+          "name": "Sandstone ridge 1",
+          "kind": "landforms",
+          "u": 0.216,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Sandstone ridge 2",
+          "kind": "landforms",
+          "u": 0.684,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Caravan court 1",
+          "kind": "citadel",
+          "u": 0.426,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Caravan court 2",
+          "kind": "citadel",
+          "u": 0.854,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "copper_mesa",
+      "regions": [
+        {
+          "name": "Sandstone ridge 1",
+          "kind": "landforms",
+          "u": 0.229,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Sandstone ridge 2",
+          "kind": "landforms",
+          "u": 0.671,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Caravan court 1",
+          "kind": "citadel",
+          "u": 0.439,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Caravan court 2",
+          "kind": "citadel",
+          "u": 0.841,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "storm_chase",
+      "regions": [
+        {
+          "name": "Sandstone ridge 1",
+          "kind": "landforms",
+          "u": 0.242,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Sandstone ridge 2",
+          "kind": "landforms",
+          "u": 0.658,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "sandstone_fin",
+              0,
+              -80,
+              1,
+              0.2
+            ],
+            [
+              "mesa_outcrop",
+              60,
+              70,
+              2,
+              -0.3
+            ]
+          ]
+        },
+        {
+          "name": "Caravan court 1",
+          "kind": "citadel",
+          "u": 0.452,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Caravan court 2",
+          "kind": "citadel",
+          "u": 0.828,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "steelworks_sprint",
+      "regions": [
+        {
+          "name": "Skyline overlook 1",
+          "kind": "landforms",
+          "u": 0.19,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Skyline overlook 2",
+          "kind": "landforms",
+          "u": 0.71,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Transit quarter 1",
+          "kind": "logistics",
+          "u": 0.4,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Transit quarter 2",
+          "kind": "logistics",
+          "u": 0.88,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "container_corkscrew",
+      "regions": [
+        {
+          "name": "Skyline overlook 1",
+          "kind": "landforms",
+          "u": 0.203,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Skyline overlook 2",
+          "kind": "landforms",
+          "u": 0.697,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Transit quarter 1",
+          "kind": "logistics",
+          "u": 0.413,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Transit quarter 2",
+          "kind": "logistics",
+          "u": 0.867,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "neon_underpass",
+      "regions": [
+        {
+          "name": "Skyline overlook 1",
+          "kind": "landforms",
+          "u": 0.216,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Skyline overlook 2",
+          "kind": "landforms",
+          "u": 0.684,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Transit quarter 1",
+          "kind": "city",
+          "u": 0.426,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Transit quarter 2",
+          "kind": "city",
+          "u": 0.854,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "windfarm_run",
+      "regions": [
+        {
+          "name": "Skyline overlook 1",
+          "kind": "landforms",
+          "u": 0.229,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Skyline overlook 2",
+          "kind": "landforms",
+          "u": 0.671,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Transit quarter 1",
+          "kind": "city",
+          "u": 0.439,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Transit quarter 2",
+          "kind": "city",
+          "u": 0.841,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "festival_speedway",
+      "regions": [
+        {
+          "name": "Skyline overlook 1",
+          "kind": "landforms",
+          "u": 0.242,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Skyline overlook 2",
+          "kind": "landforms",
+          "u": 0.658,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "tower",
+              -35,
+              0,
+              3,
+              0
+            ],
+            [
+              "tower",
+              35,
+              25,
+              1,
+              0.3
+            ]
+          ]
+        },
+        {
+          "name": "Transit quarter 1",
+          "kind": "city",
+          "u": 0.452,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Transit quarter 2",
+          "kind": "city",
+          "u": 0.828,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "lunar_freight",
+      "regions": [
+        {
+          "name": "Crater buttress 1",
+          "kind": "landforms",
+          "u": 0.19,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Crater buttress 2",
+          "kind": "landforms",
+          "u": 0.71,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Survey annex 1",
+          "kind": "lunar_survey",
+          "u": 0.4,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Survey annex 2",
+          "kind": "lunar_survey",
+          "u": 0.88,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "orbital_gardens",
+      "regions": [
+        {
+          "name": "Crater buttress 1",
+          "kind": "landforms",
+          "u": 0.203,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Crater buttress 2",
+          "kind": "landforms",
+          "u": 0.697,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Survey annex 1",
+          "kind": "lunar_survey",
+          "u": 0.413,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Survey annex 2",
+          "kind": "lunar_survey",
+          "u": 0.867,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "crystal_chasm",
+      "regions": [
+        {
+          "name": "Crater buttress 1",
+          "kind": "landforms",
+          "u": 0.216,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Crater buttress 2",
+          "kind": "landforms",
+          "u": 0.684,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Survey annex 1",
+          "kind": "lunar_survey",
+          "u": 0.426,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Survey annex 2",
+          "kind": "lunar_survey",
+          "u": 0.854,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "mars_badlands",
+      "regions": [
+        {
+          "name": "Crater buttress 1",
+          "kind": "landforms",
+          "u": 0.229,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "martian_butte",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Crater buttress 2",
+          "kind": "landforms",
+          "u": 0.671,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "martian_butte",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Survey annex 1",
+          "kind": "lunar_survey",
+          "u": 0.439,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Survey annex 2",
+          "kind": "lunar_survey",
+          "u": 0.841,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    },
+    {
+      "id": "reactor_rift",
+      "regions": [
+        {
+          "name": "Crater buttress 1",
+          "kind": "landforms",
+          "u": 0.242,
+          "side": -1,
+          "setback": 290,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Crater buttress 2",
+          "kind": "landforms",
+          "u": 0.658,
+          "side": 1,
+          "setback": 310,
+          "scale": "large",
+          "avoid_buildings": true,
+          "modules": [
+            [
+              "crater_outcrop",
+              0,
+              -70,
+              2,
+              0.3
+            ],
+            [
+              "basalt_crag",
+              60,
+              85,
+              1,
+              -0.5
+            ]
+          ]
+        },
+        {
+          "name": "Survey annex 1",
+          "kind": "lunar_survey",
+          "u": 0.452,
+          "side": 1,
+          "setback": 165,
+          "scale": "medium",
+          "avoid_buildings": true
+        },
+        {
+          "name": "Survey annex 2",
+          "kind": "lunar_survey",
+          "u": 0.828,
+          "side": -1,
+          "setback": 190,
+          "scale": "medium",
+          "avoid_buildings": true
+        }
+      ]
+    }
+  ]
+}

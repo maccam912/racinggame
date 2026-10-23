@@ -33,7 +33,7 @@ func run() -> void:
 			if site.has("module"):
 				physical_modules += 1
 				assert(site.at.y>=site.foundation_min and site.at.y-site.foundation_min<=(60 if site.module in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff","sandstone_fin","ice_wall","glacial_erratic"] else 16))
-		for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
+		for node: MeshInstance3D in world.find_children("*","MeshInstance3D",true,false):
 			if not node.has_meta("module"): continue
 			if node.get_meta("module") in ["mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff","sandstone_fin","ice_wall","glacial_erratic"]: check_natural_foundation(world,node)
 			var key := node.mesh.get_instance_id()
@@ -49,16 +49,19 @@ func run() -> void:
 		if track.id=="marina_lights": check_marina(world,landscape)
 		if track.id in ["coral_causeway","monsoon_delta","mangrove_maze"]: check_coastal(world,landscape)
 		if track.id in ["oasis_citadel","dune_serpent"]: check_desert(world,landscape)
+		var all_sites: Array = landscape.get_meta("sites").duplicate()
+		all_sites.append_array(world.get_node("CourseAccents").get_meta("sites"))
 		if track.id in ["glacier_ridge","frostbite_fjord"]:
 			var ice_walls := 0
 			var erratics := 0
-			for site: Dictionary in landscape.get_meta("sites"):
+			for site: Dictionary in all_sites:
 				if site.get("module","")=="ice_wall": ice_walls += 1
 				elif site.get("module","")=="glacial_erratic": erratics += 1
+			print("ICE_FORMS ",track.id," ",ice_walls," ",erratics)
 			assert(ice_walls>=6 and erratics>=4,"broad ice faces and low glacial rocks must survive terrain and road clearance")
 		if track.id in ["orbital_gardens","lunar_freight","mars_badlands"]:
 			var present: Dictionary = {}
-			for site: Dictionary in landscape.get_meta("sites"):
+			for site: Dictionary in all_sites:
 				if site.has("module"): present[site.module] = int(present.get(site.module,0))+1
 			if track.id=="orbital_gardens": assert(int(present.get("botanical_court",0))>=3,"all three individually placed botanical courts must survive clearance checks")
 			else:
@@ -76,7 +79,7 @@ func run() -> void:
 func check_city_blocks(world: TrackWorld) -> void:
 	var nodes: Array[MeshInstance3D] = []
 	var polygons: Array[PackedVector2Array] = []
-	for node: MeshInstance3D in world.get_node("ExpansionLandscape" if world.art.get("expansion40",false) else "LandscapeDistricts").find_children("*","MeshInstance3D",true,false):
+	for node: MeshInstance3D in world.find_children("*","MeshInstance3D",true,false):
 		if not node.has_meta("module"): continue
 		nodes.append(node)
 		var bounds := node.mesh.get_aabb()
@@ -85,6 +88,7 @@ func check_city_blocks(world: TrackWorld) -> void:
 			var at := node.global_transform*point
 			polygon.append(Vector2(at.x,at.z))
 		polygons.append(polygon)
+	print("CITY_BLOCKS ",world.track.id," ",nodes.size())
 	assert(nodes.size()>=(100 if world.track.id=="neon_underpass" else 100),"city districts must survive road and foundation culling")
 	var kinds: Dictionary = {}
 	for node: MeshInstance3D in nodes: kinds[node.get_meta("module")] = true
@@ -143,7 +147,7 @@ func check_coastal(world: TrackWorld, landscape: Node3D) -> void:
 	var kinds: Dictionary = {}
 	var polygons: Array[PackedVector2Array] = []
 	var names: Array[String] = []
-	for node: MeshInstance3D in landscape.find_children("*","MeshInstance3D",true,false):
+	for node: MeshInstance3D in world.find_children("*","MeshInstance3D",true,false):
 		if not node.has_meta("module"): continue
 		var kind: String = node.get_meta("module")
 		kinds[kind] = int(kinds.get(kind,0))+1

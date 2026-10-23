@@ -8,8 +8,10 @@ ROOT=Path(__file__).resolve().parents[1]
 def apply(catalog):
     designs=json.loads((ROOT/'assets/source/course_compositions14.json').read_text())
     by_id={row['id']:row for row in designs['courses']}
+    accents={row['id']:row['regions'] for row in json.loads((ROOT/'assets/source/course_accents15.json').read_text())['courses']}
     assert len(by_id)==34
     for course in catalog['courses']:
+        course['accent_regions']=accents[course['id']]
         if course['id'] not in by_id: continue
         row=by_id[course['id']]
         course.update(composition_version=14, scenery_regions=row['regions'],

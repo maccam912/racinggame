@@ -62,17 +62,21 @@ static func roadside(world: TrackWorld, first: int, last: int) -> void:
 			world.scenery_batches[key].poses.append(pose)
 			if float(world.art.get("emission",0))>0: world.lamp_glow_sites.append({"s":float(s),"side":side,"at":pose.origin})
 
-static func build(world: TrackWorld) -> void:
+static func build(world: TrackWorld, accents_only: bool = false) -> void:
 	BillboardArt.load_catalog()
 	var parent := Node3D.new()
-	parent.name = "ExpansionLandscape" if world.art.get("expansion40",false) else "LandscapeDistricts"
+	parent.name = "CourseAccents" if accents_only else "ExpansionLandscape" if world.art.get("expansion40",false) else "LandscapeDistricts"
 	world.add_child(parent)
-	floor_skirt(world,parent)
+	if not accents_only: floor_skirt(world,parent)
 	var sites: Array[Dictionary] = []
 	var regions: Array[Dictionary] = []
 	var buckets: Dictionary = {}
 	var occupied: Dictionary = {}
-	var ordered: Array = world.art.scenery_regions
+	var ordered: Array = world.art.get("accent_regions",[]) if accents_only else world.art.scenery_regions
+	var reserved: Array[Dictionary] = []
+	if accents_only:
+		var established := world.get_node_or_null("ExpansionLandscape" if world.art.get("expansion40",false) else "LandscapeDistricts")
+		if established!=null: reserved.assign(established.get_meta("sites",[]))
 	if ordered.any(func(region: Dictionary) -> bool: return region.get("avoid_buildings",false)):
 		# Plant reservations must see every building, regardless of catalog order.
 		var buildings := ordered.filter(func(region: Dictionary) -> bool: return not region.kind in ["grove","rocks"])
@@ -84,14 +88,14 @@ static func build(world: TrackWorld) -> void:
 		pose.basis = Basis(Vector3.UP,pose.basis.get_euler().y)
 		var first := sites.size()
 		if region.kind in ["grove","rocks"]: grove(world,region,pose,buckets,sites,occupied)
-		else: compound(world,parent,region,pose,sites)
+		else: compound(world,parent,region,pose,sites,reserved)
 		regions.append({"name":region.name,"kind":region.kind,"u":region.u,"side":region.side,"sites":sites.size()-first,"center":pose.origin})
 	for bucket: Dictionary in buckets.values():
 		if bucket.id=="moon_rock": rock_batch(bucket.poses,parent)
 		else: BillboardArt.batch(bucket.id,bucket.poses,parent,float(world.art.get("emission",0)),false)
 	parent.set_meta("sites",sites)
 	parent.set_meta("regions",regions)
-	CourseLandscape.horizon(world)
+	if not accents_only: CourseLandscape.horizon(world)
 
 static func grove(world: TrackWorld, region: Dictionary, pose: Transform3D, buckets: Dictionary, sites: Array[Dictionary], occupied: Dictionary) -> void:
 	var spacing := int(region.spacing)
@@ -143,7 +147,7 @@ static func rock_batch(poses: Array, parent: Node3D) -> void:
 	node.add_to_group("scenery_distance")
 	parent.add_child(node)
 
-static func compound(world: TrackWorld, parent: Node3D, region: Dictionary, pose: Transform3D, sites: Array[Dictionary]) -> void:
+static func compound(world: TrackWorld, parent: Node3D, region: Dictionary, pose: Transform3D, sites: Array[Dictionary], reserved: Array[Dictionary] = []) -> void:
 	var cluster := Node3D.new()
 	cluster.name = "Compound_"+str(region.name).to_pascal_case()
 	cluster.set_meta("region",region.name)
@@ -157,6 +161,14 @@ static func compound(world: TrackWorld, parent: Node3D, region: Dictionary, pose
 		var foundation_limit := 60.0 if natural else 16.0
 		var radius := Vector2(maxf(absf(bounds.position.x),absf(bounds.end.x)),maxf(absf(bounds.position.z),absf(bounds.end.z))).length()+2
 		var at := pose*Vector3(float(entry[1]),0,float(entry[2]))
+		if region.get("avoid_buildings",false):
+			var blocked := false
+			for site: Dictionary in reserved+sites:
+				if not site.has("module"): continue
+				if Vector2(at.x-site.at.x,at.z-site.at.z).length()<radius+float(site.radius)+4:
+					blocked = true
+					break
+			if blocked: continue
 		var basis := pose.basis*Basis(Vector3.UP,float(entry[4]))
 		var road := nearest(world,at)
 		var floor_y := height(world,at,road)
@@ -169,6 +181,8 @@ static func compound(world: TrackWorld, parent: Node3D, region: Dictionary, pose
 				else:
 					floor_y = maxf(floor_y,y)
 					minimum_y = minf(minimum_y,y)
+		# Reservoir service islands use an explicit dry plinth above the water.
+		floor_y += float(region.get("raised_platform_m",0))
 		at.y = floor_y
 		if not is_finite(minimum_y) or floor_y-minimum_y>foundation_limit or not clear(world,at,radius): continue
 		var node := MeshInstance3D.new()

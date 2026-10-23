@@ -743,14 +743,14 @@ func render_results() -> void:
 		list.add_child(menu.ui.label(RaceHUD.format_time(local_state.finish_time) if local_state.finished else I18n.t("results.dnf"), true))
 		if not local_state.trial_valid:
 			list.add_child(menu.ui.paragraph(I18n.t("results.invalid")))
-		var medal := Medals.award(session.track.length, local_state.finish_time, local_state.finished and local_state.trial_valid)
+		var medal := Medals.award(session.track.length, local_state.finish_time, local_state.finished and local_state.trial_valid,session.track)
 		var award_row := HBoxContainer.new()
 		award_row.add_child(menu.ui.icon(UIIcons.medal_id(medal),48))
 		award_row.add_child(menu.ui.label(I18n.t(["results.no_medal", "results.gold", "results.silver", "results.bronze"][medal + 1])))
 		list.add_child(award_row)
 		var previous := float(result_summary.get("previous", -1))
 		list.add_child(menu.ui.label(I18n.t("results.previous") + ": " + (RaceHUD.format_time(previous) + "  (%+.3f)" % (local_state.finish_time - previous) if previous > 0 and local_state.finished else I18n.t("results.no_previous"))))
-		var thresholds := Medals.thresholds(session.track.length)
+		var thresholds := Medals.thresholds(session.track.length,session.track)
 		for index in range(3):
 			var row := HBoxContainer.new()
 			row.add_child(menu.ui.icon(UIIcons.medal_id(index)))

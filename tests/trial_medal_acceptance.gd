@@ -50,8 +50,8 @@ func run() -> void:
 				if "jump" in state.events: launches += 1
 				if "land" in state.events: landings += 1
 				if race.phase==RaceSession.Phase.RESULTS: break
-			var threshold := Medals.thresholds(track.length)[0]
-			var medal := Medals.award(track.length,state.finish_time,state.finished and state.trial_valid)
+			var threshold := Medals.thresholds(track.length,track)[0]
+			var medal := Medals.award(track.length,state.finish_time,state.finished and state.trial_valid,track)
 			var passed := race.phase==RaceSession.Phase.RESULTS and state.finished and state.trial_valid and state.dnf_reason.is_empty() and recoveries==0 and medal==0
 			if not passed: failures.append(track.id+"/"+car.id)
 			cases.append({"track":track.id,"car":car.id,"passed":passed,"finished":state.finished,"trial_valid":state.trial_valid,

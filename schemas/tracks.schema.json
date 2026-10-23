@@ -202,6 +202,16 @@
               "centripetal",
               "bspline"
             ]
+          },
+          "detail_offsets": {
+            "type": "array",
+            "minItems": 16,
+            "maxItems": 8192,
+            "items": {
+              "type": "number",
+              "minimum": -200,
+              "maximum": 200
+            }
           }
         }
       },

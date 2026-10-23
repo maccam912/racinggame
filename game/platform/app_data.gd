@@ -221,7 +221,7 @@ func commit_result(session: RaceSession, samples: Array[Dictionary] = []) -> Dic
 		if write_ghost(ghost_filename, bytes, prior_ghost) != OK:
 			return {"saved":false, "new_best":false, "previous":previous}
 	if new_best:
-		updated.times[key] = {"time":candidate, "race_id":session.race_uuid, "medal":Medals.award(session.track.length, candidate, true) if session.mode == "trial" else -1}
+		updated.times[key] = {"time":candidate, "race_id":session.race_uuid, "medal":Medals.award(session.track.length, candidate, true,session.track) if session.mode == "trial" else -1}
 	updated.committed[session.race_uuid] = {"new_best":new_best, "previous":previous, "time":candidate}
 	updated.pending[session.race_uuid] = {"distance_m":state.distance_m, "completed":state.finished}
 	if store.save_component("records", updated) != OK:

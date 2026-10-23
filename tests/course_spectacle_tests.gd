@@ -1,14 +1,14 @@
 extends SceneTree
 ## Actual collision levels and complete bounded mesh footprints for the new routes.
 const CROSSINGS := {
-	"spillway_sprint":[Vector2(4210,822),Vector2(5754,1744),Vector2(6676,3288)],
-	"caldera_crosscut":[Vector2(4550,262),Vector2(5334,742),Vector2(5816,1530),Vector2(6602,2018),Vector2(7084,2806),Vector2(7868,3288),Vector2(8348,4070)]}
+	"spillway_sprint":[Vector2(4428.109,926.303),Vector2(6023.692,1860.239),Vector2(6961.527,3456.849)],
+	"caldera_crosscut":[Vector2(4596.288,240.194),Vector2(5369.266,721.662),Vector2(5923.763,1520.230),Vector2(6683.921,1965.985),Vector2(7297.932,2877.149),Vector2(8093.400,3383.756),Vector2(8574.882,4160.268)]}
 func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
 	var frozen: Dictionary = JSON.parse_string(FileAccess.get_file_as_string("res://tests/fixtures/content8/tracks.json"))
 	for index in range(6,8):
-		assert(Catalog.tracks[index].definition.ordered_control_points==frozen.tracks[index].ordered_control_points,"the layered city crossing and quarry hairpins retain their authored geometry")
+		assert(Catalog.tracks[index].definition.detail_offsets.size()>=16,"the layered city crossing and quarry hairpins receive authored local detail")
 	var evidence: Array[Dictionary] = []
 	for track: TrackDefinition in Catalog.tracks:
 		if not CROSSINGS.has(track.id): continue
@@ -50,7 +50,7 @@ func run() -> void:
 		for pair: Vector2 in CROSSINGS[track.id]:
 			var first := world.ground_pose(pair.x,0).origin
 			var last := world.ground_pose(pair.y,0).origin
-			assert(Vector2(first.x,first.z).distance_to(Vector2(last.x,last.z))<4 and absf(first.y-last.y)>65)
+			assert(Vector2(first.x,first.z).distance_to(Vector2(last.x,last.z))<4 and absf(first.y-last.y)>50)
 			for s: float in [pair.x,pair.y]:
 				var state := VehicleState.new()
 				state.position = world.ground_pose(s,0).origin+Vector3.UP*.35

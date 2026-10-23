@@ -4,8 +4,8 @@ extends RefCounted
 # Site rows: canonical route distance, lateral offset, road approach distance.
 const SPECS := {
 	"aurora_harbor":{"kind":"icebreaker","radius":31.0,"sites":[[580,145.0,160.0]]},
-	"monsoon_delta":{"kind":"river_barge","radius":25.0,"sites":[[980,145.0,160.0],[3220,145.0,400.0]]},
-	"coral_causeway":{"kind":"outrigger","radius":18.0,"sites":[[1300,145.0,160.0],[2740,145.0,160.0],[4980,185.0,160.0]]},
+	"monsoon_delta":{"kind":"river_barge","radius":25.0,"sites":[[980,145.0,160.0],[3220,265.0,100.0]]},
+	"coral_causeway":{"kind":"outrigger","radius":18.0,"sites":[[1300,145.0,160.0],[2740,145.0,160.0],[5080,265.0,100.0]]},
 	"container_corkscrew":{"kind":"harbor_tug","radius":27.0,"sites":[[740,145.0,160.0]]},
 }
 

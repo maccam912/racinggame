@@ -11,6 +11,7 @@ static func noise_at(x: float, z: float, seed: float) -> float:
 static func build(world: TrackWorld) -> void:
 	if world.art.get("composition_version",0)>=14:
 		AuthoredCourseScenery.build(world)
+		AuthoredCourseScenery.build(world,true)
 		return
 	if world.art.get("expansion40",false):
 		ExpansionCourseArt.landscape(world)
@@ -91,6 +92,7 @@ static func build(world: TrackWorld) -> void:
 	# Waterworks and the caldera already have their own persistent skyline.
 	if world.track.id not in ["spillway_sprint","caldera_crosscut"]:
 		horizon(world)
+	AuthoredCourseScenery.build(world,true)
 
 
 static func islets(world: TrackWorld, parent: Node3D, poses: Array[Transform3D], key: String) -> void:
