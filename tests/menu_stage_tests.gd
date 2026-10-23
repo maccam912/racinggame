@@ -54,8 +54,8 @@ func run() -> void:
 	var passed: bool = cleared.near==0 and cleared.visible>0 and unchanged
 	if render:
 		DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://reports/menu-stage"))
-		for car_index in range(4):
-			stage.set_selection(car_index,car_index*2)
+		for car_index in range(Catalog.cars.size()):
+			stage.set_selection(car_index,(car_index*2)%Catalog.paints.size())
 			for angle_index in range(8):
 				stage.rotation_offset = angle_index*TAU/8
 				stage._process(0)
@@ -64,11 +64,11 @@ func run() -> void:
 				var path := "res://reports/menu-stage/%s-%d.png"%[Catalog.cars[car_index].id,angle_index]
 				var pixels := root.get_texture().get_image()
 				assert(pixels.save_png(path)==OK)
-				captures.append({"car":Catalog.cars[car_index].id,"paint":car_index*2,"angle_radians":stage.camera.rotation.y,"path":path,"width":pixels.get_width(),"height":pixels.get_height()})
+				captures.append({"car":Catalog.cars[car_index].id,"paint":(car_index*2)%Catalog.paints.size(),"angle_radians":stage.camera.rotation.y,"path":path,"width":pixels.get_width(),"height":pixels.get_height()})
 	var file := FileAccess.open("res://reports/menu-stage.json",FileAccess.WRITE)
 	assert(file!=null)
 	file.store_string(JSON.stringify({"passed":passed,"racing_world_before":before,"preview_after":cleared,"independent_racing_world_unchanged":unchanged,"captures":captures,
-		"boundary":"Real menu-stage world, instanced cutout foliage/footprints and optional native 360-degree views of all four cars. Preview-only clearance; no driving geometry, car state or active track placement changes."},"\t")+"\n")
+		"boundary":"Real menu-stage world, instanced cutout foliage/footprints and optional native 360-degree views of all eight cars. Preview-only clearance; no driving geometry, car state or active track placement changes."},"\t")+"\n")
 	file.close()
 	stage.queue_free()
 	original_scope.queue_free()

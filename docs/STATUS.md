@@ -2001,3 +2001,14 @@ macOS Compatibility checks, not Android runtime or frame-time acceptance.
 The preceding browser-polish revision passed remote CI
 [39761842246](https://github.com/maccam912/racinggame/actions/runs/39761842246).
 [Evidence and boundaries](evidence/coastal-watercraft/validation.json).
+
+
+## 2026-10-22: technical layouts and eight-car roster (content 16)
+
+All forty tracks now combine fine, medium and broad road detail; twelve use more angular city plans. Starts, ramp approaches, banked sectors and layered crossings retain protected geometry. Additional large/medium scenery contributes 342 models in 154 populated accent groups. The source lives in `technical_courses15.json` and `course_accents15.json`; routes bake normally.
+
+Trailblazer adds a rally wagon and Corsair a long GT. Pulse and Meteor each start a race with three two-second boosts, with no refill. Shift / gamepad X or Square / touch Boost activates one charge. Held input cannot chain charges; recovery cancels without refund, while suspension and network prediction retain the remaining inventory. The original four handling values remain. All eight models have three authored LODs and share the collision footprint.
+
+Local validation: 213 required command checks have passing results after repairing two old four-car UI expectations; 33 Python unit tests pass. All 320 car/course Gold trials pass with zero recoveries. Field acceptance passes 120 races / 960 finishes / zero recoveries and difficulty ordering for all eight cars. Native checks include 80 hood-framing cases, 480 lamp attachment rays and actual new-car/HUD/touch renders. Input, snapshot, save/resume and Iroh fixtures pass. [Evidence and exact boundaries](evidence/cars16/README.md), [validation](evidence/cars16/validation.json). This does not establish human balance or physical Android controls.
+
+Gameplay/protocol/save revisions are 16/8/1. Frozen content-14 and content-15 records, ghosts, Cup and suspended-race bytes stay preserved; incompatible continuation is disabled. Reviewed terrain geometry remains byte-exact from content 15 despite the expanded car-specific AI lines.

@@ -78,13 +78,13 @@ func grid() -> Array[Dictionary]:
 static func validate_data(value: Dictionary) -> bool:
 	if value.is_empty():
 		return true
-	if not NetEvents.integer(value.get("car"), 0, 3) or not NetEvents.integer(value.get("seed"), 0, 0xffffffff) or not NetEvents.integer(value.get("difficulty"), 1, 1):
+	if not NetEvents.integer(value.get("car"), 0, Catalog.car_count()-1) or not NetEvents.integer(value.get("seed"), 0, 0xffffffff) or not NetEvents.integer(value.get("difficulty"), 1, 1):
 		return false
 	if not value.get("id") is String or value.id.length() != 36 or not value.get("content_hash") is String or value.content_hash.length() != 64 or not value.get("roster") is Array or value.roster.size() != 8 or not value.get("results") is Array or not value.get("seeds") is Array or value.seeds.size() != 6 or not NetEvents.integer(value.get("next_event"), 0, 6) or value.results.size() != int(value.next_event):
 		return false
 	var ids: Dictionary = {}
 	for row: Variant in value.roster:
-		if not row is Dictionary or not row.get("id") is String or ids.has(row.id) or not row.get("name") is String or not row.get("bot") is bool or not NetEvents.integer(row.get("car"), 0, 3) or not NetEvents.integer(row.get("paint"), 0, 7):
+		if not row is Dictionary or not row.get("id") is String or ids.has(row.id) or not row.get("name") is String or not row.get("bot") is bool or not NetEvents.integer(row.get("car"), 0, Catalog.car_count()-1) or not NetEvents.integer(row.get("paint"), 0, 7):
 			return false
 		ids[row.id] = true
 	if not ids.has("local") or value.roster.filter(func(row: Dictionary) -> bool: return not row.bot).size() != 1:

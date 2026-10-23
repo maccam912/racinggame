@@ -16,7 +16,7 @@ static func roster_valid(value: Variant, allow_empty: bool = false, members: boo
 		return false
 	var seen: Dictionary = {}
 	for row: Variant in value:
-		if not row is Dictionary or not row.get("id") is String or row.id.length() > 64 or seen.has(row.id) or not row.get("name") is String or not PlayerName.validate(row.name).valid or not integer(row.get("car"), 0, 3) or not integer(row.get("paint"), 0, 7):
+		if not row is Dictionary or not row.get("id") is String or row.id.length() > 64 or seen.has(row.id) or not row.get("name") is String or not PlayerName.validate(row.name).valid or not integer(row.get("car"), 0, Catalog.car_count()-1) or not integer(row.get("paint"), 0, 7):
 			return false
 		seen[row.id] = true
 		if members and (not row.get("ready") is bool or not row.get("connected") is bool or not integer(row.get("slot"), 0, 7) or not integer(row.get("ping"), 0, 60000) or not row.get("loaded") is bool):
@@ -50,7 +50,7 @@ static func server_event(event: Dictionary) -> bool:
 				return false
 			var ids: Dictionary = {}
 			for row: Variant in event.cars:
-				if not row is Array or row.size() != 4 or not row[0] is String or row[0].is_empty() or row[0].length() > 64 or ids.has(row[0]) or not integer(row[1], 0, 3) or not integer(row[2], 0, 7) or not row[3] is bool:
+				if not row is Array or row.size() != 4 or not row[0] is String or row[0].is_empty() or row[0].length() > 64 or ids.has(row[0]) or not integer(row[1], 0, Catalog.car_count()-1) or not integer(row[2], 0, 7) or not row[3] is bool:
 					return false
 				ids[row[0]] = true
 			return true
@@ -63,7 +63,7 @@ static func server_event(event: Dictionary) -> bool:
 				return false
 			var seen: Dictionary = {}
 			for row: Variant in event.results:
-				if not row is Dictionary or not integer(row.get("slot"), 0, 7) or seen.has(int(row.slot)) or not row.get("name") is String or not PlayerName.validate(row.name).valid or not row.get("dnf") is String or row.dnf.length() > 64 or not number(row.get("time"), -1, 600) or not number(row.get("best_lap"), -1, 600) or not number(row.get("distance_m"), 0, 100000) or not integer(row.get("car"), 0, 3) or not integer(row.get("paint"), 0, 7) or not row.get("bot") is bool:
+				if not row is Dictionary or not integer(row.get("slot"), 0, 7) or seen.has(int(row.slot)) or not row.get("name") is String or not PlayerName.validate(row.name).valid or not row.get("dnf") is String or row.dnf.length() > 64 or not number(row.get("time"), -1, 600) or not number(row.get("best_lap"), -1, 600) or not number(row.get("distance_m"), 0, 100000) or not integer(row.get("car"), 0, Catalog.car_count()-1) or not integer(row.get("paint"), 0, 7) or not row.get("bot") is bool:
 					return false
 				seen[int(row.slot)] = true
 			return true

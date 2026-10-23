@@ -113,7 +113,7 @@ static func valid_roster(value: Variant, human: int) -> bool:
 	for index in range(value.size()):
 		var row: Variant = value[index]
 		if not row is Dictionary or not row.get("id") is String or not row.get("name") is String or not row.get("bot") is bool: return false
-		if not bounded(row.get("car"),0,3) or not bounded(row.get("paint"),0,7): return false
+		if not bounded(row.get("car"), 0, Catalog.car_count()-1) or not bounded(row.get("paint"),0,7): return false
 		if not PlayerName.validate(row.name).valid or row.id in ids: return false
 		if index==human:
 			if row.id!="local" or row.bot: return false
@@ -140,7 +140,7 @@ static func valid(value: Dictionary) -> bool:
 	if not bounded(session.race_id,1,4294967295) or not bounded(session.seed,0,4294967295) or not bounded(session.phase,2,6): return false
 	if not bounded(session.phase_ticks,0,36000) or not bounded(session.elapsed_ticks,0,36000) or not bounded(session.lap_count,1,3) or not bounded(session.settled_ticks,0,120): return false
 	if not bounded(session.first_finish_tick,-1,int(session.elapsed_ticks)) or not session.contact_enabled is bool or not GuestIdentity.valid_uuid(str(session.race_uuid)): return false
-	if not bounded(config.get("track"),0,Catalog.track_count()-1) or not bounded(config.get("car"),0,3) or not bounded(config.get("paint"),0,7) or not bounded(config.get("difficulty"),0,2) or not bounded(config.get("lesson"),0,4): return false
+	if not bounded(config.get("track"),0,Catalog.track_count()-1) or not bounded(config.get("car"), 0, Catalog.car_count()-1) or not bounded(config.get("paint"),0,7) or not bounded(config.get("difficulty"),0,2) or not bounded(config.get("lesson"),0,4): return false
 	if config.get("laps")!=session.lap_count or config.get("seed")!=session.seed or config.get("contact")!=session.contact_enabled or not config.get("ghost") is bool: return false
 	if config.get("cup_id")!=session.event_uuid or config.get("cup_event")!=session.cup_event or not config.contact is bool: return false
 	if not valid_roster(config.get("roster"),int(session.human_slot)): return false
@@ -161,6 +161,8 @@ static func valid(value: Dictionary) -> bool:
 		var state := VehicleState.new()
 		if not unpack(value.states[index],state) or state.slot!=index or not state.events.is_empty(): return false
 		if state.dnf_reason.length()>160: return false
+		var car: CarDefinition = Catalog.cars[int(roster[index].car)]
+		if state.boost_charges > car.boost_charges or car.boost_charges == 0 and state.boost_ticks != 0: return false
 		if state.recovery_rank < -1 or state.recovery_rank >= roster.size() or state.recovery_progress < -6 or state.recovery_progress > (int(session.lap_count)+1)*track.length or state.recovery_speed < 0 or state.recovery_speed > 100: return false
 		if state.last_gate>=track.bake.gates.size() or state.laps>int(session.lap_count) or state.laps<0 or state.ground_normal.y<0 or absf(state.ground_normal.length()-1)>.01: return false
 		decoded.states.append(state)

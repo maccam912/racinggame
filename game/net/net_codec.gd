@@ -2,7 +2,7 @@ class_name NetCodec
 extends RefCounted
 ## Explicit fixed-width little-endian packets. No Variant deserialization on UDP.
 
-const PROTOCOL: int = 7
+const PROTOCOL: int = 8
 const MAX_PACKET: int = 1200
 const FIELDS: Array = [
 	["yaw", "i16", 100.0 * 180 / PI], ["yaw_rate", "i16", 100.0 * 180 / PI],
@@ -10,6 +10,7 @@ const FIELDS: Array = [
 	["drift_timer", "u16", 1000], ["drift_entry", "u16", 1000],
 	["reverse_hold", "u16", 1000], ["wall_separation_ticks", "u16", 1],
 	["contact_ticks", "u8", 1],
+	["boost_charges", "u8", 1], ["boost_ticks", "u8", 1], ["boost_latched", "u8", 1],
 	["recovery_ticks", "u8", 1], ["recovery_hold_ticks", "u8", 1],
 	["recovery_speed", "u16", 100],
 	["ghost_ticks", "u16", 1], ["offroad_ticks", "u8", 1], ["outside_ticks", "u16", 1],
@@ -42,7 +43,7 @@ static func encode_inputs(race: int, frames: Array[InputFrame]) -> PackedByteArr
 		buffer.put_8(roundi(frame.steer * 127))
 		buffer.put_u8(roundi(frame.throttle * 255))
 		buffer.put_u8(roundi(frame.brake * 255))
-		buffer.put_u8(int(frame.handbrake) | (int(frame.recover) << 1))
+		buffer.put_u8(int(frame.handbrake) | (int(frame.recover) << 1) | (int(frame.boost) << 2))
 	return buffer.data_array
 
 
@@ -67,10 +68,11 @@ static func decode_inputs(bytes: PackedByteArray, race: int) -> Array[InputFrame
 		frame.throttle = buffer.get_u8() / 255.0
 		frame.brake = buffer.get_u8() / 255.0
 		var buttons := buffer.get_u8()
-		if buttons & ~3 or steer == -128:
+		if buttons & ~7 or steer == -128:
 			return []
 		frame.handbrake = bool(buttons & 1)
 		frame.recover = bool(buttons & 2)
+		frame.boost = bool(buttons & 4)
 		result.append(frame)
 	return result
 
@@ -90,6 +92,7 @@ static func encode_snapshot(session: RaceSession, server_tick: int, hash_prefix:
 	buffer.put_u32(0) # Reliable event sequence, extended by the room event layer.
 	buffer.put_u8(session.states.size())
 	for state: VehicleState in session.states:
+		if state.boost_charges < 0 or state.boost_charges > 3 or state.boost_ticks < 0 or state.boost_ticks > VehicleSim.BOOST_TICKS or state.boost_latched not in [0,1]: return PackedByteArray()
 		buffer.put_u8(state.slot)
 		for value: float in [state.position.x, state.position.y, state.position.z]:
 			if not is_finite(value) or absf(value) > 21474836:
@@ -185,7 +188,7 @@ static func decode_snapshot(bytes: PackedByteArray, race: int, hash_prefix: Pack
 			return {}
 		state.lap_valid = bool(lap_valid)
 		var surface := buffer.get_u8()
-		if state.recovery_speed > 100 or surface > 3 or state.drift_phase > 2 or state.last_gate < -1 or state.last_gate > maximum_gate or absf(state.steer_filter) > 1:
+		if state.boost_charges > 3 or state.boost_ticks > VehicleSim.BOOST_TICKS or state.boost_latched > 1 or state.recovery_speed > 100 or surface > 3 or state.drift_phase > 2 or state.last_gate < -1 or state.last_gate > maximum_gate or absf(state.steer_filter) > 1:
 			return {}
 		state.surface = ["asphalt", "sand", "grass", "dirt"][surface]
 		state.finish_time = buffer.get_float()

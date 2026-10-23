@@ -12,6 +12,8 @@ var controls: Dictionary = {}
 var steer: float = 0.0
 var auto_accelerate: bool = true
 var enabled: bool = true
+var boost_available: bool = true
+var boost_charges: int = 3
 var unit: float = 1.0
 var steering_style: String = "slider"
 var button_scale: float = 1.0
@@ -66,7 +68,7 @@ func rebuild() -> void:
 static func build_layout(safe: Rect2, automatic: bool, steering: String, scale_factor: float, mirrored: bool) -> Dictionary:
 	if safe.size.y < 320:
 		return {}
-	var definitions := {"steer":[Vector2(.18,.78),Vector2(180,100)], "brake":[Vector2(.83,.80),Vector2(88,88)], "handbrake":[Vector2(.91,.59),Vector2(72,72)], "recover":[Vector2(.72,.59),Vector2(56,56)], "camera":[Vector2(.58,.92),Vector2(48,48)], "look_back":[Vector2(.47,.92),Vector2(48,48)], "pause":[Vector2(.95,.08),Vector2(48,48)]}
+	var definitions := {"boost":[Vector2(.87,.34),Vector2(64,64)], "steer":[Vector2(.18,.78),Vector2(180,100)], "brake":[Vector2(.83,.80),Vector2(88,88)], "handbrake":[Vector2(.91,.59),Vector2(72,72)], "recover":[Vector2(.72,.59),Vector2(56,56)], "camera":[Vector2(.58,.92),Vector2(48,48)], "look_back":[Vector2(.47,.92),Vector2(48,48)], "pause":[Vector2(.95,.08),Vector2(48,48)]}
 	if not automatic:
 		definitions.throttle = [Vector2(.90,.81),Vector2(88,88)]
 		definitions.brake[0] = Vector2(.75,.81)
@@ -107,7 +109,7 @@ static func build_layout(safe: Rect2, automatic: bool, steering: String, scale_f
 				if not result.brake.grow(2).intersects(result.throttle):
 					break
 				result.brake.position.x += 4 if mirrored else -4
-		for action: String in ["handbrake","recover"]:
+		for action: String in ["handbrake","recover","boost"]:
 			for attempt in range(40):
 				var overlaps := false
 				for other: String in result:
@@ -160,6 +162,7 @@ func pointer_down(id: int, at: Vector2) -> void:
 	if not enabled or captures.has(id):
 		return
 	for action: String in controls:
+		if action == "boost" and not boost_available: continue
 		if controls[action].has_point(at) and not captures.values().any(func(c: Dictionary) -> bool: return c.action == action):
 			captures[id] = {"action": action, "active": true}
 			capture_started.emit(action)
@@ -235,10 +238,15 @@ func _input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	for action: String in controls:
+		if action == "boost" and not boost_available: continue
 		var rect: Rect2 = controls[action]
 		draw_style_box(visual_style(action),rect)
-		if action in ["recover","look_back","camera","pause","left","right"]:
-			draw_icon(action,rect.get_center())
+		if action in ["boost","recover","look_back","camera","pause","left","right"]:
+			draw_icon(action,rect.get_center()-Vector2(0,5)*unit if action == "boost" else rect.get_center())
+			if action == "boost":
+				for charge in range(3):
+					var at := Vector2(rect.get_center().x+(charge-1)*11*unit,rect.end.y-10*unit)
+					draw_circle(at,3.5*unit,UIFactory.YELLOW if charge < boost_charges else UIFactory.NAVY)
 			continue
 		if action=="steer":
 			draw_steering(rect)

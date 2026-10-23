@@ -75,7 +75,7 @@ func save_profile() -> Error:
 
 
 func select_car(car: int, paint: int) -> Error:
-	if car < 0 or car > 3 or paint < 0 or paint > 7:
+	if car < 0 or car >= Catalog.car_count() or paint < 0 or paint > 7:
 		return ERR_INVALID_PARAMETER
 	profile.selected_car = car
 	profile.selected_paint = paint
@@ -293,12 +293,12 @@ func write_binary(filename: String, bytes: PackedByteArray) -> Error:
 
 static func validate_profile(value: Dictionary) -> bool:
 	if not value.get("cellular_notice_accepted",false) is bool: return false
-	if not value.get("display_name") is String or not NetEvents.integer(value.get("selected_car"), 0, 3) or not NetEvents.integer(value.get("selected_paint"), 0, 7) or not value.get("first_run_complete") is bool or not value.get("school_steps") is Array or value.school_steps.size() != 5 or not value.get("ledger") is Dictionary or not value.get("trophies") is Array or not NetEvents.integer(value.get("races_completed"), 0, 1000000000) or not (value.get("distance_m") is float or value.get("distance_m") is int) or float(value.distance_m) < 0:
+	if not value.get("display_name") is String or not NetEvents.integer(value.get("selected_car"), 0, Catalog.car_count()-1) or not NetEvents.integer(value.get("selected_paint"), 0, 7) or not value.get("first_run_complete") is bool or not value.get("school_steps") is Array or value.school_steps.size() != 5 or not value.get("ledger") is Dictionary or not value.get("trophies") is Array or not NetEvents.integer(value.get("races_completed"), 0, 1000000000) or not (value.get("distance_m") is float or value.get("distance_m") is int) or float(value.distance_m) < 0:
 		return false
 	if not PlayerName.validate(value.display_name).valid:
 		return false
 	for entry: Variant in value.trophies:
-		if not entry is Dictionary or not entry.get("cup_id") is String or not NetEvents.integer(entry.get("rank"), 0, 2) or not NetEvents.integer(entry.get("car"), 0, 3) or not entry.get("content_hash") is String:
+		if not entry is Dictionary or not entry.get("cup_id") is String or not NetEvents.integer(entry.get("rank"), 0, 2) or not NetEvents.integer(entry.get("car"), 0, Catalog.car_count()-1) or not entry.get("content_hash") is String:
 			return false
 	for key: Variant in value.ledger:
 		if not key is String or not value.ledger[key] is bool:

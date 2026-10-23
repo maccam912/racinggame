@@ -4,8 +4,8 @@ extends RefCounted
 
 signal device_changed(device_name: String)
 
-const ACTIONS := ["steer_left", "steer_right", "accelerate", "brake", "handbrake", "recover", "camera", "look_back", "pause"]
-const EDGE_ACTIONS := ["handbrake", "recover", "camera", "look_back", "pause"]
+const ACTIONS := ["steer_left", "steer_right", "accelerate", "brake", "boost", "handbrake", "recover", "camera", "look_back", "pause"]
+const EDGE_ACTIONS := ["boost", "handbrake", "recover", "camera", "look_back", "pause"]
 static var last_device: String = ""
 static var last_joy: int = -1
 var auto_accelerate: bool = false
@@ -192,6 +192,7 @@ func sample(active: bool, touch: TouchDriving = null) -> InputFrame:
 		frame.brake = 1.0 if touch.held("brake") else 0.0
 		frame.handbrake = touch.held("handbrake")
 		frame.recover = touch.held("recover")
+		frame.boost = touch.held("boost")
 		if touch.auto_accelerate and not fresh_touch_needed and frame.brake == 0:
 			frame.throttle = 1.0
 	else:
@@ -202,6 +203,7 @@ func sample(active: bool, touch: TouchDriving = null) -> InputFrame:
 		frame.brake = action_strength("brake")
 		frame.handbrake = action_strength("handbrake") > .5
 		frame.recover = action_strength("recover") > .5
+		frame.boost = action_strength("boost") > .5
 		if auto_accelerate and frame.brake == 0:
 			frame.throttle = 1.0
 	frame.steer = clampf(frame.steer * sensitivity, -1, 1)

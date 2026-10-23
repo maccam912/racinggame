@@ -40,5 +40,8 @@ func sample(server_tick: int) -> InputFrame:
 	if missing_ticks > 6:
 		var neutral := InputFrame.make()
 		neutral.sequence = last_sequence
+		# Preserve the edge latch through packet loss. Releasing thrust must not
+		# turn a still-held boost into a second charge when packets resume.
+		neutral.boost = last_frame.boost
 		return neutral
 	return last_frame

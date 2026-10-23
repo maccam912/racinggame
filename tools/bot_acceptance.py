@@ -22,7 +22,7 @@ def run(seeds=20, jobs=3):
         report = folder/(name+'.json')
         command = [sys.executable, 'tools/godot.py', '--headless', '--fixed-fps', '60',
                    '--script', 'tests/bot_tracks.gd', '--', '--track='+track,
-                   '--seeds='+str(4 if solo else seeds), '--report='+str(report)]
+                   '--seeds='+str(8 if solo else seeds), '--report='+str(report)]
         if solo:
             command.append('--solo')
         started = time.monotonic()
@@ -31,7 +31,7 @@ def run(seeds=20, jobs=3):
         if result.returncode or not report.exists():
             raise RuntimeError(name+' failed; inspect '+str(folder/(name+'.log')))
         value = json.loads(report.read_text())
-        assert value['passed'] and len(value['results'])==3*(4 if solo else seeds)
+        assert value['passed'] and len(value['results'])==3*(8 if solo else seeds)
         assert all(len(row['times'])==(1 if solo else 8) and not row['dnfs'] for row in value['results'])
         print(f'PASS {name}: {len(value["results"])} races in {time.monotonic()-started:.1f}s', flush=True)
         return name, value
@@ -43,7 +43,7 @@ def run(seeds=20, jobs=3):
             values[name] = value
     solo = values['palm_bay-solo']['results']
     ordering = []
-    for car in range(4):
+    for car in range(8):
         times = [next(row['times'][0] for row in solo if row['reference_car']==car and row['difficulty']==difficulty) for difficulty in range(3)]
         assert times[2]<times[1]<times[0], f'Difficulty order failed for car {car}: {times}'
         ordering.append({'car':car, 'easy':times[0], 'medium':times[1], 'hard':times[2]})
@@ -53,7 +53,7 @@ def run(seeds=20, jobs=3):
                'field_races':len(rows), 'finished_cars':sum(len(row['times']) for row in rows),
                'recoveries':sum(row['recoveries'] for row in rows), 'single_car_ordering':ordering,
                'boundaries':['Seven bots plus an autopiloted reference car; not a human difficulty/feel test',
-                             'Bots have no random reaction or line variation; seeds rotate four legal reference-car choices',
+                             'Bots have no random reaction or line variation; seeds rotate eight legal reference-car choices',
                              'Single-car ordering uses a fixture-only flattened Palm Bay route at y=4, with bank/jump offsets zero and car contact disabled; shipped geometry is unchanged']}
     (folder/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
     print(json.dumps(summary,indent=2),flush=True)

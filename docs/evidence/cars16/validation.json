@@ -1,0 +1,111 @@
+{
+  "passed": true,
+  "content_hash": "98231ebb0aef07667cc5a96a27b3701e16e0ea9718e9e6c67da2edc61d333944",
+  "asset_hash": "ec9342bdd5697921a6a08cc952193715352ab94c57aa0169cf3bf1adb8c612e4",
+  "revisions": {
+    "content": 16,
+    "protocol": 8,
+    "save": 1
+  },
+  "source_gate": {
+    "commands": 213,
+    "initial_passes": 211,
+    "repaired_ui_expectations": [
+      {
+        "suite": "tools/godot.py --headless --max-fps 60 --script tests/interface_icon_tests.gd -- --profile=ci_tests",
+        "previous_log": "/Users/maccam912/dev/racinggame/reports/checks-cad57d6f37/193.log",
+        "current_log": "reports/layout15/repair-192.log",
+        "passed": true
+      },
+      {
+        "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/menu_apron_tests.gd -- --profile=ci_tests",
+        "previous_log": "/Users/maccam912/dev/racinggame/reports/checks-cad57d6f37/196.log",
+        "current_log": "reports/layout15/repair-195.log",
+        "passed": true
+      }
+    ],
+    "latest_passes": 213,
+    "mode": "Completed 213-command source gate with two failed legacy UI expectations repaired and rerun using the exact original commands. Earlier successful command outputs retained; not a second full execution."
+  },
+  "python_unit_tests": 33,
+  "gold_trials": {
+    "cases": 320,
+    "recoveries": 0,
+    "all_passed": true
+  },
+  "field_acceptance": {
+    "content_hash": "c7f19365246aea6028b42dae623fc02071cb415557397392acf22626137521ea",
+    "field_races": 120,
+    "finished_cars": 960,
+    "recoveries": 0,
+    "single_car_ordering": [
+      {
+        "car": 0,
+        "easy": 111.694691432195,
+        "medium": 98.3647534041306,
+        "hard": 90.0549584623076
+      },
+      {
+        "car": 1,
+        "easy": 115.175128179067,
+        "medium": 101.491514501128,
+        "hard": 92.8901183617099
+      },
+      {
+        "car": 2,
+        "easy": 107.220999714461,
+        "medium": 94.4086873673036,
+        "hard": 86.4171547485102
+      },
+      {
+        "car": 3,
+        "easy": 113.367049936867,
+        "medium": 99.792519976889,
+        "hard": 91.3298754653999
+      },
+      {
+        "car": 4,
+        "easy": 104.643415214385,
+        "medium": 92.0963593655178,
+        "hard": 84.3391994074257
+      },
+      {
+        "car": 5,
+        "easy": 114.732045294425,
+        "medium": 101.116632376528,
+        "hard": 92.5614970889336
+      },
+      {
+        "car": 6,
+        "easy": 109.021053159814,
+        "medium": 96.0570152562264,
+        "hard": 87.9962089431155
+      },
+      {
+        "car": 7,
+        "easy": 113.612821471038,
+        "medium": 100.135656171451,
+        "hard": 91.6591268294795
+      }
+    ]
+  },
+  "field_hash_boundary": "The field run began before the final InputBuffer packet-loss latch fix. Offline bots do not use InputBuffer. Final input loss/prediction/boost tests passed separately against the final content hash.",
+  "native": {
+    "new_car_models": 4,
+    "hood_framing_cases": 80,
+    "mounted_lamp_rays": 480,
+    "ui_captures": [
+      "desktop-boost.png",
+      "touch-boost.png"
+    ],
+    "ui_boundary": "Posed native desktop renderer with the real gameplay HUD and touch controls; not physical Android."
+  },
+  "course_accents": {
+    "tracks": 40,
+    "additional_models": 342,
+    "populated_groups": 154,
+    "minimum_steering_reversals": 19
+  },
+  "iroh": "Four bidirectional channels passed with 767-byte snapshots, cancellation and forced disconnect.",
+  "boundary": "Local macOS source/native checks; human balance, physical Android usability and remote CI are separate."
+}

@@ -11,10 +11,11 @@ extends Resource
 @export var turn_factor: float
 @export var default_paint: int
 @export var role: String
+@export var boost_charges: int
 
 
 static func from_data(data: Dictionary) -> CarDefinition:
 	var car := CarDefinition.new()
-	for key in ["id", "mesh_id", "audio_profile_id", "display_name_key", "top_speed", "acceleration", "grip", "turn_factor", "default_paint", "role"]:
+	for key in ["id", "mesh_id", "audio_profile_id", "display_name_key", "top_speed", "acceleration", "grip", "turn_factor", "default_paint", "role", "boost_charges"]:
 		car.set(key, data[key])
 	return car

@@ -3,7 +3,7 @@ extends SceneTree
 
 func _initialize() -> void:
 	Catalog.load_all()
-	assert(Catalog.cars.size() == 4)
+	assert(Catalog.cars.size() == 8)
 	assert(Catalog.tracks.size() == 40)
 	for track: TrackDefinition in Catalog.tracks:
 		assert(track.length > 2500 and track.length < 12000)
@@ -15,5 +15,5 @@ func _initialize() -> void:
 		for gate: Dictionary in track.bake.gates:
 			assert(Vector3(gate.position[0], gate.position[1], gate.position[2]).distance_to(
 				Vector3(gate.recovery[0], gate.recovery[1], gate.recovery[2])) > 5.99)
-	print("TEST PASS: 4 cars, 40 routes, 8 paints, grid/start/recovery contracts")
+	print("TEST PASS: 8 cars, 40 routes, 8 paints, grid/start/recovery contracts")
 	quit()

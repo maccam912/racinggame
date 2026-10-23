@@ -283,7 +283,7 @@ func receive(packet: Dictionary) -> void:
 			if event.get("value") is bool:
 				lobby.set_ready(player.id, event.value)
 		"select_car":
-			if NetEvents.integer(event.get("car"), 0, 3) and NetEvents.integer(event.get("paint"), 0, 7):
+			if NetEvents.integer(event.get("car"), 0, Catalog.car_count()-1) and NetEvents.integer(event.get("paint"), 0, 7):
 				lobby.select_car(player.id, int(event.car), int(event.paint))
 		"rules":
 			if event.get("rules") is Dictionary:
@@ -349,7 +349,7 @@ func hello(sender: int, event: Dictionary) -> void:
 		if lobby.private_room and event.get("code", "") != lobby.code:
 			wire.event(sender, {"type":"error", "message":"Room not available"})
 			return
-		if not NetEvents.integer(event.get("car", 0), 0, 3) or not NetEvents.integer(event.get("paint", 0), 0, 7):
+		if not NetEvents.integer(event.get("car", 0), 0, Catalog.car_count()-1) or not NetEvents.integer(event.get("paint", 0), 0, 7):
 			return
 		var car := int(event.get("car", 0))
 		var paint := int(event.get("paint", 0))

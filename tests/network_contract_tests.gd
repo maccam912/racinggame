@@ -37,7 +37,7 @@ func _initialize() -> void:
 		state.jump_lap = i*8+7
 		session.states.append(state)
 	var packet := NetCodec.encode_snapshot(session, 1234, hash_prefix)
-	check(packet.size()==743,"protocol 7 adds two bytes per car for rolling recovery")
+	check(packet.size()==767,"protocol 8 adds three bytes per car for authoritative boost")
 	check(packet.size() > 0 and packet.size() < 1200, "full eight-car snapshot payload budget")
 	var decoded := NetCodec.decode_snapshot(packet, 1, hash_prefix)
 	check(not decoded.is_empty(), "snapshot round trip")

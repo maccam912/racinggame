@@ -160,7 +160,7 @@ func open_start_screen() -> void:
 		data.apply_preset("medium")
 		if capture_race_tick<0: capture_race_tick = 1200
 		SettingsRuntime.apply(self,data.settings,false)
-		request_drive({"mode":"quick","track":selected,"car":selected%4,"paint":selected%8,"opponents":7,"difficulty":1,"laps":2,"contact":true,"seed":0x505200+selected},show_menu)
+		request_drive({"mode":"quick","track":selected,"car":selected%Catalog.cars.size(),"paint":selected%8,"opponents":7,"difficulty":1,"laps":2,"contact":true,"seed":0x505200+selected},show_menu)
 		return
 	local_checkpoint().reload()
 	if "--drive" in OS.get_cmdline_user_args():
@@ -394,7 +394,7 @@ func show_garage(mode: String = "garage") -> void:
 	for candidate: CarDefinition in Catalog.cars:
 		acceleration_max = maxf(acceleration_max,candidate.acceleration)
 		grip_max = maxf(grip_max,candidate.grip)
-	for index in range(4):
+	for index in range(Catalog.cars.size()):
 		var car: CarDefinition = Catalog.cars[index]
 		var selected := index==int(data.profile.selected_car)
 		var caption := ("✓ " if selected else "")+I18n.t("car." + car.id)
@@ -408,6 +408,7 @@ func show_garage(mode: String = "garage") -> void:
 		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		card.add_child(button)
 		card.add_child(menu.ui.paragraph(I18n.t("role." + car.id)))
+		if car.boost_charges > 0: card.add_child(menu.ui.paragraph(I18n.t("garage.boost")))
 		card.add_child(menu.ui.paragraph("%s %.0f %s" % [I18n.t("garage.speed"),car.top_speed*(2.236936 if data.settings.units=="mph" else 3.6),"mph" if data.settings.units=="mph" else "km/h"]))
 		card.add_child(menu.ui.stat("%s %.1f m/s²"%[I18n.t("garage.acceleration"),car.acceleration],car.acceleration,acceleration_max))
 		card.add_child(menu.ui.stat("%s %.0f m/s²"%[I18n.t("garage.grip"),car.grip],car.grip,grip_max))

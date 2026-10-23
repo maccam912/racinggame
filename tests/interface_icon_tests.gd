@@ -2,7 +2,7 @@ extends SceneTree
 func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
-	assert(UIIcons.entries().size()==94)
+	assert(UIIcons.entries().size()==99)
 	for row: Dictionary in UIIcons.entries().values():
 		var texture := UIIcons.texture(row.id)
 		assert(texture.get_size()==Vector2(64,64) and texture.get_image().has_mipmaps(),row.id)
@@ -16,13 +16,13 @@ func run() -> void:
 	BindingBook.apply(app.data.settings.bindings)
 	app.show_garage("trial")
 	await process_frame
-	assert(app.garage_car_buttons.size()==4 and app.garage_paint_buttons.size()==8)
-	for index in range(4): assert(app.garage_car_buttons[index].icon==UIIcons.texture("car_"+Catalog.cars[index].id))
+	assert(app.garage_car_buttons.size()==8 and app.garage_paint_buttons.size()==8)
+	for index in range(Catalog.cars.size()): assert(app.garage_car_buttons[index].icon==UIIcons.texture("car_"+Catalog.cars[index].id))
 	var bars: Array[Node] = app.menu.root.find_children("*","ProgressBar",true,false)
-	assert(bars.size()==8)
-	for index in range(4):
-		assert(bars[index*2].value==Catalog.cars[index].acceleration and bars[index*2].max_value==20)
-		assert(bars[index*2+1].value==Catalog.cars[index].grip and bars[index*2+1].max_value==30)
+	assert(bars.size()==Catalog.cars.size()*2)
+	for index in range(Catalog.cars.size()):
+		assert(bars[index*2].value==Catalog.cars[index].acceleration and bars[index*2].max_value==21.5)
+		assert(bars[index*2+1].value==Catalog.cars[index].grip and bars[index*2+1].max_value==32)
 	var shoulder := InputEventJoypadButton.new()
 	shoulder.button_index = JOY_BUTTON_RIGHT_SHOULDER
 	shoulder.pressed = true
@@ -38,7 +38,7 @@ func run() -> void:
 	Input.parse_input_event(shoulder)
 	Input.flush_buffered_events()
 	await process_frame
-	assert(app.data.profile.selected_car==3 and app.stage.car.model_id=="sunset","shoulder cycling wraps while preserving mode")
+	assert(app.data.profile.selected_car==7 and app.stage.car.model_id=="meteor","shoulder cycling wraps while preserving mode")
 	var motion := InputEventMouseMotion.new()
 	motion.relative = Vector2(30,0)
 	motion.button_mask = MOUSE_BUTTON_MASK_LEFT

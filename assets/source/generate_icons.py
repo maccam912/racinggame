@@ -7,6 +7,7 @@ from html import escape
 ROOT=Path(__file__).resolve().parents[2]
 OUT=ROOT/'assets/exported/icons'
 GLYPHS={
+ 'action_boost':'<path d="M13 2L5 14h6l-1 8 9-13h-6z"/>',
  'action_accelerate':'<path d="M7 20V9a5 5 0 0 1 10 0v11zM10 8h4M10 11h4M10 14h4M10 17h4"/>',
  'action_brake':'<path d="M5 20V10a3 3 0 0 1 3-3h8a3 3 0 0 1 3 3v10zM8 11h8M8 14h8M8 17h8"/>',
  'action_steer_left':'<circle cx="12" cy="12" r="9"/><path d="M4 12h16M12 12v8M9 7l-3 3 3 3"/>',
@@ -46,7 +47,11 @@ CARS={
  'comet':'M2 15l2-5 5-3h7l4 5 2 2v4H2z',
  'needle':'M2 16l2-3 8-5h6l4 8v2H2z',
  'switch':'M3 17V9l2-3h11l4 6 1 5z',
- 'sunset':'M2 17v-5l4-1 3-4h7l4 5h2v5z'}
+ 'sunset':'M2 17v-5l4-1 3-4h7l4 5h2v5z',
+ 'trailblazer':'M2 17V9l2-4h12l4 6h2v6zM5 3h10',
+ 'corsair':'M1 17v-4l7-5h8l5 5h2v4zM3 9h4',
+ 'pulse':'M3 17V8l3-3h9l5 7 2 2v3zM15 3l-2 5h4l-2 5',
+ 'meteor':'M1 17l3-4 9-6h6l3 9v1zM9 4l-2 5h4l-2 5'}
 
 def write(identifier,body,category,details=None):
     title=identifier.replace('_',' ').title()

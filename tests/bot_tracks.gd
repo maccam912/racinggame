@@ -55,7 +55,7 @@ func run() -> void:
 		await physics_frame
 		for difficulty in range(3):
 			for seed_index in range(seed_count):
-				var roster := RaceSetup.roster(0 if solo else 7,seed_index%4,0,"Reference")
+				var roster := RaceSetup.roster(0 if solo else 7,seed_index%Catalog.cars.size(),0,"Reference")
 				for row: Dictionary in roster:
 					row.bot = not (human and row.id=="local")
 				var race := RaceSession.new()
@@ -99,7 +99,7 @@ func run() -> void:
 				if not dnfs.is_empty():
 					failures += 1
 					push_error("TEST FAIL: " + track.id + " " + str(difficulty) + " " + str(dnfs))
-				results.append({"track":track.id,"difficulty":difficulty,"seed":race.seed,"reference_car":seed_index%4,"times":times,"dnfs":dnfs,"recoveries":recoveries,"departure_rank":departure_rank,"rejoin_rank":rejoin_rank})
+				results.append({"track":track.id,"difficulty":difficulty,"seed":race.seed,"reference_car":seed_index%Catalog.cars.size(),"times":times,"dnfs":dnfs,"recoveries":recoveries,"departure_rank":departure_rank,"rejoin_rank":rejoin_rank})
 				print("AI %s difficulty=%d seed=%d finished=%d/%d recoveries=%d times=%s" % [track.id,difficulty,race.seed,times.size(),roster.size(),recoveries,str(times)])
 				race = null
 				await process_frame
@@ -108,6 +108,6 @@ func run() -> void:
 	DirAccess.make_dir_recursive_absolute(ProjectSettings.globalize_path("res://reports"))
 	assert(not results.is_empty(),"selected track must exist")
 	var file := FileAccess.open(report_path,FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":failures==0,"seeds_per_case":seed_count,"content_hash":Compatibility.content_hash(),"boundary":"Deterministic bots use no random reaction/line variation; seeds rotate the autopiloted reference car among four legal choices. Human Medium difficulty acceptance remains separate.","results":results},"\t"))
+	file.store_string(JSON.stringify({"passed":failures==0,"seeds_per_case":seed_count,"content_hash":Compatibility.content_hash(),"boundary":"Deterministic bots use no random reaction/line variation; seeds rotate the autopiloted reference car among eight legal choices. Human Medium difficulty acceptance remains separate.","results":results},"\t"))
 	file.close()
 	quit(1 if failures else 0)

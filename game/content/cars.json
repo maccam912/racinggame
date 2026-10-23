@@ -12,7 +12,8 @@
       "turn_factor": 1,
       "default_paint": 0,
       "audio_profile_id": "comet",
-      "role": "Balanced coupe"
+      "role": "Balanced coupe",
+      "boost_charges": 0
     },
     {
       "id": "needle",
@@ -25,7 +26,8 @@
       "turn_factor": 0.94,
       "default_paint": 1,
       "audio_profile_id": "needle",
-      "role": "Fast straights, careful entries"
+      "role": "Fast straights, careful entries",
+      "boost_charges": 0
     },
     {
       "id": "switch",
@@ -38,7 +40,8 @@
       "turn_factor": 1.08,
       "default_paint": 2,
       "audio_profile_id": "switch",
-      "role": "Strong exits, easy corners"
+      "role": "Strong exits, easy corners",
+      "boost_charges": 0
     },
     {
       "id": "sunset",
@@ -51,7 +54,64 @@
       "turn_factor": 0.98,
       "default_paint": 3,
       "audio_profile_id": "sunset",
-      "role": "Stable coupe, mild slide bias"
+      "role": "Stable coupe, mild slide bias",
+      "boost_charges": 0
+    },
+    {
+      "id": "trailblazer",
+      "display_name_key": "car.trailblazer",
+      "name": "Trailblazer",
+      "mesh_id": "trailblazer",
+      "top_speed": 76,
+      "acceleration": 21.5,
+      "grip": 32,
+      "turn_factor": 1.1,
+      "default_paint": 4,
+      "audio_profile_id": "switch",
+      "role": "Rally wagon, sure-footed exits",
+      "boost_charges": 0
+    },
+    {
+      "id": "corsair",
+      "display_name_key": "car.corsair",
+      "name": "Corsair",
+      "mesh_id": "corsair",
+      "top_speed": 90,
+      "acceleration": 16,
+      "grip": 25.5,
+      "turn_factor": 0.92,
+      "default_paint": 5,
+      "audio_profile_id": "sunset",
+      "role": "Long GT, sweeping speed",
+      "boost_charges": 0
+    },
+    {
+      "id": "pulse",
+      "display_name_key": "car.pulse",
+      "name": "Pulse",
+      "mesh_id": "pulse",
+      "top_speed": 78,
+      "acceleration": 18.5,
+      "grip": 29,
+      "turn_factor": 1.06,
+      "default_paint": 6,
+      "audio_profile_id": "switch",
+      "role": "Agile turbo hatch, three boosts",
+      "boost_charges": 3
+    },
+    {
+      "id": "meteor",
+      "display_name_key": "car.meteor",
+      "name": "Meteor",
+      "mesh_id": "meteor",
+      "top_speed": 83,
+      "acceleration": 17,
+      "grip": 26,
+      "turn_factor": 0.97,
+      "default_paint": 7,
+      "audio_profile_id": "needle",
+      "role": "Turbo wedge, three boosts",
+      "boost_charges": 3
     }
   ],
   "paints": [

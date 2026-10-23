@@ -3,6 +3,9 @@ extends RefCounted
 ## Shared 60 Hz kinematic rules. No scene tree, input devices, rendering, or network.
 
 const DT: float = 1.0 / 60.0
+const BOOST_TICKS: int = 120
+const BOOST_ACCELERATION: float = 14.0
+const BOOST_SPEED_FACTOR: float = 1.14
 const DRIFT_STEER_ENTRY: float = 0.90
 const DRIFT_STEER_HOLD: float = 0.75
 
@@ -13,13 +16,23 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 	state.last_ack = frame.sequence
 	state.ghost_ticks = maxi(0, state.ghost_ticks - 1)
 	state.braking = frame.brake > .1 or frame.handbrake
+	var boost_pressed := frame.boost and state.boost_latched == 0
+	state.boost_latched = int(frame.boost)
+	# A burst uses one charge on a fresh press; held input never spends another.
+	# Recovery cancels the burst without refunding it. Laps never refill charges.
 	if state.recovery_ticks > 0:
+		state.boost_ticks = 0
 		state.recovery_ticks -= 1
 		state.velocity = Vector3.ZERO
 		if state.recovery_ticks == 0:
 			state.velocity = state.forward().slide(state.ground_normal).normalized() * state.recovery_speed
 			state.recovery_speed = 0.0
 		return
+	if boost_pressed and car.boost_charges > 0 and state.boost_charges > 0 and state.boost_ticks == 0 and state.grounded and not state.reversing and frame.brake == 0 and not frame.handbrake and not state.finished and state.dnf_reason == "":
+		state.boost_charges -= 1
+		state.boost_ticks = BOOST_TICKS
+	var boosting := state.boost_ticks > 0 and car.boost_charges > 0
+	state.boost_ticks = maxi(0, state.boost_ticks - 1)
 	var old_grounded := state.grounded
 	var ground: Dictionary = query.ground(state)
 	# Landing is relative to the supported plane. A car following an uphill
@@ -101,19 +114,21 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 			vf = move_toward(vf, 0.0, (14.0 * frame.throttle + 0.3) * DT)
 		else:
 			var throttle := frame.throttle if not braking else 0.0
-			var acceleration := car.acceleration * throttle * maxf(0.0, 1.0 - pow(maxf(vf, 0.0) / car.top_speed, 2)) - 18.0 * frame.brake
+			var top_speed := car.top_speed * (BOOST_SPEED_FACTOR if boosting else 1.0)
+			var acceleration := car.acceleration * throttle * maxf(0.0, 1.0 - pow(maxf(vf, 0.0) / top_speed, 2)) - 18.0 * frame.brake
+			if boosting: acceleration += BOOST_ACCELERATION * throttle
 			if vf > 0.0:
 				acceleration -= 0.30 + 0.00010 * vf * absf(vf)
 			if frame.handbrake:
 				acceleration -= 3.0 if state.drift_phase == 1 else 10.0 if vf <= 15.0 else 0.0
-			if vf > car.top_speed:
+			if vf > top_speed:
 				acceleration -= 6.0
 			var extra_drag := 1.2 if state.surface == "dirt" else 5.0 if state.surface == "sand" else 6.0 if state.surface == "grass" else 0.0
 			if vf > 12.0:
 				acceleration -= extra_drag
 			vf = maxf(0.0, vf + acceleration * DT)
 			vf += Vector3.DOWN.dot(forward) * 9.81 * 0.4 * DT
-			vf = minf(vf, car.top_speed * 1.08)
+			vf = minf(vf, car.top_speed * (BOOST_SPEED_FACTOR if car.boost_charges > 0 else 1.08))
 		var surface_grip := 0.78 if state.surface == "dirt" else 0.65 if state.surface == "sand" else 0.70 if state.surface == "grass" else 1.0
 		lateral = move_toward(lateral, 0.0, car.grip * surface_grip * grip_factor * DT)
 		state.velocity = forward * vf + right * lateral

@@ -24,8 +24,8 @@ func run() -> void:
 		assert(Geometry2D.intersect_polygons(footprint,polygon).is_empty(),"the display platform cannot cover any pavement triangle or fight its depth")
 	var top := apron.global_position.y+bounds.end.y
 	assert(absf(stage.center.y-top)<.001 and bounds.size.y>=.4)
-	for car_index in range(4):
-		stage.set_selection(car_index,car_index*2)
+	for car_index in range(Catalog.cars.size()):
+		stage.set_selection(car_index,(car_index*2)%Catalog.paints.size())
 		assert(is_equal_approx(stage.car.position.y,top+.35))
 		for angle in range(8):
 			stage.rotation_offset=angle*TAU/8
@@ -34,5 +34,5 @@ func run() -> void:
 	assert(before==var_to_bytes(RouteGeometry.meshes(track).asphalt.surface_get_arrays(0)),"the menu fix cannot change the racing road")
 	stage.queue_free()
 	await process_frame
-	print("MENU_APRON_CLEARS_ALL_ACTUAL_ROAD_TRIANGLES_FOUR_CARS_EIGHT_ORBITS_UNCHANGED_RACING_ROAD_PASS")
+	print("MENU_APRON_CLEARS_ALL_ACTUAL_ROAD_TRIANGLES_EIGHT_CARS_EIGHT_ORBITS_UNCHANGED_RACING_ROAD_PASS")
 	quit()

@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+from terrain_route_binding import route_matches
 import struct
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,7 +37,7 @@ def validate():
     data = atlas.read_bytes()
     assert data[:8]==b'\x89PNG\r\n\x1a\n' and struct.unpack_from('>II',data,16)==(1024,1024)
     assert digest(atlas)==value['atlas']['sha256']
-    assert {car['id'] for car in value['cars']}=={'comet','needle','switch','sunset'}
+    assert {car['id'] for car in value['cars']}=={car['id'] for car in json.loads((ROOT/'game/content/cars.json').read_text())['cars']}
     for car in value['cars']:
         path = ROOT/car['path']
         data = path.read_bytes()
@@ -64,7 +65,7 @@ def validate():
             assert len(parts)==5 and triangles==expected['triangles'] and triangles<=[12000,4000,1200][level]
         settings = (path.with_suffix('.glb.import')).read_text()
         assert 'meshes/generate_lods=false' in settings and 'gltf/embedded_image_handling=0' in settings
-    print('Validated four original cars, twelve explicit LODs, shared 1024 atlas and editable source')
+    print('Validated eight original cars, twenty-four explicit LODs, shared 1024 atlas and editable source')
     validate_scenery()
     validate_audio()
     validate_icons()
@@ -141,9 +142,9 @@ def validate_icons():
     value=json.loads((ROOT/'assets/exported/icons/catalog.json').read_text())
     rows=value['assets']
     assert value['license']=='MIT' and (ROOT/value['source']).is_file()
-    assert len(rows)==94 and len({r['id'] for r in rows})==94
-    assert [sum(row['category']==kind for row in rows) for kind in ['action','tab','menu','connection','car','track','medal','trophy','paint']]==[15,8,9,3,4,40,4,3,8]
-    actions=['steer_left','steer_right','accelerate','brake','handbrake','recover','camera','look_back','pause','ui_up','ui_down','ui_left','ui_right','ui_accept','ui_cancel']
+    assert len(rows)==99 and len({r['id'] for r in rows})==99
+    assert [sum(row['category']==kind for row in rows) for kind in ['action','tab','menu','connection','car','track','medal','trophy','paint']]==[16,8,9,3,8,40,4,3,8]
+    actions=['boost','steer_left','steer_right','accelerate','brake','handbrake','recover','camera','look_back','pause','ui_up','ui_down','ui_left','ui_right','ui_accept','ui_cancel']
     assert {row['id'] for row in rows if row['category']=='action'}=={'action_'+a for a in actions}
     for row in rows:
         path=ROOT/row['path'];data=path.read_bytes()
@@ -158,7 +159,7 @@ def validate_icons():
         if row['category']=='paint':
             paints=json.loads((ROOT/'game/content/cars.json').read_text())['paints']
             assert row['color']==paints[int(row['id'].removeprefix('paint_'))]
-    print('Validated 94 original editable SVG interface icons, canonical course outlines, paint swatches and mipmaps')
+    print('Validated 99 original editable SVG interface icons, canonical course outlines, paint swatches and mipmaps')
 
 
 def validate_audio():
@@ -245,7 +246,7 @@ def validate_scenery():
     for row in terrain['courses']:
         assert digest(ROOT/row['path'])==row['sha256']
         bake=json.loads((ROOT/f'game/content/baked/{row["id"]}.json').read_text())
-        assert row['route_hash']==bake['content_hash'],'Cosmetic terrain must follow the current canonical bake'
+        assert route_matches(row,bake),'Cosmetic terrain must follow the exact canonical road geometry'
     print('Validated 30 landmarks, five vegetation models, seven props, forty cosmetic terrains and shared atlases')
 
 

@@ -17,7 +17,7 @@ func run() -> void:
 			var decoded := NetCodec.decode_snapshot(packet,1,hash)
 			print("SNAPSHOT_COURSE ",track.id," gate=",gate," accepted=",not decoded.is_empty())
 			assert(not decoded.is_empty(),"every authored gate must round-trip in the eight-car snapshot")
-			assert(packet.size()==743 and decoded.states[7].last_gate==gate)
+			assert(packet.size()==767 and decoded.states[7].last_gate==gate)
 			cases += 1
 		for state: VehicleState in race.states: state.last_gate = track.bake.gates.size()-1
 		var packet := NetCodec.encode_snapshot(race,1000,hash)

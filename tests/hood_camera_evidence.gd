@@ -105,8 +105,8 @@ func run() -> void:
 	world.queue_free()
 	await process_frame
 	var file := FileAccess.open("res://reports/hood-cameras/summary.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":passed,"cases":rows,"captures":captures,"boundary":"Actual native raster silhouette at the screen centre, four unmodified LOD0 car models, five FOVs and both settled view directions. Flat stationary geometry isolates hood framing. Course pictures use a labelled synthetic static Palm Bay pose, not ordinary driving telemetry or performance evidence."},"\t")+"\n")
+	file.store_string(JSON.stringify({"passed":passed,"cases":rows,"captures":captures,"boundary":"Actual native raster silhouette at the screen centre, eight unmodified LOD0 car models, five FOVs and both settled view directions. Flat stationary geometry isolates hood framing. Course pictures use a labelled synthetic static Palm Bay pose, not ordinary driving telemetry or performance evidence."},"\t")+"\n")
 	file.close()
-	if passed: print("FOUR_REAL_MODELS_FIVE_FOVS_FRONT_REAR_TEN_PERCENT_HOOD_NATIVE_RASTER_PASS")
+	if passed: print("EIGHT_REAL_MODELS_FIVE_FOVS_FRONT_REAR_TEN_PERCENT_HOOD_NATIVE_RASTER_PASS")
 	else: print("TEST FAIL: native hood raster framing; inspect reports/hood-cameras/summary.json")
 	quit(0 if passed else 1)

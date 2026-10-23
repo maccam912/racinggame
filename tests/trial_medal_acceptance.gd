@@ -63,7 +63,7 @@ func run() -> void:
 			await process_frame
 		scene.queue_free()
 		await process_frame
-	assert(cases.size()==(Catalog.tracks.size()*Catalog.cars.size() if filter.is_empty() else 4))
+	assert(cases.size()==(Catalog.tracks.size()*Catalog.cars.size() if filter.is_empty() else Catalog.cars.size()))
 	var file := FileAccess.open(path,FileAccess.WRITE)
 	assert(file!=null)
 	file.store_string(JSON.stringify({"passed":failures.is_empty(),"content_hash":Compatibility.content_hash(),"cases":cases,"failures":failures,

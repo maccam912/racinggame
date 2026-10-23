@@ -4,6 +4,7 @@ extends Control
 const HUD_FONT = preload("res://assets/fonts/body.tres")
 const DISPLAY_FONT = preload("res://assets/fonts/heading.tres")
 
+var boost_available: bool = false
 var state: VehicleState
 var track: TrackDefinition
 var ticks: int = 0
@@ -208,6 +209,10 @@ func _draw() -> void:
 		for index in range(12):
 			draw_rect(Rect2(tach_at+Vector2(index*8,0)*unit,Vector2(6,5)*unit),Color.html("F3CD48") if index<rpm*12 else Color("384b58"))
 		text(tach_at+Vector2(103,6)*unit,"%d"%gear,int(16*unit))
+	if boost_available and not mobile:
+		var boost_at := speed_at - Vector2(15,96)
+		draw_style_box(display_panel(),Rect2(boost_at,Vector2(195,30)))
+		fitted_display(boost_at+Vector2(10,22),I18n.t("hud.boost",[state.boost_charges]),20,175,UIFactory.YELLOW if state.boost_ticks > 0 else UIFactory.TURQUOISE)
 	var banner := banner_text()
 	if trial and not state.trial_valid:
 		text(Vector2(canvas.x * .3, canvas.y * .14), I18n.t("hud.invalid"), 20, Color.html("F16B50"))

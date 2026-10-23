@@ -43,6 +43,18 @@ func sample(state: VehicleState, car: CarDefinition, track: TrackDefinition, que
 	var target_speed: float = minf(safe_speed, safe_speed * [.78, .90, 1.0][difficulty] * pace)
 	if state.finished:
 		target_speed *= .6
+	var boost_clear := car.boost_charges > 0 and not state.finished and state.grounded and absf(float(nearest.lateral)) < 1.5 and absf(state.steer_filter) < .10
+	if boost_clear:
+		for ahead in range(0,401,10):
+			var i := track.sample_index(float(nearest.s)+ahead)
+			if float(track.bake.ai_speeds[car.id][i]) < car.top_speed*.94 or absf(track.forwards[i].y) > .03 or float(track.bake.samples[i][10]) > .01:
+				boost_clear = false
+				break
+		for rival: VehicleState in others:
+			if rival == state: continue
+			var delta := rival.position-state.position
+			if delta.dot(state.forward()) > 0 and delta.length() < 160: boost_clear = false
+	if boost_clear and state.boost_ticks > 0: target_speed = car.top_speed*VehicleSim.BOOST_SPEED_FACTOR
 	var passing := passing_plan(state,nearest,track,others,target_speed)
 	target_speed = passing.speed
 	offset = move_toward(offset,float(passing.offset),2*planning_ticks/60.0)
@@ -50,6 +62,7 @@ func sample(state: VehicleState, car: CarDefinition, track: TrackDefinition, que
 	var forward := state.forward()
 	var error := atan2(forward.x * target.z - forward.z * target.x, forward.x * target.x + forward.z * target.z)
 	previous = InputFrame.make(clampf(rad_to_deg(error) / 30, -1, 1), clampf((target_speed - state.speed()) / 6, 0, 1), clampf((state.speed() - target_speed) / 6, 0, 1))
+	previous.boost = boost_clear and state.boost_charges > 0 and state.boost_ticks == 0 and state.boost_latched == 0 and state.speed() > car.top_speed*.65
 	return previous
 
 func passing_plan(state: VehicleState, nearest: Dictionary, track: TrackDefinition, others: Array[VehicleState], target_speed: float) -> Dictionary:

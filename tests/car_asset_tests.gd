@@ -9,7 +9,7 @@ func run() -> void:
 	var camera := Camera3D.new()
 	scene.add_child(camera)
 	camera.current = true
-	for index in range(4):
+	for index in range(Catalog.cars.size()):
 		var visual := CarVisual.new()
 		visual.build(Catalog.paints[index],Catalog.cars[index].mesh_id,index)
 		scene.add_child(visual)
@@ -78,10 +78,10 @@ func run() -> void:
 	for index in range(3): await process_frame
 	var file := FileAccess.open("res://reports/car-lamp-attachment.json",FileAccess.WRITE)
 	file.store_string(JSON.stringify({"passed":true,"cases":lamp_cases,"rays":lamp_cases.size()*20,
-		"boundary":"Actual exported body triangles only, excluding lamp geometry. Twenty centre/corner attachment rays per car/LOD, all four cars and all three LODs. No handling or synthetic mesh substitute."},"\t")+"\n")
+		"boundary":"Actual exported body triangles only, excluding lamp geometry. Twenty centre/corner attachment rays per car/LOD, all eight cars and all three LODs. No handling or synthetic mesh substitute."},"\t")+"\n")
 	file.close()
-	print("ALL_FOUR_CARS_THREE_LODS_240_LAMP_BODY_ATTACHMENT_RAYS_PASS")
-	print("FOUR_ORIGINAL_CARS_GLTF_TRIANGLE_BUDGETS_ROLE_MASKS_LODS_WHEELS_PAINT_GHOST_PASS")
+	print("ALL_EIGHT_CARS_THREE_LODS_480_LAMP_BODY_ATTACHMENT_RAYS_PASS")
+	print("EIGHT_ORIGINAL_CARS_GLTF_TRIANGLE_BUDGETS_ROLE_MASKS_LODS_WHEELS_PAINT_GHOST_PASS")
 	await create_timer(.5).timeout # Retire stopped audio on the mixer thread.
 	quit()
 

@@ -59,7 +59,7 @@ func launch_plan(track: TrackDefinition) -> Array[Dictionary]:
 	var order: Array[Dictionary] = []
 	var paces := driver_paces(track)
 	for racer in range(8):
-		var speeds: Array = track.bake.ai_speeds[Catalog.cars[racer%4].id]
+		var speeds: Array = track.bake.ai_speeds[Catalog.cars[RaceSetup.BOT_CARS[racer%RaceSetup.BOT_CARS.size()]].id]
 		var estimate := 0.0
 		for sample in range(track.points.size()):
 			var next := (sample+1)%track.points.size()

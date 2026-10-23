@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "purpose": "Exact content-15 road geometry binding: adding cars only changes AI speed lines and medal reference; all terrain-driving samples and distances stay identical.",
+  "foundation_sha256": "44578fb59c901e7c3eadca789e82567e9a31ddc96925a1e76194f2eca9f966dc",
+  "content_hash": "c43a625b15ed42553c8072db1fb00a066ec71d9702ab338254da8f0a08dd9e4b",
+  "tracks": {
+    "sakura_ring": {
+      "route_hash": "0655d7610c941f24f8709d72f760a6d6bbc36d4f62856aaec9105b2e38c379d0",
+      "geometry_sha256": "93bb830b60caf451e20d8c895de6140fe5c1848b5302fbc853d76d0c9f6233c8"
+    },
+    "steelworks_sprint": {
+      "route_hash": "0a65032b71226f5b807f9d38c452777ddf8050ef628a369a73fff9ad1709d19b",
+      "geometry_sha256": "7c66992f308a398eade22e731c5d943c3245b90d9188b568d812bd6166a525dc"
+    },
+    "sunstone_canyon": {
+      "route_hash": "01bbd0b3958eb0b94dee9e6ca511de6b26bbc10f3974e828a2d0967eaeadf3e7",
+      "geometry_sha256": "356e0a964468f2c53f6baca249e27f5f5c33b32587a85ef1dd97884e2e553e63"
+    },
+    "temple_coast": {
+      "route_hash": "7f7b4de5280c504c7b57b3e55f86497e30267bfb0a87618d4507d1cf2dab085a",
+      "geometry_sha256": "fa29793c636cd8b11b49532fd132e4e8f87c4340652b28af61d8123ea7a20b2f"
+    },
+    "neon_underpass": {
+      "route_hash": "49376b9dd3b21a939fcaebcc7f547b61bf83d41bcbbff069eb747e967343581f",
+      "geometry_sha256": "3049b4d2420b9d17e254b5e5876b0dfbb292aec9bc6c7a781459bcae49b3afeb"
+    },
+    "mangrove_maze": {
+      "route_hash": "1d458e33dd23e589e13724a34c79688df296080d68b2783bbec167071819ba60",
+      "geometry_sha256": "c4fc6b27fbb33e72077cfbfd38323794486fd9ca50017565ff3ad5b061e29ee2"
+    },
+    "frostbite_fjord": {
+      "route_hash": "c7d1c031fac677ffd3e227e5ea5d219ce3ea990899a646fae5e78b86d70712f4",
+      "geometry_sha256": "c573c2a56f2f218ffd70353a4d5fa6f941fcd3fbe0ff50100534b0e16a445da5"
+    },
+    "saltflat_velocity": {
+      "route_hash": "8f37d295a7448c2fedd58e8875707891048f7559113eebc5eed8eb22d41c0dd4",
+      "geometry_sha256": "2e429f6cb6bf4f74c14cdf7b8996cf78920b2e5267026ead4fdb0d0ac59c3b14"
+    },
+    "festival_speedway": {
+      "route_hash": "bb262295dc6f9537e5c594523130c42b5ab82f2fdfb8aae8010bc143ea2002ff",
+      "geometry_sha256": "0801322317eb54ec1da042465e714f78eaa5ade5f7218d4662b91166d8423109"
+    },
+    "dune_serpent": {
+      "route_hash": "f07d2365fd876af3f87dd5637ca8b3e6fba378448f3c9dd1a125733bf8fb411c",
+      "geometry_sha256": "aafc6b3e92a8eb0773cca703fcd3a201ecbfcbee33537d5d1b5cd18a4c99d161"
+    },
+    "skyline_splice": {
+      "route_hash": "9e01c00177bba6d87c8cc961616b55a563a686f7e090402c2b61fc0c73c707c6",
+      "geometry_sha256": "001cbad7265f1874ae4dd0a32f34e303229e835d1cad6705c36350fc014d3673"
+    },
+    "palm_bay": {
+      "route_hash": "13a6903ca51c8a0e2b7f6e719a2dbb8b6f7c32638e1daf4c5fe24da96c202354",
+      "geometry_sha256": "d6e3219592e1c77927079d7807205fd7fa9e16852564388ef757c4625008ce46"
+    },
+    "container_corkscrew": {
+      "route_hash": "f80fffae1b271c8432fedfe22d69727e9d6652ce1212ebead109c7e67f336444",
+      "geometry_sha256": "32cf22cc7c87fa0c728df4966b6a4aba14791392902babc0a6fbf172c66e2362"
+    },
+    "alpine_meadow": {
+      "route_hash": "9ce1c4aa73767f96486dbc06c6f4504a309d3e00eb8055d00d8e7ebd7eeec5d5",
+      "geometry_sha256": "5130c15dc527554daf2bdb5b2a9eff388ac1f75e1164176e2569b1d06c0a9680"
+    },
+    "windfarm_run": {
+      "route_hash": "4e50fe51fecc66f90bf1783049687d22f3c5e10d6928b394025f3f53ed9711ae",
+      "geometry_sha256": "1831afcbb2d1e7b309dcdcf8020ffd4b9ec709682c5d39b70eee66989c9e4642"
+    },
+    "quarry_switchback": {
+      "route_hash": "3c79aa234d584d92f42e7b7baea7975cfa6eadf7f62c72a87c3cfa5cca254987",
+      "geometry_sha256": "500500ee1558b957e12939efd9316356241bb91b7ba158c559b9022e4d9dc4d3"
+    },
+    "pacific_summit": {
+      "route_hash": "1ed21dd66b7e3d9f6132606e1737d6f069ec1425026386d4e8e39f2325e0a7fc",
+      "geometry_sha256": "6260c31a1c5d3dd15c781d6cb4df6700108ab913479f6c6a84fa7e956bbaaeb9"
+    },
+    "crystal_chasm": {
+      "route_hash": "d7528584e702ef8cc05072843e75fd3c84ee3f1f0ade1b32026c4728ceb35a10",
+      "geometry_sha256": "2b2f10dcca7197848247de52818ebc56ca0dbfcc08b32a998431198c2f320d29"
+    },
+    "lunar_freight": {
+      "route_hash": "497f86f7a78902e46ab9e2311f8ed41d2da36ae3220aef136ba39b1b336ddd56",
+      "geometry_sha256": "69c0d1d23283e566ed50a4f69126092df76150018362231c736ff71b35ff77e4"
+    },
+    "rainforest_ruins": {
+      "route_hash": "974e220af7c762f0d68cc24ed650591122a063e2efd9bdebe9d9d4854ab5190d",
+      "geometry_sha256": "a69db3d1bcdd550fcc83a0c0c215932df688ec99ab1f4fad63cda837688279c3"
+    },
+    "orbital_gardens": {
+      "route_hash": "7c03af8faec42d84c5282b072496224e7aef8988f6e5de9cc994e8827cdf6ca0",
+      "geometry_sha256": "3ddaaf15cfd9e960f847efc7c62de44aea0880f264fd2c6f013fb01c61dc7f7a"
+    },
+    "cloudforest_climb": {
+      "route_hash": "da1bedee01f0f05d6bacdb977736688d66d7457551515bf75790bf4fa6e83b66",
+      "geometry_sha256": "9887f468cb166f587d2a275eb96beecb6719287d863d74c079bffd9564ced64f"
+    },
+    "mars_badlands": {
+      "route_hash": "bef97f88da3622c938fb0fdb19c58814255de16c6a0c7ac3daad28f38f48110b",
+      "geometry_sha256": "6a7f556f56725aa4c30acf35d0577d0af0688c79bafd372964bcda1d1b22cd1d"
+    },
+    "aurora_harbor": {
+      "route_hash": "43950588bf4282361db35492af4f56aa4a0be7f75dd6a36149f1e8b4bc7965f1",
+      "geometry_sha256": "35259bef91577bf3d92e22ecb748546381b562727c872de491503e0934898740"
+    },
+    "marina_lights": {
+      "route_hash": "3b75fbdf881e1b3713a940ba61914a741bdb7ea9e8a05192a7d3d25beb57a357",
+      "geometry_sha256": "e489c62082ecd47990c1358bf3b18ced4842b876405c67b4f7299359bb4d7d57"
+    },
+    "oasis_citadel": {
+      "route_hash": "418a6619b757792f7a126359acc4e99f880ab1968c178ec1a00c90c1ad33ff16",
+      "geometry_sha256": "5e67959b4665a74873f971aa541a80d6885433c2a10b3d1fbc69d0a85d21f85d"
+    },
+    "storm_chase": {
+      "route_hash": "44bc20a6193341e315f662d40b970ab0d06dddfaddd0795c716b4af409d35d3f",
+      "geometry_sha256": "07ee630d02bd33fe66dd5603e00fde46b1505bdbfe3faabf37fab60b37bee719"
+    },
+    "bamboo_gorge": {
+      "route_hash": "36ab0fc3241d2182731ab64ea59c9199677be294cfedda69b470c27e83eb39fd",
+      "geometry_sha256": "17bac3e20e9735f04207497b7551d06dfbb28918ecb5f466281701d70c4034d2"
+    },
+    "monsoon_delta": {
+      "route_hash": "48a218069f4f6061f128308a433f0aca1e2a355bc6372b4297f3a72b85ea5d17",
+      "geometry_sha256": "9be2398051e28aedf46a0b37eed1c8ac92846ff00da90d1800c020b79cf8433f"
+    },
+    "copper_mesa": {
+      "route_hash": "41d33e0deff0662cf1048e9d68fde84b302dafe874fffd7cfe0e8cae1fc21383",
+      "geometry_sha256": "3592ba77c28e4bf37c2562c468a02d304090380ed0143f2a1de081268fe2a846"
+    },
+    "reactor_rift": {
+      "route_hash": "305fe2b8f8cd74ca3bc6a6e2a4f36509f0b9bb37bf4ac8937732ad41a7ec4172",
+      "geometry_sha256": "bb90895786be8d88c6be9b1ed775ace26a5479efa1b0c367eb578c21d342d532"
+    },
+    "lantern_market": {
+      "route_hash": "fa0af9ff78de83dd0a19d318fd6a8700eaa15fb84a42b095c892c35c7f514714",
+      "geometry_sha256": "8e861cf89a0f8a1274a9f455b29b62606ef19a0914535c60105ea41468c30b96"
+    },
+    "spillway_sprint": {
+      "route_hash": "c771c5afbdfafc0be499a58b0885fe180c5fed1b346e545657e533440b0cd067",
+      "geometry_sha256": "8737a353a92ce14ec9f31da21c7c4b733ac941ee68fea0452b9d4b3689b635e7"
+    },
+    "terrace_touge": {
+      "route_hash": "e1b5543cf54647fe78e12bf506e24f22b88c716a471c56befdb00b60dad81aea",
+      "geometry_sha256": "4d83d656b008c25c9ac216bbdf4e68bc0b29f892d4c4a61c553b54135d4ddf06"
+    },
+    "coral_causeway": {
+      "route_hash": "0991b48f9bb42bc6e1d75e1b5d329fbbab26aeb7ec53cbbc2f2c029d9cf49d2d",
+      "geometry_sha256": "b2b3c716e4d1145cf7a4aaff3a57fcd91c6b1dc200844c19d7593a4a2bb6951c"
+    },
+    "redwood_run": {
+      "route_hash": "07983f644aac47e1a986c922171fef5cf8ff0abbaa723740d5c7db3562ca950d",
+      "geometry_sha256": "f65ef07197078178fbb7e1fdb793236d406ad912097acc234831fc69633d45b0"
+    },
+    "tundra_pipeline": {
+      "route_hash": "690708e8e0d6d43657ef42436397573893692a067251b7494a852975c5b800e8",
+      "geometry_sha256": "351cbf9c11d1159f84d788f8e139fcca25655cbd8e4b4323bf914f36d877a01c"
+    },
+    "citrus_pass": {
+      "route_hash": "d43c9bc36c5bd797665fbc767d0d2fcf4948410c3b9b035809ad98b9f0b02f0e",
+      "geometry_sha256": "fad3e659599dd16fda6ea32cd7277cf780758a60815881dcc8b65354a16fc64d"
+    },
+    "glacier_ridge": {
+      "route_hash": "9d873685b24d5367afa01fb513c15aa010bfa2218f5233666e11a8c0e74f9ca2",
+      "geometry_sha256": "718e85556f0c16bdcf9971453b07154f485d25dee41c268ae70bacddf6d431ea"
+    },
+    "caldera_crosscut": {
+      "route_hash": "6d5f71f9e54caeed4895bae0ed3e94347907cc0bee19ffe846b1bc4a6bcd7967",
+      "geometry_sha256": "b0fb69df99d0b3c8110f922e99da7f7f506f7828b8d66711a71aa4bf3710c98d"
+    }
+  }
+}

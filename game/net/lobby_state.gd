@@ -27,7 +27,7 @@ func member(id: String) -> Dictionary:
 
 
 func join(id: String, name_string: String, tick: int, car: int = 0, paint: int = 0) -> Dictionary:
-	if phase != Phase.LOBBY or members.size() >= 8 or int(bans.get(id, -1)) > tick or not member(id).is_empty() or not PlayerName.validate(name_string).valid or car < 0 or car > 3 or paint < 0 or paint > 7:
+	if phase != Phase.LOBBY or members.size() >= 8 or int(bans.get(id, -1)) > tick or not member(id).is_empty() or not PlayerName.validate(name_string).valid or car < 0 or car >= Catalog.car_count() or paint < 0 or paint > 7:
 		return {}
 	var row := {"id":id, "name":PlayerName.nfc(name_string), "car":car, "paint":paint, "ready":false, "connected":true, "joined_tick":tick, "loaded":false, "return_ready":false, "slot":members.size(), "ping":0}
 	members.append(row)
@@ -54,7 +54,7 @@ func set_ready(id: String, ready: bool) -> bool:
 
 func select_car(id: String, car: int, paint: int) -> bool:
 	var row := member(id)
-	if phase != Phase.LOBBY or row.is_empty() or car < 0 or car > 3 or paint < 0 or paint > 7:
+	if phase != Phase.LOBBY or row.is_empty() or car < 0 or car >= Catalog.car_count() or paint < 0 or paint > 7:
 		return false
 	if int(row.car) != car or int(row.paint) != paint:
 		row.car = car
@@ -203,7 +203,7 @@ func roster() -> Array[Dictionary]:
 	var bot_index := 0
 	while rules.bot_fill and rows.size() < 8:
 		var slot := rows.size()
-		rows.append({"id":"bot_" + RaceSetup.BOT_NAMES[bot_index].to_lower(), "name":RaceSetup.BOT_NAMES[bot_index], "car":RaceSetup.BOT_CARS[slot % 4], "paint":slot % 8, "bot":true})
+		rows.append({"id":"bot_" + RaceSetup.BOT_NAMES[bot_index].to_lower(), "name":RaceSetup.BOT_NAMES[bot_index], "car":RaceSetup.BOT_CARS[slot % RaceSetup.BOT_CARS.size()], "paint":slot % 8, "bot":true})
 		bot_index += 1
 	return rows
 

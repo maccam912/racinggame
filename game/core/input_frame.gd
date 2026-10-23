@@ -8,6 +8,7 @@ var throttle: float = 0.0
 var brake: float = 0.0
 var handbrake: bool = false
 var recover: bool = false
+var boost: bool = false
 
 
 static func make(s: float = 0.0, t: float = 0.0, b: float = 0.0, hand: bool = false) -> InputFrame:

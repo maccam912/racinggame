@@ -5,6 +5,7 @@ import hashlib
 import json
 import math
 from pathlib import Path
+from terrain_route_binding import binding, route_matches
 import struct
 import subprocess
 
@@ -137,7 +138,8 @@ def main():
         frozen = {'schema_version': 2, 'base_commit': subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip(), 'content_hash': manifest['content_hash'], 'generator_sha256': sha(ROOT/'assets/source/generate_terrain.py'), 'tracks': []}
     else:
         frozen = json.loads(FOUNDATION.read_text())
-        assert frozen['schema_version'] == 2 and frozen['content_hash'] == manifest['content_hash']
+        assert frozen['schema_version'] == 2 and frozen['content_hash'] == binding()['content_hash']
+        assert sha(FOUNDATION) == binding()['foundation_sha256']
         assert frozen['generator_sha256'] == sha(ROOT/'assets/source/generate_terrain.py')
     baselines = {r['id']: r for r in frozen['tracks']}
     before = json.loads(args.before.read_text())['grids'] if args.before else None
@@ -172,7 +174,7 @@ def main():
             continue
         base = baselines[ident]
         assert parameters_hash == base['terrain_parameters_sha256'], 'Changed terrain authoring parameters require a reviewed regeneration'
-        assert bake['content_hash'] == base['route_hash'] == row['route_hash']
+        assert base['route_hash'] == row['route_hash'] and route_matches(row,bake)
         assert len(grid) == base['grid_vertices'] and chunks == base['metadata']['chunks'] and triangles == base['metadata']['triangles']
         assert bounds == base['bounds_xz_m'] and row['sea_level'] == base['metadata']['sea_level']
         assert row == base['metadata'] and sha(ROOT/row['path']) == base['old_export_sha256'], 'The reviewed version-15 exports and metadata remain exact'

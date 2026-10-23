@@ -26,6 +26,17 @@ SPECS = {
                'profiles':[(-1,.90,.58),(-.90,1,.65),(-.55,1,.66),(0,1,.65),(.55,.97,.61),(.90,.87,.52),(1,.78,.41)]},
     'sunset': {'length':4.58,'width':2.04,'roof':1.22,'cab_rear':-1.10,'cab_front':.78,'roof_rear':-.65,'roof_front':.24,'roof_width':1.51,'axle':1.36,'stripe':.38,'paint':'8465CC',
                'profiles':[(-1,.88,.51),(-.90,.98,.62),(-.55,1,.68),(0,1,.67),(.55,1,.62),(.90,.90,.53),(1,.80,.39)]}}
+# Distinct silhouettes share the existing neutral paint/trim atlas.
+SPECS.update({
+ 'trailblazer': {'length':4.05,'width':1.92,'roof':1.62,'cab_rear':-1.65,'cab_front':.73,'roof_rear':-1.4,'roof_front':.25,'roof_width':1.53,'axle':1.22,'stripe':-.45,'paint':'498DD3','rack':True,
+   'profiles':[(-1,.90,.60),(-.9,1,.72),(-.55,1,.75),(0,1,.74),(.55,.98,.68),(.9,.91,.56),(1,.78,.43)]},
+ 'corsair': {'length':4.85,'width':2.06,'roof':1.12,'cab_rear':-1.25,'cab_front':.68,'roof_rear':-.88,'roof_front':.16,'roof_width':1.46,'axle':1.48,'stripe':.42,'paint':'F5EBD3','wing':True,
+   'profiles':[(-1,.84,.48),(-.9,.97,.61),(-.55,1,.65),(0,1,.63),(.55,.96,.54),(.9,.85,.42),(1,.72,.30)]},
+ 'pulse': {'length':3.78,'width':1.88,'roof':1.32,'cab_rear':-1.34,'cab_front':.77,'roof_rear':-1.12,'roof_front':.32,'roof_width':1.45,'axle':1.14,'stripe':-.30,'paint':'79C697','turbo':True,'wing':True,
+   'profiles':[(-1,.90,.57),(-.9,1,.66),(-.55,1,.67),(0,1,.66),(.55,.97,.61),(.9,.88,.49),(1,.75,.38)]},
+ 'meteor': {'length':4.42,'width':2.02,'roof':1.02,'cab_rear':-1.05,'cab_front':.93,'roof_rear':-.76,'roof_front':.20,'roof_width':1.42,'axle':1.33,'stripe':0.0,'paint':'343C49','turbo':True,'wing':True,
+   'profiles':[(-1,.88,.53),(-.9,1,.64),(-.55,1,.62),(0,.98,.59),(.55,.94,.48),(.9,.84,.32),(1,.71,.25)]}
+})
 MATERIALS = {}
 ATLAS = None
 
@@ -393,6 +404,17 @@ def build_car(identifier,spec,index):
                 for row in range(4):
                     y=spec['cab_rear']-.10-row*.12
                     cube(name+'_RearDeckVent',(0,y,body_top(spec,y)+.018),(1.0,.035,.012),group,'Grille')
+        if spec.get('wing'):
+            rear=-spec['length']*.38
+            for side in [-1,1]: cube(name+'_WingPost',(side*.57,rear,.86),(.07,.13,.44),group,'Grille')
+            cube(name+'_Wing',(0,rear,1.08),(spec['width']*.98,.32,.07),group,'Stripe',.025)
+        if spec.get('rack'):
+            for side in [-1,1]: cube(name+'_RackRail',(side*.60,-.55,spec['roof']+.10),(.055,1.6,.07),group,'Chrome')
+            for y in [-1.1,-.55,0]: cube(name+'_RackBar',(0,y,spec['roof']+.13),(1.30,.06,.05),group,'Grille')
+        if spec.get('turbo'):
+            for side in [-1,1]:
+                cube(name+'_BoostHousing',(side*.48,-spec['length']/2-.04,.26),(.32,.12,.24),group,'Chrome',.025)
+                cube(name+'_BoostPort',(side*.48,-spec['length']/2-.11,.26),(.23,.025,.16),group,'Glass')
         meshes = [obj for obj in descendants(group) if obj.type=='MESH']
         count = sum(triangles(obj) for obj in meshes)
         limit = [12000,4000,1200][level]

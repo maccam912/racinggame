@@ -18,7 +18,7 @@ func run() -> void:
 		var models := 0
 		for resource: Resource in warm.retained_resources:
 			if resource is PackedScene: models += 1
-		assert(models==4,"all car model resources remain owned through the race")
+		assert(models==Catalog.cars.size(),"all car model resources remain owned through the race")
 		if track.id=="skyline_splice":
 			var facade := false
 			for resource: Resource in warm.retained_resources:
@@ -46,5 +46,5 @@ func run() -> void:
 	job.cancel()
 	job.free()
 	await process_frame
-	print("SHADER_WARM_ALL_TEN_TRACKS_ALL_SHIPPED_SHADERS_FOUR_CAR_RESOURCES_INSTANCING_NO_PHYSICS_CANCEL_HEADLESS_BOUNDARY_PASS shaders="+str(shaders.size())+" max_submissions="+str(maximum))
+	print("SHADER_WARM_ALL_TEN_TRACKS_ALL_SHIPPED_SHADERS_EIGHT_CAR_RESOURCES_INSTANCING_NO_PHYSICS_CANCEL_HEADLESS_BOUNDARY_PASS shaders="+str(shaders.size())+" max_submissions="+str(maximum))
 	quit()

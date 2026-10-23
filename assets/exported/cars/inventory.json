@@ -157,6 +157,150 @@
       "default_paint": "8465CC",
       "path": "assets/exported/cars/sunset.glb",
       "sha256": "3b21b0d701effed042a8b2554c9bc34ff1f04e7181a6355c472c9f77e6e92587"
+    },
+    {
+      "id": "trailblazer",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 7154,
+          "ceiling": 12000,
+          "distance_m": 0,
+          "mesh_parts": 5
+        },
+        {
+          "level": 1,
+          "triangles": 2674,
+          "ceiling": 4000,
+          "distance_m": 35,
+          "mesh_parts": 5
+        },
+        {
+          "level": 2,
+          "triangles": 518,
+          "ceiling": 1200,
+          "distance_m": 90,
+          "mesh_parts": 5
+        }
+      ],
+      "texture": "assets/exported/textures/cars_atlas.png",
+      "authoring_size_m": {
+        "length": 4.05,
+        "width": 1.92,
+        "roof": 1.62
+      },
+      "front_axis": "Blender +Y / exported Godot -Z",
+      "default_paint": "498DD3",
+      "path": "assets/exported/cars/trailblazer.glb",
+      "sha256": "905a8d350ab826bb5fdf806f90d5fd625825e7f3ea1efcc303ab2b6978cc2359"
+    },
+    {
+      "id": "corsair",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 7282,
+          "ceiling": 12000,
+          "distance_m": 0,
+          "mesh_parts": 5
+        },
+        {
+          "level": 1,
+          "triangles": 2714,
+          "ceiling": 4000,
+          "distance_m": 35,
+          "mesh_parts": 5
+        },
+        {
+          "level": 2,
+          "triangles": 526,
+          "ceiling": 1200,
+          "distance_m": 90,
+          "mesh_parts": 5
+        }
+      ],
+      "texture": "assets/exported/textures/cars_atlas.png",
+      "authoring_size_m": {
+        "length": 4.85,
+        "width": 2.06,
+        "roof": 1.12
+      },
+      "front_axis": "Blender +Y / exported Godot -Z",
+      "default_paint": "F5EBD3",
+      "path": "assets/exported/cars/corsair.glb",
+      "sha256": "d37470da8f26d26456c13a511cd1ab0f8475ed6d75b14408c668fe41375c2567"
+    },
+    {
+      "id": "pulse",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 7282,
+          "ceiling": 12000,
+          "distance_m": 0,
+          "mesh_parts": 5
+        },
+        {
+          "level": 1,
+          "triangles": 2798,
+          "ceiling": 4000,
+          "distance_m": 35,
+          "mesh_parts": 5
+        },
+        {
+          "level": 2,
+          "triangles": 638,
+          "ceiling": 1200,
+          "distance_m": 90,
+          "mesh_parts": 5
+        }
+      ],
+      "texture": "assets/exported/textures/cars_atlas.png",
+      "authoring_size_m": {
+        "length": 3.78,
+        "width": 1.88,
+        "roof": 1.32
+      },
+      "front_axis": "Blender +Y / exported Godot -Z",
+      "default_paint": "79C697",
+      "path": "assets/exported/cars/pulse.glb",
+      "sha256": "0443fee30e2cba645fd4b3b054053a6e869d8a6f2a47b55bd3f5a2b798bfef0c"
+    },
+    {
+      "id": "meteor",
+      "lods": [
+        {
+          "level": 0,
+          "triangles": 7402,
+          "ceiling": 12000,
+          "distance_m": 0,
+          "mesh_parts": 5
+        },
+        {
+          "level": 1,
+          "triangles": 2834,
+          "ceiling": 4000,
+          "distance_m": 35,
+          "mesh_parts": 5
+        },
+        {
+          "level": 2,
+          "triangles": 638,
+          "ceiling": 1200,
+          "distance_m": 90,
+          "mesh_parts": 5
+        }
+      ],
+      "texture": "assets/exported/textures/cars_atlas.png",
+      "authoring_size_m": {
+        "length": 4.42,
+        "width": 2.02,
+        "roof": 1.02
+      },
+      "front_axis": "Blender +Y / exported Godot -Z",
+      "default_paint": "343C49",
+      "path": "assets/exported/cars/meteor.glb",
+      "sha256": "e75f2b12caad8f344335c9c0eb4153ca22c011c342178fe4a33ac1906bf9552a"
     }
   ]
 }

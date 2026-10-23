@@ -94,7 +94,7 @@ func retire() -> void:
 
 
 func admit(sender: int, event: Dictionary) -> void:
-	if not healthy or retired or not event.get("ticket") is String or not NetEvents.integer(event.get("car"), 0, 3) or not NetEvents.integer(event.get("paint"), 0, 7) or requests.size() >= 8:
+	if not healthy or retired or not event.get("ticket") is String or not NetEvents.integer(event.get("car"), 0, Catalog.car_count()-1) or not NetEvents.integer(event.get("paint"), 0, 7) or requests.size() >= 8:
 		denied.emit(sender)
 		return
 	var now := int(Time.get_unix_time_from_system())

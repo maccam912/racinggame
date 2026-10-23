@@ -1,7 +1,7 @@
 class_name CarVisual
 extends Node3D
 ## Original Blender/glTF models. Rendering never supplies collision or handling.
-const MODEL_IDS: Array[String] = ["comet","needle","switch","sunset"]
+const MODEL_IDS: Array[String] = ["comet","needle","switch","sunset","trailblazer","corsair","pulse","meteor"]
 var chassis := Node3D.new()
 var wheels: Array[Node3D] = []
 var wheel_rest: Dictionary = {}
@@ -19,6 +19,7 @@ var has_presented: bool = false
 var recovery_anchor_active: bool = false
 var shadow: MeshInstance3D
 var tire_rotation: float = 0.0
+var boost_plumes: Array[MeshInstance3D] = []
 var model_id: String = "comet"
 var active_lod: int = -1
 var ghost: bool = false
@@ -77,7 +78,7 @@ func build(paint: Color, id: String = "comet", slot: int = 0) -> void:
 		label.font = load("res://assets/fonts/heading.tres")
 		label.font_size = 64
 		label.pixel_size = .005
-		label.position = Vector3(side*({"comet":.95,"needle":.99,"switch":.90,"sunset":1.03}[id]),.46,.08)
+		label.position = Vector3(side*({"comet":.95,"needle":.99,"switch":.90,"sunset":1.03,"trailblazer":.97,"corsair":1.04,"pulse":.95,"meteor":1.02}[id]),.46,.08)
 		label.rotation.y = side*PI/2
 		label.modulate = stripe
 		label.outline_size = 0
@@ -94,6 +95,26 @@ func build(paint: Color, id: String = "comet", slot: int = 0) -> void:
 	shadow.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	shadow.position.y = -.32
 	add_child(shadow)
+	if id in ["pulse","meteor"]:
+		for side: float in [-1.0,1.0]:
+			var plume := MeshInstance3D.new()
+			var quad := QuadMesh.new()
+			quad.size = Vector2(.40,1.4)
+			var arrays := quad.surface_get_arrays(0)
+			var colors := PackedColorArray()
+			colors.resize(arrays[Mesh.ARRAY_VERTEX].size())
+			colors.fill(Color("56DDE5"))
+			arrays[Mesh.ARRAY_COLOR] = colors
+			var flame := ArrayMesh.new()
+			flame.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES,arrays)
+			plume.mesh = flame
+			plume.rotation.x = PI/2
+			plume.material_override = RaceFeedback.particle_material(false)
+			plume.position = Vector3(side*.48,.26,2.45 if id == "pulse" else 2.77)
+			plume.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			plume.visible = false
+			chassis.add_child(plume)
+			boost_plumes.append(plume)
 	choose_lod(0)
 	if not cached_hood_profiles.has(id):
 		cached_hood_profiles[id] = build_hood_profiles()
@@ -195,6 +216,9 @@ func present(state: VehicleState, input: InputFrame, dt: float) -> void:
 		var forward := state.forward().slide(normal).normalized()
 		var right := forward.cross(normal).normalized()
 		shadow.global_transform = Transform3D(Basis(right,normal,-forward),state.position-normal*.32)
+	for plume: MeshInstance3D in boost_plumes:
+		plume.visible = state.boost_ticks > 0 and not ghost and state.recovery_ticks == 0 and not state.finished and state.dnf_reason.is_empty() and active_lod < 2
+		plume.scale = Vector3(1,1.0+.15*sin(state.boost_ticks*2.1),1)
 	visible = opacity>.001 or ghost
 
 func set_ghost(alpha: float) -> void:

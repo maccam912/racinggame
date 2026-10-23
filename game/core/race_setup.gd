@@ -2,7 +2,7 @@ class_name RaceSetup
 extends RefCounted
 
 const BOT_NAMES: Array[String] = ["Sunny", "Jet", "Poppy", "Ridge", "Skipper", "Dash", "Cove"]
-const BOT_CARS: Array[int] = [0, 2, 1, 3]
+const BOT_CARS: Array[int] = [0, 2, 1, 3, 4, 6, 5, 7]
 
 
 static func uuid() -> String:
@@ -21,7 +21,7 @@ static func roster(opponents: int, car: int, paint: int, name_value: String) -> 
 		if slot == human:
 			result.append({"id":"local", "name":name_value, "car":car, "paint":paint, "bot":false})
 		else:
-			result.append({"id":"bot_" + BOT_NAMES[bot_index].to_lower(), "name":BOT_NAMES[bot_index], "car":BOT_CARS[slot % 4], "paint":slot % 8, "bot":true})
+			result.append({"id":"bot_" + BOT_NAMES[bot_index].to_lower(), "name":BOT_NAMES[bot_index], "car":BOT_CARS[slot % RaceSetup.BOT_CARS.size()], "paint":slot % 8, "bot":true})
 			bot_index += 1
 	return result
 

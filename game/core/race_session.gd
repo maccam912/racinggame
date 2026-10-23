@@ -34,6 +34,7 @@ func setup(route: TrackDefinition, car_indices: Array[int], world: World3D, laps
 	for index in range(car_indices.size()):
 		var state := VehicleState.new()
 		state.slot = index
+		state.boost_charges = Catalog.cars[car_indices[index]].boost_charges
 		var s := -8.0 - 7 * (index / 2)
 		var pose := track.pose(s, -2.5 if index % 2 == 0 else 2.5)
 		state.position = pose.origin + Vector3.UP * .35

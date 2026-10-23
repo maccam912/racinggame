@@ -6,12 +6,13 @@ still require the owner's details. Neither official region is currently hosted.
 
 **Title:** Pacific Rush
 
-**Short description:** Race four original cars across six courses in a 3D arcade racer.
+**Short description:** Race eight original cars across forty courses in a 3D arcade racer.
 
 **Description:** Charge over steep hills, sweep through corners and fly across
 the Summit crest. Pacific Rush is an original 3D
-arcade racing game with four cars, eight paint colors and six courses through
-beaches, citrus country, redwoods, city streets, desert and mountain scenery.
+arcade racing game with eight cars, eight paint colors and forty courses through
+beaches, redwoods, city streets, deserts, mountains, jungles and space landscapes.
+Two turbo cars carry three boost charges per race, with no refill.
 
 Race computer opponents in Quick Race, chase your own recorded ghost in Time
 Trial, or take on the six-event Coast Cup. Five Driving School lessons introduce

@@ -3,7 +3,7 @@ extends RefCounted
 ## Centers are normalized within the OS-safe logical rectangle. Control variants
 ## keep manual/automatic, slider/buttons and handedness from invalidating each other.
 
-const ACTIONS := ["steer","left","right","throttle","brake","handbrake","recover","camera","look_back","pause"]
+const ACTIONS := ["steer","left","right","throttle","brake","boost","handbrake","recover","camera","look_back","pause"]
 
 static func profile_key(safe: Rect2,automatic: bool,steering: String,mirrored: bool) -> String:
 	return "%s_%s_%s_%s_%s" % ["landscape" if safe.size.x>=safe.size.y else "portrait","tablet" if minf(safe.size.x,safe.size.y)>=600 else "phone","auto" if automatic else "manual",steering,"left" if mirrored else "right"]

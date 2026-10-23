@@ -158,6 +158,8 @@ func _ready() -> void:
 	ui.add_child(recovery_cover)
 	hud.track = track
 	hud.state = state
+	hud.boost_available = car.boost_charges > 0
+	touch.boost_available = car.boost_charges > 0
 	hud.lap_count = lap_count
 	ui.add_child(hud)
 	nameplates.drive = self
@@ -317,6 +319,8 @@ func _process(dt: float) -> void:
 	hud.secondary_bounds = touch.controls.get("camera",Rect2()).merge(touch.controls.get("look_back",Rect2())) if touch.visible else Rect2()
 	hud.advance(visual_dt)
 	touch.recovery_armed = driver.recovery_armed
+	touch.boost_charges = state.boost_charges
+	touch.queue_redraw()
 	var rendered := state
 	if spectator_button:
 		spectator_button.visible = state.finished and session.states.size() > 1 and not paused and not result_sent
@@ -540,6 +544,7 @@ func update_control_hints() -> void:
 	help_label.visible = not touch.visible and lesson == null and not result_sent and bool(values.driving_hints)
 	var parts: Array[String] = []
 	var pairs: Array = [["accelerate","brake"],["steer_left","steer_right"],["handbrake","recover"],["camera","look_back"]]
+	if car.boost_charges > 0: pairs[3].append("boost")
 	for action: String in pairs[hint_page]:
 		parts.append(I18n.t("action." + action) + ": " + str(hints[action]))
 	help_label.text = "   •   ".join(parts)

@@ -3,7 +3,7 @@ extends RefCounted
 ## Two serializable slots per action/device, with conflicts scoped to the active
 ## driving or menu context. Runtime InputEvents never enter settings JSON.
 
-const DRIVING := ["steer_left","steer_right","accelerate","brake","handbrake","recover","camera","look_back","pause"]
+const DRIVING := ["steer_left","steer_right","accelerate","brake","boost","handbrake","recover","camera","look_back","pause"]
 const MENU := ["ui_up","ui_down","ui_left","ui_right","ui_accept","ui_cancel"]
 static var initialized: bool = false
 static var applied_hash: String = ""
@@ -21,8 +21,8 @@ static func axis(index: int,direction: int) -> Dictionary:
 	return {"kind":"axis","axis":index,"direction":direction}
 
 static func defaults() -> Dictionary:
-	var keyboard := {"steer_left":[key(KEY_A),key(KEY_LEFT)],"steer_right":[key(KEY_D),key(KEY_RIGHT)],"accelerate":[key(KEY_W),key(KEY_UP)],"brake":[key(KEY_S),key(KEY_DOWN)],"handbrake":[key(KEY_SPACE),null],"recover":[key(KEY_R),null],"camera":[key(KEY_C),null],"look_back":[key(KEY_V),null],"pause":[key(KEY_ESCAPE),null],"ui_up":[key(KEY_UP),key(KEY_W)],"ui_down":[key(KEY_DOWN),key(KEY_S)],"ui_left":[key(KEY_LEFT),key(KEY_A)],"ui_right":[key(KEY_RIGHT),key(KEY_D)],"ui_accept":[key(KEY_ENTER),null],"ui_cancel":[key(KEY_ESCAPE),null]}
-	var pad := {"steer_left":[axis(JOY_AXIS_LEFT_X,-1),null],"steer_right":[axis(JOY_AXIS_LEFT_X,1),null],"accelerate":[axis(JOY_AXIS_TRIGGER_RIGHT,1),null],"brake":[axis(JOY_AXIS_TRIGGER_LEFT,1),null],"handbrake":[button(JOY_BUTTON_A),null],"recover":[button(JOY_BUTTON_Y),null],"camera":[button(JOY_BUTTON_B),null],"look_back":[button(JOY_BUTTON_RIGHT_STICK),null],"pause":[button(JOY_BUTTON_START),null],"ui_up":[button(JOY_BUTTON_DPAD_UP),axis(JOY_AXIS_LEFT_Y,-1)],"ui_down":[button(JOY_BUTTON_DPAD_DOWN),axis(JOY_AXIS_LEFT_Y,1)],"ui_left":[button(JOY_BUTTON_DPAD_LEFT),axis(JOY_AXIS_LEFT_X,-1)],"ui_right":[button(JOY_BUTTON_DPAD_RIGHT),axis(JOY_AXIS_LEFT_X,1)],"ui_accept":[button(JOY_BUTTON_A),null],"ui_cancel":[button(JOY_BUTTON_B),null]}
+	var keyboard := {"steer_left":[key(KEY_A),key(KEY_LEFT)],"steer_right":[key(KEY_D),key(KEY_RIGHT)],"accelerate":[key(KEY_W),key(KEY_UP)],"brake":[key(KEY_S),key(KEY_DOWN)],"boost":[key(KEY_SHIFT),null],"handbrake":[key(KEY_SPACE),null],"recover":[key(KEY_R),null],"camera":[key(KEY_C),null],"look_back":[key(KEY_V),null],"pause":[key(KEY_ESCAPE),null],"ui_up":[key(KEY_UP),key(KEY_W)],"ui_down":[key(KEY_DOWN),key(KEY_S)],"ui_left":[key(KEY_LEFT),key(KEY_A)],"ui_right":[key(KEY_RIGHT),key(KEY_D)],"ui_accept":[key(KEY_ENTER),null],"ui_cancel":[key(KEY_ESCAPE),null]}
+	var pad := {"steer_left":[axis(JOY_AXIS_LEFT_X,-1),null],"steer_right":[axis(JOY_AXIS_LEFT_X,1),null],"accelerate":[axis(JOY_AXIS_TRIGGER_RIGHT,1),null],"brake":[axis(JOY_AXIS_TRIGGER_LEFT,1),null],"boost":[button(JOY_BUTTON_X),null],"handbrake":[button(JOY_BUTTON_A),null],"recover":[button(JOY_BUTTON_Y),null],"camera":[button(JOY_BUTTON_B),null],"look_back":[button(JOY_BUTTON_RIGHT_STICK),null],"pause":[button(JOY_BUTTON_START),null],"ui_up":[button(JOY_BUTTON_DPAD_UP),axis(JOY_AXIS_LEFT_Y,-1)],"ui_down":[button(JOY_BUTTON_DPAD_DOWN),axis(JOY_AXIS_LEFT_Y,1)],"ui_left":[button(JOY_BUTTON_DPAD_LEFT),axis(JOY_AXIS_LEFT_X,-1)],"ui_right":[button(JOY_BUTTON_DPAD_RIGHT),axis(JOY_AXIS_LEFT_X,1)],"ui_accept":[button(JOY_BUTTON_A),null],"ui_cancel":[button(JOY_BUTTON_B),null]}
 	return {"keyboard":keyboard,"gamepad":pad}
 
 static func valid_binding(value: Variant,device_name: String) -> bool:

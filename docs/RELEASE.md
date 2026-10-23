@@ -1,8 +1,10 @@
-Pacific Rush development checkpoint: forty courses, Far Chase and Retro defaults,
-noise-based tire scrub, and seven recorded CC0 rock/metal songs. Thirty
-new routes span polar, tropical, East Asian, desert, industrial and space settings.
-Pacific Summit uses spatial roadside batching and partitioned road rendering.
-See docs/COURSE_ROSTER_40.md for the complete roster. Content is 12, protocol 7,
+Pacific Rush development checkpoint: eight cars and forty revised courses with
+three scales of local road detail, more angular city plans, and additional large
+and medium scenery. Trailblazer adds a grippy rally wagon; Corsair adds a fast GT.
+Pulse and Meteor each have three two-second boosts per race, with no refill:
+Shift, gamepad X/Square, or the touch Boost button. Remaining charges survive
+save/resume and network snapshots. Far Chase and Retro remain the defaults.
+See docs/COURSE_ROSTER_40.md for the course roster. Content is 16, protocol 8,
 save schema 1; older saves remain archived with incompatible continuation disabled.
 This is an incomplete implementation of DESIGN.md.
 

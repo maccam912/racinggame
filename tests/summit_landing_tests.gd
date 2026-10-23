@@ -1,5 +1,5 @@
 extends SceneTree
-## All three Summit ramps, three approach lines and all four capped car types.
+## All three Summit ramps, three approach lines and all eight capped car types.
 
 
 func _initialize() -> void: call_deferred("run")
@@ -58,5 +58,5 @@ func run() -> void:
 	file.close()
 	scene.queue_free()
 	await process_frame
-	print("SUMMIT_180_REAL_COURSE_LEFT_CENTER_RIGHT_ALL_CARS_30_TO_95_APPROACH_BANDS_SAFE_LANDINGS_PASS")
+	print("SUMMIT_360_REAL_COURSE_LEFT_CENTER_RIGHT_ALL_CARS_30_TO_95_APPROACH_BANDS_SAFE_LANDINGS_PASS")
 	quit()

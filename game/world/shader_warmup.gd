@@ -47,7 +47,7 @@ func prepare(world: TrackWorld, values: Dictionary) -> void:
 	sun.directional_shadow_max_distance = 80
 	scene.add_child(sun)
 	collect(world)
-	for index in range(4):
+	for index in range(Catalog.cars.size()):
 		retained_resources.append(load("res://assets/exported/cars/"+Catalog.cars[index].mesh_id+".glb"))
 		var prototype := CarVisual.new()
 		prototype.build(Catalog.paints[index],Catalog.cars[index].mesh_id,index)

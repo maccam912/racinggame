@@ -21,6 +21,11 @@ static func load_all() -> void:
 	rules = JSON.parse_string(FileAccess.get_file_as_string("res://game/content/rules.json"))
 
 
+static func car_count() -> int:
+	load_all()
+	return cars.size()
+
+
 static func track_count() -> int:
 	load_all()
 	return tracks.size()

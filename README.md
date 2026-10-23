@@ -2,11 +2,13 @@
 
 Original colorful 3D arcade circuit racer for desktop and Android. [DESIGN.md](DESIGN.md) is the authoritative launch specification; [docs/STATUS.md](docs/STATUS.md) separates implemented work from acceptance evidence.
 
-Four cars race forty distinct arcade courses. The original ten retain their
+Eight cars race forty distinct arcade courses. Pulse and Meteor each have three
+two-second boosts per race, with no refill (Shift / gamepad X / touch Boost).
+Trailblazer adds a grippy rally wagon; Corsair adds a fast long GT. The original ten retain their
 coastal highways, downtown blocks, forest/dirt rallies, mountain rollercoaster,
 layered crossings, reservoir and volcanic moon. Thirty additions bring glaciers,
 aurora harbors, jungle ruins, coral causeways, blossom streets, dune rallies,
-steelworks, festival speedways and lunar/crystal landscapes. Each has an authored
+steelworks, festival speedways and lunar/crystal landscapes. Each has a three-scale technical
 route, terrain, five landmark beats and three 3D course structures. The full
 [forty-course roster and driving briefs](docs/COURSE_ROSTER_40.md) describe them.
 Far Chase and Retro presentation are the defaults for new profiles; saved
