@@ -6,6 +6,7 @@ var car: CarDefinition
 var query: WorldQuery
 var track: TrackDefinition
 var lap_count: int = 2
+var driving_assist: int = 0
 var history: Array[InputFrame] = []
 var correction := Vector3.ZERO
 var clear_corrections: Array[float] = []
@@ -36,6 +37,7 @@ func simulate(frame: InputFrame) -> void:
 	elapsed_ticks += 1
 	prediction_tick = frame.tick + InputBuffer.DELAY_TICKS
 	var previous := state.position
+	frame = DrivingAssist.apply(state, frame, query, driving_assist)
 	VehicleSim.step(state, frame, car, query)
 	update_remotes(prediction_tick, true)
 	ProgressTracker.advance(state, previous, track, elapsed_ticks, lap_count)

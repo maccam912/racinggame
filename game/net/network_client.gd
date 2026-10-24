@@ -488,6 +488,7 @@ func attach_prediction(state: VehicleState, car: CarDefinition, query: WorldQuer
 	prediction.query = query
 	prediction.track = track
 	prediction.lap_count = laps
+	prediction.driving_assist = int(config.get("driving_assist", 0))
 	remotes.configure(query.world, track)
 	if not latest_snapshot.is_empty(): remotes.push(latest_snapshot.tick, latest_snapshot.states)
 	prediction.remotes = remotes
@@ -600,6 +601,7 @@ func receive_start(event: Dictionary) -> void:
 		sequence = 0
 		latest_snapshot_tick = -1
 	config = event
+	if prediction: prediction.driving_assist = int(event.get("driving_assist", 0))
 	start_tick = int(event.start_tick)
 	control_tick = int(event.get("control_tick", start_tick + 300))
 	if prediction == null:

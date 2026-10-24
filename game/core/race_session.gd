@@ -19,6 +19,7 @@ var contact_enabled: bool = true
 var first_finish_tick: int = -1
 var settled_ticks: int = 0
 var bots: Dictionary = {}
+var driving_assists: Dictionary = {} # Online human slots only; authority-owned.
 var finish_drivers: Array[BotDriver] = []
 var roster: Array[Dictionary] = []
 var human_slot: int = 0
@@ -63,6 +64,7 @@ func step(frames: Dictionary) -> void:
 				state.ghost_ticks = 90
 		return
 	elapsed_ticks += 1
+	update_race_roles()
 	remember_recovery_order()
 	# Sample the whole field before any car moves, avoiding slot-order bias.
 	var pace: Dictionary = {}
@@ -77,6 +79,8 @@ func step(frames: Dictionary) -> void:
 			inputs[index].sequence = ack
 		elif bots.has(index):
 			inputs[index] = bots[index].sample(states[index], cars[index], track, queries[index], states, pace[index])
+		elif driving_assists.has(index):
+			inputs[index] = DrivingAssist.apply(states[index], inputs[index], queries[index], int(driving_assists[index]))
 		if states[index].dnf_reason == "":
 			VehicleSim.step(states[index], inputs[index], cars[index], queries[index])
 	if contact_enabled:
@@ -148,6 +152,16 @@ func race_assistance() -> bool:
 	return mode not in ["trial", "school"] and states.size() > 1
 
 
+func update_race_roles() -> void:
+	for state: VehicleState in states: state.race_role = 0
+	if not race_assistance() or not states.any(func(state: VehicleState) -> bool: return not bots.has(state.slot) and not state.finished and state.dnf_reason == ""):
+		return
+	var order := standings().filter(func(state: VehicleState) -> bool: return state.dnf_reason == "")
+	if order.size() < 2: return
+	for state: VehicleState in order:
+		if not state.finished: state.race_role = 1 if state == order[0] else 2
+
+
 func rubberband_pace(state: VehicleState) -> float:
 	if not race_assistance() or state.finished or state.dnf_reason != "": return 1.0
 	var gap := INF
@@ -157,9 +171,9 @@ func rubberband_pace(state: VehicleState) -> float:
 		var candidate := ProgressTracker.race_progress(rival, track) - progress
 		if absf(candidate) < absf(gap): gap = candidate
 	if not is_finite(gap): return 1.0
-	# A 25 m dead zone keeps close fights steady; saturate over the next 200 m.
-	var amount := clampf((absf(gap) - 25.0) / 200.0, 0, 1)
-	return 1.0 + amount * (.14 if gap > 0 else -.18)
+	# Close fights stay steady; stronger catch-up ramps in beyond 15 m.
+	var amount := clampf((absf(gap) - 15.0) / 160.0, 0, 1)
+	return 1.0 + amount * (.22 if gap > 0 else -.24)
 
 
 func remember_recovery_order() -> void:

@@ -1426,3 +1426,10 @@ All building footprints are disjoint and reserved by canopy placement. Natural
 rock bases are closed and buried beneath the unchanged terrain; all geometry
 remains cosmetic. Native views, course photographs and checks are recorded in
 `docs/evidence/desert-places14`.
+
+
+### Host steering help and catch-up (content 18)
+
+The lobby host can assign private Off/Gentle/Strong steering help per member. The host alone receives the room assignment map; each driver receives only their own simulation setting at start/resume. Shared authority/prediction applies a spring toward the local road center, damped by lateral travel, heading error and yaw. Corrections are bounded to 0.12/0.24 steering input; full opposing input remains available. No throttle/brake planning is added. Airborne, reversing, finished, DNF, recovery and handbrake states bypass the nudge. Reconnects and rematches retain member preferences; leaving the room releases them.
+
+In normal races with active humans and opposition, the authority assigns a race role from standings before movement. The leader gets a 0.95 top-speed factor; every chaser gets 0.35 shoulder-drag, wall-impact and scrape penalties. Finished/DNF racers, Trial, School, solo and all-bot fields retain baseline physics. AI pacing ramps beyond a 15 m dead zone over 160 m, up to +22% behind or -24% ahead of the nearest active human, always bounded by baked safe corner speed. Protocol 9 carries race role in 775-byte eight-car snapshots, so prediction and remote collision estimates use the authoritative rule. Content-17 save bytes remain preserved with incompatible continuation disabled.

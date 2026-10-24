@@ -173,6 +173,7 @@ func step_race() -> void:
 	var frames: Dictionary = {}
 	for player: Dictionary in players:
 		var state := session.states[int(player.slot)]
+		session.driving_assists[int(player.slot)] = int(player.driving_assist) if player.connected and tick >= int(player.control_tick) else 0
 		if player.connected:
 			frames[player.slot] = player.buffer.sample(tick) if tick >= int(player.control_tick) else player.bot.sample(state, session.cars[player.slot], session.track, session.queries[player.slot], session.states)
 			var input: InputFrame = frames[player.slot]
@@ -288,6 +289,9 @@ func receive(packet: Dictionary) -> void:
 		"rules":
 			if event.get("rules") is Dictionary:
 				lobby.set_rules(player.id, event.rules)
+		"driving_assist":
+			if event.get("id") is String and NetEvents.integer(event.get("level"), 0, 2):
+				lobby.set_driving_assist(player.id, event.id, int(event.level))
 		"start":
 			if lobby.request_start(player.id, tick):
 				send_loading()
@@ -389,10 +393,10 @@ func complete_hello(sender: int, player: Dictionary) -> void:
 
 func broadcast_lobby() -> void:
 	last_broadcast = lobby.revision
-	var event := racing_presence() if lobby.phase == LobbyState.Phase.ACTIVE else lobby.public_state(tick)
+	var event := racing_presence() if lobby.phase == LobbyState.Phase.ACTIVE else {}
 	for player: Dictionary in players:
 		if player.connected:
-			wire.event(int(player.peer), event)
+			wire.event(int(player.peer), event if not event.is_empty() else lobby.public_state(tick, player.id))
 
 
 func send_loading(recipient: Dictionary = {}) -> void:
@@ -429,7 +433,7 @@ func start_race() -> void:
 
 
 func send_start(player: Dictionary) -> void:
-	wire.event(int(player.peer), {"type":"start", "race":session.race_id, "race_uuid":session.race_uuid, "slot":int(player.slot), "start_tick":start_tick, "control_tick":int(player.control_tick), "count":session.states.size(), "track":int(lobby.rules.track), "laps":session.lap_count, "roster":session.roster, "contact":session.contact_enabled, "excluded":lobby.excluded})
+	wire.event(int(player.peer), {"type":"start", "race":session.race_id, "race_uuid":session.race_uuid, "slot":int(player.slot), "start_tick":start_tick, "control_tick":int(player.control_tick), "count":session.states.size(), "track":int(lobby.rules.track), "laps":session.lap_count, "roster":session.roster, "contact":session.contact_enabled, "excluded":lobby.excluded, "driving_assist":int(player.driving_assist)})
 
 
 func send_results(player: Dictionary) -> void:
@@ -527,4 +531,4 @@ func send_resume(player: Dictionary) -> void:
 	var rows: Array = []
 	for row: Dictionary in session.roster:
 		rows.append([row.id, int(row.car), int(row.paint), bool(row.bot)])
-	wire.event(int(player.peer), {"type":"resume", "race":session.race_id, "race_uuid":session.race_uuid, "slot":int(player.slot), "start_tick":start_tick, "control_tick":int(player.control_tick), "count":session.states.size(), "track":int(lobby.rules.track), "laps":session.lap_count, "cars":rows, "contact":session.contact_enabled})
+	wire.event(int(player.peer), {"type":"resume", "race":session.race_id, "race_uuid":session.race_uuid, "slot":int(player.slot), "start_tick":start_tick, "control_tick":int(player.control_tick), "count":session.states.size(), "track":int(lobby.rules.track), "laps":session.lap_count, "cars":rows, "contact":session.contact_enabled, "driving_assist":int(player.driving_assist)})

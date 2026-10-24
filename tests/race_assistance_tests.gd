@@ -27,8 +27,8 @@ func run() -> void:
 	place(race,0,100)
 	place(race,1,400)
 	place(race,2,700)
-	assert(is_equal_approx(race.rubberband_pace(race.states[0]),1.14))
-	assert(is_equal_approx(race.rubberband_pace(race.states[2]),.82))
+	assert(is_equal_approx(race.rubberband_pace(race.states[0]),1.22))
+	assert(is_equal_approx(race.rubberband_pace(race.states[2]),.76))
 	place(race,0,390)
 	assert(race.rubberband_pace(race.states[0])==1,"nearby fights have no pace change")
 	place(race,0,100)
@@ -37,13 +37,13 @@ func run() -> void:
 	var safe: float = track.bake.ai_speeds.comet[nearest.i]
 	bot.velocity = bot.forward()*safe*.9
 	var neutral := BotDriver.new().sample(bot,race.cars[0],track,race.queries[0],[],1)
-	var catchup := BotDriver.new().sample(bot,race.cars[0],track,race.queries[0],[],1.14)
-	var ease := BotDriver.new().sample(bot,race.cars[0],track,race.queries[0],[],.82)
+	var catchup := BotDriver.new().sample(bot,race.cars[0],track,race.queries[0],[],1.22)
+	var ease := BotDriver.new().sample(bot,race.cars[0],track,race.queries[0],[],.76)
 	assert(catchup.throttle > neutral.throttle and ease.brake > neutral.brake,"rubberband changes actual controller inputs")
 	var hard := BotDriver.new()
 	hard.difficulty = 2
 	bot.velocity = bot.forward()*safe
-	assert(hard.sample(bot,race.cars[0],track,race.queries[0],[],1.14).throttle<.001,"catchup cannot exceed baked safe corner speed")
+	assert(hard.sample(bot,race.cars[0],track,race.queries[0],[],1.22).throttle<.001,"catchup cannot exceed baked safe corner speed")
 	race.states[1].finished = true
 	assert(race.rubberband_pace(bot)==1,"finished humans cannot pull the field")
 	race.states[1].finished = false

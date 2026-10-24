@@ -112,7 +112,7 @@ func predict(slot: int, tick: int) -> VehicleState:
 					state.velocity = state.velocity.slide(ground.normal)
 				else:
 					state.grounded = false
-				var swept := query.sweep(state.position, state.velocity, state.yaw, VehicleSim.DT, false)
+				var swept := query.sweep(state.position, state.velocity, state.yaw, VehicleSim.DT, false, VehicleSim.CHASER_ROADSIDE_FACTOR if state.race_role == 2 else 1.0)
 				state.position = swept.position
 				state.velocity = swept.velocity
 				state.wall_contact = swept.hit

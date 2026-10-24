@@ -96,6 +96,9 @@ func show_lobby() -> void:
 			list.add_child(shell.ui.paragraph(I18n.t("online.ready_required")))
 		shell.footer.add_child(start)
 		list.add_child(shell.ui.button(I18n.t("online.kick"), show_kick))
+		var assists := shell.ui.button(I18n.t("online.driving_assists"), show_driving_assists)
+		assists.name = "driving_assists"
+		list.add_child(assists)
 	shell.footer.add_child(shell.ui.button(I18n.t("online.leave_short" if shell.ui.mobile else "online.leave"), leave))
 	if shell.ui.mobile:
 		for button: Button in shell.footer.get_children(): button.add_theme_font_size_override("font_size",shell.ui.font_size(14))
@@ -160,6 +163,39 @@ func show_rules() -> void:
 		list.add_child(toggle)
 	shell.footer.add_child(shell.ui.button(I18n.t("button.confirm"), func() -> void:
 		app.network.command("rules", {"rules":rules})
+		show_lobby()))
+	shell.add_back(show_lobby)
+	shell.first_focus()
+
+
+func show_driving_assists() -> void:
+	if not app.network or app.network.lobby.get("host") != app.network.guest_id or int(app.network.lobby.get("phase", -1)) != LobbyState.Phase.LOBBY:
+		show_lobby()
+		return
+	app.page = "driving_assists"
+	app.back_action = show_lobby
+	var state: Dictionary = app.network.lobby
+	var draft: Dictionary = state.get("driving_assists", {}).duplicate()
+	var shell: MenuShell = app.menu
+	var body := shell.reset(I18n.t("online.driving_assists"))
+	var list := shell.scroll_column(body)
+	list.add_child(shell.ui.paragraph(I18n.t("online.driving_assists_help")))
+	for member: Dictionary in state.members:
+		var row := VBoxContainer.new()
+		row.add_child(shell.ui.label(member.name))
+		var choice := ChoicePicker.new()
+		choice.name = "assist_" + str(member.slot)
+		choice.ui = shell.ui
+		choice.subject = member.name
+		for key: String in ["choice.off", "online.assist_gentle", "online.assist_strong"]: choice.add_item(I18n.t(key))
+		choice.selected = int(draft.get(member.id, 0))
+		choice.item_selected.connect(func(index: int) -> void: draft[member.id] = index)
+		row.add_child(choice)
+		list.add_child(row)
+	shell.footer.add_child(shell.ui.button(I18n.t("button.confirm"), func() -> void:
+		for id: String in draft:
+			if int(draft[id]) != int(state.get("driving_assists", {}).get(id, 0)):
+				app.network.command("driving_assist", {"id":id, "level":int(draft[id])})
 		show_lobby()))
 	shell.add_back(show_lobby)
 	shell.first_focus()

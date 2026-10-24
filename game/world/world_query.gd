@@ -70,7 +70,7 @@ func ground(state: VehicleState) -> Dictionary:
 	return {"supported": supported >= 2, "height": height / maxf(supported, 1), "normal": normal.normalized() if supported else Vector3.UP, "surface": surface, "lateral": route.lateral, "s": route.s}
 
 
-func sweep(position: Vector3, velocity: Vector3, yaw: float, dt: float, new_impact: bool) -> Dictionary:
+func sweep(position: Vector3, velocity: Vector3, yaw: float, dt: float, new_impact: bool, roadside: float = 1.0) -> Dictionary:
 	var current := position
 	var motion := velocity * dt
 	var output_velocity := velocity
@@ -99,10 +99,10 @@ func sweep(position: Vector3, velocity: Vector3, yaw: float, dt: float, new_impa
 		hit_any = true
 		output_velocity = output_velocity.slide(normal)
 		if new_impact:
-			output_velocity *= .96
+			output_velocity *= 1.0 - .04 * roadside
 			new_impact = false
 		else:
-			output_velocity = output_velocity.move_toward(Vector3.ZERO, 2.0 * dt)
+			output_velocity = output_velocity.move_toward(Vector3.ZERO, 2.0 * roadside * dt)
 		motion = collision.get_remainder().slide(normal)
 	query.transform = Transform3D(Basis(Vector3.UP, -yaw), current)
 	query.motion = Vector3.ZERO

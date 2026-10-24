@@ -10,6 +10,8 @@ const DRIFT_STEER_ENTRY: float = 0.90
 const DRIFT_STEER_HOLD: float = 0.75
 const CORNER_GRIP_MULTIPLIER: float = 2.0
 const FULL_LOCK_TURN_MULTIPLIER: float = 2.0
+const LEADER_SPEED_FACTOR: float = .95
+const CHASER_ROADSIDE_FACTOR: float = .35
 
 
 static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, query: Variant) -> void:
@@ -36,6 +38,8 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 	var boosting := state.boost_ticks > 0 and car.boost_charges > 0
 	state.boost_ticks = maxi(0, state.boost_ticks - 1)
 	var old_grounded := state.grounded
+	var pace := LEADER_SPEED_FACTOR if state.race_role == 1 else 1.0
+	var roadside := CHASER_ROADSIDE_FACTOR if state.race_role == 2 else 1.0
 	var ground: Dictionary = query.ground(state)
 	# Landing is relative to the supported plane. A car following an uphill
 	# road can move upward in world space while descending toward the road.
@@ -121,7 +125,7 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 			vf = move_toward(vf, 0.0, (14.0 * frame.throttle + 0.3) * DT)
 		else:
 			var throttle := frame.throttle if not braking else 0.0
-			var top_speed := car.top_speed * (BOOST_SPEED_FACTOR if boosting else 1.0)
+			var top_speed := car.top_speed * pace * (BOOST_SPEED_FACTOR if boosting else 1.0)
 			var acceleration := car.acceleration * throttle * maxf(0.0, 1.0 - pow(maxf(vf, 0.0) / top_speed, 2)) - 18.0 * frame.brake
 			if boosting: acceleration += BOOST_ACCELERATION * throttle
 			if vf > 0.0:
@@ -132,17 +136,17 @@ static func step(state: VehicleState, frame: InputFrame, car: CarDefinition, que
 				acceleration -= 6.0
 			var extra_drag := 1.2 if state.surface == "dirt" else 5.0 if state.surface == "sand" else 6.0 if state.surface == "grass" else 0.0
 			if vf > 12.0:
-				acceleration -= extra_drag
+				acceleration -= extra_drag * roadside
 			vf = maxf(0.0, vf + acceleration * DT)
 			vf += Vector3.DOWN.dot(forward) * 9.81 * 0.4 * DT
-			vf = minf(vf, car.top_speed * (BOOST_SPEED_FACTOR if car.boost_charges > 0 else 1.08))
+			vf = minf(vf, car.top_speed * pace * (BOOST_SPEED_FACTOR if car.boost_charges > 0 else 1.08))
 		var surface_grip := 0.78 if state.surface == "dirt" else 0.65 if state.surface == "sand" else 0.70 if state.surface == "grass" else 1.0
 		lateral = move_toward(lateral, 0.0, car.grip * CORNER_GRIP_MULTIPLIER * surface_grip * grip_factor * DT)
 		state.velocity = forward * vf + right * lateral
 	else:
 		state.velocity += forward * car.acceleration * frame.throttle * 0.15 * DT
 		state.velocity.y -= 22.0 * DT
-	var result: Dictionary = query.sweep(state.position, state.velocity, state.yaw, DT, not state.wall_contact)
+	var result: Dictionary = query.sweep(state.position, state.velocity, state.yaw, DT, not state.wall_contact, roadside) if query is WorldQuery else query.sweep(state.position, state.velocity, state.yaw, DT, not state.wall_contact)
 	state.position = result.position
 	state.velocity = result.velocity
 	if result.hit:

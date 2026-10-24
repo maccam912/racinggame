@@ -33,11 +33,12 @@ func _initialize() -> void:
 		state.last_ack = 456
 		state.last_gate = 12
 		state.braking = i%2==0
+		state.race_role = i%3
 		state.surface = ["asphalt","sand","grass","dirt"][i%4]
 		state.jump_lap = i*8+7
 		session.states.append(state)
 	var packet := NetCodec.encode_snapshot(session, 1234, hash_prefix)
-	check(packet.size()==767,"protocol 8 adds three bytes per car for authoritative boost")
+	check(packet.size()==775,"protocol 9 carries authoritative race role per car")
 	check(packet.size() > 0 and packet.size() < 1200, "full eight-car snapshot payload budget")
 	var decoded := NetCodec.decode_snapshot(packet, 1, hash_prefix)
 	check(not decoded.is_empty(), "snapshot round trip")
@@ -48,6 +49,7 @@ func _initialize() -> void:
 			check(restored.velocity.distance_to(session.states[i].velocity) <= .01, "velocity quantization <= 1 cm/s")
 			check(absf(restored.yaw - session.states[i].yaw) <= deg_to_rad(.02), "angle quantization <= .02 degrees")
 			check(restored.last_ack == 456 and restored.drift_phase == 2, "replay state retained")
+			check(restored.race_role==i%3,"race role survives authority snapshots")
 			check(restored.braking==(i%2==0),"authoritative brake lamps round trip independently per car")
 			check(restored.surface==session.states[i].surface and restored.jump_lap==i*8+7,"dirt and all three consumed launch bits survive snapshots")
 	var old_protocol := packet.duplicate()

@@ -29,7 +29,7 @@ func member(id: String) -> Dictionary:
 func join(id: String, name_string: String, tick: int, car: int = 0, paint: int = 0) -> Dictionary:
 	if phase != Phase.LOBBY or members.size() >= 8 or int(bans.get(id, -1)) > tick or not member(id).is_empty() or not PlayerName.validate(name_string).valid or car < 0 or car >= Catalog.car_count() or paint < 0 or paint > 7:
 		return {}
-	var row := {"id":id, "name":PlayerName.nfc(name_string), "car":car, "paint":paint, "ready":false, "connected":true, "joined_tick":tick, "loaded":false, "return_ready":false, "slot":members.size(), "ping":0}
+	var row := {"id":id, "name":PlayerName.nfc(name_string), "car":car, "paint":paint, "ready":false, "connected":true, "joined_tick":tick, "loaded":false, "return_ready":false, "slot":members.size(), "ping":0, "driving_assist":0}
 	members.append(row)
 	if host_id == "":
 		host_id = id
@@ -73,6 +73,17 @@ func set_rules(id: String, values: Dictionary) -> bool:
 		for row: Dictionary in members:
 			row.ready = false
 		changed()
+	return true
+
+
+func set_driving_assist(actor: String, target: String, level: int) -> bool:
+	var row := member(target)
+	if phase != Phase.LOBBY or actor != host_id or row.is_empty() or level < 0 or level > 2:
+		return false
+	if int(row.driving_assist) != level:
+		row.driving_assist = level
+		# Private preferences do not unready players or disturb their countdown.
+		revision += 1
 	return true
 
 
@@ -208,8 +219,13 @@ func roster() -> Array[Dictionary]:
 	return rows
 
 
-func public_state(tick: int) -> Dictionary:
+func public_state(tick: int, viewer: String = "") -> Dictionary:
 	var rows: Array[Dictionary] = []
 	for row: Dictionary in members:
 		rows.append({"id":row.id, "name":row.name, "slot":int(row.slot), "car":int(row.car), "paint":int(row.paint), "ready":bool(row.ready), "connected":bool(row.connected), "ping":int(row.ping), "loaded":bool(row.loaded)})
-	return {"type":"lobby", "revision":revision, "tick":tick, "phase":phase, "host":host_id, "members":rows, "rules":rules.duplicate(true), "name":name_value, "region":region, "private":private_room, "code":code, "countdown_tick":countdown_tick}
+	var result := {"type":"lobby", "revision":revision, "tick":tick, "phase":phase, "host":host_id, "members":rows, "rules":rules.duplicate(true), "name":name_value, "region":region, "private":private_room, "code":code, "countdown_tick":countdown_tick}
+	if viewer == host_id and viewer != "":
+		var assists := {}
+		for row: Dictionary in members: assists[row.id] = int(row.driving_assist)
+		result.driving_assists = assists
+	return result

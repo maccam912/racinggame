@@ -997,6 +997,8 @@ func connect_address(value: String, code_value: String = "", admission_ticket: S
 		lobby_page.show_lobby())
 	network.lobby_changed.connect(func(state: Dictionary) -> void:
 		if network!=expected_network: return
+		if page == "driving_assists" and state.host != network.guest_id:
+			lobby_page.show_lobby()
 		if int(state.phase) == LobbyState.Phase.LOBBY and page in ["connect", "lobby"]:
 			if int(state.revision) != lobby_page.shown_revision or page != "lobby":
 				lobby_page.show_lobby())

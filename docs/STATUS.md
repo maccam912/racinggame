@@ -2034,3 +2034,12 @@ Trailblazer adds a rally wagon and Corsair a long GT. Pulse and Meteor each star
 Local validation: 213 required command checks have passing results after repairing two old four-car UI expectations; 33 Python unit tests pass. All 320 car/course Gold trials pass with zero recoveries. Field acceptance passes 120 races / 960 finishes / zero recoveries and difficulty ordering for all eight cars. Native checks include 80 hood-framing cases, 480 lamp attachment rays and actual new-car/HUD/touch renders. Input, snapshot, save/resume and Iroh fixtures pass. [Evidence and exact boundaries](evidence/cars16/README.md), [validation](evidence/cars16/validation.json). This does not establish human balance or physical Android controls.
 
 Gameplay/protocol/save revisions are 16/8/1. Frozen content-14 and content-15 records, ghosts, Cup and suspended-race bytes stay preserved; incompatible continuation is disabled. Reviewed terrain geometry remains byte-exact from content 15 despite the expanded car-specific AI lines.
+
+
+## 2026-10-23: private host steering help and stronger catch-up
+
+Implemented lobby-only host assignment of Off/Gentle/Strong steering help per player. Centering and lateral/yaw damping retain player steering, throttle and braking; there are no assist labels or announcements for other players. Preferences survive reconnects and room rematches.
+
+Normal races now ease the leader top-speed target by 5%, reduce trailing racers' shoulder drag and wall-impact/scrape penalties by 65%, and strengthen bounded AI pacing to +22%/-24% over a 15 m dead zone and 160 m ramp. Content/protocol/save are 18/9/1; eight-car snapshots are 775 bytes. Frozen content-17 records, ghost, Cup and suspended race are preserved; incompatible continuation is disabled.
+
+Focused local checks cover steering bounds and damping, actual UDP host authorization/privacy, matching prediction, reconnect/rematch retention, desktop/phone host UI, race order, shoulder and wall penalties, existing recovery, driving/drift/boost behavior, snapshot contracts and archive transition. This quick pass does not claim a full extended suite or physical-device/human handling validation. Remote CI is reported separately after push.

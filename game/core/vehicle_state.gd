@@ -21,6 +21,7 @@ var braking: bool = false # Authoritative lamp state; no additional controller f
 var wall_separation_ticks: int = 12
 var wall_contact: bool = false
 var contact_ticks: int = 0
+var race_role: int = 0 # 0: standard, 1: leader, 2: chasing (authoritative).
 # Authority-only race recovery anchors. Local archives preserve these; UDP
 # prediction receives the resulting pose/progress through the existing snapshot.
 var recovery_rank: int = -1
