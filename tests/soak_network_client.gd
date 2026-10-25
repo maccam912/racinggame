@@ -6,6 +6,9 @@ var launch_hold_ticks: int = 0
 var drive_trace_at: int = 0
 var coverage_spacing_enabled: bool = "--clear-road-spacing" in OS.get_cmdline_user_args()
 var coverage_spacing_active: bool = false
+var exercise_boosts: bool = "--exercise-boosts" in OS.get_cmdline_user_args()
+var boost_fixture_wait_ticks: int = 60
+var boost_fixture_pressed: bool = false
 const PACE := [1.0,.96,.985,.945,.97,.955,.93,.995]
 const LONG_COURSE_PACE := [1.0,.96,.985,.945,.97,.955,.97,.995]
 
@@ -59,12 +62,13 @@ func launch_plan(track: TrackDefinition) -> Array[Dictionary]:
 	var order: Array[Dictionary] = []
 	var paces := driver_paces(track)
 	for racer in range(8):
-		var speeds: Array = track.bake.ai_speeds[Catalog.cars[RaceSetup.BOT_CARS[racer%RaceSetup.BOT_CARS.size()]].id]
+		var car_index := fixture_car(racer)
+		var speeds: Array = track.bake.ai_speeds[Catalog.cars[car_index].id]
 		var estimate := 0.0
 		for sample in range(track.points.size()):
 			var next := (sample+1)%track.points.size()
 			estimate += track.points[sample].distance_to(track.points[next])/maxf(1,float(speeds[sample])*.9*float(paces[racer]))
-		order.append({"index":racer,"estimated_line_seconds":estimate})
+		order.append({"index":racer,"car":car_index,"estimated_line_seconds":estimate})
 	order.sort_custom(func(a: Dictionary,b: Dictionary) -> bool: return a.estimated_line_seconds<b.estimated_line_seconds if absf(a.estimated_line_seconds-b.estimated_line_seconds)>.001 else a.index<b.index)
 	for rank in range(order.size()): order[rank]["hold_ticks"] = rank*60
 	return order
@@ -77,6 +81,8 @@ class PacedDriver extends BotDriver:
 func start_race(config: Dictionary) -> void:
 	super.start_race(config)
 	coverage_spacing_active = false
+	boost_fixture_wait_ticks = 60
+	boost_fixture_pressed = false
 	var paced := PacedDriver.new()
 	var paces := driver_paces(link.prediction.track)
 	paced.pace = paces[index]
@@ -95,6 +101,12 @@ func start_race(config: Dictionary) -> void:
 			for state: VehicleState in link.latest_snapshot.get("states", []):
 				if state.slot != link.slot: rivals.append(state)
 		var frame := bot.sample(link.prediction.state, link.prediction.car, link.prediction.track, link.prediction.query, rivals)
+		if exercise_boosts and link.prediction.car.boost_charges>0 and not boost_fixture_pressed:
+			boost_fixture_wait_ticks = maxi(0,boost_fixture_wait_ticks-1)
+			if boost_fixture_wait_ticks==0 and link.prediction.state.grounded and link.prediction.state.speed()>5 and frame.brake==0 and not frame.handbrake and not frame.recover:
+				# A real fresh boost input on the starting straight, never a state edit.
+				frame.boost = true
+				boost_fixture_pressed = true
 		if "--trace-driving" in OS.get_cmdline_user_args() and Time.get_ticks_msec()>=drive_trace_at:
 			drive_trace_at = Time.get_ticks_msec()+5000
 			var state: VehicleState = link.prediction.state

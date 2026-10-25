@@ -32,6 +32,11 @@ var requested_laps: int = 1
 var requested_tracks: Array[int] = [0,1]
 var iroh_code: String = ""
 var requested_assist_level: int = 0
+var all_car_models: bool = "--all-cars" in OS.get_cmdline_user_args()
+
+
+func fixture_car(racer_index: int) -> int:
+	return racer_index % (Catalog.cars.size() if all_car_models else 4)
 
 
 func _initialize() -> void:
@@ -64,7 +69,7 @@ func run() -> void:
 	link.admission_ticket = OS.get_environment("PR_TEST_TICKET")
 	root.add_child(scene)
 	scene.add_child(link)
-	link.initial_car = index % 4
+	link.initial_car = fixture_car(index)
 	link.initial_paint = index % 8
 	link.loading_requested.connect(load_route)
 	link.lobby_changed.connect(on_lobby)
@@ -73,7 +78,7 @@ func run() -> void:
 		result_hashes.append(JSON.stringify(rows).sha256_text())
 		results.append({"race":link.race_id, "track":int(link.config.track), "rows":rows.duplicate(true)})
 		if link.prediction:
-			race_metrics.append({"race":link.race_id, "slot":link.slot, "driving_assist":link.prediction.driving_assist, "snapshots":link.prediction.snapshot_count, "highest_snapshot_gate":int(highest_gate_by_race.get(link.race_id,-1)),
+			race_metrics.append({"race":link.race_id, "slot":link.slot, "car":link.prediction.car.id, "boosts_used":link.prediction.car.boost_charges-link.prediction.state.boost_charges, "driving_assist":link.prediction.driving_assist, "snapshots":link.prediction.snapshot_count, "highest_snapshot_gate":int(highest_gate_by_race.get(link.race_id,-1)),
 				"clear":statistics(link.prediction.clear_corrections), "contact":statistics(link.prediction.contact_corrections),
 				"terminal":statistics(link.prediction.terminal_corrections), "recoveries":link.prediction.recovery_corrections,
 				"clock_restores":statistics(link.prediction.clock_corrections), "history":link.prediction.history.size(), "rtt_ms":link.rtt_ms})

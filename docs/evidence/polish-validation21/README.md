@@ -40,3 +40,9 @@ eight-car Festival race at tick 900 with Far Chase, normal HUD and the shipped
 Retro presentation. [Package report](macos-package.json), [capture](macos-festival.png),
 [exported-template metadata](macos-festival.png.json). The later Quick/Trial
 menu-return fix is outside this package check.
+
+The next full suite, started at `a666eb4`, passed **229/229** commands, including
+the new Next Course and six-course Relaxed regressions. The subsequent Quick/Trial
+return fix passed two focused checks. [Second full command record](full-checks-next-course.json).
+Live network fixture extensions are recorded separately; this is not a claim
+that every later test-harness byte was present at the full run's start.

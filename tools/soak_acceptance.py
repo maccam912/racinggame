@@ -21,6 +21,8 @@ from udp_proxy import UDPProxy
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--assist-level', type=int, choices=range(4), default=0, help='Host assigns this private assist to odd slots; even slots remain unassisted')
+    parser.add_argument('--all-cars', action='store_true', help='One client per car model, including Pulse and Meteor boost cars')
+    parser.add_argument('--exercise-boosts', action='store_true', help='With --all-cars, send an ordinary fresh boost press after each boost car launches')
     parser.add_argument('--port', type=int, default=27410)
     parser.add_argument('--server-binary', type=Path, help='Use an actual exported server with its adjacent build.json')
     parser.add_argument('--races', type=int, default=10)
@@ -31,6 +33,7 @@ def main():
     parser.add_argument('--clear-road-spacing', action='store_true', help='Test-only ordinary brake inputs create following gaps; classification/coverage limits stay unchanged')
     parser.add_argument("--tracks", default="palm_bay,citrus_pass", help="Comma-separated catalog IDs in race order; repeats as necessary")
     args = parser.parse_args()
+    assert not args.exercise_boosts or args.all_cars, '--exercise-boosts requires --all-cars'
     catalog=[row["id"] for row in json.loads((ROOT/"game/content/tracks.json").read_text())["tracks"]]
     selected=args.tracks.split(",")
     assert selected and all(value in catalog for value in selected), "Unknown or empty course order"
@@ -59,7 +62,7 @@ def main():
                'content_hash':manifest['content_hash'],
                'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True)),
                'platform':platform.platform(), 'processor':platform.processor(),
-               'assist_level_odd_slots':args.assist_level, 'races_requested':args.races, 'laps':args.laps, 'track_order':selected, 'clear_road_spacing':args.clear_road_spacing, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
+               'assist_level_odd_slots':args.assist_level, 'all_cars':args.all_cars, 'exercise_boosts':args.exercise_boosts, 'races_requested':args.races, 'laps':args.laps, 'track_order':selected, 'clear_road_spacing':args.clear_road_spacing, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
                'independent_datagram_loss':.01, 'transport':'Eight independent real UDP proxies, including ENet ACKs and retransmissions',
                'boundary':'Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.'}
     summary['fixture_sha256'] = {name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in
@@ -93,6 +96,8 @@ def main():
             processes.append(subprocess.Popen([*command, '--script','tests/soak_network_client.gd','--',
                 f'--port={args.port+index}',f'--index={index}',f'--races={args.races}',
                 f'--laps={args.laps}', f'--assist-level={args.assist_level}', '--tracks='+','.join(map(str,track_indices)), *(['--trace-driving'] if args.trace_driving else []),
+                *(['--all-cars'] if args.all_cars else []),
+                *(['--exercise-boosts'] if args.exercise_boosts else []),
                 *(['--clear-road-spacing'] if args.clear_road_spacing else []),
                 f'--seconds={args.seconds}',f'--minimum-seconds={args.minimum_seconds}',
                 f'--report={folder/f"client-{index}.json"}'], stdout=handle, stderr=subprocess.STDOUT))
@@ -152,6 +157,12 @@ def main():
             len({json.dumps(row['order'],sort_keys=True) for row in launches if row['race']==race})==1
             for race in range(1,args.races+1))
         checks['private_assists_each'] = all(len(report['race_metrics'])==args.races and all(metric.get('driving_assist')==(args.assist_level if metric['slot']%2 else 0) for metric in report['race_metrics']) for report in reports)
+        expected_cars = list(range(8)) if args.all_cars else [0,0,1,1,2,2,3,3]
+        checks['requested_cars_each'] = all(sorted(int(row['car']) for row in race['rows'])==expected_cars for race in results)
+        checks['launch_estimates_match_cars'] = all(row.get('car')==row['index']%(8 if args.all_cars else 4) for launch in launches for row in launch['order'])
+        if args.exercise_boosts:
+            boost_metrics = [metric for report in reports for metric in report['race_metrics'] if metric['car'] in ['pulse','meteor']]
+            checks['both_boost_cars_spend_charges_each_race'] = len(boost_metrics)==2*args.races and all(1<=metric['boosts_used']<=3 for metric in boost_metrics)
         checks['requested_driver_population_each'] = len(launches)==8*args.races and all(row.get('clear_road_spacing')==args.clear_road_spacing for row in launches)
         spacing_events = [json.loads(line.split(' ',1)[1]) for path in sorted(folder.glob('client-*.log')) for line in path.read_text().splitlines() if line.startswith('SOAK_SPACING ')]
         corrections = [row['clear'] for report in reports for row in report['race_metrics']]
@@ -181,7 +192,7 @@ def main():
                        max_clear_p95_m=max((row['p95'] for row in corrections),default=None),
                        min_clear_samples=min((row['count'] for row in corrections),default=0),clear_samples=sum(row['count'] for row in corrections),
                        proxy_seeds=[94723+101*index for index in range(8)],
-                       driver_fixture='Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state; four normal car types. Test-only target factors [1,.96,.985,.945,.97,.955,.93,.995]; multi-lap Spillway/Caldera use .97 for driver 6 so the slowest scripted Switch stays inside normal finish grace. Every launch records its exact pace population. Public baked target speeds estimate fastest-first release order; ordinary brake-only launch holds of rank*60 input ticks after GO (0–7 seconds). No physics, finish-grace, population-classifier or correction-limit changes.',
+                       driver_fixture=('All eight models. ' if args.all_cars else 'Original four models, twice each. ')+'Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state. Test-only target factors [1,.96,.985,.945,.97,.955,.93,.995]; multi-lap Spillway/Caldera use .97 for driver 6 so the slowest scripted Switch stays inside normal finish grace. Every launch records its exact pace population. Public baked target speeds for the actual selected cars estimate fastest-first release order; ordinary brake-only launch holds of rank*60 input ticks after GO (0–7 seconds). No physics, finish-grace, population-classifier or correction-limit changes.',
                        launch_plans=launches,
                        spacing_events=spacing_events,
                        spacing_strategy='Enabled: aligned received snapshots; trailing/tied higher-slot driver applies ordinary brakes below 14 m, releases at 28 m or low speed. Same-surface/lateral filtering; no state mutation or sample relabeling.' if args.clear_road_spacing else 'Disabled; original scripted pace/launch population.',

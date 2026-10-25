@@ -1,0 +1,602 @@
+{
+  "passed": true,
+  "content_hash": "3a708b25913c73fe7db51593df73cfc82709412a4d8a7188017d8adedfb95415",
+  "all_cars": true,
+  "exercise_boosts": true,
+  "assist_level_odd_slots": 3,
+  "races_requested": 2,
+  "track_order": [
+    "palm_bay",
+    "temple_coast"
+  ],
+  "clients": [
+    {
+      "index": 0,
+      "race_metrics": [
+        {
+          "boosts_used": 0,
+          "car": "comet",
+          "clear": {
+            "count": 1550,
+            "max": 0.0590050853788853,
+            "p95": 0.0216773394495249
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 7,
+            "max": 1.18099999427795,
+            "p95": 1.18099999427795
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 106.0,
+          "slot": 3,
+          "snapshots": 1809,
+          "terminal": {
+            "count": 222,
+            "max": 5.18034029006958,
+            "p95": 2.25002217292786
+          }
+        },
+        {
+          "boosts_used": 0,
+          "car": "comet",
+          "clear": {
+            "count": 2785,
+            "max": 0.389492034912109,
+            "p95": 0.0261808056384325
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 44,
+            "max": 0.303312003612518,
+            "p95": 0.0922382548451424
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 116.0,
+          "slot": 3,
+          "snapshots": 3080,
+          "terminal": {
+            "count": 217,
+            "max": 5.38014984130859,
+            "p95": 2.48008012771606
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "race_metrics": [
+        {
+          "boosts_used": 0,
+          "car": "needle",
+          "clear": {
+            "count": 1624,
+            "max": 0.0672848150134087,
+            "p95": 0.0283013191074133
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 85,
+            "max": 0.343081653118134,
+            "p95": 0.084136962890625
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 164.0,
+          "slot": 0,
+          "snapshots": 1810,
+          "terminal": {
+            "count": 75,
+            "max": 2.6706874370575,
+            "p95": 2.53049278259277
+          }
+        },
+        {
+          "boosts_used": 0,
+          "car": "needle",
+          "clear": {
+            "count": 2916,
+            "max": 0.110507920384407,
+            "p95": 0.0399139747023582
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 62,
+            "max": 0.372341215610504,
+            "p95": 0.0865413844585419
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 119.0,
+          "slot": 0,
+          "snapshots": 3075,
+          "terminal": {
+            "count": 58,
+            "max": 5.40003871917725,
+            "p95": 2.9106183052063
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "race_metrics": [
+        {
+          "boosts_used": 0,
+          "car": "switch",
+          "clear": {
+            "count": 1469,
+            "max": 0.10128440707922,
+            "p95": 0.0316326767206192
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 153,
+            "max": 0.581868886947632,
+            "p95": 0.147384226322174
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 170.0,
+          "slot": 4,
+          "snapshots": 1810,
+          "terminal": {
+            "count": 158,
+            "max": 6.03999900817871,
+            "p95": 2.61046433448792
+          }
+        },
+        {
+          "boosts_used": 0,
+          "car": "switch",
+          "clear": {
+            "count": 2637,
+            "max": 0.0951166898012161,
+            "p95": 0.0423066765069962
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 20,
+            "max": 0.639223039150238,
+            "p95": 0.257350564002991
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 122.0,
+          "slot": 4,
+          "snapshots": 3080,
+          "terminal": {
+            "count": 400,
+            "max": 5.55032730102539,
+            "p95": 2.48098731040955
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "race_metrics": [
+        {
+          "boosts_used": 0,
+          "car": "sunset",
+          "clear": {
+            "count": 1467,
+            "max": 0.0905246511101723,
+            "p95": 0.0331126265227795
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 257,
+            "max": 0.427032470703125,
+            "p95": 0.077484130859375
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 133.0,
+          "slot": 2,
+          "snapshots": 1801,
+          "terminal": {
+            "count": 55,
+            "max": 2.72222447395325,
+            "p95": 2.62124681472778
+          }
+        },
+        {
+          "boosts_used": 0,
+          "car": "sunset",
+          "clear": {
+            "count": 2914,
+            "max": 0.229321703314781,
+            "p95": 0.0402168184518814
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 77,
+            "max": 0.945765435695648,
+            "p95": 0.251564681529999
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 104.0,
+          "slot": 2,
+          "snapshots": 3073,
+          "terminal": {
+            "count": 54,
+            "max": 5.72003412246704,
+            "p95": 3.3800196647644
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "race_metrics": [
+        {
+          "boosts_used": 0,
+          "car": "trailblazer",
+          "clear": {
+            "count": 1162,
+            "max": 0.281358897686005,
+            "p95": 0.0254923477768898
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 440,
+            "max": 0.362623989582062,
+            "p95": 0.0918208286166191
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 136.0,
+          "slot": 7,
+          "snapshots": 1809,
+          "terminal": {
+            "count": 184,
+            "max": 3.93000793457031,
+            "p95": 2.47050714492798
+          }
+        },
+        {
+          "boosts_used": 0,
+          "car": "trailblazer",
+          "clear": {
+            "count": 1560,
+            "max": 0.100599400699139,
+            "p95": 0.0327327325940132
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 1146,
+            "max": 1.43602323532104,
+            "p95": 0.0964900031685829
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 169.0,
+          "slot": 7,
+          "snapshots": 3085,
+          "terminal": {
+            "count": 334,
+            "max": 3.79981064796448,
+            "p95": 2.49007821083069
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "race_metrics": [
+        {
+          "boosts_used": 0,
+          "car": "corsair",
+          "clear": {
+            "count": 1570,
+            "max": 0.391369998455048,
+            "p95": 0.0245973374694586
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 153,
+            "max": 0.778797805309296,
+            "p95": 0.127468943595886
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 135.0,
+          "slot": 6,
+          "snapshots": 1820,
+          "terminal": {
+            "count": 60,
+            "max": 2.7015118598938,
+            "p95": 2.56098484992981
+          }
+        },
+        {
+          "boosts_used": 0,
+          "car": "corsair",
+          "clear": {
+            "count": 2987,
+            "max": 0.133599609136581,
+            "p95": 0.0404693633317947
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 9,
+            "max": 1.12608563899994,
+            "p95": 1.12608563899994
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 119.0,
+          "slot": 6,
+          "snapshots": 3070,
+          "terminal": {
+            "count": 39,
+            "max": 2.87043428421021,
+            "p95": 2.84028172492981
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "race_metrics": [
+        {
+          "boosts_used": 1,
+          "car": "pulse",
+          "clear": {
+            "count": 1702,
+            "max": 0.178561806678772,
+            "p95": 0.021356662735343
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 15,
+            "max": 0.351531982421875,
+            "p95": 0.351531982421875
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 118.0,
+          "slot": 5,
+          "snapshots": 1799,
+          "terminal": {
+            "count": 38,
+            "max": 4.12001037597656,
+            "p95": 4.04002094268799
+          }
+        },
+        {
+          "boosts_used": 1,
+          "car": "pulse",
+          "clear": {
+            "count": 2861,
+            "max": 0.0965730845928192,
+            "p95": 0.0338720567524433
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 8,
+            "max": 1.29268872737885,
+            "p95": 1.29268872737885
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 137.0,
+          "slot": 5,
+          "snapshots": 3087,
+          "terminal": {
+            "count": 183,
+            "max": 3.46002125740051,
+            "p95": 2.54007959365845
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "race_metrics": [
+        {
+          "boosts_used": 1,
+          "car": "meteor",
+          "clear": {
+            "count": 1152,
+            "max": 0.106986150145531,
+            "p95": 0.0233187954872847
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 431,
+            "max": 1.18328881263733,
+            "p95": 0.0854381620883942
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 136.0,
+          "slot": 1,
+          "snapshots": 1792,
+          "terminal": {
+            "count": 183,
+            "max": 4.28010416030884,
+            "p95": 2.39170861244202
+          }
+        },
+        {
+          "boosts_used": 1,
+          "car": "meteor",
+          "clear": {
+            "count": 1725,
+            "max": 0.141749888658524,
+            "p95": 0.0264743845909834
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 1098,
+            "max": 0.371376484632492,
+            "p95": 0.0683549121022224
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 114.0,
+          "slot": 1,
+          "snapshots": 3086,
+          "terminal": {
+            "count": 232,
+            "max": 2.93001747131348,
+            "p95": 2.47008228302002
+          }
+        }
+      ]
+    }
+  ],
+  "one_way_latency_ms": 50,
+  "one_way_jitter_ms": 20,
+  "independent_datagram_loss": 0.01,
+  "boundary": "Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.",
+  "checks": {
+    "client_exit": true,
+    "late_course_snapshots_each": true,
+    "identical_standings": true,
+    "all_finish_same_eight": true,
+    "bounded_racing_control": true,
+    "staged_launches_each": true,
+    "private_assists_each": true,
+    "requested_cars_each": true,
+    "launch_estimates_match_cars": true,
+    "both_boost_cars_spend_charges_each_race": true,
+    "requested_driver_population_each": true,
+    "clear_coverage_500_each": true,
+    "clear_p95_025m_each": true,
+    "racing_wire_intervals": true,
+    "wire_budgets": true,
+    "engine_logs": true,
+    "source_manifest_unchanged": true
+  },
+  "elapsed_seconds": 272.5647580411751,
+  "finishes": 16,
+  "max_clear_p95_m": 0.0423066765069962,
+  "min_clear_samples": 1152,
+  "clear_samples": 32081,
+  "fixture_sha256": {
+    "tools/soak_acceptance.py": "4185f42d57f149e82d4f0563743e27dc6b1e9825fd8b6760cd21a646759f0279",
+    "tests/soak_network_client.gd": "bcec2601b4eca87e74967c3c8955e61fe2852ee5262e1ae95d5ef54bd85e68de",
+    "tests/lobby_network_client.gd": "29a7ead51f9052f3ef3691a60aa582a40375af6acc14496810274582067293df"
+  },
+  "driver_fixture": "All eight models. Shared Medium AI with traffic avoidance from received snapshots, excluding own authority state. Test-only target factors [1,.96,.985,.945,.97,.955,.93,.995]; multi-lap Spillway/Caldera use .97 for driver 6 so the slowest scripted Switch stays inside normal finish grace. Every launch records its exact pace population. Public baked target speeds for the actual selected cars estimate fastest-first release order; ordinary brake-only launch holds of rank*60 input ticks after GO (0\u20137 seconds). No physics, finish-grace, population-classifier or correction-limit changes.",
+  "max_ipv4_udp_up_Bps": 3700.494623153961,
+  "max_ipv4_udp_down_Bps": 16629.159706363465
+}

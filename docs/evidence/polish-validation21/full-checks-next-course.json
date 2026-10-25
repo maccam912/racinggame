@@ -1,0 +1,1844 @@
+{
+  "platform": "Darwin-arm64",
+  "engine": "4.6.3-stable",
+  "commit": "a666eb4ae89f784dcc3b23681ceacfcf8ea2d4f4",
+  "working_tree_dirty": false,
+  "command_count": 229,
+  "passed": true,
+  "status": "complete",
+  "scope": "Full suite started at a666eb4; subsequent Quick/Trial return fix has two separate focused passing checks. Later network fixture extensions have their own live checks. Gameplay/content remains version 21.",
+  "results": [
+    {
+      "suite": "tools/validate_content.py",
+      "passed": true,
+      "started_utc": "2026-10-25T05:28:51.434301+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.206
+    },
+    {
+      "suite": "tools/author_technical_courses.py --check",
+      "passed": true,
+      "started_utc": "2026-10-25T05:28:51.641806+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.045
+    },
+    {
+      "suite": "tools/author_course_compositions.py --check",
+      "passed": true,
+      "started_utc": "2026-10-25T05:28:51.687832+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.048
+    },
+    {
+      "suite": "tools/bake_tracks.py --check",
+      "passed": true,
+      "started_utc": "2026-10-25T05:28:51.736689+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.942
+    },
+    {
+      "suite": "tools/generate_graphemes.py --check",
+      "passed": true,
+      "started_utc": "2026-10-25T05:28:56.680255+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.085
+    },
+    {
+      "suite": "tools/content_hash.py --check",
+      "passed": true,
+      "started_utc": "2026-10-25T05:28:56.766325+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.088
+    },
+    {
+      "suite": "tools/asset_hash.py --check",
+      "passed": true,
+      "started_utc": "2026-10-25T05:28:56.855318+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.815
+    },
+    {
+      "suite": "tools/terrain_contracts.py",
+      "passed": true,
+      "started_utc": "2026-10-25T05:28:57.671705+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.204
+    },
+    {
+      "suite": "tools/app_icons.py --check",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:01.877241+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.371
+    },
+    {
+      "suite": "-m unittest discover -s tests -p test_*.py",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:02.249788+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.944
+    },
+    {
+      "suite": "tools/godot.py --headless --editor --import --quit",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:10.195113+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.266
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/source_script_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:13.462954+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.892
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/iroh_room_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:14.355866+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.464
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:15.821588+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.375
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion40_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:16.197376+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 14.087
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/authored_composition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:30.285560+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 16.562
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion_set_piece_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:46.849451+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 12.481
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/district_detail_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:29:59.332315+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.482
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/biome_surface_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:30:02.815678+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 9.938
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion_horizon_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:30:12.755764+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 19.077
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion_transport_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:30:31.833899+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.38
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion_watercraft_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:30:33.215573+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.705
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion_ambient_motion_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:30:36.922127+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.606
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expansion_roadside_life_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:30:40.529645+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 19.417
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/road_partition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:30:59.947894+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.059
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/driving_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:02.008659+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.486
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/steering_drift_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:02.496402+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.155
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/race_assistance_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:03.652517+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.72
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/driving_assist_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:04.373684+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.957
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/driving_assist_ui_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:09.332562+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.543
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/local_driving_assist_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:10.876737+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.261
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/quick_setup_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:14.139354+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.569
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/next_course_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:14.709504+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.078
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/relaxed_field_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:19.789282+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 21.257
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/world_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:41.047658+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.483
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/progress_touch_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:41.532773+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.458
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=palm_bay --report=res://reports/trial_medal_acceptance-palm_bay.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:41.992409+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.561
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=citrus_pass --report=res://reports/trial_medal_acceptance-citrus_pass.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:45.555390+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.599
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=marina_lights --report=res://reports/trial_medal_acceptance-marina_lights.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:49.156241+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.785
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=redwood_run --report=res://reports/trial_medal_acceptance-redwood_run.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:31:54.942703+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.955
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=sunstone_canyon --report=res://reports/trial_medal_acceptance-sunstone_canyon.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:32:00.899351+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.494
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=pacific_summit --report=res://reports/trial_medal_acceptance-pacific_summit.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:32:08.395182+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 10.596
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=skyline_splice --report=res://reports/trial_medal_acceptance-skyline_splice.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:32:18.993125+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 6.92
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=quarry_switchback --report=res://reports/trial_medal_acceptance-quarry_switchback.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:32:25.914450+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.665
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=spillway_sprint --report=res://reports/trial_medal_acceptance-spillway_sprint.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:32:31.581463+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 9.856
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=caldera_crosscut --report=res://reports/trial_medal_acceptance-caldera_crosscut.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:32:41.439460+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 11.054
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=glacier_ridge --report=res://reports/trial_medal_acceptance-glacier_ridge.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:32:52.494875+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 8.118
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=aurora_harbor --report=res://reports/trial_medal_acceptance-aurora_harbor.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:00.614288+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.616
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=alpine_meadow --report=res://reports/trial_medal_acceptance-alpine_meadow.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:06.231901+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.289
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=frostbite_fjord --report=res://reports/trial_medal_acceptance-frostbite_fjord.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:10.522938+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.185
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=tundra_pipeline --report=res://reports/trial_medal_acceptance-tundra_pipeline.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:17.710570+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.596
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=rainforest_ruins --report=res://reports/trial_medal_acceptance-rainforest_ruins.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:21.307945+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.678
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=monsoon_delta --report=res://reports/trial_medal_acceptance-monsoon_delta.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:25.988440+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.216
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=coral_causeway --report=res://reports/trial_medal_acceptance-coral_causeway.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:31.206946+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.033
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=mangrove_maze --report=res://reports/trial_medal_acceptance-mangrove_maze.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:38.241783+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.004
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=cloudforest_climb --report=res://reports/trial_medal_acceptance-cloudforest_climb.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:43.248830+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 8.146
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=sakura_ring --report=res://reports/trial_medal_acceptance-sakura_ring.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:51.397150+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.882
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=bamboo_gorge --report=res://reports/trial_medal_acceptance-bamboo_gorge.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:33:56.281466+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.596
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=lantern_market --report=res://reports/trial_medal_acceptance-lantern_market.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:00.879738+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.358
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=terrace_touge --report=res://reports/trial_medal_acceptance-terrace_touge.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:06.239771+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 6.883
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=temple_coast --report=res://reports/trial_medal_acceptance-temple_coast.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:13.124708+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.895
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=saltflat_velocity --report=res://reports/trial_medal_acceptance-saltflat_velocity.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:19.022141+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.217
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=dune_serpent --report=res://reports/trial_medal_acceptance-dune_serpent.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:26.241580+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.565
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=oasis_citadel --report=res://reports/trial_medal_acceptance-oasis_citadel.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:33.809158+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 6.237
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=copper_mesa --report=res://reports/trial_medal_acceptance-copper_mesa.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:40.048769+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 8.381
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=storm_chase --report=res://reports/trial_medal_acceptance-storm_chase.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:48.432576+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.517
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=steelworks_sprint --report=res://reports/trial_medal_acceptance-steelworks_sprint.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:51.952701+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.317
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=container_corkscrew --report=res://reports/trial_medal_acceptance-container_corkscrew.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:34:59.271788+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.816
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=neon_underpass --report=res://reports/trial_medal_acceptance-neon_underpass.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:35:07.091150+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.18
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=windfarm_run --report=res://reports/trial_medal_acceptance-windfarm_run.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:35:14.274096+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.435
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=festival_speedway --report=res://reports/trial_medal_acceptance-festival_speedway.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:35:21.711493+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.838
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=lunar_freight --report=res://reports/trial_medal_acceptance-lunar_freight.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:35:26.551489+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 9.693
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=orbital_gardens --report=res://reports/trial_medal_acceptance-orbital_gardens.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:35:36.247688+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 6.674
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=crystal_chasm --report=res://reports/trial_medal_acceptance-crystal_chasm.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:35:42.924259+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.164
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=mars_badlands --report=res://reports/trial_medal_acceptance-mars_badlands.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:35:50.090779+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.932
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/trial_medal_acceptance.gd -- --profile=ci_tests --track=reactor_rift --report=res://reports/trial_medal_acceptance-reactor_rift.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:35:58.025055+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 6.761
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=palm_bay --report=res://reports/course_camera_acceptance-palm_bay.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:04.789178+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.746
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=citrus_pass --report=res://reports/course_camera_acceptance-citrus_pass.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:06.537979+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.871
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=marina_lights --report=res://reports/course_camera_acceptance-marina_lights.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:08.411422+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.439
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=redwood_run --report=res://reports/course_camera_acceptance-redwood_run.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:10.852725+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.524
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=sunstone_canyon --report=res://reports/course_camera_acceptance-sunstone_canyon.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:13.378902+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.739
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=pacific_summit --report=res://reports/course_camera_acceptance-pacific_summit.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:16.120732+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.578
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=skyline_splice --report=res://reports/course_camera_acceptance-skyline_splice.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:19.701284+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.612
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=quarry_switchback --report=res://reports/course_camera_acceptance-quarry_switchback.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:22.315424+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.523
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=spillway_sprint --report=res://reports/course_camera_acceptance-spillway_sprint.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:24.840791+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.546
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=caldera_crosscut --report=res://reports/course_camera_acceptance-caldera_crosscut.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:28.389657+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.88
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=glacier_ridge --report=res://reports/course_camera_acceptance-glacier_ridge.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:32.272345+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.915
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=aurora_harbor --report=res://reports/course_camera_acceptance-aurora_harbor.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:35.190178+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.266
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=alpine_meadow --report=res://reports/course_camera_acceptance-alpine_meadow.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:37.458873+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.862
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=frostbite_fjord --report=res://reports/course_camera_acceptance-frostbite_fjord.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:39.323567+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.608
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=tundra_pipeline --report=res://reports/course_camera_acceptance-tundra_pipeline.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:41.934034+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.733
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=rainforest_ruins --report=res://reports/course_camera_acceptance-rainforest_ruins.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:43.669688+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.163
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=monsoon_delta --report=res://reports/course_camera_acceptance-monsoon_delta.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:45.835482+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.448
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=coral_causeway --report=res://reports/course_camera_acceptance-coral_causeway.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:48.286514+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.976
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=mangrove_maze --report=res://reports/course_camera_acceptance-mangrove_maze.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:51.265769+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.052
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=cloudforest_climb --report=res://reports/course_camera_acceptance-cloudforest_climb.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:53.320550+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.232
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=sakura_ring --report=res://reports/course_camera_acceptance-sakura_ring.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:56.555120+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.125
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=bamboo_gorge --report=res://reports/course_camera_acceptance-bamboo_gorge.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:36:58.682731+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.032
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=lantern_market --report=res://reports/course_camera_acceptance-lantern_market.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:00.717865+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.144
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=terrace_touge --report=res://reports/course_camera_acceptance-terrace_touge.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:02.864245+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.674
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=temple_coast --report=res://reports/course_camera_acceptance-temple_coast.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:05.541330+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.461
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=saltflat_velocity --report=res://reports/course_camera_acceptance-saltflat_velocity.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:08.006045+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.743
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=dune_serpent --report=res://reports/course_camera_acceptance-dune_serpent.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:10.751780+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.778
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=oasis_citadel --report=res://reports/course_camera_acceptance-oasis_citadel.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:13.532745+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.747
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=copper_mesa --report=res://reports/course_camera_acceptance-copper_mesa.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:16.282781+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.054
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=storm_chase --report=res://reports/course_camera_acceptance-storm_chase.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:19.340254+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.738
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=steelworks_sprint --report=res://reports/course_camera_acceptance-steelworks_sprint.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:21.081188+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.763
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=container_corkscrew --report=res://reports/course_camera_acceptance-container_corkscrew.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:23.847838+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.026
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=neon_underpass --report=res://reports/course_camera_acceptance-neon_underpass.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:26.876737+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.764
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=windfarm_run --report=res://reports/course_camera_acceptance-windfarm_run.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:29.644112+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.745
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=festival_speedway --report=res://reports/course_camera_acceptance-festival_speedway.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:32.392820+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.08
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=lunar_freight --report=res://reports/course_camera_acceptance-lunar_freight.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:34.476200+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.374
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=orbital_gardens --report=res://reports/course_camera_acceptance-orbital_gardens.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:37.853194+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.559
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=crystal_chasm --report=res://reports/course_camera_acceptance-crystal_chasm.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:40.414819+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.504
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=mars_badlands --report=res://reports/course_camera_acceptance-mars_badlands.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:42.921650+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.753
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_camera_acceptance.gd -- --profile=ci_tests --track=reactor_rift --report=res://reports/course_camera_acceptance-reactor_rift.json",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:45.677700+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.46
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/soak_driver_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:48.140977+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.469
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/slice_smoke.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:48.613230+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.039
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/network_contract_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:55.655268+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.478
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/client_prediction_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:56.136439+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.595
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/race_contact_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:56.734972+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.485
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/jump_track_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:57.223002+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.864
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/summit_landing_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:37:58.090932+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.146
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/billboard_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:00.240011+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.545
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/roadside_poster_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:01.788758+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 6.909
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/save_cup_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:08.701526+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.37
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/ghost_medal_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:09.075823+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.243
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/app_data_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:09.322272+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.641
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/name_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:09.968061+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.256
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/menu_flow_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:10.228034+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.861
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/mode_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:15.092332+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.265
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/lobby_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:17.360816+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.476
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/compact_control_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:17.840418+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.481
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/input_ownership_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:18.324813+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.518
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/display_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:21.846017+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.27
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/ghost_transaction_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:24.118919+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.538
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/binding_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:24.659898+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.376
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/binding_ui_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:25.039495+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.632
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/menu_repeat_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:26.675018+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.353
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/result_receipt_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:27.031813+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.055
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/touch_layout_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:29.090009+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.374
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/touch_editor_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:38:29.468043+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 36.099
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/choice_picker_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:05.570957+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.373
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/guest_identity_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:05.947489+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.532
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/guest_service_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:06.483399+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.578
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/directory_client_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:07.064928+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.539
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/region_book_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:07.607943+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.478
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/online_menu_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:08.089216+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.306
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/identity_reset_ui_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:10.398321+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.949
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/keyboard_layout_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:12.351043+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.367
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/menu_scroll_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:12.722702+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.376
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/retry_flow_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:13.102657+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 4.369
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/world_presentation_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:17.475316+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.128
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/loading_flow_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:19.606801+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 6.487
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/audio_mix_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:26.097459+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.249
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/recovery_assist_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:26.350368+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.478
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/diagnostics_export_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:27.832501+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.917
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/network_quality_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:29.753384+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.358
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/accessibility_settings_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:30.115760+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.063
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/bot_contract_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:32.182530+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.473
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/car_asset_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:32.659314+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.454
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/garage_portrait_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:35.117646+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 8.037
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/scenery_contract_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:43.158254+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.582
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/surface_version_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:50.743888+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.955
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:51.702390+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.762
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content5_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:52.469721+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.762
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content6_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:53.235876+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.761
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content7_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:54.000869+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.766
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content8_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:54.771708+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.721
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content9_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:55.496748+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.76
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content10_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:56.261354+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.755
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content11_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:57.021039+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.761
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content12_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:57.785666+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.758
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content13_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:58.547348+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.743
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content14_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:39:59.294717+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.752
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/route_detail_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:00.050712+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 19.673
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/boost_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:19.728170+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.496
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content15_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:22.229054+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.768
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content16_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:23.000991+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.76
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content17_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:23.765755+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.727
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content18_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:24.497401+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.766
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content19_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:25.268104+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.762
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content20_transition_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:26.034768+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.748
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/corner_assist_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:26.787204+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.468
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/corner_assist_driving_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:27.259403+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.251
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/network_corner_assist_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:34.515034+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.257
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/bot_vertical_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:37.776026+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.477
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/snapshot_course_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:38.257838+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.439
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_variety_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:39.701245+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 7.122
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/arcade_track_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:46.827636+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.761
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/course_spectacle_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:49.593773+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.663
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/event_layout_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:40:52.262669+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 26.267
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/event_filter_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:41:18.539293+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 17.516
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/track_shuffle_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:41:36.085471+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.372
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/course_picker_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:41:36.463848+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 15.894
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/terrain_grounding_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:41:52.371385+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.499
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/landscape_sightline_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:41:53.876391+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 9.939
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/hill_presentation_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:03.823144+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.777
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/route_landmark_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:04.606336+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.546
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/durable_save_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:05.156537+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.769
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/race_archive_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:05.931372+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.086
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/checkpoint_ui_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:11.024541+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 5.202
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/results_visibility_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:16.232682+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 6.455
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/race_audio_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:22.695222+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.207
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/feedback_event_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:24.909636+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.437
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/race_feedback_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:25.351706+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.851
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/recovery_presentation_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:27.210027+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.674
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/interface_icon_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:27.889290+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.066
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/race_hud_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:29.962631+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.674
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/turn_guidance_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:31.644964+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.299
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/menu_style_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:33.951406+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.378
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/menu_apron_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:34.335486+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.134
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/school_presentation_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:35.474722+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.166
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/leave_delivery_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:38.647388+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.278
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/lobby_reconnect_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:39.934162+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 1.897
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/online_lifecycle_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:42:41.840598+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 29.327
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/mobile_runtime_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:43:11.175888+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 3.602
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/mobile_services_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:43:14.786476+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.208
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/direct_connect_tests.gd -- --profile=ci_tests",
+      "passed": true,
+      "started_utc": "2026-10-25T05:43:17.002218+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 12.178
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/shader_warmup_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:43:29.188145+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 19.322
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/packet_fault_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:43:48.515831+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 13.759
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/grapheme_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:44:02.280553+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.247
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/worker_performance_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:44:02.532838+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.256
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/font_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:44:02.793697+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.36
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/font_input_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:44:03.158623+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.456
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/retirement_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:44:03.619326+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 0.374
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/worker_directory_tests.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:44:03.998911+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 15.405
+    },
+    {
+      "suite": "tools/retirement_integration.py",
+      "passed": true,
+      "started_utc": "2026-10-25T05:44:19.408969+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 15.211
+    },
+    {
+      "suite": "tools/godot.py --headless --script tests/audio_dsp_evidence.gd",
+      "passed": true,
+      "started_utc": "2026-10-25T05:44:34.625659+00:00",
+      "timed_out": false,
+      "exit_code": 0,
+      "seconds": 2.971
+    }
+  ]
+}

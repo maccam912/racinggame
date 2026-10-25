@@ -50,3 +50,23 @@ The preceding one-lap attempt finished and agreed but failed coverage because
 one player had 92 clear-road samples. Extending the race provided sufficient
 coverage without weakening the threshold. [Recorded checks and metrics](iroh-assisted.json).
 The tool now names failed checks and accepts one- or two-lap fixtures.
+
+## All eight models and ordinary boost inputs
+
+The soak's launch estimate now uses each client's actual chosen car, correcting
+an older mismatch with the AI roster order. Optional `--all-cars` selects every
+model once. `--exercise-boosts` sends a fresh ordinary boost input after launch
+for Pulse and Meteor; it never changes authority state, charge limits or physics.
+Telemetry records car identity and consumed charges. Default four-car selection
+and all timing/correction limits remain.
+
+The two-race Palm/Temple run with both flags and `--assist-level 3` passes all 18
+checks. Both boost cars had Strong + braking and consumed one charge in each
+race. Sixteen finishes agree across clients. There are 32,081 clear-road samples,
+minimum 1,152 per client/race, and worst p95 correction 0.0424 m. The preceding
+all-eight-model run also passed, but its cautious AI never used a charge, which
+is why explicit boost input was added. [Recorded metrics](eight-models-boost.json).
+
+The default four-model, unassisted two-race Palm/Citrus regression also passes
+after correcting the launch estimates, with all sixteen finishes and unchanged
+correction/coverage gates.
