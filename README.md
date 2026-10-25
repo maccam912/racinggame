@@ -9,8 +9,9 @@ Trailblazer adds a grippy rally wagon; Corsair adds a fast long GT. The original
 coastal highways, downtown blocks, forest/dirt rallies, mountain rollercoaster,
 layered crossings, reservoir and volcanic moon. Thirty additions bring glaciers,
 aurora harbors, jungle ruins, coral causeways, blossom streets, dune rallies,
-steelworks, festival speedways and lunar/crystal landscapes. Each has a three-scale technical
-route, terrain, five landmark beats and three 3D course structures. The full
+steelworks, festival speedways and lunar/crystal landscapes. Six courses offer smooth
+roads; the other 34 retain the extra twists. Terrain, landmarks and 3D course
+structures give each setting its identity. The full
 [forty-course roster and driving briefs](docs/COURSE_ROSTER_40.md) describe them.
 Far Chase and Retro presentation are the defaults for new profiles; saved
 preferences remain available in Settings. Music uses recorded CC0 heavy rock and
@@ -23,6 +24,24 @@ packages from [Releases](https://github.com/maccam912/racinggame/releases).
 [The 32-row acceptance index](docs/ACCEPTANCE.md) records verified scope and open
 human, hosting and publisher checks. Phone/tablet development checks use emulators;
 physical-device testing is optional owner follow-up.
+
+### A relaxed first race
+
+Choose **Quick Race**, pick a car and paint, then press **Continue → Relaxed setup → Start**.
+The preset selects a smooth course, one lap, three Easy rivals and no car
+collisions. It enables gentler steering, Strong steering help, automatic corner
+braking, auto acceleration and upcoming-turn arrows. The player still steers.
+Assisted races allow up to two minutes after the first racer finishes.
+
+The six smooth choices are Palm Bay, Citrus Pass, Tundra Pipeline, Saltflat
+Velocity, Storm Chase and Festival Speedway. **Next** on the results screen
+continues to another course in the same filter with the same setup. **Retry**
+repeats the current race. Quick Race remembers the setup after restarting.
+
+For extra twists, choose **Technical roads** in the course filter. Local steering
+help and corner braking are individually adjustable in **Settings → Accessibility**;
+Time Trial and Driving School retain their standard driving controls. Online help
+is assigned separately by the host as described below.
 
 Requires Python 3.14.7. The bootstrap downloads checksum-verified Godot 4.6.3 into a project-specific user cache, preserving your existing engine. No cloud account is required for offline development.
 
@@ -70,7 +89,7 @@ after ten minutes and can be replaced. Leaving or Android backgrounding closes a
 hosted room. Source builds require Rust 1.98.1; `tools/native_build.py host` builds
 the locked Iroh extension alongside the existing OS adapter.
 
-Hosts can open **Driving assists** in the lobby and privately choose Off, Gentle, or Strong per player. Assistance adds a bounded centerward steering nudge and damps swerving; players still steer, accelerate and brake. Choices survive reconnects and room rematches, with no player-facing assist labels. Normal races also ease the leader's top speed by 5% and cut chasers' shoulder drag and wall-scrape penalties by 65%; bot catch-up is stronger. Trial, School, solo and all-bot fields retain standard race pace. Matching content-18/protocol-9 builds are required.
+Hosts can open **Driving assists** in the lobby and privately choose Off, Gentle, Strong, or Strong + braking per player. Steering help adds a bounded centerward nudge and damps swerving; Strong + braking also slows for bends. Players still steer, and manual braking, handbrake, recovery and boost remain available. Choices survive reconnects and room rematches, with no player-facing assist labels. Normal races also ease the leader's top speed by 5% and cut chasers' shoulder drag and wall-scrape penalties by 65%; bot catch-up is stronger. Trial, School, solo and all-bot fields retain standard race pace. Matching content-21/protocol-10 builds are required.
 
 `local_race.py` launches a dedicated worker and two native clients. Direct Connect accepts `host:port`; the community worker opens a persistent lobby with Ready/Start, bot fill, car/track choices and rematches. The local Go directory allocates ticket-required workers; see `services/directory/README.md` and run `python3 tools/directory_integration.py` with Go 1.27.0 installed. The HTTPS client, full online menu path and native identity stores have integration gates; official hosted regions remain deployment work. Both official URLs in `game/content/regions.json` stay blank until deployment. An explicit `--directory-url=https://…` selects Test Region; `--directory-ca=/path/to/test-root.crt` trusts that CA for these requests only. Run `python3 tools/directory_client_integration.py` for the client/auth/allocator/private-code fixture with an isolated test CA; add `--menu` for the complete menu path or `--menu --visual` for native 150% screenshots. Fault fixtures use a real UDP proxy and keep resets separate from ordinary correction measurements.
 

@@ -284,3 +284,16 @@ changed routes. Protocol 7 and save schema 1 remain current.
 [measurements](evidence/track-detail15/geometry.json),
 [approved city preview](evidence/track-detail15/approved-city.png),
 [approved mountain preview](evidence/track-detail15/approved-mountain.png).
+
+
+## Content 19 onward: six smooth alternatives
+
+Palm Bay, Citrus Pass, Tundra Pipeline, Saltflat Velocity, Storm Chase and Festival
+Speedway keep their main route shapes with the added fine/medium/broad detail
+offsets removed. The other 34 courses retain their technical geometry. Quick Race
+and Trial provide Smooth and Technical filters; multiplayer course details label
+the road style. Relaxed setup selects a smooth course. These current choices
+supersede the all-course detail statement in the historical content-15 section.
+
+The authoring source records the road style, so regenerating technical routes
+preserves the six smooth courses. [Geometry and rendered evidence](evidence/smooth-roads19/README.md).
