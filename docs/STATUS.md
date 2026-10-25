@@ -1,5 +1,12 @@
 # Implementation status
 
+## 24 October — remember Quick Race setup
+
+Quick Race remembers its course, road filter, laps, rivals, difficulty and car
+contact after starting a race or applying Relaxed setup. Trial does not overwrite
+those preferences. Cold restart, malformed optional data, failed writes, record
+reset and full reset pass five focused checks. Older profiles retain their progress.
+
 ## 24 October — Festival fairground detail
 
 Festival’s existing tents have brighter striped fabric, lamps, pennants and

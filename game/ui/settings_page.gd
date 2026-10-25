@@ -373,6 +373,7 @@ func reset_data(all_data: bool) -> void:
 	reset_pending = false
 	if all_data:
 		BindingBook.apply(app.data.settings.bindings)
+		app.events.restore_setup()
 		app.menu.settings = app.data.settings
 		SettingsRuntime.apply(app,app.data.settings)
 		app.show_name(true)

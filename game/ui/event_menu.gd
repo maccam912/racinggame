@@ -32,6 +32,29 @@ var detail_scroll: MenuScroll
 
 func _init(owner_app: Node) -> void:
 	app = owner_app
+	restore_setup()
+
+
+func restore_setup() -> void:
+	# Optional menu preferences must not invalidate an older profile or its progress.
+	var saved: Variant = app.data.profile.get("quick_setup",{})
+	if not saved is Dictionary: saved = {}
+	laps = int(saved.laps) if NetEvents.integer(saved.get("laps"),1,3) else 2
+	opponents = int(saved.opponents) if NetEvents.integer(saved.get("opponents"),0,7) else 7
+	difficulty = int(saved.difficulty) if NetEvents.integer(saved.get("difficulty"),0,2) else 1
+	contact = saved.contact if saved.get("contact") is bool else true
+	filter_index = maxi(0,FILTERS.find(saved.get("filter","all")))
+	track_index = 0
+	for index in range(Catalog.tracks.size()):
+		if Catalog.tracks[index].id==saved.get("track",""): track_index = index
+
+
+func remember_setup() -> Error:
+	if mode!="quick": return OK
+	app.data.profile["quick_setup"] = {"laps":laps,"opponents":opponents,"difficulty":difficulty,"contact":contact,"track":Catalog.tracks[track_index].id,"filter":FILTERS[filter_index]}
+	var error: Error = app.data.save_profile()
+	if error!=OK: app.data.store.notice("data.save_failed")
+	return error
 
 
 func show_event() -> void:
@@ -368,6 +391,7 @@ func choice(parent: Node, key: String, items: Array, selected: int, callback: Ca
 
 
 func start() -> void:
+	remember_setup()
 	var configuration := {"mode":mode, "track":track_index, "car":int(app.data.profile.selected_car), "paint":int(app.data.profile.selected_paint), "laps":1 if mode == "trial" else laps, "opponents":0 if mode == "trial" else opponents, "difficulty":difficulty, "contact":contact, "ghost":ghost}
 	app.request_drive(configuration,show_event)
 
@@ -384,4 +408,5 @@ func relaxed_setup() -> void:
 	app.data.set_setting("turn_hints",true)
 	app.data.set_setting("auto_accelerate",true)
 	app.data.set_setting("touch_auto_accelerate",true)
+	remember_setup()
 	show_event()

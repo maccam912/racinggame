@@ -26,6 +26,9 @@ func run() -> void:
 	assert(app.data.settings.turn_hints and app.data.settings.corner_braking and app.data.settings.steering_assist == "strong" and app.data.settings.auto_accelerate and app.data.settings.touch_auto_accelerate)
 	var reloaded := AppData.new(folder,false)
 	assert(reloaded.settings.steering_assist == "strong" and reloaded.settings.auto_accelerate)
+	var saved_setup: Dictionary = reloaded.profile.quick_setup
+	assert(saved_setup.laps==1 and saved_setup.opponents==3 and saved_setup.difficulty==0 and not saved_setup.contact)
+	assert(saved_setup.track=="palm_bay" and saved_setup.filter=="smooth")
 	reloaded = null
 	for mobile: bool in [false,true]:
 		root.content_scale_mode = Window.CONTENT_SCALE_MODE_DISABLED
