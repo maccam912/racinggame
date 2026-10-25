@@ -44,6 +44,7 @@ def android_memory_summary(observations, tracks, laps, required=False):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--serial', required=True)
+    parser.add_argument('--assist-level', type=int, choices=range(4), default=0, help='Host assigns this private assist to odd slots, including Android; requires a build with own-assist health telemetry')
     parser.add_argument('--number', required=True, type=int)
     parser.add_argument('--ui-scale', type=int, choices=[100,125,150], default=100)
     parser.add_argument('--races', type=int, choices=range(2,11), default=2)
@@ -96,6 +97,7 @@ def main():
               'serial': args.serial, 'model': device('shell', 'getprop', 'ro.product.model').decode().strip(),
               'android_release': device('shell', 'getprop', 'ro.build.version.release').decode().strip(),
               'profile': profile, 'ui_scale': args.ui_scale, 'races_requested':args.races, 'laps':args.laps,
+              'assist_level_odd_slots':args.assist_level,
               'memory_required':args.check_memory or (args.races==10 and args.laps==3),
               'transport': 'Eight independent real UDP proxies; Android emulator host gateway and native loopback',
               'one_way_latency_ms':50 if args.impaired else 0, 'one_way_jitter_ms':20 if args.impaired else 0,
@@ -155,7 +157,7 @@ def main():
         fixture = 'tests/soak_network_client.gd' if args.impaired else 'tests/lobby_network_client.gd'
         def native_arguments(index):
             return ['--script',fixture,'--','--index='+str(index),'--port='+str(ports[index]),
-                    '--races='+str(args.races),'--laps='+str(args.laps),'--seconds='+str(args.seconds),'--tracks='+','.join(map(str,track_indices)),
+                    '--races='+str(args.races),'--laps='+str(args.laps),'--assist-level='+str(args.assist_level),'--seconds='+str(args.seconds),'--tracks='+','.join(map(str,track_indices)),
                     '--report='+str(folder/f'client{index}.json')]
         # Establish a native host before the mobile client joins. The existing
         # eight-member fixture requests the selected course rules and marks itself
@@ -222,6 +224,14 @@ def main():
         values = [json.loads((folder/f'client{i}.json').read_text()) for i in range(7)]
         races = values[0]['results']
         assert len(races) == args.races and all(value['results'] == races and value['loaded_tracks'] == expected_tracks and value['large_racing_events'] == 0 for value in values)
+        assert all(len(value['race_metrics'])==args.races and all(metric.get('driving_assist')==(args.assist_level if metric['slot']%2 else 0) for metric in value['race_metrics']) for value in values), 'Native assigned assists differ'
+        if args.assist_level:
+            health = [json.loads(text) for text in re.findall(r'NETWORK_HEALTH (\{.*\})', android_log)]
+            active = [row for row in health if row.get('phase') in [4,5] and row.get('prediction_assist',-1)>=0]
+            assert {row['race'] for row in active}==set(range(1,args.races+1)), 'Android assist telemetry must cover every race'
+            assert all(row['slot']==7 and row['prediction_assist']==args.assist_level for row in active), 'Android prediction must use its private assigned help'
+            report['android_assist_health'] = active
+            report['android_assist_each_race'] = True
         hashes = values[0]['result_hashes']
         assert all(value['result_hashes'] == hashes for value in values)
         assert all(int(race_id) == index+1 and int(count) == 8 and digest == hashes[index] for index, (race_id, count, digest) in enumerate(result_text)), 'Android/native complete result digests differ'

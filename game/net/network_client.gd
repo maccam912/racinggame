@@ -117,7 +117,7 @@ func _process(_dt: float) -> void:
 	if suspended: return
 	if "--network-evidence" in OS.get_cmdline_user_args() and Time.get_ticks_msec()>=evidence_next_ms:
 		evidence_next_ms = Time.get_ticks_msec()+2000
-		print("NETWORK_HEALTH "+JSON.stringify({"channels":evidence_channels,"invalid_events":evidence_rejected_events,"invalid_snapshots":evidence_rejected_snapshots,"wrong_channels":evidence_wrong_channels,"raw_bytes":wire.received_bytes,"discarded":wire.discarded_packets,"fragment_pending":wire.fragments.pending.size(),"last_valid_age_ms":Time.get_ticks_msec()-last_received_ms,"connected":connected,"slot":slot,"suspended":suspended}))
+		print("NETWORK_HEALTH "+JSON.stringify({"channels":evidence_channels,"invalid_events":evidence_rejected_events,"invalid_snapshots":evidence_rejected_snapshots,"wrong_channels":evidence_wrong_channels,"raw_bytes":wire.received_bytes,"discarded":wire.discarded_packets,"fragment_pending":wire.fragments.pending.size(),"last_valid_age_ms":Time.get_ticks_msec()-last_received_ms,"connected":connected,"slot":slot,"suspended":suspended,"race":race_id,"phase":phase,"prediction_assist":prediction.driving_assist if prediction else -1}))
 	# ENet connectivity alone does not complete admission. A silent/invalid
 	# Welcome stream cannot keep the initial Connect action pending forever.
 	if slot<0 and initial_deadline_ms>0 and Time.get_ticks_msec()>=initial_deadline_ms:
