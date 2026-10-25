@@ -27,11 +27,11 @@ static func roster_valid(value: Variant, allow_empty: bool = false, members: boo
 
 
 static func server_event(event: Dictionary) -> bool:
-	if event.has("driving_assist") and not integer(event.driving_assist, 0, 2): return false
+	if event.has("driving_assist") and not integer(event.driving_assist, 0, DrivingAssist.MAX_LEVEL): return false
 	if event.has("driving_assists"):
 		if event.get("type") != "lobby" or not event.driving_assists is Dictionary or event.driving_assists.size() > 8 or not event.get("members") is Array: return false
 		for id: Variant in event.driving_assists:
-			if not id is String or not integer(event.driving_assists[id], 0, 2) or not event.get("members", []).any(func(row: Variant) -> bool: return row is Dictionary and row.get("id") == id): return false
+			if not id is String or not integer(event.driving_assists[id], 0, DrivingAssist.MAX_LEVEL) or not event.get("members", []).any(func(row: Variant) -> bool: return row is Dictionary and row.get("id") == id): return false
 	match event.get("type", ""):
 		"welcome":
 			return event.get("official", false) is bool and integer(event.get("ack", 0), 0, 0xffffffff) and event.get("id") is String and event.id.length() == 36 and integer(event.get("slot"), 0, 7) and integer(event.get("race"), 0, 0xffffffff) and integer(event.get("tick"), 0, 0xffffffff) and event.get("token") is String and event.token.length() == 64 and event.token.is_valid_hex_number(false)

@@ -78,7 +78,7 @@ func set_rules(id: String, values: Dictionary) -> bool:
 
 func set_driving_assist(actor: String, target: String, level: int) -> bool:
 	var row := member(target)
-	if phase != Phase.LOBBY or actor != host_id or row.is_empty() or level < 0 or level > 2:
+	if phase != Phase.LOBBY or actor != host_id or row.is_empty() or level < 0 or level > DrivingAssist.MAX_LEVEL:
 		return false
 	if int(row.driving_assist) != level:
 		row.driving_assist = level

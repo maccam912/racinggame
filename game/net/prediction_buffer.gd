@@ -38,6 +38,8 @@ func simulate(frame: InputFrame) -> void:
 	prediction_tick = frame.tick + InputBuffer.DELAY_TICKS
 	var previous := state.position
 	frame = DrivingAssist.apply(state, frame, query, driving_assist)
+	if driving_assist==DrivingAssist.RELAXED:
+		frame = CornerAssist.apply(state,frame,car,query)
 	VehicleSim.step(state, frame, car, query)
 	update_remotes(prediction_tick, true)
 	ProgressTracker.advance(state, previous, track, elapsed_ticks, lap_count)

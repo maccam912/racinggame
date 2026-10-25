@@ -673,7 +673,7 @@
   "garage.boost": "3 boosts per race · 2 seconds each · no refill",
   "hud.boost": "BOOST  %d / 3",
   "online.driving_assists": "Driving assists",
-  "online.driving_assists_help": "Host only. Give individual drivers a small nudge toward the road center and help settle left/right swerving. Players still steer, accelerate and brake. These settings stay in this room for rematches; no assist labels or notifications appear for players. Races with assisted drivers allow up to two minutes after the first finish.",
+  "online.driving_assists_help": "Choose private driving help for each player. Gentle and Strong soften steering corrections. Strong + braking also slows for corners. Players still steer, and their manual brake, drift and boost controls remain available. Only the host sees this list. Choices stay in this room for rematches. Assisted races allow up to two minutes after the first finish.",
   "online.assist_gentle": "Gentle",
   "online.assist_strong": "Strong",
   "event.filter.smooth": "Smooth roads",
@@ -691,5 +691,6 @@
   "settings.corner_braking": "Local corner braking",
   "help.setting.corner_braking": "Slows before bends in local Quick Race and Cup. You still steer, and straights keep full speed. Brake, reverse, handbrake, recovery and boost stay under your control. Assisted races allow up to two minutes after the first finish.",
   "settings.turn_hints": "Upcoming turn arrows",
-  "help.setting.turn_hints": "Shows a left or right arrow before tighter bends. Look at the road and steer yourself. Arrows pause during countdowns, recovery and other important messages."
+  "help.setting.turn_hints": "Shows a left or right arrow before tighter bends. Look at the road and steer yourself. Arrows pause during countdowns, recovery and other important messages.",
+  "online.assist_relaxed": "Strong + braking"
 }

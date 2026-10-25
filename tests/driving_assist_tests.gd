@@ -99,13 +99,13 @@ func run() -> void:
 	assert(impact.hit and catchup_impact.hit and catchup_impact.velocity.length() > impact.velocity.length()+.5, "actual wall impact retains more tangential speed for chasers")
 	wall.queue_free()
 	await physics_frame
-	await network_case()
+	for level: int in [2,3]: await network_case(level)
 	query = null
 	race = null
 	print("HOST_PRIVATE_STEERING_BOUNDS_DAMPING_RACE_ROLES_UDP_AUTH_PREDICTION_RECONNECT_REMATCH_PASS")
 	quit()
 
-func network_case() -> void:
+func network_case(level: int) -> void:
 	var probe := PacketPeerUDP.new()
 	assert(probe.bind(0,"127.0.0.1") == OK)
 	var port := probe.get_local_port()
@@ -122,11 +122,14 @@ func network_case() -> void:
 	root.add_child(child)
 	assert(child.connect_to("127.0.0.1",port,"Child") == OK)
 	await wait_for(func() -> bool: return host.lobby.get("members",[]).size() == 2 and child.lobby.get("members",[]).size() == 2)
-	child.command("driving_assist",{"id":child.guest_id,"level":2})
+	child.command("driving_assist",{"id":child.guest_id,"level":level})
 	await create_timer(.15).timeout
 	assert(server.lobby.member(child.guest_id).driving_assist == 0, "nonhost cannot grant assists")
-	host.command("driving_assist",{"id":child.guest_id,"level":2})
-	await wait_for(func() -> bool: return int(host.lobby.get("driving_assists",{}).get(child.guest_id,0)) == 2)
+	host.command("driving_assist",{"id":child.guest_id,"level":4})
+	await create_timer(.15).timeout
+	assert(server.lobby.member(child.guest_id).driving_assist==0,"out-of-range levels rejected")
+	host.command("driving_assist",{"id":child.guest_id,"level":level})
+	await wait_for(func() -> bool: return int(host.lobby.get("driving_assists",{}).get(child.guest_id,0)) == level)
 	assert(not child.lobby.has("driving_assists") and not server.lobby.roster()[1].has("driving_assist"), "assignments stay out of other players' lobby and roster")
 	for client: NetworkClient in [host,child]:
 		client.loading_requested.connect(func(config: Dictionary) -> void: client.mark_loaded(int(config.race)))
@@ -134,12 +137,12 @@ func network_case() -> void:
 	await wait_for(func() -> bool: return server.lobby.all_ready())
 	host.command("start")
 	await wait_for(func() -> bool: return child.config.get("type") == "start" and host.config.get("type") == "start")
-	assert(int(child.config.driving_assist) == 2 and int(host.config.driving_assist) == 0)
+	assert(int(child.config.driving_assist) == level and int(host.config.driving_assist) == 0)
 	assert(not child.config.roster[0].has("driving_assist"))
 	var local := RaceSession.new()
 	local.setup(Catalog.tracks[0],[0,0],root.world_3d,1)
 	child.attach_prediction(local.states[1],local.cars[1],local.queries[1],local.track,1)
-	assert(child.prediction.driving_assist == 2)
+	assert(child.prediction.driving_assist == level)
 	# Exact prediction/authority step from identical inputs and physical state.
 	server.session.phase = RaceSession.Phase.RACING
 	server.session.contact_enabled = false
@@ -147,8 +150,19 @@ func network_case() -> void:
 	ProgressTracker.place_recovery(server.session.states[1],server.session.track,100)
 	server.session.states[1].position += server.session.track.forwards[server.session.queries[1].hint].cross(Vector3.UP)*4
 	server.session.states[1].velocity = server.session.states[1].forward()*30
+	if level==DrivingAssist.RELAXED:
+		var bend := -1
+		for index in range(server.session.track.points.size()):
+			if float(server.session.track.bake.ai_speeds[server.session.cars[1].id][index])<35: bend = index
+		assert(bend>=0)
+		ProgressTracker.place_recovery(server.session.states[1],server.session.track,server.session.track.distances[bend])
+		server.session.states[1].recovery_ticks = 0
+		server.session.states[1].velocity = server.session.states[1].forward()*65
+		server.session.queries[1].hint = bend
+		assert(CornerAssist.apply(server.session.states[1],InputFrame.make(.5,.8),server.session.cars[1],server.session.queries[1]).brake>0,"parity fixture actually invokes braking")
 	server.session.update_race_roles()
-	server.session.driving_assists[1] = 2
+	server.session.driving_assists[1] = level
+	child.prediction.query.hint = server.session.queries[1].hint
 	child.prediction.state = server.session.states[1].copy()
 	child.prediction.elapsed_ticks = server.session.elapsed_ticks
 	child.prediction.remotes = null
@@ -160,6 +174,9 @@ func network_case() -> void:
 	child.prediction.advance(frame)
 	assert(child.prediction.state.position.distance_to(server.session.states[1].position) < .00001)
 	assert(child.prediction.history[0].steer == .5, "resend/replay stores original input, never applies assist twice")
+	host.command("driving_assist",{"id":child.guest_id,"level":0})
+	await create_timer(.15).timeout
+	assert(server.lobby.member(child.guest_id).driving_assist==level,"assist choices are locked during races")
 	var identity := child.guest_id
 	child.process_mode = Node.PROCESS_MODE_DISABLED
 	child.wire.peer.close()
@@ -167,12 +184,12 @@ func network_case() -> void:
 	child.process_mode = Node.PROCESS_MODE_INHERIT
 	child.begin_reconnect()
 	await wait_for(func() -> bool: return child.resume_count > 0)
-	assert(child.guest_id == identity and child.prediction.driving_assist == 2 and int(child.config.driving_assist) == 2)
+	assert(child.guest_id == identity and child.prediction.driving_assist == level and int(child.config.driving_assist) == level)
 	server.session.phase = RaceSession.Phase.RESULTS
 	await wait_for(func() -> bool: return child.phase == RaceSession.Phase.RESULTS)
 	for client: NetworkClient in [host,child]: client.command("return_lobby")
 	await wait_for(func() -> bool: return server.lobby.phase == LobbyState.Phase.LOBBY)
-	assert(server.lobby.member(identity).driving_assist == 2, "rematch retains identity preference")
+	assert(server.lobby.member(identity).driving_assist == level, "rematch retains identity preference")
 	for client: NetworkClient in [host,child]:
 		client.wire.close()
 		client.prediction = null

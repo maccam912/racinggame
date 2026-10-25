@@ -3,6 +3,9 @@ extends RefCounted
 ## A bounded steering nudge, shared by authority and local input prediction.
 ## No corner-following planner: players still supply the steering for bends.
 
+const RELAXED: int = 3
+const MAX_LEVEL: int = RELAXED
+
 static func apply(state: VehicleState, frame: InputFrame, query: WorldQuery, level: int) -> InputFrame:
 	if level <= 0 or state.finished or state.dnf_reason != "" or state.recovery_ticks > 0 or not state.grounded or state.reversing or frame.handbrake or state.velocity.dot(state.forward()) < 5.0:
 		return frame

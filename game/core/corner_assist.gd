@@ -1,6 +1,6 @@
 class_name CornerAssist
 extends RefCounted
-## Optional local braking help. Uses the canonical braking line, never steers.
+## Optional braking help shared by local driving and online prediction. Uses the canonical braking line, never steers.
 
 static func apply(state: VehicleState, frame: InputFrame, car: CarDefinition, query: WorldQuery) -> InputFrame:
 	if state.finished or state.dnf_reason != "" or state.recovery_ticks > 0 or not state.grounded or state.reversing or frame.handbrake or frame.recover or frame.boost or state.boost_ticks > 0:

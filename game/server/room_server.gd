@@ -290,7 +290,7 @@ func receive(packet: Dictionary) -> void:
 			if event.get("rules") is Dictionary:
 				lobby.set_rules(player.id, event.rules)
 		"driving_assist":
-			if event.get("id") is String and NetEvents.integer(event.get("level"), 0, 2):
+			if event.get("id") is String and NetEvents.integer(event.get("level"), 0, DrivingAssist.MAX_LEVEL):
 				lobby.set_driving_assist(player.id, event.id, int(event.level))
 		"start":
 			if lobby.request_start(player.id, tick):

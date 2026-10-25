@@ -1,5 +1,16 @@
 # Implementation status
 
+## 24 October — private online corner braking
+
+Content/protocol/save versions are **21/10/1**. Hosts can select Strong + braking
+for an individual player. Authority and prediction apply the same corner helper;
+existing steering levels retain their behavior. Privacy, race-time locking,
+reconnect/rematch and local-setting boundaries pass real UDP checks. All eight
+cars pass 24 collision-world delayed-replay cases. Frozen content-20 save bytes
+remain preserved with incompatible continuation disabled. Native host UI was
+reviewed. [Evidence](evidence/online-family21/README.md). The content-20 full
+run passed **223/223** commands; current-version full validation follows.
+
 ## 24 October — remember Quick Race setup
 
 Quick Race remembers its course, road filter, laps, rivals, difficulty and car

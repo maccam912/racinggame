@@ -83,7 +83,7 @@ func step(frames: Dictionary) -> void:
 		else:
 			if driving_assists.has(index):
 				inputs[index] = DrivingAssist.apply(states[index], inputs[index], queries[index], int(driving_assists[index]))
-			if bool(corner_braking.get(index,false)):
+			if bool(corner_braking.get(index,false)) or int(driving_assists.get(index,0))==DrivingAssist.RELAXED:
 				inputs[index] = CornerAssist.apply(states[index], inputs[index], cars[index], queries[index])
 		if states[index].dnf_reason == "":
 			VehicleSim.step(states[index], inputs[index], cars[index], queries[index])

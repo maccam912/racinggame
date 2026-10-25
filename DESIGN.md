@@ -1458,3 +1458,15 @@ remaining racers' deadline. Bots and DNF players cannot grant extra time.
 Standard races retain 30 seconds; all races retain the ten-minute hard bound and
 end after everyone finishes/DNFs plus the usual settling interval. Online assist
 assignments remain private to the host and each affected player's own start/resume.
+
+
+### Private online corner braking (content 21)
+
+The host’s private assist list adds Strong + braking (level 3). It retains Strong’s
+0.24 steering bound and applies the shared corner helper after the nudge on both
+authority and prediction. Original input frames are retained for replay; braking
+is applied once per simulated tick. Off/Gentle/Strong remain unchanged. The
+assignment is lobby-only, survives reconnect/rematch and is sent only to the
+host and its affected driver. Local settings cannot override the host choice.
+Protocol 10 rejects older peers before this new enum value is exchanged; snapshot
+size remains 775 bytes for eight cars. Frozen content-20 progress stays preserved.

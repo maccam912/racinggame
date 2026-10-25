@@ -7,7 +7,7 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	Catalog.load_all()
-	assert(Catalog.rules.content_version==20 and Catalog.rules.protocol_version==9 and SaveStore.SCHEMA==1)
+	assert(Catalog.rules.content_version==21 and Catalog.rules.protocol_version==10 and SaveStore.SCHEMA==1)
 	assert(FileAccess.get_sha256(SOURCE+"profile_valid_v2/manifest.json")==MANIFEST_SHA,"frozen transition manifest cannot drift with new physics")
 	var manifest: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SOURCE+"profile_valid_v2/manifest.json"))
 	var previous: Dictionary = JSON.parse_string(FileAccess.get_file_as_string(SOURCE+"compatibility.json"))

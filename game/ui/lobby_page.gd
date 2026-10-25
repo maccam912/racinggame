@@ -187,7 +187,7 @@ func show_driving_assists() -> void:
 		choice.name = "assist_" + str(member.slot)
 		choice.ui = shell.ui
 		choice.subject = member.name
-		for key: String in ["choice.off", "online.assist_gentle", "online.assist_strong"]: choice.add_item(I18n.t(key))
+		for key: String in ["choice.off", "online.assist_gentle", "online.assist_strong", "online.assist_relaxed"]: choice.add_item(I18n.t(key))
 		choice.selected = int(draft.get(member.id, 0))
 		choice.item_selected.connect(func(index: int) -> void: draft[member.id] = index)
 		row.add_child(choice)
