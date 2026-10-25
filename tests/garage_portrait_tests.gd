@@ -39,6 +39,18 @@ func run() -> void:
 			await process_frame
 			assert(int(app.data.profile.selected_car)==index, "picture click selects its car")
 			assert(app.data.profile.selected_paint==2 and app.stage.car.model_id==Catalog.cars[index].mesh_id)
+		for paint_index in range(8):
+			var paint_picker: Variant = app.menu.root.find_child("GaragePaintPicker",true,false)
+			assert(app.menu.footer.get_global_rect().grow(1).encloses(paint_picker.get_global_rect()),"paint is reachable without scrolling past eight cars")
+			if mobile:
+				paint_picker.open_sheet()
+				for i in range(3): await process_frame
+				paint_picker.choose(paint_index)
+			else:
+				paint_picker.item_selected.emit(paint_index)
+			for i in range(8): await process_frame
+			assert(app.data.profile.selected_paint==paint_index and app.data.profile.selected_car==7)
+			assert(root.gui_get_focus_owner().name=="GaragePaintPicker","choice returns focus to the visible paint shortcut")
 		if "--capture" in OS.get_cmdline_user_args():
 			app.data.profile.selected_car = 0
 			app.show_garage("quick")

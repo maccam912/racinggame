@@ -1,5 +1,12 @@
 # Implementation status
 
+## 25 October — visible preset feedback and paint shortcut
+
+Relaxed setup shows a checkmark while its settings match. The garage footer now
+provides paint selection with the current color swatch, preserving the chosen car
+and restoring focus after selection. Five focused checks and native desktop /
+150% phone captures pass. [Evidence](evidence/menu-feedback21/README.md).
+
 ## 25 October — runtime and packaged Android validation
 
 The content-21 full run passed 227/227 commands. All eight cars finished all six

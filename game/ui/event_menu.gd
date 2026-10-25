@@ -27,6 +27,7 @@ var preview: RoutePreview
 var buttons: Array[Button] = []
 var medal_icons: Array[TextureRect] = []
 var detail_title: Label
+var relaxed_button: Button
 var detail_scroll: MenuScroll
 
 
@@ -175,6 +176,7 @@ func show_event() -> void:
 	details.add_child(detail_title)
 	if mode == "quick":
 		var relaxed := shell.ui.button(I18n.t("event.relaxed_setup"), relaxed_setup)
+		relaxed_button = relaxed
 		relaxed.name = "RelaxedSetup"
 		relaxed.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		if app.data.mobile: relaxed.add_theme_font_size_override("font_size",shell.ui.font_size(14))
@@ -210,7 +212,9 @@ func show_event() -> void:
 		toggle.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		toggle.text = I18n.t("event.contact")
 		toggle.button_pressed = contact
-		toggle.toggled.connect(func(value: bool) -> void: contact = value)
+		toggle.toggled.connect(func(value: bool) -> void:
+			contact = value
+			refresh_relaxed_state())
 		options.add_child(toggle)
 	else:
 		options.add_child(shell.ui.paragraph(I18n.t("event.standing_start")))
@@ -358,6 +362,7 @@ func reveal_selection() -> void:
 
 func select_track(index: int) -> void:
 	track_index = index
+	refresh_relaxed_state()
 	track_shuffle.note_visit(visible_tracks,index)
 	var track: TrackDefinition = Catalog.tracks[index]
 	detail_title.text = I18n.t("track."+track.id)
@@ -387,6 +392,7 @@ func choice(parent: Node, key: String, items: Array, selected: int, callback: Ca
 		picker.add_item(item)
 	picker.selected = selected
 	picker.item_selected.connect(callback)
+	picker.item_selected.connect(func(_index: int) -> void: refresh_relaxed_state())
 	row.add_child(picker)
 	parent.add_child(row)
 
@@ -395,6 +401,18 @@ func start() -> void:
 	remember_setup()
 	var configuration := {"mode":mode, "track":track_index, "car":int(app.data.profile.selected_car), "paint":int(app.data.profile.selected_paint), "laps":1 if mode == "trial" else laps, "opponents":0 if mode == "trial" else opponents, "difficulty":difficulty, "contact":contact, "ghost":ghost}
 	app.request_drive(configuration,show_event)
+
+
+func relaxed_active() -> bool:
+	var settings: Dictionary = app.data.settings
+	return mode=="quick" and laps==1 and opponents==3 and difficulty==0 and not contact and Catalog.tracks[track_index].smooth_road() and settings.steering_assist=="strong" and is_equal_approx(float(settings.sensitivity),.75) and settings.corner_braking and settings.turn_hints and settings.auto_accelerate and settings.touch_auto_accelerate
+
+
+func refresh_relaxed_state() -> void:
+	if mode!="quick" or not is_instance_valid(relaxed_button): return
+	var active := relaxed_active()
+	relaxed_button.text = ("✓ " if active else "")+I18n.t("event.relaxed_setup")
+	app.menu.ui.selected(relaxed_button,active)
 
 
 func relaxed_setup() -> void:

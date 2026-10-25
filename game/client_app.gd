@@ -445,6 +445,19 @@ func show_garage(mode: String = "garage") -> void:
 		garage_paint_buttons.append(button)
 	list.add_child(menu.ui.panel(menu.ui.paragraph(I18n.t("garage.rotate"))))
 	menu.add_back(lobby_page.show_lobby if mode == "online" else show_menu)
+	var paint_picker: Variant = menu.ui.choice_picker(I18n.t("garage.paint"))
+	paint_picker.name = "GaragePaintPicker"
+	for index in range(8): paint_picker.add_item(I18n.t("paint."+str(index)))
+	paint_picker.selected = int(data.profile.selected_paint)
+	paint_picker.text = I18n.t("garage.paint")
+	paint_picker.accessibility_name = I18n.t("garage.paint")+": "+I18n.t("paint."+str(data.profile.selected_paint))
+	if data.mobile: paint_picker.add_theme_font_size_override("font_size",menu.ui.font_size(14))
+	menu.ui.set_icon(paint_picker,"paint_"+str(data.profile.selected_paint))
+	paint_picker.item_selected.connect(func(index: int) -> void:
+		data.select_car(int(data.profile.selected_car),index)
+		show_garage(mode)
+		menu.focus_later(menu.root.find_child("GaragePaintPicker",true,false)))
+	menu.footer.add_child(paint_picker)
 	menu.footer.add_child(menu.ui.button(I18n.t("button.confirm" if mode == "garage" else "button.continue"), func() -> void:
 		if mode == "garage":
 			show_menu()

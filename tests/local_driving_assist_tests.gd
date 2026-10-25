@@ -27,6 +27,17 @@ func run() -> void:
 	assert(app.events.laps == 1 and app.events.opponents == 3 and app.events.difficulty == 0 and not app.events.contact)
 	assert(app.events.track_index == 0 and EventMenu.FILTERS[app.events.filter_index] == "smooth")
 	assert(app.data.settings.turn_hints and app.data.settings.corner_braking and app.data.settings.steering_assist == "strong" and app.data.settings.auto_accelerate and app.data.settings.touch_auto_accelerate)
+	assert(app.events.relaxed_active() and app.events.relaxed_button.text.begins_with("✓ "))
+	app.menu.root.find_child("LapsPicker",true,false).item_selected.emit(1)
+	assert(not app.events.relaxed_active() and not app.events.relaxed_button.text.begins_with("✓ "))
+	app.menu.root.find_child("LapsPicker",true,false).item_selected.emit(0)
+	app.menu.root.find_child("CarContact",true,false).toggled.emit(true)
+	assert(not app.events.relaxed_active())
+	app.menu.root.find_child("CarContact",true,false).toggled.emit(false)
+	app.events.select_track(5)
+	assert(not app.events.relaxed_active())
+	app.events.select_track(0)
+	assert(app.events.relaxed_active() and app.events.relaxed_button.text.begins_with("✓ "))
 	var reloaded := AppData.new(folder,false)
 	assert(reloaded.settings.steering_assist == "strong" and reloaded.settings.auto_accelerate and reloaded.settings.sensitivity==.75)
 	var saved_setup: Dictionary = reloaded.profile.quick_setup
@@ -53,6 +64,10 @@ func run() -> void:
 			for i in range(6): await process_frame
 			await RenderingServer.frame_post_draw
 			root.get_texture().get_image().save_png("res://reports/local-assist-"+("phone" if mobile else "desktop")+".png")
+			app.events.relaxed_setup()
+			for i in range(8): await process_frame
+			await RenderingServer.frame_post_draw
+			root.get_texture().get_image().save_png("res://reports/relaxed-active-"+("phone" if mobile else "desktop")+".png")
 	app.data.mobile = false
 	app.menu.mobile_override = false
 	app.data.settings.ui_scale = 100
