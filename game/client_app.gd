@@ -791,7 +791,7 @@ func render_results() -> void:
 			var state: VehicleState = order[index]
 			var record: Dictionary = session.roster[state.slot]
 			var gap := "—" if index == 0 or not state.finished or not order[0].finished else "+%.3f" % (state.finish_time - order[0].finish_time)
-			var row := RaceResultRow.build(menu.ui,state,session.cars[state.slot],record.name,index+1,gap)
+			var row := RaceResultRow.build(menu.ui,state,session.cars[state.slot],record.name,index+1,gap,int(record.paint))
 			if state.slot==session.human_slot:
 				var highlight := menu.ui.panel(row)
 				var border := menu.ui.style(UIFactory.NAVY,UIFactory.YELLOW,2)

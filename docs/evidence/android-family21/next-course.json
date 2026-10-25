@@ -1,0 +1,93 @@
+{
+  "passed": true,
+  "build": {
+    "version": "0.0.167-dev",
+    "build_number": 167,
+    "working_tree_dirty": false,
+    "commit": "4c37717cadeb81146d5a7a901e263851e213d73d",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "d0bc2113065e481c9c2c2b2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 10,
+    "save_schema": 1,
+    "content_hash": "3a708b25913c73fe7db51593df73cfc82709412a4d8a7188017d8adedfb95415",
+    "asset_hash": "e1f826ea2a8508b1134aeb3ce378291d5ced35ad8d91db2add1c81057966d1be",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "bb12ad6297015e90294ce414d08bb057374f822de6cda0c256af51c707ab9799",
+      "sha256": "9a52ed2826bc86ece6013f53aa357dac61b27e08484b74676b34cf9137ec4b63"
+    },
+    "iroh_adapter": {
+      "platform": "android",
+      "targets": [
+        "aarch64-linux-android"
+      ],
+      "source_hash": "3bb322ef757e235e03789582f2105ca6ddced8b0d0bf19d901d33ad5c8b9bf8b",
+      "sha256": "dcd06d4e6a45f6ea6ef32475a0c5c11d86592c4e3e3f6c89ff6a8e2c5518e00c",
+      "iroh": "1.2.0",
+      "gdext": "0.5.5",
+      "upstream": "153979fc02f86b10802358ae38fb74204fbf179a"
+    },
+    "android_services": {
+      "source_hash": "6d85475bbffafa5189282c70259765610d47ba09b4559d20e9973635bceba646",
+      "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+      "android_api": 36,
+      "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+      "java_release": 17,
+      "compiler": "javac 17.0.20.1",
+      "sha256": "d99f0e6f66a23efa443d2faebd8f874705933a0264398d0f920ea37265bcee27"
+    }
+  },
+  "apk_sha256": "37f23505a74963ead985518f9172efc07761869ff08bc4e1df04b9dc84bffc9a",
+  "device": "Owned Android 35 ARM64 Pixel 7 emulator, 2400x1080",
+  "checks": {
+    "two_races_saved": true,
+    "same_car_and_paint": true,
+    "next_smooth_course": true,
+    "setup_preserved": true,
+    "settings_preserved": true,
+    "clean_engine_log": true
+  },
+  "before": {
+    "quick_setup": {
+      "contact": false,
+      "difficulty": 0,
+      "filter": "smooth",
+      "laps": 1,
+      "opponents": 3,
+      "track": "palm_bay"
+    },
+    "selected_car": 1,
+    "selected_paint": 2,
+    "races_completed": 0
+  },
+  "after": {
+    "quick_setup": {
+      "contact": false,
+      "difficulty": 0,
+      "filter": "smooth",
+      "laps": 1,
+      "opponents": 3,
+      "track": "saltflat_velocity"
+    },
+    "selected_car": 1,
+    "selected_paint": 2,
+    "races_completed": 2
+  },
+  "settings": {
+    "steering_assist": "strong",
+    "corner_braking": true,
+    "turn_hints": true,
+    "auto_accelerate": true,
+    "touch_auto_accelerate": true,
+    "sensitivity": 0.75
+  },
+  "boundary": "Real exported APK with actual menu taps; diagnostic autodrive completed the races. Tests continuation, rendering and saved setup, not human steering, child usability, physical device or thermals. This build predates the later help dismissal and painted-result images."
+}

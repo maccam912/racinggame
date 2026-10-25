@@ -3,10 +3,11 @@ extends SceneTree
 func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	Catalog.load_all()
-	var folder := "res://assets/exported/car_portraits"
+	var painted := "--result-paints" in OS.get_cmdline_user_args()
+	var folder := "res://assets/exported/"+("result_portraits" if painted else "car_portraits")
 	DirAccess.make_dir_recursive_absolute(folder)
 	var viewport := SubViewport.new()
-	viewport.size = Vector2i(384,216)
+	viewport.size = Vector2i(256,144) if painted else Vector2i(384,216)
 	viewport.own_world_3d = true
 	viewport.transparent_bg = true
 	viewport.msaa_3d = Viewport.MSAA_4X
@@ -35,22 +36,24 @@ func run() -> void:
 	camera.current = true
 	var rows: Array[Dictionary] = []
 	for car: CarDefinition in Catalog.cars:
-		var visual := CarVisual.new()
-		visual.build(Color("DFE5ED"),car.mesh_id)
-		world.add_child(visual)
-		var state := VehicleState.new()
-		state.position.y = .35
-		visual.present(state,InputFrame.make(),.016)
-		for frame in range(8): await process_frame
-		await RenderingServer.frame_post_draw
-		var path := folder+"/"+car.id+".png"
-		var picture := viewport.get_texture().get_image()
-		assert(picture.save_png(path)==OK)
-		rows.append({"id":car.id,"path":path.trim_prefix("res://"),"sha256":FileAccess.get_sha256(path),"model":car.mesh_id,"paint":"DFE5ED"})
-		visual.queue_free()
-		await process_frame
-	FileAccess.open(folder+"/catalog.json",FileAccess.WRITE).store_string(JSON.stringify({"source":"tools/render_car_portraits.gd","license":"MIT","resolution":[384,216],"model_inventory_sha256":FileAccess.get_sha256("res://assets/exported/cars/inventory.json"),"portraits":rows},"\t")+"\n")
+		for paint_index in range(Catalog.paints.size()) if painted else [-1]:
+			var visual := CarVisual.new()
+			var paint: Color = Catalog.paints[paint_index] if painted else Color("DFE5ED")
+			visual.build(paint,car.mesh_id)
+			world.add_child(visual)
+			var state := VehicleState.new()
+			state.position.y = .35
+			visual.present(state,InputFrame.make(),.016)
+			for frame in range(8): await process_frame
+			await RenderingServer.frame_post_draw
+			var path := folder+"/"+car.id+("-"+str(paint_index) if painted else "")+".png"
+			var picture := viewport.get_texture().get_image()
+			assert(picture.save_png(path)==OK)
+			rows.append({"id":car.id,"path":path.trim_prefix("res://"),"sha256":FileAccess.get_sha256(path),"model":car.mesh_id,"paint":paint.to_html(false),"paint_index":paint_index})
+			visual.queue_free()
+			await process_frame
+	FileAccess.open(folder+"/catalog.json",FileAccess.WRITE).store_string(JSON.stringify({"source":"tools/render_car_portraits.gd","license":"MIT","resolution":[viewport.size.x,viewport.size.y],"model_inventory_sha256":FileAccess.get_sha256("res://assets/exported/cars/inventory.json"),"portraits":rows},"\t")+"\n")
 	viewport.queue_free()
 	await process_frame
-	print("EIGHT_ACTUAL_MODEL_TRANSPARENT_GARAGE_PORTRAITS_RENDERED")
+	print("ACTUAL_MODEL_TRANSPARENT_PORTRAITS_RENDERED ",rows.size())
 	quit()

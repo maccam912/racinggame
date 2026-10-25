@@ -53,7 +53,7 @@ func run() -> void:
 				assert(row!=null,"local result retains highlighted panel")
 				var local_car: CarDefinition = app.result_receipt.session.cars[app.result_receipt.session.human_slot]
 				var portrait := row.find_child("ResultCar",true,false) as TextureRect
-				assert(portrait!=null and portrait.texture.resource_path.ends_with(local_car.id+".png"))
+				assert(portrait!=null and portrait.texture.resource_path.ends_with(local_car.id+"-"+str(app.result_receipt.session.roster[app.result_receipt.session.human_slot].paint)+".png"))
 				assert(row.find_child("FinishingPlace",true,false).text==str(rank+1))
 				var text := " ".join(row.find_children("*","Label",true,false).map(func(n: Label) -> String: return n.text))
 				assert(text.contains(I18n.t("results.time")) and text.contains(I18n.t("results.best_lap")) and text.contains(I18n.t("results.gap")))

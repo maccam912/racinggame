@@ -25,3 +25,13 @@ This is emulator acceptance of development-signed builds. It does not establish
 physical touchscreen feel, child playability, device thermals or Play Store/public
 signing readiness. Build 161 CI completed successfully, including all six exports,
 native adapters, containers and publication.
+
+## Build 167: Next Course on Android
+
+Actual garage/paint/preset/Start/Next taps complete Palm Bay then Saltflat Velocity
+in the exported APK. Both results are saved; the yellow Needle, Smooth filter,
+one lap, three Easy rivals, no contact and all Relaxed preferences are retained.
+Diagnostic autodrive supplies race inputs, so this establishes menu, continuation
+and persistence behavior rather than child handling. No engine errors occurred.
+[Checks and package identity](next-course.json), [Relaxed setup](next-relaxed.png),
+[next loading screen](next-loading.png), [second result](next-results.png).

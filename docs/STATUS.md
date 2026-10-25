@@ -1,5 +1,12 @@
 # Implementation status
 
+## 25 October — painted result portraits
+
+Standings show the actual car and paint from the race roster, helping players
+recognize their car by color. All 64 tiny rendered variants fit in 1.15 MB; four
+focused checks and a native 150% phone render pass.
+[Evidence](evidence/painted-results21/README.md).
+
 ## 25 October — dismiss menu explanations
 
 Tapping outside a focused control dismisses its help bubble without losing the

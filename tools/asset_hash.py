@@ -155,6 +155,23 @@ def validate_car_portraits():
         total += len(data)
     assert total<500000, 'Garage portraits stay within a small compressed asset budget'
     print('Validated eight actual-model garage portraits, source inventory and PNG budgets')
+    painted = json.loads((ROOT/'assets/exported/result_portraits/catalog.json').read_text())
+    paints = json.loads((ROOT/'game/content/cars.json').read_text())['paints']
+    assert painted['license']=='MIT' and (ROOT/painted['source']).is_file()
+    assert painted['model_inventory_sha256']==value['model_inventory_sha256']
+    assert painted['resolution']==[256,144]
+    assert len(painted['portraits'])==len(cars)*len(paints)
+    assert {(row['id'],row['paint_index']) for row in painted['portraits']}=={(car['id'],i) for car in cars for i in range(len(paints))}
+    total = 0
+    for row in painted['portraits']:
+        path = ROOT/row['path']; data = path.read_bytes()
+        assert digest(path)==row['sha256']
+        assert data[:8]==b'\x89PNG\r\n\x1a\n' and struct.unpack_from('>II',data,16)==(256,144)
+        assert row['paint'].lower()==paints[row['paint_index']].lstrip('#').lower()
+        assert row['model']==next(car['mesh_id'] for car in cars if car['id']==row['id'])
+        total += len(data)
+    assert total<1500000, 'Painted result portraits retain a small compressed budget'
+    print('Validated all 64 car/paint result portraits and their palette/model identities')
 
 
 def validate_icons():
