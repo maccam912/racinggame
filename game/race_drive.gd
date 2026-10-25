@@ -505,6 +505,12 @@ func apply_settings() -> void:
 	hud.high_contrast = bool(settings.high_contrast)
 	hud.palette = str(settings.palette)
 	nameplates.enabled = bool(settings.nameplates)
+	# Local preferences never override host-owned online prediction. Trials and
+	# School retain their baseline input and record/lesson contracts.
+	if network == null:
+		session.driving_assists.erase(local_slot)
+		if session.mode in ["quick", "cup"]:
+			session.driving_assists[local_slot] = maxi(0,["off", "gentle", "strong"].find(str(settings.get("steering_assist", "off"))))
 	driver.auto_accelerate = bool(settings.auto_accelerate)
 	driver.deadzone = float(settings.deadzone)
 	driver.sensitivity = float(settings.sensitivity)

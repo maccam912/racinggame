@@ -50,7 +50,7 @@ func run() -> void:
 	app.lobby_page.show_driving_assists()
 	assert(app.page == "lobby", "nonhost cannot open assist controls")
 	app.queue_free()
-	await process_frame
+	await create_timer(.5).timeout
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder)) == OK)
 	print("HOST_ONLY_ASSIST_SCREEN_DESKTOP_PHONE_CHOICES_CONFIRM_PRIVACY_PASS")
 	quit()

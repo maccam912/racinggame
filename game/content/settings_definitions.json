@@ -412,6 +412,18 @@
     },
     {
       "tab": "accessibility",
+      "id": "steering_assist",
+      "label": "Local steering help",
+      "kind": "choice",
+      "values": [
+        "off",
+        "gentle",
+        "strong"
+      ],
+      "default": "off"
+    },
+    {
+      "tab": "accessibility",
       "id": "hold_assistance",
       "label": "Hold assistance",
       "kind": "toggle",

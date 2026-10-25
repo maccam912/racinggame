@@ -17,3 +17,11 @@ tours and an actual race launch. Frozen content-18 saves remain byte-preserved.
 
 Full source validation is running separately. These checks do not establish
 physical-device performance or a child's driving comfort.
+
+Local-help follow-up: the Relaxed setup button and Accessibility preference pass
+persistence, live update, retry, resume, Trial/School exclusion and online authority
+checks. Native phone settings were inspected at 150% text size. The event browser
+passes 90 layout cases after wrapping the new preset button on narrow screens.
+The local suite's original layout failure was corrected and rerun successfully.
+The host-assist network test now uses real-time frames because its transport and
+liveness deadlines use wall-clock time; the UI fixture waits for audio teardown.

@@ -3,7 +3,10 @@ technical courses, with Smooth/Technical filters and road-style labels. Palm Bay
 Citrus Pass, Tundra Pipeline, Saltflat Velocity, Storm Chase and Festival Speedway
 have no added road wiggles; Citrus retains its jumps. Eight cars, including Pulse
 and Meteor with three two-second boosts, remain available. Hosts can privately
-assign Gentle or Strong steering help to individual players. Far Chase and Retro
+assign Gentle or Strong steering help to individual players. Local Quick Race
+and Cup also offer steering help in Accessibility settings. Quick Race's Relaxed
+setup chooses a smooth road, one lap, three Easy rivals, no car collisions,
+Strong help and auto acceleration; review the setup before pressing Start. Far Chase and Retro
 remain the defaults. Content/protocol/save versions are 19/9/1; older progress
 remains archived with incompatible continuation disabled.
 This is an incomplete implementation of DESIGN.md.

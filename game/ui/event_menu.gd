@@ -171,6 +171,12 @@ func show_event() -> void:
 	details.add_child(options)
 	if mode == "quick":
 		options.add_child(shell.ui.paragraph(I18n.t("event.race_setup")))
+		var relaxed := shell.ui.button(I18n.t("event.relaxed_setup"), relaxed_setup)
+		relaxed.name = "RelaxedSetup"
+		relaxed.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		if app.data.mobile: relaxed.add_theme_font_size_override("font_size",shell.ui.font_size(14))
+		shell.ui.help(relaxed,I18n.t("event.relaxed_help"))
+		options.add_child(relaxed)
 		choice(options, "event.laps", ["1", "2", "3"], laps-1, func(index: int) -> void: laps = index+1)
 		choice(options, "event.opponents", ["0", "1", "2", "3", "4", "5", "6", "7"], opponents, func(index: int) -> void: opponents = index)
 		choice(options, "event.difficulty", [I18n.t("difficulty.easy"), I18n.t("difficulty.medium"), I18n.t("difficulty.hard")], difficulty, func(index: int) -> void: difficulty = index)
@@ -364,3 +370,16 @@ func choice(parent: Node, key: String, items: Array, selected: int, callback: Ca
 func start() -> void:
 	var configuration := {"mode":mode, "track":track_index, "car":int(app.data.profile.selected_car), "paint":int(app.data.profile.selected_paint), "laps":1 if mode == "trial" else laps, "opponents":0 if mode == "trial" else opponents, "difficulty":difficulty, "contact":contact, "ghost":ghost}
 	app.request_drive(configuration,show_event)
+
+
+func relaxed_setup() -> void:
+	laps = 1
+	opponents = 3
+	difficulty = 0
+	contact = false
+	filter_index = FILTERS.find("smooth")
+	if not Catalog.tracks[track_index].smooth_road(): track_index = 0
+	app.data.set_setting("steering_assist","strong")
+	app.data.set_setting("auto_accelerate",true)
+	app.data.set_setting("touch_auto_accelerate",true)
+	show_event()

@@ -14,7 +14,12 @@ Content/protocol/save versions are **19/9/1**. Frozen content-18 saves remain
 readable and byte-preserved, with incompatible race/Cup continuation disabled.
 Route and terrain clearance, save transition, steering assistance and rendered
 desktop/phone filter checks pass. Full source validation is in progress.
-Physical-device and four-year-old driving feel still need playtesting.
+Accessibility now offers Off/Gentle/Strong local steering help for Quick Race
+and Cup. Quick Race's Relaxed setup selects one lap, three Easy rivals, no car
+contact, Strong help, auto acceleration and the smooth-road filter without
+starting immediately. Preferences persist; live changes, retry/resume, standard
+Trial/School controls and online host authority are covered by real UI/session
+tests. Physical-device and four-year-old driving feel still need playtesting.
 
 ## 22 October — sharper steering and doubled cornering grip
 
