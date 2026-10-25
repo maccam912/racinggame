@@ -1,5 +1,12 @@
 # Implementation status
 
+## 25 October — dismiss menu explanations
+
+Tapping outside a focused control dismisses its help bubble without losing the
+keyboard selection. Fresh taps and navigation restore explanations, including
+disabled-button reasons. Focused input checks and a native 150% phone result
+render pass; this fixes the standings obstruction seen in the Android run.
+
 ## 25 October — restore Quick Race after Trial browsing
 
 Returning through the garage from Trial now restores Quick Race’s saved course

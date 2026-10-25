@@ -27,6 +27,16 @@ func run() -> void:
 	assert(not shell.focus_help.panel.visible)
 	shell.focus_help._process(.011)
 	assert(shell.focus_help.panel.visible and shell.focus_help.caption.text.begins_with("Choose"),"focus tooltip appears after half a second")
+	var outside := InputEventScreenTouch.new()
+	outside.pressed = true
+	outside.position = Vector2.ZERO
+	shell.focus_help._input(outside)
+	shell.focus_help._process(2)
+	assert(not shell.focus_help.panel.visible and first.has_focus(),"tap elsewhere dismisses help without changing keyboard selection")
+	outside.position = first.get_global_rect().get_center()
+	shell.focus_help._input(outside)
+	shell.focus_help._process(.51)
+	assert(shell.focus_help.panel.visible,"a fresh tap on the selected control restores its explanation")
 	DrivingInput.last_device = "keyboard"
 	for pressed: bool in [true,false]:
 		var touch_click := InputEventMouseButton.new()
@@ -47,6 +57,11 @@ func run() -> void:
 	shell.focus_help._input(drag)
 	shell.focus_help._process(1)
 	assert(not shell.focus_help.panel.visible,"touch scrolling dismisses explanation until a fresh focus or tap")
+	first.grab_focus()
+	shell.focus_help._process(.51)
+	blocked.grab_focus()
+	shell.focus_help._process(0)
+	assert(shell.focus_help.panel.visible,"returning to a previously dismissed control restores its help")
 	action("ui_accept")
 	first.grab_focus()
 	shell.focus_help._process(.1)

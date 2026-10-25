@@ -48,7 +48,13 @@ func _input(event: InputEvent) -> void:
 		held = 0
 		return
 	if event is InputEventScreenTouch and event.pressed or event is InputEventMouseButton and event.pressed and event.button_index==MOUSE_BUTTON_LEFT:
-		suppressed_focus = null
+		var owner := get_viewport().gui_get_focus_owner()
+		# Empty space and the explanation itself dismiss it without taking focus
+		# away from the controller/keyboard selection. Tapping that control again
+		# or navigating to another control makes its help available again.
+		suppressed_focus = owner if is_instance_valid(owner) and not owner.get_global_rect().has_point(event.position) else null
+		panel.hide()
+		held = 0
 	# Disabled buttons remain inspectable by touch/mouse without activating them.
 	if event is InputEventMouseButton and event.pressed and event.button_index==MOUSE_BUTTON_LEFT:
 		for button: Button in shell.root.find_children("*","Button",true,false):
@@ -62,6 +68,7 @@ func _input(event: InputEvent) -> void:
 				button.grab_focus()
 				break
 	if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down") or event.is_action_pressed("ui_left") or event.is_action_pressed("ui_right") or event.is_action_pressed("ui_cancel"):
+		suppressed_focus = null
 		clear()
 
 func _process(dt: float) -> void:
@@ -77,6 +84,7 @@ func _process(dt: float) -> void:
 		clear()
 		return
 	if next!=focus:
+		if is_instance_valid(focus): suppressed_focus = null
 		focus = next
 		held = 0
 		panel.hide()
