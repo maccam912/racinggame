@@ -1,5 +1,21 @@
 # Implementation status
 
+## 24 October — smooth roads alongside technical courses
+
+The six Easy courses (Palm Bay, Citrus Pass, Tundra Pipeline, Saltflat Velocity,
+Storm Chase and Festival Speedway) now use their predictable base curves without
+added lateral noise. The other 34 courses retain their technical geometry.
+Quick Race and Trial offer Smooth roads and Technical roads filters; compact
+phone labels keep the footer usable at 150% text size. Multiplayer course details
+also identify road style. Citrus retains its two jumps.
+
+Terrain, AI braking lines and medal references are rebuilt for the changed roads.
+Content/protocol/save versions are **19/9/1**. Frozen content-18 saves remain
+readable and byte-preserved, with incompatible race/Cup continuation disabled.
+Route and terrain clearance, save transition, steering assistance and rendered
+desktop/phone filter checks pass. Full source validation is in progress.
+Physical-device and four-year-old driving feel still need playtesting.
+
 ## 22 October — sharper steering and doubled cornering grip
 
 Full lock progressively adds twice the steering target at road speed, with

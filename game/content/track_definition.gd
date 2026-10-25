@@ -74,3 +74,9 @@ func shoulder_surface(s: float) -> String:
 
 func road_surface() -> String:
 	return definition.get("road_surface","asphalt")
+
+
+func smooth_road() -> bool:
+	for offset: float in definition.get("detail_offsets",[]):
+		if not is_zero_approx(offset): return false
+	return true

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Inspect actual terrain GLBs and verify the version-15 authored terrain foundation."""
+"""Inspect actual terrain GLBs and verify the version-19 authored terrain foundation."""
 import argparse
 import hashlib
 import json
@@ -10,7 +10,7 @@ import struct
 import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
-FOUNDATION = ROOT/'assets/source/terrain_foundations15.json'
+FOUNDATION = ROOT/'assets/source/terrain_foundations19.json'
 
 
 def sha(path):
@@ -169,7 +169,7 @@ def main():
         sea_y = f32(row['sea_level']-1.5)
         sea_runs = runs(i for i, p in enumerate(keys) if grid[p] == sea_y)
         if args.freeze:
-            frozen['tracks'].append({'id': ident, 'terrain_parameters_sha256': parameters_hash, 'classic': index < 10, 'old_export_sha256': sha(ROOT/row['path']), 'old_grid_sha256': all_hash, 'route_hash': bake['content_hash'], 'metadata': row, 'bounds_xz_m': bounds, 'grid_vertices': len(grid), 'protected_vertices': len(protected), 'protected_grid_sha256': protected_hash, 'surface_guard_vertices': len(surface_guard), 'surface_guard_grid_sha256': guard_hash, 'sea_y': sea_y, 'sea_runs': sea_runs})
+            frozen['tracks'].append({'id': ident, 'terrain_parameters_sha256': parameters_hash, 'classic': index < 10, 'old_export_sha256': sha(ROOT/row['path']), 'old_grid_sha256': all_hash, 'route_hash': row['route_hash'], 'metadata': row, 'bounds_xz_m': bounds, 'grid_vertices': len(grid), 'protected_vertices': len(protected), 'protected_grid_sha256': protected_hash, 'surface_guard_vertices': len(surface_guard), 'surface_guard_grid_sha256': guard_hash, 'sea_y': sea_y, 'sea_runs': sea_runs})
             snapshots[ident] = [[x, z, grid[x, z]] for x, z in keys]
             continue
         base = baselines[ident]
@@ -177,7 +177,7 @@ def main():
         assert base['route_hash'] == row['route_hash'] and route_matches(row,bake)
         assert len(grid) == base['grid_vertices'] and chunks == base['metadata']['chunks'] and triangles == base['metadata']['triangles']
         assert bounds == base['bounds_xz_m'] and row['sea_level'] == base['metadata']['sea_level']
-        assert row == base['metadata'] and sha(ROOT/row['path']) == base['old_export_sha256'], 'The reviewed version-15 exports and metadata remain exact'
+        assert row == base['metadata'] and sha(ROOT/row['path']) == base['old_export_sha256'], 'The reviewed version-19 exports and metadata remain exact'
         assert all_hash == base['old_grid_sha256'], 'All reviewed terrain vertices remain exact, including the road/verge guard'
         assert protected_hash == base['protected_grid_sha256'] and guard_hash == base['surface_guard_grid_sha256']
         if specs[ident].get('composition_version',0)>=14:
@@ -206,7 +206,7 @@ def main():
     else:
         assert len(results) == 40
         args.report.parent.mkdir(parents=True, exist_ok=True)
-        args.report.write_text(json.dumps({'passed': True, 'content_hash': manifest['content_hash'], 'foundation_sha256': sha(FOUNDATION), 'cases': results, 'boundary': 'Actual GLB float32 vertices/normals, complete rectangular grids, mesh/triangle budgets, exact reviewed content-15 geometry and metadata, all forty revised routes and all reviewed sea vertices. Road surface clearance and native appearance have independent fixtures.'}, indent=2)+'\n')
+        args.report.write_text(json.dumps({'passed': True, 'content_hash': manifest['content_hash'], 'foundation_sha256': sha(FOUNDATION), 'cases': results, 'boundary': 'Actual GLB float32 vertices/normals, complete rectangular grids, mesh/triangle budgets, exact reviewed content-19 geometry and metadata, all forty revised routes and all reviewed sea vertices. Road surface clearance and native appearance have independent fixtures.'}, indent=2)+'\n')
         print('ACTUAL_FORTY_REVIEWED_TERRAIN_EXPORTS_REVISED_ROUTES_WATER_AND_BUDGET_PASS')
 
 

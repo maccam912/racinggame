@@ -16,7 +16,10 @@ func run() -> void:
 			if sign!=0:
 				if previous!=0 and sign!=previous: reversals += 1
 				previous = sign
-		assert(reversals>=16,"local-scale direction changes must survive the actual bake: "+track.id)
+		if track.smooth_road():
+			assert(reversals/track.length*1000<3,"smooth roads must avoid repeated steering corrections: "+track.id)
+		else:
+			assert(reversals>=16,"local-scale direction changes must survive the actual bake: "+track.id)
 		var world := TrackWorld.new()
 		world.build(track)
 		root.add_child(world)

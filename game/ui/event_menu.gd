@@ -1,7 +1,7 @@
 class_name EventMenu
 extends RefCounted
 
-const FILTERS := ["all","new","classic","asphalt","dirt","space","night"]
+const FILTERS := ["all","smooth","technical","new","classic","asphalt","dirt","space","night"]
 
 var track_shuffle := TrackShuffle.new()
 var filter_index: int = 0
@@ -52,7 +52,7 @@ func show_event() -> void:
 		var count := 0
 		for index in range(Catalog.tracks.size()):
 			if matches_filter(index,key): count += 1
-		filter_picker.add_item(I18n.t("event.filter."+key)+" ("+str(count)+")")
+		filter_picker.add_item(I18n.t("event.filter."+key+("_short" if app.data.mobile and key in ["smooth","technical"] else ""))+" ("+str(count)+")")
 	filter_picker.selected = filter_index
 	filter_picker.item_selected.connect(func(index: int) -> void:
 		filter_index = index
@@ -96,7 +96,7 @@ func show_event() -> void:
 		card.add_child(words)
 		var name_value := I18n.t("track." + track.id)
 		var distance: float = track.length / (1609.344 if app.data.settings.units == "mph" else 1000)
-		var description := "%s • %.2f %s" % [I18n.t("difficulty."+str(track.definition.difficulty).to_lower()), distance, "mi" if app.data.settings.units == "mph" else "km"]
+		var description := "%s • %.2f %s" % [I18n.t("road.smooth") if track.smooth_road() else I18n.t("difficulty."+str(track.definition.difficulty).to_lower()), distance, "mi" if app.data.settings.units == "mph" else "km"]
 		var entry := VBoxContainer.new()
 		entry.add_theme_constant_override("separation",roundi(2*shell.ui.unit))
 		words.add_child(entry)
@@ -272,6 +272,8 @@ func matches_filter(index: int, category: String = "") -> bool:
 	var current := str(FILTERS[filter_index]) if category.is_empty() else category
 	var track: TrackDefinition = Catalog.tracks[index]
 	match current:
+		"smooth": return track.smooth_road()
+		"technical": return not track.smooth_road()
 		"new": return index>=10
 		"classic": return index<10
 		"asphalt", "dirt": return track.road_surface()==current

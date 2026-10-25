@@ -128,6 +128,7 @@ def main():
     designs=json.loads(source.read_text())
     old={t['id']:t for t in catalog['tracks']}
     for row in designs['courses']:
+        if row.get('authored_detail',{}).get('style')=='smooth':continue
         if row['id'] not in selected and row.get('detail_offsets'):continue
         track=copy.deepcopy(old[row['id']])
         for key in ['ordered_control_points','spline','ramp_markers','width_intervals','bank_intervals']:

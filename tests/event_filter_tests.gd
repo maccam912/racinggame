@@ -46,6 +46,8 @@ func run() -> void:
 				var key: String = EventMenu.FILTERS[filter]
 				var included: Array[int] = app.events.visible_tracks
 				if key=="all": assert(included.size()==40)
+				elif key=="smooth": assert(included.size()==6)
+				elif key=="technical": assert(included.size()==34)
 				elif key=="new": assert(included.size()==30 and included.min()>=10)
 				elif key=="classic": assert(included.size()==10 and included.max()<10)
 				else: assert(not included.is_empty())
@@ -55,6 +57,8 @@ func run() -> void:
 					if index not in included: continue
 					var track: TrackDefinition = Catalog.tracks[index]
 					if key in ["asphalt","dirt"]: assert(track.road_surface()==key)
+					if key=="smooth": assert(track.smooth_road())
+					if key=="technical": assert(not track.smooth_road())
 					if key=="space": assert(CourseArt.spec(track.id).get("space",false))
 				var random_button := app.menu.footer.get_node("RandomTrack") as Button
 				assert(not random_button.disabled)
@@ -79,7 +83,7 @@ func run() -> void:
 				assert(selected_button.has_focus() and shown.size.y>=minimum_visible-1,"random selection stays focused and visible after layout/focus scrolling")
 				assert(app.events.info.text.contains(I18n.t("route.description."+Catalog.tracks[app.events.track_index].id)))
 				reports.append({"mobile":mobile,"mode":mode,"filter":key,"tracks":included.size(),"random_picks":rolls,"random_selected_visible":true})
-				if "--capture" in OS.get_cmdline_user_args() and mode=="quick" and key in ["new","space","dirt"]:
+				if "--capture" in OS.get_cmdline_user_args() and mode=="quick" and key in ["smooth","technical","dirt"]:
 					for frame in range(8): await process_frame
 					await RenderingServer.frame_post_draw
 					var path := "res://reports/filter-%s-%s.png"%["phone" if mobile else "desktop",key]
@@ -136,7 +140,7 @@ func run() -> void:
 	await create_timer(.5).timeout
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder))==OK)
 	var file := FileAccess.open("res://reports/event-filters.json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"passed":true,"cases":reports,"filtered_start_track":Catalog.tracks[expected].id,"boundary":"Actual desktop/mobile-mode widgets, seven filters in Quick Race and Trial, 64 or more random picks per case, complete nonrepeating tours, preserved filter/mode queues and manual visits, visible random focus after layout and a real filtered dirt launch with changed race options. Native captures use a desktop renderer with phone layout overrides."},"\t")+"\n")
+	file.store_string(JSON.stringify({"passed":true,"cases":reports,"filtered_start_track":Catalog.tracks[expected].id,"boundary":"Actual desktop/mobile-mode widgets, nine filters in Quick Race and Trial, 64 or more random picks per case, complete nonrepeating tours, preserved filter/mode queues and manual visits, visible random focus after layout and a real filtered dirt launch with changed race options. Native captures use a desktop renderer with phone layout overrides."},"\t")+"\n")
 	file.close()
 	print("EVENT_FILTERS_SHUFFLED_TOURS_MANUAL_VISITS_COMPACT_PHONE_AND_FILTERED_LAUNCH_PASS cases=",reports.size())
 	quit()

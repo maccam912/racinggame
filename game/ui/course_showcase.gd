@@ -50,6 +50,7 @@ func select_track(selected: TrackDefinition) -> void:
 	var miles := str(settings.get("units","mph"))=="mph"
 	facts.text = "%.2f %s  •  %s  •  %s" % [track.length/(1609.344 if miles else 1000),"mi" if miles else "km",I18n.t("difficulty."+str(track.definition.difficulty).to_lower()),I18n.t("event.filter."+track.road_surface())]
 	photograph.texture = load("res://assets/exported/thumbnails/"+track.id+".png")
+	facts.text += "  •  "+I18n.t("road.smooth" if track.smooth_road() else "road.technical")
 	photograph.accessibility_name = I18n.t("course.photograph",[title.text])
 	map.track = track
 	map.accessibility_name = I18n.t("course.map",[title.text])

@@ -1,0 +1,3450 @@
+{
+  "schema_version": 2,
+  "base_commit": "a72505665d24335c5b0090195b07f1afb23871c3",
+  "content_hash": "69781d98eca737cbaec08b04a544551db5acafa5e3f233ff9c1e6b60742da7c1",
+  "generator_sha256": "f90b62e376d8926369ee52b68e39ed5074fa196b35b48f659e9384f39ff55642",
+  "tracks": [
+    {
+      "id": "palm_bay",
+      "terrain_parameters_sha256": "dcf3e6b8124db3a31e154fb0a11a8ceed2c9bfa5b658e1752a2bde664888e775",
+      "classic": true,
+      "old_export_sha256": "c8ed1b7d03b7a05179680411de8dfeffe3a3be6ec964f25611d13a2917086ecf",
+      "old_grid_sha256": "cd50d3189abeef8f269b44894dd016f17c4c82f098d30982bfc09b09c898eee0",
+      "route_hash": "3e21fa5a2cfd9032bf3a108fee450c24b0f0fe93aedf6fa04088aacf37c7c378",
+      "metadata": {
+        "id": "palm_bay",
+        "path": "assets/exported/scenery/palm_bay_terrain.glb",
+        "sha256": "c8ed1b7d03b7a05179680411de8dfeffe3a3be6ec964f25611d13a2917086ecf",
+        "chunks": 90,
+        "triangles": 4500,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 0.5,
+        "route_hash": "3e21fa5a2cfd9032bf3a108fee450c24b0f0fe93aedf6fa04088aacf37c7c378",
+        "bounds_xz_m": [
+          -320,
+          -800,
+          1120,
+          800
+        ],
+        "composition_version": 14,
+        "authored_landforms": 1,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -320,
+        -800,
+        1120,
+        800
+      ],
+      "grid_vertices": 2346,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": -1.0,
+      "sea_runs": [
+        [
+          676,
+          677
+        ],
+        [
+          727,
+          729
+        ],
+        [
+          778,
+          781
+        ],
+        [
+          829,
+          840
+        ],
+        [
+          880,
+          891
+        ],
+        [
+          931,
+          943
+        ],
+        [
+          982,
+          994
+        ],
+        [
+          1043,
+          1045
+        ],
+        [
+          1095,
+          1097
+        ],
+        [
+          1146,
+          1148
+        ],
+        [
+          1197,
+          1199
+        ],
+        [
+          1248,
+          1250
+        ],
+        [
+          1299,
+          1301
+        ],
+        [
+          1350,
+          1352
+        ],
+        [
+          1401,
+          1404
+        ],
+        [
+          1452,
+          1455
+        ],
+        [
+          1503,
+          1511
+        ],
+        [
+          1554,
+          1563
+        ],
+        [
+          1605,
+          1616
+        ]
+      ]
+    },
+    {
+      "id": "citrus_pass",
+      "terrain_parameters_sha256": "be9505f154d133b311dfb8bed1e7004e27ece9c0027a278f055edf59f9ce579a",
+      "classic": true,
+      "old_export_sha256": "d1c20b74e5880aade05bd5af6c2f5ed3f540deb78b5d9d3b2b58c117c3b844f1",
+      "old_grid_sha256": "2b219e3be3b3e6709359972b918bbc0aeb928eb1a947d1e5972dad1218c7deca",
+      "route_hash": "70e2785d06355fcea1ae061e8623c62596a45512bbf5b2eab464848c1aebabb3",
+      "metadata": {
+        "id": "citrus_pass",
+        "path": "assets/exported/scenery/citrus_pass_terrain.glb",
+        "sha256": "d1c20b74e5880aade05bd5af6c2f5ed3f540deb78b5d9d3b2b58c117c3b844f1",
+        "chunks": 120,
+        "triangles": 6000,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 4.5,
+        "route_hash": "70e2785d06355fcea1ae061e8623c62596a45512bbf5b2eab464848c1aebabb3",
+        "bounds_xz_m": [
+          -320,
+          -800,
+          1600,
+          800
+        ],
+        "composition_version": 14,
+        "authored_landforms": 1,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -320,
+        -800,
+        1600,
+        800
+      ],
+      "grid_vertices": 3111,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": 3.0,
+      "sea_runs": []
+    },
+    {
+      "id": "marina_lights",
+      "terrain_parameters_sha256": "2e9460d3653cf95c042581cafcf86f61be12bd8c7cc0b253e2fa69ba40bc6309",
+      "classic": true,
+      "old_export_sha256": "5032fd154d5fdad30a6b9ecc3a6237352ffdf258d021fb5dc6d7988b28295fd8",
+      "old_grid_sha256": "8f347c7b63ecec880ac2a7236c0ce9609df4383d0597c1dd56140127ee3deba3",
+      "route_hash": "3b75fbdf881e1b3713a940ba61914a741bdb7ea9e8a05192a7d3d25beb57a357",
+      "metadata": {
+        "id": "marina_lights",
+        "path": "assets/exported/scenery/marina_lights_terrain.glb",
+        "sha256": "5032fd154d5fdad30a6b9ecc3a6237352ffdf258d021fb5dc6d7988b28295fd8",
+        "chunks": 168,
+        "triangles": 8400,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": -0.5,
+        "route_hash": "3b75fbdf881e1b3713a940ba61914a741bdb7ea9e8a05192a7d3d25beb57a357",
+        "bounds_xz_m": [
+          -480,
+          -1440,
+          1440,
+          800
+        ],
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1440,
+        1440,
+        800
+      ],
+      "grid_vertices": 4331,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": -2.0,
+      "sea_runs": []
+    },
+    {
+      "id": "redwood_run",
+      "terrain_parameters_sha256": "916a4211ab0e5de47bd8026cb865e7aa53e3730f5d18ad2ed60beac659dcb9a0",
+      "classic": true,
+      "old_export_sha256": "0572607a23b489a58a9d6854bcfcebcaccd288e1bcc300a3ce015700fdd61541",
+      "old_grid_sha256": "e71973ca0681b92d3e1ae6cbc887e750aef8528df11e47f3c75db9950b2b8bc8",
+      "route_hash": "07983f644aac47e1a986c922171fef5cf8ff0abbaa723740d5c7db3562ca950d",
+      "metadata": {
+        "id": "redwood_run",
+        "path": "assets/exported/scenery/redwood_run_terrain.glb",
+        "sha256": "0572607a23b489a58a9d6854bcfcebcaccd288e1bcc300a3ce015700fdd61541",
+        "chunks": 169,
+        "triangles": 8450,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 6.5,
+        "route_hash": "07983f644aac47e1a986c922171fef5cf8ff0abbaa723740d5c7db3562ca950d",
+        "bounds_xz_m": [
+          -480,
+          -1120,
+          1600,
+          960
+        ],
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1120,
+        1600,
+        960
+      ],
+      "grid_vertices": 4356,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": 5.0,
+      "sea_runs": []
+    },
+    {
+      "id": "sunstone_canyon",
+      "terrain_parameters_sha256": "53a7cd8a1fc9246ce9ea3ba5ba16b6d321cf9dcc6f1b44dc495ee584a45d90a7",
+      "classic": true,
+      "old_export_sha256": "2efe39f33c1583a499b0e08c08ffac20260ff5c010920bdf6a8f6f54e88a402a",
+      "old_grid_sha256": "2630d63b2aa71f07b9c0ebd2a2f4ee433190509ec39f91151c5694527996f87d",
+      "route_hash": "01bbd0b3958eb0b94dee9e6ca511de6b26bbc10f3974e828a2d0967eaeadf3e7",
+      "metadata": {
+        "id": "sunstone_canyon",
+        "path": "assets/exported/scenery/sunstone_canyon_terrain.glb",
+        "sha256": "2efe39f33c1583a499b0e08c08ffac20260ff5c010920bdf6a8f6f54e88a402a",
+        "chunks": 195,
+        "triangles": 9750,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 7.4933510000000005,
+        "route_hash": "01bbd0b3958eb0b94dee9e6ca511de6b26bbc10f3974e828a2d0967eaeadf3e7",
+        "bounds_xz_m": [
+          -480,
+          -1440,
+          1600,
+          960
+        ]
+      },
+      "bounds_xz_m": [
+        -480,
+        -1440,
+        1600,
+        960
+      ],
+      "grid_vertices": 5016,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": 5.993350982666016,
+      "sea_runs": []
+    },
+    {
+      "id": "pacific_summit",
+      "terrain_parameters_sha256": "0f6045e14f76ab7f79fd56da498e6a656405bf102ad65dc07ceda3ce57367d27",
+      "classic": true,
+      "old_export_sha256": "50565a35ae5afebf38716dc7e0196d62982566056ad8aa000d19fffc1fcdac67",
+      "old_grid_sha256": "e7c88418afbd0f2300ce09eedccafd032aca113505fa3034c291f5337c24ea04",
+      "route_hash": "1ed21dd66b7e3d9f6132606e1737d6f069ec1425026386d4e8e39f2325e0a7fc",
+      "metadata": {
+        "id": "pacific_summit",
+        "path": "assets/exported/scenery/pacific_summit_terrain.glb",
+        "sha256": "50565a35ae5afebf38716dc7e0196d62982566056ad8aa000d19fffc1fcdac67",
+        "chunks": 224,
+        "triangles": 11200,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 14.686219000000001,
+        "route_hash": "1ed21dd66b7e3d9f6132606e1737d6f069ec1425026386d4e8e39f2325e0a7fc",
+        "bounds_xz_m": [
+          -480,
+          -1440,
+          1760,
+          1120
+        ]
+      },
+      "bounds_xz_m": [
+        -480,
+        -1440,
+        1760,
+        1120
+      ],
+      "grid_vertices": 5751,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": 13.186219215393066,
+      "sea_runs": [
+        [
+          1758,
+          1760
+        ],
+        [
+          1837,
+          1841
+        ],
+        [
+          1917,
+          1921
+        ],
+        [
+          1997,
+          2003
+        ],
+        [
+          2076,
+          2084
+        ],
+        [
+          2155,
+          2165
+        ],
+        [
+          2235,
+          2246
+        ],
+        [
+          2314,
+          2327
+        ],
+        [
+          2394,
+          2407
+        ],
+        [
+          2474,
+          2487
+        ],
+        [
+          2556,
+          2568
+        ],
+        [
+          2637,
+          2649
+        ],
+        [
+          2719,
+          2729
+        ],
+        [
+          2800,
+          2810
+        ],
+        [
+          2882,
+          2892
+        ],
+        [
+          2964,
+          2973
+        ],
+        [
+          3045,
+          3055
+        ],
+        [
+          3127,
+          3138
+        ],
+        [
+          3209,
+          3220
+        ],
+        [
+          3291,
+          3303
+        ],
+        [
+          3372,
+          3385
+        ],
+        [
+          3454,
+          3466
+        ],
+        [
+          3536,
+          3548
+        ],
+        [
+          3618,
+          3629
+        ],
+        [
+          3700,
+          3710
+        ],
+        [
+          3781,
+          3791
+        ],
+        [
+          3863,
+          3872
+        ],
+        [
+          3943,
+          3953
+        ],
+        [
+          4023,
+          4034
+        ],
+        [
+          4101,
+          4115
+        ],
+        [
+          4179,
+          4196
+        ],
+        [
+          4259,
+          4276
+        ],
+        [
+          4341,
+          4356
+        ],
+        [
+          4422,
+          4436
+        ],
+        [
+          4504,
+          4516
+        ],
+        [
+          4587,
+          4592
+        ],
+        [
+          4593,
+          4597
+        ]
+      ]
+    },
+    {
+      "id": "skyline_splice",
+      "terrain_parameters_sha256": "1d1d430771b486efa7a26cc00aff1594eb05713890a61a7c1236d9299888d937",
+      "classic": true,
+      "old_export_sha256": "041f80ffc1c717b79e2f8acba4c6c6ac8a5cc4409c59f0bc1c3c766e193f1aad",
+      "old_grid_sha256": "18dc9eeb96271f11dfd1b46e54cb44ab723a523e73d76d8153d25c3decbbf7bc",
+      "route_hash": "9e01c00177bba6d87c8cc961616b55a563a686f7e090402c2b61fc0c73c707c6",
+      "metadata": {
+        "id": "skyline_splice",
+        "path": "assets/exported/scenery/skyline_splice_terrain.glb",
+        "sha256": "041f80ffc1c717b79e2f8acba4c6c6ac8a5cc4409c59f0bc1c3c766e193f1aad",
+        "chunks": 132,
+        "triangles": 6600,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 0.0,
+        "route_hash": "9e01c00177bba6d87c8cc961616b55a563a686f7e090402c2b61fc0c73c707c6",
+        "bounds_xz_m": [
+          -960,
+          -960,
+          960,
+          800
+        ]
+      },
+      "bounds_xz_m": [
+        -960,
+        -960,
+        960,
+        800
+      ],
+      "grid_vertices": 3416,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": -1.5,
+      "sea_runs": [
+        [
+          1936,
+          1937
+        ],
+        [
+          1991,
+          1994
+        ],
+        [
+          2046,
+          2051
+        ],
+        [
+          2102,
+          2110
+        ],
+        [
+          2158,
+          2167
+        ],
+        [
+          2214,
+          2223
+        ],
+        [
+          2270,
+          2280
+        ],
+        [
+          2323,
+          2337
+        ],
+        [
+          2375,
+          2395
+        ],
+        [
+          2429,
+          2451
+        ],
+        [
+          2485,
+          2503
+        ],
+        [
+          2541,
+          2557
+        ],
+        [
+          2599,
+          2612
+        ],
+        [
+          2656,
+          2659
+        ],
+        [
+          2662,
+          2665
+        ]
+      ]
+    },
+    {
+      "id": "quarry_switchback",
+      "terrain_parameters_sha256": "c517d66160cd1a2220604458dac3b49f5bcadbf910f948c6c6469475a6a0a59c",
+      "classic": true,
+      "old_export_sha256": "dffe22b22d0690b5d778b3fddcdc1e7266140d5561bcf0a455812d2ec424da40",
+      "old_grid_sha256": "3fb499965daf641ac7f70b5b8414164a25156a9e66e08cb9a0a1a34b2617a998",
+      "route_hash": "3c79aa234d584d92f42e7b7baea7975cfa6eadf7f62c72a87c3cfa5cca254987",
+      "metadata": {
+        "id": "quarry_switchback",
+        "path": "assets/exported/scenery/quarry_switchback_terrain.glb",
+        "sha256": "dffe22b22d0690b5d778b3fddcdc1e7266140d5561bcf0a455812d2ec424da40",
+        "chunks": 195,
+        "triangles": 9750,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "3c79aa234d584d92f42e7b7baea7975cfa6eadf7f62c72a87c3cfa5cca254987",
+        "bounds_xz_m": [
+          -480,
+          -1120,
+          1920,
+          960
+        ]
+      },
+      "bounds_xz_m": [
+        -480,
+        -1120,
+        1920,
+        960
+      ],
+      "grid_vertices": 5016,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "spillway_sprint",
+      "terrain_parameters_sha256": "26c77c6a2d5a2a08341c04f554b81cee3e9cedf86f91b94a716727b4c5ef871a",
+      "classic": true,
+      "old_export_sha256": "997769e9105e37a75e5e318749693557d33e3723d675c3ee00db553012b6512f",
+      "old_grid_sha256": "950ae05ce2922e1e410d7d1c5a9e364f460bf7a135352752f572bbd957fe19de",
+      "route_hash": "c771c5afbdfafc0be499a58b0885fe180c5fed1b346e545657e533440b0cd067",
+      "metadata": {
+        "id": "spillway_sprint",
+        "path": "assets/exported/scenery/spillway_sprint_terrain.glb",
+        "sha256": "997769e9105e37a75e5e318749693557d33e3723d675c3ee00db553012b6512f",
+        "chunks": 506,
+        "triangles": 25300,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 3.2,
+        "route_hash": "c771c5afbdfafc0be499a58b0885fe180c5fed1b346e545657e533440b0cd067",
+        "bounds_xz_m": [
+          -1760,
+          -1760,
+          1920,
+          1760
+        ]
+      },
+      "bounds_xz_m": [
+        -1760,
+        -1760,
+        1920,
+        1760
+      ],
+      "grid_vertices": 12876,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": 1.7000000476837158,
+      "sea_runs": []
+    },
+    {
+      "id": "caldera_crosscut",
+      "terrain_parameters_sha256": "212efb011d37a627e3c9bde3a7207f274429df73c8f796577d6188a1ec7cc06e",
+      "classic": true,
+      "old_export_sha256": "4d54e56eeeb626a2af8c9952abd053c4406fdb9741d760e5af1ed4c7429dbaf3",
+      "old_grid_sha256": "ab2f253a6ca29f3ac148b373793399d5dabf0f8ebc4becf76f5033c99126a2f6",
+      "route_hash": "6d5f71f9e54caeed4895bae0ed3e94347907cc0bee19ffe846b1bc4a6bcd7967",
+      "metadata": {
+        "id": "caldera_crosscut",
+        "path": "assets/exported/scenery/caldera_crosscut_terrain.glb",
+        "sha256": "4d54e56eeeb626a2af8c9952abd053c4406fdb9741d760e5af1ed4c7429dbaf3",
+        "chunks": 552,
+        "triangles": 27600,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 3.2,
+        "route_hash": "6d5f71f9e54caeed4895bae0ed3e94347907cc0bee19ffe846b1bc4a6bcd7967",
+        "bounds_xz_m": [
+          -1760,
+          -1920,
+          1920,
+          1920
+        ]
+      },
+      "bounds_xz_m": [
+        -1760,
+        -1920,
+        1920,
+        1920
+      ],
+      "grid_vertices": 14036,
+      "protected_vertices": 0,
+      "protected_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "surface_guard_vertices": 0,
+      "surface_guard_grid_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "sea_y": 1.7000000476837158,
+      "sea_runs": []
+    },
+    {
+      "id": "glacier_ridge",
+      "terrain_parameters_sha256": "c6f0a43c5781d83b882baf64a29b9acfdf43bd738c1952ad8c26e853fb8b6126",
+      "classic": false,
+      "old_export_sha256": "0b413073eb62d85b21e00bf6c3474188c94c187ecb5b4a3a178782fe4e8abf6e",
+      "old_grid_sha256": "dc291ab54d6831b1311e072ea39d46e9b100d9fefca68ef182cdf2d4aafe41ca",
+      "route_hash": "9d873685b24d5367afa01fb513c15aa010bfa2218f5233666e11a8c0e74f9ca2",
+      "metadata": {
+        "id": "glacier_ridge",
+        "path": "assets/exported/scenery/glacier_ridge_terrain.glb",
+        "sha256": "0b413073eb62d85b21e00bf6c3474188c94c187ecb5b4a3a178782fe4e8abf6e",
+        "chunks": 224,
+        "triangles": 11200,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "9d873685b24d5367afa01fb513c15aa010bfa2218f5233666e11a8c0e74f9ca2",
+        "bounds_xz_m": [
+          -480,
+          -1280,
+          1760,
+          1280
+        ],
+        "relief_profile": "ridge",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 3,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1280,
+        1760,
+        1280
+      ],
+      "grid_vertices": 5751,
+      "protected_vertices": 2826,
+      "protected_grid_sha256": "8dc9bb6c1b2e4deab5c4c05e50911662f7072de658ce6900e461b7e6b2c64137",
+      "surface_guard_vertices": 3160,
+      "surface_guard_grid_sha256": "5258c13b549c9bc089581aabb152a8912c4127b22a28f394cb7a6a4280e786ba",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "aurora_harbor",
+      "terrain_parameters_sha256": "5cc7acf1ed1ca3b4905b3d6917d1b0b7305e4e1a58fd1d95460c7b46f279d46b",
+      "classic": false,
+      "old_export_sha256": "bf868463b4973acf7b3cac1def429f94a250ff6bea41ad93addf558d51564550",
+      "old_grid_sha256": "7324b415654e53be44e791afb767100a05be61a9b19ae96ebe43ea3371865d9c",
+      "route_hash": "43950588bf4282361db35492af4f56aa4a0be7f75dd6a36149f1e8b4bc7965f1",
+      "metadata": {
+        "id": "aurora_harbor",
+        "path": "assets/exported/scenery/aurora_harbor_terrain.glb",
+        "sha256": "bf868463b4973acf7b3cac1def429f94a250ff6bea41ad93addf558d51564550",
+        "chunks": 156,
+        "triangles": 7800,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 10.2821,
+        "route_hash": "43950588bf4282361db35492af4f56aa4a0be7f75dd6a36149f1e8b4bc7965f1",
+        "bounds_xz_m": [
+          -480,
+          -1120,
+          1600,
+          800
+        ],
+        "relief_profile": "coastal",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1120,
+        1600,
+        800
+      ],
+      "grid_vertices": 4026,
+      "protected_vertices": 2252,
+      "protected_grid_sha256": "0b4e33b686c9825990b35aa7fbc7b9864e38a75fa39cc694a50553f2a82a2dbf",
+      "surface_guard_vertices": 2510,
+      "surface_guard_grid_sha256": "fd95a8831509c3605f8b2e8ddec89082f69245aca1cd0c1437fa7343a8b43227",
+      "sea_y": 8.782099723815918,
+      "sea_runs": [
+        [
+          1053,
+          1071
+        ],
+        [
+          1114,
+          1132
+        ],
+        [
+          1175,
+          1193
+        ],
+        [
+          1236,
+          1254
+        ],
+        [
+          1296,
+          1315
+        ],
+        [
+          1357,
+          1375
+        ],
+        [
+          1419,
+          1434
+        ],
+        [
+          1480,
+          1494
+        ],
+        [
+          1543,
+          1544
+        ],
+        [
+          1549,
+          1555
+        ],
+        [
+          1611,
+          1616
+        ],
+        [
+          1672,
+          1677
+        ],
+        [
+          1733,
+          1738
+        ],
+        [
+          1794,
+          1799
+        ],
+        [
+          1856,
+          1861
+        ],
+        [
+          1917,
+          1922
+        ],
+        [
+          1978,
+          1983
+        ],
+        [
+          2039,
+          2048
+        ],
+        [
+          2100,
+          2109
+        ],
+        [
+          2160,
+          2170
+        ],
+        [
+          2221,
+          2231
+        ],
+        [
+          2282,
+          2292
+        ],
+        [
+          2343,
+          2354
+        ],
+        [
+          2396,
+          2399
+        ],
+        [
+          2402,
+          2416
+        ],
+        [
+          2456,
+          2485
+        ],
+        [
+          2516,
+          2546
+        ],
+        [
+          2577,
+          2607
+        ],
+        [
+          2637,
+          2668
+        ],
+        [
+          2698,
+          2729
+        ],
+        [
+          2760,
+          2790
+        ],
+        [
+          2821,
+          2825
+        ],
+        [
+          2830,
+          2851
+        ],
+        [
+          2883,
+          2884
+        ],
+        [
+          2894,
+          2912
+        ],
+        [
+          2957,
+          2969
+        ],
+        [
+          3020,
+          3026
+        ]
+      ]
+    },
+    {
+      "id": "alpine_meadow",
+      "terrain_parameters_sha256": "739053e0c4210f69f56521dfa6b171ffe88b30251eb21f1acafa6b415fa8f558",
+      "classic": false,
+      "old_export_sha256": "65d15bf19deccd60b6cff5a462282688d94f573cb7c5896b918dd5e0eac04b94",
+      "old_grid_sha256": "ce04bcefcad286863f33d41476157314ddefb9da5709e6141d82f194ffbb7f1d",
+      "route_hash": "9ce1c4aa73767f96486dbc06c6f4504a309d3e00eb8055d00d8e7ebd7eeec5d5",
+      "metadata": {
+        "id": "alpine_meadow",
+        "path": "assets/exported/scenery/alpine_meadow_terrain.glb",
+        "sha256": "65d15bf19deccd60b6cff5a462282688d94f573cb7c5896b918dd5e0eac04b94",
+        "chunks": 132,
+        "triangles": 6600,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "9ce1c4aa73767f96486dbc06c6f4504a309d3e00eb8055d00d8e7ebd7eeec5d5",
+        "bounds_xz_m": [
+          -480,
+          -800,
+          1440,
+          960
+        ],
+        "relief_profile": "hills",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -800,
+        1440,
+        960
+      ],
+      "grid_vertices": 3416,
+      "protected_vertices": 1392,
+      "protected_grid_sha256": "b0377a5ac3974bda20f5528b5c2ea3655429d63dc5b7c531ef378050ef616452",
+      "surface_guard_vertices": 1610,
+      "surface_guard_grid_sha256": "c550e6477c4f4628552e8a563090a1ed0603435de717657dea0c71931cf4f165",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "frostbite_fjord",
+      "terrain_parameters_sha256": "bf7b1664ad1306674638de0a80de27435100e3e33b52daf030c64fc89e9fc088",
+      "classic": false,
+      "old_export_sha256": "dd9182cc9a10af55707c14396b166e4db379948d7b94bdafda91ef2e5ee025cb",
+      "old_grid_sha256": "758b338215c12b34b3f4f9e3327770b76195b6d245aaa2444550b1e1c4f7954a",
+      "route_hash": "c7d1c031fac677ffd3e227e5ea5d219ce3ea990899a646fae5e78b86d70712f4",
+      "metadata": {
+        "id": "frostbite_fjord",
+        "path": "assets/exported/scenery/frostbite_fjord_terrain.glb",
+        "sha256": "dd9182cc9a10af55707c14396b166e4db379948d7b94bdafda91ef2e5ee025cb",
+        "chunks": 221,
+        "triangles": 11050,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "c7d1c031fac677ffd3e227e5ea5d219ce3ea990899a646fae5e78b86d70712f4",
+        "bounds_xz_m": [
+          -480,
+          -1120,
+          2240,
+          960
+        ],
+        "relief_profile": "ridge",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1120,
+        2240,
+        960
+      ],
+      "grid_vertices": 5676,
+      "protected_vertices": 2855,
+      "protected_grid_sha256": "c70ff39d2e2c42deb073f34f3f92ce40073133e191acdb9b14d4f70805e26cd7",
+      "surface_guard_vertices": 3265,
+      "surface_guard_grid_sha256": "b205c4f351d3b13ece301d8997c215ef6cf85b3693ffdbd30b72b8adb6f842a9",
+      "sea_y": 7.0,
+      "sea_runs": [
+        [
+          1410,
+          1411
+        ],
+        [
+          1474,
+          1477
+        ],
+        [
+          1539,
+          1543
+        ],
+        [
+          1604,
+          1610
+        ],
+        [
+          1669,
+          1676
+        ],
+        [
+          1734,
+          1743
+        ],
+        [
+          1800,
+          1809
+        ],
+        [
+          1866,
+          1875
+        ],
+        [
+          1933,
+          1944
+        ],
+        [
+          1999,
+          2010
+        ],
+        [
+          2065,
+          2077
+        ],
+        [
+          2132,
+          2144
+        ],
+        [
+          2199,
+          2211
+        ],
+        [
+          2266,
+          2278
+        ],
+        [
+          2333,
+          2345
+        ],
+        [
+          2401,
+          2412
+        ],
+        [
+          2468,
+          2479
+        ],
+        [
+          2536,
+          2545
+        ],
+        [
+          2604,
+          2612
+        ],
+        [
+          2673,
+          2680
+        ],
+        [
+          2682,
+          2684
+        ],
+        [
+          2741,
+          2750
+        ],
+        [
+          2809,
+          2816
+        ],
+        [
+          2877,
+          2884
+        ],
+        [
+          2944,
+          2951
+        ],
+        [
+          3011,
+          3018
+        ],
+        [
+          3077,
+          3085
+        ],
+        [
+          3144,
+          3151
+        ],
+        [
+          3211,
+          3218
+        ],
+        [
+          3277,
+          3284
+        ],
+        [
+          3343,
+          3351
+        ],
+        [
+          3408,
+          3417
+        ],
+        [
+          3474,
+          3484
+        ],
+        [
+          3539,
+          3550
+        ],
+        [
+          3604,
+          3616
+        ],
+        [
+          3669,
+          3682
+        ],
+        [
+          3733,
+          3748
+        ],
+        [
+          3797,
+          3814
+        ],
+        [
+          3861,
+          3879
+        ],
+        [
+          3914,
+          3945
+        ],
+        [
+          3979,
+          4011
+        ],
+        [
+          4045,
+          4076
+        ],
+        [
+          4110,
+          4142
+        ],
+        [
+          4175,
+          4208
+        ],
+        [
+          4241,
+          4274
+        ],
+        [
+          4308,
+          4339
+        ],
+        [
+          4374,
+          4404
+        ],
+        [
+          4441,
+          4469
+        ],
+        [
+          4509,
+          4510
+        ],
+        [
+          4512,
+          4534
+        ],
+        [
+          4581,
+          4599
+        ],
+        [
+          4649,
+          4656
+        ]
+      ]
+    },
+    {
+      "id": "tundra_pipeline",
+      "terrain_parameters_sha256": "dc4b4b5606cb7fad827f8e25bff72c1da4177353178e6d00e8348d805067b6f2",
+      "classic": false,
+      "old_export_sha256": "167193ed03e5434caa72233bd77f2c1ff1872e6ff60aea9059ccbe33400f4824",
+      "old_grid_sha256": "ad98b0242df60437c328e1358d49a1d52e77a5fa2306d971456e429b00d17814",
+      "route_hash": "6592269953dc30f8649734d0a1fdab1eede401f5d3cce8e7601f1ef8edfdde68",
+      "metadata": {
+        "id": "tundra_pipeline",
+        "path": "assets/exported/scenery/tundra_pipeline_terrain.glb",
+        "sha256": "167193ed03e5434caa72233bd77f2c1ff1872e6ff60aea9059ccbe33400f4824",
+        "chunks": 208,
+        "triangles": 10400,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "6592269953dc30f8649734d0a1fdab1eede401f5d3cce8e7601f1ef8edfdde68",
+        "bounds_xz_m": [
+          -480,
+          -960,
+          2080,
+          1120
+        ],
+        "relief_profile": "tundra",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 1,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -960,
+        2080,
+        1120
+      ],
+      "grid_vertices": 5346,
+      "protected_vertices": 2109,
+      "protected_grid_sha256": "7fb15c7c4630c1054fea048710421f87b48d9e30840bac77d7e572c3167c5cfc",
+      "surface_guard_vertices": 2503,
+      "surface_guard_grid_sha256": "803417dc9639d4ced9cbd4f596202299d99fe6a166e2c7bf176e6759587fdd7e",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "rainforest_ruins",
+      "terrain_parameters_sha256": "ed0f081f528527f58013b8cb5aae2235994bce8cbeff03651bccbd652f8675fe",
+      "classic": false,
+      "old_export_sha256": "9d62ea40e4f5678b52efb5d00ef2cb4dd394987fbf3da1205aae15e3fd96f17b",
+      "old_grid_sha256": "9f37bcee3595e94b9c787a6ffda5918fc182fb6199fb45a7f6adad6a469cecb4",
+      "route_hash": "974e220af7c762f0d68cc24ed650591122a063e2efd9bdebe9d9d4854ab5190d",
+      "metadata": {
+        "id": "rainforest_ruins",
+        "path": "assets/exported/scenery/rainforest_ruins_terrain.glb",
+        "sha256": "9d62ea40e4f5678b52efb5d00ef2cb4dd394987fbf3da1205aae15e3fd96f17b",
+        "chunks": 144,
+        "triangles": 7200,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "974e220af7c762f0d68cc24ed650591122a063e2efd9bdebe9d9d4854ab5190d",
+        "bounds_xz_m": [
+          -480,
+          -960,
+          1440,
+          960
+        ],
+        "relief_profile": "karst",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 1,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -960,
+        1440,
+        960
+      ],
+      "grid_vertices": 3721,
+      "protected_vertices": 1637,
+      "protected_grid_sha256": "01b5b1588a99ee429bc52bc23616cf6431010f2eda0490af8a81a659d85c1cc8",
+      "surface_guard_vertices": 1883,
+      "surface_guard_grid_sha256": "792da2ff245134faf9885b5a652d86d429f05c11df029a7a4160066226f7f44a",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "monsoon_delta",
+      "terrain_parameters_sha256": "4c393eacc3acc22ed53a30079c88ba6c8d71a76d88319517e32cbc4978ec41d6",
+      "classic": false,
+      "old_export_sha256": "e5985d928a84145460a61236feba0af3e18559418566302219cc87e144a4bd60",
+      "old_grid_sha256": "130ff2144ca213fc599673ae330eaf5a1a4517445157be745091f7a5048c10b7",
+      "route_hash": "48a218069f4f6061f128308a433f0aca1e2a355bc6372b4297f3a72b85ea5d17",
+      "metadata": {
+        "id": "monsoon_delta",
+        "path": "assets/exported/scenery/monsoon_delta_terrain.glb",
+        "sha256": "e5985d928a84145460a61236feba0af3e18559418566302219cc87e144a4bd60",
+        "chunks": 225,
+        "triangles": 11250,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "48a218069f4f6061f128308a433f0aca1e2a355bc6372b4297f3a72b85ea5d17",
+        "bounds_xz_m": [
+          -480,
+          -1280,
+          1920,
+          1120
+        ],
+        "relief_profile": "wetland",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1280,
+        1920,
+        1120
+      ],
+      "grid_vertices": 5776,
+      "protected_vertices": 2266,
+      "protected_grid_sha256": "f1e41dfff95f32a3a18e1ca721f63ecf4b0735c324eff2adb663177571f17e21",
+      "surface_guard_vertices": 2602,
+      "surface_guard_grid_sha256": "cdcd3dd340be5e238f2c7d9ca1f35e0db0070e79bf1d31e1b1a1dab6e574019e",
+      "sea_y": 7.0,
+      "sea_runs": [
+        [
+          1317,
+          1319
+        ],
+        [
+          1391,
+          1395
+        ],
+        [
+          1467,
+          1470
+        ],
+        [
+          1542,
+          1546
+        ],
+        [
+          1617,
+          1622
+        ],
+        [
+          1692,
+          1699
+        ],
+        [
+          1768,
+          1775
+        ],
+        [
+          1843,
+          1864
+        ],
+        [
+          1919,
+          1942
+        ],
+        [
+          1994,
+          2020
+        ],
+        [
+          2070,
+          2101
+        ],
+        [
+          2146,
+          2179
+        ],
+        [
+          2222,
+          2255
+        ],
+        [
+          2299,
+          2311
+        ],
+        [
+          2317,
+          2330
+        ],
+        [
+          2376,
+          2385
+        ],
+        [
+          2396,
+          2407
+        ],
+        [
+          2452,
+          2460
+        ],
+        [
+          2473,
+          2483
+        ],
+        [
+          2529,
+          2534
+        ],
+        [
+          2551,
+          2560
+        ],
+        [
+          2628,
+          2636
+        ],
+        [
+          2704,
+          2712
+        ],
+        [
+          2781,
+          2789
+        ],
+        [
+          2858,
+          2865
+        ],
+        [
+          2934,
+          2941
+        ],
+        [
+          3011,
+          3018
+        ],
+        [
+          3087,
+          3094
+        ],
+        [
+          3163,
+          3171
+        ],
+        [
+          3239,
+          3247
+        ],
+        [
+          3315,
+          3323
+        ],
+        [
+          3390,
+          3400
+        ],
+        [
+          3465,
+          3477
+        ],
+        [
+          3541,
+          3553
+        ],
+        [
+          3617,
+          3630
+        ],
+        [
+          3692,
+          3707
+        ],
+        [
+          3769,
+          3782
+        ],
+        [
+          3845,
+          3856
+        ],
+        [
+          3921,
+          3932
+        ],
+        [
+          3997,
+          4007
+        ],
+        [
+          4073,
+          4083
+        ],
+        [
+          4150,
+          4159
+        ],
+        [
+          4226,
+          4235
+        ],
+        [
+          4303,
+          4310
+        ],
+        [
+          4380,
+          4386
+        ],
+        [
+          4457,
+          4460
+        ]
+      ]
+    },
+    {
+      "id": "coral_causeway",
+      "terrain_parameters_sha256": "7a2a8fc99a61545959be6e44cd9ace12d0a1083cf2b8c80656a33e84e1f011e0",
+      "classic": false,
+      "old_export_sha256": "cd5f85f07958492fbf85ac179eda4836d939b64087260d1dc680fbc549c4bf0a",
+      "old_grid_sha256": "3ee3a96bd6c27974eeb804c020648d3060fc5b08be85aa87469860009dcd50af",
+      "route_hash": "0991b48f9bb42bc6e1d75e1b5d329fbbab26aeb7ec53cbbc2f2c029d9cf49d2d",
+      "metadata": {
+        "id": "coral_causeway",
+        "path": "assets/exported/scenery/coral_causeway_terrain.glb",
+        "sha256": "cd5f85f07958492fbf85ac179eda4836d939b64087260d1dc680fbc549c4bf0a",
+        "chunks": 378,
+        "triangles": 18900,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "0991b48f9bb42bc6e1d75e1b5d329fbbab26aeb7ec53cbbc2f2c029d9cf49d2d",
+        "bounds_xz_m": [
+          -480,
+          -1600,
+          2880,
+          1280
+        ],
+        "relief_profile": "coastal",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1600,
+        2880,
+        1280
+      ],
+      "grid_vertices": 9646,
+      "protected_vertices": 3415,
+      "protected_grid_sha256": "3c364f688df7f7ccb9fb434323ed24e11646742a7a456720a151f888e44aa749",
+      "surface_guard_vertices": 4046,
+      "surface_guard_grid_sha256": "b6407545db92e5c9c2997cfece87b2f933d9062ab902ced3a972ec6f4541fa18",
+      "sea_y": 7.0,
+      "sea_runs": [
+        [
+          1670,
+          1671
+        ],
+        [
+          1758,
+          1763
+        ],
+        [
+          1848,
+          1854
+        ],
+        [
+          1939,
+          1945
+        ],
+        [
+          2030,
+          2037
+        ],
+        [
+          2120,
+          2128
+        ],
+        [
+          2210,
+          2219
+        ],
+        [
+          2299,
+          2310
+        ],
+        [
+          2389,
+          2402
+        ],
+        [
+          2479,
+          2493
+        ],
+        [
+          2570,
+          2585
+        ],
+        [
+          2660,
+          2677
+        ],
+        [
+          2751,
+          2769
+        ],
+        [
+          2841,
+          2860
+        ],
+        [
+          2931,
+          2952
+        ],
+        [
+          3021,
+          3043
+        ],
+        [
+          3111,
+          3135
+        ],
+        [
+          3201,
+          3228
+        ],
+        [
+          3292,
+          3321
+        ],
+        [
+          3345,
+          3346
+        ],
+        [
+          3384,
+          3412
+        ],
+        [
+          3436,
+          3438
+        ],
+        [
+          3476,
+          3504
+        ],
+        [
+          3526,
+          3530
+        ],
+        [
+          3568,
+          3596
+        ],
+        [
+          3617,
+          3622
+        ],
+        [
+          3660,
+          3687
+        ],
+        [
+          3707,
+          3715
+        ],
+        [
+          3751,
+          3779
+        ],
+        [
+          3797,
+          3806
+        ],
+        [
+          3843,
+          3871
+        ],
+        [
+          3888,
+          3897
+        ],
+        [
+          3934,
+          3962
+        ],
+        [
+          3978,
+          3989
+        ],
+        [
+          4029,
+          4054
+        ],
+        [
+          4068,
+          4080
+        ],
+        [
+          4122,
+          4145
+        ],
+        [
+          4158,
+          4171
+        ],
+        [
+          4214,
+          4262
+        ],
+        [
+          4306,
+          4352
+        ],
+        [
+          4398,
+          4443
+        ],
+        [
+          4489,
+          4533
+        ],
+        [
+          4581,
+          4624
+        ],
+        [
+          4672,
+          4715
+        ],
+        [
+          4764,
+          4806
+        ],
+        [
+          4855,
+          4896
+        ],
+        [
+          4946,
+          4987
+        ],
+        [
+          5037,
+          5077
+        ],
+        [
+          5128,
+          5167
+        ],
+        [
+          5219,
+          5254
+        ],
+        [
+          5310,
+          5344
+        ],
+        [
+          5401,
+          5435
+        ],
+        [
+          5491,
+          5525
+        ],
+        [
+          5582,
+          5616
+        ],
+        [
+          5674,
+          5706
+        ],
+        [
+          5765,
+          5796
+        ],
+        [
+          5855,
+          5886
+        ],
+        [
+          5946,
+          5975
+        ],
+        [
+          6037,
+          6065
+        ],
+        [
+          6128,
+          6155
+        ],
+        [
+          6218,
+          6244
+        ],
+        [
+          6308,
+          6334
+        ],
+        [
+          6399,
+          6424
+        ],
+        [
+          6489,
+          6514
+        ],
+        [
+          6580,
+          6604
+        ],
+        [
+          6671,
+          6694
+        ],
+        [
+          6762,
+          6785
+        ],
+        [
+          6852,
+          6875
+        ],
+        [
+          6943,
+          6966
+        ],
+        [
+          7034,
+          7056
+        ],
+        [
+          7125,
+          7147
+        ],
+        [
+          7217,
+          7238
+        ],
+        [
+          7308,
+          7329
+        ],
+        [
+          7399,
+          7419
+        ],
+        [
+          7491,
+          7509
+        ],
+        [
+          7583,
+          7600
+        ],
+        [
+          7675,
+          7690
+        ],
+        [
+          7768,
+          7779
+        ],
+        [
+          7860,
+          7869
+        ],
+        [
+          7952,
+          7960
+        ],
+        [
+          8043,
+          8050
+        ],
+        [
+          8135,
+          8136
+        ]
+      ]
+    },
+    {
+      "id": "mangrove_maze",
+      "terrain_parameters_sha256": "966c0f487adf82c8691d0b1eb0d15d3f5ddcb716c2bd1324df047a947c133ed8",
+      "classic": false,
+      "old_export_sha256": "4f855f2a61235a49d22c4e2fa7375e07f9b2508fdbaa004617e0e8b31514cf0e",
+      "old_grid_sha256": "5fce7cfca0a13c17807307e91c659e57e6ec2ea2390356190c2a34dcadbc3f50",
+      "route_hash": "1d458e33dd23e589e13724a34c79688df296080d68b2783bbec167071819ba60",
+      "metadata": {
+        "id": "mangrove_maze",
+        "path": "assets/exported/scenery/mangrove_maze_terrain.glb",
+        "sha256": "4f855f2a61235a49d22c4e2fa7375e07f9b2508fdbaa004617e0e8b31514cf0e",
+        "chunks": 143,
+        "triangles": 7150,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "1d458e33dd23e589e13724a34c79688df296080d68b2783bbec167071819ba60",
+        "bounds_xz_m": [
+          -480,
+          -800,
+          1600,
+          960
+        ],
+        "relief_profile": "wetland",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -800,
+        1600,
+        960
+      ],
+      "grid_vertices": 3696,
+      "protected_vertices": 1729,
+      "protected_grid_sha256": "cab7f698442b9040f02668644218d607e480541de7c24a516cb3a0f2f9c985f7",
+      "surface_guard_vertices": 1964,
+      "surface_guard_grid_sha256": "f10108f8c0ceb6b7bbc12caf54f1cd1bbabcbb69e6a168226a5702a92e566b44",
+      "sea_y": 7.0,
+      "sea_runs": [
+        [
+          1082,
+          1083
+        ],
+        [
+          1137,
+          1140
+        ],
+        [
+          1192,
+          1197
+        ],
+        [
+          1247,
+          1256
+        ],
+        [
+          1303,
+          1313
+        ],
+        [
+          1359,
+          1369
+        ],
+        [
+          1417,
+          1426
+        ],
+        [
+          1476,
+          1482
+        ],
+        [
+          1534,
+          1539
+        ],
+        [
+          1541,
+          1542
+        ],
+        [
+          1591,
+          1599
+        ],
+        [
+          1648,
+          1655
+        ],
+        [
+          1705,
+          1713
+        ],
+        [
+          1761,
+          1770
+        ],
+        [
+          1818,
+          1827
+        ],
+        [
+          1874,
+          1885
+        ],
+        [
+          1930,
+          1941
+        ],
+        [
+          1986,
+          1998
+        ],
+        [
+          2042,
+          2055
+        ],
+        [
+          2098,
+          2111
+        ],
+        [
+          2153,
+          2167
+        ],
+        [
+          2208,
+          2221
+        ],
+        [
+          2261,
+          2276
+        ],
+        [
+          2316,
+          2332
+        ],
+        [
+          2370,
+          2388
+        ],
+        [
+          2425,
+          2443
+        ],
+        [
+          2479,
+          2495
+        ],
+        [
+          2535,
+          2550
+        ],
+        [
+          2591,
+          2605
+        ],
+        [
+          2647,
+          2660
+        ],
+        [
+          2704,
+          2713
+        ],
+        [
+          2762,
+          2768
+        ],
+        [
+          2820,
+          2821
+        ]
+      ]
+    },
+    {
+      "id": "cloudforest_climb",
+      "terrain_parameters_sha256": "5a04daad7f5360d12c843ecf11badfcab7e86ac5a0a897365b63bf4266da10ba",
+      "classic": false,
+      "old_export_sha256": "dc0a91f35607c3fbb3622908a3df091f86ddb9fa0d69e68bc75b806ec9671f5a",
+      "old_grid_sha256": "2432998e0362df8c71f1a1f9c34f363f78c5cc3ee755462695d5efd36225d85c",
+      "route_hash": "da1bedee01f0f05d6bacdb977736688d66d7457551515bf75790bf4fa6e83b66",
+      "metadata": {
+        "id": "cloudforest_climb",
+        "path": "assets/exported/scenery/cloudforest_climb_terrain.glb",
+        "sha256": "dc0a91f35607c3fbb3622908a3df091f86ddb9fa0d69e68bc75b806ec9671f5a",
+        "chunks": 306,
+        "triangles": 15300,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "da1bedee01f0f05d6bacdb977736688d66d7457551515bf75790bf4fa6e83b66",
+        "bounds_xz_m": [
+          -480,
+          -1440,
+          2240,
+          1440
+        ],
+        "relief_profile": "ridge",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1440,
+        2240,
+        1440
+      ],
+      "grid_vertices": 7826,
+      "protected_vertices": 3099,
+      "protected_grid_sha256": "1fa42ea0dd855fa7ada3a1f80bf8d0216c2de8fc877c62cc9d6aa759ced1e97a",
+      "surface_guard_vertices": 3654,
+      "surface_guard_grid_sha256": "8ba0d72d3cc463d637ca3eb0f278e717c56a25d1d75c7f8fe33fbcab8201c92b",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "sakura_ring",
+      "terrain_parameters_sha256": "b6d22e1762b0aedec4f032052c29db9e0dc1d5e902d31fec2be61167ca65ff5a",
+      "classic": false,
+      "old_export_sha256": "d7bb6fb11f24dd76d6225df4400caa836178134daaffd50b3c0ca4d78a1ebe14",
+      "old_grid_sha256": "fa0accff90c3382f0f5030b9e36fe592307eceb6e05bdb4af948f2767d7ba1a8",
+      "route_hash": "0655d7610c941f24f8709d72f760a6d6bbc36d4f62856aaec9105b2e38c379d0",
+      "metadata": {
+        "id": "sakura_ring",
+        "path": "assets/exported/scenery/sakura_ring_terrain.glb",
+        "sha256": "d7bb6fb11f24dd76d6225df4400caa836178134daaffd50b3c0ca4d78a1ebe14",
+        "chunks": 154,
+        "triangles": 7700,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "0655d7610c941f24f8709d72f760a6d6bbc36d4f62856aaec9105b2e38c379d0",
+        "bounds_xz_m": [
+          -480,
+          -960,
+          1280,
+          1280
+        ],
+        "relief_profile": "hills",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 1,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -960,
+        1280,
+        1280
+      ],
+      "grid_vertices": 3976,
+      "protected_vertices": 1948,
+      "protected_grid_sha256": "af95e16adf55ad5e683aa58813fea24219f612448f43195851786581a9814695",
+      "surface_guard_vertices": 2191,
+      "surface_guard_grid_sha256": "91d40b0303c22ad5e485e00bb339e443870dc62c726f33695cf35c9e924b6a5d",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "bamboo_gorge",
+      "terrain_parameters_sha256": "beb592aaac0a6e931481df0f3e223a142930c2557aa221431f48aff22d9a76cb",
+      "classic": false,
+      "old_export_sha256": "cbb5dfb5627883e2fba7d4aeef83087bf5baa806af72a03ca65552d6b683dbe6",
+      "old_grid_sha256": "564224b7fc6a0afc4c721e99b6be18899243714c6101b8655986715e6efeb561",
+      "route_hash": "36ab0fc3241d2182731ab64ea59c9199677be294cfedda69b470c27e83eb39fd",
+      "metadata": {
+        "id": "bamboo_gorge",
+        "path": "assets/exported/scenery/bamboo_gorge_terrain.glb",
+        "sha256": "cbb5dfb5627883e2fba7d4aeef83087bf5baa806af72a03ca65552d6b683dbe6",
+        "chunks": 132,
+        "triangles": 6600,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "36ab0fc3241d2182731ab64ea59c9199677be294cfedda69b470c27e83eb39fd",
+        "bounds_xz_m": [
+          -480,
+          -960,
+          1440,
+          800
+        ],
+        "relief_profile": "karst",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -960,
+        1440,
+        800
+      ],
+      "grid_vertices": 3416,
+      "protected_vertices": 1426,
+      "protected_grid_sha256": "a0633a99f80b435028eb8628e08ee3c85ffd8ba7357604ed0d96782677f62a47",
+      "surface_guard_vertices": 1679,
+      "surface_guard_grid_sha256": "b16809c6c5b9aacc5f435123bc346f5f52c3b9053c0254df3d108f136ac01cb4",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "lantern_market",
+      "terrain_parameters_sha256": "7af66fa77509a9dba178f2784a93315731f88eb94adfd8c236b356a2f3f8f858",
+      "classic": false,
+      "old_export_sha256": "c08171d6b37e45ee87c6ad4c4d134f77e6914565c79ec57cc26264dbab5eace0",
+      "old_grid_sha256": "b26e0eb626a9e645acb3277f78b1f862da0a61652fb55c0071c74caaed42aab3",
+      "route_hash": "fa0af9ff78de83dd0a19d318fd6a8700eaa15fb84a42b095c892c35c7f514714",
+      "metadata": {
+        "id": "lantern_market",
+        "path": "assets/exported/scenery/lantern_market_terrain.glb",
+        "sha256": "c08171d6b37e45ee87c6ad4c4d134f77e6914565c79ec57cc26264dbab5eace0",
+        "chunks": 168,
+        "triangles": 8400,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "fa0af9ff78de83dd0a19d318fd6a8700eaa15fb84a42b095c892c35c7f514714",
+        "bounds_xz_m": [
+          -480,
+          -1120,
+          1440,
+          1120
+        ],
+        "relief_profile": "city",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1120,
+        1440,
+        1120
+      ],
+      "grid_vertices": 4331,
+      "protected_vertices": 2009,
+      "protected_grid_sha256": "fb7addfdcb70d68d7630cb135a759eaf6a012c00cafbfb0e3063ef7db12c9725",
+      "surface_guard_vertices": 2314,
+      "surface_guard_grid_sha256": "e38baaf0d4da02329a4e77419687bc73bef78400013e2386be42e6938efac9d3",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "terrace_touge",
+      "terrain_parameters_sha256": "5db23fb63ecf7c60cf57d9864b41b9d0b397c1723ae04b4a9152b3a8aa440354",
+      "classic": false,
+      "old_export_sha256": "34aa3b87944f5411e9c9a3dc7d127a0c9706ea4ebb49b5d018aac7efebe9dd73",
+      "old_grid_sha256": "3d48fd56173be976f3dacbb0b83d33bb851cf24c6581bd79c3be5ff1e94a85a1",
+      "route_hash": "e1b5543cf54647fe78e12bf506e24f22b88c716a471c56befdb00b60dad81aea",
+      "metadata": {
+        "id": "terrace_touge",
+        "path": "assets/exported/scenery/terrace_touge_terrain.glb",
+        "sha256": "34aa3b87944f5411e9c9a3dc7d127a0c9706ea4ebb49b5d018aac7efebe9dd73",
+        "chunks": 224,
+        "triangles": 11200,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "e1b5543cf54647fe78e12bf506e24f22b88c716a471c56befdb00b60dad81aea",
+        "bounds_xz_m": [
+          -800,
+          -1120,
+          1440,
+          1440
+        ],
+        "relief_profile": "terrace",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -800,
+        -1120,
+        1440,
+        1440
+      ],
+      "grid_vertices": 5751,
+      "protected_vertices": 2566,
+      "protected_grid_sha256": "77452c35d5ce23c556dcdb3b80cf849905b444728916edd53674bdce91963a75",
+      "surface_guard_vertices": 2947,
+      "surface_guard_grid_sha256": "31ca9d19b0aa6761f9912e6fed46cac80578a6863f3f38a54f54bef189948985",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "temple_coast",
+      "terrain_parameters_sha256": "e3d98e80df432f44dcd113b531a861b9a6b6b8a1edf641664263cdc4b79d8517",
+      "classic": false,
+      "old_export_sha256": "17a92a2c12750c09673f3a2bda17c760c194c9d4b114b8fdde21b270040ca619",
+      "old_grid_sha256": "cc70ab2f401a4c39ba2fd45e5b32e6829ceba367d80b9c982ca224e9790a6a1e",
+      "route_hash": "7f7b4de5280c504c7b57b3e55f86497e30267bfb0a87618d4507d1cf2dab085a",
+      "metadata": {
+        "id": "temple_coast",
+        "path": "assets/exported/scenery/temple_coast_terrain.glb",
+        "sha256": "17a92a2c12750c09673f3a2bda17c760c194c9d4b114b8fdde21b270040ca619",
+        "chunks": 182,
+        "triangles": 9100,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "7f7b4de5280c504c7b57b3e55f86497e30267bfb0a87618d4507d1cf2dab085a",
+        "bounds_xz_m": [
+          -480,
+          -1280,
+          1600,
+          960
+        ],
+        "relief_profile": "coastal",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1280,
+        1600,
+        960
+      ],
+      "grid_vertices": 4686,
+      "protected_vertices": 2397,
+      "protected_grid_sha256": "4bc9272978feb833eef46f648d286ee8169251390a299e4f533f98772d842507",
+      "surface_guard_vertices": 2674,
+      "surface_guard_grid_sha256": "690024f5bed9146109e35779b191fec41c368fd88222063002da9408149e5f0f",
+      "sea_y": 7.0,
+      "sea_runs": [
+        [
+          1370,
+          1374
+        ],
+        [
+          1440,
+          1445
+        ],
+        [
+          1451,
+          1452
+        ],
+        [
+          1509,
+          1516
+        ],
+        [
+          1519,
+          1521
+        ],
+        [
+          1580,
+          1591
+        ],
+        [
+          1651,
+          1661
+        ],
+        [
+          1721,
+          1731
+        ],
+        [
+          1792,
+          1802
+        ],
+        [
+          1862,
+          1872
+        ],
+        [
+          1933,
+          1943
+        ],
+        [
+          1967,
+          1969
+        ],
+        [
+          2003,
+          2014
+        ],
+        [
+          2037,
+          2041
+        ],
+        [
+          2074,
+          2085
+        ],
+        [
+          2104,
+          2112
+        ],
+        [
+          2145,
+          2156
+        ],
+        [
+          2175,
+          2183
+        ],
+        [
+          2215,
+          2227
+        ],
+        [
+          2246,
+          2254
+        ],
+        [
+          2287,
+          2298
+        ],
+        [
+          2317,
+          2325
+        ],
+        [
+          2359,
+          2369
+        ],
+        [
+          2387,
+          2395
+        ],
+        [
+          2430,
+          2441
+        ],
+        [
+          2457,
+          2466
+        ],
+        [
+          2501,
+          2513
+        ],
+        [
+          2527,
+          2536
+        ],
+        [
+          2572,
+          2585
+        ],
+        [
+          2596,
+          2607
+        ],
+        [
+          2642,
+          2658
+        ],
+        [
+          2665,
+          2678
+        ],
+        [
+          2712,
+          2730
+        ],
+        [
+          2733,
+          2749
+        ],
+        [
+          2783,
+          2820
+        ],
+        [
+          2855,
+          2891
+        ],
+        [
+          2926,
+          2962
+        ],
+        [
+          2998,
+          3032
+        ],
+        [
+          3070,
+          3102
+        ],
+        [
+          3141,
+          3173
+        ],
+        [
+          3213,
+          3240
+        ],
+        [
+          3286,
+          3309
+        ],
+        [
+          3360,
+          3379
+        ],
+        [
+          3432,
+          3448
+        ]
+      ]
+    },
+    {
+      "id": "saltflat_velocity",
+      "terrain_parameters_sha256": "5d6c31f7da5e78a6b51249b2e5f84f37854f4995dc8455779b9222a8e1f83524",
+      "classic": false,
+      "old_export_sha256": "d928c9b0e8f867b5a8ced1cc52241d2d1141f7f3818e520c9f95337eebfb535f",
+      "old_grid_sha256": "81cb698662707324fe765b3041a38b9e51df3fdf4535af029d042d3e634711ad",
+      "route_hash": "c426ed3465b41961a71bb7bb39e7c413244e902155e74e40870058717ed579e6",
+      "metadata": {
+        "id": "saltflat_velocity",
+        "path": "assets/exported/scenery/saltflat_velocity_terrain.glb",
+        "sha256": "d928c9b0e8f867b5a8ced1cc52241d2d1141f7f3818e520c9f95337eebfb535f",
+        "chunks": 616,
+        "triangles": 30800,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.486139,
+        "route_hash": "c426ed3465b41961a71bb7bb39e7c413244e902155e74e40870058717ed579e6",
+        "bounds_xz_m": [
+          -480,
+          -3040,
+          3040,
+          1440
+        ],
+        "relief_profile": "salt",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -3040,
+        3040,
+        1440
+      ],
+      "grid_vertices": 15651,
+      "protected_vertices": 4950,
+      "protected_grid_sha256": "7dbc54d54bd7399da4491a09ae9c542dee1d608b50034dab737693730e328164",
+      "surface_guard_vertices": 5839,
+      "surface_guard_grid_sha256": "e2354fe0f9b03c8c0ee3dc2e57598a116e647d0876c6d5dbc1c62ad1f3ba482d",
+      "sea_y": 6.986138820648193,
+      "sea_runs": []
+    },
+    {
+      "id": "dune_serpent",
+      "terrain_parameters_sha256": "b714bdbd72094dfd9e2bcf0e2620dca52a4b4b71cb1c631b8672eef3a286bc76",
+      "classic": false,
+      "old_export_sha256": "a53555533f4bbd015ae699ba1da9cdf2b843e71d1fc9081c82a48b183521a4de",
+      "old_grid_sha256": "1497c8b25994a78ac944d5fa9eff2756783e14ee5b37d53e42de4fb243e746a3",
+      "route_hash": "f07d2365fd876af3f87dd5637ca8b3e6fba378448f3c9dd1a125733bf8fb411c",
+      "metadata": {
+        "id": "dune_serpent",
+        "path": "assets/exported/scenery/dune_serpent_terrain.glb",
+        "sha256": "a53555533f4bbd015ae699ba1da9cdf2b843e71d1fc9081c82a48b183521a4de",
+        "chunks": 240,
+        "triangles": 12000,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "f07d2365fd876af3f87dd5637ca8b3e6fba378448f3c9dd1a125733bf8fb411c",
+        "bounds_xz_m": [
+          -480,
+          -1120,
+          2080,
+          1280
+        ],
+        "relief_profile": "dune",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1120,
+        2080,
+        1280
+      ],
+      "grid_vertices": 6156,
+      "protected_vertices": 2835,
+      "protected_grid_sha256": "f52fc97fa4efe1a70293bef2c9306bcfc2584f43ad04b38647b967fcbba48991",
+      "surface_guard_vertices": 3261,
+      "surface_guard_grid_sha256": "741abbffd25b90651e2ccf931fa0c5daa2c2b04b1e16790a7a158a09997d84f4",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "oasis_citadel",
+      "terrain_parameters_sha256": "2a5ae4f7e408f6f1f2f054b5b7bfd890710db5b7f7ff92d026f7f71ebb3f9f9b",
+      "classic": false,
+      "old_export_sha256": "8fef0b8ca31126678dd0e686500ec83b6adf3e3d8385f122da5d535799696f09",
+      "old_grid_sha256": "2f8bee20fd74784ccfa8350c20ef9d5bbf78d6a09e80965c7f2cbb215ad018fe",
+      "route_hash": "418a6619b757792f7a126359acc4e99f880ab1968c178ec1a00c90c1ad33ff16",
+      "metadata": {
+        "id": "oasis_citadel",
+        "path": "assets/exported/scenery/oasis_citadel_terrain.glb",
+        "sha256": "8fef0b8ca31126678dd0e686500ec83b6adf3e3d8385f122da5d535799696f09",
+        "chunks": 208,
+        "triangles": 10400,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "418a6619b757792f7a126359acc4e99f880ab1968c178ec1a00c90c1ad33ff16",
+        "bounds_xz_m": [
+          -480,
+          -960,
+          1600,
+          1600
+        ],
+        "relief_profile": "dune",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 1,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -960,
+        1600,
+        1600
+      ],
+      "grid_vertices": 5346,
+      "protected_vertices": 2707,
+      "protected_grid_sha256": "375b07f1006877e9298991c5bab7667e7bf25579421a69daf610484eea9ec2c4",
+      "surface_guard_vertices": 3128,
+      "surface_guard_grid_sha256": "e77df1c2b35e977cab2ea1a23936e6ed8d017a4951f82cbe36867be460abe14d",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "copper_mesa",
+      "terrain_parameters_sha256": "131e540e77786aebbf50e9d5337897db0e637d7927ae6df881aa7fcf167cea65",
+      "classic": false,
+      "old_export_sha256": "40fba0dcf9d05520c2d1975e60b697ecfac42a19062bcf8a526ddee5e1b7572d",
+      "old_grid_sha256": "fbdefd1e090b95f70b33b151caf38be7d928ede1fdfd242d7b62d36301f89695",
+      "route_hash": "41d33e0deff0662cf1048e9d68fde84b302dafe874fffd7cfe0e8cae1fc21383",
+      "metadata": {
+        "id": "copper_mesa",
+        "path": "assets/exported/scenery/copper_mesa_terrain.glb",
+        "sha256": "40fba0dcf9d05520c2d1975e60b697ecfac42a19062bcf8a526ddee5e1b7572d",
+        "chunks": 240,
+        "triangles": 12000,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "41d33e0deff0662cf1048e9d68fde84b302dafe874fffd7cfe0e8cae1fc21383",
+        "bounds_xz_m": [
+          -800,
+          -1440,
+          1600,
+          1120
+        ],
+        "relief_profile": "mesa",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -800,
+        -1440,
+        1600,
+        1120
+      ],
+      "grid_vertices": 6156,
+      "protected_vertices": 3143,
+      "protected_grid_sha256": "2cbf3d05e6fd4d53f0e0e71b26a3647dea25c8abef1efabd4d21bc5a0b7db8c9",
+      "surface_guard_vertices": 3451,
+      "surface_guard_grid_sha256": "0baf9f18f5525887ac55d6aa777378fd8cee08e672aff83ebfa127fc24c10237",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "storm_chase",
+      "terrain_parameters_sha256": "6c2279073cffd8b3ced35a071b4cfb7c8104a9dd0dee42284cec3c5243ca158d",
+      "classic": false,
+      "old_export_sha256": "febbab817e5971f687832df23615f3f086813dd404084d7c7c1da9c0def0be80",
+      "old_grid_sha256": "4eeede80b934fbc3eaa88e57dc9461a02db7236685789c40380e515b9bba6864",
+      "route_hash": "04dac32f02c10f3ee2f60915d9c2a980474aacc94a23aee1988344fd308cc50a",
+      "metadata": {
+        "id": "storm_chase",
+        "path": "assets/exported/scenery/storm_chase_terrain.glb",
+        "sha256": "febbab817e5971f687832df23615f3f086813dd404084d7c7c1da9c0def0be80",
+        "chunks": 192,
+        "triangles": 9600,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "04dac32f02c10f3ee2f60915d9c2a980474aacc94a23aee1988344fd308cc50a",
+        "bounds_xz_m": [
+          -480,
+          -960,
+          2080,
+          960
+        ],
+        "relief_profile": "tundra",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -960,
+        2080,
+        960
+      ],
+      "grid_vertices": 4941,
+      "protected_vertices": 2104,
+      "protected_grid_sha256": "ecaa0d84b7e3ea67b3d0be762065bcd69c5fe76bfdce3e6d53dc753a171219fd",
+      "surface_guard_vertices": 2508,
+      "surface_guard_grid_sha256": "42582fc490ef48a386f2c0d5e6ac88ac718a32b856d37ee3542cf183dd82e6f3",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "steelworks_sprint",
+      "terrain_parameters_sha256": "973ff46a66934e83cd47633bc08afeb61c0ddfb65d0eaafd11d62c2b8fbbe80a",
+      "classic": false,
+      "old_export_sha256": "f10cd045ce103f3dd2e54bdecb2ca6de236d80c83e0536360e02d3b3aca7633c",
+      "old_grid_sha256": "b7d56eb4f8081ac85ef62bcdcbe68ec23e88704971347a377c228d3196a55d52",
+      "route_hash": "0a65032b71226f5b807f9d38c452777ddf8050ef628a369a73fff9ad1709d19b",
+      "metadata": {
+        "id": "steelworks_sprint",
+        "path": "assets/exported/scenery/steelworks_sprint_terrain.glb",
+        "sha256": "f10cd045ce103f3dd2e54bdecb2ca6de236d80c83e0536360e02d3b3aca7633c",
+        "chunks": 224,
+        "triangles": 11200,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 9.7907,
+        "route_hash": "0a65032b71226f5b807f9d38c452777ddf8050ef628a369a73fff9ad1709d19b",
+        "bounds_xz_m": [
+          -480,
+          -1280,
+          1760,
+          1280
+        ],
+        "relief_profile": "city",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1280,
+        1760,
+        1280
+      ],
+      "grid_vertices": 5751,
+      "protected_vertices": 3066,
+      "protected_grid_sha256": "58e5abe1a08e032f3871626d76a42bda54e0fa137ec412d67f316ea7b7a87e45",
+      "surface_guard_vertices": 3484,
+      "surface_guard_grid_sha256": "e3b2bbcfad75406cefa4ecdec0ef1a37e4140b5cfcfa21b525688530c54656f5",
+      "sea_y": 8.29069995880127,
+      "sea_runs": []
+    },
+    {
+      "id": "container_corkscrew",
+      "terrain_parameters_sha256": "7956d04847d0169eaee514366973308ff2b6094f0f4bbd99f574bd126bf8e701",
+      "classic": false,
+      "old_export_sha256": "0175c2a289d3b42ee98694fc66777f643799b4c3c5a2f517591b0df39a4d6e20",
+      "old_grid_sha256": "bcc708377b53f392eee2630a4436f452f338e80bf59a5d8a95c1ea4007864e1e",
+      "route_hash": "f80fffae1b271c8432fedfe22d69727e9d6652ce1212ebead109c7e67f336444",
+      "metadata": {
+        "id": "container_corkscrew",
+        "path": "assets/exported/scenery/container_corkscrew_terrain.glb",
+        "sha256": "0175c2a289d3b42ee98694fc66777f643799b4c3c5a2f517591b0df39a4d6e20",
+        "chunks": 224,
+        "triangles": 11200,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 15.731100000000001,
+        "route_hash": "f80fffae1b271c8432fedfe22d69727e9d6652ce1212ebead109c7e67f336444",
+        "bounds_xz_m": [
+          -480,
+          -1280,
+          1760,
+          1280
+        ],
+        "relief_profile": "city",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1280,
+        1760,
+        1280
+      ],
+      "grid_vertices": 5751,
+      "protected_vertices": 3226,
+      "protected_grid_sha256": "5cacea1587684574e555aea5d27881cac72f3967e0d2da6b9c66953248f705c4",
+      "surface_guard_vertices": 3659,
+      "surface_guard_grid_sha256": "a2a5b4b297948ad518c4e3655cbf5a0f517560c4b5dc3a15187a869f47578bc8",
+      "sea_y": 14.231100082397461,
+      "sea_runs": [
+        [
+          1244,
+          1246
+        ],
+        [
+          1324,
+          1328
+        ],
+        [
+          1403,
+          1419
+        ],
+        [
+          1474,
+          1475
+        ],
+        [
+          1478,
+          1479
+        ],
+        [
+          1481,
+          1500
+        ],
+        [
+          1555,
+          1581
+        ],
+        [
+          1636,
+          1662
+        ],
+        [
+          1717,
+          1743
+        ],
+        [
+          1798,
+          1824
+        ],
+        [
+          1825,
+          1833
+        ],
+        [
+          1880,
+          1914
+        ],
+        [
+          1961,
+          1995
+        ],
+        [
+          2041,
+          2076
+        ],
+        [
+          2122,
+          2157
+        ],
+        [
+          2205,
+          2206
+        ],
+        [
+          2214,
+          2232
+        ],
+        [
+          2236,
+          2239
+        ],
+        [
+          2296,
+          2312
+        ],
+        [
+          2377,
+          2392
+        ],
+        [
+          2458,
+          2473
+        ],
+        [
+          2539,
+          2554
+        ],
+        [
+          2621,
+          2635
+        ],
+        [
+          2702,
+          2717
+        ],
+        [
+          2783,
+          2799
+        ],
+        [
+          2863,
+          2880
+        ],
+        [
+          2944,
+          2960
+        ],
+        [
+          3025,
+          3040
+        ],
+        [
+          3106,
+          3121
+        ],
+        [
+          3187,
+          3202
+        ],
+        [
+          3268,
+          3283
+        ],
+        [
+          3349,
+          3364
+        ],
+        [
+          3421,
+          3423
+        ],
+        [
+          3429,
+          3446
+        ],
+        [
+          3500,
+          3506
+        ],
+        [
+          3508,
+          3529
+        ],
+        [
+          3580,
+          3620
+        ],
+        [
+          3661,
+          3701
+        ],
+        [
+          3742,
+          3782
+        ],
+        [
+          3823,
+          3863
+        ],
+        [
+          3905,
+          3944
+        ],
+        [
+          3985,
+          4025
+        ],
+        [
+          4066,
+          4106
+        ],
+        [
+          4147,
+          4179
+        ],
+        [
+          4185,
+          4187
+        ],
+        [
+          4228,
+          4233
+        ],
+        [
+          4237,
+          4247
+        ],
+        [
+          4250,
+          4258
+        ],
+        [
+          4267,
+          4268
+        ],
+        [
+          4332,
+          4338
+        ]
+      ]
+    },
+    {
+      "id": "neon_underpass",
+      "terrain_parameters_sha256": "e588dfb0152000831c9de436e022579b035b6c5149cb8d08cbaf5a4d2b0b0e57",
+      "classic": false,
+      "old_export_sha256": "b3dc318cbd9399db47ce3e8f72280ccfbd4777d2f09ebc24fa29424a5686dc22",
+      "old_grid_sha256": "2583ec8bb9956f6062f3f4f7492ae42232d4a5e5e408eafa93d134c4e7ee333b",
+      "route_hash": "49376b9dd3b21a939fcaebcc7f547b61bf83d41bcbbff069eb747e967343581f",
+      "metadata": {
+        "id": "neon_underpass",
+        "path": "assets/exported/scenery/neon_underpass_terrain.glb",
+        "sha256": "b3dc318cbd9399db47ce3e8f72280ccfbd4777d2f09ebc24fa29424a5686dc22",
+        "chunks": 225,
+        "triangles": 11250,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "49376b9dd3b21a939fcaebcc7f547b61bf83d41bcbbff069eb747e967343581f",
+        "bounds_xz_m": [
+          -480,
+          -1120,
+          1920,
+          1280
+        ],
+        "relief_profile": "city",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1120,
+        1920,
+        1280
+      ],
+      "grid_vertices": 5776,
+      "protected_vertices": 2865,
+      "protected_grid_sha256": "11594322d6d4f1949259f336e1faafdb6429f5b832945492188a8cd1916df391",
+      "surface_guard_vertices": 3199,
+      "surface_guard_grid_sha256": "05e95240bc9c6358abd537d62b13a406ea2a644f9dbbaed847cae141f7ac4035",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "windfarm_run",
+      "terrain_parameters_sha256": "f82386fdda3998dbe7a7542327a439fe5c5b23299dd88ba191929f070937dee4",
+      "classic": false,
+      "old_export_sha256": "d3efd02a5decf99a23fab89ea4b00d0b0c69c33bd2a7c00c158e8d479fab16e3",
+      "old_grid_sha256": "7bb6a3995dde3964c2bd05adc58b57802619b5ab680578aa7bf84f5a5aa9bb1d",
+      "route_hash": "4e50fe51fecc66f90bf1783049687d22f3c5e10d6928b394025f3f53ed9711ae",
+      "metadata": {
+        "id": "windfarm_run",
+        "path": "assets/exported/scenery/windfarm_run_terrain.glb",
+        "sha256": "d3efd02a5decf99a23fab89ea4b00d0b0c69c33bd2a7c00c158e8d479fab16e3",
+        "chunks": 285,
+        "triangles": 14250,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "4e50fe51fecc66f90bf1783049687d22f3c5e10d6928b394025f3f53ed9711ae",
+        "bounds_xz_m": [
+          -480,
+          -1600,
+          1920,
+          1440
+        ],
+        "relief_profile": "hills",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1600,
+        1920,
+        1440
+      ],
+      "grid_vertices": 7296,
+      "protected_vertices": 3005,
+      "protected_grid_sha256": "c3257bfcca2c259d1907627794331663d43a3254ca699c83dfdde428615a6479",
+      "surface_guard_vertices": 3560,
+      "surface_guard_grid_sha256": "f3ec2e8d738298037e6c33ac256b8b5d2e7e247f985f83632424a39322a24ffa",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "festival_speedway",
+      "terrain_parameters_sha256": "3279a8b753a734f6b5dca113d1d61075ea83c8a6edc8d33fa5aa709186947a60",
+      "classic": false,
+      "old_export_sha256": "92b6ef47a577cd292a99317af98b95ac31d7333dd95652b165dcfd0cec48eee3",
+      "old_grid_sha256": "97d8be48a49b0f8b006ab4e8abbd620fd94a3b872a66f8af8af5aa44911ec393",
+      "route_hash": "cdb0ca36db7d06125caa66c2ac8b11a6f5274bd62a6d4e299b54867a2b696aff",
+      "metadata": {
+        "id": "festival_speedway",
+        "path": "assets/exported/scenery/festival_speedway_terrain.glb",
+        "sha256": "92b6ef47a577cd292a99317af98b95ac31d7333dd95652b165dcfd0cec48eee3",
+        "chunks": 180,
+        "triangles": 9000,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "cdb0ca36db7d06125caa66c2ac8b11a6f5274bd62a6d4e299b54867a2b696aff",
+        "bounds_xz_m": [
+          -480,
+          -1120,
+          1440,
+          1280
+        ],
+        "relief_profile": "hills",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 0,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1120,
+        1440,
+        1280
+      ],
+      "grid_vertices": 4636,
+      "protected_vertices": 2337,
+      "protected_grid_sha256": "2ae22aad57cb9ce66e23b361a0a9d0d02f38194d7f8885c8e54009ae624ac0b2",
+      "surface_guard_vertices": 2687,
+      "surface_guard_grid_sha256": "f5a14e198d98df4f643e89ffb5879e0b2e95ef91126b85f4b5a672c8c8fdf96a",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "lunar_freight",
+      "terrain_parameters_sha256": "0ee026e3a8d5f48faaae222fa5dc934238a6c5941bae766bfbff625850a64b33",
+      "classic": false,
+      "old_export_sha256": "91b09d8972a33d24f59a37a28fa58627dc882dfeed89ac503f1ce11ed09701ca",
+      "old_grid_sha256": "18e080e90e6000414bfcbef230ca72984291cbc1298c8edff17df07a841beccb",
+      "route_hash": "497f86f7a78902e46ab9e2311f8ed41d2da36ae3220aef136ba39b1b336ddd56",
+      "metadata": {
+        "id": "lunar_freight",
+        "path": "assets/exported/scenery/lunar_freight_terrain.glb",
+        "sha256": "91b09d8972a33d24f59a37a28fa58627dc882dfeed89ac503f1ce11ed09701ca",
+        "chunks": 224,
+        "triangles": 11200,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "497f86f7a78902e46ab9e2311f8ed41d2da36ae3220aef136ba39b1b336ddd56",
+        "bounds_xz_m": [
+          -1120,
+          -1280,
+          1120,
+          1280
+        ],
+        "relief_profile": "crater",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -1120,
+        -1280,
+        1120,
+        1280
+      ],
+      "grid_vertices": 5751,
+      "protected_vertices": 3548,
+      "protected_grid_sha256": "dfd4a912910c4574afe1a46005ea0875f5386b8bbf5cbd9c3369a7b102379a10",
+      "surface_guard_vertices": 3890,
+      "surface_guard_grid_sha256": "0d0237aa71d22801f45961360a89deda053bed7ebb61e5bb40210e936b59aa10",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "orbital_gardens",
+      "terrain_parameters_sha256": "008f28a8dc361df4134c8a336ffb03da00994fe324b98dac74f186bc9a021ace",
+      "classic": false,
+      "old_export_sha256": "70e60a26817bd2b81f1927a3519dde1925a8f5ead6c2617235175ba288f4a2ed",
+      "old_grid_sha256": "4fdd311588cff9d240aa563370d600580e62df796f87aec207c841c8a1b91616",
+      "route_hash": "7c03af8faec42d84c5282b072496224e7aef8988f6e5de9cc994e8827cdf6ca0",
+      "metadata": {
+        "id": "orbital_gardens",
+        "path": "assets/exported/scenery/orbital_gardens_terrain.glb",
+        "sha256": "70e60a26817bd2b81f1927a3519dde1925a8f5ead6c2617235175ba288f4a2ed",
+        "chunks": 300,
+        "triangles": 15000,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "7c03af8faec42d84c5282b072496224e7aef8988f6e5de9cc994e8827cdf6ca0",
+        "bounds_xz_m": [
+          -480,
+          -1600,
+          1920,
+          1600
+        ],
+        "relief_profile": "hills",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1600,
+        1920,
+        1600
+      ],
+      "grid_vertices": 7676,
+      "protected_vertices": 2955,
+      "protected_grid_sha256": "e00e79bf643d8d2df985ce4da74c7a547912bf8e40e988549cc8b415bc1a444a",
+      "surface_guard_vertices": 3508,
+      "surface_guard_grid_sha256": "901b226a42a9c7460852b988ecd844afc39565221e0f5cd7873b0643cc526af1",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "crystal_chasm",
+      "terrain_parameters_sha256": "22ef617bfa7119b8c43eed8de9168d7362c3dd8bdb216258debff887121abed7",
+      "classic": false,
+      "old_export_sha256": "d20d8dedb74e5e5dc9f65e4872b0831850eb2e6ea7c5ba2bb94e767e8806017d",
+      "old_grid_sha256": "92a91f108e4dfb6a67d7a27e477ab0109d333f7e8f85f26e555228d01724d924",
+      "route_hash": "d7528584e702ef8cc05072843e75fd3c84ee3f1f0ade1b32026c4728ceb35a10",
+      "metadata": {
+        "id": "crystal_chasm",
+        "path": "assets/exported/scenery/crystal_chasm_terrain.glb",
+        "sha256": "d20d8dedb74e5e5dc9f65e4872b0831850eb2e6ea7c5ba2bb94e767e8806017d",
+        "chunks": 195,
+        "triangles": 9750,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "d7528584e702ef8cc05072843e75fd3c84ee3f1f0ade1b32026c4728ceb35a10",
+        "bounds_xz_m": [
+          -640,
+          -960,
+          1440,
+          1440
+        ],
+        "relief_profile": "crystal",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -640,
+        -960,
+        1440,
+        1440
+      ],
+      "grid_vertices": 5016,
+      "protected_vertices": 2300,
+      "protected_grid_sha256": "e68fa74dc5f911e5ca33cce3983e0abce140ca7b929c7542705d76e3191c5880",
+      "surface_guard_vertices": 2633,
+      "surface_guard_grid_sha256": "704c44f274c187435cb7a2aee44ab95843cc5c6a0e5c87f0bef70955096f44b3",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "mars_badlands",
+      "terrain_parameters_sha256": "c53a97790248a78a83154d87f9dd6b65a4f0e02618e35cf559288324c3af3308",
+      "classic": false,
+      "old_export_sha256": "b7fe6573251007abdf8c6cb5ca250b4115e3a7f4e7f2ecb6a53e04908fd4f0bd",
+      "old_grid_sha256": "1abdd33a9150b4bf75e8c376a875521dbee15e0a067db12229d9508b70c7666e",
+      "route_hash": "bef97f88da3622c938fb0fdb19c58814255de16c6a0c7ac3daad28f38f48110b",
+      "metadata": {
+        "id": "mars_badlands",
+        "path": "assets/exported/scenery/mars_badlands_terrain.glb",
+        "sha256": "b7fe6573251007abdf8c6cb5ca250b4115e3a7f4e7f2ecb6a53e04908fd4f0bd",
+        "chunks": 342,
+        "triangles": 17100,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "bef97f88da3622c938fb0fdb19c58814255de16c6a0c7ac3daad28f38f48110b",
+        "bounds_xz_m": [
+          -480,
+          -1600,
+          2400,
+          1440
+        ],
+        "relief_profile": "mesa",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1600,
+        2400,
+        1440
+      ],
+      "grid_vertices": 8736,
+      "protected_vertices": 3098,
+      "protected_grid_sha256": "5a6eb084bf8f4189fdaf6903dbda5ecff952f8a322dc433d4bebe864f84f491c",
+      "surface_guard_vertices": 3679,
+      "surface_guard_grid_sha256": "0d63d41745b3679873c004a64540886ed4d94de453ebce96978b48ba4014e55d",
+      "sea_y": 7.0,
+      "sea_runs": []
+    },
+    {
+      "id": "reactor_rift",
+      "terrain_parameters_sha256": "546907771e749f8a77389659a79c60b22b05edeb3198fd7f30a09eadb1f4feec",
+      "classic": false,
+      "old_export_sha256": "52cfaba4f7195eb6886c1e82178f02f18a94038159e7e43b6595b671ad60acfa",
+      "old_grid_sha256": "b82d2edbbc9de90546bb91a01545b838b9a2268fd9206af7a10e6093ac939233",
+      "route_hash": "305fe2b8f8cd74ca3bc6a6e2a4f36509f0b9bb37bf4ac8937732ad41a7ec4172",
+      "metadata": {
+        "id": "reactor_rift",
+        "path": "assets/exported/scenery/reactor_rift_terrain.glb",
+        "sha256": "52cfaba4f7195eb6886c1e82178f02f18a94038159e7e43b6595b671ad60acfa",
+        "chunks": 225,
+        "triangles": 11250,
+        "chunk_width_m": 160,
+        "grid_step_m": 32,
+        "sea_level": 8.5,
+        "route_hash": "305fe2b8f8cd74ca3bc6a6e2a4f36509f0b9bb37bf4ac8937732ad41a7ec4172",
+        "bounds_xz_m": [
+          -480,
+          -1120,
+          1920,
+          1280
+        ],
+        "relief_profile": "basalt",
+        "protected_road_band_m": 240,
+        "protected_vertex_band_m": 286,
+        "relief_source": "assets/source/terrain_profiles.py",
+        "relief_source_sha256": "38ec69bb3dc22463c19b204fe1491a563e426571fec2269cf7acb71453085a68",
+        "composition_version": 14,
+        "authored_landforms": 2,
+        "authored_road_guard_m": 128
+      },
+      "bounds_xz_m": [
+        -480,
+        -1120,
+        1920,
+        1280
+      ],
+      "grid_vertices": 5776,
+      "protected_vertices": 2733,
+      "protected_grid_sha256": "5fca6d82a21b95f312a1d2a45f82a68bf5073560fdfb30e4d046046e7022c84e",
+      "surface_guard_vertices": 3184,
+      "surface_guard_grid_sha256": "158ccd86c6b24c1cfe7484a79660e167519eebfeeedb44c790883c94d631d8b5",
+      "sea_y": 7.0,
+      "sea_runs": []
+    }
+  ]
+}

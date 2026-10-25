@@ -1,0 +1,19 @@
+# Smooth-road checkpoint (content 19)
+
+Six Easy courses retain their base curves with zero added lateral noise. The
+other 34 route definitions and baked geometry remain unchanged. The before/after
+plot shows actual baked centerlines (pink previous; mint smooth). Native gameplay
+and desktop/phone filter images were inspected; phone capture uses a desktop
+renderer with an 884x398 viewport and 150% UI scale.
+
+Terrain was regenerated only for the six changed courses, with a new versioned
+terrain foundation. The content-15 foundation is preserved. Braking lines, medal
+reference times, thumbnails and route icons were regenerated from the new roads.
+All routes pass the 28 m minimum radius and 24% grade limits. All forty worlds
+pass accent clearance; terrain triangle grounding and classic landscape checks
+pass. Thirty-three Python tests pass. Filter testing covers nine categories in
+both Quick Race and Trial on desktop and phone, including nonrepeating random
+tours and an actual race launch. Frozen content-18 saves remain byte-preserved.
+
+Full source validation is running separately. These checks do not establish
+physical-device performance or a child's driving comfort.

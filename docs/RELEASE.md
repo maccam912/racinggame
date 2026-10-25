@@ -1,11 +1,11 @@
-Pacific Rush development checkpoint: eight cars and forty revised courses with
-three scales of local road detail, more angular city plans, and additional large
-and medium scenery. Trailblazer adds a grippy rally wagon; Corsair adds a fast GT.
-Pulse and Meteor each have three two-second boosts per race, with no refill:
-Shift, gamepad X/Square, or the touch Boost button. Remaining charges survive
-save/resume and network snapshots. Far Chase and Retro remain the defaults.
-See docs/COURSE_ROSTER_40.md for the course roster. Content is 16, protocol 8,
-save schema 1; older saves remain archived with incompatible continuation disabled.
+Pacific Rush development checkpoint: six smooth beginner roads alongside 34
+technical courses, with Smooth/Technical filters and road-style labels. Palm Bay,
+Citrus Pass, Tundra Pipeline, Saltflat Velocity, Storm Chase and Festival Speedway
+have no added road wiggles; Citrus retains its jumps. Eight cars, including Pulse
+and Meteor with three two-second boosts, remain available. Hosts can privately
+assign Gentle or Strong steering help to individual players. Far Chase and Retro
+remain the defaults. Content/protocol/save versions are 19/9/1; older progress
+remains archived with incompatible continuation disabled.
 This is an incomplete implementation of DESIGN.md.
 
 Desktop packages, Android ARM64 APK/AAB, and Linux dedicated worker are published together with build metadata and SHA-256 checksums. macOS is ad-hoc signed; publisher signing and notarization are pending. Android release-mode packages use a stable development certificate, not a store publisher certificate.

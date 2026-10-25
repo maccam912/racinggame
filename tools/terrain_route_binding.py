@@ -13,7 +13,7 @@ def geometry_hash(bake):
 
 
 def binding():
-    return json.loads((ROOT/'assets/source/terrain_routes15.json').read_text())
+    return json.loads((ROOT/'assets/source/terrain_routes19.json').read_text())
 
 
 def route_matches(row, bake):
