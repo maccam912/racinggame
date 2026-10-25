@@ -1,0 +1,30 @@
+{
+  "apk_commit": "0e8a0a5aa1e7f88403742895fcbe9f0b3749ba2a",
+  "quick_setup_after_relaunch": {
+    "contact": false,
+    "difficulty": 0,
+    "filter": "smooth",
+    "laps": 1,
+    "opponents": 3,
+    "track": "palm_bay"
+  },
+  "saved_mobile_settings_after_reapplying_relaxed": {
+    "sensitivity": 0.75,
+    "steering_assist": "strong",
+    "corner_braking": true,
+    "turn_hints": true,
+    "auto_accelerate": true,
+    "touch_auto_accelerate": true
+  },
+  "observed": [
+    "Touch selection in garage and event menu",
+    "Relaxed button visible without scrolling",
+    "Four-car one-lap race started",
+    "Pause and restart worked",
+    "Home and return left race paused",
+    "Force-stop then cold launch offered saved Palm Bay race",
+    "Resume restored race with touch HUD and auto acceleration"
+  ],
+  "godot_error_log_clean": true,
+  "boundary": "Disposable Android 15 arm64 emulator, API 35, development-signed APK. No physical touchscreen, thermals, child playtest, Play Store or public signing claim."
+}

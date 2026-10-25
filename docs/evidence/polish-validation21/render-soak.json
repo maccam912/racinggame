@@ -1,0 +1,786 @@
+{
+  "passed": true,
+  "base_commit": "0e8a0a5aa1e7f88403742895fcbe9f0b3749ba2a",
+  "working_tree_dirty": false,
+  "platform": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+  "requested_seconds": 900,
+  "profile": "render_soak_6fbcebb7a5b7",
+  "content_hash": "3a708b25913c73fe7db51593df73cfc82709412a4d8a7188017d8adedfb95415",
+  "asset_hash": "e1f826ea2a8508b1134aeb3ce378291d5ced35ad8d91db2add1c81057966d1be",
+  "planned_tracks": [
+    "palm_bay",
+    "festival_speedway",
+    "temple_coast"
+  ],
+  "all_catalog_tracks": false,
+  "audio_driver": "Dummy",
+  "fixture_sha256": "f3db4f7c4db97d33250f830bf2b6c7d41f33743869d23e4f9dabe2f1c0eecb9c",
+  "boundary": "Live native source rendering at 1920x1080 Medium/60 cap, repeated eight-car races on the explicitly recorded courses. RSS includes renderer/audio/scene resources. This host can have other applications/emulators active; no minimum-device or physical thermal budget claim.",
+  "native": {
+    "asset_hash": "e1f826ea2a8508b1134aeb3ce378291d5ced35ad8d91db2add1c81057966d1be",
+    "boundary": "Live source client, normally paced eight-car races on the recorded courses, production loading/HUD/render-scale path, ordinary diagnostic AI inputs. Repeated scene lifetime exercise on this host; not exported-template, minimum-hardware, human driving, physical Android or thermal acceptance.",
+    "content_hash": "3a708b25913c73fe7db51593df73cfc82709412a4d8a7188017d8adedfb95415",
+    "elapsed_seconds": 912.964481,
+    "final": true,
+    "frame_timing": "Wall-clock microseconds between RenderingServer.frame_post_draw callbacks, including OS scheduling; excludes loading/menu/countdown. No engine simulation-delta or fixed-fps movie timing.",
+    "gpu": "Apple M5 Pro",
+    "passed": true,
+    "planned_tracks": [
+      "palm_bay",
+      "festival_speedway",
+      "temple_coast"
+    ],
+    "platform": {
+      "mobile": false,
+      "native_save_dialog": true,
+      "os": "macOS",
+      "processor_count": 18,
+      "renderer": "gl_compatibility",
+      "viewport_height": 720,
+      "viewport_width": 1280,
+      "window_pixel_height": 1080,
+      "window_pixel_width": 1920
+    },
+    "races": [
+      {
+        "finished_at_seconds": 89.173577,
+        "rows": [
+          {
+            "car": "switch",
+            "slot": 1,
+            "time": 77.1328752195693
+          },
+          {
+            "car": "comet",
+            "slot": 0,
+            "time": 77.9643460878256
+          },
+          {
+            "car": "comet",
+            "slot": 4,
+            "time": 78.134378689892
+          },
+          {
+            "car": "sunset",
+            "slot": 3,
+            "time": 78.8293968098427
+          },
+          {
+            "car": "corsair",
+            "slot": 6,
+            "time": 79.1074077131348
+          },
+          {
+            "car": "needle",
+            "slot": 2,
+            "time": 79.3103345138369
+          },
+          {
+            "car": "meteor",
+            "slot": 7,
+            "time": 79.5976158689896
+          },
+          {
+            "car": "pulse",
+            "slot": 5,
+            "time": 79.8677241920125
+          }
+        ],
+        "track": "palm_bay"
+      },
+      {
+        "finished_at_seconds": 208.064779,
+        "rows": [
+          {
+            "car": "switch",
+            "slot": 1,
+            "time": 107.523062902613
+          },
+          {
+            "car": "comet",
+            "slot": 0,
+            "time": 107.980158389867
+          },
+          {
+            "car": "needle",
+            "slot": 4,
+            "time": 108.657305346506
+          },
+          {
+            "car": "needle",
+            "slot": 2,
+            "time": 109.13918047714
+          },
+          {
+            "car": "sunset",
+            "slot": 3,
+            "time": 109.228251485343
+          },
+          {
+            "car": "meteor",
+            "slot": 7,
+            "time": 109.340362543202
+          },
+          {
+            "car": "pulse",
+            "slot": 5,
+            "time": 109.412717184905
+          },
+          {
+            "car": "corsair",
+            "slot": 6,
+            "time": 109.576468428119
+          }
+        ],
+        "track": "festival_speedway"
+      },
+      {
+        "finished_at_seconds": 350.046956,
+        "rows": [
+          {
+            "car": "switch",
+            "slot": 1,
+            "time": 130.231479979221
+          },
+          {
+            "car": "switch",
+            "slot": 4,
+            "time": 130.325554568041
+          },
+          {
+            "car": "pulse",
+            "slot": 5,
+            "time": 131.044653826871
+          },
+          {
+            "car": "comet",
+            "slot": 0,
+            "time": 131.59421888759
+          },
+          {
+            "car": "sunset",
+            "slot": 3,
+            "time": 131.784756523231
+          },
+          {
+            "car": "corsair",
+            "slot": 6,
+            "time": 132.114483654174
+          },
+          {
+            "car": "meteor",
+            "slot": 7,
+            "time": 132.382571447482
+          },
+          {
+            "car": "needle",
+            "slot": 2,
+            "time": 132.591832932836
+          }
+        ],
+        "track": "temple_coast"
+      },
+      {
+        "finished_at_seconds": 438.928958,
+        "rows": [
+          {
+            "car": "switch",
+            "slot": 1,
+            "time": 77.4733598872812
+          },
+          {
+            "car": "comet",
+            "slot": 0,
+            "time": 78.1807778791631
+          },
+          {
+            "car": "sunset",
+            "slot": 4,
+            "time": 78.6855743166008
+          },
+          {
+            "car": "sunset",
+            "slot": 3,
+            "time": 79.242828223463
+          },
+          {
+            "car": "needle",
+            "slot": 2,
+            "time": 79.5231633151329
+          },
+          {
+            "car": "pulse",
+            "slot": 5,
+            "time": 79.6478086110054
+          },
+          {
+            "car": "corsair",
+            "slot": 6,
+            "time": 80.0427570458707
+          },
+          {
+            "car": "meteor",
+            "slot": 7,
+            "time": 80.2703094489492
+          }
+        ],
+        "track": "palm_bay"
+      },
+      {
+        "finished_at_seconds": 556.989562,
+        "rows": [
+          {
+            "car": "switch",
+            "slot": 1,
+            "time": 106.605722379421
+          },
+          {
+            "car": "comet",
+            "slot": 0,
+            "time": 107.234335558995
+          },
+          {
+            "car": "comet",
+            "slot": 4,
+            "time": 107.436944121781
+          },
+          {
+            "car": "sunset",
+            "slot": 3,
+            "time": 107.981583848728
+          },
+          {
+            "car": "needle",
+            "slot": 2,
+            "time": 108.293996571989
+          },
+          {
+            "car": "corsair",
+            "slot": 6,
+            "time": 108.390576526349
+          },
+          {
+            "car": "pulse",
+            "slot": 5,
+            "time": 108.479884882508
+          },
+          {
+            "car": "meteor",
+            "slot": 7,
+            "time": 108.850175766301
+          }
+        ],
+        "track": "festival_speedway"
+      },
+      {
+        "finished_at_seconds": 707.390986,
+        "rows": [
+          {
+            "car": "switch",
+            "slot": 1,
+            "time": 138.626952565832
+          },
+          {
+            "car": "pulse",
+            "slot": 5,
+            "time": 138.832858525454
+          },
+          {
+            "car": "comet",
+            "slot": 0,
+            "time": 139.356810256446
+          },
+          {
+            "car": "sunset",
+            "slot": 3,
+            "time": 139.667374841837
+          },
+          {
+            "car": "needle",
+            "slot": 4,
+            "time": 140.372471451072
+          },
+          {
+            "car": "corsair",
+            "slot": 6,
+            "time": 140.522886016452
+          },
+          {
+            "car": "needle",
+            "slot": 2,
+            "time": 140.6914406574
+          },
+          {
+            "car": "meteor",
+            "slot": 7,
+            "time": 140.99589669777
+          }
+        ],
+        "track": "temple_coast"
+      },
+      {
+        "finished_at_seconds": 794.651418,
+        "rows": [
+          {
+            "car": "switch",
+            "slot": 1,
+            "time": 76.0208144478978
+          },
+          {
+            "car": "switch",
+            "slot": 4,
+            "time": 76.1734424941331
+          },
+          {
+            "car": "comet",
+            "slot": 0,
+            "time": 77.2482313234244
+          },
+          {
+            "car": "sunset",
+            "slot": 3,
+            "time": 77.5169250981283
+          },
+          {
+            "car": "pulse",
+            "slot": 5,
+            "time": 77.6879442713273
+          },
+          {
+            "car": "needle",
+            "slot": 2,
+            "time": 78.116894992063
+          },
+          {
+            "car": "corsair",
+            "slot": 6,
+            "time": 78.4858893384651
+          },
+          {
+            "car": "meteor",
+            "slot": 7,
+            "time": 78.6702345268289
+          }
+        ],
+        "track": "palm_bay"
+      },
+      {
+        "finished_at_seconds": 912.964134,
+        "rows": [
+          {
+            "car": "switch",
+            "slot": 1,
+            "time": 106.91765199736
+          },
+          {
+            "car": "comet",
+            "slot": 0,
+            "time": 107.434573436541
+          },
+          {
+            "car": "sunset",
+            "slot": 4,
+            "time": 107.827791279481
+          },
+          {
+            "car": "needle",
+            "slot": 2,
+            "time": 108.503078357815
+          },
+          {
+            "car": "corsair",
+            "slot": 6,
+            "time": 108.616369770653
+          },
+          {
+            "car": "pulse",
+            "slot": 5,
+            "time": 108.624008830343
+          },
+          {
+            "car": "meteor",
+            "slot": 7,
+            "time": 109.060761527671
+          },
+          {
+            "car": "sunset",
+            "slot": 3,
+            "time": 109.14569202926
+          }
+        ],
+        "track": "festival_speedway"
+      }
+    ],
+    "racing_frame_times": {
+      "max_ms": 33.336,
+      "mean_ms": 16.6656257569562,
+      "over_33ms": 1,
+      "p95_ms": 21.937,
+      "p99_ms": 23.041,
+      "samples": 51357
+    },
+    "racing_frames": 51357,
+    "renderer": "gl_compatibility",
+    "requested_seconds": 900,
+    "settings": {
+      "adaptive_resolution": true,
+      "anisotropic": 4,
+      "announcer": 60.0,
+      "auto_accelerate": false,
+      "background_audio": false,
+      "base_fov": 65.0,
+      "bindings": {
+        "gamepad": {
+          "accelerate": [
+            {
+              "axis": 5,
+              "direction": 1,
+              "kind": "axis"
+            },
+            null
+          ],
+          "boost": [
+            {
+              "button": 2,
+              "kind": "button"
+            },
+            null
+          ],
+          "brake": [
+            {
+              "axis": 4,
+              "direction": 1,
+              "kind": "axis"
+            },
+            null
+          ],
+          "camera": [
+            {
+              "button": 1,
+              "kind": "button"
+            },
+            null
+          ],
+          "handbrake": [
+            {
+              "button": 0,
+              "kind": "button"
+            },
+            null
+          ],
+          "look_back": [
+            {
+              "button": 8,
+              "kind": "button"
+            },
+            null
+          ],
+          "pause": [
+            {
+              "button": 6,
+              "kind": "button"
+            },
+            null
+          ],
+          "recover": [
+            {
+              "button": 3,
+              "kind": "button"
+            },
+            null
+          ],
+          "steer_left": [
+            {
+              "axis": 0,
+              "direction": -1,
+              "kind": "axis"
+            },
+            null
+          ],
+          "steer_right": [
+            {
+              "axis": 0,
+              "direction": 1,
+              "kind": "axis"
+            },
+            null
+          ],
+          "ui_accept": [
+            {
+              "button": 0,
+              "kind": "button"
+            },
+            null
+          ],
+          "ui_cancel": [
+            {
+              "button": 1,
+              "kind": "button"
+            },
+            null
+          ],
+          "ui_down": [
+            {
+              "button": 12,
+              "kind": "button"
+            },
+            {
+              "axis": 1,
+              "direction": 1,
+              "kind": "axis"
+            }
+          ],
+          "ui_left": [
+            {
+              "button": 13,
+              "kind": "button"
+            },
+            {
+              "axis": 0,
+              "direction": -1,
+              "kind": "axis"
+            }
+          ],
+          "ui_right": [
+            {
+              "button": 14,
+              "kind": "button"
+            },
+            {
+              "axis": 0,
+              "direction": 1,
+              "kind": "axis"
+            }
+          ],
+          "ui_up": [
+            {
+              "button": 11,
+              "kind": "button"
+            },
+            {
+              "axis": 1,
+              "direction": -1,
+              "kind": "axis"
+            }
+          ]
+        },
+        "keyboard": {
+          "accelerate": [
+            {
+              "code": 87,
+              "kind": "key"
+            },
+            {
+              "code": 4194320,
+              "kind": "key"
+            }
+          ],
+          "boost": [
+            {
+              "code": 4194325,
+              "kind": "key"
+            },
+            null
+          ],
+          "brake": [
+            {
+              "code": 83,
+              "kind": "key"
+            },
+            {
+              "code": 4194322,
+              "kind": "key"
+            }
+          ],
+          "camera": [
+            {
+              "code": 67,
+              "kind": "key"
+            },
+            null
+          ],
+          "handbrake": [
+            {
+              "code": 32,
+              "kind": "key"
+            },
+            null
+          ],
+          "look_back": [
+            {
+              "code": 86,
+              "kind": "key"
+            },
+            null
+          ],
+          "pause": [
+            {
+              "code": 4194305,
+              "kind": "key"
+            },
+            null
+          ],
+          "recover": [
+            {
+              "code": 82,
+              "kind": "key"
+            },
+            null
+          ],
+          "steer_left": [
+            {
+              "code": 65,
+              "kind": "key"
+            },
+            {
+              "code": 4194319,
+              "kind": "key"
+            }
+          ],
+          "steer_right": [
+            {
+              "code": 68,
+              "kind": "key"
+            },
+            {
+              "code": 4194321,
+              "kind": "key"
+            }
+          ],
+          "ui_accept": [
+            {
+              "code": 4194309,
+              "kind": "key"
+            },
+            null
+          ],
+          "ui_cancel": [
+            {
+              "code": 4194305,
+              "kind": "key"
+            },
+            null
+          ],
+          "ui_down": [
+            {
+              "code": 4194322,
+              "kind": "key"
+            },
+            {
+              "code": 83,
+              "kind": "key"
+            }
+          ],
+          "ui_left": [
+            {
+              "code": 4194319,
+              "kind": "key"
+            },
+            {
+              "code": 65,
+              "kind": "key"
+            }
+          ],
+          "ui_right": [
+            {
+              "code": 4194321,
+              "kind": "key"
+            },
+            {
+              "code": 68,
+              "kind": "key"
+            }
+          ],
+          "ui_up": [
+            {
+              "code": 4194320,
+              "kind": "key"
+            },
+            {
+              "code": 87,
+              "kind": "key"
+            }
+          ]
+        }
+      },
+      "brightness": 1.0,
+      "button_size": 100.0,
+      "camera": "far",
+      "captions": true,
+      "collision_shake": 50.0,
+      "corner_braking": false,
+      "deadzone": 0.15,
+      "draw_distance": 700,
+      "driving_hints": true,
+      "dynamic_fov": true,
+      "dynamic_range": "standard",
+      "effects": "full",
+      "effects_volume": 80.0,
+      "engine": 80.0,
+      "frame_cap": 60,
+      "haptics": false,
+      "high_contrast": false,
+      "hold_assistance": false,
+      "left_handed": false,
+      "master": 80.0,
+      "monitor": 0,
+      "msaa": 4,
+      "music": 60.0,
+      "nameplates": true,
+      "opacity": 60.0,
+      "palette": "standard",
+      "preset": "medium",
+      "prompts": "auto",
+      "reduce_motion": false,
+      "render_scale": 100,
+      "resolution": "native",
+      "retro": true,
+      "sensitivity": 1.0,
+      "shadows": "low",
+      "steering_assist": "off",
+      "steering_style": "slider",
+      "touch_auto_accelerate": true,
+      "touch_layouts": {},
+      "trial_ghost": true,
+      "turn_hints": false,
+      "ui_scale": 100.0,
+      "units": "mph",
+      "vibration": 50.0,
+      "vsync": false,
+      "window_mode": "borderless"
+    }
+  },
+  "memory": {
+    "peak_rss_bytes": 739835904,
+    "growth_measured": true,
+    "baseline": {
+      "elapsed_seconds": 300.87820162507705,
+      "rss_bytes": 578256896
+    },
+    "end": {
+      "elapsed_seconds": 900.8129490839783,
+      "rss_bytes": 581025792
+    },
+    "warmup_peak_rss_bytes": 739835904,
+    "post_warmup_peak_rss_bytes": 703758336,
+    "peak_growth_fraction": -0.048764283816104204,
+    "retained_growth_fraction": 0.0047883492944975625,
+    "scope": "All scene/loading transition peaks retained, 5\u201315 minute repeated-course high-water comparison. Separate from a continuous worst-track hardware test."
+  },
+  "checks": {
+    "normal_complete_races": true,
+    "racing_frames_recorded": true,
+    "desktop_rss_under_2GB": true,
+    "source_unchanged": true,
+    "engine_log": true,
+    "rss_growth_at_most_5percent": true,
+    "all_planned_courses": true
+  },
+  "host_frame_budget": {
+    "p95_at_most_20ms": false,
+    "p99_at_most_33ms": true
+  },
+  "owned_profile_archived": true,
+  "elapsed_seconds": 916.1999512091279,
+  "concurrent_work": "Android emulator install/touch tests and eight-client network soak ran during part of this source-render soak. No minimum-hardware performance claim."
+}

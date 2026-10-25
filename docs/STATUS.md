@@ -1,5 +1,14 @@
 # Implementation status
 
+## 25 October — runtime and packaged Android validation
+
+The content-21 full run passed 227/227 commands. All eight cars finished all six
+smooth roads under the slow-input Relaxed probe. A 15-minute native run completed
+eight races and passed scene/memory checks; its p95 frame time was 21.94 ms, above
+the optional 20 ms host target. Packaged Android clean install, native storage,
+upgrade preserving 30 files, touch setup and cold race resume passed on an owned
+emulator. Physical-device feel remains untested. [Evidence and boundaries](evidence/polish-validation21/README.md).
+
 ## 24 October — clearer race results
 
 Finishing places, car pictures and labelled times replace dense unlabelled result

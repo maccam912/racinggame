@@ -1,0 +1,119 @@
+{
+  "passed": true,
+  "serial": "emulator-5556",
+  "avd": "pacific_rush_install_polish_20261025",
+  "apk_sha256": "b95719d462602987f76868bbe45202c368826f1ea78d9b097d9db2614bd99a9d",
+  "scope": "test:c29c10ee-d61a-4103-aa51-bc88c2eca001",
+  "steps": {
+    "offline_route": {
+      "passed": true,
+      "observed_seconds": 1.1474091249983758,
+      "client_ready_seconds": null
+    },
+    "first_install_preferences": {
+      "passed": true,
+      "observed_seconds": 1.207024791976437,
+      "client_ready_seconds": 1.2066858750768006,
+      "png_sha256": "0043e8465694387e3ac96667382d880acb93815b3f6f2da0b947b5e8af28e46c"
+    },
+    "key_initially_absent": {
+      "passed": true,
+      "observed_seconds": 0.7081058330368251,
+      "client_ready_seconds": null
+    },
+    "key_write": {
+      "passed": true,
+      "observed_seconds": 0.6159735829569399,
+      "client_ready_seconds": null
+    },
+    "key_cold_read": {
+      "passed": true,
+      "observed_seconds": 0.6087412498891354,
+      "client_ready_seconds": null
+    },
+    "save_write": {
+      "passed": true,
+      "observed_seconds": 0.7234457910526544,
+      "client_ready_seconds": null
+    },
+    "save_cold_read": {
+      "passed": true,
+      "observed_seconds": 0.5990572921000421,
+      "client_ready_seconds": null
+    },
+    "old_key_absent_after_reinstall": {
+      "passed": true,
+      "observed_seconds": 0.8663637079298496,
+      "client_ready_seconds": null
+    },
+    "old_save_absent_after_reinstall": {
+      "passed": true,
+      "observed_seconds": 0.616075708065182,
+      "client_ready_seconds": null
+    },
+    "reinstalled_preferences": {
+      "passed": true,
+      "observed_seconds": 1.2823582501150668,
+      "client_ready_seconds": 1.2820602499414235,
+      "png_sha256": "cf66d4ffacc264b670ddec4623b2da0da25d33112f9e6e3866f5fe11db676fe9"
+    }
+  },
+  "boundary": "New disposable emulator, actual release APK, offline first-run renders, native save and non-exportable test-key probes, owned uninstall/reinstall. No player data, real online guest registration, physical hardware or storefront acceptance. Startup observations include host polling and are not minimum-hardware first-frame benchmarks.",
+  "build": {
+    "version": "0.0.159-dev",
+    "build_number": 159,
+    "working_tree_dirty": false,
+    "commit": "be93162f92f7878523a1fb307672d022ef5069fc",
+    "engine_version": "4.6.3-stable",
+    "engine_checksum": "d0bc2113065e481c9c2c2b2c37daa4e8be3fe9e27f0ab9ab0b6096e9a37907f3",
+    "export_templates_checksum": "3fbe2c0e2dec9d537ab9ec97bcf8da91dcf23357fc51f67092dd068d839290a8",
+    "protocol_version": 10,
+    "save_schema": 1,
+    "content_hash": "3a708b25913c73fe7db51593df73cfc82709412a4d8a7188017d8adedfb95415",
+    "asset_hash": "e1f826ea2a8508b1134aeb3ce378291d5ced35ad8d91db2add1c81057966d1be",
+    "target_platform": "android",
+    "distribution": "development",
+    "public_signing": "not configured",
+    "native_adapter": {
+      "platform": "android",
+      "architecture": "arm64",
+      "api_floor": "4.5",
+      "sdk_commit": "e83fd0904c13356ed1d4c3d09f8bb9132bdc6b77",
+      "scons": "4.11.1",
+      "source_hash": "bb12ad6297015e90294ce414d08bb057374f822de6cda0c256af51c707ab9799",
+      "sha256": "9a52ed2826bc86ece6013f53aa357dac61b27e08484b74676b34cf9137ec4b63"
+    },
+    "iroh_adapter": {
+      "platform": "android",
+      "targets": [
+        "aarch64-linux-android"
+      ],
+      "source_hash": "3bb322ef757e235e03789582f2105ca6ddced8b0d0bf19d901d33ad5c8b9bf8b",
+      "sha256": "dcd06d4e6a45f6ea6ef32475a0c5c11d86592c4e3e3f6c89ff6a8e2c5518e00c",
+      "iroh": "1.2.0",
+      "gdext": "0.5.5",
+      "upstream": "153979fc02f86b10802358ae38fb74204fbf179a"
+    },
+    "android_services": {
+      "source_hash": "6d85475bbffafa5189282c70259765610d47ba09b4559d20e9973635bceba646",
+      "godot_library_sha256": "9589a935fa0d21b829adc9fd946b22af4d42577676410e4c2faa9a89d1914ef6",
+      "android_api": 36,
+      "android_jar_sha256": "d9eb9da824d9e247a352f570f01e1169e725b2954bca9e283a71786c59b59f9a",
+      "java_release": 17,
+      "compiler": "javac 17.0.20.1",
+      "sha256": "d99f0e6f66a23efa443d2faebd8f874705933a0264398d0f920ea37265bcee27"
+    }
+  },
+  "initially_absent": true,
+  "model": "sdk_gphone64_arm64",
+  "android_release": "15",
+  "first_install_output": "Performing Streamed Install\nSuccess",
+  "offline_route": {
+    "focus": 1,
+    "route_available": false,
+    "route_kind": "none"
+  },
+  "uninstall_output": "Success",
+  "owned_app_data_removed": true,
+  "reinstall_output": "Performing Streamed Install\nSuccess"
+}

@@ -11,9 +11,10 @@ func run() -> void:
 		root.add_child(collision)
 		await physics_frame
 		await physics_frame
-		for delay in [54]:
+		for car_index in range(Catalog.cars.size()) if "--all-cars" in OS.get_cmdline_user_args() else [0]:
+			var delay := 54
 			var race := RaceSession.new()
-			race.setup(track,[0,1,2,3],root.world_3d,1)
+			race.setup(track,[car_index,1,2,3],root.world_3d,1)
 			race.mode = "quick"
 			race.contact_enabled = false
 			race.driving_assists[0] = 2
@@ -46,14 +47,14 @@ func run() -> void:
 					if not rank in ranks: ranks.append(rank)
 				if state.finished or state.dnf_reason!="": break
 			var finish_times: Array = race.states.map(func(s: VehicleState) -> float: return s.finish_time)
-			var row := {"track":track.id,"delay":delay,"finished":race.states[0].finished,"time":race.states[0].finish_time,"rank":race.standings().find(race.states[0])+1,"near_percent":100.0*near_ticks/maxi(count,1),"max_lead_m":lead_max,"ranks":ranks,"times":finish_times}
-			assert(race.states[0].finished,"Relaxed driver finishes "+track.id)
+			var row := {"track":track.id,"car":Catalog.cars[car_index].id,"delay":delay,"finished":race.states[0].finished,"time":race.states[0].finish_time,"rank":race.standings().find(race.states[0])+1,"near_percent":100.0*near_ticks/maxi(count,1),"max_lead_m":lead_max,"ranks":ranks,"times":finish_times}
+			assert(race.states[0].finished,"Relaxed driver finishes "+track.id+" in "+Catalog.cars[car_index].id)
 			results.append(row)
 			print(row)
 			race = null
 		collision.queue_free()
 		await physics_frame
 		await physics_frame
-	FileAccess.open("res://reports/relaxed-field21.json",FileAccess.WRITE).store_string(JSON.stringify(results,"\t"))
+	FileAccess.open("res://reports/relaxed-"+("allcars" if "--all-cars" in OS.get_cmdline_user_args() else "field")+"21.json",FileAccess.WRITE).store_string(JSON.stringify(results,"\t"))
 	print("RELAXED_PRESET_SLOW_DIGITAL_DRIVER_SIX_SMOOTH_COURSES_FINISH_PASS")
 	quit()
