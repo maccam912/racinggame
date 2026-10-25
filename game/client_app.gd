@@ -468,6 +468,7 @@ func show_garage(mode: String = "garage") -> void:
 			if data.start_cup() == OK:
 				start_cup_event()
 		else:
+			if mode=="quick" and events.mode!="quick": events.restore_setup()
 			events.mode = mode
 			page = "event"
 			back_action = func() -> void: show_garage(mode)
@@ -829,6 +830,7 @@ func render_results() -> void:
 		menu.footer.add_child(menu.ui.button(I18n.t("results.change_track" if session.mode == "trial" else "results.setup_short" if menu.ui.mobile else "results.change_event"), func() -> void:
 			dispose_drive()
 			ensure_stage()
+			if session.mode=="quick" and events.mode!="quick": events.restore_setup()
 			events.mode = session.mode
 			events.show_event()))
 		menu.footer.add_child(menu.ui.button(I18n.t("results.menu_short" if menu.ui.mobile and session.mode=="quick" else "button.main_menu"), return_to_menu))

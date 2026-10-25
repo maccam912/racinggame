@@ -1,5 +1,11 @@
 # Implementation status
 
+## 25 October — restore Quick Race after Trial browsing
+
+Returning through the garage from Trial now restores Quick Race’s saved course
+and filter. Returning to the garage within Quick Race preserves its current
+unstarted selection. Actual Continue-button navigation and persistence checks pass.
+
 ## 25 October — continue Quick Race without repeated setup
 
 Next Course follows the selected road filter and preserves the race setup while

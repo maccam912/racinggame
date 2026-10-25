@@ -117,6 +117,24 @@ func run() -> void:
 	assert(drive.session.driving_assists == {drive.local_slot:0})
 	app.show_menu()
 	await process_frame
+	# Trial browsing must not silently replace the saved Quick Race course/filter.
+	app.events.mode = "trial"
+	app.events.track_index = 5
+	app.events.filter_index = EventMenu.FILTERS.find("technical")
+	app.show_garage("quick")
+	for child: Control in app.menu.footer.get_children():
+		if child is Button and child.text==I18n.t("button.continue"):
+			child.pressed.emit()
+			break
+	assert(app.page=="event" and app.events.mode=="quick" and app.events.track_index==0 and EventMenu.FILTERS[app.events.filter_index]=="smooth")
+	# Back to the garage within Quick Race keeps the current unstarted choice.
+	app.events.select_track(1)
+	app.show_garage("quick")
+	for child: Control in app.menu.footer.get_children():
+		if child is Button and child.text==I18n.t("button.continue"):
+			child.pressed.emit()
+			break
+	assert(app.events.track_index==1)
 	app.queue_free()
 	await create_timer(.5).timeout
 	assert(AppData.remove_tree(ProjectSettings.globalize_path(folder)) == OK)
