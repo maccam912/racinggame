@@ -1,5 +1,12 @@
 # Implementation status
 
+## 25 October — continue Quick Race without repeated setup
+
+Next Course follows the selected road filter and preserves the race setup while
+choosing a fresh grid seed. Relaxed sessions can tour the six smooth courses.
+Save failures and canceled loading retain their existing recovery paths. Five
+focused checks and native large-text result layouts pass. [Evidence](evidence/next-course21/README.md).
+
 ## 25 October — visible preset feedback and paint shortcut
 
 Relaxed setup shows a checkmark while its settings match. The garage footer now

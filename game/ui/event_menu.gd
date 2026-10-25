@@ -403,6 +403,26 @@ func start() -> void:
 	app.request_drive(configuration,show_event)
 
 
+func next_quick_configuration(previous: Dictionary) -> Dictionary:
+	if previous.get("mode","")!="quick": return {}
+	var eligible: Array[int] = []
+	for index in range(Catalog.tracks.size()):
+		if matches_filter(index): eligible.append(index)
+	var selected := track_shuffle.choose(eligible,int(previous.track))
+	if selected<0: return {}
+	var configuration := previous.duplicate(true)
+	configuration.track = selected
+	configuration.erase("seed") # A new event gets fresh grid order; Retry retains it.
+	mode = "quick"
+	track_index = selected
+	laps = int(configuration.get("laps",2))
+	opponents = int(configuration.get("opponents",7))
+	difficulty = int(configuration.get("difficulty",1))
+	contact = bool(configuration.get("contact",true))
+	remember_setup()
+	return configuration
+
+
 func relaxed_active() -> bool:
 	var settings: Dictionary = app.data.settings
 	return mode=="quick" and laps==1 and opponents==3 and difficulty==0 and not contact and Catalog.tracks[track_index].smooth_road() and settings.steering_assist=="strong" and is_equal_approx(float(settings.sensitivity),.75) and settings.corner_braking and settings.turn_hints and settings.auto_accelerate and settings.touch_auto_accelerate

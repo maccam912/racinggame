@@ -61,10 +61,10 @@ func run() -> void:
 				assert(scroll.get_global_rect().encloses(row.get_global_rect()),"Local result must be visible: "+str([viewport.id,scale,rank,row.get_global_rect(),scroll.get_global_rect(),scroll.scroll_vertical]))
 				assert(viewport_root.gui_get_focus_owner() is Button and app.menu.footer.is_ancestor_of(viewport_root.gui_get_focus_owner()),"revealing a result preserves keyboard/controller action focus")
 				cases.append({"layout":viewport.id,"scale":scale,"rank":rank+1,"scroll":scroll.scroll_vertical,"viewport":[viewport_root.get_visible_rect().size.x,viewport_root.get_visible_rect().size.y]})
-				if viewport.id=="phone" and rank==7 and DisplayServer.get_name()!="headless":
+				if rank==7 and DisplayServer.get_name()!="headless":
 					await RenderingServer.frame_post_draw
 					DirAccess.make_dir_recursive_absolute("res://reports/results-visibility")
-					assert(viewport_root.get_texture().get_image().save_png("res://reports/results-visibility/phone-"+str(scale)+".png")==OK)
+					assert(viewport_root.get_texture().get_image().save_png("res://reports/results-visibility/"+viewport.id+"-"+str(scale)+".png")==OK)
 			app.result_receipt = receipt(7)
 			var last_state: VehicleState = app.result_receipt.session.states[app.result_receipt.session.human_slot]
 			last_state.finished = false

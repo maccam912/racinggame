@@ -819,17 +819,34 @@ func render_results() -> void:
 			menu.footer.add_child(menu.ui.button(I18n.t("cup.next"), start_cup_event))
 		menu.footer.add_child(menu.ui.button(I18n.t("cup.save_quit"), return_to_menu))
 	else:
+		if session.mode=="quick":
+			var next_course := menu.ui.button(I18n.t("results.next_short" if menu.ui.mobile else "results.next_course"),next_quick_course)
+			next_course.name = "NextCourse"
+			next_course.accessibility_name = I18n.t("results.next_course")
+			menu.ui.help(next_course,I18n.t("results.next_help"))
+			menu.footer.add_child(next_course)
 		menu.footer.add_child(menu.ui.button(I18n.t("results.retry"), retry_drive))
-		menu.footer.add_child(menu.ui.button(I18n.t("results.change_track" if session.mode == "trial" else "results.change_event"), func() -> void:
+		menu.footer.add_child(menu.ui.button(I18n.t("results.change_track" if session.mode == "trial" else "results.setup_short" if menu.ui.mobile else "results.change_event"), func() -> void:
 			dispose_drive()
 			ensure_stage()
 			events.mode = session.mode
 			events.show_event()))
-		menu.footer.add_child(menu.ui.button(I18n.t("button.main_menu"), return_to_menu))
+		menu.footer.add_child(menu.ui.button(I18n.t("results.menu_short" if menu.ui.mobile and session.mode=="quick" else "button.main_menu"), return_to_menu))
 	menu.first_focus()
 
 	if result_summary.saved and is_instance_valid(local_result):
 		menu.reveal_later(local_result)
+
+
+func next_quick_course() -> void:
+	if page!="results" or result_receipt==null or result_receipt.session.mode!="quick": return
+	if not result_summary.get("saved",false) and not result_receipt.dismissed: return
+	var configuration := events.next_quick_configuration(pending_config)
+	if configuration.is_empty(): return
+	request_drive(configuration,func() -> void:
+		page = "results"
+		render_results())
+
 
 func show_cup() -> void:
 	page = "cup"

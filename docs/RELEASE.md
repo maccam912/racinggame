@@ -12,7 +12,10 @@ remains archived with incompatible continuation disabled.
 Assisted races allow up to two minutes after the first finish; standard races
 retain 30 seconds and the overall ten-minute limit remains. Garage cards include
 clickable pictures of all eight actual car models. Quick Race remembers its
-setup across restarts; Trial keeps those preferences intact.
+setup across restarts; Trial keeps those preferences intact. Next Course on Quick
+Race results continues through the selected road filter with the same setup.
+Relaxed setup shows when it is active, and the garage footer provides a Paint
+shortcut with the selected color swatch.
 This is an incomplete implementation of DESIGN.md.
 
 Desktop packages, Android ARM64 APK/AAB, and Linux dedicated worker are published together with build metadata and SHA-256 checksums. macOS is ad-hoc signed; publisher signing and notarization are pending. Android release-mode packages use a stable development certificate, not a store publisher certificate.

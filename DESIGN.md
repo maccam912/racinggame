@@ -1470,3 +1470,17 @@ assignment is lobby-only, survives reconnect/rematch and is sent only to the
 host and its affected driver. Local settings cannot override the host choice.
 Protocol 10 rejects older peers before this new enum value is exchanged; snapshot
 size remains 775 bytes for eight cars. Frozen content-20 progress stays preserved.
+
+
+### Quick Race continuation and menu feedback
+
+Next Course on Quick Race results uses the current road filter's session-local
+shuffled tour, preserving car, paint, laps, rivals, difficulty and contact. It
+creates fresh event entropy while Retry retains the previous seed. Selection
+persists with Quick Race preferences. Loading cancellation restores the existing
+results; unresolved save failures require the existing save/dismiss decision.
+Trial, Cup and online retain their respective progression flows.
+
+Relaxed setup is marked active only while its race/assist values match; it is not
+a historical toggle. The garage's visible Paint shortcut uses the existing
+desktop popup or touch choice sheet, preserving car selection and keyboard focus.
