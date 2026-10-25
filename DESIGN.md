@@ -1449,7 +1449,7 @@ brake only; steering remains the player's. Straights, airborne/reversing states,
 wrong-way travel, recovery, handbrake and boost bypass it. Trial and School use
 standard inputs, and local preferences cannot override online host authority.
 Both settings default off. Quick Race's Relaxed setup enables both plus auto
-acceleration, chooses one lap, three Easy rivals and no car contact, and filters
+acceleration, turn arrows and the existing 75% steering sensitivity, chooses one lap, three Easy rivals and no car contact, and filters
 smooth roads; it never starts the race without the existing Start action.
 
 Races with an eligible assisted human allow 120 seconds after first finish.

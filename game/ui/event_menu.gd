@@ -173,6 +173,13 @@ func show_event() -> void:
 	detail_title = shell.ui.paragraph("")
 	detail_title.add_theme_font_size_override("font_size",shell.ui.font_size(22))
 	details.add_child(detail_title)
+	if mode == "quick":
+		var relaxed := shell.ui.button(I18n.t("event.relaxed_setup"), relaxed_setup)
+		relaxed.name = "RelaxedSetup"
+		relaxed.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+		if app.data.mobile: relaxed.add_theme_font_size_override("font_size",shell.ui.font_size(14))
+		shell.ui.help(relaxed,I18n.t("event.relaxed_help"))
+		details.add_child(relaxed)
 	photograph = TextureRect.new()
 	photograph.name = "CoursePhotograph"
 	photograph.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
@@ -194,12 +201,6 @@ func show_event() -> void:
 	details.add_child(options)
 	if mode == "quick":
 		options.add_child(shell.ui.paragraph(I18n.t("event.race_setup")))
-		var relaxed := shell.ui.button(I18n.t("event.relaxed_setup"), relaxed_setup)
-		relaxed.name = "RelaxedSetup"
-		relaxed.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
-		if app.data.mobile: relaxed.add_theme_font_size_override("font_size",shell.ui.font_size(14))
-		shell.ui.help(relaxed,I18n.t("event.relaxed_help"))
-		options.add_child(relaxed)
 		choice(options, "event.laps", ["1", "2", "3"], laps-1, func(index: int) -> void: laps = index+1)
 		choice(options, "event.opponents", ["0", "1", "2", "3", "4", "5", "6", "7"], opponents, func(index: int) -> void: opponents = index)
 		choice(options, "event.difficulty", [I18n.t("difficulty.easy"), I18n.t("difficulty.medium"), I18n.t("difficulty.hard")], difficulty, func(index: int) -> void: difficulty = index)
@@ -404,6 +405,7 @@ func relaxed_setup() -> void:
 	filter_index = FILTERS.find("smooth")
 	if not Catalog.tracks[track_index].smooth_road(): track_index = 0
 	app.data.set_setting("steering_assist","strong")
+	app.data.set_setting("sensitivity",.75)
 	app.data.set_setting("corner_braking",true)
 	app.data.set_setting("turn_hints",true)
 	app.data.set_setting("auto_accelerate",true)

@@ -19,13 +19,16 @@ func run() -> void:
 	app.events.mode = "quick"
 	app.events.track_index = 5
 	app.events.show_event()
-	app.menu.root.find_child("RelaxedSetup",true,false).pressed.emit()
+	for i in range(5): await process_frame
+	var relaxed: Control = app.menu.root.find_child("RelaxedSetup",true,false)
+	assert(app.events.detail_scroll.get_global_rect().encloses(relaxed.get_global_rect()),"preset is visible before scrolling through the course photograph and map")
+	relaxed.pressed.emit()
 	assert(app.page == "event", "preset lets the parent review before starting")
 	assert(app.events.laps == 1 and app.events.opponents == 3 and app.events.difficulty == 0 and not app.events.contact)
 	assert(app.events.track_index == 0 and EventMenu.FILTERS[app.events.filter_index] == "smooth")
 	assert(app.data.settings.turn_hints and app.data.settings.corner_braking and app.data.settings.steering_assist == "strong" and app.data.settings.auto_accelerate and app.data.settings.touch_auto_accelerate)
 	var reloaded := AppData.new(folder,false)
-	assert(reloaded.settings.steering_assist == "strong" and reloaded.settings.auto_accelerate)
+	assert(reloaded.settings.steering_assist == "strong" and reloaded.settings.auto_accelerate and reloaded.settings.sensitivity==.75)
 	var saved_setup: Dictionary = reloaded.profile.quick_setup
 	assert(saved_setup.laps==1 and saved_setup.opponents==3 and saved_setup.difficulty==0 and not saved_setup.contact)
 	assert(saved_setup.track=="palm_bay" and saved_setup.filter=="smooth")
@@ -62,6 +65,7 @@ func run() -> void:
 	assert(app.page == "race")
 	app.drive.set_physics_process(false)
 	var drive: RaceDrive = app.drive
+	assert(drive.driver.sensitivity==.75)
 	assert(drive.session.driving_assists == {drive.local_slot:2} and drive.session.corner_braking == {drive.local_slot:true})
 	assert(drive.driver.auto_accelerate and drive.session.states.size() == 4 and not drive.session.contact_enabled)
 	# A live setting change reaches the actual session without touching bots.

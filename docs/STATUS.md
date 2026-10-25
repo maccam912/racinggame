@@ -1,5 +1,13 @@
 # Implementation status
 
+## 24 October — gentler Relaxed setup
+
+Relaxed setup now uses the existing 75% sensitivity setting and is visible above
+the course photo/map. A slow digital-input proxy finishes all six smooth courses
+with three Easy rivals, including Palm and Festival which previously failed with
+100% sensitivity. No AI pacing changes were needed. Five focused source/menu/input
+checks and native phone review pass. [Evidence](evidence/relaxed-steering21/README.md).
+
 ## 24 October — private online corner braking
 
 Content/protocol/save versions are **21/10/1**. Hosts can select Strong + braking
