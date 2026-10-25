@@ -110,7 +110,7 @@ At zero the roster and settings lock. No new entrants during Loading, Countdown,
 | Grid | 2 seconds | Cars frozen; camera settles; engines audible |
 | Countdown | 3 seconds | Show 3, 2, 1 for one second each; inputs accepted but no movement |
 | Racing | First finish then grace period, or hard limit | Show GO for 0.6 seconds; physics and timer start together |
-| Finish Grace | 30 seconds from first valid finish | Remaining racers continue; finisher becomes ghost under AI control |
+| Finish Grace | 30 seconds from first valid finish; 120 seconds with human driving help | Remaining racers continue; finisher becomes ghost under AI control |
 | Results | User action offline; 20 seconds online | Immutable standings and persistent result commit |
 
 Race hard limit = 600 seconds, including Finish Grace. If nobody finishes, end at the limit. If all remaining eligible racers finish or DNF, end after a two-second settling period. If all humans leave online, terminate the race and free the room after 30 seconds; no public bot-only races persist. Pausing offline freezes simulation, race timer, audio pitch state, and bots. Online pause is an overlay only, with “Race continues online.”
@@ -737,7 +737,7 @@ Random behavior uses seeded PCG32 with seed stored in race metadata. No global r
 
 ### 22.3 Minimum shared content schema
 
-CarDefinition: id, display_name_key, mesh_id, top_speed, acceleration, grip, turn_factor, default_paint, audio_profile_id. TrackDefinition: id, display_name_key, ordered_control_points, width_intervals, shoulder_intervals, surface_intervals, bank_intervals, ramp_markers, landmark_specs, environment_id, baked_route_id, collision_id, length, start_sample, gate_list, recovery_points, AI_line, thumbnail_id, minimap_id, content_hash. RaceRules: mode, lap_count, bot_fill, bot_difficulty, contact_enabled, grace_ticks, hard_limit_ticks. All fields have schema validation; missing required values fail import/build, not silently default at runtime.
+CarDefinition: id, display_name_key, mesh_id, top_speed, acceleration, grip, turn_factor, default_paint, audio_profile_id. TrackDefinition: id, display_name_key, ordered_control_points, width_intervals, shoulder_intervals, surface_intervals, bank_intervals, ramp_markers, landmark_specs, environment_id, baked_route_id, collision_id, length, start_sample, gate_list, recovery_points, AI_line, thumbnail_id, minimap_id, content_hash. RaceRules: mode, lap_count, bot_fill, bot_difficulty, contact_enabled, grace_ticks, assisted_grace_ticks, hard_limit_ticks. All fields have schema validation; missing required values fail import/build, not silently default at runtime.
 
 `surface_intervals` are sorted nonoverlapping shoulder overrides in original base-curve u, each `{start, end, surface}` with 0 ≤ start < end ≤ 1 and a half-open [start,end) interval. Paving remains asphalt. Content version 4 includes the Summit sand override [.70,.90); protocol 5 uses state flag bit 7 for the authoritative brake lamp, with no packet-size increase. Ground-query/collision and car/track adapters participate in the gameplay compatibility hash. Older records and ghosts stay archived; incompatible cups stay preserved with Continue disabled.
 
@@ -1433,3 +1433,28 @@ remains cosmetic. Native views, course photographs and checks are recorded in
 The lobby host can assign private Off/Gentle/Strong steering help per member. The host alone receives the room assignment map; each driver receives only their own simulation setting at start/resume. Shared authority/prediction applies a spring toward the local road center, damped by lateral travel, heading error and yaw. Corrections are bounded to 0.12/0.24 steering input; full opposing input remains available. No throttle/brake planning is added. Airborne, reversing, finished, DNF, recovery and handbrake states bypass the nudge. Reconnects and rematches retain member preferences; leaving the room releases them.
 
 In normal races with active humans and opposition, the authority assigns a race role from standings before movement. The leader gets a 0.95 top-speed factor; every chaser gets 0.35 shoulder-drag, wall-impact and scrape penalties. Finished/DNF racers, Trial, School, solo and all-bot fields retain baseline physics. AI pacing ramps beyond a 15 m dead zone over 160 m, up to +22% behind or -24% ahead of the nearest active human, always bounded by baked safe corner speed. Protocol 9 carries race role in 775-byte eight-car snapshots, so prediction and remote collision estimates use the authoritative rule. Content-17 save bytes remain preserved with incompatible continuation disabled.
+
+
+### Family driving polish (content 20)
+
+Palm Bay, Citrus Pass, Tundra Pipeline, Saltflat Velocity, Storm Chase and Festival
+Speedway retain their base curves without added lateral noise. The other 34 roads
+retain technical detail. Smooth/Technical filters resolve actual tracks before
+launch, including random selection. Citrus keeps its two jumps.
+
+Local Quick Race and Cup offer the same Off/Gentle/Strong steering help as host
+assignments. A separate optional local corner-braking setting follows baked
+braking speeds, with greater margin on technical roads. It changes throttle and
+brake only; steering remains the player's. Straights, airborne/reversing states,
+wrong-way travel, recovery, handbrake and boost bypass it. Trial and School use
+standard inputs, and local preferences cannot override online host authority.
+Both settings default off. Quick Race's Relaxed setup enables both plus auto
+acceleration, chooses one lap, three Easy rivals and no car contact, and filters
+smooth roads; it never starts the race without the existing Start action.
+
+Races with an eligible assisted human allow 120 seconds after first finish.
+Assisted finishers continue to count so their crossing does not shorten the
+remaining racers' deadline. Bots and DNF players cannot grant extra time.
+Standard races retain 30 seconds; all races retain the ten-minute hard bound and
+end after everyone finishes/DNFs plus the usual settling interval. Online assist
+assignments remain private to the host and each affected player's own start/resume.

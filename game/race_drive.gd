@@ -509,7 +509,9 @@ func apply_settings() -> void:
 	# School retain their baseline input and record/lesson contracts.
 	if network == null:
 		session.driving_assists.erase(local_slot)
+		session.corner_braking.erase(local_slot)
 		if session.mode in ["quick", "cup"]:
+			session.corner_braking[local_slot] = bool(settings.get("corner_braking",false))
 			session.driving_assists[local_slot] = maxi(0,["off", "gentle", "strong"].find(str(settings.get("steering_assist", "off"))))
 	driver.auto_accelerate = bool(settings.auto_accelerate)
 	driver.deadzone = float(settings.deadzone)

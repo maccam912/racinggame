@@ -4,7 +4,7 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	Catalog.load_all()
-	assert(SettingsCatalog.defaults(false).steering_assist == "off")
+	assert(SettingsCatalog.defaults(false).steering_assist == "off" and not SettingsCatalog.defaults(false).corner_braking)
 	assert(SettingsCatalog.sanitize({"steering_assist":"autopilot"},false).steering_assist == "off")
 	var app: Node = load("res://game/client_app.gd").new()
 	app.capture_path = "user://unused-local-assist.png"
@@ -23,7 +23,7 @@ func run() -> void:
 	assert(app.page == "event", "preset lets the parent review before starting")
 	assert(app.events.laps == 1 and app.events.opponents == 3 and app.events.difficulty == 0 and not app.events.contact)
 	assert(app.events.track_index == 0 and EventMenu.FILTERS[app.events.filter_index] == "smooth")
-	assert(app.data.settings.steering_assist == "strong" and app.data.settings.auto_accelerate and app.data.settings.touch_auto_accelerate)
+	assert(app.data.settings.corner_braking and app.data.settings.steering_assist == "strong" and app.data.settings.auto_accelerate and app.data.settings.touch_auto_accelerate)
 	var reloaded := AppData.new(folder,false)
 	assert(reloaded.settings.steering_assist == "strong" and reloaded.settings.auto_accelerate)
 	reloaded = null
@@ -59,34 +59,34 @@ func run() -> void:
 	assert(app.page == "race")
 	app.drive.set_physics_process(false)
 	var drive: RaceDrive = app.drive
-	assert(drive.session.driving_assists == {drive.local_slot:2})
+	assert(drive.session.driving_assists == {drive.local_slot:2} and drive.session.corner_braking == {drive.local_slot:true})
 	assert(drive.driver.auto_accelerate and drive.session.states.size() == 4 and not drive.session.contact_enabled)
 	# A live setting change reaches the actual session without touching bots.
 	app.data.set_setting("steering_assist","gentle")
 	drive.apply_settings()
-	assert(drive.session.driving_assists == {drive.local_slot:1})
+	assert(drive.session.driving_assists == {drive.local_slot:1} and drive.session.corner_braking == {drive.local_slot:true})
 	var archive := RaceArchive.capture(drive)
 	assert(RaceArchive.valid(archive))
 	assert(RaceArchive.restore(drive,archive))
-	assert(drive.session.driving_assists == {drive.local_slot:1})
+	assert(drive.session.driving_assists == {drive.local_slot:1} and drive.session.corner_braking == {drive.local_slot:true})
 	# Reconstructed races apply the saved device preference too.
 	app.retry_drive()
 	app.drive.set_physics_process(false)
-	assert(app.drive.session.driving_assists == {app.drive.local_slot:1})
+	assert(app.drive.session.driving_assists == {app.drive.local_slot:1} and app.drive.session.corner_braking == {app.drive.local_slot:true})
 	drive = app.drive
 	for mode: String in ["trial","school"]:
 		drive.session.mode = mode
 		drive.apply_settings()
-		assert(drive.session.driving_assists.is_empty())
+		assert(drive.session.driving_assists.is_empty() and drive.session.corner_braking.is_empty())
 	drive.session.mode = "cup"
 	drive.apply_settings()
-	assert(drive.session.driving_assists == {drive.local_slot:1})
+	assert(drive.session.driving_assists == {drive.local_slot:1} and drive.session.corner_braking == {drive.local_slot:true})
 	# The network path must not replace authority-owned assistance.
 	var network := NetworkClient.new()
 	drive.network = network
 	drive.session.driving_assists = {drive.local_slot:2}
 	drive.apply_settings()
-	assert(drive.session.driving_assists == {drive.local_slot:2})
+	assert(drive.session.driving_assists == {drive.local_slot:2} and drive.session.corner_braking == {drive.local_slot:true})
 	drive.network = null
 	network.wire.close()
 	network.free()

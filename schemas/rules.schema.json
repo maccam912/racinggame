@@ -14,7 +14,8 @@
     "countdown_ticks",
     "collision_grace_ticks",
     "maximum_racers",
-    "lap_choices"
+    "lap_choices",
+    "assisted_grace_ticks"
   ],
   "additionalProperties": false,
   "properties": {
@@ -23,7 +24,7 @@
       "type": "integer"
     },
     "content_version": {
-      "const": 19,
+      "const": 20,
       "type": "integer"
     },
     "protocol_version": {
@@ -72,6 +73,10 @@
       "items": {
         "type": "integer"
       }
+    },
+    "assisted_grace_ticks": {
+      "type": "integer",
+      "const": 7200
     }
   }
 }

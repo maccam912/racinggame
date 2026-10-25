@@ -1,5 +1,20 @@
 # Implementation status
 
+## 24 October — optional corner braking and more finishing time
+
+Content/protocol/save versions are **20/9/1**. Local Quick Race and Cup can use
+optional corner braking, enabled by Relaxed setup. It eases throttle and adds
+bounded braking before turns, with greater margin on technical roads. Steering
+and manual overrides remain available; straights retain full speed. Trial,
+School and online control remain unchanged by this local preference.
+
+Races with eligible assisted humans have up to two minutes after the first
+finish, including online host-assigned steering help. Standard races retain
+30 seconds, and all races retain the ten-minute limit. Frozen content-19 saves
+remain preserved with incompatible continuation disabled. Focused input,
+settings, archive, deadline and networking checks pass; human feel remains
+unverified.
+
 ## 24 October — smooth roads alongside technical courses
 
 The six Easy courses (Palm Bay, Citrus Pass, Tundra Pipeline, Saltflat Velocity,

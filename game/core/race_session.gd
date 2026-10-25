@@ -19,7 +19,8 @@ var contact_enabled: bool = true
 var first_finish_tick: int = -1
 var settled_ticks: int = 0
 var bots: Dictionary = {}
-var driving_assists: Dictionary = {} # Online human slots only; authority-owned.
+var driving_assists: Dictionary = {} # Human slots; online assignments are authority-owned.
+var corner_braking: Dictionary = {} # Local-only preference, never a client authority override.
 var finish_drivers: Array[BotDriver] = []
 var roster: Array[Dictionary] = []
 var human_slot: int = 0
@@ -79,8 +80,11 @@ func step(frames: Dictionary) -> void:
 			inputs[index].sequence = ack
 		elif bots.has(index):
 			inputs[index] = bots[index].sample(states[index], cars[index], track, queries[index], states, pace[index])
-		elif driving_assists.has(index):
-			inputs[index] = DrivingAssist.apply(states[index], inputs[index], queries[index], int(driving_assists[index]))
+		else:
+			if driving_assists.has(index):
+				inputs[index] = DrivingAssist.apply(states[index], inputs[index], queries[index], int(driving_assists[index]))
+			if bool(corner_braking.get(index,false)):
+				inputs[index] = CornerAssist.apply(states[index], inputs[index], cars[index], queries[index])
 		if states[index].dnf_reason == "":
 			VehicleSim.step(states[index], inputs[index], cars[index], queries[index])
 	if contact_enabled:
@@ -100,10 +104,10 @@ func step(frames: Dictionary) -> void:
 			first_finish_tick = elapsed_ticks
 			phase = Phase.GRACE
 			phase_ticks = 0
-	if elapsed_ticks >= 36000 or (first_finish_tick >= 0 and elapsed_ticks - first_finish_tick >= 1800):
+	if elapsed_ticks >= int(Catalog.rules.hard_limit_ticks) or (first_finish_tick >= 0 and elapsed_ticks - first_finish_tick >= finish_grace_limit()):
 		for state: VehicleState in states:
 			if not state.finished and state.dnf_reason == "":
-				state.dnf_reason = "Time limit" if elapsed_ticks >= 36000 else "Finish grace expired"
+				state.dnf_reason = "Time limit" if elapsed_ticks >= int(Catalog.rules.hard_limit_ticks) else "Finish grace expired"
 		phase = Phase.RESULTS
 		phase_ticks = 0
 		return
@@ -213,3 +217,15 @@ func rejoin_field(state: VehicleState, query: WorldQuery) -> void:
 	ProgressTracker.place_recovery(state, track, target)
 	query.hint = track.sample_index(state.route_s)
 	state.recovery_speed = minf(minf(speed, cars[state.slot].top_speed * .8), float(track.bake.ai_speeds[cars[state.slot].id][query.hint]) * .9)
+
+
+func finish_grace_limit() -> int:
+	# Keep standard races brisk, but give assisted families time to finish.
+	# Finished assisted humans still count: their setting must not shorten the
+	# deadline for other racers partway through the finishing period.
+	if mode not in ["trial", "school"]:
+		for slot in range(states.size()):
+			if bots.has(slot) or states[slot].dnf_reason != "": continue
+			if int(driving_assists.get(slot,0)) > 0 or bool(corner_braking.get(slot,false)):
+				return int(Catalog.rules.assisted_grace_ticks)
+	return int(Catalog.rules.grace_ticks)
