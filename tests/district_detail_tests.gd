@@ -4,6 +4,20 @@ func _initialize() -> void: call_deferred("run")
 
 func run() -> void:
 	Catalog.load_all()
+	for kind: String in ["festival_tent","festival_stall"]:
+		var mesh := CourseCompoundArt.mesh(kind)
+		var vertices := mesh.get_faces()
+		assert(vertices.size()/3<850,"bounded fairground detail")
+		var colors: PackedColorArray = mesh.surface_get_arrays(0)[Mesh.ARRAY_COLOR]
+		assert(Array(colors).any(func(c: Color) -> bool: return c.a<.75),"opaque emissive bulbs")
+		# Both slopes must face a camera above the fabric despite back-face culling.
+		for x: float in [-6,6]:
+			var covered := false
+			for i in range(0,vertices.size(),3):
+				var normal := -(vertices[i+1]-vertices[i]).cross(vertices[i+2]-vertices[i]).normalized()
+				if normal.y<.2 or vertices[i].y<7: continue
+				if Geometry3D.ray_intersects_triangle(Vector3(x,30,1),Vector3.DOWN,vertices[i],vertices[i+1],vertices[i+2])!=null: covered = true
+			assert(covered,"tent fabric remains visible from both sides")
 	var hash_before := Compatibility.content_hash()
 	var rows: Array[Dictionary] = []
 	for id: String in ["festival_speedway","oasis_citadel","aurora_harbor","lantern_market","neon_underpass","steelworks_sprint","marina_lights"]:

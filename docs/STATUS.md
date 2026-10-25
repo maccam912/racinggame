@@ -1,5 +1,13 @@
 # Implementation status
 
+## 24 October — Festival fairground detail
+
+Festival’s existing tents have brighter striped fabric, lamps, pennants and
+spectators. Roofs and flags now remain visible from both sides under back-face
+culling. No course or placement geometry changed. Source, mesh budget and
+40-course scenery-clearance checks pass; actual model and road captures were
+reviewed. [Evidence](evidence/festival-polish/README.md).
+
 ## 24 October — optional upcoming-turn arrows
 
 Relaxed setup now enables a small left/right arrow and distance beneath the race

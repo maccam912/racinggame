@@ -60,7 +60,8 @@ static func mesh(kind: String, variant: int = 0) -> ArrayMesh:
 		"mesa_outcrop","terraced_field","basalt_crag","martian_butte","crater_outcrop","limestone_bluff":
 			AuthoredLandformArt.emit(t,kind,variant)
 		"festival_tent","festival_stall":
-			ExpansionDistrictDetail.roof(t,color,kind=="festival_tent")
+			var festival_color: Color = [Color("E05C87"),Color("38B4C4"),Color("9B74CE"),Color("F0A34D")][posmod(variant,4)]
+			ExpansionDistrictDetail.roof(t,festival_color,kind=="festival_tent")
 		"citadel":
 			ExpansionDistrictDetail.citadel(t,variant/4.0,Color("D5A879").lerp(Color("EACFAB"),variant/4.0))
 		"moon_rock":
