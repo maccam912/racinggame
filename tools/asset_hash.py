@@ -69,6 +69,7 @@ def validate():
     validate_scenery()
     validate_audio()
     validate_icons()
+    validate_car_portraits()
     validate_posters()
     validate_decorations()
     validate_arcade_sprites()
@@ -135,6 +136,25 @@ def validate_posters():
         original=next(item for item in provenance['images'] if item['id']==row['id'])
         assert original['source']==row['source'] and original['prompt'] and not original['transparent_background']
     print('Validated ten resized runtime posters, preserved originals, provenance, hashes and mipmaps')
+
+
+def validate_car_portraits():
+    value = json.loads((ROOT/'assets/exported/car_portraits/catalog.json').read_text())
+    assert value['license']=='MIT' and (ROOT/value['source']).is_file()
+    assert value['model_inventory_sha256']==digest(ROOT/'assets/exported/cars/inventory.json')
+    cars = json.loads((ROOT/'game/content/cars.json').read_text())['cars']
+    assert {row['id'] for row in value['portraits']}=={car['id'] for car in cars}
+    assert len(value['portraits'])==len(cars) and value['resolution']==[384,216]
+    total = 0
+    for row in value['portraits']:
+        path = ROOT/row['path']
+        data = path.read_bytes()
+        assert digest(path)==row['sha256']
+        assert data[:8]==b'\x89PNG\r\n\x1a\n' and struct.unpack_from('>II',data,16)==(384,216)
+        assert row['model']==next(car['mesh_id'] for car in cars if car['id']==row['id'])
+        total += len(data)
+    assert total<500000, 'Garage portraits stay within a small compressed asset budget'
+    print('Validated eight actual-model garage portraits, source inventory and PNG budgets')
 
 
 def validate_icons():

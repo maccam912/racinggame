@@ -398,15 +398,27 @@ func show_garage(mode: String = "garage") -> void:
 		var car: CarDefinition = Catalog.cars[index]
 		var selected := index==int(data.profile.selected_car)
 		var caption := ("✓ " if selected else "")+I18n.t("car." + car.id)
-		var button := menu.ui.button(caption, func() -> void:
+		var choose_car := func() -> void:
 			data.select_car(index, int(data.profile.selected_paint))
-			show_garage(mode), 230)
+			show_garage(mode)
+		var button := menu.ui.button(caption, choose_car, 230)
 		menu.ui.set_icon(button,"car_"+car.id)
 		garage_car_buttons.append(button)
 		menu.ui.selected(button,selected)
 		var card := VBoxContainer.new()
 		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		card.add_child(button)
+		var portrait := TextureButton.new()
+		portrait.name = "CarPortrait_"+car.id
+		portrait.texture_normal = load("res://assets/exported/car_portraits/"+car.id+".png")
+		portrait.ignore_texture_size = true
+		portrait.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT_CENTERED
+		portrait.custom_minimum_size.y = (64 if data.mobile else 88)*menu.ui.unit
+		portrait.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		portrait.focus_mode = Control.FOCUS_NONE # The named choice already owns keyboard focus.
+		portrait.accessibility_name = I18n.t("car."+car.id)
+		portrait.pressed.connect(choose_car)
+		card.add_child(portrait)
 		card.add_child(menu.ui.paragraph(I18n.t("role." + car.id)))
 		if car.boost_charges > 0: card.add_child(menu.ui.paragraph(I18n.t("garage.boost")))
 		card.add_child(menu.ui.paragraph("%s %.0f %s" % [I18n.t("garage.speed"),car.top_speed*(2.236936 if data.settings.units=="mph" else 3.6),"mph" if data.settings.units=="mph" else "km/h"]))

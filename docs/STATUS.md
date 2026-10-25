@@ -13,13 +13,18 @@ Terrain, AI braking lines and medal references are rebuilt for the changed roads
 Content/protocol/save versions are **19/9/1**. Frozen content-18 saves remain
 readable and byte-preserved, with incompatible race/Cup continuation disabled.
 Route and terrain clearance, save transition, steering assistance and rendered
-desktop/phone filter checks pass. Full source validation is in progress.
+desktop/phone filter checks pass. The 218-command source run completed; its three initial asset/harness failures
+passed corrected reruns. All 320 Gold trials and 240 camera paths pass.
 Accessibility now offers Off/Gentle/Strong local steering help for Quick Race
 and Cup. Quick Race's Relaxed setup selects one lap, three Easy rivals, no car
 contact, Strong help, auto acceleration and the smooth-road filter without
 starting immediately. Preferences persist; live changes, retry/resume, standard
 Trial/School controls and online host authority are covered by real UI/session
-tests. Physical-device and four-year-old driving feel still need playtesting.
+tests. Garage cards now include clickable renders of the actual eight models, with
+neutral paint so body shape is easy to compare. The existing selected-paint
+preview remains live. All eight picture clicks preserve paint and select the
+matching model on desktop and compact phone layouts. Physical-device and
+four-year-old driving feel still need playtesting.
 
 ## 22 October — sharper steering and doubled cornering grip
 

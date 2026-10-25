@@ -25,3 +25,10 @@ passes 90 layout cases after wrapping the new preset button on narrow screens.
 The local suite's original layout failure was corrected and rerun successfully.
 The host-assist network test now uses real-time frames because its transport and
 liveness deadlines use wall-clock time; the UI fixture waits for audio teardown.
+
+The full 218-command run completed with 215 initial passes; the asset-manifest,
+real-time assist network fixture and UI teardown corrections pass reruns.
+All 320 Gold trials and all 240 camera paths pass. Garage portraits are rendered
+from the shipped meshes and cost under 500 KB compressed in total. Actual mouse
+clicks on all eight portraits select the matching model and retain paint in both
+desktop and compact phone layouts.
