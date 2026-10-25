@@ -1,0 +1,568 @@
+{
+  "passed": true,
+  "content_hash": "3a708b25913c73fe7db51593df73cfc82709412a4d8a7188017d8adedfb95415",
+  "assist_level_odd_slots": 3,
+  "races_requested": 2,
+  "track_order": [
+    "palm_bay",
+    "temple_coast"
+  ],
+  "clients": 8,
+  "one_way_latency_ms": 50,
+  "one_way_jitter_ms": 20,
+  "independent_datagram_loss": 0.01,
+  "boundary": "Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.",
+  "checks": {
+    "client_exit": true,
+    "late_course_snapshots_each": true,
+    "identical_standings": true,
+    "all_finish_same_eight": true,
+    "bounded_racing_control": true,
+    "staged_launches_each": true,
+    "private_assists_each": true,
+    "requested_driver_population_each": true,
+    "clear_coverage_500_each": true,
+    "clear_p95_025m_each": true,
+    "racing_wire_intervals": true,
+    "wire_budgets": true,
+    "engine_logs": true,
+    "source_manifest_unchanged": true
+  },
+  "elapsed_seconds": 271.5634782498237,
+  "finishes": 16,
+  "max_clear_p95_m": 0.0549714639782906,
+  "min_clear_samples": 827,
+  "clear_samples": 27734,
+  "memory": {
+    "measured": false
+  },
+  "fixture_sha256": {
+    "tools/soak_acceptance.py": "ef0cca8bdd979d1d86ab0a995fbfdd334fcbd254c3804ed5ae2fc1bc5e067764",
+    "tests/soak_network_client.gd": "15ad8cd6bff3d357ec97d5d9a948d4b074098c1c54bf26844552b22f5a458611",
+    "tests/lobby_network_client.gd": "f624aa230b53eb1b755de73fa492dc57fb8918896c8c505198562f81a4a852e3"
+  },
+  "max_ipv4_udp_up_Bps": 3690.4842269850765,
+  "max_ipv4_udp_down_Bps": 16605.86526170527,
+  "client_metrics": [
+    {
+      "index": 0,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 827,
+            "max": 0.0822308585047722,
+            "p95": 0.0291070677340031
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 764,
+            "max": 1.35203468799591,
+            "p95": 0.0558840483427048
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 139.0,
+          "slot": 5,
+          "snapshots": 1816,
+          "terminal": {
+            "count": 192,
+            "max": 4.22999572753906,
+            "p95": 2.39053773880005
+          }
+        },
+        {
+          "clear": {
+            "count": 2059,
+            "max": 0.136782050132751,
+            "p95": 0.0464095249772072
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 812,
+            "max": 0.534981369972229,
+            "p95": 0.0726404339075089
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 155.0,
+          "slot": 5,
+          "snapshots": 3059,
+          "terminal": {
+            "count": 150,
+            "max": 4.57394790649414,
+            "p95": 2.63189959526062
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 1594,
+            "max": 0.094451904296875,
+            "p95": 0.0221959874033928
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 88,
+            "max": 0.350264549255371,
+            "p95": 0.108557797968388
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 113.0,
+          "slot": 0,
+          "snapshots": 1807,
+          "terminal": {
+            "count": 90,
+            "max": 6.80003261566162,
+            "p95": 2.62047219276428
+          }
+        },
+        {
+          "clear": {
+            "count": 1978,
+            "max": 0.216896161437035,
+            "p95": 0.0393836013972759
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 914,
+            "max": 0.293503910303116,
+            "p95": 0.0792535319924355
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 128.0,
+          "slot": 0,
+          "snapshots": 3076,
+          "terminal": {
+            "count": 159,
+            "max": 2.94007039070129,
+            "p95": 2.61030316352844
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 1362,
+            "max": 0.191310197114944,
+            "p95": 0.0264263190329075
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 252,
+            "max": 0.327942878007889,
+            "p95": 0.0900899171829224
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 151.0,
+          "slot": 2,
+          "snapshots": 1786,
+          "terminal": {
+            "count": 137,
+            "max": 5.07063865661621,
+            "p95": 4.02003860473633
+          }
+        },
+        {
+          "clear": {
+            "count": 1477,
+            "max": 0.150596916675568,
+            "p95": 0.0549714639782906
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 1294,
+            "max": 1.57053756713867,
+            "p95": 0.0975986272096634
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 115.0,
+          "slot": 2,
+          "snapshots": 3070,
+          "terminal": {
+            "count": 263,
+            "max": 3.28005981445312,
+            "p95": 2.41101622581482
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 1628,
+            "max": 0.0945401415228844,
+            "p95": 0.0219644587486982
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 91,
+            "max": 1.43048751354218,
+            "p95": 0.097493901848793
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 153.0,
+          "slot": 3,
+          "snapshots": 1795,
+          "terminal": {
+            "count": 41,
+            "max": 4.4200587272644,
+            "p95": 2.71148562431335
+          }
+        },
+        {
+          "clear": {
+            "count": 2233,
+            "max": 0.125639259815216,
+            "p95": 0.0334569290280342
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 774,
+            "max": 0.459267109632492,
+            "p95": 0.0798498317599297
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 151.0,
+          "slot": 3,
+          "snapshots": 3084,
+          "terminal": {
+            "count": 40,
+            "max": 2.89006853103638,
+            "p95": 2.80007076263428
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 1472,
+            "max": 0.0756429508328438,
+            "p95": 0.0252746753394604
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 152,
+            "max": 0.35852512717247,
+            "p95": 0.0922580808401108
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 129.0,
+          "slot": 4,
+          "snapshots": 1799,
+          "terminal": {
+            "count": 141,
+            "max": 4.58052158355713,
+            "p95": 2.57232975959778
+          }
+        },
+        {
+          "clear": {
+            "count": 2038,
+            "max": 0.123732432723045,
+            "p95": 0.0408802777528763
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 733,
+            "max": 1.5646824836731,
+            "p95": 0.0875815749168396
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 131.0,
+          "slot": 4,
+          "snapshots": 3060,
+          "terminal": {
+            "count": 253,
+            "max": 3.25006151199341,
+            "p95": 2.48032832145691
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 1680,
+            "max": 0.0825394913554192,
+            "p95": 0.0207671392709017
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 47,
+            "max": 0.125311464071274,
+            "p95": 0.0480502434074879
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 135.0,
+          "slot": 6,
+          "snapshots": 1821,
+          "terminal": {
+            "count": 57,
+            "max": 2.68066430091858,
+            "p95": 2.60048675537109
+          }
+        },
+        {
+          "clear": {
+            "count": 2863,
+            "max": 0.22965769469738,
+            "p95": 0.0387742333114147
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 138,
+            "max": 0.16454042494297,
+            "p95": 0.0856130719184875
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 132.0,
+          "slot": 6,
+          "snapshots": 3069,
+          "terminal": {
+            "count": 41,
+            "max": 3.75225257873535,
+            "p95": 2.84001779556274
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 1643,
+            "max": 0.118732161819935,
+            "p95": 0.0274289585649967
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 78,
+            "max": 0.12544846534729,
+            "p95": 0.0689973011612892
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 150.0,
+          "slot": 7,
+          "snapshots": 1793,
+          "terminal": {
+            "count": 39,
+            "max": 4.47999143600464,
+            "p95": 2.68001127243042
+          }
+        },
+        {
+          "clear": {
+            "count": 2221,
+            "max": 0.157560452818871,
+            "p95": 0.0374340377748013
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 731,
+            "max": 0.195887222886086,
+            "p95": 0.0750238001346588
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 131.0,
+          "slot": 7,
+          "snapshots": 3063,
+          "terminal": {
+            "count": 76,
+            "max": 4.59039211273193,
+            "p95": 2.83006858825684
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 827,
+            "max": 0.401598930358887,
+            "p95": 0.0236328896135092
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 756,
+            "max": 0.231709122657776,
+            "p95": 0.0875314995646477
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 136.0,
+          "slot": 1,
+          "snapshots": 1801,
+          "terminal": {
+            "count": 192,
+            "max": 4.33004808425903,
+            "p95": 2.39009833335876
+          }
+        },
+        {
+          "clear": {
+            "count": 1832,
+            "max": 0.154976636171341,
+            "p95": 0.0316471718251705
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 1043,
+            "max": 0.339323133230209,
+            "p95": 0.0913225263357162
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 59,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 113.0,
+          "slot": 1,
+          "snapshots": 3066,
+          "terminal": {
+            "count": 154,
+            "max": 3.45001220703125,
+            "p95": 2.69007301330566
+          }
+        }
+      ]
+    }
+  ]
+}

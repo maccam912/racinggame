@@ -20,6 +20,7 @@ from udp_proxy import UDPProxy
 
 def main():
     parser = argparse.ArgumentParser()
+    parser.add_argument('--assist-level', type=int, choices=range(4), default=0, help='Host assigns this private assist to odd slots; even slots remain unassisted')
     parser.add_argument('--port', type=int, default=27410)
     parser.add_argument('--server-binary', type=Path, help='Use an actual exported server with its adjacent build.json')
     parser.add_argument('--races', type=int, default=10)
@@ -58,7 +59,7 @@ def main():
                'content_hash':manifest['content_hash'],
                'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True)),
                'platform':platform.platform(), 'processor':platform.processor(),
-               'races_requested':args.races, 'laps':args.laps, 'track_order':selected, 'clear_road_spacing':args.clear_road_spacing, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
+               'assist_level_odd_slots':args.assist_level, 'races_requested':args.races, 'laps':args.laps, 'track_order':selected, 'clear_road_spacing':args.clear_road_spacing, 'clients':8, 'one_way_latency_ms':50, 'one_way_jitter_ms':20,
                'independent_datagram_loss':.01, 'transport':'Eight independent real UDP proxies, including ENet ACKs and retransmissions',
                'boundary':'Native automated shared-controller clients on this development computer. No physical controls, target Android thermal test or documented two-vCPU x86-64 host claim.'}
     summary['fixture_sha256'] = {name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in
@@ -91,7 +92,7 @@ def main():
             handle = (folder/f'client-{index}.log').open('w'); handles.append(handle)
             processes.append(subprocess.Popen([*command, '--script','tests/soak_network_client.gd','--',
                 f'--port={args.port+index}',f'--index={index}',f'--races={args.races}',
-                f'--laps={args.laps}', '--tracks='+','.join(map(str,track_indices)), *(['--trace-driving'] if args.trace_driving else []),
+                f'--laps={args.laps}', f'--assist-level={args.assist_level}', '--tracks='+','.join(map(str,track_indices)), *(['--trace-driving'] if args.trace_driving else []),
                 *(['--clear-road-spacing'] if args.clear_road_spacing else []),
                 f'--seconds={args.seconds}',f'--minimum-seconds={args.minimum_seconds}',
                 f'--report={folder/f"client-{index}.json"}'], stdout=handle, stderr=subprocess.STDOUT))
@@ -150,6 +151,7 @@ def main():
             sorted(row['hold_ticks'] for row in launches if row['race']==race)==list(range(0,480,60)) and
             len({json.dumps(row['order'],sort_keys=True) for row in launches if row['race']==race})==1
             for race in range(1,args.races+1))
+        checks['private_assists_each'] = all(len(report['race_metrics'])==args.races and all(metric.get('driving_assist')==(args.assist_level if metric['slot']%2 else 0) for metric in report['race_metrics']) for report in reports)
         checks['requested_driver_population_each'] = len(launches)==8*args.races and all(row.get('clear_road_spacing')==args.clear_road_spacing for row in launches)
         spacing_events = [json.loads(line.split(' ',1)[1]) for path in sorted(folder.glob('client-*.log')) for line in path.read_text().splitlines() if line.startswith('SOAK_SPACING ')]
         corrections = [row['clear'] for report in reports for row in report['race_metrics']]

@@ -31,6 +31,7 @@ var minimum_ms: int = 0
 var requested_laps: int = 1
 var requested_tracks: Array[int] = [0,1]
 var iroh_code: String = ""
+var requested_assist_level: int = 0
 
 
 func _initialize() -> void:
@@ -52,13 +53,14 @@ func run() -> void:
 		elif arg.begins_with("--races="): required_races = int(arg.trim_prefix("--races="))
 		elif arg.begins_with("--seconds="): timeout_ms = int(float(arg.trim_prefix("--seconds=")) * 1000)
 		elif arg.begins_with("--minimum-seconds="): minimum_ms = int(float(arg.trim_prefix("--minimum-seconds=")) * 1000)
+		elif arg.begins_with("--assist-level="): requested_assist_level = int(arg.trim_prefix("--assist-level="))
 		elif arg.begins_with("--laps="): requested_laps = int(arg.trim_prefix("--laps="))
 		elif arg.begins_with("--tracks="):
 			requested_tracks.clear()
 			for value: String in arg.trim_prefix("--tracks=").split(","):
 				assert(value.is_valid_int() and int(value)>=0 and int(value)<Catalog.tracks.size())
 				requested_tracks.append(int(value))
-	assert(not requested_tracks.is_empty())
+	assert(not requested_tracks.is_empty() and requested_assist_level>=0 and requested_assist_level<=DrivingAssist.MAX_LEVEL)
 	link.admission_ticket = OS.get_environment("PR_TEST_TICKET")
 	root.add_child(scene)
 	scene.add_child(link)
@@ -71,7 +73,7 @@ func run() -> void:
 		result_hashes.append(JSON.stringify(rows).sha256_text())
 		results.append({"race":link.race_id, "track":int(link.config.track), "rows":rows.duplicate(true)})
 		if link.prediction:
-			race_metrics.append({"race":link.race_id, "snapshots":link.prediction.snapshot_count, "highest_snapshot_gate":int(highest_gate_by_race.get(link.race_id,-1)),
+			race_metrics.append({"race":link.race_id, "slot":link.slot, "driving_assist":link.prediction.driving_assist, "snapshots":link.prediction.snapshot_count, "highest_snapshot_gate":int(highest_gate_by_race.get(link.race_id,-1)),
 				"clear":statistics(link.prediction.clear_corrections), "contact":statistics(link.prediction.contact_corrections),
 				"terminal":statistics(link.prediction.terminal_corrections), "recoveries":link.prediction.recovery_corrections,
 				"clock_restores":statistics(link.prediction.clock_corrections), "history":link.prediction.history.size(), "rtt_ms":link.rtt_ms})
@@ -145,6 +147,7 @@ func write_race_progress() -> void:
 
 
 func on_lobby(state: Dictionary) -> void:
+	if state.host!=link.guest_id: assert(not state.has("driving_assists"),"private assignment map never leaks to other clients")
 	if results.size() >= required_races: return
 	if int(state.phase) != LobbyState.Phase.LOBBY or state.members.size() != expected_humans:
 		return
@@ -156,6 +159,14 @@ func on_lobby(state: Dictionary) -> void:
 		return
 	if state.rules != target:
 		return
+	if state.host==link.guest_id and requested_assist_level>0:
+		var assignments_ready := true
+		for row: Dictionary in state.members:
+			var level := requested_assist_level if int(row.slot)%2 else 0
+			if int(state.get("driving_assists",{}).get(row.id,0))!=level:
+				assignments_ready = false
+				link.command("driving_assist",{"id":row.id,"level":level})
+		if not assignments_ready: return
 	for row: Dictionary in state.members:
 		if row.id == link.guest_id and not row.ready:
 			link.command("ready", {"value":true})
@@ -176,6 +187,8 @@ func load_route(config: Dictionary) -> void:
 
 
 func start_race(config: Dictionary) -> void:
+	assert(int(config.get("driving_assist",0))==(requested_assist_level if int(config.slot)%2 else 0))
+	assert(config.roster.all(func(row: Dictionary) -> bool: return not row.has("driving_assist")))
 	print("LOBBY_CLIENT_RACE_STARTED index=%d race=%d" % [index, int(config.race)])
 	setup_session = RaceSession.new()
 	var roster: Array[Dictionary] = []
