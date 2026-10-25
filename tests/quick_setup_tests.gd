@@ -15,7 +15,7 @@ func run() -> void:
 	assert(menu.laps==2 and menu.opponents==7 and menu.difficulty==1 and menu.contact)
 	menu.laps = 1
 	menu.opponents = 3
-	menu.difficulty = 0
+	menu.difficulty = 3
 	menu.contact = false
 	menu.track_index = 9
 	menu.filter_index = EventMenu.FILTERS.find("smooth")
@@ -23,7 +23,7 @@ func run() -> void:
 	assert(owner.requested.laps==1 and owner.requested.opponents==3 and not owner.requested.contact)
 	owner.data = AppData.new(folder,false)
 	menu = EventMenu.new(owner)
-	assert(menu.laps==1 and menu.opponents==3 and menu.difficulty==0 and not menu.contact)
+	assert(menu.laps==1 and menu.opponents==3 and menu.difficulty==3 and not menu.contact)
 	assert(menu.track_index==9 and EventMenu.FILTERS[menu.filter_index]=="smooth")
 	var before: Dictionary = owner.data.profile.quick_setup.duplicate(true)
 	menu.mode = "trial"

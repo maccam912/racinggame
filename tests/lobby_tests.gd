@@ -20,6 +20,11 @@ func _initialize() -> void:
 	assert(not lobby.set_rules("a", lobby.rules))
 	var rules := lobby.rules.duplicate()
 	rules.track = 7
+	rules.difficulty = 3
+	assert(LobbyState.valid_rules(rules))
+	var invalid := rules.duplicate()
+	invalid.difficulty = 4
+	assert(not LobbyState.valid_rules(invalid))
 	assert(lobby.set_rules("z", rules))
 	assert(lobby.members.all(func(row: Dictionary) -> bool: return not row.ready))
 	assert(lobby.kick("z", "b", 60))

@@ -408,3 +408,22 @@ func TestBonusTrackRuleBounds(t *testing.T) {
 		}
 	}
 }
+
+func TestExpertDifficultyRulesRoundTrip(t *testing.T) {
+	for difficulty := 0; difficulty <= 4; difficulty++ {
+		value := Rules{Track: 0, Laps: 2, BotFill: true, Difficulty: difficulty, Contact: true}
+		encoded, err := json.Marshal(value)
+		if err != nil {
+			t.Fatal(err)
+		}
+		var decoded Rules
+		err = json.Unmarshal(encoded, &decoded)
+		if difficulty == 4 {
+			if err == nil {
+				t.Fatal("out-of-range difficulty accepted")
+			}
+		} else if err != nil || decoded != value {
+			t.Fatal("difficulty round trip failed", difficulty, decoded, err)
+		}
+	}
+}

@@ -1,0 +1,8 @@
+Initialize godot-rust (API v4.5.stable.official, runtime v4.6.3.stable.official, safeguards balanced)
+Godot Engine v4.6.3.stable.official.7d41c59c4 - https://godotengine.org
+
+ERROR: TEST FAIL: pacific_summit 2 ["Poppy: Finish grace expired gate=56", "Dash: Finish grace expired gate=56", "Cove: Finish grace expired gate=56"]
+   at: push_error (core/variant/variant_utility.cpp:1024)
+   GDScript backtrace (most recent call first):
+       [0] run (res://tests/bot_tracks.gd:110)
+AI pacific_summit difficulty=2 seed=104729 finished=5/8 recoveries=0 times=[347.516293215611, 336.128634157974, 351.43593698479, 322.052443955091, 345.133494675061]

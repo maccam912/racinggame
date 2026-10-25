@@ -276,7 +276,7 @@ func show_create() -> void:
 	var fill := check(I18n.t("online.bot_fill"),bool(draft.rules.bot_fill))
 	fill.toggled.connect(func(value: bool) -> void: draft.rules.bot_fill = value)
 	list.add_child(fill)
-	app.events.choice(list,"event.difficulty",[I18n.t("difficulty.easy"),I18n.t("difficulty.medium"),I18n.t("difficulty.hard")],int(draft.rules.difficulty),func(index: int) -> void: draft.rules.difficulty = index)
+	app.events.choice(list,"event.difficulty",[I18n.t("difficulty.easy"),I18n.t("difficulty.medium"),I18n.t("difficulty.hard"), I18n.t("difficulty.expert")],int(draft.rules.difficulty),func(index: int) -> void: draft.rules.difficulty = index)
 	var contact := check(I18n.t("event.contact"),bool(draft.rules.contact))
 	contact.toggled.connect(func(value: bool) -> void: draft.rules.contact = value)
 	list.add_child(contact)

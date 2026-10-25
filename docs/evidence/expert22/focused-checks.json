@@ -1,0 +1,240 @@
+{
+  "platform": "Darwin-arm64",
+  "engine": "4.6.3-stable",
+  "commit": "5631953906c7a1efb5a6483ecda4d189aed9a209",
+  "working_tree_dirty": true,
+  "command_count": 38,
+  "passed": true,
+  "status": "complete",
+  "scope": "Focused suites for Expert AI, existing driving, UI, network rules, save/resume and historical content preservation; not a whole-workspace pass.",
+  "results": [
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/expert_bot_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.828,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/bot_contract_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.539,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/bot_vertical_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.457,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/race_assistance_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.931,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/driving_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.558,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/steering_drift_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 1.361,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/boost_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 2.797,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/quick_setup_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.669,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/next_course_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 5.243,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/lobby_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.45,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/network_contract_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.566,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/directory_client_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.566,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/online_menu_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 2.512,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/race_archive_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 5.745,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/checkpoint_ui_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 5.495,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/surface_version_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 1.063,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/menu_flow_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 5.606,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --max-fps 60 --script tests/event_layout_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 25.537,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/relaxed_field_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 22.423,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/save_cup_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.345,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content10_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.729,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content11_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.729,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content12_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.734,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content13_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.737,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content14_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.737,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content15_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.721,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content16_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.721,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content17_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.73,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content18_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.72,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content19_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.73,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content20_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.829,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content21_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.733,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content5_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.727,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content6_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.725,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content7_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.727,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content8_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.737,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content9_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.73,
+      "exit_code": 0
+    },
+    {
+      "suite": "tools/godot.py --headless --fixed-fps 60 --script tests/content_transition_tests.gd -- --profile=expert_focused",
+      "passed": true,
+      "seconds": 0.735,
+      "exit_code": 0
+    }
+  ]
+}

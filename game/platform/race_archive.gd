@@ -87,7 +87,7 @@ static func valid_input(frame: InputFrame) -> bool:
 	return frame.sequence>=0 and frame.tick>=0 and absf(frame.steer)<=1 and frame.throttle>=0 and frame.throttle<=1 and frame.brake>=0 and frame.brake<=1
 
 static func valid_bot(bot: BotDriver) -> bool:
-	return bot.planning_ticks>=0 and bot.planning_ticks<=12 and bot.difficulty in [0,1,2] and absf(bot.offset)<=3.001 and bot.stuck_ticks>=0 and bot.stuck_ticks<=240 and bot.recover_hold_ticks>=0 and bot.recover_hold_ticks<=30
+	return bot.planning_ticks>=0 and bot.planning_ticks<=12 and bot.difficulty in [0,1,2,3] and absf(bot.offset)<=3.001 and bot.stuck_ticks>=0 and bot.stuck_ticks<=240 and bot.recover_hold_ticks>=0 and bot.recover_hold_ticks<=30
 
 static func capture(drive: RaceDrive) -> Dictionary:
 	if drive.network!=null: return {}
@@ -140,7 +140,7 @@ static func valid(value: Dictionary) -> bool:
 	if not bounded(session.race_id,1,4294967295) or not bounded(session.seed,0,4294967295) or not bounded(session.phase,2,6): return false
 	if not bounded(session.phase_ticks,0,36000) or not bounded(session.elapsed_ticks,0,36000) or not bounded(session.lap_count,1,3) or not bounded(session.settled_ticks,0,120): return false
 	if not bounded(session.first_finish_tick,-1,int(session.elapsed_ticks)) or not session.contact_enabled is bool or not GuestIdentity.valid_uuid(str(session.race_uuid)): return false
-	if not bounded(config.get("track"),0,Catalog.track_count()-1) or not bounded(config.get("car"), 0, Catalog.car_count()-1) or not bounded(config.get("paint"),0,7) or not bounded(config.get("difficulty"),0,2) or not bounded(config.get("lesson"),0,4): return false
+	if not bounded(config.get("track"),0,Catalog.track_count()-1) or not bounded(config.get("car"), 0, Catalog.car_count()-1) or not bounded(config.get("paint"),0,7) or not bounded(config.get("difficulty"),0,3) or not bounded(config.get("lesson"),0,4): return false
 	if config.get("laps")!=session.lap_count or config.get("seed")!=session.seed or config.get("contact")!=session.contact_enabled or not config.get("ghost") is bool: return false
 	if config.get("cup_id")!=session.event_uuid or config.get("cup_event")!=session.cup_event or not config.contact is bool: return false
 	if not valid_roster(config.get("roster"),int(session.human_slot)): return false

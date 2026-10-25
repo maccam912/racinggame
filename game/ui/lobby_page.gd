@@ -70,7 +70,7 @@ func show_lobby() -> void:
 	if rules.bot_fill:
 		for index in range(8 - state.members.size()):
 			var slot: int = state.members.size() + index
-			list.add_child(shell.ui.label("%d  %s  •  %s  •  %s" % [slot + 1, RaceSetup.BOT_NAMES[index], I18n.t("online.bot"), I18n.t("difficulty." + ["easy", "medium", "hard"][int(rules.difficulty)])]))
+			list.add_child(shell.ui.label("%d  %s  •  %s  •  %s" % [slot + 1, RaceSetup.BOT_NAMES[index], I18n.t("online.bot"), I18n.t("difficulty." + ["easy", "medium", "hard", "expert"][int(rules.difficulty)])]))
 	countdown = shell.ui.label("")
 	list.add_child(countdown)
 	update_countdown()
@@ -154,7 +154,7 @@ func show_rules() -> void:
 	list.add_child(course_picker)
 	course_picker.compact_header(shell)
 	app.events.choice(list, "event.laps", ["1", "2", "3"], int(rules.laps) - 1, func(index: int) -> void: rules.laps = index + 1)
-	app.events.choice(list, "event.difficulty", [I18n.t("difficulty.easy"), I18n.t("difficulty.medium"), I18n.t("difficulty.hard")], int(rules.difficulty), func(index: int) -> void: rules.difficulty = index)
+	app.events.choice(list, "event.difficulty", [I18n.t("difficulty.easy"), I18n.t("difficulty.medium"), I18n.t("difficulty.hard"), I18n.t("difficulty.expert")], int(rules.difficulty), func(index: int) -> void: rules.difficulty = index)
 	for key in ["bot_fill", "contact"]:
 		var toggle := CheckButton.new()
 		toggle.text = I18n.t("online.bot_fill" if key == "bot_fill" else "event.contact")

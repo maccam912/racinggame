@@ -42,7 +42,7 @@ func restore_setup() -> void:
 	if not saved is Dictionary: saved = {}
 	laps = int(saved.laps) if NetEvents.integer(saved.get("laps"),1,3) else 2
 	opponents = int(saved.opponents) if NetEvents.integer(saved.get("opponents"),0,7) else 7
-	difficulty = int(saved.difficulty) if NetEvents.integer(saved.get("difficulty"),0,2) else 1
+	difficulty = int(saved.difficulty) if NetEvents.integer(saved.get("difficulty"),0,3) else 1
 	contact = saved.contact if saved.get("contact") is bool else true
 	filter_index = maxi(0,FILTERS.find(saved.get("filter","all")))
 	track_index = 0
@@ -205,7 +205,7 @@ func show_event() -> void:
 		options.add_child(shell.ui.paragraph(I18n.t("event.race_setup")))
 		choice(options, "event.laps", ["1", "2", "3"], laps-1, func(index: int) -> void: laps = index+1)
 		choice(options, "event.opponents", ["0", "1", "2", "3", "4", "5", "6", "7"], opponents, func(index: int) -> void: opponents = index)
-		choice(options, "event.difficulty", [I18n.t("difficulty.easy"), I18n.t("difficulty.medium"), I18n.t("difficulty.hard")], difficulty, func(index: int) -> void: difficulty = index)
+		choice(options, "event.difficulty", [I18n.t("difficulty.easy"), I18n.t("difficulty.medium"), I18n.t("difficulty.hard"), I18n.t("difficulty.expert")], difficulty, func(index: int) -> void: difficulty = index)
 		var toggle := CheckButton.new()
 		toggle.name = "CarContact"
 		toggle.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
@@ -391,6 +391,7 @@ func choice(parent: Node, key: String, items: Array, selected: int, callback: Ca
 	for item: String in items:
 		picker.add_item(item)
 	picker.selected = selected
+	if key == "event.difficulty": app.menu.ui.help(picker, I18n.t("difficulty.expert_help"))
 	picker.item_selected.connect(callback)
 	picker.item_selected.connect(func(_index: int) -> void: refresh_relaxed_state())
 	row.add_child(picker)

@@ -14,7 +14,7 @@ func run() -> void:
 	await process_frame
 	app.data = AppData.new(folder,true)
 	var roster := RaceSetup.roster(7,2,5,"Archive Driver")
-	var drive := start({"mode":"quick","track":0,"car":2,"paint":5,"opponents":7,"laps":2,"difficulty":2,"contact":true,"seed":123456,"roster":roster})
+	var drive := start({"mode":"quick","track":0,"car":2,"paint":5,"opponents":7,"laps":2,"difficulty":3,"contact":true,"seed":123456,"roster":roster})
 	await physics_frame
 	await physics_frame
 	var baseline := drive.session

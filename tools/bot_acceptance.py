@@ -31,7 +31,7 @@ def run(seeds=20, jobs=3):
         if result.returncode or not report.exists():
             raise RuntimeError(name+' failed; inspect '+str(folder/(name+'.log')))
         value = json.loads(report.read_text())
-        assert value['passed'] and len(value['results'])==3*(8 if solo else seeds)
+        assert value['passed'] and len(value['results'])==4*(8 if solo else seeds)
         assert all(len(row['times'])==(1 if solo else 8) and not row['dnfs'] for row in value['results'])
         print(f'PASS {name}: {len(value["results"])} races in {time.monotonic()-started:.1f}s', flush=True)
         return name, value
@@ -44,12 +44,12 @@ def run(seeds=20, jobs=3):
     solo = values['palm_bay-solo']['results']
     ordering = []
     for car in range(8):
-        times = [next(row['times'][0] for row in solo if row['reference_car']==car and row['difficulty']==difficulty) for difficulty in range(3)]
-        assert times[2]<times[1]<times[0], f'Difficulty order failed for car {car}: {times}'
-        ordering.append({'car':car, 'easy':times[0], 'medium':times[1], 'hard':times[2]})
+        times = [next(row['times'][0] for row in solo if row['reference_car']==car and row['difficulty']==difficulty) for difficulty in range(4)]
+        assert times[3]<times[2]<times[1]<times[0], f'Difficulty order failed for car {car}: {times}'
+        ordering.append({'car':car, 'easy':times[0], 'medium':times[1], 'hard':times[2], 'expert':times[3]})
     rows = [row for name, value in values.items() if not name.endswith('-solo') for row in value['results']]
     summary = {'passed':True, 'content_hash':values['palm_bay']['content_hash'],
-               'tracks':len(tracks), 'difficulties':3, 'seeds_per_case':seeds,
+               'tracks':len(tracks), 'difficulties':4, 'seeds_per_case':seeds,
                'field_races':len(rows), 'finished_cars':sum(len(row['times']) for row in rows),
                'recoveries':sum(row['recoveries'] for row in rows), 'single_car_ordering':ordering,
                'boundaries':['Seven bots plus an autopiloted reference car; not a human difficulty/feel test',

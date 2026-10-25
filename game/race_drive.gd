@@ -387,7 +387,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			show_pause()
 		get_viewport().set_input_as_handled()
 	elif event.is_action_pressed("camera") and not paused:
-		camera.mode = (camera.mode + 1) % 3
+		cycle_camera()
 
 
 func touch_action(action: String) -> void:
@@ -395,7 +395,15 @@ func touch_action(action: String) -> void:
 		if driver.recovery_armed or driver.recovery_presses>0: driver.cancel_recovery_assist()
 		else: show_pause()
 	elif action == "camera":
-		camera.mode = (camera.mode + 1) % 3
+		cycle_camera()
+
+
+func cycle_camera() -> void:
+	camera.mode = (camera.mode + 1) % 3
+	# Resume reapplies settings, so the driving shortcut must update the same
+	# preference as the settings menu (and retain it for the next race).
+	if app_data != null:
+		app_data.set_setting("camera", ["near", "far", "hood"][camera.mode])
 
 
 func show_pause(finished: bool = false) -> void:

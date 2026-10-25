@@ -588,9 +588,9 @@ The launch AI racing line is the canonical centerline sampled every 2 m. Store i
 
 Target corner speed = sqrt(G × 0.82 / max(abs(curvature), 0.0005)), clamped to [12, 0.96×V]. Apply four backward braking passes over the closed sampled line, visiting indices N-1 down to 0, setting each target to min(current target, sqrt(next_target² + 2×12×segment_length)); index N wraps to zero. Runtime look-ahead distance = clamp(8 + 0.45×speed, 12, 35) m. Steering error is signed angle between car forward and target point; input = clamp(error_degrees/30, -1, 1). Throttle = clamp((target_speed-speed)/6, 0, 1); brake = clamp((speed-target_speed)/6, 0, 1). Bots do not use handbrake. Boost cars use the same three charges only on a clear 400 m straight horizon without ramps or steep grades; nearby traffic blocks a new burst. They recover if speed stays below 2 m/s for four seconds while commanded throttle >0.7.
 
-Difficulty changes the line target speed multiplier: Easy 0.78, Medium 0.90, Hard 1.00. In races with active humans, compare each bot to the nearest human in gate-bounded total race distance, including completed laps. Within 25 m, pace is unchanged. Over the next 200 m, smoothly ramp the multiplier to 1.14 for a trailing bot or 0.82 for a leading bot; clamp the result to the baked safe speed. Finished/DNF humans do not pull bots, and all-bot, Solo, Trial and School runs retain their base difficulty. Human car handling stays unchanged. It also changes input planning delay: 0.20, 0.10, 0.05 seconds, respectively. Hold the previous planned input between planning updates while the underlying car simulation still ticks at 60 Hz. No random reaction-time spikes. For a nearby car within 25 m ahead and ±3 m lateral, choose passing offset ±3 m toward the side with more room, with stable slot ID breaking equal gaps. Shift offset at ≤2 m/s; if neither side has 2.5 m clearance, reduce target speed to the lead car's speed minus 1 m/s until a gap opens. Obstacle avoidance never leaves the paved corridor. Car contact off still uses avoidance for believable driving. Both lead selection and passing-side clearance ignore rivals more than **2.5 m perpendicular to the current collision-surface plane**. Derive that plane from the current baked road edge and next centre sample, including grade, bank and launch-ramp height offsets. This separates traffic on bridge levels while retaining a lead car several metres higher along the same steep road; a world-Y cutoff is insufficient.
+Difficulty changes the line target speed multiplier: Easy 0.78, Medium 0.90, Hard 1.00. Expert uses the separate content-22 controller described below. In races with active humans, compare each bot to the nearest human in gate-bounded total race distance, including completed laps. Within 25 m, pace is unchanged. Over the next 200 m, smoothly ramp the multiplier to 1.14 for a trailing bot or 0.82 for a leading bot; clamp the result to the baked safe speed. Finished/DNF humans do not pull bots, and all-bot, Solo, Trial and School runs retain their base difficulty. Human car handling stays unchanged. It also changes input planning delay: 0.20, 0.10, 0.05 seconds, respectively. Hold the previous planned input between planning updates while the underlying car simulation still ticks at 60 Hz. No random reaction-time spikes. For a nearby car within 25 m ahead and ±3 m lateral, choose passing offset ±3 m toward the side with more room, with stable slot ID breaking equal gaps. Shift offset at ≤2 m/s; if neither side has 2.5 m clearance, reduce target speed to the lead car's speed minus 1 m/s until a gap opens. Obstacle avoidance never leaves the paved corridor. Car contact off still uses avoidance for believable driving. Both lead selection and passing-side clearance ignore rivals more than **2.5 m perpendicular to the current collision-surface plane**. Derive that plane from the current baked road edge and next centre sample, including grade, bank and launch-ramp height offsets. This separates traffic on bridge levels while retaining a lead car several metres higher along the same steep road; a world-Y cutoff is insufficient.
 
-Validation: seven bots must complete all eight courses at all three difficulties for 20 seeds without a permanent stuck condition or missed gate. On flat single-car reference runs, Hard must be faster than Medium and Medium faster than Easy. Human testing should find Medium beatable after learning the course; the bounded rubberband above keeps separated racers in contention without exceeding the authored corner limits.
+Validation: seven bots must complete all catalog courses at all four difficulties for 20 seeds without a permanent stuck condition or missed gate. On flat single-car reference runs, Expert must be faster than Hard, Hard faster than Medium and Medium faster than Easy. Human testing should find Medium beatable after learning the course; the bounded rubberband above keeps separated racers in contention without exceeding the authored corner limits.
 
 ## 19 Multiplayer simulation and transport
 
@@ -1484,3 +1484,33 @@ Trial, Cup and online retain their respective progression flows.
 Relaxed setup is marked active only while its race/assist values match; it is not
 a historical toggle. The garage's visible Paint shortcut uses the existing
 desktop popup or touch choice sheet, preserving car selection and keyboard focus.
+
+
+### Expert AI (content 22)
+
+Quick Race, Create Room and host Room Settings expose Expert as difficulty 3;
+Quick Race remembers it and offline suspension restores its exact controller
+state. Cup retains its fixed Medium rules. The directory accepts the fourth
+choice, and lobby bot labels display Expert. Protocol 10 is unchanged; content
+22 requires matching gameplay hashes. Frozen content-21 saves, ghosts, records,
+Cup and active-race bytes remain preserved with incompatible continuation disabled.
+
+Expert replans at 60 Hz and follows a shorter, speed-dependent target. It carries
+1.42 times the conservative baked line speed, with the existing nearest-human
+pace adjustment bounded to a 1.18–1.55 line multiplier. Its unboosted target never
+exceeds 99% of the car's own top speed. A 160 m look-ahead reapplies the braking
+envelope using 12 m/s² deceleration; steep grades and launch-ramp samples retain
+the original baked speed. Shared vehicle physics, boost charges, gates, recovery
+and finish grace still apply. Easy, Medium and Hard retain their existing inputs.
+
+Steering accounts for lateral travel to catch slides. On sharper bends, Expert
+can deliberately handbrake between 22 and 55 m/s while centered, with bounded
+sideways speed and no car within 12 m. Releasing/countersteering recovers through
+the same drift simulation as human cars. Existing paved-corridor passing and
+height-aware traffic avoidance still govern overtakes.
+
+`tools/expert_acceptance.py` exercises two-lap, eight-car contact races across
+the full catalog, both all-bot and with an Expert-autopiloted human activating
+authority catch-up rules. The regular AI matrix now checks all four difficulties
+and per-car Expert < Hard < Medium < Easy ordering on a flattened reference.
+Automated pace/completion evidence is separate from human driving feel.
