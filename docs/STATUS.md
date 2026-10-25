@@ -1,5 +1,14 @@
 # Implementation status
 
+## 24 October — optional upcoming-turn arrows
+
+Relaxed setup now enables a small left/right arrow and distance beneath the race
+clock. Gameplay settings can toggle it independently. It previews meaningful
+turns, preserves every driving input, and yields to warnings and countdowns.
+Direction, loop seams, metric/imperial labels and touch-control safe areas pass
+focused checks. Native desktop and phone-layout captures are recorded in
+[evidence](evidence/family-assists20/README.md); physical-device use remains unverified.
+
 ## 24 October — optional corner braking and more finishing time
 
 Content/protocol/save versions are **20/9/1**. Local Quick Race and Cup can use

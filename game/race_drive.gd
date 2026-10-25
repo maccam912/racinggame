@@ -504,6 +504,7 @@ func apply_settings() -> void:
 	hud.ui_scale = float(settings.ui_scale)/100
 	hud.high_contrast = bool(settings.high_contrast)
 	hud.palette = str(settings.palette)
+	hud.turn_hints = bool(settings.get("turn_hints",false))
 	nameplates.enabled = bool(settings.nameplates)
 	# Local preferences never override host-owned online prediction. Trials and
 	# School retain their baseline input and record/lesson contracts.

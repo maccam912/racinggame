@@ -381,6 +381,7 @@ func relaxed_setup() -> void:
 	if not Catalog.tracks[track_index].smooth_road(): track_index = 0
 	app.data.set_setting("steering_assist","strong")
 	app.data.set_setting("corner_braking",true)
+	app.data.set_setting("turn_hints",true)
 	app.data.set_setting("auto_accelerate",true)
 	app.data.set_setting("touch_auto_accelerate",true)
 	show_event()

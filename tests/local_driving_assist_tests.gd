@@ -23,7 +23,7 @@ func run() -> void:
 	assert(app.page == "event", "preset lets the parent review before starting")
 	assert(app.events.laps == 1 and app.events.opponents == 3 and app.events.difficulty == 0 and not app.events.contact)
 	assert(app.events.track_index == 0 and EventMenu.FILTERS[app.events.filter_index] == "smooth")
-	assert(app.data.settings.corner_braking and app.data.settings.steering_assist == "strong" and app.data.settings.auto_accelerate and app.data.settings.touch_auto_accelerate)
+	assert(app.data.settings.turn_hints and app.data.settings.corner_braking and app.data.settings.steering_assist == "strong" and app.data.settings.auto_accelerate and app.data.settings.touch_auto_accelerate)
 	var reloaded := AppData.new(folder,false)
 	assert(reloaded.settings.steering_assist == "strong" and reloaded.settings.auto_accelerate)
 	reloaded = null

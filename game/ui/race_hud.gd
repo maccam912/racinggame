@@ -4,6 +4,9 @@ extends Control
 const HUD_FONT = preload("res://assets/fonts/body.tres")
 const DISPLAY_FONT = preload("res://assets/fonts/heading.tres")
 
+var turn_hints: bool = false
+var next_turn: Dictionary = {}
+var guidance_wait: float = 0.0
 var boost_available: bool = false
 var state: VehicleState
 var track: TrackDefinition
@@ -88,6 +91,13 @@ func current_lap() -> float:
 	return maxf(0,elapsed()-state.lap_start_time)
 
 func advance(dt: float) -> void:
+	guidance_wait -= dt
+	if not turn_hints or state.reversing or phase not in ["Racing", "Finish Grace"] or not banner_text().is_empty() or Time.get_ticks_msec() < notice_until_ms:
+		next_turn.clear()
+		guidance_wait = 0
+	elif guidance_wait <= 0:
+		next_turn = TurnGuidance.next_turn(track,state.route_s,state.speed())
+		guidance_wait = .15
 	if observed_laps>=0 and state.laps>observed_laps and not state.finished:
 		announcement = I18n.t("hud.final_lap") if state.laps+1==lap_count else I18n.t("hud.lap",[state.laps+1,lap_count])
 		announcement_remaining = 1.2
@@ -213,6 +223,7 @@ func _draw() -> void:
 		var boost_at := speed_at - Vector2(15,96)
 		draw_style_box(display_panel(),Rect2(boost_at,Vector2(195,30)))
 		fitted_display(boost_at+Vector2(10,22),I18n.t("hud.boost",[state.boost_charges]),20,175,UIFactory.YELLOW if state.boost_ticks > 0 else UIFactory.TURQUOISE)
+	if not next_turn.is_empty() and turn_hints and banner_text().is_empty(): draw_turn_hint()
 	var banner := banner_text()
 	if trial and not state.trial_valid:
 		text(Vector2(canvas.x * .3, canvas.y * .14), I18n.t("hud.invalid"), 20, Color.html("F16B50"))
@@ -249,3 +260,23 @@ func panel() -> StyleBoxFlat:
 		box.set_border_width_all(2)
 	box.set_corner_radius_all(8)
 	return box
+
+
+func turn_hint_rect() -> Rect2:
+	var clock: Rect2 = timing_rects().elapsed
+	var unit := mobile_unit if mobile else 1.0
+	return Rect2(Vector2(clock.get_center().x-50*unit,clock.end.y+8*unit),Vector2(100,48)*unit)
+
+
+func draw_turn_hint() -> void:
+	var box := turn_hint_rect()
+	var unit := mobile_unit if mobile else 1.0
+	var color := UIFactory.YELLOW if float(next_turn.distance)<40 else UIFactory.TURQUOISE
+	draw_style_box(display_panel(),box)
+	var origin := box.position+Vector2(26,25)*unit
+	var direction := float(next_turn.direction)
+	draw_polyline(PackedVector2Array([origin+Vector2(0,13)*unit,origin+Vector2(0,-4)*unit,origin+Vector2(direction*13,-4)*unit]),color,5*unit,true)
+	draw_colored_polygon(PackedVector2Array([origin+Vector2(direction*20,-4)*unit,origin+Vector2(direction*9,-13)*unit,origin+Vector2(direction*9,5)*unit]),color)
+	var distance := float(next_turn.distance)*(3.28084 if mph else 1.0)
+	var caption := str(maxi(10,roundi(distance/10)*10))+(" ft" if mph else " m")
+	text(box.position+Vector2(52,30)*unit,caption,int(14*unit),color)

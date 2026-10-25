@@ -22,3 +22,9 @@ network codec and frozen content-19 transition tests pass. A final focused run
 passes seven commands after the final tuning. The broader content-19 baseline
 passed 218 commands with three corrected reruns; a new full run follows this
 checkpoint. Source fixtures and generated reports distinguish these scopes.
+
+Optional upcoming-turn arrows are enabled by Relaxed setup or Gameplay settings.
+They preview the road without changing input, hide under warnings/countdowns and
+results, and use metric or imperial distance. Native desktop and 1600x720 touch
+views were inspected. Direction, lap-seam, priority and control safe-area tests
+pass; five focused source/HUD/settings commands pass.
