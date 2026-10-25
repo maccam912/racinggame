@@ -1,0 +1,631 @@
+{
+  "passed": true,
+  "checks": {
+    "client_exit": true,
+    "two_race_agreement": true,
+    "all_eight_finish": true,
+    "clear_coverage_100_each": true,
+    "clear_p95_025m_each": true,
+    "private_assists_each": true,
+    "requested_reconnect": true,
+    "source_unchanged": true,
+    "engine_logs": true
+  },
+  "source": "a666eb4ae89f784dcc3b23681ceacfcf8ea2d4f4",
+  "working_tree_dirty": true,
+  "transport": "native Iroh QUIC; 50\u00b120 ms/1% client application-packet impairment",
+  "reconnect": true,
+  "laps": 2,
+  "assist_level_odd_slots": 3,
+  "minimum_clear_samples": 403,
+  "worst_clear_p95": 0.0509272180497646,
+  "source_hashes": {
+    "game/content/compatibility.json": "a14740aec2c0b85c407b22f369388a3e320d46abeac49d6584a67a206e41c41d",
+    "game/content/rules.json": "02381f683ed572f524620c85cb0eb79df723c309b7e7c3cfa515044510357dc5",
+    "game/net/directory_client.gd": "e486b56050e60dcd3a006605540c385659db6dc680d4121b9f4fffb14b898558",
+    "game/net/directory_schema.gd": "b600a95d5fac9f000148cadce8396ea50be76a315d617c565b1371fbd2854d82",
+    "game/net/input_buffer.gd": "0b72a903e7bb1e5c96f296a0eeb9397e7572bc4f53a5af5d6d390ddda03873e0",
+    "game/net/iroh_rendezvous.gd": "cf28a05d5b98f4c3026d43bde5b5e924a940517c39cd36fccee40efcedeba4e0",
+    "game/net/iroh_rooms.gd": "8fc58b2e986b84874994ba94fa00987971a2d80019e8d4bf483e306b7e80e805",
+    "game/net/iroh_transport.gd": "2e2fcf26ee3b7802534ba89f02614cdeeb8bc14eea6f12c23f74f34a84057d03",
+    "game/net/lobby_state.gd": "f4ab40945b631c9bc60bb559679c64506b5ae6a6c4f7518e68e6daadf138c6fc",
+    "game/net/net_codec.gd": "6bde7cc2f130ba4080cbbf1e27a3602a8e8967ad5a49600dad3148d5a7fedc39",
+    "game/net/net_events.gd": "ac8aca19e4a78189f6f4baf454c6b4a1209df91217cc693814dd9c06ab6d4107",
+    "game/net/network_client.gd": "5bb99878a8ee6ca19727d3df3c23bffa5127587b7e6960626bd25d3cd95e1c84",
+    "game/net/network_departure.gd": "0ca8c56d96391fc5bbe83b110a8968e43d526c68d58b3e46cf5550fd0378a990",
+    "game/net/network_quality.gd": "5e0ceb66ccedddea47e6687438d5ad86ff8f708a82e0eba5740bdbac45e4e00d",
+    "game/net/peer_address.gd": "b0001bf32822d6279d7e1fe56324e789d8c2f3ec3c4a53e966401b55349b8d91",
+    "game/net/prediction_buffer.gd": "93fa4b02a1a57a09a58ab6c0f72082cc8d9a08d4b850493aadde45ad3aeae62e",
+    "game/net/region_book.gd": "844ab9fe774166d710917e568f78980249a194268123f308dfb52fdabd337c31",
+    "game/net/reliable_fragments.gd": "646fea6c9a0d2b9f0107331d3b1710de8adb3ab0302b24a67e4da2bb1cde98b3",
+    "game/net/remote_buffer.gd": "e7455867e606b3b3578172aacd815206ab80883b1270b9a8de6404c6a39ee370",
+    "game/net/wire_peer.gd": "37c538d9291c7e326c3af7b3039825d8bd9397d4b8f6f9b58c35e04affe7ebfa",
+    "game/server/room_server.gd": "64fa05f23c5ebb8496e46d159986031ab07653cd3520bbb0b7b0698129768b1c",
+    "game/server/snapshot_events.gd": "364ab0db379e8ab39ef65a0d30660e3e5429d2cac92c07dce1721963225aa3c5",
+    "game/server/ticket_verifier.gd": "a4dacaf32dc4ceb4b64768c700a606b5a8c7ad2c1ea013b8a31835a643d6e174",
+    "game/server/worker_directory.gd": "50af91d2de156d35fcd9d64020cf3cb4491baf3ecc883cdf20978b8dfbd4b669",
+    "game/server/worker_performance.gd": "c6462d5fe31e47ea2bc2b93b6a83aa994439b0b3e65ebf21615ef0a8c56d90da",
+    "native/iroh/Cargo.lock": "85b2637c9ada4c2e670d3559685e92ab0ff0582f99ccf13d58ee613d9858ff3d",
+    "native/iroh/Cargo.toml": "dd06cf3e4954b76433d5a25453bac32c438f63d6fc7f7608a66a36b26cc12592",
+    "native/iroh/src/client.rs": "5c96c92d5e785d0fa5039a9aa63d8b66cb2de6a32baf6e4f5d50859fd0ddf841",
+    "native/iroh/src/connection.rs": "cc58836a02d80ff86b8dac7ba1b06cd0560947d02564227ffc26e5309bab0288",
+    "native/iroh/src/lib.rs": "05d1568ade7954e32307eec1a9d025b068363031fb637ad2612692b76e7ce68f",
+    "native/iroh/src/server.rs": "f25bfacfe88ce43d63b4e444e13c929c0ca3f93d2a60f5deb056da3ffaa3378b",
+    "tests/iroh_host.gd": "3134e873910b3103af5efc31e7482a0355dacf0b06ab1d5dd371a4349f0ffa9d",
+    "tests/lobby_network_client.gd": "f624aa230b53eb1b755de73fa492dc57fb8918896c8c505198562f81a4a852e3",
+    "tools/iroh_integration.py": "2f537ecf6ca1fe4224657f099c15a39f13f037089e567b000aa20843b85229f2"
+  },
+  "clients": [
+    {
+      "index": 0,
+      "resume_count": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2695,
+            "max": 0.0562789887189865,
+            "p95": 0.0192094184458256
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 390,
+            "max": 1.03800487518311,
+            "p95": 0.0678507834672928
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 85.0,
+          "slot": 0,
+          "snapshots": 3201,
+          "terminal": {
+            "count": 109,
+            "max": 2.70088887214661,
+            "p95": 2.47032499313354
+          }
+        },
+        {
+          "clear": {
+            "count": 972,
+            "max": 0.0804122313857079,
+            "p95": 0.0195773914456367
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 2010,
+            "max": 0.666378259658813,
+            "p95": 0.0840446427464485
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 37,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 111.0,
+          "slot": 0,
+          "snapshots": 3139,
+          "terminal": {
+            "count": 151,
+            "max": 2.78088760375977,
+            "p95": 2.44002294540405
+          }
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "resume_count": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 1828,
+            "max": 0.0621085353195667,
+            "p95": 0.0186516847461462
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 1262,
+            "max": 1.03710901737213,
+            "p95": 0.07050871104002
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 84.0,
+          "slot": 1,
+          "snapshots": 3201,
+          "terminal": {
+            "count": 104,
+            "max": 2.71015739440918,
+            "p95": 2.48009157180786
+          }
+        },
+        {
+          "clear": {
+            "count": 2415,
+            "max": 0.166665017604828,
+            "p95": 0.0223066844046116
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 665,
+            "max": 0.668151140213013,
+            "p95": 0.071813777089119
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 37,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 113.0,
+          "slot": 1,
+          "snapshots": 3139,
+          "terminal": {
+            "count": 51,
+            "max": 2.73016047477722,
+            "p95": 2.63008093833923
+          }
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "resume_count": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 521,
+            "max": 0.0923623964190483,
+            "p95": 0.0509272180497646
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 2581,
+            "max": 0.47999906539917,
+            "p95": 0.0887236148118973
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 97.0,
+          "slot": 7,
+          "snapshots": 3201,
+          "terminal": {
+            "count": 91,
+            "max": 2.80027341842651,
+            "p95": 2.60008311271667
+          }
+        },
+        {
+          "clear": {
+            "count": 2087,
+            "max": 0.0916548669338226,
+            "p95": 0.0217071902006865
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 878,
+            "max": 0.678291976451874,
+            "p95": 0.0833375304937363
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 37,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 103.0,
+          "slot": 7,
+          "snapshots": 3139,
+          "terminal": {
+            "count": 167,
+            "max": 2.77015900611877,
+            "p95": 2.38001823425293
+          }
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "resume_count": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2047,
+            "max": 0.0746103525161743,
+            "p95": 0.0160722956061363
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 1044,
+            "max": 1.08970141410828,
+            "p95": 0.0663589537143707
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 65.0,
+          "slot": 2,
+          "snapshots": 3201,
+          "terminal": {
+            "count": 102,
+            "max": 2.74091482162476,
+            "p95": 2.51032853126526
+          }
+        },
+        {
+          "clear": {
+            "count": 1595,
+            "max": 0.0877357199788094,
+            "p95": 0.0222128685563803
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 1443,
+            "max": 0.734411299228668,
+            "p95": 0.083039827644825
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 37,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 81.0,
+          "slot": 2,
+          "snapshots": 3139,
+          "terminal": {
+            "count": 94,
+            "max": 2.74066233634949,
+            "p95": 2.54007959365845
+          }
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "resume_count": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 403,
+            "max": 0.0595486536622047,
+            "p95": 0.0181547030806541
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 2698,
+            "max": 1.16726768016815,
+            "p95": 0.0676985010504723
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 82.0,
+          "slot": 5,
+          "snapshots": 3201,
+          "terminal": {
+            "count": 93,
+            "max": 2.78028655052185,
+            "p95": 2.59007358551025
+          }
+        },
+        {
+          "clear": {
+            "count": 1826,
+            "max": 0.111247256398201,
+            "p95": 0.0215966161340475
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 1195,
+            "max": 0.737067043781281,
+            "p95": 0.0727476477622986
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 37,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 84.0,
+          "slot": 5,
+          "snapshots": 3139,
+          "terminal": {
+            "count": 111,
+            "max": 2.76016521453857,
+            "p95": 2.51008176803589
+          }
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "resume_count": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 2943,
+            "max": 0.0372514389455318,
+            "p95": 0.0194208063185215
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 209,
+            "max": 0.495539098978043,
+            "p95": 0.0814199224114418
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 133.0,
+          "slot": 6,
+          "snapshots": 3201,
+          "terminal": {
+            "count": 40,
+            "max": 2.7108952999115,
+            "p95": 2.62068200111389
+          }
+        },
+        {
+          "clear": {
+            "count": 3070,
+            "max": 0.0880790501832962,
+            "p95": 0.0205979291349649
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 22,
+            "max": 0.717587053775787,
+            "p95": 0.0819908529520035
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 37,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 113.0,
+          "slot": 6,
+          "snapshots": 3139,
+          "terminal": {
+            "count": 40,
+            "max": 2.74065470695496,
+            "p95": 2.64047288894653
+          }
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "resume_count": 0,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 493,
+            "max": 0.0669736564159393,
+            "p95": 0.036769662052393
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 2603,
+            "max": 1.12796366214752,
+            "p95": 0.0848902463912964
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 70.0,
+          "slot": 4,
+          "snapshots": 3201,
+          "terminal": {
+            "count": 98,
+            "max": 2.80116105079651,
+            "p95": 2.61046433448792
+          }
+        },
+        {
+          "clear": {
+            "count": 787,
+            "max": 0.105472221970558,
+            "p95": 0.0446583889424801
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 2196,
+            "max": 0.721723854541779,
+            "p95": 0.0849872976541519
+          },
+          "driving_assist": 0,
+          "highest_snapshot_gate": 37,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 102.0,
+          "slot": 4,
+          "snapshots": 3139,
+          "terminal": {
+            "count": 150,
+            "max": 2.83044338226318,
+            "p95": 2.48001980781555
+          }
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "resume_count": 1,
+      "loaded_tracks": [
+        0,
+        1
+      ],
+      "race_metrics": [
+        {
+          "clear": {
+            "count": 562,
+            "max": 3.61739373207092,
+            "p95": 0.0176771953701973
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 2390,
+            "max": 1.07819652557373,
+            "p95": 0.0739185437560081
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 34,
+          "history": 0,
+          "race": 1,
+          "recoveries": 0,
+          "rtt_ms": 127.0,
+          "slot": 3,
+          "snapshots": 3067,
+          "terminal": {
+            "count": 99,
+            "max": 2.7502908706665,
+            "p95": 2.57018232345581
+          }
+        },
+        {
+          "clear": {
+            "count": 2339,
+            "max": 0.0602651946246624,
+            "p95": 0.0188270434737206
+          },
+          "clock_restores": {
+            "count": 0,
+            "max": 0.0,
+            "p95": 0.0
+          },
+          "contact": {
+            "count": 701,
+            "max": 0.729941666126251,
+            "p95": 0.0813730806112289
+          },
+          "driving_assist": 3,
+          "highest_snapshot_gate": 37,
+          "history": 0,
+          "race": 2,
+          "recoveries": 0,
+          "rtt_ms": 102.0,
+          "slot": 3,
+          "snapshots": 3139,
+          "terminal": {
+            "count": 92,
+            "max": 2.76028418540955,
+            "p95": 2.56017327308655
+          }
+        }
+      ]
+    }
+  ],
+  "races": 2,
+  "finishes": 16,
+  "preceding_one_lap_attempt": {
+    "passed": false,
+    "minimum_clear_samples": 92,
+    "required_minimum": 100,
+    "worst_clear_p95_m": 0.0894760265946388,
+    "all_finish_and_agree": true,
+    "engine_logs_clean": true,
+    "response": "Extend to two laps; keep the sample and correction thresholds unchanged."
+  }
+}

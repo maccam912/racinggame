@@ -1,0 +1,36 @@
+{
+  "quiet_comparison": {
+    "base_commit": "0329a4ea64df004532fa60dd789a95699c62a7cb",
+    "content_hash": "3a708b25913c73fe7db51593df73cfc82709412a4d8a7188017d8adedfb95415",
+    "asset_hash": "e1f826ea2a8508b1134aeb3ce378291d5ced35ad8d91db2add1c81057966d1be",
+    "races": 2,
+    "timing": {
+      "max_ms": 34.049,
+      "mean_ms": 16.6665906780391,
+      "over_33ms": 1,
+      "p95_ms": 21.786,
+      "p99_ms": 22.87,
+      "samples": 11607
+    },
+    "host_frame_budget": {
+      "p95_at_most_20ms": false,
+      "p99_at_most_33ms": true
+    },
+    "conditions": "No Android emulator or eight-client network fixture. Some headless focused checks ran near the end. Same native source-render fixture and host as the long run."
+  },
+  "uncapped_festival_sweep": {
+    "source_revision": "a666eb4ae89f784dcc3b23681ceacfcf8ea2d4f4",
+    "working_tree_dirty": true,
+    "fixture_sha256": "41c45cc96b9c84853fb7082088f15c233adcbc47d603ac3156da5dff4f539f9f",
+    "gpu": "Apple M5 Pro",
+    "renderer": "gl_compatibility",
+    "track": "festival_speedway",
+    "samples": 480,
+    "four_frame_average_mean_ms": 1.91355,
+    "four_frame_average_p95_ms": 2.12675,
+    "four_frame_average_p99_ms": 3.09425,
+    "four_frame_average_max_ms": 8.2545,
+    "draw_calls_max": 235.0,
+    "boundary": "Two complete 240-pose rendered Far Chase sweeps, recorded shadow preset, native 1920x1080, VSync/cap off, no Retro, no HUD/audio/vehicle simulation. Four-frame wall-clock averages after two settling frames. Spatial renderer/camera evidence on this host, not a human driving or exported-device performance guarantee."
+  }
+}

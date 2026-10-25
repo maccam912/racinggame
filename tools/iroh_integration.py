@@ -27,7 +27,7 @@ def snapshot_sources(folder=None):
     return hashes
 
 
-def run(reconnect=False):
+def run(reconnect=False, assist_level=0, laps=1):
     folder = ROOT/'reports'/('iroh-'+uuid.uuid4().hex[:10])
     folder.mkdir(parents=True)
     (ROOT/'reports/.gdignore').touch()
@@ -35,7 +35,7 @@ def run(reconnect=False):
     processes, handles = [], []
     summary = {'passed':False,'service':'https://iroh-rendezvous.maccam912.workers.dev',
                'transport':'native Iroh QUIC; 50±20 ms/1% client application-packet impairment',
-               'reconnect':reconnect,'source':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
+               'reconnect':reconnect,'laps':laps,'assist_level_odd_slots':assist_level,'source':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),
                'working_tree_dirty':bool(subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True).strip())}
     summary['source_hashes'] = snapshot_sources(folder)
     def start(arguments,name):
@@ -58,8 +58,8 @@ def run(reconnect=False):
             extra = ['--reconnect'] if reconnect and index==7 else []
             clients.append(start(['--script','tests/lobby_network_client.gd','--',f'--index={index}',
                 f'--iroh-code={hosting["code"]}',f'--report={folder/f"client-{index}.json"}',
-                '--latency-ms=50','--jitter-ms=20','--loss=0.01',*extra],f'client-{index}.log'))
-        deadline = time.monotonic()+370
+                '--latency-ms=50','--jitter-ms=20','--loss=0.01',f'--assist-level={assist_level}',f'--laps={laps}',f'--seconds={340*laps}',*extra],f'client-{index}.log'))
+        deadline = time.monotonic()+340*laps+30
         while any(client.poll() is None for client in clients):
             if time.monotonic()>deadline: raise RuntimeError('Iroh race/rematch timed out')
             for index,client in enumerate(clients):
@@ -68,20 +68,24 @@ def run(reconnect=False):
             time.sleep(.25)
         reports = [json.loads((folder/f'client-{index}.json').read_text()) for index in range(8)]
         results = reports[0]['results']
-        passed = all(client.returncode==0 for client in clients)
-        passed &= len(results)==2 and all(report['results']==results and report['loaded_tracks']==[0,1] for report in reports)
-        passed &= all(len(race['rows'])==8 and all(row['dnf']=='' and not row['bot'] for row in race['rows']) for race in results)
         metrics = [metric for report in reports for metric in report['race_metrics']]
-        passed &= len(metrics)==16 and all(row['clear']['count']>=100 and row['clear']['p95']<=.25 for row in metrics)
-        passed &= not reconnect or reports[7]['resume_count']>=1
-        passed &= snapshot_sources()==summary['source_hashes']
+        checks = {
+            'client_exit':all(client.returncode==0 for client in clients),
+            'two_race_agreement':len(results)==2 and all(report['results']==results and report['loaded_tracks']==[0,1] for report in reports),
+            'all_eight_finish':all(len(race['rows'])==8 and all(row['dnf']=='' and not row['bot'] for row in race['rows']) for race in results),
+            'clear_coverage_100_each':len(metrics)==16 and all(row['clear']['count']>=100 for row in metrics),
+            'clear_p95_025m_each':len(metrics)==16 and all(row['clear']['p95']<=.25 for row in metrics),
+            'private_assists_each':len(metrics)==16 and all(row.get('driving_assist')==(assist_level if row['slot']%2 else 0) for row in metrics),
+            'requested_reconnect':not reconnect or reports[7]['resume_count']>=1,
+            'source_unchanged':snapshot_sources()==summary['source_hashes'],
+        }
         host_report.with_suffix('.json.stop').touch()
         host.wait(timeout=20)
-        for path in folder.glob('*.log'):
-            passed &= not any(marker in path.read_text() for marker in ['SCRIPT ERROR:','ERROR:','Leaked instance'])
-        summary.update(passed=bool(passed),clients=reports,results=results,
+        checks['engine_logs'] = all(not any(marker in path.read_text() for marker in ['SCRIPT ERROR:','ERROR:','Leaked instance']) for path in folder.glob('*.log'))
+        summary.update(passed=all(checks.values()),checks=checks,clients=reports,results=results,
                        minimum_clear_samples=min((r['clear']['count'] for r in metrics),default=0),
                        worst_clear_p95=max((r['clear']['p95'] for r in metrics),default=0))
+        if not summary['passed']: summary['failure'] = 'Failed checks: '+', '.join(key for key,value in checks.items() if not value)
     except BaseException as error:
         summary['failure'] = type(error).__name__+': '+str(error)
     finally:
@@ -100,4 +104,7 @@ def run(reconnect=False):
 if __name__=='__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--reconnect',action='store_true')
-    raise SystemExit(run(parser.parse_args().reconnect))
+    parser.add_argument('--assist-level',type=int,choices=range(4),default=0,help='Private assistance on odd slots; even slots remain unassisted')
+    parser.add_argument('--laps',type=int,choices=[1,2],default=1,help='Laps per race; two laps provide more correction coverage in close fields')
+    args = parser.parse_args()
+    raise SystemExit(run(args.reconnect,args.assist_level,args.laps))

@@ -36,3 +36,17 @@ Run: `python3 tools/soak_acceptance.py --races 2 --laps 1 --minimum-seconds 0
 --seconds 600 --tracks palm_bay,temple_coast --assist-level 3 --port 27640`.
 Elapsed 271.6 seconds; this short run does not establish the 5-to-15-minute server
 memory bound. [Recorded metrics](mixed-assist-network.json).
+
+## Native join-code transport
+
+`python3 tools/iroh_integration.py --reconnect --assist-level 3 --laps 2`
+passes two eight-player races through the live shared rendezvous and native Iroh
+transport, with 50 +/-20 ms / 1% application-packet impairment. Odd slots receive
+Strong + braking, even slots remain unassisted, and client 7 reconnects. All
+sixteen finishes agree across clients; assist values, reconnect, clean engine
+logs and the unchanged 100-sample / 0.25 m correction gates pass.
+
+The preceding one-lap attempt finished and agreed but failed coverage because
+one player had 92 clear-road samples. Extending the race provided sufficient
+coverage without weakening the threshold. [Recorded checks and metrics](iroh-assisted.json).
+The tool now names failed checks and accepts one- or two-lap fixtures.
