@@ -51,6 +51,12 @@ func run() -> void:
 				var list: VBoxContainer = app.menu.body.get_child(0).get_child(0)
 				var row := list.get_child(rank) as PanelContainer
 				assert(row!=null,"local result retains highlighted panel")
+				var local_car: CarDefinition = app.result_receipt.session.cars[app.result_receipt.session.human_slot]
+				var portrait := row.find_child("ResultCar",true,false) as TextureRect
+				assert(portrait!=null and portrait.texture.resource_path.ends_with(local_car.id+".png"))
+				assert(row.find_child("FinishingPlace",true,false).text==str(rank+1))
+				var text := " ".join(row.find_children("*","Label",true,false).map(func(n: Label) -> String: return n.text))
+				assert(text.contains(I18n.t("results.time")) and text.contains(I18n.t("results.best_lap")) and text.contains(I18n.t("results.gap")))
 				var scroll: ScrollContainer = list.get_parent()
 				assert(scroll.get_global_rect().encloses(row.get_global_rect()),"Local result must be visible: "+str([viewport.id,scale,rank,row.get_global_rect(),scroll.get_global_rect(),scroll.scroll_vertical]))
 				assert(viewport_root.gui_get_focus_owner() is Button and app.menu.footer.is_ancestor_of(viewport_root.gui_get_focus_owner()),"revealing a result preserves keyboard/controller action focus")
@@ -59,6 +65,19 @@ func run() -> void:
 					await RenderingServer.frame_post_draw
 					DirAccess.make_dir_recursive_absolute("res://reports/results-visibility")
 					assert(viewport_root.get_texture().get_image().save_png("res://reports/results-visibility/phone-"+str(scale)+".png")==OK)
+			app.result_receipt = receipt(7)
+			var last_state: VehicleState = app.result_receipt.session.states[app.result_receipt.session.human_slot]
+			last_state.finished = false
+			last_state.finish_time = -1
+			last_state.dnf_reason = "Time limit"
+			app.result_summary = {"saved":true,"new_best":false}
+			app.render_results()
+			await settle()
+			var dnf_list: VBoxContainer = app.menu.body.get_child(0).get_child(0)
+			var dnf_row := dnf_list.get_child(7) as PanelContainer
+			assert(dnf_list.get_parent().get_global_rect().encloses(dnf_row.get_global_rect()))
+			var dnf_text := " ".join(dnf_row.find_children("*","Label",true,false).map(func(n: Label) -> String: return n.text))
+			assert(dnf_text.contains(I18n.t("results.dnf")) and dnf_text.contains("Time limit"),"unfinished races stay clearly labelled")
 			# Save failure and its Retry action take priority over scrolling to rank 8.
 			app.result_receipt = receipt(7)
 			app.result_summary = {"saved":false,"new_best":false}

@@ -1,5 +1,13 @@
 # Implementation status
 
+## 24 October — clearer race results
+
+Finishing places, car pictures and labelled times replace dense unlabelled result
+lines. The local result stays highlighted and visible at all supported text
+scales; DNF and save-failure states retain their meaning and action priority.
+Five focused commands and native phone/tablet/desktop layout checks pass.
+[Evidence](evidence/results21/README.md).
+
 ## 24 October — gentler Relaxed setup
 
 Relaxed setup now uses the existing 75% sensitivity setting and is visible above

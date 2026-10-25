@@ -777,10 +777,14 @@ func render_results() -> void:
 			var state: VehicleState = order[index]
 			var record: Dictionary = session.roster[state.slot]
 			var gap := "—" if index == 0 or not state.finished or not order[0].finished else "+%.3f" % (state.finish_time - order[0].finish_time)
-			var row := menu.ui.paragraph("%d  %s  •  %s  •  %s  •  %s  •  %s" % [index + 1, record.name, I18n.t("car." + session.cars[state.slot].id), RaceHUD.format_time(state.finish_time) if state.finished else I18n.t("results.dnf") + " " + state.dnf_reason, RaceHUD.format_time(state.best_lap_time) if state.best_lap_time > 0 else "—", gap])
+			var row := RaceResultRow.build(menu.ui,state,session.cars[state.slot],record.name,index+1,gap)
 			if state.slot==session.human_slot:
 				var highlight := menu.ui.panel(row)
-				highlight.add_theme_stylebox_override("panel",menu.ui.style(UIFactory.NAVY,UIFactory.YELLOW,2))
+				var border := menu.ui.style(UIFactory.NAVY,UIFactory.YELLOW,2)
+				# Integral padding keeps the last result's border inside scroll bounds.
+				border.content_margin_top = ceilf(border.content_margin_top)
+				border.content_margin_bottom = ceilf(border.content_margin_bottom)
+				highlight.add_theme_stylebox_override("panel",border)
 				list.add_child(highlight)
 				local_result = highlight
 			else:
