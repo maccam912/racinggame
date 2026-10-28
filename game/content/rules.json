@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "content_version": 22,
+  "content_version": 23,
   "protocol_version": 10,
   "save_schema": 1,
   "physics_hz": 60,
@@ -15,5 +15,7 @@
     2,
     3
   ],
-  "assisted_grace_ticks": 7200
+  "assisted_grace_ticks": 7200,
+  "online_grace_ticks": 3600,
+  "human_finish_grace_ticks": 300
 }

@@ -15,7 +15,9 @@
     "collision_grace_ticks",
     "maximum_racers",
     "lap_choices",
-    "assisted_grace_ticks"
+    "assisted_grace_ticks",
+    "online_grace_ticks",
+    "human_finish_grace_ticks"
   ],
   "additionalProperties": false,
   "properties": {
@@ -24,7 +26,7 @@
       "type": "integer"
     },
     "content_version": {
-      "const": 22,
+      "const": 23,
       "type": "integer"
     },
     "protocol_version": {
@@ -77,6 +79,14 @@
     "assisted_grace_ticks": {
       "type": "integer",
       "const": 7200
+    },
+    "online_grace_ticks": {
+      "type": "integer",
+      "const": 3600
+    },
+    "human_finish_grace_ticks": {
+      "type": "integer",
+      "const": 300
     }
   }
 }

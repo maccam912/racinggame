@@ -105,17 +105,28 @@ func step(frames: Dictionary) -> void:
 			phase = Phase.GRACE
 			phase_ticks = 0
 	if elapsed_ticks >= int(Catalog.rules.hard_limit_ticks) or (first_finish_tick >= 0 and elapsed_ticks - first_finish_tick >= finish_grace_limit()):
-		for state: VehicleState in states:
-			if not state.finished and state.dnf_reason == "":
-				state.dnf_reason = "Time limit" if elapsed_ticks >= int(Catalog.rules.hard_limit_ticks) else "Finish grace expired"
-		phase = Phase.RESULTS
-		phase_ticks = 0
+		finish_race("Time limit" if elapsed_ticks >= int(Catalog.rules.hard_limit_ticks) else "Finish grace expired")
 		return
 	var complete := states.all(func(state: VehicleState) -> bool: return state.finished or state.dnf_reason != "")
-	settled_ticks = settled_ticks + 1 if complete else 0
-	if settled_ticks >= 120:
-		phase = Phase.RESULTS
-		phase_ticks = 0
+	var has_humans := false
+	var humans_complete := true
+	for state: VehicleState in states:
+		if not bots.has(state.slot):
+			has_humans = true
+			if not state.finished and state.dnf_reason == "": humans_complete = false
+	humans_complete = has_humans and humans_complete
+	# AI can keep racing briefly, but never hold completed human races open.
+	# Keep the shorter settling period when the entire field is already done.
+	settled_ticks = settled_ticks + 1 if complete or humans_complete else 0
+	if (complete and settled_ticks >= 120) or (humans_complete and settled_ticks >= int(Catalog.rules.human_finish_grace_ticks)):
+		finish_race("Race complete")
+
+
+func finish_race(reason: String) -> void:
+	for state: VehicleState in states:
+		if not state.finished and state.dnf_reason == "": state.dnf_reason = reason
+	phase = Phase.RESULTS
+	phase_ticks = 0
 
 
 func standings() -> Array[VehicleState]:
@@ -220,6 +231,8 @@ func rejoin_field(state: VehicleState, query: WorldQuery) -> void:
 
 
 func finish_grace_limit() -> int:
+	# Online racers get one fixed deadline, including assisted humans and bots.
+	if mode == "online": return int(Catalog.rules.online_grace_ticks)
 	# Keep standard races brisk, but give assisted families time to finish.
 	# Finished assisted humans still count: their setting must not shorten the
 	# deadline for other racers partway through the finishing period.

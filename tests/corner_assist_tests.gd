@@ -106,8 +106,8 @@ func finishing_case() -> void:
 			race.mode = "online"
 			race.corner_braking.clear()
 			race.driving_assists[1] = 1
-			assert(race.finish_grace_limit()==7200, "host steering help grants the same finishing time")
-			race.elapsed_ticks = 7300
+			assert(race.finish_grace_limit()==3600, "online steering help cannot extend the one-minute deadline")
+			race.elapsed_ticks = 3700
 			race.step({})
 			assert(race.states[1].dnf_reason=="Finish grace expired" and race.phase==RaceSession.Phase.RESULTS)
 			race.states[1].dnf_reason = ""

@@ -414,6 +414,7 @@ func start_race() -> void:
 	collision.build(track)
 	add_child(collision)
 	session = RaceSession.new()
+	session.mode = "online"
 	session.race_id = race_number
 	session.race_uuid = RaceSetup.uuid()
 	var roster := lobby.roster()

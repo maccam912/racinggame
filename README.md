@@ -31,7 +31,11 @@ Choose **Quick Race**, pick a car and paint, then press **Continue → Relaxed s
 The preset selects a smooth course, one lap, three Easy rivals and no car
 collisions. It enables gentler steering, Strong steering help, automatic corner
 braking, auto acceleration and upcoming-turn arrows. The player still steers.
-Assisted races allow up to two minutes after the first racer finishes.
+Offline assisted races allow up to two minutes after the first racer finishes
+while the player is still racing. Once every human finishes or retires, results
+arrive within five seconds, even if AI racers are still driving. Online races
+give everyone at most 60 seconds after the first racer finishes, including when
+driving help is enabled.
 
 The six smooth choices are Palm Bay, Citrus Pass, Tundra Pipeline, Saltflat
 Velocity, Storm Chase and Festival Speedway. **Next** on the results screen

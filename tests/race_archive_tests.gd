@@ -95,6 +95,26 @@ func run() -> void:
 	assert(drive.state.recovery_rank==3 and drive.state.recovery_ticks==30 and drive.state.recovery_speed==20.0)
 	for tick in range(30): drive.session.step({})
 	assert(drive.state.recovery_ticks==0 and absf(drive.state.velocity.length()-20.0)<.001)
+	# Suspending after the human finishes must retain the remaining AI wrap-up.
+	drive = start({"mode":"quick","track":0,"car":0,"paint":0,"opponents":3,"laps":1})
+	drive.session.phase = RaceSession.Phase.GRACE
+	drive.session.elapsed_ticks = 100
+	drive.session.first_finish_tick = 100
+	drive.state.finished = true
+	drive.state.finish_time = 1.5
+	drive.state.laps = 1
+	for tick in range(150): drive.session.step({})
+	var finishing := RaceArchive.capture(drive)
+	assert(finishing.session.settled_ticks==150 and RaceArchive.valid(finishing))
+	assert(app.data.store.save_component("suspended_race",finishing)==OK)
+	finishing = SaveStore.new(folder).load_component("suspended_race",{},RaceArchive.valid)
+	drive = start(finishing.config)
+	assert(RaceArchive.restore(drive,finishing) and drive.session.settled_ticks==150)
+	for tick in range(149): drive.session.step({})
+	assert(drive.session.phase==RaceSession.Phase.GRACE)
+	drive.session.step({})
+	assert(drive.session.phase==RaceSession.Phase.RESULTS and drive.session.elapsed_ticks==400)
+	assert(drive.session.states.all(func(state: VehicleState) -> bool: return state.finished or state.dnf_reason=="Race complete"))
 	drive = start({"mode":"school","track":0,"car":0,"paint":0,"opponents":0,"lesson":3})
 	drive.lesson.stage = 1
 	drive.lesson.slide_ticks = 18

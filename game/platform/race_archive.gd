@@ -138,7 +138,7 @@ static func valid(value: Dictionary) -> bool:
 	for field: String in ["race_id","seed","phase","phase_ticks","elapsed_ticks","lap_count","first_finish_tick","settled_ticks","human_slot","cup_event"]:
 		if not integer(session[field]): return false
 	if not bounded(session.race_id,1,4294967295) or not bounded(session.seed,0,4294967295) or not bounded(session.phase,2,6): return false
-	if not bounded(session.phase_ticks,0,36000) or not bounded(session.elapsed_ticks,0,36000) or not bounded(session.lap_count,1,3) or not bounded(session.settled_ticks,0,120): return false
+	if not bounded(session.phase_ticks,0,36000) or not bounded(session.elapsed_ticks,0,36000) or not bounded(session.lap_count,1,3) or not bounded(session.settled_ticks,0,int(Catalog.rules.human_finish_grace_ticks)): return false
 	if not bounded(session.first_finish_tick,-1,int(session.elapsed_ticks)) or not session.contact_enabled is bool or not GuestIdentity.valid_uuid(str(session.race_uuid)): return false
 	if not bounded(config.get("track"),0,Catalog.track_count()-1) or not bounded(config.get("car"), 0, Catalog.car_count()-1) or not bounded(config.get("paint"),0,7) or not bounded(config.get("difficulty"),0,3) or not bounded(config.get("lesson"),0,4): return false
 	if config.get("laps")!=session.lap_count or config.get("seed")!=session.seed or config.get("contact")!=session.contact_enabled or not config.get("ghost") is bool: return false

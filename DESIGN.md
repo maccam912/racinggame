@@ -110,10 +110,10 @@ At zero the roster and settings lock. No new entrants during Loading, Countdown,
 | Grid | 2 seconds | Cars frozen; camera settles; engines audible |
 | Countdown | 3 seconds | Show 3, 2, 1 for one second each; inputs accepted but no movement |
 | Racing | First finish then grace period, or hard limit | Show GO for 0.6 seconds; physics and timer start together |
-| Finish Grace | 30 seconds from first valid finish; 120 seconds with human driving help | Remaining racers continue; finisher becomes ghost under AI control |
+| Finish Grace | Online: 60 seconds from first valid finish. Offline: 30 seconds, or 120 seconds with human driving help. At most five seconds once all humans finish or DNF | Remaining racers continue; finisher becomes ghost under AI control |
 | Results | User action offline; 20 seconds online | Immutable standings and persistent result commit |
 
-Race hard limit = 600 seconds, including Finish Grace. If nobody finishes, end at the limit. If all remaining eligible racers finish or DNF, end after a two-second settling period. If all humans leave online, terminate the race and free the room after 30 seconds; no public bot-only races persist. Pausing offline freezes simulation, race timer, audio pitch state, and bots. Online pause is an overlay only, with “Race continues online.”
+Race hard limit = 600 seconds, including Finish Grace. If nobody finishes, end at the limit. Once every human finishes or DNFs, allow AI up to five seconds more, then mark unfinished racers DNF with “Race complete” and publish results. Results can appear sooner once the entire field is done and at least two seconds have elapsed since human completion. Online, the first valid finish by any racer starts a fixed 60-second deadline; assists cannot extend it, and it can cut the five-second wrap-up short. Finish times and already assigned DNF reasons remain intact. Bot-only simulation fixtures retain their full-field completion rule. If all humans leave online, free the room after 30 seconds; no public bot-only races persist. Pausing offline freezes simulation, race timer, audio pitch state, and bots. Online pause is an overlay only, with “Race continues online.”
 
 ### 5.2 Starting grid and launch
 
@@ -737,7 +737,7 @@ Random behavior uses seeded PCG32 with seed stored in race metadata. No global r
 
 ### 22.3 Minimum shared content schema
 
-CarDefinition: id, display_name_key, mesh_id, top_speed, acceleration, grip, turn_factor, default_paint, audio_profile_id. TrackDefinition: id, display_name_key, ordered_control_points, width_intervals, shoulder_intervals, surface_intervals, bank_intervals, ramp_markers, landmark_specs, environment_id, baked_route_id, collision_id, length, start_sample, gate_list, recovery_points, AI_line, thumbnail_id, minimap_id, content_hash. RaceRules: mode, lap_count, bot_fill, bot_difficulty, contact_enabled, grace_ticks, assisted_grace_ticks, hard_limit_ticks. All fields have schema validation; missing required values fail import/build, not silently default at runtime.
+CarDefinition: id, display_name_key, mesh_id, top_speed, acceleration, grip, turn_factor, default_paint, audio_profile_id. TrackDefinition: id, display_name_key, ordered_control_points, width_intervals, shoulder_intervals, surface_intervals, bank_intervals, ramp_markers, landmark_specs, environment_id, baked_route_id, collision_id, length, start_sample, gate_list, recovery_points, AI_line, thumbnail_id, minimap_id, content_hash. RaceRules: mode, lap_count, bot_fill, bot_difficulty, contact_enabled, grace_ticks, assisted_grace_ticks, online_grace_ticks, human_finish_grace_ticks, hard_limit_ticks. All fields have schema validation; missing required values fail import/build, not silently default at runtime.
 
 `surface_intervals` are sorted nonoverlapping shoulder overrides in original base-curve u, each `{start, end, surface}` with 0 ≤ start < end ≤ 1 and a half-open [start,end) interval. Paving remains asphalt. Content version 4 includes the Summit sand override [.70,.90); protocol 5 uses state flag bit 7 for the authoritative brake lamp, with no packet-size increase. Ground-query/collision and car/track adapters participate in the gameplay compatibility hash. Older records and ghosts stay archived; incompatible cups stay preserved with Continue disabled.
 
@@ -884,7 +884,7 @@ Each row is required. Evidence records build, platform/device, settings, steps, 
 | DRIVE-07 | Ramp at 30/45/60/80/95 m/s; −15%, flat, +15% grades | Single launch trigger per lap; safe landing; no tunnel-through or repeated snap-launch |
 | RACE-01 | Skip/reverse/recross gates | No false lap or finish; progress never jumps to neighboring route segment |
 | RACE-02 | Same-tick finish pair | Sub-tick order used; exact tie resolves by slot; every client sees same order |
-| RACE-03 | Finish then wait | 30 s grace and 600 s hard cap respected; remaining racers DNF appropriately |
+| RACE-03 | Finish then wait | All humans finish/DNF: results within 5 s; online first finish: 60 s maximum regardless of assists; 600 s hard cap; unfinished racers DNF appropriately |
 | RACE-04 | Recover at every gate | Safe location, retained gate/lap state, zero velocity, ghost expiry rules; no forward progress exploit |
 | AI-01 | Seven bots, all tracks/difficulties, 20 seeds | All complete without permanent stuck state; any recovery is logged; no missed gates |
 | TRIAL-01 | Valid, invalid, tied, slower, faster runs | Only valid faster runs replace best/ghost; medal comparisons match formula |
@@ -1452,11 +1452,11 @@ Both settings default off. Quick Race's Relaxed setup enables both plus auto
 acceleration, turn arrows and the existing 75% steering sensitivity, chooses one lap, three Easy rivals and no car contact, and filters
 smooth roads; it never starts the race without the existing Start action.
 
-Races with an eligible assisted human allow 120 seconds after first finish.
-Assisted finishers continue to count so their crossing does not shorten the
-remaining racers' deadline. Bots and DNF players cannot grant extra time.
-Standard races retain 30 seconds; all races retain the ten-minute hard bound and
-end after everyone finishes/DNFs plus the usual settling interval. Online assist
+Offline races with an eligible assisted human allow 120 seconds after first finish while a human is still racing.
+Bots and DNF players cannot grant extra time. Standard offline races retain
+30 seconds. Online races use a fixed 60 seconds regardless of assists. All races
+retain the ten-minute hard bound and end within five seconds after every human
+finishes/DNFs; full-field completion can end the wait sooner. Online assist
 assignments remain private to the host and each affected player's own start/resume.
 
 
@@ -1514,3 +1514,17 @@ the full catalog, both all-bot and with an Expert-autopiloted human activating
 authority catch-up rules. The regular AI matrix now checks all four difficulties
 and per-car Expert < Hard < Medium < Easy ordering on a flattened reference.
 Automated pace/completion evidence is separate from human driving feel.
+
+
+### Human-first race completion (content 23)
+
+Quick Race, Cup and online authority stop waiting for AI five seconds after all
+humans finish or DNF. The existing settling counter survives local suspension,
+so resuming cannot restart that wait. Online rooms explicitly use online rules:
+60 seconds after the first valid finish by any racer, even with private assists.
+Earlier full-field completion and the ten-minute hard limit still end the race
+sooner. Unfinished racers are DNF, never given an invented finish time.
+
+The gameplay content hash advances; protocol 10 and save schema 1 are unchanged.
+Frozen content-22 fixtures preserve records, ghosts, Cups and suspended races
+byte for byte; incompatible ghosts and continuation stay disabled.
